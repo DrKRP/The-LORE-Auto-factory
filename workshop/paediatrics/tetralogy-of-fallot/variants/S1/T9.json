@@ -1,0 +1,522 @@
+{
+ "segment": "S1",
+ "technique": "T9",
+ "entry": "start",
+ "nodes": {
+  "start": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Before I teach anything, let me see what you already carry. A baby is brought in looking blue.",
+     "claims": []
+    },
+    {
+     "text": "Which is the most common cyanotic congenital heart disease?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Transposition of the great arteries",
+     "next": "q1_t",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Tetralogy of Fallot",
+     "next": "q1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "q1_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "q1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Look at the stem again. It gives no age and no qualifier, so pick the answer an unqualified 'most common' stem is built on.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q1_t": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Transposition is a famous blue-baby lesion, so it comes to mind quickly. But this stem has no age qualifier, and that changes which lesion it keys.",
+     "claims": []
+    },
+    {
+     "text": "Re-read it once more and choose again.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so slow down on superlatives: check for a qualifier before you commit.",
+    "claims": []
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q1b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q1b": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "say": [
+    {
+     "text": "Same stem, second look. Which is the most common cyanotic congenital heart disease?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Tetralogy of Fallot",
+     "next": "q1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Transposition of the great arteries",
+     "next": "q1_x",
+     "kind": "trap",
+     "trap": "TR6"
+    }
+   ]
+  },
+  "q1_x": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Here is the key. An unqualified stem keys **Tetralogy of Fallot (TOF)**: it is the most common cyanotic congenital heart disease.",
+     "claims": [
+      "K1",
+      "K69"
+     ]
+    },
+    {
+     "text": "Separate idea: TOF most commonly presents as a cyanotic neonate. 'Commonest' and 'usually presents as' are two different statements.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. TOF is the most common cyanotic congenital heart disease, and its picture varies with how severe the right ventricular outflow tract (RVOT) obstruction is.",
+     "claims": [
+      "K1",
+      "K69"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q2": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Now recall the anatomy. This is a classic exam stem.",
+     "claims": []
+    },
+    {
+     "text": "Which of these is NOT a component of classic TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Right ventricular hypertrophy",
+     "next": "q2_t14",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Infundibular outflow obstruction",
+     "next": "q2_t2",
+     "kind": "trap",
+     "trap": "TR2"
+    },
+    {
+     "label": "Atrial septal defect",
+     "next": "q2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Overriding aorta",
+     "next": "q2_t1",
+     "kind": "trap",
+     "trap": "TR1"
+    }
+   ]
+  },
+  "q2_t14": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Hypertrophy sounds like an add-on, so it is easy to doubt. But think about which side of the heart has to work against the obstruction.",
+     "claims": []
+    },
+    {
+     "text": "Does that side thicken or not? Choose again.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: ask which ventricle faces the load.",
+    "claims": []
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q2b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q2_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "'Infundibular' sounds like a different site from the valve, so it can look like the odd one out. But a name you rarely hear is not the same as a lesion that is absent.",
+     "claims": []
+    },
+    {
+     "text": "Think about where the narrowing sits, then choose again.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: the unfamiliar word may be the true one.",
+    "claims": []
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q2b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q2_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "'Overriding' is a vivid word that can sound like a complication rather than a defining feature. Ask whether it is part of the malformation itself.",
+     "claims": []
+    },
+    {
+     "text": "Choose again.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: vivid does not mean optional.",
+    "claims": []
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q2b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q2b": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "say": [
+    {
+     "text": "Second look. Which is NOT one of the four components of classic TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Overriding aorta",
+     "next": "q2_x",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Atrial septal defect",
+     "next": "q2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Right ventricular hypertrophy",
+     "next": "q2_x",
+     "kind": "trap",
+     "trap": "TR14"
+    }
+   ]
+  },
+  "q2_x": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "The four are a large, anteriorly malaligned VSD, an overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy.",
+     "claims": [
+      "K3"
+     ]
+    },
+    {
+     "text": "ASD and PDA may accompany TOF but are not among the four. PYQs keyed PDA, ASD and LVH as 'not part of TOF'.",
+     "claims": [
+      "K13",
+      "K77"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. The four are a large, anteriorly malaligned VSD, an overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy; ASD and PDA may accompany TOF but are not among them.",
+     "claims": [
+      "K3",
+      "K13"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "I know this, skip the recap",
+     "next": "q3",
+     "kind": "skip"
+    },
+    {
+     "label": "Show me the exam-key wording",
+     "next": "q2_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "q2_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "PYQs have keyed PDA, ASD and LVH as 'not part of TOF'. Current StatPearls lists the four as a VSD, an overriding aorta, RVOT obstruction and right ventricular hypertrophy.",
+     "claims": [
+      "K77"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q3": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "One last gate. A child has TOF, but the resistance across the RVOT is less than the systemic vascular resistance.",
+     "claims": []
+    },
+    {
+     "text": "How will the child look?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Deeply cyanotic from birth, as in every TOF",
+     "next": "q3_t",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Minimally cyanotic or acyanotic",
+     "next": "q3_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "q3_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "q3_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Blood takes the easier road. Compare the two resistances in the stem and ask which way blood prefers to go.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q3_t": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "'Tetralogy means blue' is a strong shortcut, so this is tempting. But it ignores what the stem actually gave you: how the two resistances compare.",
+     "claims": []
+    },
+    {
+     "text": "Use that comparison and choose again.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: let the resistances decide, not the label.",
+    "claims": []
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q3b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q3b": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "say": [
+    {
+     "text": "Resistance across the RVOT is below systemic vascular resistance. How does the child look?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Deeply cyanotic, because every TOF is blue",
+     "next": "q3_x",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Minimally cyanotic or acyanotic",
+     "next": "q3_ok",
+     "kind": "correct"
+    }
+   ]
+  },
+  "q3_x": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "If resistance across the RVOT is less than systemic vascular resistance, the patient is minimally cyanotic or acyanotic.",
+     "claims": [
+      "K22"
+     ]
+    },
+    {
+     "text": "So TOF does not always mean blue: severity of RVOT obstruction sets the picture.",
+     "claims": [
+      "K1"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "close",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q3_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Lower resistance across the RVOT than systemic resistance means minimally cyanotic or acyanotic, which fits a presentation that varies with RVOT obstruction.",
+     "claims": [
+      "K22",
+      "K1"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "close",
+     "kind": "continue"
+    }
+   ]
+  },
+  "close": {
+   "role": "bridge",
+   "say": [
+    {
+     "text": "That was your starting map. Where you hesitated is where we build next: one malaligned septum, and why the four components follow from it.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Let's build it",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}

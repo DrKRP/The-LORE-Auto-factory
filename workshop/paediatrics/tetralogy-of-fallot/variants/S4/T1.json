@@ -1,0 +1,1053 @@
+{
+ "segment": "S4",
+ "technique": "T1",
+ "entry": "lung",
+ "nodes": {
+  "lung": {
+   "role": "probe",
+   "objectives": [
+    "O2",
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "A cyanotic infant has TOF. The right ventricle faces a narrowed outflow, and the VSD gives blood another exit.",
+     "claims": []
+    },
+    {
+     "text": "Predict the lung fields on the chest X-ray.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Plethoric: the VSD floods the lungs",
+     "next": "lung_a",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Oligaemic: blood bypasses the lungs",
+     "next": "lung_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Normal lungs, but marked cardiomegaly",
+     "next": "lung_b",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "lung_h",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "lung_h": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Compare the two exits for right ventricular blood: the narrowed outflow, or the VSD leading to the aorta. Which is easier, and what does that leave for the lungs?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "lung",
+     "kind": "retry"
+    }
+   ]
+  },
+  "lung_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. With significant RVOT (right ventricular outflow tract) obstruction, most blood shunts toward the aorta and bypasses the pulmonary bed.",
+     "claims": [
+      "K20"
+     ]
+    },
+    {
+     "text": "That is why the film can show decreased pulmonary vascular markings, **pulmonary oligaemia**.",
+     "claims": [
+      "K21"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "ecg",
+     "kind": "continue"
+    }
+   ]
+  },
+  "lung_a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because a VSD alone is a left-to-right shunt that floods the lungs. Here the outflow obstruction changes the direction of flow.",
+     "claims": []
+    },
+    {
+     "text": "With significant RVOT obstruction most blood shunts toward the aorta, bypassing the pulmonary bed, so markings are decreased (**oligaemia**).",
+     "claims": [
+      "K20",
+      "K21"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "lung",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is worth a second look: the obstruction, not the VSD, decides where the blood goes.",
+    "claims": [
+     "K20"
+    ]
+   }
+  },
+  "lung_b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because a thick, strained ventricle sounds like a big heart. The claims say otherwise for this film.",
+     "claims": []
+    },
+    {
+     "text": "The film shows decreased pulmonary markings, and StatPearls describes a normal-size heart silhouette.",
+     "claims": [
+      "K21",
+      "K31"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "lung",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the size too: normal-size silhouette, oligaemic lungs.",
+    "claims": [
+     "K31",
+     "K21"
+    ]
+   }
+  },
+  "ecg": {
+   "role": "probe",
+   "objectives": [
+    "O5",
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "Same child, same obstruction. The right ventricle has pushed against it for months.",
+     "claims": []
+    },
+    {
+     "text": "Which ECG fits?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Left axis deviation with an LVH pattern",
+     "next": "ecg_a",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Left atrial enlargement with LVH",
+     "next": "ecg_b",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Right axis deviation with an RVH pattern",
+     "next": "ecg_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "ecg_h",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "ecg_h": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which ventricle is pumping against the obstruction, and which side of the heart that ventricle sits on.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "ecg",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ecg_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The ECG shows right axis deviation, prominent R or qR waves in V1 and upright T waves in V1, characteristic of right atrial enlargement and right ventricular hypertrophy.",
+     "claims": [
+      "K30"
+     ]
+    },
+    {
+     "text": "The hypertrophy is a consequence of chronic systemic pressures, not a primary defect.",
+     "claims": [
+      "K12"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "apex",
+     "kind": "continue"
+    }
+   ]
+  },
+  "ecg_a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because 'ventricular hypertrophy' without a side sounds like the left ventricle, the usual pump.",
+     "claims": []
+    },
+    {
+     "text": "In TOF the ECG shows right axis deviation and right ventricular hypertrophy, because the right ventricle faces the obstruction.",
+     "claims": [
+      "K30",
+      "K12"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ecg",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so fix the side now: RVH is secondary to chronic systemic pressures in the right ventricle.",
+    "claims": [
+     "K12"
+    ]
+   }
+  },
+  "ecg_b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because left-sided enlargement is the familiar answer to a strained heart.",
+     "claims": []
+    },
+    {
+     "text": "The TOF ECG shows right axis deviation, with R or qR waves in V1 characteristic of right atrial enlargement and RVH. It is right-sided.",
+     "claims": [
+      "K30"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ecg",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note the side: right atrium and right ventricle, not left.",
+    "claims": [
+     "K30"
+    ]
+   }
+  },
+  "apex": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "That same thick right ventricle shows on the chest film as an upturned apex, the 'boot-shaped' heart.",
+     "claims": []
+    },
+    {
+     "text": "What lifts the apex?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A dilated main pulmonary artery",
+     "next": "apex_a",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Left ventricular hypertrophy",
+     "next": "apex_b",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Right ventricular hypertrophy",
+     "next": "apex_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Left atrial enlargement",
+     "next": "apex_c",
+     "kind": "trap",
+     "trap": "TR14"
+    }
+   ]
+  },
+  "apex_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The upturned apex is attributed to right ventricular hypertrophy, together with a concave pulmonary arterial segment.",
+     "claims": [
+      "K32"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "boot",
+     "kind": "continue"
+    }
+   ]
+  },
+  "apex_a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because a big pulmonary artery sounds like a bulge on the film. Here the main pulmonary artery segment is the opposite.",
+     "claims": []
+    },
+    {
+     "text": "It is concave, and the upturned apex comes from right ventricular hypertrophy.",
+     "claims": [
+      "K32",
+      "K31"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "apex",
+     "kind": "retry"
+    }
+   ]
+  },
+  "apex_b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because the left ventricle is the chamber most often blamed for heart shape.",
+     "claims": []
+    },
+    {
+     "text": "The upturned apex of the boot-shaped heart is attributed to right ventricular hypertrophy.",
+     "claims": [
+      "K32"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "apex",
+     "kind": "retry"
+    }
+   ]
+  },
+  "apex_c": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because left atrial size changes the cardiac outline in other conditions. That is not this mechanism.",
+     "claims": []
+    },
+    {
+     "text": "The apex is upturned by right ventricular hypertrophy.",
+     "claims": [
+      "K32"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "apex",
+     "kind": "retry"
+    }
+   ]
+  },
+  "boot": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Now the wording. A colleague says: 'No boot-shaped heart on the film, so it cannot be TOF.'",
+     "claims": []
+    },
+    {
+     "text": "Which statement matches the source?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "The boot shape is present in every TOF film",
+     "next": "boot_a",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "It may classically be seen; the wording is not 'always'",
+     "next": "boot_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "It is the sign that confirms TOF on a film",
+     "next": "boot_b",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "boot_h",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "boot_h": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Re-read the source phrase for this sign: radiographs may ... what? Look at the verb and the adverb.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "boot",
+     "kind": "retry"
+    }
+   ]
+  },
+  "boot_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Chest radiographs **may classically** show a boot-shaped heart with an upturned apex due to RVH. 'May classically' is a qualifier, not 'always'.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "film",
+     "kind": "continue"
+    }
+   ]
+  },
+  "boot_a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because a classic sign gets remembered as a rule. The source wording is weaker.",
+     "claims": []
+    },
+    {
+     "text": "Radiographs may classically show the boot shape. That is not the same as always present.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "boot",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so keep the qualifier: 'may classically'.",
+    "claims": [
+     "K4"
+    ]
+   }
+  },
+  "boot_b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because the boot is the best-known film sign. A film sign does not confirm the diagnosis.",
+     "claims": []
+    },
+    {
+     "text": "The source says radiographs may classically show it; the echocardiogram is the gold standard.",
+     "claims": [
+      "K4",
+      "K6"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "boot",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so separate the two jobs: the film may show a classic sign, echo is the gold standard.",
+    "claims": [
+     "K4",
+     "K6"
+    ]
+   }
+  },
+  "film": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Put the film together. Which description fits TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Cardiomegaly with plethoric lung fields",
+     "next": "film_a",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Normal-sized heart, upturned apex, oligaemic lungs",
+     "next": "film_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Egg-on-a-string heart with a narrow pedicle",
+     "next": "film_b",
+     "kind": "trap",
+     "trap": "TR5"
+    }
+   ]
+  },
+  "film_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. StatPearls describes a normal-size heart silhouette with an upturned apex, and the film can show pulmonary oligaemia.",
+     "claims": [
+      "K31",
+      "K21"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "test",
+     "kind": "continue"
+    }
+   ]
+  },
+  "film_a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because shunt lesions often enlarge the heart and flood the lungs. That is not the TOF picture.",
+     "claims": []
+    },
+    {
+     "text": "The TOF film shows a normal-size silhouette and decreased pulmonary markings.",
+     "claims": [
+      "K31",
+      "K21"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "film",
+     "kind": "retry"
+    }
+   ]
+  },
+  "film_b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because it is a named film sign from the cyanotic heart disease list. Matching names from a list is the risk; build the TOF film from its mechanism.",
+     "claims": []
+    },
+    {
+     "text": "TOF: normal-size silhouette, upturned apex, concave pulmonary segment, decreased markings.",
+     "claims": [
+      "K31",
+      "K21"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "film",
+     "kind": "retry"
+    }
+   ]
+  },
+  "test": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "ECG and film point to TOF, but they only suggest it. The team needs the test that confirms.",
+     "claims": []
+    },
+    {
+     "text": "Which is the gold standard for diagnosis?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Cardiac catheterisation",
+     "next": "test_a",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "CT angiography",
+     "next": "test_b",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "Echocardiography",
+     "next": "test_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "test_h",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "test_h": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which test answers 'what is the diagnosis?' without a catheter, contrast or a long scan, and shows the anatomy directly.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "test",
+     "kind": "retry"
+    }
+   ]
+  },
+  "test_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The **echocardiogram** is the gold standard for diagnosis and remains the primary diagnostic modality.",
+     "claims": [
+      "K6",
+      "K34"
+     ]
+    },
+    {
+     "text": "It allows direct visualisation of the abnormal anatomy.",
+     "claims": [
+      "K35"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "ct",
+     "kind": "continue"
+    }
+   ]
+  },
+  "test_a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because catheterisation is invasive and detailed, and invasive feels definitive. The question is about diagnosis, not detail.",
+     "claims": []
+    },
+    {
+     "text": "The echocardiogram is the gold standard for diagnosis of TOF.",
+     "claims": [
+      "K34",
+      "K72"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "test",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so rank tests by the question they answer, not by invasiveness.",
+    "claims": [
+     "K6"
+    ]
+   }
+  },
+  "test_b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because CT gives crisp images. Its job is different.",
+     "claims": []
+    },
+    {
+     "text": "Contrast-enhanced CT is useful for demonstrating the complex cardiovascular morphology; the gold standard for diagnosis is echo.",
+     "claims": [
+      "K37",
+      "K6"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "test",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember CT's job is morphology, not diagnosis.",
+    "claims": [
+     "K37"
+    ]
+   }
+  },
+  "ct": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "Echo has confirmed TOF. Before repair the team wants the complex cardiovascular morphology shown in detail.",
+     "claims": []
+    },
+    {
+     "text": "What adds this?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Nothing more; echo shows everything",
+     "next": "ct_a",
+     "kind": "trap",
+     "trap": "TR13"
+    },
+    {
+     "label": "Catheterisation, as the gold standard",
+     "next": "ct_b",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "Contrast-enhanced CT",
+     "next": "ct_ok",
+     "kind": "correct"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "ct_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Contrast-enhanced CT is useful in demonstrating the complex cardiovascular morphology of TOF.",
+     "claims": [
+      "K37"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "mri",
+     "kind": "continue"
+    },
+    {
+     "label": "Go deeper: where echo falls short",
+     "next": "deep",
+     "kind": "deeper"
+    }
+   ]
+  },
+  "ct_a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because echo is the primary modality, so it seems to need no partner.",
+     "claims": []
+    },
+    {
+     "text": "Echo is the primary diagnostic modality, but CT is useful for the complex morphology, so the tests have different jobs.",
+     "claims": [
+      "K35",
+      "K37"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ct",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so match each test to one job: echo diagnoses, CT shows morphology.",
+    "claims": [
+     "K35",
+     "K37"
+    ]
+   }
+  },
+  "ct_b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because catheterisation was once the detailed test. It is not the gold standard.",
+     "claims": []
+    },
+    {
+     "text": "The echocardiogram is the gold standard; CT adds morphology.",
+     "claims": [
+      "K6",
+      "K37"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ct",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so reset: echo diagnoses, CT shows morphology.",
+    "claims": [
+     "K6",
+     "K37"
+    ]
+   }
+  },
+  "deep": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Echo has limits for extracardiac anomalies such as peripheral pulmonary stenosis and atresia.",
+     "claims": [
+      "K36"
+     ],
+     "flag": "unverified"
+    },
+    {
+     "text": "Assessing the pulmonary arteries matters: repairing the cardiac defects without addressing pulmonary artery hypoplasia or stenosis has a poor outcome.",
+     "claims": [
+      "K40"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the ladder",
+     "next": "mri",
+     "kind": "continue"
+    }
+   ]
+  },
+  "mri": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "Last rung. Which pairing of test and job is right in TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "MRI for first-line diagnosis; echo only for follow-up",
+     "next": "mri_a",
+     "kind": "trap",
+     "trap": "TR13"
+    },
+    {
+     "label": "Catheterisation for diagnosis; echo for screening only",
+     "next": "mri_b",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "Echo for diagnosis; MRI for anatomy plus function, no radiation",
+     "next": "mri_ok",
+     "kind": "correct"
+    }
+   ]
+  },
+  "mri_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Echo is the primary diagnostic modality, and MRI gives both anatomical detail and functional information without ionising radiation.",
+     "claims": [
+      "K35",
+      "K39"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "wrap",
+     "kind": "continue"
+    }
+   ]
+  },
+  "mri_a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because MRI gives so much detail. Detail does not make it first-line.",
+     "claims": []
+    },
+    {
+     "text": "Echo is the primary modality for diagnosis; MRI adds anatomy and function without radiation.",
+     "claims": [
+      "K35",
+      "K39"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "mri",
+     "kind": "retry"
+    }
+   ]
+  },
+  "mri_b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because screening sounds like a small job for echo. It is the gold standard.",
+     "claims": []
+    },
+    {
+     "text": "Echo is the gold standard and the primary modality for diagnosis.",
+     "claims": [
+      "K6",
+      "K35"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "mri",
+     "kind": "retry"
+    }
+   ]
+  },
+  "wrap": {
+   "role": "recap",
+   "say": [
+    {
+     "text": "The ladder: the RV faces the block, so the ECG is right-sided (RAD, RVH) and the film is oligaemic with an upturned apex that may classically look boot-shaped.",
+     "claims": [
+      "K30",
+      "K21",
+      "K4"
+     ],
+     "device": true
+    },
+    {
+     "text": "Echo diagnoses, CT shows morphology, MRI adds function.",
+     "claims": [
+      "K6",
+      "K37",
+      "K39"
+     ],
+     "device": true
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}

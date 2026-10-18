@@ -1,0 +1,630 @@
+{
+ "segment": "S1",
+ "technique": "T2",
+ "entry": "case1",
+ "nodes": {
+  "case1": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A baby is brought to the clinic with bluish lips, and the examining doctor suspects congenital heart disease.",
+     "claims": []
+    },
+    {
+     "text": "Of the cyanotic congenital heart diseases, which is the most common?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Tetralogy of Fallot",
+     "next": "c1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Transposition of the great arteries",
+     "next": "c1_t1",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Tricuspid atresia",
+     "next": "c1_t1",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "c1_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "c1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Look for the lesion whose severity of presentation tracks how tight the right ventricular outflow is.",
+     "claims": [
+      "K1"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "case1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "c1_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A blue newborn makes other names tempting, and only one lesion tops the cyanotic list. This one is not it.",
+     "claims": []
+    },
+    {
+     "text": "Think again about which condition is described by right ventricular outflow obstruction.",
+     "claims": [
+      "K1"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You felt sure, so this is worth a second look: the name that heads the cyanotic list is tied to how tight the right ventricular outflow is.",
+    "claims": [
+     "K1"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "case1b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "case1b": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "say": [
+    {
+     "text": "Same baby. Which is the most common cyanotic congenital heart disease?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Tricuspid atresia",
+     "next": "c1_full",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Tetralogy of Fallot",
+     "next": "c1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Transposition of the great arteries",
+     "next": "c1_full",
+     "kind": "trap",
+     "trap": "TR6"
+    }
+   ]
+  },
+  "c1_full": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "It is Tetralogy of Fallot (TOF), the most common cyanotic congenital heart disease, and its presentation varies with how severe the RVOT obstruction is.",
+     "claims": [
+      "K1",
+      "K69"
+     ]
+    },
+    {
+     "text": "The other names are cyanotic too, which is why they tempt, but they do not hold this title. We will return to it shortly.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "nota",
+     "kind": "continue"
+    }
+   ]
+  },
+  "c1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. TOF is the most common cyanotic congenital heart disease, and how it presents varies with the severity of right ventricular outflow tract (RVOT) obstruction.",
+     "claims": [
+      "K1",
+      "K69"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "nota",
+     "kind": "continue"
+    }
+   ]
+  },
+  "nota": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "The same baby is diagnosed with TOF. A classic NEET PG stem follows.",
+     "claims": []
+    },
+    {
+     "text": "Which is NOT one of the four components of classic TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Overriding aorta",
+     "next": "nota_t1",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Right ventricular hypertrophy",
+     "next": "nota_t2",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Atrial septal defect",
+     "next": "nota_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "nota_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "nota_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Four components, built around one large defect in the ventricular septum. Ask which options fit that picture and which sit elsewhere in the heart.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "nota",
+     "kind": "retry"
+    }
+   ]
+  },
+  "nota_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "It sounds like a complication, so it is easy to treat as an extra. But the overriding aorta is one of the four classic components.",
+     "claims": [
+      "K3"
+     ]
+    },
+    {
+     "text": "Look for a defect that sits outside the four.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the list again: the four are a VSD, an overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy.",
+    "claims": [
+     "K3"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "notab",
+     "kind": "retry"
+    }
+   ]
+  },
+  "nota_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Hypertrophy sounds like a result rather than a defect, so it is tempting to drop it. But right ventricular hypertrophy is the fourth classic component.",
+     "claims": [
+      "K3"
+     ]
+    },
+    {
+     "text": "Look for a defect that sits outside the four.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the list again: the four are a VSD, an overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy.",
+    "claims": [
+     "K3"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "notab",
+     "kind": "retry"
+    }
+   ]
+  },
+  "notab": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "say": [
+    {
+     "text": "Same stem. Which is NOT one of the four classic components of TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Infundibular RVOT obstruction",
+     "next": "nota_full",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Atrial septal defect",
+     "next": "nota_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Large anteriorly malaligned VSD",
+     "next": "nota_full",
+     "kind": "trap",
+     "trap": "TR1"
+    }
+   ]
+  },
+  "nota_full": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The four are a large, anteriorly malaligned VSD, an overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy.",
+     "claims": [
+      "K3"
+     ]
+    },
+    {
+     "text": "The answer was ASD: it is among the anomalies that may accompany TOF, but is not one of the four.",
+     "claims": [
+      "K13"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "gap",
+     "kind": "continue"
+    }
+   ]
+  },
+  "nota_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. ASD and PDA may accompany TOF, but the four listed by StatPearls and CDC include no ASD, PDA or LVH.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "PYQs have keyed PDA, ASD and LVH as 'not part of TOF'.",
+     "claims": [
+      "K77"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "Good, and being sure was justified. The four are a VSD, an overriding aorta, RVOT obstruction and right ventricular hypertrophy.",
+    "claims": [
+     "K3",
+     "K77"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Next",
+     "next": "gap",
+     "kind": "continue"
+    }
+   ]
+  },
+  "gap": {
+   "role": "bridge",
+   "say": [
+    {
+     "text": "You can now name the disease and spot an outsider. Can you build the whole four-part set without a list to lean on?",
+     "claims": []
+    },
+    {
+     "text": "Next, one more stem on the set, then one on how a baby shows it.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "list",
+     "kind": "continue"
+    }
+   ]
+  },
+  "list": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A student writes the four components of classic TOF on the board. Which list is correct?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "VSD, overriding aorta, RVOT obstruction, left ventricular hypertrophy",
+     "next": "list_tl",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "VSD, overriding aorta, RVOT obstruction, right ventricular hypertrophy",
+     "next": "list_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "VSD, ASD, RVOT obstruction, right ventricular hypertrophy",
+     "next": "list_ta",
+     "kind": "trap",
+     "trap": "TR1"
+    }
+   ]
+  },
+  "list_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Correct. Classic TOF has a large, anteriorly malaligned VSD, an overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pres",
+     "kind": "continue"
+    }
+   ]
+  },
+  "list_tl": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "LVH is tempting because 'ventricular hypertrophy' sounds like a general finding. But the fourth component is right ventricular hypertrophy.",
+     "claims": [
+      "K3"
+     ]
+    },
+    {
+     "text": "The four listed by StatPearls and CDC include no ASD, PDA or LVH.",
+     "claims": [
+      "K13"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is the one to keep: PYQs key LVH as not part of TOF.",
+    "claims": [
+     "K77"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pres",
+     "kind": "continue"
+    }
+   ]
+  },
+  "list_ta": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "ASD is tempting because it often travels with TOF. But it is not one of the four, and the overriding aorta is.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "The four are the VSD, overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is the one to keep: PYQs key ASD as not part of TOF.",
+    "claims": [
+     "K77"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pres",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pres": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Back to clinic. Think of all the babies with TOF you will meet.",
+     "claims": []
+    },
+    {
+     "text": "How does TOF most commonly present?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "As an acyanotic child found through a murmur",
+     "next": "pres_t7",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "As a cyanotic neonate",
+     "next": "pres_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "As cyanosis that first appears in late childhood",
+     "next": "pres_t6",
+     "kind": "trap",
+     "trap": "TR6"
+    }
+   ]
+  },
+  "pres_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. TOF most commonly presents as a cyanotic neonate.",
+     "claims": [
+      "K24"
+     ]
+    },
+    {
+     "text": "It is both the most common cyanotic congenital heart disease and usually a blue-baby presentation.",
+     "claims": [
+      "K69",
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "close",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pres_t7": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "This is tempting because some TOF children are barely blue: if RVOT resistance is below systemic vascular resistance, the patient is minimally cyanotic or acyanotic.",
+     "claims": [
+      "K22"
+     ]
+    },
+    {
+     "text": "But the usual picture is a cyanotic neonate.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note the word 'most commonly': the minimally cyanotic child is the exception.",
+    "claims": [
+     "K24",
+     "K22"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Next",
+     "next": "close",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pres_t6": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Being the most common cyanotic lesion does not make cyanosis come late, so this is easy to blur. But TOF most commonly presents as a cyanotic neonate.",
+     "claims": [
+      "K24",
+      "K69"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is the one to keep: common among cyanotic lesions, and usually blue from the neonatal period.",
+    "claims": [
+     "K69",
+     "K24"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Next",
+     "next": "close",
+     "kind": "continue"
+    }
+   ]
+  },
+  "close": {
+   "role": "end",
+   "say": [
+    {
+     "text": "Next we rebuild the four from a single septum, so the set follows from logic and not from a list.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}

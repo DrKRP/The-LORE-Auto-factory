@@ -1,0 +1,675 @@
+{
+ "segment": "S5",
+ "technique": "T2",
+ "entry": "case",
+ "nodes": {
+  "case": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "say": [
+    {
+     "text": "A 2-year-old with known TOF has been crying hard for several minutes. He is now deeply blue, breathing fast and going limp.",
+     "claims": []
+    },
+    {
+     "text": "You are the doctor on call. What do you do first?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Place him in the knee-chest position",
+     "next": "case_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Give IV furosemide for the breathlessness",
+     "next": "case_t11",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "Intubate and start ventilation",
+     "next": "case_t10",
+     "kind": "trap",
+     "trap": "TR10"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "case_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "case_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Blood chooses between two exits: the narrowed RVOT or the aorta. Which resistance could you raise at the bedside, using only his legs?",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the case",
+     "next": "case",
+     "kind": "retry"
+    }
+   ]
+  },
+  "case_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Knee-chest positioning increases systemic vascular resistance, so the blood is less keen to leave through the aorta. A spell needs a rapid, aggressive approach.",
+     "claims": [
+      "K43",
+      "K42"
+     ]
+    },
+    {
+     "text": "Spells can be set off by agitation, pain, anaemia, fever, hypovolaemia or peripheral vasodilatation, so crying fits the story.",
+     "claims": [
+      "K28"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "lever",
+     "kind": "continue"
+    }
+   ]
+  },
+  "case_t11": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Furosemide is tempting: a breathless, limp, blue child looks like heart failure. But this is a resistance problem, not a pump problem.",
+     "claims": [
+      "K22"
+     ]
+    },
+    {
+     "text": "The measures used for a spell act on RV filling and systemic afterload, for example IV fluid boluses and IV phenylephrine. A diuretic empties the RV further.",
+     "claims": [
+      "K45",
+      "K47"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "case",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is worth a second look: the spell is about resistance and RV filling, not about congestion.",
+    "claims": [
+     "K22",
+     "K45"
+    ]
+   }
+  },
+  "case_t10": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Intubation is tempting because he looks close to collapse and a rapid, aggressive approach is needed.",
+     "claims": [
+      "K42"
+     ]
+    },
+    {
+     "text": "But the aggressive approach is made of simple levers: systemic vascular resistance, pulmonary vasodilation and RV filling.",
+     "claims": [
+      "K43",
+      "K44",
+      "K45"
+     ]
+    },
+    {
+     "text": "Find the lever you can pull in seconds, without equipment.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "case",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so pause on this: the named measures are levers on resistance and filling, not airway control.",
+    "claims": [
+     "K43",
+     "K44",
+     "K45"
+    ]
+   }
+  },
+  "lever": {
+   "role": "probe",
+   "objectives": [
+    "O7",
+    "O3"
+   ],
+   "say": [
+    {
+     "text": "Mothers in clinic often see TOF children squat after exertion, and spells ease. Squatting is the same as knee-chest positioning.",
+     "claims": []
+    },
+    {
+     "text": "What does it do?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Raises systemic vascular resistance",
+     "next": "lever_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Lowers pulmonary vascular resistance directly",
+     "next": "lever_t9",
+     "kind": "trap",
+     "trap": "TR9"
+    },
+    {
+     "label": "Cuts venous return to the right heart",
+     "next": "lever_t11",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "lever_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "lever_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Remember the balance: blood goes wherever the resistance is lower, RVOT or aorta. Squatting kinks the legs' vessels.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "lever",
+     "kind": "retry"
+    }
+   ]
+  },
+  "lever_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Knee-chest increases systemic vascular resistance. If RVOT resistance is less than systemic resistance, the child is minimally cyanotic or acyanotic; raise systemic resistance and the balance tips that way.",
+     "claims": [
+      "K43",
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "murmur",
+     "kind": "continue"
+    }
+   ]
+  },
+  "lever_t9": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Pulmonary resistance feels logical because the lungs are short of blood. And oxygen does cause pulmonary vasodilation.",
+     "claims": [
+      "K44"
+     ]
+    },
+    {
+     "text": "But squatting is not the pulmonary lever. Knee-chest works on the other side of the balance: it increases systemic vascular resistance.",
+     "claims": [
+      "K43"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "lever",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one matters: oxygen is the pulmonary vasodilator, positioning is the systemic lever.",
+    "claims": [
+     "K44",
+     "K43"
+    ]
+   }
+  },
+  "lever_t11": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Less venous return sounds like unloading a struggling heart. Yet the fluid bolus given in a spell does the opposite: it improves RV filling.",
+     "claims": [
+      "K45"
+     ]
+    },
+    {
+     "text": "Positioning works on resistance, not filling: it increases systemic vascular resistance.",
+     "claims": [
+      "K43"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "lever",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note it: filling is helped, not cut, in a spell.",
+    "claims": [
+     "K45"
+    ]
+   }
+  },
+  "murmur": {
+   "role": "probe",
+   "objectives": [
+    "O4",
+    "O7"
+   ],
+   "say": [
+    {
+     "text": "You listen as the spell is at its worst. At clinic last week his harsh murmur was loud. Now it is barely audible.",
+     "claims": []
+    },
+    {
+     "text": "How do you read this?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "The murmur has softened, as expected in a spell",
+     "next": "murmur_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "It is better: the obstruction must be easing",
+     "next": "murmur_t8a",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Left heart failure is muffling the sounds",
+     "next": "murmur_t11",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "murmur_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "murmur_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "In the spell, where does most of the blood go: through the narrowed outflow, or around it?",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the case",
+     "next": "murmur",
+     "kind": "retry"
+    }
+   ]
+  },
+  "murmur_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. In a spell the murmur decreases in intensity. Most blood shunts toward the aorta and bypasses the pulmonary bed.",
+     "claims": [
+      "K29",
+      "K20"
+     ]
+    },
+    {
+     "text": "Do not mix it up with the resting rule: the greater the obstruction, the more prominent the murmur.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "fluid",
+     "kind": "continue"
+    }
+   ]
+  },
+  "murmur_t8a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A quieter murmur looks like less obstruction, and at rest a greater obstruction does give a more prominent murmur.",
+     "claims": [
+      "K26"
+     ]
+    },
+    {
+     "text": "But a spell is a different state: the murmur decreases in intensity as blood bypasses the pulmonary bed. A faint murmur in a blue child is a warning.",
+     "claims": [
+      "K29",
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "murmur",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is the reversed-mechanism trap: soft murmur in a spell means worse, not better.",
+    "claims": [
+     "K29"
+    ]
+   }
+  },
+  "murmur_t11": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Faint sounds and a limp child suggest failure, so this is a natural guess.",
+     "claims": []
+    },
+    {
+     "text": "But the tetralogy explanation is simpler: during a spell the murmur decreases in intensity because most blood shunts toward the aorta, bypassing the lungs.",
+     "claims": [
+      "K29",
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "murmur",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember: in a spell, think shunt, not pump failure.",
+    "claims": [
+     "K20",
+     "K29"
+    ]
+   }
+  },
+  "fluid": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "say": [
+    {
+     "text": "Knee-chest and oxygen are under way. The registrar orders an IV fluid bolus for the blue, dry-looking child. A student protests that fluids worsen failure.",
+     "claims": []
+    },
+    {
+     "text": "What is the bolus for?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "To improve RV filling",
+     "next": "fluid_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "To lower systemic vascular resistance",
+     "next": "fluid_t9",
+     "kind": "trap",
+     "trap": "TR9"
+    },
+    {
+     "label": "It should be withheld, as in heart failure",
+     "next": "fluid_t11",
+     "kind": "trap",
+     "trap": "TR11"
+    }
+   ]
+  },
+  "fluid_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. IV fluid boluses improve RV filling. Hypovolaemia is also one of the triggers of a spell.",
+     "claims": [
+      "K45",
+      "K28"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "regimen",
+     "kind": "continue"
+    }
+   ]
+  },
+  "fluid_t9": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Lowering systemic resistance would seem to help blood reach the lungs. But the spell measures push the other way: positioning increases systemic vascular resistance and phenylephrine increases systemic afterload.",
+     "claims": [
+      "K43",
+      "K47"
+     ]
+    },
+    {
+     "text": "Fluid has its own job: it improves RV filling.",
+     "claims": [
+      "K45"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "fluid",
+     "kind": "retry"
+    }
+   ]
+  },
+  "fluid_t11": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Fluid restriction is the instinct from heart failure, and the student sounds careful. But a spell is not treated as failure.",
+     "claims": []
+    },
+    {
+     "text": "Fluid boluses are part of the spell measures, to improve RV filling.",
+     "claims": [
+      "K45"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "fluid",
+     "kind": "retry"
+    }
+   ]
+  },
+  "regimen": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "say": [
+    {
+     "text": "Spell still going. Which set matches the measures used in a tet spell?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Knee-chest, oxygen, fluid bolus, phenylephrine, morphine for sedation",
+     "next": "regimen_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Furosemide, digoxin and fluid restriction, then reassess",
+     "next": "regimen_t11",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "Intubate and ventilate first, then give drugs once secured",
+     "next": "regimen_t10",
+     "kind": "trap",
+     "trap": "TR10"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "regimen_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Each pulls a lever: knee-chest raises systemic resistance, oxygen causes pulmonary vasodilation, fluids improve RV filling, phenylephrine increases systemic afterload.",
+     "claims": [
+      "K43",
+      "K44",
+      "K45",
+      "K47"
+     ]
+    },
+    {
+     "text": "IV beta-blockers decrease heart rate and aid RV filling further, and morphine can be given as a sedative.",
+     "claims": [
+      "K46",
+      "K48"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "regimen_t11": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "This is the heart-failure bundle, tempting because the child is blue and breathless.",
+     "claims": []
+    },
+    {
+     "text": "It pulls the wrong levers. The spell measures are fluid boluses for RV filling and phenylephrine for systemic afterload.",
+     "claims": [
+      "K45",
+      "K47"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "regimen",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so keep this contrast: spell measures raise resistance and filling; failure drugs do neither.",
+    "claims": [
+     "K43",
+     "K45",
+     "K47"
+    ]
+   }
+  },
+  "regimen_t10": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Securing the airway first looks safe and the situation is urgent.",
+     "claims": [
+      "K42"
+     ]
+    },
+    {
+     "text": "But the listed measures are knee-chest positioning, oxygen, IV fluid boluses, IV beta-blockers, IV phenylephrine and morphine as sedation.",
+     "claims": [
+      "K43",
+      "K44",
+      "K45",
+      "K46",
+      "K47",
+      "K48"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "regimen",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is worth a second look: the spell measures are quick levers, starting with positioning.",
+    "claims": [
+     "K43",
+     "K42"
+    ]
+   }
+  }
+ }
+}

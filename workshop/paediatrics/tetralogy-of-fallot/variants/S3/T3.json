@@ -1,0 +1,995 @@
+{
+ "segment": "S3",
+ "technique": "T3",
+ "entry": "pink",
+ "nodes": {
+  "pink": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "A 2-month-old, not diagnosed before birth, is pink and feeding well. He has a loud harsh murmur, and echo shows TOF. He is not blue.",
+     "claims": []
+    },
+    {
+     "text": "Predict: what best explains a pink baby with TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Moderate RVOT obstruction, so he is a 'pink Tet'",
+     "next": "pink_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "The echo is wrong; TOF is always blue from birth",
+     "next": "pink_t7",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "The loud murmur means he is in a tet spell",
+     "next": "pink_t8",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "pink_hint",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true
+  },
+  "pink_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Cyanosis in TOF is not all-or-none. Ask what the obstruction at the right ventricular outflow tract (RVOT) is like in this baby.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "pink",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pink_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Infants with moderate RVOT obstruction may be asymptomatic apart from a loud murmur and are called **pink Tets**.",
+     "claims": [
+      "K23"
+     ]
+    },
+    {
+     "text": "The obstruction is not tight enough to push blood away from the lungs.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "bal",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pink_t7": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is tempting because TOF is the most common cyanotic heart disease and usually presents as a cyanotic neonate. But 'usually' is not 'always'.",
+     "claims": [
+      "K1",
+      "K24"
+     ]
+    },
+    {
+     "text": "Infants with moderate RVOT obstruction may be asymptomatic apart from a loud murmur: **pink Tets**.",
+     "claims": [
+      "K23"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "bal",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so keep this: cyanosis depends on how severe the RVOT obstruction is, not on the label 'TOF'.",
+    "claims": [
+     "K1"
+    ]
+   }
+  },
+  "pink_t8": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A loud murmur seems to say 'severe', so a spell is tempting. But the murmur is the clue to moderate obstruction here, and he is well, not distressed.",
+     "claims": [
+      "K23"
+     ]
+    },
+    {
+     "text": "Spells are triggers such as agitation, pain or fever with hypercyanosis.",
+     "claims": [
+      "K28"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "bal",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the pattern: loud murmur with a pink, well infant is a pink Tet.",
+    "claims": [
+     "K23"
+    ]
+   }
+  },
+  "bal": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Now the rule behind pink versus blue.",
+     "claims": []
+    },
+    {
+     "text": "Predict: when is a child with TOF minimally cyanotic or acyanotic?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "RVOT resistance is less than systemic resistance",
+     "next": "bal_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Pulmonary vascular resistance has risen above normal",
+     "next": "bal_t9",
+     "kind": "trap",
+     "trap": "TR9"
+    },
+    {
+     "label": "Never; every child with TOF is cyanotic",
+     "next": "bal_t7",
+     "kind": "trap",
+     "trap": "TR7"
+    }
+   ],
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true
+  },
+  "bal_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. If resistance across the RVOT is less than systemic vascular resistance (SVR), the patient is minimally cyanotic or acyanotic.",
+     "claims": [
+      "K22"
+     ]
+    },
+    {
+     "text": "Think of two exits for the right ventricle's blood: the narrow RVOT or the aorta. It takes the easier one.",
+     "claims": [],
+     "device": true
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "shunt",
+     "kind": "continue"
+    }
+   ]
+  },
+  "bal_t9": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Resistance in the lungs sounds relevant because the lungs are where blood should go. But the balance that matters is across the RVOT versus the body.",
+     "claims": [
+      "K22"
+     ]
+    },
+    {
+     "text": "Less RVOT resistance than SVR means minimal cyanosis or none.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "shunt",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so reset the pair: RVOT resistance versus systemic resistance.",
+    "claims": [
+     "K22"
+    ]
+   }
+  },
+  "bal_t7": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "'Cyanotic heart disease' sounds like blue always, which is tempting. The claim is conditional on the balance.",
+     "claims": [
+      "K1"
+     ]
+    },
+    {
+     "text": "If RVOT resistance is less than SVR, the patient is minimally cyanotic or acyanotic.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "shunt",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note it: acyanotic TOF exists when RVOT resistance is below SVR.",
+    "claims": [
+     "K22"
+    ]
+   }
+  },
+  "shunt": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Flip it. Now the RVOT is significantly obstructed, so its resistance is high.",
+     "claims": []
+    },
+    {
+     "text": "Predict where the blood goes.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Most shunts toward the aorta, bypassing the lungs",
+     "next": "shunt_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Pulmonary resistance falls and more blood reaches the lungs",
+     "next": "shunt_t9",
+     "kind": "trap",
+     "trap": "TR9"
+    },
+    {
+     "label": "Nothing changes; the child stays pink",
+     "next": "shunt_t7",
+     "kind": "trap",
+     "trap": "TR7"
+    }
+   ],
+   "objectives": [
+    "O3"
+   ]
+  },
+  "shunt_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. With significant RVOT obstruction, most blood shunts toward the aorta, bypassing the pulmonary bed.",
+     "claims": [
+      "K20"
+     ]
+    },
+    {
+     "text": "That bypassed blood is what makes the child blue.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "mur",
+     "kind": "continue"
+    }
+   ]
+  },
+  "shunt_t9": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Wanting the lungs to open up is tempting. But the obstruction sits at the RVOT, not in the lung vessels.",
+     "claims": [
+      "K20"
+     ]
+    },
+    {
+     "text": "With significant obstruction most blood goes toward the aorta, bypassing the pulmonary bed.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "mur",
+     "kind": "continue"
+    }
+   ]
+  },
+  "shunt_t7": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Staying pink is tempting after the pink Tet. But a pink Tet had moderate obstruction.",
+     "claims": [
+      "K23"
+     ]
+    },
+    {
+     "text": "With significant obstruction, most blood goes toward the aorta, bypassing the pulmonary bed.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "mur",
+     "kind": "continue"
+    }
+   ]
+  },
+  "mur": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Same child, now crying hard, with fever. He tips into a tet (hypercyanotic) spell.",
+     "claims": [
+      "K28"
+     ]
+    },
+    {
+     "text": "Predict: what happens to the TOF murmur during the spell?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "It gets softer",
+     "next": "mur_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "It gets louder, as the obstruction is worse",
+     "next": "mur_t8a",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "It stays the same",
+     "next": "mur_t8b",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "mur_hint",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O4"
+   ],
+   "ask_confidence": true
+  },
+  "mur_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The murmur is made by blood crossing the narrowed outflow tract. Ask how much blood is actually crossing it during a spell.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "mur",
+     "kind": "retry"
+    }
+   ]
+  },
+  "mur_ok": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Observe: during a tet spell the murmur **decreases** in intensity.",
+     "claims": [
+      "K29"
+     ]
+    },
+    {
+     "text": "Why? With significant obstruction most blood bypasses the pulmonary bed, so less goes through the RVOT.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "mur_t8a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Louder with worse obstruction is tempting, since the greater the obstruction, the more prominent the murmur.",
+     "claims": [
+      "K26"
+     ]
+    },
+    {
+     "text": "But in a spell the murmur decreases in intensity, because most blood bypasses the pulmonary bed.",
+     "claims": [
+      "K29",
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "why",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is worth a second look: the 'worse stenosis, louder murmur' rule does not carry into a spell.",
+    "claims": [
+     "K29"
+    ]
+   }
+  },
+  "mur_t8b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Unchanged is tempting if you think the anatomy is fixed. But during a tet spell the murmur decreases in intensity.",
+     "claims": [
+      "K29"
+     ]
+    },
+    {
+     "text": "Most blood bypasses the pulmonary bed, so less crosses the RVOT.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "why",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note it: the murmur is not a fixed sign in a spell. It softens.",
+    "claims": [
+     "K29"
+    ]
+   }
+  },
+  "why": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "The murmur softens. Which explanation fits?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Less blood crosses the RVOT because it bypasses the lungs",
+     "next": "why_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "The obstruction has eased, so the child is improving",
+     "next": "why_t8",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Pulmonary valve closure is louder, masking the murmur",
+     "next": "why_t15",
+     "kind": "trap",
+     "trap": "TR15"
+    }
+   ],
+   "objectives": [
+    "O4"
+   ]
+  },
+  "why_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. A softer murmur in a spell means falling flow across the RVOT, a worsening sign and not a reassuring one.",
+     "claims": [
+      "K29",
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "why_t8": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A quieter murmur feels like less stenosis, which is tempting. But the child in a spell is hypercyanotic, and blood bypasses the lungs.",
+     "claims": [
+      "K28",
+      "K20"
+     ]
+    },
+    {
+     "text": "The murmur decreases because less crosses the RVOT.",
+     "claims": [
+      "K29"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "why_t15": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Linking the pulmonary valve to the sound is tempting. But the pulmonic component of S2 is usually inaudible in TOF, so it cannot mask anything.",
+     "claims": [
+      "K27"
+     ]
+    },
+    {
+     "text": "Less blood crossing the RVOT explains the softer murmur.",
+     "claims": [
+      "K20",
+      "K29"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p2": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Listen at the second heart sound (S2).",
+     "claims": []
+    },
+    {
+     "text": "Predict: the pulmonic component of S2 in TOF is usually...",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Inaudible",
+     "next": "p2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Loud",
+     "next": "p2_t15a",
+     "kind": "trap",
+     "trap": "TR15"
+    },
+    {
+     "label": "Widely split",
+     "next": "p2_t15b",
+     "kind": "trap",
+     "trap": "TR15"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p2_hint",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O4"
+   ],
+   "ask_confidence": true
+  },
+  "p2_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask how much blood reaches the pulmonary valve when the outflow is narrowed and much of it goes to the aorta.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "p2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The pulmonic component of S2 is usually **inaudible**.",
+     "claims": [
+      "K27"
+     ]
+    },
+    {
+     "text": "Little blood reaches that side, consistent with bypass of the pulmonary bed.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "fit",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p2_t15a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "'Pulmonary' suggests a loud P2, which is tempting. But the pulmonic component of S2 is usually inaudible in TOF.",
+     "claims": [
+      "K27"
+     ]
+    },
+    {
+     "text": "Most blood bypasses the pulmonary bed with significant obstruction.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "fit",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so keep the contrast: TOF has an inaudible P2.",
+    "claims": [
+     "K27"
+    ]
+   }
+  },
+  "p2_t15b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Wide splitting is tempting as a 'pulmonary' sign. But the pulmonic component of S2 is usually inaudible.",
+     "claims": [
+      "K27"
+     ]
+    },
+    {
+     "text": "Little blood crosses the RVOT with significant obstruction.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "fit",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note it: inaudible, not split.",
+    "claims": [
+     "K27"
+    ]
+   }
+  },
+  "fit": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Back to the balance. Knee-chest positioning is the first move in a spell.",
+     "claims": []
+    },
+    {
+     "text": "Predict: which resistance does it change?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "It raises systemic vascular resistance",
+     "next": "fit_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "It lowers pulmonary vascular resistance",
+     "next": "fit_t9a",
+     "kind": "trap",
+     "trap": "TR9"
+    },
+    {
+     "label": "It raises pulmonary vascular resistance",
+     "next": "fit_t9b",
+     "kind": "trap",
+     "trap": "TR9"
+    }
+   ],
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true
+  },
+  "fit_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Knee-chest positioning is used to increase **systemic vascular resistance**.",
+     "claims": [
+      "K43"
+     ]
+    },
+    {
+     "text": "Link it to the rule: minimal cyanosis occurs when RVOT resistance is less than SVR.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "final",
+     "kind": "continue"
+    }
+   ]
+  },
+  "fit_t9a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Helping the lungs is tempting, as the lungs are short of blood. But positioning is used to increase systemic vascular resistance.",
+     "claims": [
+      "K43"
+     ]
+    },
+    {
+     "text": "The rule compares RVOT resistance against SVR.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "final",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is worth a second look: the lever is SVR, as for IV phenylephrine.",
+    "claims": [
+     "K43",
+     "K47"
+    ]
+   }
+  },
+  "fit_t9b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A rise in resistance somewhere sounds right, and that is tempting. But it is systemic, not pulmonary, resistance that positioning raises.",
+     "claims": [
+      "K43"
+     ]
+    },
+    {
+     "text": "Raised pulmonary resistance would not fit the rule.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "final",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note it: SVR goes up with knee-chest positioning.",
+    "claims": [
+     "K43"
+    ]
+   }
+  },
+  "final": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Last one, no hints. Which stethoscope picture fits TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Harsh ejection murmur at left upper sternal border, inaudible P2",
+     "next": "final_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Harsh ejection murmur, loud P2, louder in a spell",
+     "next": "final_t8",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Harsh ejection murmur, widely split S2",
+     "next": "final_t15",
+     "kind": "trap",
+     "trap": "TR15"
+    }
+   ],
+   "objectives": [
+    "O4",
+    "O3"
+   ],
+   "ask_confidence": true
+  },
+  "final_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The murmur is harsh systolic ejection, best at the left mid to upper sternal border, and P2 is usually inaudible.",
+     "claims": [
+      "K25",
+      "K27"
+     ]
+    },
+    {
+     "text": "It softens in a spell.",
+     "claims": [
+      "K29"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "final_t8": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The harsh murmur is right, so the rest feels plausible. But the pulmonic component of S2 is usually inaudible and the murmur decreases in a spell.",
+     "claims": [
+      "K27",
+      "K29"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so take the two corrections together: inaudible P2, softer murmur in a spell.",
+    "claims": [
+     "K27",
+     "K29"
+    ]
+   }
+  },
+  "final_t15": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The harsh murmur is right, so splitting seems plausible. But the pulmonic component of S2 is usually inaudible.",
+     "claims": [
+      "K27"
+     ]
+    },
+    {
+     "text": "The murmur is best at the left mid to upper sternal border.",
+     "claims": [
+      "K25"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so keep it: inaudible P2, not a split.",
+    "claims": [
+     "K27"
+    ]
+   }
+  }
+ }
+}
