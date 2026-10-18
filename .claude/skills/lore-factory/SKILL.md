@@ -14,6 +14,8 @@ Agents are in `.claude/agents/`. If one is not available as a subagent type, dis
 
 `W` below means `workshop/<subject>/<slug>/`; `F` means `python3 scripts/factory.py`.
 
+"All in one message" means as many as the runtime allows at once (Claude Code caps concurrent subagents, 20 by default). Dispatch in batches up to that cap, and start the next batch as agents finish.
+
 ## 0. What does this tick do?
 
 Run `F next` (or, if the user named a module, act on that module's current stage). It prints one JSON action:
