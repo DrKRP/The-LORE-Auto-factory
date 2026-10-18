@@ -9,19 +9,21 @@ Used by `dialogue-judge` to score segment variants (segment mode) and whole modu
 | G1 Fidelity | A message states a fact with no claim, or says more than its claims (numbers, qualifiers, "most common", "first-line") |
 | G2 Unverified on core path | An unverified claim is taught outside a `deeper` branch or exam-trap node, or without `flag: "unverified"` |
 | G3 Broken graph | A `next` points nowhere, or a node has no way forward |
+| G4 Not buttons-only | Anything asks the learner to type, or depends on a model at run time |
 
 ## Criteria
 
 | id | criterion | weight | 1 | 3 | 5 |
 |---|---|---|---|---|---|
 | R1 | Learner does the thinking | 3 | Mostly telling; choices are "Next" | Probes before most ideas | Every idea is reached by the learner's own commitment before it is told |
-| R2 | Misconception work | 3 | Filler distractors, generic "incorrect" | Real distractors, short feedback | Each wrong option is a real misconception, feedback explains why tempting, refutes, re-tests later |
+| R2 | Trap work | 3 | Filler distractors, generic "incorrect" | Real traps, short feedback | Each wrong option is one trap from the trap map, as plausible as the key to someone holding that wrong model; feedback names the wrong model, says why tempting, refutes with the error type's repair, re-tests later in another form |
 | R3 | Objective coverage | 2 | Objectives missed | All covered on main path | All covered on every path, at the right depth |
 | R4 | Clarity and load | 2 | Long, dense, several ideas per node | Mostly one idea per node | Every node one idea, tight, ≤ 60 words, plain words |
 | R5 | Adaptivity | 2 | One path for all | Some remediation | Fast lane, hint ladder, a different second explanation |
 | R6 | Exam alignment | 2 | Ignores PYQ asks | High-yield covered | High-yield drilled in exam form, traps explicit |
 | R7 | Clinical authenticity | 1 | Abstract recitation | Some cases | Decisions framed as real clinical moments |
 | R8 | Voice and engagement | 1 | Flat or patronising | Pleasant | Warm, sharp, makes the learner want the next node |
+| R9 | Diagnosticity | 2 | The path says little about what the learner believes | Most choices reveal something | Every choice separates one wrong model from the right one, so the path alone tells a teacher what this learner believes; the report (module mode) says it precisely and usefully |
 
 Weighted score = Σ(score × weight) / Σ(weight), on the 1–5 scale.
 

@@ -5,7 +5,10 @@ Part of **LORE** (Learn Once, Remember Effortlessly). This repository is an **au
 Two pipelines, one accuracy rule:
 
 1. **Research** (`/lore-research`, `.claude/skills/lore-research/SKILL.md`): turns a topic into a **source-first** study note. Every fact is fetched and quoted from an authoritative source *before* it is written, never recalled from memory and cited afterwards.
-2. **Conversation** (`/lore-factory`, `.claude/skills/lore-factory/SKILL.md`): turns the verified note into a module. Several techniques author each segment, blind judges score them, an editor picks, merges or folds the best, then the module is validated, fact-checked against the note, walked by simulated learners and refined until it stops improving.
+2. **Conversation** (`/lore-factory`, `.claude/skills/lore-factory/SKILL.md`): turns the verified note into a module, **distractor-first**: a trap brief of the common mistakes and exam traps comes first, then a branch analysis of every trap, then the journey. Several techniques author each segment, blind judges score them, an editor picks, merges or folds the best, then the module gets its pre-authored end-of-module report, is validated, fact-checked against the note, walked by simulated learners and refined until it stops improving.
+3. **Design refinement** (`design-refinement/`): studies educational-skills repositories, turns their ideas into hypotheses, and tests them on real segments before they change the factory's rules.
+
+**Product constraints.** Modules are clickable buttons only. There is no AI at run time: no AI grading, feedback or verification while a learner uses a module. Everything the learner sees, including the detailed report on their path, is pre-authored. AI is used only inside this factory, to build and check modules.
 
 Run one tick with `/lore-factory`; run the factory unattended with `scripts/run-factory.sh` (see `README.md`). These are the only research and module workflows in this repository; they take precedence over any general-purpose research or tutoring skill.
 
@@ -26,6 +29,9 @@ models:                          # set in each agent's frontmatter; keep in sync
   rescue: sonnet                 # .claude/agents/rescue-scout.md
   writer: opus                   # .claude/agents/note-writer.md
   planner: sonnet                # .claude/agents/curriculum-planner.md
+  trap_scout: sonnet             # .claude/agents/trap-scout.md
+  distractor_analyst: opus       # .claude/agents/distractor-analyst.md
+  report_author: opus            # .claude/agents/report-author.md
   architect: opus                # .claude/agents/module-architect.md
   author: sonnet                 # .claude/agents/dialogue-author.md
   judge: sonnet                  # .claude/agents/dialogue-judge.md
@@ -57,6 +63,8 @@ module:
   max_tell_run: 2                # most non-interactive nodes in a row
   card_schedule_days: [1, 3, 7, 21, 60]
   sim_personas: [novice, misconceived, strong, guesser]
+design_refinement:
+  every_n_modules: 2             # after this many published modules, one tick runs a design experiment
 ```
 
 ## Layout
@@ -66,10 +74,11 @@ module:
 | `modules/<subject>/<topic-slug>.json` | Finished modules (the deliverable) |
 | `notes/<subject>/<topic-slug>.md` | Verified study notes (research deliverable, module source) |
 | `evidence/<subject>/<topic-slug>/` | Scout quote files, claim ledger, verification, rescue, run log |
-| `workshop/<subject>/<topic-slug>/` | Module work files: claim bank, blueprint, variants, judging, segments, sims, scorecard |
+| `workshop/<subject>/<topic-slug>/` | Module work files: claim bank, trap brief, trap map, blueprint, variants, judging, segments, report, sims, scorecard |
+| `design-refinement/` | Pulled educational-skills repos (not committed), analyses, principles, efficacy experiments |
 | `factory/` | Queue, per-module state, technique stats, playbook, status, tick log |
 | `sources/` | Tier-0 PDFs the user drops in (textbooks). Empty is normal |
-| `reference/` | Source tiers, file formats, note template, pedagogy contract, techniques, rubric, personas |
+| `reference/` | Source tiers, file formats, note template, pedagogy contract, traps and error taxonomy, report rules, techniques, rubric, personas |
 | `scripts/factory.py` | Deterministic steps: state, claim bank, picks, blinding, assembly, validation, scoring |
 | `scripts/run-factory.sh` | The unattended loop |
 | `player/index.html` | Click through any module in a browser |

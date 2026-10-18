@@ -27,13 +27,17 @@ MODULES = ROOT / "modules"
 NOTES = ROOT / "notes"
 EVIDENCE = ROOT / "evidence"
 
-STAGES = ["research", "design", "author", "judge", "edit", "assemble",
-          "verify", "evaluate", "refine", "publish", "done"]
+STAGES = ["research", "traps", "analysis", "design", "author", "judge", "edit", "assemble",
+          "report", "verify", "evaluate", "refine", "publish", "done"]
 SEGMENT_TYPES = ["hook", "retrieve", "mechanism", "clinical", "diagnosis",
                  "management", "traps", "consolidate"]
 ROLES = {"probe", "explain", "feedback", "hint", "case", "recap", "bridge", "end"}
-CHOICE_KINDS = {"correct", "partial", "misconception", "help", "continue", "retry",
+CHOICE_KINDS = {"correct", "partial", "trap", "help", "continue", "retry",
                 "skip", "deeper", "agency"}
+# Buttons only: a node may carry nothing that asks the learner to type or that calls a model.
+NODE_KEYS = {"role", "say", "choices", "objectives", "ask_confidence", "sure_note", "end", "segment"}
+CHOICE_KEYS = {"label", "next", "kind", "trap"}
+ERROR_TYPES = {f"E{i}" for i in range(1, 11)}
 CLAIM_RE = re.compile(r"^(?:([a-z-]+/[a-z0-9-]+)#)?(K\d+)$")
 
 
@@ -189,6 +193,28 @@ def cmd_start(a):
     print(module)
 
 
+DR = ROOT / "design-refinement"
+
+
+def next_experiment():
+    """First EXP-nnn in experiments/plan.md with no row in experiments/registry.md."""
+    plan, reg = DR / "experiments" / "plan.md", DR / "experiments" / "registry.md"
+    if not plan.exists():
+        return None
+    done = set(re.findall(r"EXP-\d{3}", reg.read_text(encoding="utf-8"))) if reg.exists() else set()
+    for e in dict.fromkeys(re.findall(r"^#+\s*(EXP-\d{3})", plan.read_text(encoding="utf-8"), re.M)):
+        if e not in done:
+            return e
+    return None
+
+
+def cmd_experiment_done(a):
+    states = all_states()
+    write_json(FACTORY / "design-state.json", {"published_at_last_experiment": sum(1 for s in states if s["stage"] == "done"),
+                                               "last_experiment": a.exp, "at": now()})
+    print(f"recorded {a.exp}; next experiment after {cfg('design_refinement', 'every_n_modules', default=2)} more published modules")
+
+
 def cmd_next(a):
     """Decide what one tick should do. Prints JSON."""
     if (FACTORY / "STOP").exists():
@@ -215,6 +241,12 @@ def cmd_next(a):
                 print(json.dumps({"action": "refresh", "module": s["module"], "topic": s["topic"],
                                   "subject": s["subject"], "age_days": age}))
                 return
+    exp = next_experiment()
+    published = sum(1 for s in states if s["stage"] == "done")
+    last = read_json(FACTORY / "design-state.json", {}).get("published_at_last_experiment", 0)
+    if exp and published - last >= cfg("design_refinement", "every_n_modules", default=2):
+        print(json.dumps({"action": "refine-design", "experiment": exp, "published": published}))
+        return
     if len(pending) < cfg("factory", "queue_min", default=3):
         print(json.dumps({"action": "plan", "pending": len(pending)}))
         return
@@ -499,12 +531,14 @@ def check_nodes(nodes, module, bank, bp, issues, seg_type_of, prefix=""):
     """Per-node checks shared by segment and module validation."""
     lim_words = cfg("module", "max_words_per_message", default=60)
     lim_msgs = cfg("module", "max_messages_per_node", default=3)
-    mis_ids = {m["id"] for m in bp.get("misconceptions", [])}
+    trap_ids = {t["id"] for t in bp.get("traps", [])}
     obj_ids = {o["id"] for o in bp.get("objectives", [])}
     cache = {}
     for nid, n in nodes.items():
         where = f"{prefix}{nid}"
         role = n.get("role")
+        for k in set(n) - NODE_KEYS:
+            issues["errors"].append(f"{where}: unknown field {k!r} (buttons only; see reference/module-format.md)")
         if role not in ROLES:
             issues["errors"].append(f"{where}: role {role!r} not one of {sorted(ROLES)}")
         msgs = n.get("say") or []
@@ -541,11 +575,18 @@ def check_nodes(nodes, module, bank, bp, issues, seg_type_of, prefix=""):
         if not 1 <= len(ch) <= 4:
             issues["errors"].append(f"{where}: {len(ch)} choices (need 1–4)")
         kinds = [c.get("kind") for c in ch]
+        labels = [c.get("label", "").strip().lower() for c in ch]
+        if len(set(labels)) != len(labels):
+            issues["errors"].append(f"{where}: two choices share a label")
         for j, c in enumerate(ch):
+            for k in set(c) - CHOICE_KEYS:
+                issues["errors"].append(f"{where}.choices[{j}]: unknown field {k!r}")
             if c.get("kind") not in CHOICE_KINDS:
                 issues["errors"].append(f"{where}.choices[{j}]: kind {c.get('kind')!r} invalid")
-            if c.get("kind") == "misconception" and c.get("misconception") not in mis_ids:
-                issues["errors"].append(f"{where}.choices[{j}]: misconception {c.get('misconception')!r} not in blueprint")
+            if c.get("kind") == "trap" and c.get("trap") not in trap_ids:
+                issues["errors"].append(f"{where}.choices[{j}]: trap {c.get('trap')!r} not in blueprint")
+            if c.get("kind") == "trap" and role != "probe":
+                issues["errors"].append(f"{where}.choices[{j}]: trap choices belong on probe nodes")
             if words(c.get("label", "")) > 12:
                 issues["warnings"].append(f"{where}.choices[{j}]: label over 12 words")
             if not c.get("next"):
@@ -553,8 +594,8 @@ def check_nodes(nodes, module, bank, bp, issues, seg_type_of, prefix=""):
         if role == "probe":
             if "correct" not in kinds:
                 issues["errors"].append(f"{where}: probe without a correct choice")
-            if not ({"misconception", "partial"} & set(kinds)):
-                issues["errors"].append(f"{where}: probe without a misconception or partial choice")
+            if "trap" not in kinds:
+                issues["errors"].append(f"{where}: probe without a trap choice (every probe must diagnose at least one trap)")
         if role == "probe" and not n.get("objectives"):
             issues["warnings"].append(f"{where}: probe tags no objective")
 
@@ -705,9 +746,9 @@ def validate_segment(module, seg, bp, bank):
     for o in meta.get("objectives", []):
         if not any(o in d.get("objectives", []) for d in nodes.values()):
             issues["errors"].append(f"{meta['id']}: objective {o} assigned to this segment but no node tags it")
-    for m in meta.get("misconceptions", []):
-        if not any(c.get("misconception") == m for d in nodes.values() for c in d.get("choices") or []):
-            issues["errors"].append(f"{meta['id']}: misconception {m} assigned to this segment but no choice targets it")
+    for t in meta.get("traps", []):
+        if not any(c.get("trap") == t for d in nodes.values() for c in d.get("choices") or []):
+            issues["errors"].append(f"{meta['id']}: trap {t} assigned to this segment but no choice offers it")
     if meta["type"] == "consolidate" and not seg.get("cards"):
         issues["warnings"].append(f"{meta['id']}: consolidate segment with no cards")
     for i, card in enumerate(seg.get("cards", [])):
@@ -777,6 +818,9 @@ def cmd_assemble(a):
             used.update(msg.get("claims", []))
     for card in cards:
         used.update(card.get("claims", []))
+    report = read_json(w / "report.json")
+    for msg in iter_report(report):
+        used.update(msg.get("claims", []))
     claims, cache = {}, {}
     for cid in sorted(used, key=lambda c: (("#" in c), int(re.sub(r"\D", "", c.split("#")[-1]) or 0), c)):
         c = resolve_claim(cid, a.module, bank, cache)
@@ -794,17 +838,160 @@ def cmd_assemble(a):
               "subject": a.module.split("/")[0], "exam": "NEET PG / INI-CET",
               "version": (prev["version"] + 1) if prev else 1, "built": today(), "status": "draft",
               "summary": bp.get("summary", ""),
-              "objectives": bp.get("objectives", []), "misconceptions": bp.get("misconceptions", []),
+              "objectives": bp.get("objectives", []), "traps": bp.get("traps", []),
               "segments": seg_meta, "start": seg_meta[0]["entry"], "nodes": nodes,
               "claims": claims, "references": dict(sorted(refs.items(), key=lambda kv: int(kv[0]))),
               "cards": cards}
+    if report:
+        module["report"] = report
     write_json(w / "module.json", module)
     print(f"assembled {len(nodes)} nodes, {len(segs)} segments, {len(claims)} claims, {len(cards)} cards")
 
 
+# ---------------------------------------------------------------- report (pre-authored, path-driven)
+
+REPORT_SHAPE = {
+    "headline": ["strong", "mixed", "weak"],
+    "calibration": ["overconfident", "underconfident", "calibrated"],
+    "help": ["hints_heavy", "hints_none"],
+    "next_steps": ["gap", "clear"],
+}
+TRAP_STATUSES = ["avoided", "fell_recovered", "fell_open"]
+LEVELS = ["secure", "shaky", "gap"]
+
+
+def iter_report(report):
+    if not report:
+        return
+    stack = [report]
+    while stack:
+        x = stack.pop()
+        if isinstance(x, dict):
+            if "text" in x and "claims" in x:
+                yield x
+            else:
+                stack.extend(x.values())
+
+
+def check_report(mod, issues, require=False):
+    rep = mod.get("report")
+    if not rep:
+        (issues["errors"] if require else issues["warnings"]).append("no report block yet (stage report)")
+        return
+    def need(path, entry):
+        if not isinstance(entry, dict) or "text" not in entry or "claims" not in entry:
+            issues["errors"].append(f"report.{path}: missing or not {{text, claims}}")
+        elif words(entry["text"]) > 90:
+            issues["errors"].append(f"report.{path}: {words(entry['text'])} words (max 90)")
+    for sec, keys in REPORT_SHAPE.items():
+        for k in keys:
+            need(f"{sec}.{k}", (rep.get(sec) or {}).get(k))
+    for o in mod.get("objectives", []):
+        for lv in LEVELS:
+            need(f"objectives.{o['id']}.{lv}", (rep.get("objectives") or {}).get(o["id"], {}).get(lv))
+    for t in mod.get("traps", []):
+        for st in TRAP_STATUSES:
+            need(f"traps.{t['id']}.{st}", (rep.get("traps") or {}).get(t["id"], {}).get(st))
+    for et in sorted({t.get("error_type") for t in mod.get("traps", [])} - {None}):
+        need(f"error_types.{et}", (rep.get("error_types") or {}).get(et))
+    if any(c.get("kind") == "skip" for d in mod["nodes"].values() for c in d.get("choices") or []):
+        need("pace.fast_lane", (rep.get("pace") or {}).get("fast_lane"))
+
+
+def render_report(mod, path):
+    """Deterministic report from a path: [{node, choice, sure}]. Mirrors player/index.html."""
+    nodes, traps = mod["nodes"], {t["id"]: t for t in mod.get("traps", [])}
+    steps = []
+    for st in path:
+        n = nodes[st["node"]]
+        c = n["choices"][st["choice"]]
+        steps.append({"node": st["node"], "role": n.get("role"), "kind": c.get("kind"), "trap": c.get("trap"),
+                      "sure": st.get("sure"), "objectives": n.get("objectives", []),
+                      "offers": [x.get("trap") for x in n["choices"] if x.get("kind") == "trap"]})
+    first, seen = [], set()
+    for s_ in steps:
+        if s_["role"] == "probe" and s_["kind"] in ("correct", "partial", "trap") and s_["node"] not in seen:
+            seen.add(s_["node"])
+            first.append(s_)
+    trap_status = {}
+    for tid in traps:
+        enc = [s_ for s_ in first if tid in s_["offers"]]
+        if not enc:
+            trap_status[tid] = "not_met"
+            continue
+        fell = [i for i, s_ in enumerate(enc) if s_["trap"] == tid]
+        if not fell:
+            trap_status[tid] = "avoided"
+        elif any(s_["kind"] == "correct" for s_ in enc[fell[-1] + 1:]) and enc[-1]["kind"] == "correct":
+            trap_status[tid] = "fell_recovered"
+        else:
+            trap_status[tid] = "fell_open"
+    levels = {}
+    for o in mod.get("objectives", []):
+        ans = [s_ for s_ in first if o["id"] in s_["objectives"]]
+        lane = any(s_["kind"] == "skip" and o["id"] in s_["objectives"] for s_ in steps)
+        open_trap = any(trap_status.get(t) == "fell_open" for t, d in traps.items() if o["id"] in d.get("objectives", []))
+        if not ans and not lane:
+            levels[o["id"]] = "unseen"
+            continue
+        wrong = sum(s_["kind"] != "correct" for s_ in ans)
+        sure_wrong = sum(s_["sure"] is True and s_["kind"] != "correct" for s_ in ans)
+        guessed = sum(s_["sure"] is False for s_ in ans)
+        if open_trap or (ans and wrong * 2 >= len(ans)):
+            levels[o["id"]] = "gap"
+        elif (wrong == 0 and sure_wrong == 0 and guessed * 2 < max(1, len(ans))) or (lane and wrong == 0):
+            levels[o["id"]] = "secure"
+        else:
+            levels[o["id"]] = "shaky"
+    fallen = [t for t, v in trap_status.items() if v.startswith("fell")]
+    by_type = {}
+    for t in fallen:
+        by_type.setdefault(traps[t].get("error_type"), []).append(t)
+    conf = [s_ for s_ in first if s_["sure"] is not None]
+    sure_wrong = sum(s_["sure"] and s_["kind"] != "correct" for s_ in conf)
+    guess_right = sum((s_["sure"] is False) and s_["kind"] == "correct" for s_ in conf)
+    calibration = None
+    if len(conf) >= 3:
+        calibration = "overconfident" if sure_wrong >= 2 else ("underconfident" if guess_right >= 3 and sure_wrong == 0 else "calibrated")
+    hints = sum(s_["kind"] == "help" for s_ in steps)
+    help_ = "hints_heavy" if hints >= 3 else ("hints_none" if hints == 0 and fallen else None)
+    core = [o["id"] for o in mod.get("objectives", []) if o.get("core")]
+    gaps = [o for o in core if levels.get(o) == "gap"]
+    shaky = [o for o in levels if levels[o] == "shaky"]
+    headline = "strong" if not gaps and len(shaky) <= 1 else ("weak" if len(gaps) * 3 >= max(1, len(core)) else "mixed")
+    rank = {"gap": 0, "shaky": 1}
+    cards = sorted(range(len(mod.get("cards", []))), key=lambda i: rank.get(levels.get(mod["cards"][i].get("objective")), 2))
+    rep = mod.get("report") or {}
+    def txt(*keys):
+        x = rep
+        for k in keys:
+            x = (x or {}).get(k)
+        return (x or {}).get("text")
+    texts = [txt("headline", headline)]
+    texts += [txt("objectives", o, lv) for o, lv in levels.items() if lv in LEVELS]
+    texts += [txt("traps", t, v) for t, v in trap_status.items() if v in TRAP_STATUSES and v != "avoided"]
+    texts += [txt("error_types", et) for et, ts in by_type.items() if len(ts) >= 2]
+    texts += [txt("calibration", calibration)] if calibration else []
+    texts += [txt("help", help_)] if help_ else []
+    texts += [txt("pace", "fast_lane")] if any(s_["kind"] == "skip" for s_ in steps) else []
+    texts += [txt("next_steps", "gap" if gaps or shaky else "clear")]
+    return {"headline": headline, "objectives": levels, "traps": trap_status,
+            "error_profile": {k: v for k, v in by_type.items()}, "calibration": calibration,
+            "sure_wrong": sure_wrong, "guess_right": guess_right, "hints": hints,
+            "fast_lane": any(s_["kind"] == "skip" for s_ in steps),
+            "card_order": cards, "texts": [t for t in texts if t]}
+
+
+def cmd_render_report(a):
+    mod = read_json(Path(a.path_module) if a.path_module else work(a.module) / "module.json")
+    path = read_json(a.path)
+    path = path.get("path", path) if isinstance(path, dict) else path
+    print(json.dumps(render_report(mod, path), indent=2, ensure_ascii=False))
+
+
 # ---------------------------------------------------------------- validate module
 
-def validate_module(module_id, mod, bp, bank):
+def validate_module(module_id, mod, bp, bank, require_report=False):
     issues = {"errors": [], "warnings": []}
     nodes = mod["nodes"]
     seg_type = {s["id"]: s["type"] for s in mod["segments"]}
@@ -844,9 +1031,20 @@ def validate_module(module_id, mod, bp, bank):
             continue
         if o.get("core") and set(ends) & reach(g, start, avoid=tagged):
             issues["errors"].append(f"core objective {o['id']} can be skipped: a path reaches the end without it")
-    for m in mod.get("misconceptions", []):
-        if not any(c.get("misconception") == m["id"] for d in nodes.values() for c in d.get("choices") or []):
-            issues["errors"].append(f"misconception {m['id']} is never offered as a choice")
+    offered = {}
+    for nid, d in nodes.items():
+        for c in d.get("choices") or []:
+            if c.get("kind") == "trap":
+                offered.setdefault(c.get("trap"), set()).add(nid)
+    for t in mod.get("traps", []):
+        n_probes = len(offered.get(t["id"], ()))
+        if n_probes == 0:
+            issues["errors"].append(f"trap {t['id']} is never offered as a choice")
+        elif n_probes < 2:
+            issues["errors"].append(f"trap {t['id']} is offered on only one probe (needs a later re-test in another form)")
+        if t.get("error_type") not in ERROR_TYPES:
+            issues["errors"].append(f"trap {t['id']}: error_type {t.get('error_type')!r} not in reference/traps.md")
+    check_report(mod, issues, require_report)
     tr, loop = tell_run(nodes, g)
     lim = cfg("module", "max_tell_run", default=2)
     if loop:
@@ -871,7 +1069,9 @@ def validate_module(module_id, mod, bp, bank):
         "claims_cited": len(cited), "claims_in_bank": len(bank["claims"]),
         "hy_coverage": round(len(hy & cited) / max(1, len(hy)), 3),
         "hy_missing": sorted(hy - cited, key=lambda k: int(k[1:])),
-        "misconceptions": len(mod.get("misconceptions", [])), "cards": len(mod.get("cards", [])),
+        "traps": len(mod.get("traps", [])),
+        "trap_probes_mean": round(sum(len(v) for v in offered.values()) / max(1, len(offered)), 2),
+        "cards": len(mod.get("cards", [])),
         "confidence_probes": sum(bool(d.get("ask_confidence")) for d in nodes.values()),
         "fast_lanes": sum(c.get("kind") == "skip" for d in nodes.values() for c in d.get("choices") or []),
     }
@@ -886,7 +1086,7 @@ def cmd_validate(a):
     bp, bank = read_json(w / "blueprint.json"), load_bank(a.module)
     if mod is None or bp is None:
         die("need module.json and blueprint.json")
-    issues, metrics = validate_module(a.module, mod, bp, bank)
+    issues, metrics = validate_module(a.module, mod, bp, bank, a.require_report)
     out = {"validated": now(), "errors": issues["errors"], "warnings": issues["warnings"], "metrics": metrics}
     if not a.path:
         write_json(w / "validation.json", out)
@@ -913,16 +1113,24 @@ def cmd_score(a):
     sims = [read_json(p) for p in sorted((w / "sim").glob("*.json"))]
     m = val.get("metrics", {})
     j = float(review.get("weighted") or 0)
-    sim_scores = []
+    sim_scores, headlines = [], {}
+    mod_now = read_json(w / "module.json", {})
     for s in sims:
-        mis = s.get("misconceptions", {})
-        fixed = sum(v == "fixed" for v in mis.values()) / max(1, len(mis)) if mis else 1.0
+        tr = s.get("traps", {})
+        fixed = sum(v == "fixed" for v in tr.values()) / max(1, len(tr)) if tr else 1.0
         cards = s.get("cards_answerable", 0) / max(1, s.get("cards_total", 0)) if s.get("cards_total") else 0.5
         sim_scores.append(0.4 * float(s.get("engagement", 3)) + 0.3 * 5 * fixed + 0.3 * 5 * cards)
+        if s.get("path") and mod_now.get("report"):
+            try:
+                headlines[s.get("persona")] = render_report(mod_now, s["path"])["headline"]
+            except (KeyError, IndexError, TypeError):
+                headlines[s.get("persona")] = "broken-path"
     s_score = sum(sim_scores) / len(sim_scores) if sim_scores else 0
     parts = [min(1, m.get("interactivity", 0) / 0.6), m.get("hy_coverage", 0),
              1.0 if not val.get("errors") else 0.0,
-             1.0 if (m.get("max_tell_run") or 99) <= cfg("module", "max_tell_run", default=2) else 0.0]
+             1.0 if (m.get("max_tell_run") or 99) <= cfg("module", "max_tell_run", default=2) else 0.0,
+             # The report must tell learners apart: the strong sim and the misconceived sim should not get the same headline.
+             1.0 if headlines.get("strong") and headlines.get("misconceived") and headlines["strong"] != headlines["misconceived"] else 0.0]
     m_score = 1 + 4 * sum(parts) / len(parts)
     composite = round(0.5 * j + 0.25 * s_score + 0.25 * m_score, 3)
     fails = verifier_fails(w)
@@ -931,7 +1139,7 @@ def cmd_score(a):
     entry = {"round": st["round"], "at": now(), "judges": round(j, 3), "sims": round(s_score, 3),
              "metrics": round(m_score, 3), "composite": composite, "gated": gated,
              "validator_errors": len(val.get("errors", [])), "verifier_fails": fails,
-             "weakest": review.get("weakest", [])}
+             "weakest": review.get("weakest", []), "sim_headlines": headlines}
     card["rounds"] = [r for r in card["rounds"] if r["round"] != st["round"]] + [entry]
     best = card.get("best")
     improved = (not gated) and (best is None or composite >= best["composite"] + cfg("refine", "min_improvement", default=0.1)
@@ -1072,13 +1280,18 @@ def main():
     add("record", cmd_record, "update technique stats after an edit decision", MOD, (["segment"], {}))
     add("check-segment", cmd_check_segment, "validate one segment file", MOD, (["path"], {}))
     add("assemble", cmd_assemble, "stitch segments into module.json", MOD)
-    add("validate", cmd_validate, "validate module.json", MOD, (["--path"], {}))
+    add("validate", cmd_validate, "validate module.json", MOD, (["--path"], {}),
+        (["--require-report"], {"action": "store_true"}))
+    add("render-report", cmd_render_report, "render the end-of-module report for a path file", MOD,
+        (["path"], {"help": "JSON list of {node, choice, sure}, or a sim JSON with a path key"}),
+        (["--module-file", "--path-module"], {"dest": "path_module"}))
     add("score", cmd_score, "score this round; snapshot it if best", MOD)
     add("restore", cmd_restore, "restore the best round's segments", MOD)
     add("publish", cmd_publish, "publish the best round to modules/", MOD)
     add("clear", cmd_clear, "delete regenerable work files", MOD,
         (["what"], {}), (["segments"], {"nargs": "*"}))
     add("archive-evidence", cmd_archive_evidence, "move old evidence aside before a refresh", MOD)
+    add("experiment-done", cmd_experiment_done, "record that a design experiment ran", (["exp"], {}))
     add("status", cmd_status, "write factory/status.md")
     a = p.parse_args()
     a.fn(a)

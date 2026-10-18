@@ -1,0 +1,1126 @@
+{
+ "segment": "S6",
+ "technique": "T11",
+ "entry": "spell_note",
+ "nodes": {
+  "spell_note": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Night shift. A 9-month-old with known TOF turned deeply blue after a distressing blood draw. Your junior wrote this plan on the handover sheet, and one step is wrong.",
+     "claims": []
+    },
+    {
+     "text": "1) Knee-chest position. 2) Oxygen. 3) IV furosemide. 4) IV fluid bolus. Which step do you strike out?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Step 1, knee-chest position",
+     "next": "spell_m_knee",
+     "kind": "misconception",
+     "misconception": "M7"
+    },
+    {
+     "label": "Step 3, IV furosemide",
+     "next": "spell_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Step 4, IV fluid bolus",
+     "next": "spell_m_fluid",
+     "kind": "misconception",
+     "misconception": "M7"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "spell_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "spell_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask of each step: does it help a blue child with a hypercyanotic spell, or does it treat a different problem, like a failing heart?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "spell_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "spell_m_knee": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: squatting looks like comfort, not treatment. But it is the first-line physical step: **knee-chest positioning** increases systemic vascular resistance.",
+     "claims": [
+      "K43"
+     ]
+    },
+    {
+     "text": "So step 1 stays. Look again at which step treats a different problem.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is worth a second look: a step that needs no drug is still a treatment. It raises systemic vascular resistance.",
+    "claims": [
+     "K43"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "spell_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "spell_m_fluid": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: fluid in a struggling child sounds like it would overload the heart. But in a spell, **IV fluid boluses** improve RV filling.",
+     "claims": [
+      "K45"
+     ]
+    },
+    {
+     "text": "So step 4 stays. Which step treats congestion that this child does not have?",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so notice the reflex: this is a spell, not heart failure. Fluids are on the list because they improve RV filling.",
+    "claims": [
+     "K45"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "spell_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "spell_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes, strike out the furosemide. A blue, distressed child looks like heart failure, but spells need a rapid and aggressive approach, and a diuretic is not one of the steps.",
+     "claims": [
+      "K42"
+     ]
+    },
+    {
+     "text": "The real steps: knee-chest (raises systemic vascular resistance), oxygen (pulmonary vasodilation), IV fluid boluses (improve RV filling).",
+     "claims": [
+      "K43",
+      "K44",
+      "K45"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "why_note",
+     "kind": "continue"
+    }
+   ]
+  },
+  "why_note": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Page two of the same handover lists the reason for each drug. One reason is backwards.",
+     "claims": []
+    },
+    {
+     "text": "Oxygen: pulmonary vasodilation. Beta-blocker: decreases heart rate and aids RV filling. Phenylephrine: lowers systemic afterload. Which line is wrong?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "The oxygen line",
+     "next": "why_m_o2",
+     "kind": "partial"
+    },
+    {
+     "label": "The beta-blocker line",
+     "next": "why_m_bb",
+     "kind": "partial"
+    },
+    {
+     "label": "The phenylephrine line",
+     "next": "why_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "why_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "why_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Recall the logic of knee-chest position. Which direction should systemic resistance move in a spell, and does that line point the same way?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "why_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "why_m_o2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: the lungs are not the obstruction, so oxygen may seem pointless. But **oxygen** is given to cause pulmonary vasodilation, and that line is correct.",
+     "claims": [
+      "K44"
+     ]
+    },
+    {
+     "text": "Check the drug whose stated reason would push resistance the wrong way.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so re-read it: oxygen's job is pulmonary vasodilation, exactly as the note says.",
+    "claims": [
+     "K44"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "why_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "why_m_bb": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: slowing the heart in a sick child feels dangerous. But **IV beta-blockers** decrease heart rate and aid RV filling further, so that line is right.",
+     "claims": [
+      "K46"
+     ]
+    },
+    {
+     "text": "Look for the drug whose reason contradicts knee-chest.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so re-read it: the note's beta-blocker reason matches the source.",
+    "claims": [
+     "K46"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "why_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "why_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. **IV phenylephrine** increases systemic afterload; it does not lower it. Knee-chest also raises systemic vascular resistance.",
+     "claims": [
+      "K47",
+      "K43"
+     ]
+    },
+    {
+     "text": "Every correct step pushes the same way: systemic resistance up, or RV filling better. Lowering resistance would be the reversed logic.",
+     "claims": [
+      "K43",
+      "K47",
+      "K45",
+      "K46"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "surg_note",
+     "kind": "continue"
+    }
+   ]
+  },
+  "surg_note": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "The spell settles. Your junior summarises the surgical plan for the parents, and one line is wrong.",
+     "claims": []
+    },
+    {
+     "text": "1) The timing of complete repair is still debated; StatPearls describes deferring it until after 3 months of age. 2) A Blalock-Taussig shunt joins the subclavian artery to the ipsilateral branch pulmonary artery. 3) A pulmonary valve can only be replaced by open surgery. Which line is wrong?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Line 1, the timing",
+     "next": "surg_m1",
+     "kind": "partial"
+    },
+    {
+     "label": "Line 2, the shunt",
+     "next": "surg_m2",
+     "kind": "partial"
+    },
+    {
+     "label": "Line 3, valve replacement",
+     "next": "surg_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "surg_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "surg_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "One line uses the word \"only\". Check whether the source allows a second route.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "surg_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "surg_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: a textbook should give one age. But **the timing of TOF repair is still in debate**, and StatPearls describes deferring complete repair to after the first 3 months of life.",
+     "claims": [
+      "K49",
+      "K50"
+     ]
+    },
+    {
+     "text": "So line 1 is fine. Find the line that closes a door the source leaves open.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note it: this is a debated topic, and the line says so honestly.",
+    "claims": [
+     "K49"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "surg_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "surg_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: a shunt sounds like it should join two big vessels. But the **Blalock-Taussig shunt** connects the subclavian artery to the ipsilateral branch pulmonary artery, so line 2 is accurate.",
+     "claims": [
+      "K54"
+     ]
+    },
+    {
+     "text": "Look for the line that closes a door the source leaves open.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so re-read it: subclavian artery to ipsilateral branch pulmonary artery is exactly the source's description.",
+    "claims": [
+     "K54"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "surg_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "surg_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. \"Only\" is the planted error: pulmonary valve replacement can be achieved surgically or by a transcatheter approach.",
+     "claims": [
+      "K59"
+     ]
+    },
+    {
+     "text": "Lines 1 and 2 were right: repair timing is debated, and the Blalock-Taussig shunt joins the subclavian artery to the ipsilateral branch pulmonary artery.",
+     "claims": [
+      "K49",
+      "K50",
+      "K54"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "rep_note",
+     "kind": "continue"
+    },
+    {
+     "label": "Go deeper: who gets a shunt first?",
+     "next": "deep_note",
+     "kind": "deeper"
+    }
+   ]
+  },
+  "deep_note": {
+   "role": "probe",
+   "objectives": [
+    "O12"
+   ],
+   "say": [
+    {
+     "text": "Your junior adds: \"Every neonate with TOF gets a shunt first, then repair later.\" Is that right?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Right, all neonates are palliated first",
+     "next": "deep_m1",
+     "kind": "partial"
+    },
+    {
+     "label": "Wrong, staging is for high-risk features only",
+     "next": "deep_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Wrong, no infant is ever palliated first",
+     "next": "deep_m2",
+     "kind": "partial"
+    }
+   ]
+  },
+  "deep_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: the first surgical treatment of TOF was a palliative shunt. But one group does not palliate patients who present as neonates without high-risk features.",
+     "claims": [
+      "K53",
+      "K56"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "deep_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "deep_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: palliation sounds outdated. But the same authors reserve staging with initial palliation for infants with high-risk features: low birth weight or prematurity, and small or discontinuous pulmonary arteries.",
+     "claims": [
+      "K55"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "deep_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "deep_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Initial palliation is reserved for high-risk features: low birth weight or prematurity, and small or discontinuous pulmonary arteries.",
+     "claims": [
+      "K55"
+     ],
+     "flag": "unverified"
+    },
+    {
+     "text": "Drawbacks include the limited lifespan of the shunt and an increased incidence of late sudden death. Morbidities include pulmonary artery stenosis and distortion.",
+     "claims": [
+      "K57",
+      "K58"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "rep_note",
+     "kind": "continue"
+    }
+   ]
+  },
+  "rep_note": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Years later the child is in the follow-up clinic after complete repair. A peer's clinic summary says: \"Commonest reason to reoperate after repair is a residual VSD.\"",
+     "claims": []
+    },
+    {
+     "text": "What do you do with this line?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Keep it, the original lesion recurs",
+     "next": "rep_m_none",
+     "kind": "misconception",
+     "misconception": "M10"
+    },
+    {
+     "label": "Correct it to pulmonary insufficiency",
+     "next": "rep_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Correct it to ventricular tachycardia",
+     "next": "rep_m_vt",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "rep_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "rep_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think about what the surgeon had to reconstruct to relieve the obstruction, and what that does to the valve afterwards.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "rep_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "rep_m_none": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: you expect the original defect to come back. But the repair itself causes the trouble: **pulmonary regurgitation** results from reconstruction of the RVOT.",
+     "claims": [
+      "K60"
+     ]
+    },
+    {
+     "text": "And **pulmonary insufficiency** is the most common indication for reoperation.",
+     "claims": [
+      "K61"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth keeping: the commonest reoperation indication is pulmonary insufficiency, not a recurrence of the original lesions.",
+    "claims": [
+     "K73"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "rep_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "rep_m_vt": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: arrhythmias are a genuine late problem. Arrhythmias can occur after repair, including **ventricular tachycardia**.",
+     "claims": [
+      "K62"
+     ]
+    },
+    {
+     "text": "But the most common indication for reoperation is pulmonary insufficiency.",
+     "claims": [
+      "K61"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so separate the two: ventricular tachycardia is a real late problem, but pulmonary insufficiency is the commonest reoperation indication.",
+    "claims": [
+     "K62",
+     "K61"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "rep_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "rep_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. **Pulmonary regurgitation** results from reconstruction of the RVOT, and pulmonary insufficiency is the most common indication for reoperation.",
+     "claims": [
+      "K60",
+      "K61"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "arr_note",
+     "kind": "continue"
+    }
+   ]
+  },
+  "arr_note": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "say": [
+    {
+     "text": "The clinic summary also says: \"Repaired children are safe from rhythm problems.\" Which correction is accurate?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Rhythm problems occur only before repair",
+     "next": "arr_m1",
+     "kind": "partial"
+    },
+    {
+     "label": "VT occurs; 40-50% of adults have ventricular arrhythmias",
+     "next": "arr_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Arrhythmias are common but sudden death never follows repair",
+     "next": "arr_m2",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "arr_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "arr_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The correction must cover both arrhythmias and late sudden death. Which option keeps both?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "arr_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "arr_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: repair fixes the anatomy, so rhythm problems seem solved. But arrhythmias can occur after TOF repair, including **ventricular tachycardia**.",
+     "claims": [
+      "K62"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "arr_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "arr_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: the first half is right, since 40-50% of adults with repaired TOF can have ventricular arrhythmias.",
+     "claims": [
+      "K63"
+     ]
+    },
+    {
+     "text": "But sudden death does follow: the risk is 6-9% 30 years after the surgical procedure.",
+     "claims": [
+      "K64"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "arr_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "arr_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Ventricular tachycardia can occur, 40-50% of adults with repaired TOF can have ventricular arrhythmias, and the risk of sudden death is 6-9% 30 years after the surgical procedure.",
+     "claims": [
+      "K62",
+      "K63",
+      "K64"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "unrep_note",
+     "kind": "continue"
+    }
+   ]
+  },
+  "unrep_note": {
+   "role": "probe",
+   "objectives": [
+    "O9"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "One more family declines surgery. The junior writes: \"Without surgery the most frequent cause of death is brain abscess (68%), then stroke (17%), then hypoxic spells (13%).\"",
+     "claims": []
+    },
+    {
+     "text": "What is wrong?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Hypoxic spells are the 68%, not brain abscess",
+     "next": "unrep_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Stroke should be the 68%",
+     "next": "unrep_m1",
+     "kind": "partial"
+    },
+    {
+     "label": "Nothing, the order is right",
+     "next": "unrep_m2",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "unrep_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "unrep_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Link this back to the first case in this segment. Which event nearly killed that child tonight?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "unrep_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "unrep_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: stroke is dramatic and well known. But cerebrovascular accidents account for 17%, and brain abscesses for 13%.",
+     "claims": [
+      "K66"
+     ]
+    },
+    {
+     "text": "The 68% belongs to hypoxic spells.",
+     "claims": [
+      "K65"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so fix the order in memory: hypoxic spells 68%, cerebrovascular accidents 17%, brain abscesses 13%.",
+    "claims": [
+     "K74"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "unrep_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "unrep_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: brain abscess sounds like the scarier complication. But the most frequent causes of mortality without surgery include **hypoxic spells (68%)**, with brain abscesses at 13%.",
+     "claims": [
+      "K65",
+      "K66"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so fix the order in memory: hypoxic spells 68%, cerebrovascular accidents 17%, brain abscesses 13%.",
+    "claims": [
+     "K74"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "unrep_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "unrep_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Without surgery: hypoxic spells (68%), cerebrovascular accidents (17%), brain abscesses (13%).",
+     "claims": [
+      "K74"
+     ]
+    },
+    {
+     "text": "Chronic hypoxaemia can cause hyperviscosity, abnormal haemostasis, stroke, **cerebral abscess** and endocarditis.",
+     "claims": [
+      "K67"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "endo_note",
+     "kind": "continue"
+    }
+   ]
+  },
+  "endo_note": {
+   "role": "probe",
+   "objectives": [
+    "O9"
+   ],
+   "say": [
+    {
+     "text": "The junior's last line: \"Once repaired, endocarditis is no longer a concern.\" Your verdict?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Agree, repair removes the risk",
+     "next": "endo_m1",
+     "kind": "partial"
+    },
+    {
+     "label": "Wrong, the risk remains repaired or not",
+     "next": "endo_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Wrong, only repaired patients are at risk",
+     "next": "endo_m2",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "endo_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "endo_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The source names this risk for two groups of patients. Does the line leave one of them out?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "endo_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "endo_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: repair fixes the anatomy, so the infection risk seems fixed too. But patients with TOF, repaired or unrepaired, are at risk of **endocarditis**.",
+     "claims": [
+      "K68"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "endo_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "endo_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: you remember repair as the new risk. But unrepaired patients are at risk too; the source says repaired or unrepaired.",
+     "claims": [
+      "K68"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "endo_note",
+     "kind": "retry"
+    }
+   ]
+  },
+  "endo_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Patients with TOF, repaired or unrepaired, are at risk of **endocarditis**.",
+     "claims": [
+      "K68"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "retest",
+     "kind": "continue"
+    }
+   ]
+  },
+  "retest": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Back to the blue 9-month-old. Ten minutes in, still blue. A registrar says: \"Give an IV vasodilator to unload the heart.\"",
+     "claims": []
+    },
+    {
+     "text": "What do you say?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Agree, vasodilate to ease the strain",
+     "next": "retest_m1",
+     "kind": "misconception",
+     "misconception": "M7"
+    },
+    {
+     "label": "No, raise resistance, for example with IV phenylephrine",
+     "next": "retest_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Give furosemide first, it is heart failure",
+     "next": "retest_m2",
+     "kind": "misconception",
+     "misconception": "M7"
+    }
+   ]
+  },
+  "retest_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: unloading sounds kind to a strained heart. But this is a spell: knee-chest increases systemic vascular resistance, and phenylephrine increases systemic afterload.",
+     "claims": [
+      "K43",
+      "K47"
+     ]
+    },
+    {
+     "text": "Vasodilating moves resistance the wrong way.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is the reversed logic again. Every step raises systemic resistance or improves RV filling.",
+    "claims": [
+     "K43",
+     "K47",
+     "K45"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "retest",
+     "kind": "retry"
+    }
+   ]
+  },
+  "retest_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: a distressed blue child looks like heart failure. But spells need a rapid and aggressive approach, and the steps are knee-chest, oxygen, fluids, beta-blockers, phenylephrine and morphine as a sedative.",
+     "claims": [
+      "K42",
+      "K43",
+      "K44",
+      "K45",
+      "K46",
+      "K47",
+      "K48"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember: a diuretic is not on the list, and fluids are.",
+    "claims": [
+     "K45"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "retest",
+     "kind": "retry"
+    }
+   ]
+  },
+  "retest_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Raise systemic resistance: knee-chest increases it, and **IV phenylephrine** increases systemic afterload. Triggers like agitation, pain, anaemia, fever or hypovolaemia are what you prevent next time.",
+     "claims": [
+      "K43",
+      "K47",
+      "K28"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}

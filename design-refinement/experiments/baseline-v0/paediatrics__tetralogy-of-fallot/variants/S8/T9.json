@@ -1,0 +1,1325 @@
+{
+ "segment": "S8",
+ "technique": "T9",
+ "entry": "intro",
+ "nodes": {
+  "intro": {
+   "role": "bridge",
+   "say": [
+    {
+     "text": "One-pager time. First a retrieval gate: eight quick recalls, no teaching yet.",
+     "claims": []
+    },
+    {
+     "text": "Answer from memory. Whatever you miss goes onto the page we build at the end.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Start the gate",
+     "next": "g1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g1": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Complete the line: TOF is the most common ___ congenital heart disease, and its picture varies with the ___.",
+     "claims": []
+    },
+    {
+     "text": "Which pair?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Cyanotic; severity of RVOT obstruction",
+     "next": "g1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Cyanotic; size of the VSD",
+     "next": "g1_f0",
+     "kind": "misconception",
+     "misconception": "M5"
+    },
+    {
+     "label": "Acyanotic; severity of RVOT obstruction",
+     "next": "g1_f1",
+     "kind": "misconception",
+     "misconception": "M5"
+    }
+   ],
+   "objectives": [
+    "O1",
+    "O3"
+   ],
+   "ask_confidence": true
+  },
+  "g1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. TOF is the most common cyanotic CHD, and presentation varies with the severity of RVOT obstruction.",
+     "claims": [
+      "K1",
+      "K69"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g1_f0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because the VSD is the biggest hole you can see in the heart. But the line says the picture varies with the **RVOT obstruction**, and TOF is the most common **cyanotic** CHD. Obstruction, not the hole, sets the blueness.",
+     "claims": [
+      "K1"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Got it, next",
+     "next": "g2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g1_f1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, since some TOF children are barely blue. But the most common **cyanotic** CHD is TOF, and its presentation varies with the severity of RVOT obstruction.",
+     "claims": [
+      "K1"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Got it, next",
+     "next": "g2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g2": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Which of these is one of the four components of classic TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Right ventricular hypertrophy",
+     "next": "g2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Atrial septal defect",
+     "next": "g2_h0",
+     "kind": "misconception",
+     "misconception": "M1"
+    },
+    {
+     "label": "Patent ductus arteriosus",
+     "next": "g2_h1",
+     "kind": "misconception",
+     "misconception": "M2"
+    },
+    {
+     "label": "Left ventricular hypertrophy",
+     "next": "g2_h2",
+     "kind": "misconception",
+     "misconception": "M3"
+    }
+   ],
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true
+  },
+  "g2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. RV hypertrophy is the fourth component; ASD, PDA and LVH are not among the four.",
+     "claims": [
+      "K3",
+      "K77"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g2_h0": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "An ASD is tempting because it is another septal hole beside the VSD. Think about the four: one hole, one valve-level problem, one vessel position, one muscle change. Does a second hole fit?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g2_2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so slow down on this one: it is a classic trap, and it sticks best once corrected now.",
+    "claims": []
+   }
+  },
+  "g2_h1": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "A PDA is tempting because it sits on so many cyanotic-heart lists. Ask yourself: is it inside the four-part definition, or only a lesion that can coexist?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g2_2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so slow down on this one: it is a classic trap, and it sticks best once corrected now.",
+    "claims": []
+   }
+  },
+  "g2_h2": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "LVH is tempting because 'ventricular hypertrophy' sounds generic. Ask which ventricle faces the obstruction.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g2_2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so slow down on this one: it is a classic trap, and it sticks best once corrected now.",
+    "claims": []
+   }
+  },
+  "g2_2": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Second look. Same question.",
+     "claims": []
+    },
+    {
+     "text": "Which of these is one of the four components of classic TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Left ventricular hypertrophy",
+     "next": "g2_exp",
+     "kind": "misconception",
+     "misconception": "M3"
+    },
+    {
+     "label": "Patent ductus arteriosus",
+     "next": "g2_exp",
+     "kind": "misconception",
+     "misconception": "M2"
+    },
+    {
+     "label": "Atrial septal defect",
+     "next": "g2_exp",
+     "kind": "misconception",
+     "misconception": "M1"
+    },
+    {
+     "label": "Right ventricular hypertrophy",
+     "next": "g2_ok",
+     "kind": "correct"
+    }
+   ],
+   "objectives": [
+    "O2"
+   ]
+  },
+  "g2_exp": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "The four components: a **large, anteriorly malaligned VSD**, an **overriding aorta**, **infundibular (sub-pulmonary) RVOT obstruction** and **right ventricular hypertrophy**.",
+     "claims": [
+      "K3"
+     ]
+    },
+    {
+     "text": "ASD, PDA and LVH are the keyed distractors in the 'not part of TOF' PYQs.",
+     "claims": [
+      "K77"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g3": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Pentalogy of Fallot is TOF plus which lesion?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "An atrial septal defect",
+     "next": "g3_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A patent ductus arteriosus",
+     "next": "g3_h0",
+     "kind": "misconception",
+     "misconception": "M4"
+    },
+    {
+     "label": "A second VSD",
+     "next": "g3_h1",
+     "kind": "misconception",
+     "misconception": "M4"
+    }
+   ],
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true
+  },
+  "g3_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Pentalogy of Fallot is TOF plus an ASD.",
+     "claims": [
+      "K5"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g3_h0": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "A PDA is tempting because it is the usual extra lesion you meet in cyanotic hearts. Think of the other septum, not a vessel.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g3_2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so slow down on this one: it is a classic trap, and it sticks best once corrected now.",
+    "claims": []
+   }
+  },
+  "g3_h1": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "A second VSD is tempting: it keeps the 'hole' theme. But TOF already includes the VSD. Which other chamber wall could be involved?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g3_2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so slow down on this one: it is a classic trap, and it sticks best once corrected now.",
+    "claims": []
+   }
+  },
+  "g3_2": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Second look. Same question.",
+     "claims": []
+    },
+    {
+     "text": "Pentalogy of Fallot is TOF plus which lesion?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A second VSD",
+     "next": "g3_exp",
+     "kind": "misconception",
+     "misconception": "M4"
+    },
+    {
+     "label": "A patent ductus arteriosus",
+     "next": "g3_exp",
+     "kind": "misconception",
+     "misconception": "M4"
+    },
+    {
+     "label": "An atrial septal defect",
+     "next": "g3_ok",
+     "kind": "correct"
+    }
+   ],
+   "objectives": [
+    "O2"
+   ]
+  },
+  "g3_exp": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "**Pentalogy of Fallot** = TOF plus an **atrial septal defect**; the term is old and seldom used now.",
+     "claims": [
+      "K5"
+     ]
+    },
+    {
+     "text": "Exam note: pentalogy is the fifth-lesion question, and the answer is ASD.",
+     "claims": [
+      "K76"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g4": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "A child with suspected TOF. Which investigation is the gold standard for diagnosis?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Echocardiogram",
+     "next": "g4_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Chest X-ray showing a boot-shaped heart",
+     "next": "g4_h0",
+     "kind": "misconception",
+     "misconception": "M9"
+    },
+    {
+     "label": "ECG showing RV hypertrophy",
+     "next": "g4_h1",
+     "kind": "misconception",
+     "misconception": "M9"
+    }
+   ],
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true
+  },
+  "g4_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Correct. Echocardiogram is the gold standard; the boot-shaped heart is a classic X-ray sign.",
+     "claims": [
+      "K6",
+      "K72",
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g4_h0": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The boot is tempting because it is the 'classic sign' everyone remembers. But a classic sign and a gold standard are different questions. Which test shows the anatomy itself?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g4_2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so slow down on this one: it is a classic trap, and it sticks best once corrected now.",
+    "claims": []
+   }
+  },
+  "g4_h1": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "ECG is tempting because it shows the hypertrophy. Ask: does it show the VSD, the aorta and the outflow?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g4_2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so slow down on this one: it is a classic trap, and it sticks best once corrected now.",
+    "claims": []
+   }
+  },
+  "g4_2": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Second look. Same question.",
+     "claims": []
+    },
+    {
+     "text": "A child with suspected TOF. Which investigation is the gold standard for diagnosis?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "ECG showing RV hypertrophy",
+     "next": "g4_exp",
+     "kind": "misconception",
+     "misconception": "M9"
+    },
+    {
+     "label": "Chest X-ray showing a boot-shaped heart",
+     "next": "g4_exp",
+     "kind": "misconception",
+     "misconception": "M9"
+    },
+    {
+     "label": "Echocardiogram",
+     "next": "g4_ok",
+     "kind": "correct"
+    }
+   ],
+   "objectives": [
+    "O5"
+   ]
+  },
+  "g4_exp": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "The **echocardiogram** is the gold standard for diagnosis and remains the primary diagnostic modality.",
+     "claims": [
+      "K6",
+      "K72"
+     ]
+    },
+    {
+     "text": "The chest X-ray may classically show a **boot-shaped** heart with an upturned apex from RV hypertrophy: a sign, not the confirmatory test.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g5": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "A TOF child is in a hypercyanotic spell. You place the child knee-chest. Why?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "It increases systemic vascular resistance",
+     "next": "g5_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "It lowers systemic vascular resistance",
+     "next": "g5_h0",
+     "kind": "misconception",
+     "misconception": "M7"
+    },
+    {
+     "label": "It helps diurese the congested lungs",
+     "next": "g5_h1",
+     "kind": "misconception",
+     "misconception": "M7"
+    }
+   ],
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true
+  },
+  "g5_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Knee-chest raises systemic vascular resistance.",
+     "claims": [
+      "K43"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g6",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g5_h0": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Lowering resistance is tempting, because vasodilation helps many failing hearts. But think about which way the blood is shunting in a spell and what would push it back toward the lungs.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g5_2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so slow down on this one: it is a classic trap, and it sticks best once corrected now.",
+    "claims": []
+   }
+  },
+  "g5_h1": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "A diuretic is tempting if you file this as heart failure. Ask whether the lungs are congested or starved of flow.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g5_2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so slow down on this one: it is a classic trap, and it sticks best once corrected now.",
+    "claims": []
+   }
+  },
+  "g5_2": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Second look. Same question.",
+     "claims": []
+    },
+    {
+     "text": "A TOF child is in a hypercyanotic spell. You place the child knee-chest. Why?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "It helps diurese the congested lungs",
+     "next": "g5_exp",
+     "kind": "misconception",
+     "misconception": "M7"
+    },
+    {
+     "label": "It lowers systemic vascular resistance",
+     "next": "g5_exp",
+     "kind": "misconception",
+     "misconception": "M7"
+    },
+    {
+     "label": "It increases systemic vascular resistance",
+     "next": "g5_ok",
+     "kind": "correct"
+    }
+   ],
+   "objectives": [
+    "O6"
+   ]
+  },
+  "g5_exp": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "**Knee-chest positioning** is done to increase systemic vascular resistance. Together with oxygen to cause pulmonary vasodilation, fluid boluses to improve RV filling and IV phenylephrine to increase systemic afterload, every step pushes blood toward the lungs.",
+     "claims": [
+      "K43",
+      "K44",
+      "K45",
+      "K47"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g6",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g6": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Next spell step: IV phenylephrine. Its job?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Increase systemic afterload",
+     "next": "g6_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Reduce afterload so the heart can empty",
+     "next": "g6_f0",
+     "kind": "misconception",
+     "misconception": "M7"
+    },
+    {
+     "label": "Treat the heart failure behind the spell",
+     "next": "g6_f1",
+     "kind": "misconception",
+     "misconception": "M7"
+    }
+   ],
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true
+  },
+  "g6_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. IV phenylephrine increases systemic afterload. IV beta-blockers decrease heart rate and aid RV filling further.",
+     "claims": [
+      "K47",
+      "K46"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g7",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g6_f0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because afterload reduction is the usual move in a failing heart. A spell is the opposite problem. The step is **IV phenylephrine**, to **increase systemic afterload**.",
+     "claims": [
+      "K47"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Got it, next",
+     "next": "g7",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g6_f1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because a sick blue child looks like heart failure. But phenylephrine's job is **to increase systemic afterload**, not to treat failure.",
+     "claims": [
+      "K47"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Got it, next",
+     "next": "g7",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g7": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Repaired TOF, years later. What is the most common indication for reoperation?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Pulmonary insufficiency",
+     "next": "g7_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Residual VSD",
+     "next": "g7_h0",
+     "kind": "misconception",
+     "misconception": "M10"
+    },
+    {
+     "label": "Recurrent pulmonary stenosis",
+     "next": "g7_h1",
+     "kind": "misconception",
+     "misconception": "M10"
+    }
+   ],
+   "objectives": [
+    "O8"
+   ],
+   "ask_confidence": true
+  },
+  "g7_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Pulmonary insufficiency is the commonest reason to go back in.",
+     "claims": [
+      "K61",
+      "K73"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g8",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g7_h0": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Residual VSD is tempting: you closed it, so you expect it to leak. Think instead about what the outflow repair does to the pulmonary valve.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g7_2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so slow down on this one: it is a classic trap, and it sticks best once corrected now.",
+    "claims": []
+   }
+  },
+  "g7_h1": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Recurrent stenosis is tempting: the original problem returning. But consider what happens once the valve has been relieved or opened up.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g7_2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so slow down on this one: it is a classic trap, and it sticks best once corrected now.",
+    "claims": []
+   }
+  },
+  "g7_2": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Second look. Same question.",
+     "claims": []
+    },
+    {
+     "text": "Repaired TOF, years later. What is the most common indication for reoperation?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Recurrent pulmonary stenosis",
+     "next": "g7_exp",
+     "kind": "misconception",
+     "misconception": "M10"
+    },
+    {
+     "label": "Residual VSD",
+     "next": "g7_exp",
+     "kind": "misconception",
+     "misconception": "M10"
+    },
+    {
+     "label": "Pulmonary insufficiency",
+     "next": "g7_ok",
+     "kind": "correct"
+    }
+   ],
+   "objectives": [
+    "O8"
+   ]
+  },
+  "g7_exp": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "**Pulmonary insufficiency** is the most common indication for reoperation after repair.",
+     "claims": [
+      "K61",
+      "K73"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g8",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g8": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Without surgery, what is the most frequent cause of death in TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Hypoxic spells",
+     "next": "g8_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Cerebrovascular accidents",
+     "next": "g8_f0",
+     "kind": "partial"
+    },
+    {
+     "label": "Brain abscess",
+     "next": "g8_f1",
+     "kind": "partial"
+    }
+   ],
+   "objectives": [
+    "O9"
+   ],
+   "ask_confidence": true
+  },
+  "g8_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Most frequent causes of death without surgery: hypoxic spells (68%), cerebrovascular accidents (17%), brain abscesses (13%).",
+     "claims": [
+      "K74"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "f1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g8_f0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A real cause, so tempting, but second place. In unrepaired TOF: hypoxic spells 68%, cerebrovascular accidents 17%, brain abscesses 13%.",
+     "claims": [
+      "K74"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Got it, next",
+     "next": "f1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g8_f1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A real cause, so tempting, but third place. In unrepaired TOF: hypoxic spells 68%, cerebrovascular accidents 17%, brain abscesses 13%.",
+     "claims": [
+      "K74"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Got it, next",
+     "next": "f1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "f1": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Gate done. Now build the page. Pick the spell line that goes on your one-pager.",
+     "claims": []
+    },
+    {
+     "text": "Which line is right?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Knee-chest, O2, fluids, beta-blocker, phenylephrine, morphine",
+     "next": "f1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Vasodilator to cut afterload, plus a diuretic",
+     "next": "f1_m",
+     "kind": "misconception",
+     "misconception": "M7"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "f1_hint",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true
+  },
+  "f1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Every step on the line should push blood toward the lungs. Which option has steps that do that?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "f1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "f1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes: **knee-chest** to increase SVR, **oxygen** for pulmonary vasodilation, **IV fluids** to improve RV filling, **IV beta-blockers** to decrease heart rate, **IV phenylephrine** to increase systemic afterload, **morphine** as sedative.",
+     "claims": [
+      "K43",
+      "K44",
+      "K45",
+      "K46",
+      "K47",
+      "K48"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "f2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "f1_m": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting if you treat the spell as failure. But the steps raise systemic resistance (knee-chest, phenylephrine) and aid RV filling (fluids, beta-blockers).",
+     "claims": [
+      "K43",
+      "K45",
+      "K46",
+      "K47"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "f1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: afterload goes up, not down, in a spell.",
+    "claims": [
+     "K47"
+    ]
+   }
+  },
+  "f2": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Last line for the page: the 'most commons'. Which trio is correct?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Most common cyanotic CHD: TOF; reoperation: pulmonary insufficiency; gold standard: echo",
+     "next": "f2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Most common cyanotic CHD: TOF; reoperation: residual VSD; gold standard: boot-shaped X-ray",
+     "next": "f2_m",
+     "kind": "misconception",
+     "misconception": "M10"
+    }
+   ],
+   "objectives": [
+    "O1",
+    "O5",
+    "O8"
+   ],
+   "ask_confidence": true
+  },
+  "f2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is the page: TOF most common cyanotic CHD, echocardiogram the gold standard, pulmonary insufficiency the commonest reoperation indication.",
+     "claims": [
+      "K69",
+      "K72",
+      "K73"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "cards",
+     "kind": "continue"
+    }
+   ]
+  },
+  "f2_m": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, since residual VSD and the boot sign are both classic TOF words. But reoperation is mostly for **pulmonary insufficiency**, and the gold standard is the **echocardiogram**.",
+     "claims": [
+      "K61",
+      "K72"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "f2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: sign versus gold standard, and pulmonary insufficiency not residual VSD.",
+    "claims": [
+     "K72",
+     "K73"
+    ]
+   }
+  },
+  "cards": {
+   "role": "recap",
+   "say": [
+    {
+     "text": "Your one-pager is built. The review cards below are the ones you missed or want to revisit.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Finish",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ },
+ "cards": [
+  {
+   "q": "Most common cyanotic CHD?",
+   "a": "Tetralogy of Fallot; presentation varies with severity of RVOT obstruction.",
+   "claims": [
+    "K1",
+    "K69"
+   ],
+   "objective": "O1"
+  },
+  {
+   "q": "Four components of classic TOF?",
+   "a": "Large anteriorly malaligned VSD, overriding aorta, infundibular RVOT obstruction, RV hypertrophy.",
+   "claims": [
+    "K3"
+   ],
+   "objective": "O2"
+  },
+  {
+   "q": "Pentalogy of Fallot?",
+   "a": "TOF plus an atrial septal defect.",
+   "claims": [
+    "K5"
+   ],
+   "objective": "O2"
+  },
+  {
+   "q": "Why is a TOF child minimally cyanotic?",
+   "a": "Resistance across the RVOT is less than systemic vascular resistance.",
+   "claims": [
+    "K22"
+   ],
+   "objective": "O3"
+  },
+  {
+   "q": "Gold standard for TOF diagnosis?",
+   "a": "Echocardiogram; the boot-shaped heart is a classic X-ray sign.",
+   "claims": [
+    "K6",
+    "K72",
+    "K4"
+   ],
+   "objective": "O5"
+  },
+  {
+   "q": "Knee-chest in a tet spell: why?",
+   "a": "To increase systemic vascular resistance.",
+   "claims": [
+    "K43"
+   ],
+   "objective": "O6"
+  },
+  {
+   "q": "Commonest indication for reoperation after repair?",
+   "a": "Pulmonary insufficiency.",
+   "claims": [
+    "K61",
+    "K73"
+   ],
+   "objective": "O8"
+  },
+  {
+   "q": "Most frequent cause of death without surgery?",
+   "a": "Hypoxic spells (68%).",
+   "claims": [
+    "K74"
+   ],
+   "objective": "O9"
+  }
+ ]
+}

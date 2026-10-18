@@ -1,0 +1,879 @@
+{
+ "segment": "S7",
+ "technique": "T11",
+ "entry": "start",
+ "nodes": {
+  "start": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "A junior wrote TOF revision notes at 11 pm. Each note hides one planted mistake, and the mistakes are ones real PYQs are built on.",
+     "claims": []
+    },
+    {
+     "text": "Your job: find the error, then fix it. Where the old key and the current source disagree, you get both.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Mark the notes",
+     "next": "e1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "e1": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Note 1: \"Classic TOF = large VSD + overriding aorta + RVOT obstruction + ASD.\"",
+     "claims": []
+    },
+    {
+     "text": "What is wrong with it?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "ASD is not one of the four; it replaced RVH",
+     "next": "e1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "It should list LVH as the missing component",
+     "next": "e1_m3",
+     "kind": "misconception",
+     "misconception": "M3"
+    },
+    {
+     "label": "It should list PDA as the missing component",
+     "next": "e1_m2",
+     "kind": "misconception",
+     "misconception": "M2"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "e1_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "e1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Count the real four: a large VSD, an overriding aorta, RVOT obstruction and a ventricular hypertrophy. Which item in the note is not on that list?",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the note",
+     "next": "e1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Found it. Classic TOF is a **large, anteriorly malaligned VSD**, an **overriding aorta**, **infundibular RVOT obstruction** and **right ventricular hypertrophy**. ASD may accompany TOF but is not one of the four.",
+     "claims": [
+      "K3",
+      "K13"
+     ]
+    },
+    {
+     "text": "PYQs have keyed PDA, ASD and LVH as \"not part of TOF\", and current StatPearls agrees with the four above.",
+     "claims": [
+      "K77"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next note",
+     "next": "e2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "e1_m3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: the note has no hypertrophy at all, so a ventricular item does look missing.",
+     "claims": []
+    },
+    {
+     "text": "But the missing fourth component is **right** ventricular hypertrophy, never LVH. The planted error is the ASD sitting in its place; PYQs key LVH as \"not part of TOF\".",
+     "claims": [
+      "K3",
+      "K13",
+      "K77"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so lock in the side: the hypertrophy of TOF is right ventricular.",
+    "claims": [
+     "K3"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e1_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: a PDA may accompany TOF, so it feels like a natural fifth item.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "But accompanying is not being one of the four. The four listed by StatPearls and CDC include no ASD, PDA or LVH, and PYQs key them as \"not part of TOF\".",
+     "claims": [
+      "K13",
+      "K77"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember: PDA and ASD may accompany TOF, yet neither is a component.",
+    "claims": [
+     "K13"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e2": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Note 2: \"Pentalogy of Fallot = TOF plus a PDA.\"",
+     "claims": []
+    },
+    {
+     "text": "Fix the note.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "It is TOF plus an atrial septal defect",
+     "next": "e2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "The note is right: PDA is the fifth lesion",
+     "next": "e2_m4",
+     "kind": "misconception",
+     "misconception": "M4"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "e2_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "e2_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think back to Note 1: the lesion that wrongly sat among the four is the one that completes the pentalogy.",
+     "claims": [
+      "K5"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the note",
+     "next": "e2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "**Pentalogy of Fallot** = TOF plus an **atrial septal defect**; the term is old and seldom used now.",
+     "claims": [
+      "K5"
+     ]
+    },
+    {
+     "text": "PYQs have expected pentalogy of Fallot = TOF + ASD, and CDC confirms it.",
+     "claims": [
+      "K76"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next note",
+     "next": "e3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "e2_m4": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: PDA is the other lesion that, like ASD, may accompany TOF.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "But the pentalogy adds specifically an **atrial septal defect**, which PYQs expect and CDC confirms.",
+     "claims": [
+      "K5",
+      "K76"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so fix it now: pentalogy means TOF + ASD, not PDA.",
+    "claims": [
+     "K5"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e3": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Note 3: \"A boot-shaped heart on chest X-ray means the heart is enlarged.\"",
+     "claims": []
+    },
+    {
+     "text": "Is the note right?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "No: the boot is an upturned apex from RVH",
+     "next": "e3_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Yes: boot-shaped means cardiomegaly",
+     "next": "e3_m8",
+     "kind": "misconception",
+     "misconception": "M8"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "e3_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "e3_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The boot describes the shape of the apex, and a hypertrophied right ventricle is what shapes it. Does the sign say anything about the heart simply being big?",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the note",
+     "next": "e3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e3_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Chest radiographs may classically show a **boot-shaped** heart, with an upturned apex due to right ventricular hypertrophy.",
+     "claims": [
+      "K4"
+     ]
+    },
+    {
+     "text": "So the sign names a shape that RVH gives the heart, not a big heart.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next note",
+     "next": "e4",
+     "kind": "continue"
+    },
+    {
+     "label": "Do all infants show the boot?",
+     "next": "d_boot",
+     "kind": "deeper"
+    }
+   ]
+  },
+  "e3_m8": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: a hypertrophied ventricle sounds like a bigger heart.",
+     "claims": []
+    },
+    {
+     "text": "But the sign is a shape, an upturned apex due to right ventricular hypertrophy, on a chest radiograph that may classically show the **boot**.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so re-read it: boot-shaped describes an upturned apex from RVH, not cardiomegaly.",
+    "claims": [
+     "K4"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d_boot": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Most infants with TOF, however, may not show the boot-shaped finding.",
+     "claims": [
+      "K33"
+     ],
+     "flag": "unverified"
+    },
+    {
+     "text": "PYQs have keyed the boot-shaped heart to TOF; Radiopaedia says most infants with TOF may not show this finding.",
+     "claims": [
+      "K78"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the notes",
+     "next": "e4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "e4": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Note 4: \"The boot-shaped heart on chest X-ray confirms TOF. It is the investigation of choice.\"",
+     "claims": []
+    },
+    {
+     "text": "Which fix is right?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Echocardiography is the gold standard",
+     "next": "e4_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "ECG is the gold standard instead",
+     "next": "e4_m9",
+     "kind": "misconception",
+     "misconception": "M9"
+    },
+    {
+     "label": "The note is right: the boot is diagnostic",
+     "next": "e4_m9",
+     "kind": "misconception",
+     "misconception": "M9"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "e4_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "e4_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "A classic sign is not the same as the gold standard. Which investigation is the primary diagnostic modality?",
+     "claims": [
+      "K6"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the note",
+     "next": "e4",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e4_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The **echocardiogram** is the gold standard for diagnosis and remains the primary diagnostic modality.",
+     "claims": [
+      "K6",
+      "K72"
+     ]
+    },
+    {
+     "text": "The boot is a classic X-ray picture, not the confirming test.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next note",
+     "next": "e5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "e4_m9": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: the boot is the classic chest X-ray picture, so it feels like the signature test.",
+     "claims": [
+      "K4"
+     ]
+    },
+    {
+     "text": "But the **echocardiogram** is the gold standard and the primary diagnostic modality.",
+     "claims": [
+      "K6",
+      "K72"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so file this: classic sign on X-ray, gold standard is echo.",
+    "claims": [
+     "K4",
+     "K6"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e4",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e5": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Note 5: \"TOF is the most common cyanotic CHD, and it most commonly presents in older children.\"",
+     "claims": []
+    },
+    {
+     "text": "Which half is the error?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "The presentation: it most commonly presents as a cyanotic neonate",
+     "next": "e5_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Both halves are right; PYQs say beyond the neonatal period",
+     "next": "e5_p",
+     "kind": "partial"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "e5_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "e5_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The first half is a high-yield table entry. Only the second half is doubtful. At what age does TOF most commonly present?",
+     "claims": [
+      "K69",
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the note",
+     "next": "e5",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e5_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "TOF is the **most common cyanotic congenital heart disease**, and it most commonly presents as a **cyanotic neonate**.",
+     "claims": [
+      "K1",
+      "K69",
+      "K24"
+     ]
+    },
+    {
+     "text": "Want the PYQ twist, or the numbers that differ between sources?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "e6",
+     "kind": "continue"
+    },
+    {
+     "label": "The PYQ twist",
+     "next": "d_pyq",
+     "kind": "deeper"
+    },
+    {
+     "label": "Numbers that differ",
+     "next": "d_epi",
+     "kind": "deeper"
+    }
+   ]
+  },
+  "e5_p": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: the note echoes the old 'beyond the neonatal period' wording that some PYQs use. The deeper branch has that story.",
+     "claims": []
+    },
+    {
+     "text": "But current StatPearls says TOF most commonly presents as a **cyanotic neonate**, so the presentation half is the error.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e5",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d_pyq": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "PYQs have expected TOF as the most common cyanotic CHD beyond the neonatal period, as Garagiola and Thorne state; current StatPearls says TOF most commonly presents as a cyanotic neonate.",
+     "claims": [
+      "K75"
+     ],
+     "flag": "unverified"
+    },
+    {
+     "text": "The table entry reads: most common cyanotic CHD beyond the neonatal period, Tetralogy of Fallot.",
+     "claims": [
+      "K70"
+     ],
+     "flag": "unverified"
+    },
+    {
+     "text": "For the exam, know both: the old key, and what the current source says.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the notes",
+     "next": "e6",
+     "kind": "continue"
+    }
+   ],
+   "objectives": [
+    "O11"
+   ]
+  },
+  "d_epi": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Sources differ on frequency: 5 to 7 per 10,000 live births in StatPearls, 3-5 per 10,000 in Garagiola and Thorne, and about 3 to 6 per 10,000 in Gagliardi et al.",
+     "claims": [
+      "K80"
+     ]
+    },
+    {
+     "text": "A **right aortic arch** is seen in 20-25% of TOF.",
+     "claims": [
+      "K19"
+     ]
+    },
+    {
+     "text": "The 22q11.2 deletion is the most common syndromic association of TOF.",
+     "claims": [
+      "K7"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the notes",
+     "next": "e6",
+     "kind": "continue"
+    }
+   ],
+   "objectives": [
+    "O10"
+   ]
+  },
+  "e6": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Last one, from a different angle. The junior asks you which of these IS a component of classic TOF.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Overriding aorta",
+     "next": "e6_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Atrial septal defect",
+     "next": "e6_m1",
+     "kind": "misconception",
+     "misconception": "M1"
+    },
+    {
+     "label": "Patent ductus arteriosus",
+     "next": "e6_m2",
+     "kind": "misconception",
+     "misconception": "M2"
+    },
+    {
+     "label": "Left ventricular hypertrophy",
+     "next": "e6_m3",
+     "kind": "misconception",
+     "misconception": "M3"
+    }
+   ]
+  },
+  "e6_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The **overriding aorta** sits with the large VSD, infundibular RVOT obstruction and right ventricular hypertrophy.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Finish the drill",
+     "next": "wrap",
+     "kind": "continue"
+    }
+   ]
+  },
+  "e6_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "ASD is tempting: it makes the old pentalogy and may accompany TOF.",
+     "claims": [
+      "K5",
+      "K13"
+     ]
+    },
+    {
+     "text": "But it is not one of the four; PYQs key ASD as \"not part of TOF\".",
+     "claims": [
+      "K13",
+      "K77"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: ASD is pentalogy, not a component.",
+    "claims": [
+     "K5",
+     "K13"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e6",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e6_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "PDA is tempting because it may accompany TOF.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "But the four components listed by StatPearls and CDC include no PDA, and PYQs key PDA as \"not part of TOF\".",
+     "claims": [
+      "K13",
+      "K77"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so re-check: may accompany does not mean component.",
+    "claims": [
+     "K13"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e6",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e6_m3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "LVH is tempting because hypertrophy is on the list. The side is the trap.",
+     "claims": []
+    },
+    {
+     "text": "The hypertrophy in TOF is **right** ventricular, and PYQs key LVH as \"not part of TOF\".",
+     "claims": [
+      "K3",
+      "K77"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the side again: the fourth component is right ventricular hypertrophy.",
+    "claims": [
+     "K3"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e6",
+     "kind": "retry"
+    }
+   ]
+  },
+  "wrap": {
+   "role": "recap",
+   "say": [
+    {
+     "text": "Four components, pentalogy adds an ASD, echo is the gold standard, TOF is the most common cyanotic CHD and most often presents as a cyanotic neonate.",
+     "claims": [
+      "K3",
+      "K5",
+      "K6",
+      "K1",
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "On to the one-pager",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}

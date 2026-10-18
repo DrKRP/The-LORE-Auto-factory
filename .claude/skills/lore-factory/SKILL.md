@@ -1,10 +1,12 @@
 ---
 name: lore-factory
-description: One tick of the autonomous LORE factory. Picks the next piece of work (plan the queue, research a topic, or advance a module by one stage) and runs it: research → design → author tournament → blind judging → pick/merge/fold → assemble → fact-check → simulated learners → refine → publish. Use when asked to run, continue or tick the factory, or to build a module.
+description: One tick of the autonomous LORE factory. Picks the next piece of work (plan the queue, refine the design, research a topic, or advance a module by one stage) and runs it: research → trap brief → branch analysis → design → author tournament → blind judging → pick/merge/fold → assemble → pre-authored report → fact-check → simulated learners → refine → publish. Use when asked to run, continue or tick the factory, or to build a module.
 argument-hint: "[<subject>/<slug> to force a module]"
 ---
 
 You are the **factory orchestrator** for one tick. You plan, dispatch agents, run `scripts/factory.py`, and record state; agents do the authoring, judging and checking. Your context stays thin: read agents' short replies and the script's JSON, not variant files, except where a step says so.
+
+Modules are **buttons only, with no AI at run time**, and **distractor-first**: the trap brief and its branch analysis come before any dialogue (`reference/pedagogy.md` §0).
 
 Never ask the user anything: the factory is unattended. Where a choice is needed, decide, write the reason in the module's `run-log.md`, and continue. Limits come from the `Config` block in `CLAUDE.md`; formats from `reference/module-format.md`.
 
@@ -20,6 +22,7 @@ Run `F next` (or, if the user named a module, act on that module's current stage
 |---|---|
 | `stop` | Report that `factory/STOP` exists and end. |
 | `plan` | Dispatch `curriculum-planner` with `planner_batch` and `subjects_focus`. Then go to **End**. |
+| `refine-design` | Run one experiment from `design-refinement/experiments/plan.md` per `design-refinement/README.md`. Then go to **End**. |
 | `start` | `F start <subject> "<topic>"`, then run stage **research** for it. |
 | `refresh` | `F start <subject> "<topic>" --force`, then run **research** in refresh mode. |
 | `stage` | Run that stage for that module. |
@@ -30,13 +33,20 @@ Each stage ends with `F advance <module> <next stage>` (plus `--round` where sho
 
 ### research
 
-Follow `.claude/skills/lore-research/SKILL.md` for the topic in **auto mode** (its "Auto mode" section): you are its orchestrator. If `notes/<subject>/<slug>.md` already exists and this is not a refresh, skip research and say so in `W/run-log.md`. Done → `F advance <module> design`.
+Follow `.claude/skills/lore-research/SKILL.md` for the topic in **auto mode** (its "Auto mode" section): you are its orchestrator. If `notes/<subject>/<slug>.md` already exists and this is not a refresh, skip research and say so in `W/run-log.md`. Done → `F bank <module>` (if it reports fewer than 8 verified claims, `F fail`: "note too thin to teach") → `F advance <module> traps`.
+
+### traps
+
+Dispatch `trap-scout` with the module and `W`. Check `W/trap-brief.md` has at least 8 trap entries. → `F advance <module> analysis`.
+
+### analysis
+
+Dispatch `distractor-analyst` with `W`. Check `W/trap-map.json` parses and every trap has ≥ 2 probes. → `F advance <module> design`.
 
 ### design
 
-1. `F bank <module>`. If it reports fewer than 8 verified claims, `F fail` ("note too thin to teach").
-2. Dispatch `module-architect` with the module and `W`.
-3. Check `W/blueprint.json` exists and parses. → `F advance <module> author --round 0`.
+1. Dispatch `module-architect` with the module and `W`.
+2. Check `W/blueprint.json` exists and parses. → `F advance <module> author --round 0`.
 
 ### author
 
@@ -60,17 +70,25 @@ For each segment built this round, dispatch `judges_per_segment` `dialogue-judge
 
 1. `F assemble <module>`, then `F validate <module>`.
 2. On errors: group them by segment (the node prefix `S<k>.`), dispatch one `module-editor` in **patch** mode per affected segment with its errors (parallel), then assemble and validate again. At most 2 patch loops; still failing → `F fail` with the first errors.
-3. Clean → `F advance <module> verify`.
+3. Clean → `F advance <module> report`.
+
+### report
+
+1. Dispatch `report-author` with `W`. It writes `W/report.json`, re-assembles, and validates with `--require-report`.
+2. Run `F assemble <module>` and `F validate <module> --require-report` yourself; errors → back to `report-author` once with them; still failing → `F fail`.
+3. → `F advance <module> verify`.
+
+From here on, every `F validate` in this module uses `--require-report`.
 
 ### verify
 
 1. Dispatch `dialogue-verifier` with `W`.
-2. FAIL rows → `module-editor` patch per affected segment, then `F assemble` and `F validate`, then the verifier again. At most 2 loops; still failing → `F fail`.
+2. FAIL rows → `module-editor` patch per affected segment (FAILs on `report.*` rows go to `report-author` instead), then `F assemble` and `F validate`, then the verifier again. At most 2 loops; still failing → `F fail`.
 3. All PASS → `F advance <module> evaluate`.
 
 ### evaluate
 
-1. `F clear <module> sim`. Dispatch, in one message, one `learner-sim` per persona in `sim_personas`, and one `dialogue-judge` in **module mode** with the lens "all three lenses in turn" writing `W/review.json`.
+1. `F clear <module> sim`. Dispatch, in one message, one `learner-sim` per persona in `sim_personas`, and one `dialogue-judge` in **module mode** with the lens "all three lenses in turn" writing `W/review.json`. Dispatch the judge after the sims finish, so it can read their rendered reports (`W/sim/*.report.json`).
 2. `F score <module>`. It prints the composite, whether this round is the best so far (and snapshots it to `W/best/`), and the threshold.
 3. → `F advance <module> refine`.
 
@@ -83,10 +101,10 @@ Read `W/scorecard.json` and the round number from `factory/state/`.
 
 ```json
 {"round": 1, "rebuild": ["S4"], "critique": {"S4": "…what judges and sims found, concretely…"},
- "patch": {"S2": ["S2.exp1: two ideas in one message", "M3 survived for the misconceived sim: re-test it in S6"]}}
+ "patch": {"S2": ["S2.exp1: two ideas in one message", "TR3 survived for the misconceived sim: re-test it in S6"]}}
 ```
 
-  Rebuild (new tournament) a segment the review scored below 3.5 or where a misconception `survived`; patch smaller problems. Then dispatch `module-editor` patch per `patch` segment (parallel), and:
+  Rebuild (new tournament) a segment the review scored below 3.5 or where a trap `survived`, or whose report check came back inaccurate; patch smaller problems. Then dispatch `module-editor` patch per `patch` segment (parallel), and:
   - `rebuild` non-empty → `F advance <module> author --round <r+1>`;
   - else → `F advance <module> assemble --round <r+1>`.
 

@@ -160,14 +160,14 @@ function render() {
   n.choices.forEach((c, i) => {
     const b = document.createElement("button");
     b.textContent = c.label;
-    b.onclick = () => n.ask_confidence && ["correct", "partial", "misconception"].includes(c.kind) ? (S.pending = i, render()) : commit(i, null);
+    b.onclick = () => n.ask_confidence && ["correct", "partial", "trap"].includes(c.kind) ? (S.pending = i, render()) : commit(i, null);
     box.appendChild(b);
   });
 }
 
 function commit(i, sure) {
   const n = M.nodes[S.at], c = n.choices[i];
-  S.hist.push({ at: S.at, choice: i, sure, kind: c.kind, mis: c.misconception || null, probe: n.role === "probe" });
+  S.hist.push({ at: S.at, choice: i, sure, t: Date.now() });
   S.pending = null;
   bubble("learner", esc(c.label) + (sure === null ? "" : ` <span class="days">· ${sure ? "Sure" : "Guessing"}</span>`));
   S.at = c.next;
@@ -178,36 +178,116 @@ function commit(i, sure) {
   window.scrollTo(0, document.body.scrollHeight);
 }
 
+// Report engine: mirrors render_report() in scripts/factory.py (rules: reference/report.md). Keep in sync.
+function computeReport() {
+  const nodes = M.nodes, traps = Object.fromEntries((M.traps || []).map((t) => [t.id, t]));
+  const steps = S.hist.map((h) => {
+    const n = nodes[h.at], c = n.choices[h.choice];
+    return { node: h.at, role: n.role, kind: c.kind, trap: c.trap || null, sure: h.sure ?? null,
+      objectives: n.objectives || [], offers: n.choices.filter((x) => x.kind === "trap").map((x) => x.trap) };
+  });
+  const first = [], seen = new Set();
+  for (const s of steps) if (s.role === "probe" && ["correct", "partial", "trap"].includes(s.kind) && !seen.has(s.node)) { seen.add(s.node); first.push(s); }
+  const trapStatus = {};
+  for (const tid of Object.keys(traps)) {
+    const enc = first.filter((s) => s.offers.includes(tid));
+    if (!enc.length) { trapStatus[tid] = "not_met"; continue; }
+    const fell = enc.map((s, i) => (s.trap === tid ? i : -1)).filter((i) => i >= 0);
+    if (!fell.length) trapStatus[tid] = "avoided";
+    else if (enc.slice(fell[fell.length - 1] + 1).some((s) => s.kind === "correct") && enc[enc.length - 1].kind === "correct") trapStatus[tid] = "fell_recovered";
+    else trapStatus[tid] = "fell_open";
+  }
+  const levels = {};
+  for (const o of M.objectives || []) {
+    const ans = first.filter((s) => s.objectives.includes(o.id));
+    const lane = steps.some((s) => s.kind === "skip" && s.objectives.includes(o.id));
+    const openTrap = Object.entries(traps).some(([t, d]) => trapStatus[t] === "fell_open" && (d.objectives || []).includes(o.id));
+    if (!ans.length && !lane) { levels[o.id] = "unseen"; continue; }
+    const wrong = ans.filter((s) => s.kind !== "correct").length;
+    const sureWrong = ans.filter((s) => s.sure === true && s.kind !== "correct").length;
+    const guessed = ans.filter((s) => s.sure === false).length;
+    if (openTrap || (ans.length && wrong * 2 >= ans.length)) levels[o.id] = "gap";
+    else if ((wrong === 0 && sureWrong === 0 && guessed * 2 < Math.max(1, ans.length)) || (lane && wrong === 0)) levels[o.id] = "secure";
+    else levels[o.id] = "shaky";
+  }
+  const fallen = Object.keys(trapStatus).filter((t) => trapStatus[t].startsWith("fell"));
+  const byType = {};
+  for (const t of fallen) (byType[traps[t].error_type] = byType[traps[t].error_type] || []).push(t);
+  const conf = first.filter((s) => s.sure !== null);
+  const sureWrong = conf.filter((s) => s.sure && s.kind !== "correct").length;
+  const guessRight = conf.filter((s) => s.sure === false && s.kind === "correct").length;
+  let calibration = null;
+  if (conf.length >= 3) calibration = sureWrong >= 2 ? "overconfident" : (guessRight >= 3 && sureWrong === 0 ? "underconfident" : "calibrated");
+  const hints = steps.filter((s) => s.kind === "help").length;
+  const help = hints >= 3 ? "hints_heavy" : (hints === 0 && fallen.length ? "hints_none" : null);
+  const core = (M.objectives || []).filter((o) => o.core).map((o) => o.id);
+  const gaps = core.filter((o) => levels[o] === "gap");
+  const shaky = Object.keys(levels).filter((o) => levels[o] === "shaky");
+  const headline = !gaps.length && shaky.length <= 1 ? "strong" : (gaps.length * 3 >= Math.max(1, core.length) ? "weak" : "mixed");
+  const rank = { gap: 0, shaky: 1 };
+  const cardOrder = (M.cards || []).map((c, i) => i).sort((a, b) => (rank[levels[M.cards[a].objective]] ?? 2) - (rank[levels[M.cards[b].objective]] ?? 2));
+  return { headline, objectives: levels, traps: trapStatus, error_profile: byType, calibration, sure_wrong: sureWrong,
+    guess_right: guessRight, hints, fast_lane: steps.some((s) => s.kind === "skip"), card_order: cardOrder, steps };
+}
+
+function rtext(...keys) { let x = M.report || {}; for (const k of keys) x = (x || {})[k]; return x && x.text ? x : null; }
+
 function summary() {
-  const probes = S.hist.filter((h) => h.probe && ["correct", "partial", "misconception"].includes(h.kind));
-  const seen = new Set(), first = [];
-  for (const h of probes) if (!seen.has(h.at)) { seen.add(h.at); first.push(h); }
-  const right = first.filter((h) => h.kind === "correct").length;
-  const sureWrong = probes.filter((h) => h.sure === true && h.kind !== "correct").length;
-  const sureRight = probes.filter((h) => h.sure === true && h.kind === "correct").length;
-  const mis = [...new Set(probes.filter((h) => h.mis).map((h) => h.mis))];
+  const R = computeReport();
+  const msg = (m) => (m ? `<p>${md(m.text)}${cite(m.claims)}</p>` : "");
+  const LV = { secure: "Secure", shaky: "Shaky", gap: "Gap", unseen: "Not seen" };
+  const TS = { avoided: "Avoided", fell_recovered: "Fell, then fixed", fell_open: "Fell, still open", not_met: "Not met" };
   const p = document.createElement("div");
   p.className = "panel";
-  p.innerHTML = `<h2>Module complete</h2><div class="stats">
-    <div class="stat"><b>${right}/${first.length}</b>right first time</div>
-    <div class="stat"><b>${sureRight}</b>sure and right</div>
-    <div class="stat"><b>${sureWrong}</b>sure but wrong: review these first</div>
-    <div class="stat"><b>${S.hist.length}</b>steps</div></div>` +
-    (mis.length ? `<p>Misconceptions you met: ${mis.map((m) => esc((M.misconceptions.find((x) => x.id === m) || { text: m }).text)).join("; ")}</p>` : "");
+  const firstAns = R.steps.filter((s, i, a) => s.role === "probe" && ["correct", "partial", "trap"].includes(s.kind) && a.findIndex((x) => x.node === s.node) === i);
+  p.innerHTML = `<h2>Your report</h2>` + msg(rtext("headline", R.headline)) + `<div class="stats">
+    <div class="stat"><b>${firstAns.filter((s) => s.kind === "correct").length}/${firstAns.length}</b>right first time</div>
+    <div class="stat"><b>${R.sure_wrong}</b>sure but wrong</div>
+    <div class="stat"><b>${R.guess_right}</b>guessed and right</div>
+    <div class="stat"><b>${R.hints}</b>hints used</div></div>`;
   $("chat").appendChild(p);
+  const o = document.createElement("div");
+  o.className = "panel";
+  o.innerHTML = "<h2>What you know</h2>" + (M.objectives || []).map((ob) => {
+    const lv = R.objectives[ob.id];
+    return `<div class="card open"><div><b>${LV[lv]}</b> · ${esc(ob.text)}</div>${lv in LV && lv !== "unseen" ? `<div class="a">${msg(rtext("objectives", ob.id, lv))}</div>` : ""}</div>`;
+  }).join("");
+  $("chat").appendChild(o);
+  const t = document.createElement("div");
+  t.className = "panel";
+  const fallen = (M.traps || []).filter((tr) => R.traps[tr.id].startsWith("fell"));
+  t.innerHTML = "<h2>Traps</h2>" + (fallen.length ? fallen.map((tr) =>
+    `<div class="card open"><div><b>${TS[R.traps[tr.id]]}</b> · ${esc(tr.trap)}</div><div class="a">${msg(rtext("traps", tr.id, R.traps[tr.id]))}</div></div>`).join("") : "<p>You fell into none of the traps you met.</p>") +
+    `<p class="days">Avoided: ${(M.traps || []).filter((tr) => R.traps[tr.id] === "avoided").length} · Not met on your path: ${(M.traps || []).filter((tr) => R.traps[tr.id] === "not_met").length}</p>` +
+    Object.entries(R.error_profile).filter(([, ts]) => ts.length >= 2).map(([et]) => msg(rtext("error_types", et))).join("") +
+    (R.calibration ? msg(rtext("calibration", R.calibration)) : "") +
+    (R.hints >= 3 ? msg(rtext("help", "hints_heavy")) : (R.hints === 0 && fallen.length ? msg(rtext("help", "hints_none")) : "")) +
+    (R.fast_lane ? msg(rtext("pace", "fast_lane")) : "") +
+    msg(rtext("next_steps", Object.values(R.objectives).some((v) => v === "gap" || v === "shaky") ? "gap" : "clear"));
+  $("chat").appendChild(t);
   if (M.cards && M.cards.length) {
     const c = document.createElement("div");
     c.className = "panel";
-    c.innerHTML = `<h2>Review cards</h2><p class="days">Tap to reveal. Come back on days ${esc((M.cards[0].schedule_days || []).join(", "))}.</p>` +
-      M.cards.map((k) => `<div class="card"><div>${md(k.q)}</div><div class="a">${md(k.a)}${cite(k.claims)}</div></div>`).join("");
+    c.innerHTML = `<h2>Review cards</h2><p class="days">Weakest first. Tap to reveal. Come back on days ${esc((M.cards[0].schedule_days || []).join(", "))}.</p>` +
+      R.card_order.map((i) => { const k = M.cards[i]; return `<div class="card"><div>${md(k.q)} <span class="days">${esc(LV[R.objectives[k.objective]] || "")}</span></div><div class="a">${md(k.a)}${cite(k.claims)}</div></div>`; }).join("");
     c.addEventListener("click", (e) => { const k = e.target.closest(".card"); if (k && !e.target.closest("a")) k.classList.toggle("open"); });
     $("chat").appendChild(c);
   }
   const r = document.createElement("div");
   r.className = "panel";
   r.innerHTML = "<h2>References</h2><ol>" + Object.entries(M.references).map(([n, ref]) =>
-    `<li value="${esc(n)}">${esc(ref.title)} <a href="${esc(ref.url)}" target="_blank" rel="noopener">link</a> <span class="days">tier ${ref.tier ?? "?"}</span></li>`).join("") + "</ol>";
+    `<li value="${esc(n)}">${esc(ref.title)} <a href="${esc(ref.url)}" target="_blank" rel="noopener">link</a> <span class="days">tier ${ref.tier ?? "?"}</span></li>`).join("") +
+    `</ol><button id="export">Download session record</button>`;
   $("chat").appendChild(r);
+  $("export").onclick = () => {
+    const { steps, ...computed } = R;
+    const rec = { module: M.id, version: M.version, started: S.hist.length ? new Date(S.hist[0].t || Date.now()).toISOString() : null,
+      finished: new Date().toISOString(), path: S.hist.map((h) => ({ node: h.at, choice: h.choice, sure: h.sure ?? null, t: h.t || null })), report: computed };
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(rec, null, 2)], { type: "application/json" }));
+    a.download = `${M.id.replace("/", "__")}-session.json`;
+    a.click();
+  };
 }
 
 function save() { store("lore:" + M.id, { hist: S.hist, at: S.at }); }

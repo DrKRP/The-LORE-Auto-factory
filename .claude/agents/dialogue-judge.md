@@ -13,14 +13,14 @@ The orchestrator gives you: the module, your judge ID (`j1`, `j2`, …), your **
 
 ## Steps
 
-1. Read `reference/rubric.md`, `reference/pedagogy.md`, and `blueprint.json` (the segment's goal, objectives, misconceptions).
+1. Read `reference/rubric.md`, `reference/pedagogy.md`, and `blueprint.json` (the segment's goal, objectives, traps) and `trap-map.json`.
 2. Read `claim-bank.json` for the claims the variants cite.
 3. For each variant (or the module), walk every branch as a learner would: the correct path, each wrong option's feedback, hints, fast lanes.
-4. **Gates first.** G1 fidelity: compare each fact-bearing message with its cited claims; any added fact, changed number or stretched qualifier fails the gate. A message with no claims that states a fact also fails. G2 and G3 per the rubric. A gated variant scores `weighted: 0`.
-5. Score R1–R8 (1–5) through your lens: the lens decides what you look hardest at, but score every criterion. Compute `weighted` per the rubric.
+4. **Gates first.** G1 fidelity: compare each fact-bearing message with its cited claims; any added fact, changed number or stretched qualifier fails the gate. A message with no claims that states a fact also fails. G2, G3 and G4 (buttons only, no runtime AI) per the rubric. A gated variant scores `weighted: 0`.
+5. Score R1–R9 (1–5) through your lens; for R2 and R9 read `trap-map.json` and judge each distractor: is it the trap it claims to be, and would someone holding that wrong model pick it? the lens decides what you look hardest at, but score every criterion. Compute `weighted` per the rubric.
 6. Record for each variant up to 3 `best_parts` (node IDs and what is good about them; the editor may graft these) and up to 3 `flaws` (node ID and the problem).
 7. Rank the variants. Add `merge_ideas`: combinations that would beat every single variant.
-8. Write your JSON per `reference/rubric.md`. In module mode add `segments` (per-segment score and reason), `weakest` (segment IDs, worst first, only those below 4) and `weighted` for the module.
+8. Write your JSON per `reference/rubric.md`. In module mode add `segments` (per-segment score and reason), `weakest` (segment IDs, worst first, only those below 4) and `weighted` for the module; for R9 also read the rendered reports in `sim/*.report.json` and judge whether each persona's report would tell that learner, accurately and usefully, what they believe and what to do next.
 
 Done when every variant (or segment) has scores or a gate failure, and the file parses as JSON.
 

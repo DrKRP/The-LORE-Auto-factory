@@ -1,0 +1,1096 @@
+{
+ "segment": "S8",
+ "technique": "T12",
+ "entry": "start",
+ "nodes": {
+  "start": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Time to build your one-pager. You choose what goes on it; I only check it.",
+     "claims": []
+    },
+    {
+     "text": "Five quick picks, then your review cards.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "a1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "a1": {
+   "role": "probe",
+   "objectives": [
+    "O1",
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "Pick the best 'basics' line for the top of your TOF page.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Most common cyanotic CHD; four parts: VSD, overriding aorta, RVOT obstruction, RVH",
+     "next": "a1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Most common cyanotic CHD; four parts: VSD, ASD, overriding aorta, RVOT obstruction",
+     "next": "a1_m1",
+     "kind": "misconception",
+     "misconception": "M1"
+    },
+    {
+     "label": "Most common cyanotic CHD; four parts: VSD, overriding aorta, RVOT obstruction, LVH",
+     "next": "a1_m3",
+     "kind": "misconception",
+     "misconception": "M3"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "a1_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "a1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The right-sided ventricle has to push against the obstructed outflow. Which ventricle thickens, and is a second septal defect part of the four?",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "a1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "a1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. TOF is the **most common cyanotic congenital heart disease**, and classic TOF has a large VSD, an overriding aorta, infundibular RVOT obstruction and **right ventricular hypertrophy**.",
+     "claims": [
+      "K1",
+      "K3"
+     ]
+    },
+    {
+     "text": "**Pentalogy of Fallot** is TOF plus an **atrial septal defect**, so the ASD sits outside the four.",
+     "claims": [
+      "K5"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "b1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "a1_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: ASD is a septal defect, and an ASD does get attached to TOF in the pentalogy.",
+     "claims": [
+      "K5"
+     ]
+    },
+    {
+     "text": "But the four are a large VSD, an overriding aorta, infundibular RVOT obstruction and RVH. ASD makes it **pentalogy**.",
+     "claims": [
+      "K3",
+      "K5"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "a1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so lock this in: TOF plus ASD is pentalogy of Fallot, never the classic four.",
+    "claims": [
+     "K3",
+     "K5"
+    ]
+   }
+  },
+  "a1_m3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: hypertrophy is in the name of the finding, so the wrong ventricle slips in.",
+     "claims": []
+    },
+    {
+     "text": "The component is **right ventricular hypertrophy**, as the RV pushes against the RVOT obstruction. LVH is not one of the four.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "a1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so pause on this: the fourth component is right, not left, ventricular hypertrophy.",
+    "claims": [
+     "K3"
+    ]
+   }
+  },
+  "b1": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "say": [
+    {
+     "text": "Now the one line that explains the colour. Which goes on your page?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Tighter RVOT obstruction means more blood bypasses the lungs, so bluer",
+     "next": "b1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "The bigger the VSD, the bluer the child",
+     "next": "b1_m5",
+     "kind": "misconception",
+     "misconception": "M5"
+    },
+    {
+     "label": "If RVOT resistance is below systemic resistance, the child is deeply blue",
+     "next": "b1_m5b",
+     "kind": "misconception",
+     "misconception": "M5"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "b1_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "b1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which structure sets how much blood reaches the lungs: the hole or the outflow?",
+     "claims": [
+      "K1"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "b1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "b1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. With significant RVOT obstruction, most blood shunts toward the aorta, bypassing the pulmonary bed.",
+     "claims": [
+      "K20"
+     ]
+    },
+    {
+     "text": "Presentation varies with the severity of RVOT obstruction. Resistance across the RVOT below systemic resistance means minimally cyanotic or acyanotic: the pink Tet.",
+     "claims": [
+      "K1",
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "c1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "b1_m5": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: the VSD is the visible hole, so it seems to set the shunt.",
+     "claims": []
+    },
+    {
+     "text": "But the clinical presentation varies with the severity of **RVOT obstruction**. Significant obstruction sends most blood to the aorta, away from the lungs.",
+     "claims": [
+      "K1",
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "b1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember: it is the outflow obstruction, not the VSD size, that sets the blueness.",
+    "claims": [
+     "K1"
+    ]
+   }
+  },
+  "b1_m5b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: the numbers are the right ones, but the direction is flipped.",
+     "claims": []
+    },
+    {
+     "text": "If resistance across the RVOT is **less** than systemic resistance, the patient is minimally cyanotic or acyanotic.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "b1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so flip it back: low RVOT resistance means pink, not blue.",
+    "claims": [
+     "K22"
+    ]
+   }
+  },
+  "c1": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Next, the imaging line. Which is correct for your page?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Boot-shaped heart is a classic X-ray sign; echo is the gold standard",
+     "next": "c1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Boot-shaped X-ray confirms TOF; echo is only a backup",
+     "next": "c1_m9",
+     "kind": "misconception",
+     "misconception": "M9"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "c1_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "c1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "A sign you can see on film and the test that is the gold standard are not always the same test.",
+     "claims": [
+      "K6"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "c1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "c1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Chest films may classically show a **boot-shaped** heart with an upturned apex from RVH.",
+     "claims": [
+      "K4"
+     ]
+    },
+    {
+     "text": "But the **echocardiogram** is the gold standard and the primary diagnostic modality.",
+     "claims": [
+      "K6",
+      "K72"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "d1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "c1_m9": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: 'classic sign' sounds like 'confirmatory test'.",
+     "claims": []
+    },
+    {
+     "text": "The boot is only a classic X-ray possibility. The **echocardiogram** is the gold standard.",
+     "claims": [
+      "K4",
+      "K6"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "c1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note the split: boot = classic sign, echo = gold standard.",
+    "claims": [
+     "K4",
+     "K6",
+     "K72"
+    ]
+   }
+  },
+  "d1": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "The tet spell card. Which step goes with the reason 'increase systemic vascular resistance'?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Knee-chest positioning",
+     "next": "d1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Vasodilator to lower systemic resistance",
+     "next": "d1_m7",
+     "kind": "misconception",
+     "misconception": "M7"
+    },
+    {
+     "label": "Diuretic, as for heart failure",
+     "next": "d1_m7b",
+     "kind": "misconception",
+     "misconception": "M7"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "d1_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "d1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "A spell pushes blood away from the lungs; the fix raises resistance in the systemic circuit. Which option does that, with no drug?",
+     "claims": [
+      "K43"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "d1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. **Knee-chest positioning**, to increase systemic vascular resistance.",
+     "claims": [
+      "K43"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "d2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "d1_m7": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: vasodilating sounds like easing the strain on the heart.",
+     "claims": []
+    },
+    {
+     "text": "The listed spell steps do the opposite: knee-chest to increase SVR, and **IV phenylephrine** to increase systemic afterload.",
+     "claims": [
+      "K43",
+      "K47"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "d1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember: the logic is to raise systemic resistance, never lower it.",
+    "claims": [
+     "K43",
+     "K47"
+    ]
+   }
+  },
+  "d1_m7b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: a blue, struggling child looks like failure that needs a diuretic.",
+     "claims": []
+    },
+    {
+     "text": "But the listed steps are knee-chest, oxygen, **IV fluid boluses** to improve RV filling, IV beta-blockers, IV phenylephrine and morphine.",
+     "claims": [
+      "K43",
+      "K44",
+      "K45",
+      "K46",
+      "K47",
+      "K48"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "d1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note this: spell management adds fluid to fill the RV, it does not remove it.",
+    "claims": [
+     "K45"
+    ]
+   }
+  },
+  "d2": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "Pair another. Which step goes with 'pulmonary vasodilation'?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Oxygen",
+     "next": "d2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "IV phenylephrine",
+     "next": "d2_w1",
+     "kind": "partial"
+    },
+    {
+     "label": "IV fluid boluses",
+     "next": "d2_w2",
+     "kind": "partial"
+    }
+   ]
+  },
+  "d2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. **Oxygen**, to cause pulmonary vasodilation.",
+     "claims": [
+      "K44"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "d3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "d2_w1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Close, it is on the spell card, but its job is different: **phenylephrine** increases systemic afterload.",
+     "claims": [
+      "K47"
+     ]
+    },
+    {
+     "text": "Oxygen is the one for pulmonary vasodilation.",
+     "claims": [
+      "K44"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "d2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d2_w2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Close, it is on the card too, but fluid boluses improve RV filling.",
+     "claims": [
+      "K45"
+     ]
+    },
+    {
+     "text": "Oxygen is the one for pulmonary vasodilation.",
+     "claims": [
+      "K44"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "d2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d3": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "Last pair. Which reason goes with IV beta-blockers?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Decrease heart rate and aid RV filling further",
+     "next": "d3_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Increase systemic afterload",
+     "next": "d3_w1",
+     "kind": "partial"
+    },
+    {
+     "label": "Sedation",
+     "next": "d3_w2",
+     "kind": "partial"
+    }
+   ]
+  },
+  "d3_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. **IV beta-blockers**, to decrease heart rate and aid RV filling further.",
+     "claims": [
+      "K46"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "e1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "d3_w1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That reason belongs to phenylephrine.",
+     "claims": [
+      "K47"
+     ]
+    },
+    {
+     "text": "Beta-blockers slow the heart rate and aid RV filling further.",
+     "claims": [
+      "K46"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "d3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d3_w2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is morphine, given as a sedative in a spell.",
+     "claims": [
+      "K48"
+     ]
+    },
+    {
+     "text": "Beta-blockers slow the heart rate and aid RV filling further.",
+     "claims": [
+      "K46"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "d3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e1": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "say": [
+    {
+     "text": "A repaired TOF child returns years later. Write the line: commonest reason to reoperate?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Pulmonary insufficiency",
+     "next": "e1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Residual VSD",
+     "next": "e1_m10",
+     "kind": "misconception",
+     "misconception": "M10"
+    },
+    {
+     "label": "Recurrent pulmonary stenosis",
+     "next": "e1_m10b",
+     "kind": "misconception",
+     "misconception": "M10"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "e1_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "e1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think of what the repair leaves behind at the pulmonary valve, not the lesions it closed.",
+     "claims": [
+      "K61"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "e1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. **Pulmonary insufficiency** is the most common indication for reoperation after repair.",
+     "claims": [
+      "K61",
+      "K73"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "f1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "e1_m10": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: the VSD was the original hole, so a leftover feels likely.",
+     "claims": []
+    },
+    {
+     "text": "The answer is **pulmonary insufficiency**, the most common indication for reoperation.",
+     "claims": [
+      "K61",
+      "K73"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recall: after repair, the valve leaks, not the VSD patch.",
+    "claims": [
+     "K61"
+    ]
+   }
+  },
+  "e1_m10b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: the obstruction was the original problem, so it might return.",
+     "claims": []
+    },
+    {
+     "text": "But the most common indication for reoperation is **pulmonary insufficiency**.",
+     "claims": [
+      "K61",
+      "K73"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember: pulmonary insufficiency tops the list.",
+    "claims": [
+     "K73"
+    ]
+   }
+  },
+  "f1": {
+   "role": "probe",
+   "objectives": [
+    "O9"
+   ],
+   "say": [
+    {
+     "text": "Without surgery, what is the most frequent cause of death? Add it to the page.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Hypoxic spells (68%)",
+     "next": "f1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Cerebrovascular accidents",
+     "next": "f1_w1",
+     "kind": "partial"
+    },
+    {
+     "label": "Brain abscesses",
+     "next": "f1_w2",
+     "kind": "partial"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "f1_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "f1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "You just built the spell card. The commonest killer is the event it treats.",
+     "claims": [
+      "K74"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "f1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "f1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Without surgery: **hypoxic spells (68%)**, cerebrovascular accidents (17%), brain abscesses (13%).",
+     "claims": [
+      "K74"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "wrap",
+     "kind": "continue"
+    }
+   ]
+  },
+  "f1_w1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "It is a real cause, but second: 17%.",
+     "claims": [
+      "K74"
+     ]
+    },
+    {
+     "text": "Hypoxic spells lead at 68%.",
+     "claims": [
+      "K74"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "f1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so fix the order: spells 68%, strokes 17%, abscesses 13%.",
+    "claims": [
+     "K74"
+    ]
+   }
+  },
+  "f1_w2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "It is a real cause, but the smallest of the three: 13%.",
+     "claims": [
+      "K74"
+     ]
+    },
+    {
+     "text": "Hypoxic spells lead at 68%.",
+     "claims": [
+      "K74"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "f1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so fix the order: spells 68%, strokes 17%, abscesses 13%.",
+    "claims": [
+     "K74"
+    ]
+   }
+  },
+  "wrap": {
+   "role": "recap",
+   "say": [
+    {
+     "text": "That is your one-pager: the four parts, the outflow idea, echo as gold standard, the spell card, pulmonary insufficiency and hypoxic spells.",
+     "claims": []
+    },
+    {
+     "text": "Your review cards follow.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Finish",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ },
+ "cards": [
+  {
+   "q": "Most common cyanotic congenital heart disease?",
+   "a": "Tetralogy of Fallot.",
+   "claims": [
+    "K1",
+    "K69"
+   ],
+   "objective": "O1"
+  },
+  {
+   "q": "Four components of classic TOF?",
+   "a": "Large anteriorly malaligned VSD, overriding aorta, infundibular RVOT obstruction, RVH.",
+   "claims": [
+    "K3"
+   ],
+   "objective": "O2"
+  },
+  {
+   "q": "Pentalogy of Fallot?",
+   "a": "TOF plus an atrial septal defect.",
+   "claims": [
+    "K5"
+   ],
+   "objective": "O2"
+  },
+  {
+   "q": "What decides how blue a TOF child is?",
+   "a": "Severity of RVOT obstruction: significant obstruction shunts most blood to the aorta; resistance below systemic means minimally cyanotic.",
+   "claims": [
+    "K1",
+    "K20",
+    "K22"
+   ],
+   "objective": "O3"
+  },
+  {
+   "q": "Gold standard for TOF diagnosis?",
+   "a": "Echocardiogram; the boot-shaped heart is only a classic X-ray possibility.",
+   "claims": [
+    "K6",
+    "K72",
+    "K4"
+   ],
+   "objective": "O5"
+  },
+  {
+   "q": "Tet spell steps and reasons?",
+   "a": "Knee-chest (raise SVR), oxygen (pulmonary vasodilation), IV fluids (RV filling), IV beta-blockers (lower heart rate), IV phenylephrine (raise afterload), morphine (sedation).",
+   "claims": [
+    "K43",
+    "K44",
+    "K45",
+    "K46",
+    "K47",
+    "K48"
+   ],
+   "objective": "O6"
+  },
+  {
+   "q": "Commonest indication for reoperation after repair?",
+   "a": "Pulmonary insufficiency.",
+   "claims": [
+    "K61",
+    "K73"
+   ],
+   "objective": "O8"
+  },
+  {
+   "q": "Commonest cause of death without surgery?",
+   "a": "Hypoxic spells (68%), then cerebrovascular accidents (17%), brain abscesses (13%).",
+   "claims": [
+    "K74"
+   ],
+   "objective": "O9"
+  }
+ ]
+}
