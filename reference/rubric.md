@@ -16,13 +16,13 @@ Used by `dialogue-judge` to score segment variants (segment mode) and whole modu
 | id | criterion | weight | 1 | 3 | 5 |
 |---|---|---|---|---|---|
 | R1 | Learner does the thinking | 3 | Mostly telling; choices are "Next" | Probes before most ideas | Every idea is reached by the learner's own commitment before it is told |
-| R2 | Trap work | 3 | Filler distractors, generic "incorrect" | Real traps, short feedback | Each wrong option is one trap from the trap map, as plausible as the key to someone holding that wrong model; feedback names the wrong model, says why tempting, refutes with the error type's repair, re-tests later in another form |
+| R2 | Trap work | 3 | Filler distractors, generic "incorrect"; a distractor that tempts no one; the key findable by form | Real traps, short feedback | Each wrong option is one trap from the trap map, as plausible as the key to someone holding that wrong model; feedback names the wrong model, says why tempting, refutes with the error type's repair, re-tests later in another form; no option is dominated (DP2) |
 | R3 | Objective coverage | 2 | Objectives missed | All covered on main path | All covered on every path, at the right depth |
-| R4 | Clarity and load | 2 | Long, dense, several ideas per node | Mostly one idea per node | Every node one idea, tight, ≤ 60 words, plain words |
+| R4 | Clarity and load | 2 | Long, dense, several ideas per node | Mostly one idea per node | Every node one idea and one question, tight, ≤ 60 words, plain words, one term per concept |
 | R5 | Adaptivity | 2 | One path for all | Some remediation | Fast lane, hint ladder, a different second explanation |
 | R6 | Exam alignment | 2 | Ignores PYQ asks | High-yield covered | High-yield drilled in exam form, traps explicit |
 | R7 | Clinical authenticity | 1 | Abstract recitation | Some cases | Decisions framed as real clinical moments |
-| R8 | Voice and engagement | 1 | Flat or patronising | Pleasant | Warm, sharp, makes the learner want the next node |
+| R8 | Voice and engagement | 1 | Flat or patronising; ability praise or controlling words | Pleasant | Warm, sharp, makes the learner want the next node |
 | R9 | Diagnosticity | 2 | The path says little about what the learner believes | Most choices reveal something | Every choice separates one wrong model from the right one, so the path alone tells a teacher what this learner believes; the report (module mode) says it precisely and usefully |
 
 Weighted score = Σ(score × weight) / Σ(weight), on the 1–5 scale.

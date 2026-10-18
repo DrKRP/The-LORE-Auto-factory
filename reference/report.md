@@ -19,26 +19,30 @@ Each step: `{node, choice, kind, trap, sure, objectives}`, in order. `kind` is t
 | `not_met` | no probe offering the trap was encountered |
 | `avoided` | encountered, never chosen |
 | `fell_recovered` | chosen at least once, and the **last** encounter of a probe offering it was answered correctly |
-| `fell_repeated` | chosen, and the last encounter was the trap again (or a later encounter was wrong) |
+| `fell_open` | chosen, and not followed by a correct answer on a later probe offering it (fallen and not yet shown fixed) |
 
 **Objective mastery** for each objective, over first answers on probes tagged with it:
 
 | level | when |
 |---|---|
 | `secure` | all first answers correct, none "Sure" and wrong; or a fast lane was earned (correct + Sure on the diagnostic) |
-| `gap` | at least half the first answers wrong, or any trap linked to the objective is `fell_repeated` |
+| `gap` | at least half the first answers wrong, or any trap linked to the objective is `fell_open` |
 | `shaky` | anything else (some misses, or right but Guessing on most) |
 | `unseen` | no tagged probe answered |
 
-**Error-type profile.** Count traps fallen into (`fell_recovered` + `fell_repeated`) by `error_type`. Each type with ≥ 2 falls shows its `error_types` text; with exactly one, the trap's own text covers it.
+**Error-type profile.** Count traps fallen into (`fell_recovered` + `fell_open`) by `error_type`. Each type with ≥ 2 falls shows its `error_types` text; with exactly one, the trap's own text covers it.
 
 **Calibration.** Over first answers on probes that asked for confidence: `sure_wrong` ≥ 2 → `overconfident`; `guess_right` ≥ 3 and `sure_wrong` = 0 → `underconfident`; otherwise `calibrated` (only when at least 3 confidence answers exist).
 
-**Help.** Hints used ≥ 3 → `hints_heavy`; 0 hints and ≥ 1 trap fallen → `hints_none`; otherwise nothing.
+**Confident errors (DP7).** Traps the learner fell into while tapping Sure are listed first, marked "you were sure", and their objectives' cards come first in the review order.
+
+**Cold evidence (DP11).** A first answer is *hinted* if the learner opened a hint on that probe before answering, and *cold* if the probe offers no hint at all. The report shows cold right / cold total. `hinted_only` = objectives answered right only after a hint, never right unaided.
+
+**Help.** Hints used ≥ 3 → `hints_heavy`; else any `hinted_only` objective → `hinted_only`; else 0 hints and ≥ 1 trap fallen → `hints_none`; otherwise nothing.
 
 **Pace.** Any fast lane taken → `fast_lane`.
 
-**Next steps.** Review cards whose objective is `gap` first, then `shaky`, then the rest. Plus `next_steps.gap` text if any gap exists, else `next_steps.clear`.
+**Next steps.** Review cards for confident-error objectives first, then `gap`, then `shaky`, then the rest. Plus `next_steps.gap` text if any gap exists, else `next_steps.clear`.
 
 ## The `report` block (pre-authored by `report-author`)
 
@@ -46,10 +50,10 @@ Each step: `{node, choice, kind, trap, sure, objectives}`, in order. `kind` is t
 "report": {
   "headline": {"strong": {"text": "…", "claims": []}, "mixed": {…}, "weak": {…}},
   "objectives": {"O2": {"secure": {"text": "…", "claims": []}, "shaky": {…}, "gap": {…}}},
-  "traps": {"TR1": {"avoided": {…}, "fell_recovered": {…}, "fell_repeated": {…}}},
+  "traps": {"TR1": {"avoided": {…}, "fell_recovered": {…}, "fell_open": {…}}},
   "error_types": {"E2": {"text": "You tend to add familiar items to fixed lists …", "claims": []}},
   "calibration": {"overconfident": {…}, "underconfident": {…}, "calibrated": {…}},
-  "help": {"hints_heavy": {…}, "hints_none": {…}},
+  "help": {"hints_heavy": {…}, "hints_none": {…}, "hinted_only": {…}},
   "pace": {"fast_lane": {…}},
   "next_steps": {"gap": {…}, "clear": {…}}
 }

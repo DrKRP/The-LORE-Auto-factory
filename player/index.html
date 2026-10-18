@@ -186,8 +186,16 @@ function computeReport() {
     return { node: h.at, role: n.role, kind: c.kind, trap: c.trap || null, sure: h.sure ?? null,
       objectives: n.objectives || [], offers: n.choices.filter((x) => x.kind === "trap").map((x) => x.trap) };
   });
-  const first = [], seen = new Set();
-  for (const s of steps) if (s.role === "probe" && ["correct", "partial", "trap"].includes(s.kind) && !seen.has(s.node)) { seen.add(s.node); first.push(s); }
+  const first = [], seen = new Set(), helped = new Set();
+  for (const s of steps) {
+    if (s.kind === "help") helped.add(s.node);
+    if (s.role === "probe" && ["correct", "partial", "trap"].includes(s.kind) && !seen.has(s.node)) {
+      seen.add(s.node);
+      s.hinted = helped.has(s.node);
+      s.cold = !nodes[s.node].choices.some((c) => c.kind === "help");
+      first.push(s);
+    }
+  }
   const trapStatus = {};
   for (const tid of Object.keys(traps)) {
     const enc = first.filter((s) => s.offers.includes(tid));
@@ -219,15 +227,23 @@ function computeReport() {
   let calibration = null;
   if (conf.length >= 3) calibration = sureWrong >= 2 ? "overconfident" : (guessRight >= 3 && sureWrong === 0 ? "underconfident" : "calibrated");
   const hints = steps.filter((s) => s.kind === "help").length;
-  const help = hints >= 3 ? "hints_heavy" : (hints === 0 && fallen.length ? "hints_none" : null);
+  const objsOf = (pred) => new Set(first.filter(pred).flatMap((s) => s.objectives));
+  const coldRight = objsOf((s) => s.cold && s.kind === "correct"), plainRight = objsOf((s) => !s.hinted && s.kind === "correct");
+  const hintedOnly = [...objsOf((s) => s.hinted && s.kind === "correct")].filter((o) => !coldRight.has(o) && !plainRight.has(o)).sort();
+  const help = hints >= 3 ? "hints_heavy" : (hintedOnly.length ? "hinted_only" : (hints === 0 && fallen.length ? "hints_none" : null));
+  const confident = Object.keys(traps).filter((t) => first.some((s) => s.trap === t && s.sure === true));
+  const cold = first.filter((s) => s.cold);
   const core = (M.objectives || []).filter((o) => o.core).map((o) => o.id);
   const gaps = core.filter((o) => levels[o] === "gap");
   const shaky = Object.keys(levels).filter((o) => levels[o] === "shaky");
   const headline = !gaps.length && shaky.length <= 1 ? "strong" : (gaps.length * 3 >= Math.max(1, core.length) ? "weak" : "mixed");
-  const rank = { gap: 0, shaky: 1 };
-  const cardOrder = (M.cards || []).map((c, i) => i).sort((a, b) => (rank[levels[M.cards[a].objective]] ?? 2) - (rank[levels[M.cards[b].objective]] ?? 2));
+  const rank = { gap: 1, shaky: 2 };
+  const confObj = new Set(confident.flatMap((t) => traps[t].objectives || []));
+  const cr = (i) => (confObj.has(M.cards[i].objective) ? 0 : (rank[levels[M.cards[i].objective]] ?? 3));
+  const cardOrder = (M.cards || []).map((c, i) => i).sort((a, b) => cr(a) - cr(b));
   return { headline, objectives: levels, traps: trapStatus, error_profile: byType, calibration, sure_wrong: sureWrong,
-    guess_right: guessRight, hints, fast_lane: steps.some((s) => s.kind === "skip"), card_order: cardOrder, steps };
+    guess_right: guessRight, hints, help, fast_lane: steps.some((s) => s.kind === "skip"), confident_errors: confident,
+    hinted_only: hintedOnly, cold_right: cold.filter((s) => s.kind === "correct").length, cold_total: cold.length, card_order: cardOrder, steps };
 }
 
 function rtext(...keys) { let x = M.report || {}; for (const k of keys) x = (x || {})[k]; return x && x.text ? x : null; }
@@ -244,7 +260,8 @@ function summary() {
     <div class="stat"><b>${firstAns.filter((s) => s.kind === "correct").length}/${firstAns.length}</b>right first time</div>
     <div class="stat"><b>${R.sure_wrong}</b>sure but wrong</div>
     <div class="stat"><b>${R.guess_right}</b>guessed and right</div>
-    <div class="stat"><b>${R.hints}</b>hints used</div></div>`;
+    <div class="stat"><b>${R.hints}</b>hints used</div>
+    <div class="stat"><b>${R.cold_right}/${R.cold_total}</b>right with no hint available</div></div>`;
   $("chat").appendChild(p);
   const o = document.createElement("div");
   o.className = "panel";
@@ -255,13 +272,14 @@ function summary() {
   $("chat").appendChild(o);
   const t = document.createElement("div");
   t.className = "panel";
-  const fallen = (M.traps || []).filter((tr) => R.traps[tr.id].startsWith("fell"));
+  const fallen = (M.traps || []).filter((tr) => R.traps[tr.id].startsWith("fell"))
+    .sort((a, b) => R.confident_errors.includes(b.id) - R.confident_errors.includes(a.id));
   t.innerHTML = "<h2>Traps</h2>" + (fallen.length ? fallen.map((tr) =>
-    `<div class="card open"><div><b>${TS[R.traps[tr.id]]}</b> · ${esc(tr.trap)}</div><div class="a">${msg(rtext("traps", tr.id, R.traps[tr.id]))}</div></div>`).join("") : "<p>You fell into none of the traps you met.</p>") +
+    `<div class="card open"><div><b>${TS[R.traps[tr.id]]}</b>${R.confident_errors.includes(tr.id) ? ' <span class="flag">· you were sure</span>' : ""} · ${esc(tr.trap)}</div><div class="a">${msg(rtext("traps", tr.id, R.traps[tr.id]))}</div></div>`).join("") : "<p>You fell into none of the traps you met.</p>") +
     `<p class="days">Avoided: ${(M.traps || []).filter((tr) => R.traps[tr.id] === "avoided").length} · Not met on your path: ${(M.traps || []).filter((tr) => R.traps[tr.id] === "not_met").length}</p>` +
     Object.entries(R.error_profile).filter(([, ts]) => ts.length >= 2).map(([et]) => msg(rtext("error_types", et))).join("") +
     (R.calibration ? msg(rtext("calibration", R.calibration)) : "") +
-    (R.hints >= 3 ? msg(rtext("help", "hints_heavy")) : (R.hints === 0 && fallen.length ? msg(rtext("help", "hints_none")) : "")) +
+    (R.help ? msg(rtext("help", R.help)) : "") +
     (R.fast_lane ? msg(rtext("pace", "fast_lane")) : "") +
     msg(rtext("next_steps", Object.values(R.objectives).some((v) => v === "gap" || v === "shaky") ? "gap" : "clear"));
   $("chat").appendChild(t);

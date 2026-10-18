@@ -15,7 +15,8 @@ The orchestrator gives you the workshop directory `workshop/<subject>/<topic-slu
 2. **Group the traps.** Find the traps that share one underlying wrong model, such as "TOF is a list of shunts", which drives TR1, TR2 and TR4. Find the traps that compete inside one stem, such as the four options of a "which is NOT" question. Find the traps that are prerequisites of others. Write this as `probe_plan`: the backbone traps that most of the module builds on, and the order they should be met in.
 3. **For each trap, design its branch.** Write the entry in the `trap-map.json` format in `reference/traps.md`:
    - `probes`: at least 2, in different `form`s (`recognition`, `vignette`, `which-is-not`, `mechanism`, `sequence`, `contrast`, `numbers`). The first probe surfaces the trap. A later one re-tests it with a different surface. For each probe give the stem idea, the correct option, and the distractor set, written in exam vocabulary. Each distractor maps to exactly one trap, named by ID, or is marked `partial`. The correct option must not give itself away: match option length and grammar, and avoid "all of the above".
-   - `diagnoses`: what choosing this option says about the learner's model, in one sentence a teacher would find useful.
+   - `diagnoses`: what choosing this option says about the learner's model, in one sentence a teacher would find useful, without case-specific numbers or findings.
+   - `first_wrong_step`: the first step where that reasoning goes wrong. Derive the distractors from it (DP6).
    - `repair`: the strategy for the error type (`reference/traps.md`) and the claims it cites.
    - `retest`: where and in what form the trap comes back.
    - `objectives`: leave empty. The architect assigns objectives after this.

@@ -853,7 +853,7 @@ def cmd_assemble(a):
 REPORT_SHAPE = {
     "headline": ["strong", "mixed", "weak"],
     "calibration": ["overconfident", "underconfident", "calibrated"],
-    "help": ["hints_heavy", "hints_none"],
+    "help": ["hints_heavy", "hints_none", "hinted_only"],
     "next_steps": ["gap", "clear"],
 }
 TRAP_STATUSES = ["avoided", "fell_recovered", "fell_open"]
@@ -908,10 +908,14 @@ def render_report(mod, path):
         steps.append({"node": st["node"], "role": n.get("role"), "kind": c.get("kind"), "trap": c.get("trap"),
                       "sure": st.get("sure"), "objectives": n.get("objectives", []),
                       "offers": [x.get("trap") for x in n["choices"] if x.get("kind") == "trap"]})
-    first, seen = [], set()
+    first, seen, helped = [], set(), set()
     for s_ in steps:
+        if s_["kind"] == "help":
+            helped.add(s_["node"])
         if s_["role"] == "probe" and s_["kind"] in ("correct", "partial", "trap") and s_["node"] not in seen:
             seen.add(s_["node"])
+            s_["hinted"] = s_["node"] in helped
+            s_["cold"] = not any(c.get("kind") == "help" for c in nodes[s_["node"]]["choices"])
             first.append(s_)
     trap_status = {}
     for tid in traps:
@@ -954,13 +958,24 @@ def render_report(mod, path):
     if len(conf) >= 3:
         calibration = "overconfident" if sure_wrong >= 2 else ("underconfident" if guess_right >= 3 and sure_wrong == 0 else "calibrated")
     hints = sum(s_["kind"] == "help" for s_ in steps)
-    help_ = "hints_heavy" if hints >= 3 else ("hints_none" if hints == 0 and fallen else None)
+    # DP11: objectives answered right only with a hint, and not right on any cold probe
+    hinted_only = sorted({o for s_ in first if s_["hinted"] and s_["kind"] == "correct" for o in s_["objectives"]}
+                         - {o for s_ in first if s_["cold"] and s_["kind"] == "correct" for o in s_["objectives"]}
+                         - {o for s_ in first if not s_["hinted"] and s_["kind"] == "correct" for o in s_["objectives"]})
+    cold = [s_ for s_ in first if s_["cold"]]
+    help_ = ("hints_heavy" if hints >= 3 else ("hinted_only" if hinted_only else
+             ("hints_none" if hints == 0 and fallen else None)))
+    # DP7: traps fallen into while Sure come first, and so do their objectives' cards
+    confident = [t for t in traps if any(s_["trap"] == t and s_["sure"] is True for s_ in first)]
     core = [o["id"] for o in mod.get("objectives", []) if o.get("core")]
     gaps = [o for o in core if levels.get(o) == "gap"]
     shaky = [o for o in levels if levels[o] == "shaky"]
     headline = "strong" if not gaps and len(shaky) <= 1 else ("weak" if len(gaps) * 3 >= max(1, len(core)) else "mixed")
-    rank = {"gap": 0, "shaky": 1}
-    cards = sorted(range(len(mod.get("cards", []))), key=lambda i: rank.get(levels.get(mod["cards"][i].get("objective")), 2))
+    rank = {"gap": 1, "shaky": 2}
+    conf_obj = {o for t in confident for o in traps[t].get("objectives", [])}
+    cards = sorted(range(len(mod.get("cards", []))),
+                   key=lambda i: 0 if mod["cards"][i].get("objective") in conf_obj
+                   else rank.get(levels.get(mod["cards"][i].get("objective")), 3))
     rep = mod.get("report") or {}
     def txt(*keys):
         x = rep
@@ -969,7 +984,8 @@ def render_report(mod, path):
         return (x or {}).get("text")
     texts = [txt("headline", headline)]
     texts += [txt("objectives", o, lv) for o, lv in levels.items() if lv in LEVELS]
-    texts += [txt("traps", t, v) for t, v in trap_status.items() if v in TRAP_STATUSES and v != "avoided"]
+    order = confident + [t for t in trap_status if t not in confident]
+    texts += [txt("traps", t, trap_status[t]) for t in order if trap_status[t] in TRAP_STATUSES and trap_status[t] != "avoided"]
     texts += [txt("error_types", et) for et, ts in by_type.items() if len(ts) >= 2]
     texts += [txt("calibration", calibration)] if calibration else []
     texts += [txt("help", help_)] if help_ else []
@@ -979,6 +995,8 @@ def render_report(mod, path):
             "error_profile": {k: v for k, v in by_type.items()}, "calibration": calibration,
             "sure_wrong": sure_wrong, "guess_right": guess_right, "hints": hints,
             "fast_lane": any(s_["kind"] == "skip" for s_ in steps),
+            "confident_errors": confident, "hinted_only": hinted_only,
+            "cold_right": sum(s_["kind"] == "correct" for s_ in cold), "cold_total": len(cold),
             "card_order": cards, "texts": [t for t in texts if t]}
 
 
@@ -988,6 +1006,129 @@ def cmd_render_report(a):
     path = path.get("path", path) if isinstance(path, dict) else path
     print(json.dumps(render_report(mod, path), indent=2, ensure_ascii=False))
 
+
+
+# ---------------------------------------------------------------- lints adopted from design-refinement/principles.md
+
+ABSOLUTES = {"always", "never", "all", "none", "only", "every", "must", "completely", "invariably"}
+BANNED = {  # DP14: warning-level unless marked error
+    "praise": ["you're so smart", "you are so smart", "genius", "you're a natural", "brilliant!", "perfect!", "amazing!"],
+    "control": ["you should have known", "obviously", "as everyone knows", "simply", "just remember"],
+    "scold": ["wrong!", "incorrect!", "no!", "careless", "silly mistake", "lazy"],
+    "pseudo": ["learning style", "left-brain", "right-brain", "visual learner", "auditory learner"],
+}
+BANNED_ERRORS = {"scold", "pseudo"}
+
+
+def _first_words(t, n=3):
+    return " ".join(re.findall(r"[a-z0-9]+", t.lower())[:n])
+
+
+def lint_module(mod, issues, metrics):
+    nodes = mod["nodes"]
+    probes = {n: d for n, d in nodes.items() if d.get("role") == "probe"}
+    key_longest, key_pos, traps_per_probe = 0, {}, []
+    for nid, d in probes.items():
+        ch = d.get("choices") or []
+        answer = [c for c in ch if c.get("kind") in ("correct", "partial", "trap")]
+        labels = [c.get("label", "") for c in answer]
+        for c in answer:
+            if re.search(r"\b(all|none) of the above\b", c.get("label", ""), re.I):
+                issues["errors"].append(f"{nid}: 'all/none of the above' option (DP1)")
+        key = [c for c in answer if c.get("kind") == "correct"]
+        if key and len(answer) > 1:
+            k = key[0]["label"]
+            lens = [words(l) for l in labels]
+            if words(k) == max(lens) and lens.count(max(lens)) == 1:
+                key_longest += 1
+                issues["warnings"].append(f"{nid}: the correct option is the only longest one (DP1)")
+            kw = set(re.findall(r"[a-z]+", k.lower()))
+            others = [set(re.findall(r"[a-z]+", l.lower())) for l in labels if l != k]
+            if kw & ABSOLUTES and not any(o & ABSOLUTES for o in others):
+                issues["warnings"].append(f"{nid}: only the correct option uses an absolute word (DP1)")
+            if re.search(r"\d", k) and not any(re.search(r"\d", l) for l in labels if l != k):
+                issues["warnings"].append(f"{nid}: only the correct option contains a number (DP1)")
+            idx = ch.index(key[0])
+            key_pos[idx] = key_pos.get(idx, 0) + 1
+        tr = [c.get("trap") for c in ch if c.get("kind") == "trap"]
+        traps_per_probe.append(len(tr))
+        if len(tr) != len(set(tr)):
+            issues["errors"].append(f"{nid}: two options carry the same trap (DP3)")
+        nexts = {}
+        for c in ch:
+            if c.get("kind") == "trap":
+                nexts.setdefault(c.get("next"), set()).add(c.get("trap"))
+        if any(len(v) > 1 for v in nexts.values()):
+            issues["warnings"].append(f"{nid}: different traps share one feedback node (DP3)")
+        fw = [_first_words(l) for l in labels if words(l) >= 3]
+        if len(fw) != len(set(fw)):
+            issues["warnings"].append(f"{nid}: two options start with the same three words (DP3)")
+        q = [m for m in d.get("say", []) if m.get("text", "").rstrip().endswith("?")]
+        if len(q) > 1:
+            issues["errors"].append(f"{nid}: more than one question in a node (DP26)")
+        if d.get("say") and not d["say"][-1].get("text", "").rstrip().endswith("?"):
+            issues["warnings"].append(f"{nid}: probe does not end on its question (DP26)")
+    # DP5: a trap's probes must differ in surface
+    by_trap = {}
+    for nid, d in probes.items():
+        for c in d.get("choices") or []:
+            if c.get("kind") == "trap":
+                by_trap.setdefault(c.get("trap"), []).append(nid)
+    distinct = 0
+    for t, ns in by_trap.items():
+        firsts = {(probes[n].get("say") or [{}])[0].get("text", "").strip().lower() for n in ns}
+        sets = {frozenset(c.get("label", "").strip().lower() for c in probes[n]["choices"]) for n in ns}
+        if len(ns) > 1 and (len(firsts) < len(ns) or len(sets) < len(ns)):
+            issues["warnings"].append(f"trap {t}: two of its probes share a stem or an option set; a re-test should vary the surface (DP5)")
+        else:
+            distinct += 1
+    # DP9 hints never leak; DP13 correct feedback says why
+    parents = {}
+    for nid, d in nodes.items():
+        for c in d.get("choices") or []:
+            parents.setdefault(c.get("next"), []).append((nid, c))
+    for nid, d in nodes.items():
+        text = " ".join(m.get("text", "") for m in d.get("say") or []).lower()
+        if d.get("role") == "hint":
+            for pid, c in parents.get(nid, []):
+                for k in (nodes[pid].get("choices") or []):
+                    if k.get("kind") == "correct" and len(k.get("label", "")) > 3 and k["label"].lower() in text:
+                        issues["warnings"].append(f"{nid}: hint contains the answer '{k['label']}' (DP9)")
+        if any(c.get("kind") == "correct" for _, c in parents.get(nid, [])) and d.get("role") == "feedback":
+            if words(text) < 8 or not any(m.get("claims") for m in d.get("say") or []):
+                issues["warnings"].append(f"{nid}: feedback on a correct pick should say why it is right, with a claim (DP13)")
+    # DP14 phrase scan over everything the learner reads
+    texts = [(nid, m.get("text", "")) for nid, d in nodes.items()
+             for m in (d.get("say") or []) + ([d["sure_note"]] if isinstance(d.get("sure_note"), dict) else [])]
+    texts += [("report", m.get("text", "")) for m in iter_report(mod.get("report"))]
+    for where, t in texts:
+        low = t.lower()
+        for kind, phrases in BANNED.items():
+            for ph in phrases:
+                if ph in low:
+                    (issues["errors"] if kind in BANNED_ERRORS else issues["warnings"]).append(
+                        f"{where}: banned {kind} phrase '{ph}' (DP14)")
+    # DP27 objectives are observable decisions
+    for o in mod.get("objectives", []):
+        if o.get("core") and re.match(r"(understand|know|be aware|appreciate)\b", o.get("text", "").strip().lower()):
+            issues["warnings"].append(f"objective {o['id']}: phrase it as an observable decision, not 'understand/know' (DP27)")
+    # DP11: the last segment needs at least one cold probe (no help option)
+    last = mod["segments"][-1]["id"] if mod.get("segments") else None
+    if last and not any(d.get("segment") == last and not any(c.get("kind") == "help" for c in d.get("choices") or [])
+                        for d in probes.values()):
+        issues["errors"].append(f"{last}: needs at least one probe without a hint option, for cold evidence (DP11)")
+    n = max(1, len(probes))
+    metrics.update({
+        "key_longest_share": round(key_longest / n, 3),
+        "key_position_max_share": round(max(key_pos.values(), default=0) / n, 3),
+        "traps_per_probe_mean": round(sum(traps_per_probe) / n, 2),
+        "probes_single_trap_share": round(sum(x == 1 for x in traps_per_probe) / n, 3),
+        "retest_form_distinct_share": round(distinct / max(1, len(by_trap)), 3),
+    })
+    if metrics["key_longest_share"] > 0.4:
+        issues["errors"].append(f"correct option is the longest in {metrics['key_longest_share']:.0%} of probes (max 40%, DP1)")
+    if metrics["key_position_max_share"] > 0.5:
+        issues["warnings"].append(f"correct option sits in one position in {metrics['key_position_max_share']:.0%} of probes (DP1)")
 
 # ---------------------------------------------------------------- validate module
 
@@ -1075,6 +1216,7 @@ def validate_module(module_id, mod, bp, bank, require_report=False):
         "confidence_probes": sum(bool(d.get("ask_confidence")) for d in nodes.values()),
         "fast_lanes": sum(c.get("kind") == "skip" for d in nodes.values() for c in d.get("choices") or []),
     }
+    lint_module(mod, issues, metrics)
     if metrics["hy_missing"]:
         issues["warnings"].append(f"high-yield claims not taught: {', '.join(metrics['hy_missing'])}")
     return issues, metrics

@@ -57,6 +57,7 @@ The branch analysis: for each trap, how it will be surfaced, diagnosed, repaired
     {"form": "vignette", "stem_idea": "Echo report lists four findings; which one does not belong to TOF?"}
   ],
   "diagnoses": "Learner holds a 'list of shunts' model rather than the outflow-obstruction model.",
+  "first_wrong_step": "Counts every shunt lesion seen in cyanotic CHD as part of the tetrad.",
   "repair": {"strategy": "E2: rebuild the four from one malaligned septum", "claims": ["K3", "K13"]},
   "retest": "later probe in a different form (vignette or 'which is NOT')",
   "co_traps": ["TR4"],
@@ -68,5 +69,6 @@ The branch analysis: for each trap, how it will be surfaced, diagnosed, repaired
 Rules:
 
 - Every trap gets **at least two probes in different forms**: the first surfaces it, the later one re-tests it. Recovery is only credited on the re-test.
+- `diagnoses` names the wrong model without case-specific numbers or findings; `first_wrong_step` names the first step where the learner's reasoning goes wrong. Distractors are derived from that step, and the same step supplies the "why tempting" feedback and the hint (DP6).
 - **One error per distractor.** Each distractor option corresponds to exactly one trap (or is clearly a correct-adjacent `partial`). An option that could be wrong for two reasons diagnoses nothing.
 - Distractors are written in the exam's own vocabulary and must be plausible to someone holding the trap's wrong model.

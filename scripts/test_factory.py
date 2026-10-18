@@ -65,7 +65,7 @@ def module():
               "traps": {t["id"]: R("avoided", "fell_recovered", "fell_open") for t in traps},
               "error_types": {"E1": msg("E1 pattern")},
               "calibration": R("overconfident", "underconfident", "calibrated"),
-              "help": R("hints_heavy", "hints_none"), "next_steps": R("gap", "clear")}
+              "help": R("hints_heavy", "hints_none", "hinted_only"), "next_steps": R("gap", "clear")}
     return {"id": "x/y", "start": "S1.q1", "nodes": nodes, "objectives": objectives, "traps": traps,
             "segments": [{"id": "S1", "type": "retrieve"}, {"id": "S2", "type": "clinical"}],
             "claims": {"K1": BANK["claims"]["K1"], "K2": BANK["claims"]["K2"]}, "cards": [], "report": report}
@@ -151,6 +151,87 @@ class Report(unittest.TestCase):
         rep = F.render_report(module(), path)
         self.assertEqual(rep["hints"], 3)
         self.assertIn("hints_heavy text", rep["texts"])
+
+    def test_confident_errors_first(self):
+        rep = F.render_report(module(), [{"node": "S1.q1", "choice": 0, "sure": False}, {"node": "S1.ok", "choice": 0},
+                                         {"node": "S2.q2", "choice": 2}, {"node": "S2.t2", "choice": 0},
+                                         {"node": "S2.q3", "choice": 1}])
+        self.assertEqual(rep["confident_errors"], [])
+        rep = F.render_report(module(), [{"node": "S1.q1", "choice": 1, "sure": True}, {"node": "S1.t1", "choice": 0},
+                                         {"node": "S2.q2", "choice": 2}, {"node": "S2.t2", "choice": 0},
+                                         {"node": "S2.q3", "choice": 1}])
+        self.assertEqual(rep["confident_errors"], ["TR1"])
+
+    def test_hinted_only(self):
+        rep = F.render_report(module(), [{"node": "S1.q1", "choice": 2}, {"node": "S1.h", "choice": 0},
+                                         {"node": "S1.q1", "choice": 0, "sure": True}, {"node": "S1.ok", "choice": 0},
+                                         {"node": "S2.q2", "choice": 2}, {"node": "S2.t2", "choice": 0},
+                                         {"node": "S2.q3", "choice": 1}])
+        self.assertEqual(rep["hinted_only"], ["O1"])
+        self.assertIn("hinted_only text", rep["texts"])
+
+
+class Lints(unittest.TestCase):
+    def errors(self, mod):
+        issues, _ = F.validate_module("x/y", mod, BP, BANK, require_report=True)
+        return issues
+
+    def test_all_of_the_above(self):
+        m = module()
+        m["nodes"]["S2.q3"]["choices"][1]["label"] = "All of the above"
+        self.assertTrue(any("DP1" in e for e in self.errors(m)["errors"]))
+
+    def test_same_trap_twice(self):
+        m = module()
+        m["nodes"]["S2.q2"]["choices"][2]["trap"] = "TR1"
+        self.assertTrue(any("same trap" in e for e in self.errors(m)["errors"]))
+
+    def test_scolding_phrase(self):
+        m = module()
+        m["nodes"]["S1.t1"]["say"][0]["text"] = "Wrong! A is B."
+        self.assertTrue(any("DP14" in e for e in self.errors(m)["errors"]))
+
+    def test_cold_probe_required(self):
+        m = module()
+        m["nodes"]["S2.q3"]["choices"].append({"label": "Hint", "next": "S1.h", "kind": "help"})
+        m["nodes"]["S2.q2"]["choices"].append({"label": "Hint", "next": "S1.h", "kind": "help"})
+        self.assertTrue(any("DP11" in e for e in self.errors(m)["errors"]))
+
+
+class PlayerParity(unittest.TestCase):
+    """The player's JS report engine must agree with render_report on the same paths."""
+
+    PATHS = [
+        [{"node": "S1.q1", "choice": 0, "sure": True}, {"node": "S1.ok", "choice": 0}, {"node": "S2.q2", "choice": 0},
+         {"node": "S2.ok", "choice": 0}, {"node": "S2.q3", "choice": 0}],
+        [{"node": "S1.q1", "choice": 1, "sure": True}, {"node": "S1.t1", "choice": 0}, {"node": "S2.q2", "choice": 1},
+         {"node": "S2.t1", "choice": 0}, {"node": "S2.q3", "choice": 1}],
+        [{"node": "S1.q1", "choice": 2}, {"node": "S1.h", "choice": 0}, {"node": "S1.q1", "choice": 0, "sure": False},
+         {"node": "S1.ok", "choice": 0}, {"node": "S2.q2", "choice": 2}, {"node": "S2.t2", "choice": 0},
+         {"node": "S2.q3", "choice": 0}],
+    ]
+    KEYS = ["headline", "objectives", "traps", "calibration", "sure_wrong", "guess_right", "hints", "fast_lane",
+            "confident_errors", "hinted_only", "cold_right", "cold_total", "card_order"]
+
+    def test_parity(self):
+        import json, shutil, subprocess
+        if not shutil.which("node"):
+            self.skipTest("node not installed")
+        html = (Path(__file__).resolve().parent.parent / "player" / "index.html").read_text(encoding="utf-8")
+        js = html.split("<script>")[1].split("</script>")[0]
+        start = js.index("function computeReport()")
+        engine = js[start:js.index("function rtext(")]
+        mod = module()
+        mod["cards"] = [{"q": "q", "a": "a", "claims": ["K1"], "objective": "O2"},
+                        {"q": "q", "a": "a", "claims": ["K1"], "objective": "O1"}]
+        for path in self.PATHS:
+            hist = [{"at": st["node"], "choice": st["choice"], "sure": st.get("sure")} for st in path]
+            prog = (f"const M = {json.dumps(mod)}; const S = {{hist: {json.dumps(hist)}}};\n{engine}\n"
+                    "const r = computeReport(); delete r.steps; console.log(JSON.stringify(r));")
+            out = json.loads(subprocess.run(["node", "-e", prog], capture_output=True, text=True, check=True).stdout)
+            py = F.render_report(mod, path)
+            for k in self.KEYS:
+                self.assertEqual(out.get(k), py.get(k), f"{k} differs on path {path[0]}")
 
 
 if __name__ == "__main__":

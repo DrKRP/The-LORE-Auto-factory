@@ -12,7 +12,7 @@ The orchestrator gives you the workshop directory `workshop/<subject>/<topic-slu
 ## Steps
 
 1. Read `reference/report.md`, which gives the rules for when each text is shown and the shape of the `report` block. Then read `reference/pedagogy.md`, `module.json`, `trap-map.json` (each trap's `diagnoses` and `report_hint`) and `claim-bank.json`.
-2. Write `report.json` with every entry `reference/report.md` requires: headline (strong, mixed, weak); each objective at each level (secure, shaky, gap); each trap at each outcome (avoided, fell_recovered, fell_open); each error type used by the module's traps; calibration (overconfident, underconfident, calibrated); help (hints_heavy, hints_none); pace.fast_lane if the module has a fast lane; next_steps (gap, clear).
+2. Write `report.json` with every entry `reference/report.md` requires: headline (strong, mixed, weak); each objective at each level (secure, shaky, gap); each trap at each outcome (avoided, fell_recovered, fell_open); each error type used by the module's traps; calibration (overconfident, underconfident, calibrated); help (hints_heavy, hints_none, hinted_only); pace.fast_lane if the module has a fast lane; next_steps (gap, clear).
 3. Each entry is `{"text": "…", "claims": [...]}` with at most 90 words. A text that restates a fact cites the claims behind it and says no more than they say. Texts about the learner, such as "you chose…" or "you were sure…", cite nothing.
 4. Tone: a senior resident debriefing a junior. Be direct and warm. Credit strategy, never ability. Normalise errors as information. Don't praise empty effort and don't shame.
    - `fell_open` texts name the wrong model and give one concrete next step, such as which review card or which contrast to revisit.

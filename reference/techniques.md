@@ -31,7 +31,7 @@ The table is machine-read: keep one row per technique, IDs `T<n>`, segment types
 
 **T5 Worked example, then fade.** Walk one case fully with reasoning visible, then a second similar case with the last step left to the learner, then a third with more steps left out.
 
-**T6 Refutation.** Name the common wrong belief, explain why it is tempting, refute it with the claim, state the correct idea. Strong for misconceptions that survive ordinary teaching.
+**T6 Refutation.** Name the common wrong belief, explain why it is tempting, refute it with the claim, state the correct idea. Strong for traps that survive ordinary teaching.
 
 **T7 Contrasting cases.** Put two near-neighbours side by side (pink vs blue tet, one finding vs another) and ask what distinguishes them. Facts about another topic need cross-module claims (`reference/module-format.md`).
 
@@ -41,7 +41,7 @@ The table is machine-read: keep one row per technique, IDs `T<n>`, segment types
 
 **T10 Exam-trap drill.** Rapid PYQ-style stems built on `pattern.md` asks and their distractors, with ⚠ Exam notes where the key and the current source disagree.
 
-**T11 Erroneous example.** Show a worked case or a peer's answer with one planted error; the learner finds it. The planted error must be a real misconception, and the correction cites claims.
+**T11 Erroneous example.** Show a worked case or a peer's answer with one planted error; the learner finds it. The planted error must be a real trap, and the correction cites claims. Use it only after the learner has seen a correct worked example of the same idea, and ask "which step is wrong" then "why" as two probes (DP17).
 
 **T12 Learner-built summary.** The learner assembles the take-home: pick the true statements, order the steps, or choose the best one-line summary. Ends with review cards.
 
