@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LORE Player</title>
+<style>
+:root {
+  --bg: #f6f5f1; --surface: #ffffff; --ink: #1d1d1b; --muted: #6b6a64; --line: #e3e1da;
+  --tutor: #ffffff; --learner: #1f4e79; --learner-ink: #ffffff; --accent: #1f4e79;
+  --ok: #2e7d4f; --bad: #b3412e; --warn: #9a6b00; --chip: #efede6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151514; --surface: #1f1f1d; --ink: #ecebe6; --muted: #a09e96; --line: #33322f;
+    --tutor: #232321; --learner: #3d6fa0; --learner-ink: #ffffff; --accent: #7fb0e0;
+    --ok: #6cc290; --bad: #e88a78; --warn: #e0b45c; --chip: #2a2a27;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151514; --surface: #1f1f1d; --ink: #ecebe6; --muted: #a09e96; --line: #33322f;
+  --tutor: #232321; --learner: #3d6fa0; --learner-ink: #ffffff; --accent: #7fb0e0;
+  --ok: #6cc290; --bad: #e88a78; --warn: #e0b45c; --chip: #2a2a27;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+header { position: sticky; top: 0; z-index: 2; background: var(--surface); border-bottom: 1px solid var(--line); }
+.bar { max-width: 760px; margin: 0 auto; padding: 10px 16px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.bar h1 { font-size: 16px; margin: 0; flex: 1; min-width: 140px; }
+.bar select, .bar button, .bar label { font: inherit; font-size: 14px; }
+select, button { background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; cursor: pointer; }
+.progress { height: 3px; background: var(--line); }
+.progress > div { height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+.seg { max-width: 760px; margin: 0 auto; padding: 0 16px 8px; font-size: 13px; color: var(--muted); }
+main { max-width: 760px; margin: 0 auto; padding: 16px 16px 160px; }
+.msg { max-width: 88%; padding: 10px 14px; border-radius: 14px; margin: 6px 0; overflow-wrap: anywhere; }
+.tutor { background: var(--tutor); border: 1px solid var(--line); border-top-left-radius: 4px; }
+.learner { background: var(--learner); color: var(--learner-ink); margin-left: auto; border-top-right-radius: 4px; }
+.meta { font-size: 12px; color: var(--muted); margin: 14px 0 2px; }
+.device { border-style: dashed; }
+.flag { color: var(--warn); font-weight: 600; }
+.sure { border-left: 3px solid var(--warn); }
+sup a { color: var(--accent); text-decoration: none; font-weight: 600; margin-left: 2px; }
+.ids { display: none; font: 11px ui-monospace, monospace; color: var(--muted); }
+body.debug .ids { display: block; }
+.choices { position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 1px solid var(--line); }
+.choices .inner { max-width: 760px; margin: 0 auto; padding: 12px 16px; display: grid; gap: 8px; }
+.choices button { text-align: left; padding: 10px 14px; border-radius: 10px; }
+.choices button:hover, .choices button:focus-visible { border-color: var(--accent); outline: none; }
+.choices .ask { font-size: 13px; color: var(--muted); }
+.row { display: flex; gap: 8px; }
+.row button { flex: 1; text-align: center; }
+.empty { text-align: center; color: var(--muted); padding: 60px 16px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+.panel h2 { font-size: 16px; margin: 0 0 8px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; }
+.stat { background: var(--chip); border-radius: 8px; padding: 8px 10px; }
+.stat b { display: block; font-size: 20px; }
+.card { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin: 8px 0; cursor: pointer; }
+.card .a { display: none; margin-top: 6px; color: var(--muted); }
+.card.open .a { display: block; }
+.days { font-size: 12px; color: var(--muted); }
+dialog { max-width: min(560px, 92vw); border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); }
+dialog a { color: var(--accent); overflow-wrap: anywhere; }
+.drop { border: 2px dashed var(--line); border-radius: 12px; padding: 24px; margin-top: 16px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <h1 id="title">LORE Player</h1>
+    <select id="picker" aria-label="Module"><option value="">Choose a module…</option></select>
+    <button id="back" title="Undo last choice">Undo</button>
+    <button id="restart">Restart</button>
+    <label><input type="checkbox" id="debug"> IDs</label>
+  </div>
+  <div class="progress"><div id="prog"></div></div>
+  <div class="seg" id="seg"></div>
+</header>
+<main id="chat">
+  <div class="empty" id="empty">
+    <p>Pick a module above, or open a module JSON file.</p>
+    <p class="days">Serve the repository root (<code>python3 -m http.server</code>) and open <code>/player/</code> to list published modules. Add <code>?m=../workshop/&lt;subject&gt;/&lt;slug&gt;/module.json</code> to preview a draft.</p>
+    <div class="drop"><input type="file" id="file" accept=".json,application/json"></div>
+  </div>
+</main>
+<div class="choices" id="choices" hidden><div class="inner" id="choiceInner"></div></div>
+<dialog id="ref"><div id="refBody"></div><form method="dialog"><button>Close</button></form></dialog>
+
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+let M = null, S = null;
+
+function store(key, val) { try { if (val === undefined) return JSON.parse(localStorage.getItem(key)); localStorage.setItem(key, JSON.stringify(val)); } catch (e) { return null; } }
+
+function esc(t) { return t.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+function md(t) { return esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\*(.+?)\*/g, "<i>$1</i>"); }
+
+function cite(claims) {
+  if (!claims || !claims.length) return "";
+  const nums = [];
+  for (const c of claims) for (const r of (M.claims[c] || {}).refs || []) if (!nums.includes(r)) nums.push(r);
+  return " <sup>" + claims.map((c) => `<a href="#" data-claim="${esc(c)}">[${((M.claims[c] || {}).refs || ["?"]).join(",")}]</a>`).join("") + "</sup>";
+}
+
+function bubble(cls, html, extra) {
+  const d = document.createElement("div");
+  d.className = "msg " + cls + (extra ? " " + extra : "");
+  d.innerHTML = html;
+  $("chat").appendChild(d);
+  return d;
+}
+
+function sayNode(id, sure) {
+  const n = M.nodes[id];
+  const seg = M.segments.find((s) => s.id === n.segment);
+  if (seg) {
+    $("seg").textContent = `${seg.id} · ${seg.title}`;
+    const i = M.segments.indexOf(seg);
+    $("prog").style.width = `${Math.round(((i + (n.end ? 1 : 0.5)) / M.segments.length) * 100)}%`;
+  }
+  const meta = document.createElement("div");
+  meta.className = "ids";
+  meta.textContent = `${id} · ${n.role}${n.objectives ? " · " + n.objectives.join(",") : ""}`;
+  $("chat").appendChild(meta);
+  const msgs = [...(n.say || [])];
+  if (sure && n.sure_note) msgs.push(Object.assign({ _sure: true }, n.sure_note));
+  for (const m of msgs) {
+    const flag = m.flag === "unverified" ? '<span class="flag">⚠ Unverified · </span>' : "";
+    bubble("tutor", flag + md(m.text) + cite(m.claims) +
+      (m.claims && m.claims.length ? `<span class="ids">${m.claims.join(" ")}</span>` : ""),
+      (m.device ? "device" : "") + (m._sure ? " sure" : ""));
+  }
+}
+
+function render() {
+  const id = S.at, n = M.nodes[id];
+  const box = $("choiceInner");
+  box.innerHTML = "";
+  $("choices").hidden = false;
+  if (n.end) { $("choices").hidden = true; summary(); return; }
+  if (S.pending) {
+    const p = document.createElement("div");
+    p.className = "ask";
+    p.textContent = "How sure are you?";
+    box.appendChild(p);
+    const row = document.createElement("div");
+    row.className = "row";
+    for (const [lab, sure] of [["Sure", true], ["Guessing", false]]) {
+      const b = document.createElement("button");
+      b.textContent = lab;
+      b.onclick = () => commit(S.pending, sure);
+      row.appendChild(b);
+    }
+    box.appendChild(row);
+    return;
+  }
+  n.choices.forEach((c, i) => {
+    const b = document.createElement("button");
+    b.textContent = c.label;
+    b.onclick = () => n.ask_confidence && ["correct", "partial", "misconception"].includes(c.kind) ? (S.pending = i, render()) : commit(i, null);
+    box.appendChild(b);
+  });
+}
+
+function commit(i, sure) {
+  const n = M.nodes[S.at], c = n.choices[i];
+  S.hist.push({ at: S.at, choice: i, sure, kind: c.kind, mis: c.misconception || null, probe: n.role === "probe" });
+  S.pending = null;
+  bubble("learner", esc(c.label) + (sure === null ? "" : ` <span class="days">· ${sure ? "Sure" : "Guessing"}</span>`));
+  S.at = c.next;
+  if (!M.nodes[S.at]) { bubble("tutor", `Broken link: ${esc(S.at)}`); return; }
+  sayNode(S.at, sure === true && c.kind !== "correct");
+  save();
+  render();
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+function summary() {
+  const probes = S.hist.filter((h) => h.probe && ["correct", "partial", "misconception"].includes(h.kind));
+  const seen = new Set(), first = [];
+  for (const h of probes) if (!seen.has(h.at)) { seen.add(h.at); first.push(h); }
+  const right = first.filter((h) => h.kind === "correct").length;
+  const sureWrong = probes.filter((h) => h.sure === true && h.kind !== "correct").length;
+  const sureRight = probes.filter((h) => h.sure === true && h.kind === "correct").length;
+  const mis = [...new Set(probes.filter((h) => h.mis).map((h) => h.mis))];
+  const p = document.createElement("div");
+  p.className = "panel";
+  p.innerHTML = `<h2>Module complete</h2><div class="stats">
+    <div class="stat"><b>${right}/${first.length}</b>right first time</div>
+    <div class="stat"><b>${sureRight}</b>sure and right</div>
+    <div class="stat"><b>${sureWrong}</b>sure but wrong: review these first</div>
+    <div class="stat"><b>${S.hist.length}</b>steps</div></div>` +
+    (mis.length ? `<p>Misconceptions you met: ${mis.map((m) => esc((M.misconceptions.find((x) => x.id === m) || { text: m }).text)).join("; ")}</p>` : "");
+  $("chat").appendChild(p);
+  if (M.cards && M.cards.length) {
+    const c = document.createElement("div");
+    c.className = "panel";
+    c.innerHTML = `<h2>Review cards</h2><p class="days">Tap to reveal. Come back on days ${esc((M.cards[0].schedule_days || []).join(", "))}.</p>` +
+      M.cards.map((k) => `<div class="card"><div>${md(k.q)}</div><div class="a">${md(k.a)}${cite(k.claims)}</div></div>`).join("");
+    c.addEventListener("click", (e) => { const k = e.target.closest(".card"); if (k && !e.target.closest("a")) k.classList.toggle("open"); });
+    $("chat").appendChild(c);
+  }
+  const r = document.createElement("div");
+  r.className = "panel";
+  r.innerHTML = "<h2>References</h2><ol>" + Object.entries(M.references).map(([n, ref]) =>
+    `<li value="${esc(n)}">${esc(ref.title)} <a href="${esc(ref.url)}" target="_blank" rel="noopener">link</a> <span class="days">tier ${ref.tier ?? "?"}</span></li>`).join("") + "</ol>";
+  $("chat").appendChild(r);
+}
+
+function save() { store("lore:" + M.id, { hist: S.hist, at: S.at }); }
+
+function replay() {
+  $("chat").innerHTML = "";
+  const start = M.start;
+  sayNode(start, false);
+  let at = start;
+  for (const h of S.hist) {
+    const c = M.nodes[at].choices[h.choice];
+    bubble("learner", esc(c.label) + (h.sure === null || h.sure === undefined ? "" : ` <span class="days">· ${h.sure ? "Sure" : "Guessing"}</span>`));
+    at = c.next;
+    sayNode(at, h.sure === true && c.kind !== "correct");
+  }
+  S.at = at;
+  render();
+}
+
+function load(mod) {
+  M = mod;
+  $("title").textContent = M.title + (M.status && M.status !== "published" ? ` (${M.status})` : "");
+  document.title = M.title + " · LORE";
+  $("empty").hidden = true;
+  const saved = store("lore:" + M.id);
+  S = { at: M.start, hist: (saved && saved.hist) || [], pending: null };
+  try { replay(); } catch (e) { S.hist = []; replay(); }
+}
+
+$("back").onclick = () => { if (!M || !S.hist.length) return; S.hist.pop(); S.pending = null; save(); replay(); };
+$("restart").onclick = () => { if (!M) return; S.hist = []; S.pending = null; save(); replay(); };
+$("debug").onchange = (e) => document.body.classList.toggle("debug", e.target.checked);
+$("file").onchange = async (e) => { const f = e.target.files[0]; if (f) load(JSON.parse(await f.text())); };
+$("chat").addEventListener("click", (e) => {
+  const a = e.target.closest("a[data-claim]");
+  if (!a) return;
+  e.preventDefault();
+  const c = M.claims[a.dataset.claim];
+  if (!c) return;
+  $("refBody").innerHTML = `<p>${md(c.text)}</p>` + (c.status === "unverified" ? '<p class="flag">⚠ Unverified: single tier-2 source.</p>' : "") +
+    "<ol>" + c.refs.map((r) => { const ref = M.references[r] || {}; return `<li value="${esc(r)}">${esc(ref.title || "?")} <a href="${esc(ref.url || "#")}" target="_blank" rel="noopener">source</a></li>`; }).join("") + "</ol>";
+  $("ref").showModal();
+});
+$("picker").onchange = async (e) => { if (e.target.value) load(await (await fetch("../modules/" + e.target.value)).json()); };
+
+(async () => {
+  const q = new URLSearchParams(location.search).get("m");
+  try {
+    const idx = await (await fetch("../modules/index.json")).json();
+    for (const m of idx.modules) {
+      const o = document.createElement("option");
+      o.value = m.path;
+      o.textContent = `${m.subject} · ${m.title}`;
+      $("picker").appendChild(o);
+    }
+  } catch (e) { $("picker").hidden = true; }
+  if (q) { try { load(await (await fetch(q)).json()); } catch (e) { bubble("tutor", "Could not load " + esc(q)); } }
+})();
+</script>
+</body>
+</html>

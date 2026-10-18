@@ -8,6 +8,15 @@ You are the **orchestrator**. You plan, dispatch agents, and apply fixes; the ag
 
 Limits come from the `Config` block in `CLAUDE.md`. Formats live in `reference/`.
 
+## Auto mode
+
+When the factory runs this skill (`.claude/skills/lore-factory/SKILL.md`, stage `research`), nobody is there to answer, so:
+
+- The factory only sends topics; chapters are split by the `curriculum-planner` before they reach the queue.
+- Step 1: an existing note is skipped, unless the factory says this is a refresh, in which case it is rebuilt from fresh evidence (first run `python3 scripts/factory.py archive-evidence <subject>/<topic-slug>`, which moves the old evidence to `_previous/`).
+- Wherever this skill says to ask or wait for the user, decide, and record the decision and its reason in `run-log.md`.
+- Skip the final Report; the factory reports its own tick.
+
 ## 0. Topic or chapter?
 
 - **Topic**: one disease, drug, concept, or programme (`Tetralogy of Fallot`, `NTEP`). Go to step 1.
