@@ -31,13 +31,17 @@ Each stage ends with `F advance <module> <next stage>` (plus `--round` where sho
 
 ## Stages
 
+**Network.** Research needs the source domains in `reference/sources.md`. If scouts report that every fetch failed for network reasons (proxy 403/407, DNS `ENOTFOUND`), the environment is blocking them: `F fail <module> --reason "network: <hosts>"` rather than writing a note without evidence, and put the blocked hosts in `factory/status.md`'s log line so the user can allow them. Stages after research need no network.
+
 ### research
 
 Follow `.claude/skills/lore-research/SKILL.md` for the topic in **auto mode** (its "Auto mode" section): you are its orchestrator. If `notes/<subject>/<slug>.md` already exists and this is not a refresh, skip research and say so in `W/run-log.md`. Done → `F bank <module>` (if it reports fewer than 8 verified claims, `F fail`: "note too thin to teach") → `F advance <module> traps`.
 
 ### traps
 
-Dispatch `trap-scout` with the module and `W`. Check `W/trap-brief.md` has at least 8 trap entries. → `F advance <module> analysis`.
+1. Dispatch `trap-scout` with the module and `W`. Check `W/trap-brief.md` has at least 8 trap entries.
+2. **Research follows the traps.** If `## Unrefutable` lists high- or medium-yield traps, dispatch one `rescue-scout` with them as **gaps** (each phrased as the fact that would refute the trap, e.g. "most common cyanotic CHD presenting in the neonate"), with the evidence directory `evidence/<subject>/<slug>/` and the `rescue_fetches` budget. Apply each `GAP … FOUND` to the note as step 8 of `.claude/skills/lore-research/SKILL.md` describes, append to `run-log.md` there, then `F bank <module>` and dispatch `trap-scout` again with the instruction "update mode: move the traps the new claims refute from Unrefutable into full entries; keep existing IDs". Do this once per module.
+3. → `F advance <module> analysis`.
 
 ### analysis
 

@@ -16,11 +16,13 @@ The orchestrator gives you the module (`<subject>/<topic-slug>`) and the worksho
    - `evidence/<subject>/<topic-slug>/pattern.md`: every `exam_answer`, every "which is NOT" distractor, every option a recall shows;
    - the note's **⚠ Exam notes** (claims with `kind: "exam-note"`): each PYQ-key vs current-source conflict is a trap of type E5;
    - the note's "Most common / Investigation of choice / Drug of choice" table: each row invites E4, E7 and E8 traps.
-3. **Search for more.** Use up to 6 fetches on exam-pattern sources: `"<topic>" NEET PG mistakes`, `"<topic>" confusing points`, `"<topic>" vs <look-alike> NEET PG`, `"<topic>" MCQ explanation`, `"<topic>" INI-CET trap`. You want question stems with keyed answers and **the wrong options**, plus explanations of why students pick them. Search-result snippets count as leads.
+3. **Search for more.** Fetch at least 3 and at most 6 pages on exam-pattern sources (fewer only if every candidate is blocked; list them under `## Dead ends`): `"<topic>" NEET PG mistakes`, `"<topic>" confusing points`, `"<topic>" vs <look-alike> NEET PG`, `"<topic>" MCQ explanation`, `"<topic>" INI-CET trap`. You want question stems with keyed answers and **the wrong options**, plus explanations of why students pick them. Search-result snippets count as leads.
 4. **Add the predictable wrong models** a final-year student builds even when no recall shows them. Go through the error taxonomy E1–E10 and ask, for each, what this topic invites. Examples: the look-alike it gets confused with, the list it gets padded with, the mechanism that gets reversed, the number that gets swapped, the qualifier that gets dropped, the first step that gets skipped. Your knowledge is fine here. Traps steer design. They are not facts.
 5. For each trap, write an entry in the `trap-brief.md` format in `reference/traps.md`. `refuted_by` lists the claim-bank IDs that show it is wrong, verified ones first. Rate `yield` from frequency and how central the fact is to exam questions.
 6. Traps that no claim refutes go under `## Unrefutable`. Each gets one line saying what the research would need to find. They do not become branches.
 7. End the file with `## Coverage`: one line per error type E1–E10, giving the trap IDs, or "none apply" with a reason.
+
+In **update mode** (the orchestrator says so), read the existing brief and the rebuilt `claim-bank.json`, turn each Unrefutable item that a claim now refutes into a full entry with the next free TR ID, and leave the rest of the brief unchanged.
 
 Done when there are 8–20 trap entries (more is fine for a big topic), every entry has `refuted_by` and an `error_type`, and `## Coverage` is complete.
 

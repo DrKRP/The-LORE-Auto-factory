@@ -12,3 +12,7 @@
 
 ## redesign (2026-10-18)
 - User set new constraints: buttons only, no runtime AI, distractor-first (trap brief → branch analysis → design), full pre-authored end-of-module report. Old blueprint and the 24 round-0 variants moved to design-refinement/experiments/baseline-v0/. Restarting at stage traps.
+
+## traps (2026-10-18)
+- trap-scout: 22 traps (high 7, medium 11, low 4); E5 carried inside TR1/TR4/TR6/TR16; 7 unrefutable.
+- trap-driven rescue for the 7 unrefutable gaps: all NOT FOUND, every fetch blocked by the cloud environment network policy (403 on ncbi.nlm.nih.gov, pmc, europepmc, radiopaedia). Unrefutable traps stay out of the module; retry when the network allows. Output: evidence/.../rescue-traps.md.
