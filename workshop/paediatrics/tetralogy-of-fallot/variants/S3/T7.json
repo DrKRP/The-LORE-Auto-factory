@@ -1,0 +1,168 @@
+{
+  "segment": "S3",
+  "technique": "T7",
+  "entry": "n1",
+  "nodes": {
+    "n1": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Two infants, both with **classic TOF**. Baby A is deeply blue. Baby B is pink, with nothing but a loud murmur.", "claims": []},
+        {"text": "Same condition, very different babies. What is the one thing that differs between them?", "claims": []}
+      ],
+      "choices": [
+        {"label": "How tight the RVOT obstruction is", "next": "n1_ok", "kind": "correct"},
+        {"label": "Baby A has the bigger VSD", "next": "n1_m", "kind": "misconception", "misconception": "M5"},
+        {"label": "Not sure, give me a hint", "next": "n1_hint", "kind": "help"}
+      ]
+    },
+    "n1_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Look at the four components. A large VSD is part of classic TOF, so it is present in both babies.", "claims": ["K3"]},
+        {"text": "So which part must be varying? Hint: it is the one that decides how the presentation changes.", "claims": []}
+      ],
+      "choices": [{"label": "Let me try again", "next": "n1_r", "kind": "retry"}]
+    },
+    "n1_r": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "say": [
+        {"text": "Same four components in both babies, including the large VSD. What differs?", "claims": []}
+      ],
+      "choices": [
+        {"label": "How tight the RVOT obstruction is", "next": "n1_ok", "kind": "correct"},
+        {"label": "The VSD is bigger in the bluer baby", "next": "n1_m2", "kind": "misconception", "misconception": "M5"}
+      ]
+    },
+    "n1_m": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting, because a hole feels like where blood goes wrong. But the VSD in classic TOF is already **large** in every child.", "claims": ["K3"]},
+        {"text": "What changes the picture is the **RVOT obstruction**: presentation varies with its severity.", "claims": ["K1"]}
+      ],
+      "sure_note": {"text": "You were sure, so this is worth fixing now: blueness tracks the obstruction, not the size of the hole.", "claims": ["K1", "K3"]},
+      "choices": [{"label": "Try again", "next": "n1_r", "kind": "retry"}]
+    },
+    "n1_m2": {
+      "role": "explain",
+      "say": [
+        {"text": "Let's lay them side by side instead. Baby A and Baby B share the same large VSD.", "claims": ["K3"]},
+        {"text": "The only difference is the RVOT, and presentation varies with how severe that obstruction is.", "claims": ["K1"]}
+      ],
+      "choices": [{"label": "Next", "next": "n2", "kind": "continue"}]
+    },
+    "n1_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Both share the large VSD. What differs is the **RVOT obstruction**, and the clinical presentation varies with its severity.", "claims": ["K3", "K1"]}
+      ],
+      "choices": [{"label": "Next", "next": "n2", "kind": "continue"}]
+    },
+    "n2": {
+      "role": "explain",
+      "say": [
+        {"text": "**Baby A**: significant RVOT obstruction. Most of the blood shunts toward the aorta, bypassing the pulmonary bed.", "claims": ["K20"]},
+        {"text": "**Baby B**: if resistance across the RVOT is less than systemic vascular resistance, the child is minimally cyanotic or acyanotic. Moderate obstruction gives a **pink Tet**, with a loud murmur.", "claims": ["K22", "K23"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "n3", "kind": "continue"},
+        {"label": "Why does blood choose that route?", "next": "n2_why", "kind": "agency"}
+      ]
+    },
+    "n2_why": {
+      "role": "explain",
+      "say": [
+        {"text": "Think of blood taking the easier exit: compare the resistance across the RVOT with systemic vascular resistance.", "claims": ["K22"], "device": true},
+        {"text": "When the RVOT is the harder exit, most blood goes toward the aorta instead.", "claims": ["K20"]}
+      ],
+      "choices": [{"label": "Back to the babies", "next": "n3", "kind": "continue"}]
+    },
+    "n3": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Both babies get a chest X-ray.", "claims": []},
+        {"text": "Which one is more likely to show **decreased pulmonary vascular markings**?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Baby A, the deeply blue one", "next": "n3_ok", "kind": "correct"},
+        {"label": "Both, since both have the same VSD", "next": "n3_m", "kind": "misconception", "misconception": "M5"},
+        {"label": "Not sure, give me a hint", "next": "n3_hint", "kind": "help"}
+      ]
+    },
+    "n3_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Follow the blood. Which baby sends most of it toward the aorta, away from the lungs?", "claims": ["K20"]}
+      ],
+      "choices": [{"label": "Let me try again", "next": "n3", "kind": "retry"}]
+    },
+    "n3_m": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting, since the VSD is the same. But the VSD is not what differs. Lung blood flow falls only where significant obstruction sends most blood toward the aorta.", "claims": ["K20"]},
+        {"text": "That is what leaves the chest film with **pulmonary oligaemia**.", "claims": ["K21"]}
+      ],
+      "sure_note": {"text": "You were sure, so remember it this way: same hole, different obstruction, different lungs.", "claims": ["K3", "K20"]},
+      "choices": [{"label": "Try again", "next": "n3", "kind": "retry"}]
+    },
+    "n3_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. Baby A's obstruction shunts most blood toward the aorta, so chest radiographs can show **pulmonary oligaemia**.", "claims": ["K20", "K21"]}
+      ],
+      "choices": [{"label": "Next", "next": "n4", "kind": "continue"}]
+    },
+    "n4": {
+      "role": "probe",
+      "objectives": ["O1", "O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Back to Baby B, pink with a loud murmur. A relative says: \"He is not blue, so he cannot have TOF.\"", "claims": []},
+        {"text": "Which statement fits both babies?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Both have TOF, the most common cyanotic CHD; the obstruction differs", "next": "n4_ok", "kind": "correct"},
+        {"label": "Every TOF baby is deeply blue, so B has something else", "next": "n4_m", "kind": "misconception", "misconception": "M5"},
+        {"label": "Most TOF babies look like Baby B, pink", "next": "n4_m2", "kind": "misconception", "misconception": "M5"},
+        {"label": "Not sure, give me a hint", "next": "n4_hint", "kind": "help"}
+      ]
+    },
+    "n4_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Recall Baby B's story: a moderate obstruction, a loud murmur, and a name for it.", "claims": ["K23"]}
+      ],
+      "choices": [{"label": "Let me try again", "next": "n4", "kind": "retry"}]
+    },
+    "n4_m": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting, because TOF is the textbook blue baby. But if RVOT resistance is below systemic resistance, the child is minimally cyanotic or acyanotic.", "claims": ["K22"]},
+        {"text": "Moderate obstruction gives the **pink Tet**: asymptomatic apart from a loud murmur.", "claims": ["K23"]}
+      ],
+      "sure_note": {"text": "You were sure, so this is worth a second look: pink does not rule out TOF.", "claims": ["K22", "K23"]},
+      "choices": [{"label": "Try again", "next": "n4", "kind": "retry"}]
+    },
+    "n4_m2": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting, because Baby B is the quiet one. But TOF most commonly presents as a **cyanotic neonate**, the Baby A picture.", "claims": ["K24"]},
+        {"text": "Pink Tets are the moderate-obstruction end.", "claims": ["K23"]}
+      ],
+      "sure_note": {"text": "You were sure, so note it: the common presentation is cyanotic, not pink.", "claims": ["K24"]},
+      "choices": [{"label": "Try again", "next": "n4", "kind": "retry"}]
+    },
+    "n4_ok": {
+      "role": "recap",
+      "say": [
+        {"text": "Yes. TOF is the **most common cyanotic congenital heart disease**, and presentation varies with RVOT obstruction severity.", "claims": ["K1"]},
+        {"text": "Tight obstruction: most blood bypasses the lungs, so blue. Moderate: a pink Tet with a loud murmur.", "claims": ["K20", "K23"]}
+      ],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    }
+  }
+}

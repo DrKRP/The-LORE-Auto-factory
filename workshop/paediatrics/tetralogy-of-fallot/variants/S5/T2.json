@@ -1,0 +1,222 @@
+{
+  "segment": "S5",
+  "technique": "T2",
+  "entry": "ecg",
+  "nodes": {
+    "ecg": {
+      "role": "case",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 2-year-old with known tetralogy of Fallot comes for review. The ECG shows right axis deviation, a prominent R wave in V1 and an upright T wave in V1.", "claims": []},
+        {"text": "What does this ECG pattern tell you about the ventricles?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Right ventricular hypertrophy", "next": "ecg_ok", "kind": "correct"},
+        {"label": "Left ventricular hypertrophy", "next": "ecg_m3", "kind": "misconception", "misconception": "M3"},
+        {"label": "Not sure, give me a hint", "next": "ecg_hint", "kind": "help"}
+      ]
+    },
+    "ecg_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Put the axis and lead V1 together. Both findings point to the same side of the heart.", "claims": []},
+        {"text": "Which ventricle would that be?", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "ecg", "kind": "retry"}]
+    },
+    "ecg_m3": {
+      "role": "feedback",
+      "say": [
+        {"text": "Left ventricular hypertrophy is the default guess for a big ventricle, so it is tempting. But TOF does not load the left ventricle.", "claims": ["K12"]},
+        {"text": "Right axis deviation with prominent R or qR waves in V1 and upright T in V1 is characteristic of right atrial enlargement and **right ventricular hypertrophy**.", "claims": ["K30"]}
+      ],
+      "sure_note": {"text": "You were sure, so fix this one firmly: the hypertrophy in TOF is on the right, secondary to chronic systemic pressures.", "claims": ["K12"]},
+      "choices": [{"label": "Try again", "next": "ecg", "kind": "retry"}]
+    },
+    "ecg_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Right axis deviation, prominent R or qR in V1 and upright T in V1 fit right atrial enlargement and right ventricular hypertrophy.", "claims": ["K30"]},
+        {"text": "The hypertrophy in TOF is of the right ventricle, secondary to chronic systemic pressures.", "claims": ["K12"]}
+      ],
+      "choices": [{"label": "Next: the chest X-ray", "next": "cxr", "kind": "continue"}]
+    },
+    "cxr": {
+      "role": "case",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Same child. The radiologist reports a \"boot-shaped\" heart with an upturned apex and a concave pulmonary artery segment.", "claims": []},
+        {"text": "What does the boot shape mean?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Normal-sized heart; the apex is upturned by RV hypertrophy", "next": "cxr_ok", "kind": "correct"},
+        {"label": "The heart is enlarged: cardiomegaly", "next": "cxr_m8", "kind": "misconception", "misconception": "M8"},
+        {"label": "The apex is upturned by left ventricular hypertrophy", "next": "cxr_m3", "kind": "misconception", "misconception": "M3"},
+        {"label": "Not sure, give me a hint", "next": "cxr_hint", "kind": "help"}
+      ]
+    },
+    "cxr_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Think of the ECG you just read. Whichever ventricle was hypertrophied there is the one that lifts the apex.", "claims": []},
+        {"text": "And a boot is a shape, not a size.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "cxr", "kind": "retry"}]
+    },
+    "cxr_m8": {
+      "role": "feedback",
+      "say": [
+        {"text": "\"Boot\" sounds like a big heart, so cardiomegaly is a tempting read. But it describes shape. StatPearls describes a normal-size heart silhouette with an upturned apex and a concave main pulmonary artery segment.", "claims": ["K31"]},
+        {"text": "The upturned apex is attributed to right ventricular hypertrophy, together with the concave pulmonary arterial segment.", "claims": ["K32"]}
+      ],
+      "sure_note": {"text": "You were sure, so remember it this way: boot-shaped does not mean big. The silhouette is described as normal in size.", "claims": ["K31"]},
+      "choices": [{"label": "Try again", "next": "cxr", "kind": "retry"}]
+    },
+    "cxr_m3": {
+      "role": "feedback",
+      "say": [
+        {"text": "Left ventricular hypertrophy is a familiar cause of apical change, so it is tempting. But the ventricle that hypertrophies in TOF is the right one.", "claims": ["K12"]},
+        {"text": "The upturned apex of the boot-shaped heart is attributed to right ventricular hypertrophy.", "claims": ["K4", "K32"]}
+      ],
+      "sure_note": {"text": "You were sure, so link the two tests: the ECG and the X-ray both point to the right ventricle.", "claims": ["K30", "K4"]},
+      "choices": [{"label": "Try again", "next": "cxr", "kind": "retry"}]
+    },
+    "cxr_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. The silhouette is normal in size, with an upturned apex and a concave main pulmonary artery segment.", "claims": ["K31"]},
+        {"text": "The upturned apex is attributed to right ventricular hypertrophy.", "claims": ["K4", "K32"]},
+        {"text": "The lung fields can also show decreased pulmonary vascular markings, called **pulmonary oligaemia**.", "claims": ["K21"]}
+      ],
+      "choices": [{"label": "Next: confirming the diagnosis", "next": "dx", "kind": "continue"}]
+    },
+    "dx": {
+      "role": "case",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "You now have a suggestive ECG and a boot-shaped film. The consultant asks which investigation confirms the diagnosis and is the gold standard.", "claims": []},
+        {"text": "Your pick?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Echocardiography", "next": "dx_ok", "kind": "correct"},
+        {"label": "Chest X-ray: the boot-shaped heart", "next": "dx_m9a", "kind": "misconception", "misconception": "M9"},
+        {"label": "ECG: RV hypertrophy pattern", "next": "dx_m9b", "kind": "misconception", "misconception": "M9"},
+        {"label": "Not sure, give me a hint", "next": "dx_hint", "kind": "help"}
+      ]
+    },
+    "dx_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "The ECG and X-ray showed you effects of the lesion on the heart. Which test would let you see the abnormal anatomy itself?", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "dx", "kind": "retry"}]
+    },
+    "dx_m9a": {
+      "role": "feedback",
+      "say": [
+        {"text": "The boot is the most famous picture in TOF, so it is tempting to call the X-ray diagnostic. But it is a classic sign, not the gold standard.", "claims": ["K4"]},
+        {"text": "The **echocardiogram** is the gold standard for diagnosis and the primary diagnostic modality.", "claims": ["K6", "K34"]}
+      ],
+      "sure_note": {"text": "You were sure, so separate the two ideas: classic sign is the boot, gold standard is the echo.", "claims": ["K4", "K72"]},
+      "choices": [{"label": "Try again", "next": "dx", "kind": "retry"}]
+    },
+    "dx_m9b": {
+      "role": "feedback",
+      "say": [
+        {"text": "RV hypertrophy on ECG fits TOF, so it is tempting to lean on it. But it shows the effect on the ventricle, not the anatomy.", "claims": ["K30"]},
+        {"text": "Echocardiography allows direct visualisation of the abnormal anatomy and is the gold standard for diagnosis.", "claims": ["K35", "K34"]}
+      ],
+      "sure_note": {"text": "You were sure, so remember: for the exam, gold standard investigation for diagnosis is the echocardiogram.", "claims": ["K72"]},
+      "choices": [{"label": "Try again", "next": "dx", "kind": "retry"}]
+    },
+    "dx_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. The **echocardiogram** is the gold standard for diagnosing TOF.", "claims": ["K34", "K72"]},
+        {"text": "It allows direct visualisation of the abnormal anatomy and remains the primary modality for diagnosis.", "claims": ["K35"]}
+      ],
+      "choices": [{"label": "Next: other imaging", "next": "mri", "kind": "continue"}]
+    },
+    "mri": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Later the team plans further imaging. They want both anatomical detail and functional information, without ionising radiation.", "claims": []},
+        {"text": "Which modality fits?", "claims": []}
+      ],
+      "choices": [
+        {"label": "MRI", "next": "mri_ok", "kind": "correct"},
+        {"label": "Contrast-enhanced CT", "next": "mri_ct", "kind": "partial"},
+        {"label": "Chest X-ray", "next": "mri_cxr", "kind": "partial"}
+      ]
+    },
+    "mri_ct": {
+      "role": "feedback",
+      "say": [
+        {"text": "CT is a sensible thought: contrast-enhanced CT is useful in demonstrating the complex cardiovascular morphology of TOF.", "claims": ["K37"]},
+        {"text": "But the modality described as giving both anatomical detail and functional information without ionising radiation is **MRI**.", "claims": ["K39"]}
+      ],
+      "choices": [{"label": "Try again", "next": "mri", "kind": "retry"}]
+    },
+    "mri_cxr": {
+      "role": "feedback",
+      "say": [
+        {"text": "The X-ray is where we started, so it is tempting. But it shows the boot-shaped silhouette and vascular markings, not functional information.", "claims": ["K4", "K21"]},
+        {"text": "**MRI** provides both anatomical detail and functional information without ionising radiation.", "claims": ["K39"]}
+      ],
+      "choices": [{"label": "Try again", "next": "mri", "kind": "retry"}]
+    },
+    "mri_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. **MRI** gives anatomical detail and functional information without ionising radiation.", "claims": ["K39"]},
+        {"text": "Contrast-enhanced **CT** is useful in demonstrating the complex cardiovascular morphology.", "claims": ["K37"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "recap", "kind": "continue"},
+        {"label": "Go deeper: what echo may miss", "next": "deep1", "kind": "deeper"}
+      ]
+    },
+    "deep1": {
+      "role": "explain",
+      "say": [
+        {"text": "Even the gold standard has limits. Echocardiography has limitations in assessing associated extracardiac anomalies, such as peripheral pulmonary stenosis and atresia.", "claims": ["K36"], "flag": "unverified"},
+        {"text": "CT can also evaluate post-surgical changes, such as patency of palliative shunts.", "claims": ["K38"], "flag": "unverified"}
+      ],
+      "choices": [
+        {"label": "Why does the pulmonary artery matter?", "next": "deep2", "kind": "agency"},
+        {"label": "Back to the summary", "next": "recap", "kind": "continue"}
+      ]
+    },
+    "deep2": {
+      "role": "explain",
+      "say": [
+        {"text": "Detailed pulmonary artery assessment matters because repairing the cardiac defects without addressing pulmonary artery hypoplasia or stenosis has a poor outcome.", "claims": ["K40"], "flag": "unverified"},
+        {"text": "The main or right pulmonary artery diameter should be compared with that of the ascending aorta.", "claims": ["K41"], "flag": "unverified"}
+      ],
+      "choices": [
+        {"label": "Next", "next": "deep3", "kind": "continue"},
+        {"label": "Back to the summary", "next": "recap", "kind": "continue"}
+      ]
+    },
+    "deep3": {
+      "role": "explain",
+      "say": [
+        {"text": "One more exam wrinkle: most infants with TOF may not show the boot-shaped finding.", "claims": ["K33"], "flag": "unverified"},
+        {"text": "So a normal-looking film does not rule TOF out, and the echo stays the test that settles it.", "claims": ["K34"]}
+      ],
+      "choices": [{"label": "Back to the summary", "next": "recap", "kind": "continue"}]
+    },
+    "recap": {
+      "role": "recap",
+      "say": [
+        {"text": "ECG: right axis deviation, prominent R in V1, right ventricular hypertrophy. X-ray: boot-shaped, upturned apex from RV hypertrophy, normal-size silhouette.", "claims": ["K30", "K31", "K32"]},
+        {"text": "Gold standard: **echocardiography**. MRI and CT add detail.", "claims": ["K34", "K39", "K37"], "device": true}
+      ],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    }
+  }
+}

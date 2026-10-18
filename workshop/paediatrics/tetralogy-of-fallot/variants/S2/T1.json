@@ -1,0 +1,746 @@
+{
+ "segment": "S2",
+ "technique": "T1",
+ "entry": "start",
+ "nodes": {
+  "start": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Quick retrieval first. Without peeking, which set is the classic four components of TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "VSD, overriding aorta, RVOT obstruction, right ventricular hypertrophy",
+     "next": "fast_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "VSD, overriding aorta, RVOT obstruction, left ventricular hypertrophy",
+     "next": "start_m3",
+     "kind": "misconception",
+     "misconception": "M3"
+    },
+    {
+     "label": "ASD, VSD, RVOT obstruction, right ventricular hypertrophy",
+     "next": "start_m1",
+     "kind": "misconception",
+     "misconception": "M1"
+    },
+    {
+     "label": "Not sure, build it with me",
+     "next": "r1",
+     "kind": "help"
+    }
+   ]
+  },
+  "fast_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. A large, anteriorly malaligned VSD, an overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "I know these, test me",
+     "next": "final",
+     "kind": "skip"
+    },
+    {
+     "label": "Walk me through each part anyway",
+     "next": "r1",
+     "kind": "agency"
+    }
+   ]
+  },
+  "start_m3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Left ventricular hypertrophy is tempting because one component is a hypertrophied ventricle. But it is the right ventricle, and the four components include no LVH.",
+     "claims": [
+      "K12",
+      "K13"
+     ]
+    },
+    {
+     "text": "Let's rebuild the four one rung at a time.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: the hypertrophy is right ventricular, secondary to chronic systemic pressures.",
+    "claims": [
+     "K12"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Next",
+     "next": "r1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "start_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "An ASD is tempting: it is a septal hole that may accompany TOF. But it is not one of the four. The septal component is a large VSD.",
+     "claims": [
+      "K13",
+      "K9"
+     ]
+    },
+    {
+     "text": "Let's rebuild the four one rung at a time.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: the four components include no ASD, PDA or LVH.",
+    "claims": [
+     "K13"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Next",
+     "next": "r1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "r1": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "Rung one: a hole. Which defect is one of the four components?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Ventricular septal defect",
+     "next": "r1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Atrial septal defect",
+     "next": "r1_m1",
+     "kind": "misconception",
+     "misconception": "M1"
+    },
+    {
+     "label": "Patent ductus arteriosus",
+     "next": "r1_m2",
+     "kind": "misconception",
+     "misconception": "M2"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "r1_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "r1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think of the two pumping chambers. Which defect sits between them, with the aorta later sitting over it?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "r1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "r1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes: a large, anteriorly malaligned VSD.",
+     "claims": [
+      "K9"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "r2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "r1_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "An ASD is tempting: it is a septal hole that may accompany TOF. But it is not one of the four. The septal part is a large, anteriorly malaligned VSD.",
+     "claims": [
+      "K13",
+      "K9"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "r2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "r1_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A PDA is tempting: it too may accompany TOF. But it is not one of the four. The septal part is a large, anteriorly malaligned VSD.",
+     "claims": [
+      "K13",
+      "K9"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "r2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "r2": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "Rung two: the great artery that leaves from above that hole. What is the component?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "An overriding aorta",
+     "next": "r2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A patent ductus arteriosus",
+     "next": "r2_m2",
+     "kind": "misconception",
+     "misconception": "M2"
+    },
+    {
+     "label": "Hint please",
+     "next": "r2_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "r2_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The component is about a vessel's position over the defect, not an extra channel. Which vessel carries blood to the body?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "r2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "r2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes: an overriding aorta.",
+     "claims": [
+      "K10"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "r3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "r2_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A PDA is tempting because it may accompany TOF. But it is not one of the four. The aortic component is an overriding aorta.",
+     "claims": [
+      "K13",
+      "K10"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "r3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "r3": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "Rung three: something obstructs blood leaving the right ventricle for the lungs. Which component is it?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Infundibular (sub-pulmonary) RVOT obstruction",
+     "next": "r3_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Atrial septal defect",
+     "next": "r3_m1",
+     "kind": "misconception",
+     "misconception": "M1"
+    },
+    {
+     "label": "Patent ductus arteriosus",
+     "next": "r3_m2",
+     "kind": "misconception",
+     "misconception": "M2"
+    },
+    {
+     "label": "Hint please",
+     "next": "r3_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "r3_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Look at the name of the exit from the right ventricle. The obstruction sits just below the pulmonary valve.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "r3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "r3_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes: infundibular (sub-pulmonary) RVOT obstruction.",
+     "claims": [
+      "K11"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "r4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "r3_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "An ASD is tempting: it may accompany TOF. But it is not one of the four. The obstruction component is infundibular (sub-pulmonary) RVOT obstruction.",
+     "claims": [
+      "K13",
+      "K11"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "r4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "r3_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A PDA is tempting: it may accompany TOF. But it is not one of the four. The obstruction component is infundibular (sub-pulmonary) RVOT obstruction.",
+     "claims": [
+      "K13",
+      "K11"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "r4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "r4": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Rung four: the right ventricle pumps against that obstruction at systemic pressures. Which ventricle's wall thickens?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "The right ventricle",
+     "next": "r4_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "The left ventricle",
+     "next": "r4_m3",
+     "kind": "misconception",
+     "misconception": "M3"
+    },
+    {
+     "label": "Hint please",
+     "next": "r4_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "r4_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which ventricle faces the obstruction. The chamber under pressure is the one that hypertrophies.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "r4",
+     "kind": "retry"
+    }
+   ]
+  },
+  "r4_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes: right ventricular hypertrophy, secondary to chronic systemic pressures.",
+     "claims": [
+      "K12"
+     ]
+    },
+    {
+     "text": "That completes the four: a large anteriorly malaligned VSD, an overriding aorta, infundibular RVOT obstruction and RVH.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "r4_m3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "LVH is tempting because hypertrophy is in the name. But it is the right ventricle that thickens, and the four components include no LVH.",
+     "claims": [
+      "K12",
+      "K13"
+     ]
+    },
+    {
+     "text": "So the four are a large anteriorly malaligned VSD, an overriding aorta, infundibular RVOT obstruction and RVH.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: the hypertrophy is right ventricular, secondary to chronic systemic pressures.",
+    "claims": [
+     "K12"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p1": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "Now a famous PYQ term. Pentalogy of Fallot is TOF plus which fifth lesion?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "An atrial septal defect",
+     "next": "p1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A patent ductus arteriosus",
+     "next": "p1_m4",
+     "kind": "misconception",
+     "misconception": "M4"
+    },
+    {
+     "label": "Not sure",
+     "next": "p1_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "It is a septal hole, like the VSD, but between the two upper chambers.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes: pentalogy of Fallot is TOF plus an ASD; the term is old and seldom used now.",
+     "claims": [
+      "K5"
+     ]
+    },
+    {
+     "text": "PYQs have expected this, and CDC confirms it.",
+     "claims": [
+      "K76"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "final",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p1_m4": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A PDA is tempting because it may accompany TOF. But pentalogy of Fallot is TOF plus an atrial septal defect, an old term seldom used now.",
+     "claims": [
+      "K13",
+      "K5"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "final",
+     "kind": "continue"
+    }
+   ]
+  },
+  "final": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Last check, in a new form. Which of these IS one of the four components?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Right ventricular hypertrophy",
+     "next": "final_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Left ventricular hypertrophy",
+     "next": "final_m3",
+     "kind": "misconception",
+     "misconception": "M3"
+    },
+    {
+     "label": "Atrial septal defect",
+     "next": "final_m1",
+     "kind": "misconception",
+     "misconception": "M1"
+    },
+    {
+     "label": "Patent ductus arteriosus",
+     "next": "final_m2",
+     "kind": "misconception",
+     "misconception": "M2"
+    }
+   ]
+  },
+  "final_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Remember the exam twist: PYQs have keyed PDA, ASD and LVH as \"not part of TOF\"; current StatPearls lists a VSD, an overriding aorta, RVOT obstruction and right ventricular hypertrophy.",
+     "claims": [
+      "K77"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "final_m3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "LVH is tempting because hypertrophy is a component. But the four include no LVH; the hypertrophy is right ventricular.",
+     "claims": [
+      "K13",
+      "K12"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: the four components include no ASD, PDA or LVH.",
+    "claims": [
+     "K13"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "final",
+     "kind": "retry"
+    }
+   ]
+  },
+  "final_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "ASD is tempting: it may accompany TOF. But it is not one of the four, which include a VSD.",
+     "claims": [
+      "K13",
+      "K9"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: the four components include no ASD, PDA or LVH.",
+    "claims": [
+     "K13"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "final",
+     "kind": "retry"
+    }
+   ]
+  },
+  "final_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "PDA is tempting: it may accompany TOF. But it is not one of the four, which include an overriding aorta.",
+     "claims": [
+      "K13",
+      "K10"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: the four components include no ASD, PDA or LVH.",
+    "claims": [
+     "K13"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "final",
+     "kind": "retry"
+    }
+   ]
+  }
+ }
+}

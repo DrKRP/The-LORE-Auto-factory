@@ -1,0 +1,436 @@
+{
+ "segment": "S1",
+ "technique": "T9",
+ "entry": "start",
+ "nodes": {
+  "start": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 10-day-old baby is brought in with blue lips and a harsh murmur at the left mid to upper sternal border.",
+     "claims": [
+      "K24",
+      "K25"
+     ]
+    },
+    {
+     "text": "Before I teach anything: what do you already remember? Which lesion is the **most common cyanotic congenital heart disease**?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Tetralogy of Fallot",
+     "next": "a_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Transposition of the great arteries",
+     "next": "a_w1",
+     "kind": "partial"
+    },
+    {
+     "label": "An isolated VSD",
+     "next": "a_w2",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "a_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "a_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Clue: this lesion has four parts, and one of them is a block at the right ventricular outflow.",
+     "claims": [
+      "K3"
+     ]
+    },
+    {
+     "text": "Which lesion is the most common cyanotic CHD? Have another go.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start_r",
+     "kind": "retry"
+    }
+   ]
+  },
+  "a_w1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because it is a blue-baby lesion too. But the answer the note supports is **Tetralogy of Fallot**: the most common cyanotic congenital heart disease.",
+     "claims": [
+      "K1",
+      "K69"
+     ]
+    },
+    {
+     "text": "Let me give you one more look, from a different angle.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is worth a second look: TOF is the **most common cyanotic congenital heart disease**.",
+    "claims": [
+     "K1"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start_r",
+     "kind": "retry"
+    }
+   ]
+  },
+  "a_w2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because it is a blue-baby lesion too. But the answer the note supports is **Tetralogy of Fallot**: the most common cyanotic congenital heart disease.",
+     "claims": [
+      "K1",
+      "K69"
+     ]
+    },
+    {
+     "text": "Let me give you one more look, from a different angle.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is worth a second look: TOF is the **most common cyanotic congenital heart disease**.",
+    "claims": [
+     "K1"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start_r",
+     "kind": "retry"
+    }
+   ]
+  },
+  "start_r": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Second look. Same baby: blue, harsh ejection murmur.",
+     "claims": [
+      "K25"
+     ]
+    },
+    {
+     "text": "Which is the **most common cyanotic congenital heart disease**?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Tetralogy of Fallot",
+     "next": "a_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Transposition of the great arteries",
+     "next": "a_t",
+     "kind": "partial"
+    },
+    {
+     "label": "An isolated VSD",
+     "next": "a_t",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "a_t",
+     "kind": "help"
+    }
+   ]
+  },
+  "a_t": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Here is the answer: **Tetralogy of Fallot** is the most common cyanotic congenital heart disease.",
+     "claims": [
+      "K1",
+      "K69"
+     ]
+    },
+    {
+     "text": "Its picture varies with how severe the **RVOT obstruction** is. Hold onto that; the next segments build on it.",
+     "claims": [
+      "K1"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "b",
+     "kind": "continue"
+    }
+   ]
+  },
+  "a_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. **Tetralogy of Fallot** is the most common cyanotic congenital heart disease.",
+     "claims": [
+      "K1",
+      "K69"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "gap",
+     "kind": "continue"
+    },
+    {
+     "label": "I know this, test me on the rest",
+     "next": "b",
+     "kind": "skip"
+    }
+   ]
+  },
+  "gap": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Notice what the note says: its presentation varies with how severe the **RVOT obstruction** is.",
+     "claims": [
+      "K1"
+     ]
+    },
+    {
+     "text": "Why would a block in the outflow make a baby blue? You will work that out soon.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "b",
+     "kind": "continue"
+    },
+    {
+     "label": "Go deeper: what else does the exam examiner listen for?",
+     "next": "deep",
+     "kind": "deeper"
+    }
+   ]
+  },
+  "deep": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "With significant RVOT obstruction, most blood shunts toward the aorta, bypassing the lungs.",
+     "claims": [
+      "K20"
+     ]
+    },
+    {
+     "text": "On auscultation, the pulmonic component of **S2** is usually inaudible.",
+     "claims": [
+      "K27"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "b",
+     "kind": "continue"
+    }
+   ]
+  },
+  "b": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Back to our 10-day-old.",
+     "claims": [
+      "K24"
+     ]
+    },
+    {
+     "text": "How does TOF **most commonly** present?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A cyanotic neonate",
+     "next": "b_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A silent murmur found at school age",
+     "next": "b_w1",
+     "kind": "partial"
+    },
+    {
+     "label": "A baby in heart failure with no cyanosis",
+     "next": "b_w1",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "b_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "b_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Look at the age and colour of the baby in our vignette. It is a typical presentation, not an exception.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "b_r",
+     "kind": "retry"
+    }
+   ]
+  },
+  "b_w1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, since a murmur can be the only sign of many lesions. But the note says TOF most commonly presents as a **cyanotic neonate**.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note it: the commonest presentation is a **cyanotic neonate**.",
+    "claims": [
+     "K24"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "b_r",
+     "kind": "retry"
+    }
+   ]
+  },
+  "b_r": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "One more try.",
+     "claims": []
+    },
+    {
+     "text": "TOF most commonly presents as...?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A cyanotic neonate",
+     "next": "b_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A silent murmur found at school age",
+     "next": "b_t",
+     "kind": "partial"
+    },
+    {
+     "label": "A baby in heart failure with no cyanosis",
+     "next": "b_t",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "b_t",
+     "kind": "help"
+    }
+   ]
+  },
+  "b_t": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "The most common presentation is a **cyanotic neonate**.",
+     "claims": [
+      "K24"
+     ]
+    },
+    {
+     "text": "We will meet this question again in the exam traps.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "b_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. TOF most commonly presents as a **cyanotic neonate**.",
+     "claims": [
+      "K24"
+     ]
+    },
+    {
+     "text": "Next up: the four parts of the tetralogy, and what is not one of them.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}

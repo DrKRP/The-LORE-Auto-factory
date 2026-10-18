@@ -1,0 +1,694 @@
+{
+ "segment": "S4",
+ "technique": "T6",
+ "entry": "belief",
+ "nodes": {
+  "belief": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Overheard on the ward: \"The TOF murmur is the VSD. In a tet spell more blood shunts right to left, so it gets louder.\"",
+     "claims": []
+    },
+    {
+     "text": "Do you buy it?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Yes: VSD flow makes the murmur, and shunting amplifies it",
+     "next": "belief_m6",
+     "kind": "misconception",
+     "misconception": "M6"
+    },
+    {
+     "label": "No: the murmur follows how tight the obstruction is",
+     "next": "belief_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "belief_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "belief_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Hint: the sources tie the murmur's prominence to one thing, and it is not the size of a hole.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "belief",
+     "kind": "retry"
+    }
+   ]
+  },
+  "belief_m6": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is tempting because the VSD is the hole everyone remembers, and a big right-to-left shunt sounds like it should be noisy.",
+     "claims": []
+    },
+    {
+     "text": "But the murmur is graded by the obstruction: the greater the obstruction, the more prominent the murmur.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: the murmur follows the obstruction, not the hole.",
+    "claims": [
+     "K26"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try it from another angle",
+     "next": "belief2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "belief2": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "Same idea, new angle. Two TOF babies are otherwise alike. Which has the more prominent murmur?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "The one with the bigger VSD",
+     "next": "belief_full",
+     "kind": "misconception",
+     "misconception": "M6"
+    },
+    {
+     "label": "The one with the greater obstruction",
+     "next": "belief_ok",
+     "kind": "correct"
+    }
+   ]
+  },
+  "belief_full": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Different route to the same answer. Even a baby who is pink and asymptomatic apart from a loud murmur is a TOF baby: a \"pink Tet\" with moderate obstruction.",
+     "claims": [
+      "K23"
+     ]
+    },
+    {
+     "text": "So loudness tells you about the obstruction: the greater the obstruction, the more prominent the murmur. The hole does not set it.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "listen",
+     "kind": "continue"
+    }
+   ]
+  },
+  "belief_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. The greater the obstruction, the more prominent the murmur.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "listen",
+     "kind": "continue"
+    }
+   ]
+  },
+  "listen": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "So what do you hear? A **harsh systolic ejection** murmur, best at the left mid to upper sternal border, radiating posteriorly.",
+     "claims": [
+      "K25"
+     ]
+    },
+    {
+     "text": "And the pulmonic component of **S2** is usually inaudible.",
+     "claims": [
+      "K27"
+     ]
+    },
+    {
+     "text": "Now the twist that breaks the VSD story.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Show me",
+     "next": "spell",
+     "kind": "continue"
+    }
+   ]
+  },
+  "spell": {
+   "role": "probe",
+   "objectives": [
+    "O4",
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A TOF toddler is crying, turning bluer: a tet spell. You listen at the sternal border.",
+     "claims": []
+    },
+    {
+     "text": "What has happened to the murmur?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Louder: more blood is shunting right to left",
+     "next": "spell_m6",
+     "kind": "misconception",
+     "misconception": "M6"
+    },
+    {
+     "label": "Softer",
+     "next": "spell_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Unchanged: a VSD murmur is fixed",
+     "next": "spell_m6",
+     "kind": "misconception",
+     "misconception": "M6"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "spell_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "spell_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Hint: with significant obstruction, most blood shunts toward the aorta, bypassing the pulmonary bed. Ask what that leaves to cross the outflow.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "spell",
+     "kind": "retry"
+    }
+   ]
+  },
+  "spell_m6": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: more shunting feels like more noise, and you may think a VSD makes the sound.",
+     "claims": []
+    },
+    {
+     "text": "But the source says the opposite: during a tet spell there is a **decrease in the intensity of the murmur**.",
+     "claims": [
+      "K29"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember this one: a spell makes the murmur quieter, not louder.",
+    "claims": [
+     "K29"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Test me in a different form",
+     "next": "spell_b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "spell_b": {
+   "role": "probe",
+   "objectives": [
+    "O4",
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "A known TOF child is getting bluer, yet the murmur you heard this morning is now quiet.",
+     "claims": []
+    },
+    {
+     "text": "Best reading?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Reassuring: a quieter murmur means milder obstruction",
+     "next": "spell_full",
+     "kind": "misconception",
+     "misconception": "M6"
+    },
+    {
+     "label": "Worrying: a spell can quieten the murmur",
+     "next": "spell_ok",
+     "kind": "correct"
+    }
+   ]
+  },
+  "spell_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. During a spell the murmur decreases in intensity.",
+     "claims": [
+      "K29"
+     ]
+    },
+    {
+     "text": "Picture a narrow road: when most blood bypasses the lungs, less goes through the narrow road, so less noise.",
+     "claims": [
+      "K20",
+      "K29"
+     ],
+     "device": true
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pink",
+     "kind": "continue"
+    }
+   ]
+  },
+  "spell_full": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "A different way in. A quiet murmur sounds like a milder lesion, which is why it fools people. But during a spell the intensity of the murmur decreases.",
+     "claims": [
+      "K29"
+     ]
+    },
+    {
+     "text": "Picture a narrow road: when most blood bypasses the pulmonary bed, less goes through the narrow road, so less noise. A quiet murmur in a blue child is a warning.",
+     "claims": [
+      "K20",
+      "K29"
+     ],
+     "device": true
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pink",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pink": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "One more belief to test: \"Every TOF baby is deeply blue, and how blue depends on the size of the VSD.\"",
+     "claims": []
+    },
+    {
+     "text": "What actually decides how blue the child is?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "The size of the VSD",
+     "next": "pink_m5",
+     "kind": "misconception",
+     "misconception": "M5"
+    },
+    {
+     "label": "RVOT resistance compared with systemic vascular resistance",
+     "next": "pink_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Nothing: every TOF baby is deeply blue",
+     "next": "pink_m5",
+     "kind": "misconception",
+     "misconception": "M5"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "pink_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "pink_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Hint: the source compares the resistance across the RVOT with the systemic vascular resistance.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "pink",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pink_m5": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting: the VSD is the visible hole and the baby is blue, so it seems linked.",
+     "claims": []
+    },
+    {
+     "text": "But if the resistance across the RVOT is less than the systemic vascular resistance, the patient is minimally cyanotic or acyanotic.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: colour follows the RVOT resistance versus SVR, not the hole.",
+    "claims": [
+     "K22"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try a case instead",
+     "next": "pink2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pink2": {
+   "role": "probe",
+   "objectives": [
+    "O3",
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "A pink infant with a loud murmur turns out to have TOF. Is that possible?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "No: TOF is always deeply blue",
+     "next": "pink_full",
+     "kind": "misconception",
+     "misconception": "M5"
+    },
+    {
+     "label": "Yes: moderate obstruction, a pink Tet",
+     "next": "pink_ok",
+     "kind": "correct"
+    }
+   ]
+  },
+  "pink_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Colour depends on whether RVOT resistance is below systemic resistance. With significant obstruction, most blood shunts toward the aorta.",
+     "claims": [
+      "K22",
+      "K20"
+     ]
+    },
+    {
+     "text": "Moderate obstruction can leave an infant asymptomatic apart from a loud murmur: a **pink Tet**.",
+     "claims": [
+      "K23"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "trig",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pink_full": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Look at it as a case, not a rule. Infants with moderate RVOT obstruction may be asymptomatic apart from a loud murmur: **pink Tets**.",
+     "claims": [
+      "K23"
+     ]
+    },
+    {
+     "text": "Cyanosis needs RVOT resistance to beat systemic resistance. If it is lower, the patient is minimally cyanotic or acyanotic.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "trig",
+     "kind": "continue"
+    }
+   ]
+  },
+  "trig": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Last step: what sets off a spell? Pick the true statement.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Agitation, pain, anaemia, fever, hypovolaemia and vasodilatation can trigger one",
+     "next": "trig_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Vasodilatation is protective: lower systemic resistance eases a spell",
+     "next": "trig_m7",
+     "kind": "misconception",
+     "misconception": "M7"
+    },
+    {
+     "label": "Only agitation triggers spells; fever and dehydration do not",
+     "next": "trig_part",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "trig_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "trig_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Hint: link the earlier idea to this list. Colour depends on RVOT resistance versus systemic resistance, so ask which way a fall in systemic resistance pushes things.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "trig",
+     "kind": "retry"
+    }
+   ]
+  },
+  "trig_part": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Crying is the classic picture, so it is easy to stop there. But the list is wider: agitation, pain, anaemia, fever, hypovolaemia or peripheral vasodilatation.",
+     "claims": [
+      "K28"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "trig",
+     "kind": "retry"
+    }
+   ]
+  },
+  "trig_m7": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting if you think like heart failure, where lowering the load helps. Here it backfires: peripheral vasodilatation is listed as a spell trigger.",
+     "claims": [
+      "K28"
+     ]
+    },
+    {
+     "text": "Colour follows RVOT resistance against systemic resistance; lowering systemic resistance moves things the wrong way.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: vasodilatation triggers spells, it does not relieve them.",
+    "claims": [
+     "K28"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Test me in a different form",
+     "next": "trig2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "trig2": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "A TOF toddler has a fever and is dehydrated, and turns bluer. Fever and hypovolaemia are...",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Protective, like unloading the heart",
+     "next": "trig_full",
+     "kind": "misconception",
+     "misconception": "M7"
+    },
+    {
+     "label": "Recognised spell triggers",
+     "next": "trig_ok",
+     "kind": "correct"
+    }
+   ]
+  },
+  "trig_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Spells can be triggered by agitation, pain, anaemia, fever, hypovolaemia or peripheral vasodilatation.",
+     "claims": [
+      "K28"
+     ]
+    },
+    {
+     "text": "Take-home: murmur follows obstruction, softens in a spell, and colour follows RVOT versus systemic resistance.",
+     "claims": [
+      "K26",
+      "K29",
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "trig_full": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Different angle: read the list itself. Fever, hypovolaemia, agitation, pain, anaemia and peripheral vasodilatation are all named spell triggers.",
+     "claims": [
+      "K28"
+     ]
+    },
+    {
+     "text": "Take-home: murmur follows obstruction, softens in a spell, and colour follows RVOT versus systemic resistance.",
+     "claims": [
+      "K26",
+      "K29",
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}

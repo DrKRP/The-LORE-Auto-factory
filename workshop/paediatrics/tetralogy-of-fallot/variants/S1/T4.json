@@ -1,0 +1,485 @@
+{
+ "segment": "S1",
+ "technique": "T4",
+ "entry": "start",
+ "nodes": {
+  "start": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Before I teach anything, try this cold. It is meant to be a bit hard.",
+     "claims": []
+    },
+    {
+     "text": "A 12-day-old is brought in with blue lips and tongue, worse on crying. There is a harsh systolic ejection murmur at the left mid to upper sternal border, and you cannot hear a pulmonary component of S2.",
+     "claims": [
+      "K25",
+      "K27"
+     ]
+    },
+    {
+     "text": "Which single lesion do you bet on?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Tetralogy of Fallot",
+     "next": "ok_dx",
+     "kind": "correct"
+    },
+    {
+     "label": "Transposition of the great arteries",
+     "next": "miss_a",
+     "kind": "partial"
+    },
+    {
+     "label": "An innocent flow murmur; he is just cold",
+     "next": "miss_b",
+     "kind": "partial"
+    },
+    {
+     "label": "No idea, give me a clue",
+     "next": "hint_dx",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true
+  },
+  "miss_a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Transposition is a tempting pick because any cyanotic baby makes you think of it. But it ignores your best clues: a harsh ejection murmur and an inaudible pulmonary S2 are the described TOF findings.",
+     "claims": [
+      "K25",
+      "K27"
+     ]
+    },
+    {
+     "text": "Take one more look with that in mind.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start_b",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is worth a second look. Anchor on the murmur and the pulmonary S2 together, not on the colour alone.",
+    "claims": [
+     "K25",
+     "K27"
+    ]
+   }
+  },
+  "miss_b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "An innocent murmur is tempting in a newborn. But a harsh ejection murmur with an inaudible pulmonary S2 is not innocent, and a baby with blue lips is cyanotic.",
+     "claims": [
+      "K25",
+      "K27",
+      "K24"
+     ]
+    },
+    {
+     "text": "Take one more look with that in mind.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start_b",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is worth a second look. Anchor on the murmur and the pulmonary S2 together, not on the colour alone.",
+    "claims": [
+     "K25",
+     "K27"
+    ]
+   }
+  },
+  "hint_dx": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Clue: think of the commonest cyanotic congenital heart disease. Its murmur is a harsh systolic ejection murmur, and the pulmonary component of S2 is usually inaudible.",
+     "claims": [
+      "K1",
+      "K25",
+      "K27"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start_b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "start_b": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Second attempt, with the clue: the commonest cyanotic lesion, harsh ejection murmur, quiet pulmonary S2.",
+     "claims": [
+      "K1",
+      "K25",
+      "K27"
+     ]
+    },
+    {
+     "text": "Which lesion?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Tetralogy of Fallot",
+     "next": "ok_dx",
+     "kind": "correct"
+    },
+    {
+     "label": "Transposition of the great arteries",
+     "next": "reveal_dx",
+     "kind": "partial"
+    },
+    {
+     "label": "An innocent flow murmur; he is just cold",
+     "next": "reveal_dx",
+     "kind": "partial"
+    }
+   ],
+   "objectives": [
+    "O1"
+   ]
+  },
+  "reveal_dx": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "It was Tetralogy of Fallot (TOF), and missing it on a first look is normal. The harsh ejection murmur and the usually inaudible pulmonary S2 are its signature.",
+     "claims": [
+      "K1",
+      "K25",
+      "K27"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "ok_dx": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes, Tetralogy of Fallot. The harsh systolic ejection murmur at the left mid to upper sternal border and the usually inaudible pulmonary S2 are the clues.",
+     "claims": [
+      "K25",
+      "K27"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "why": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Now a harder one you have not been taught. Make a best guess.",
+     "claims": []
+    },
+    {
+     "text": "What makes this baby blue?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Blood shunts toward the aorta and bypasses the lungs",
+     "next": "why_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "The lungs are flooded with too much blood",
+     "next": "why_f1",
+     "kind": "partial"
+    },
+    {
+     "label": "The heart muscle is too weak to pump blood",
+     "next": "why_f2",
+     "kind": "partial"
+    }
+   ],
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true
+  },
+  "why_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Your attempt hits the mechanism. With significant RVOT obstruction, most of the blood shunts toward the aorta, bypassing the pulmonary bed.",
+     "claims": [
+      "K20"
+     ]
+    },
+    {
+     "text": "The name of the lesion tells you its four parts: a large anteriorly malaligned VSD, an overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "common",
+     "kind": "continue"
+    }
+   ]
+  },
+  "why_f1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Flooded lungs is tempting, because many heart lesions send too much blood to the lungs. Here that misses the key point: with significant RVOT obstruction, most blood shunts toward the aorta, bypassing the pulmonary bed.",
+     "claims": [
+      "K20"
+     ]
+    },
+    {
+     "text": "The lesion has four parts: a large anteriorly malaligned VSD, an overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "common",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember this gap: the obstruction at the outflow is what steers blood away from the lungs.",
+    "claims": [
+     "K20"
+    ]
+   }
+  },
+  "why_f2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A weak pump is tempting, because a failing heart looks unwell. But it misses the real cause: with significant RVOT obstruction, most blood shunts toward the aorta, bypassing the pulmonary bed.",
+     "claims": [
+      "K20"
+     ]
+    },
+    {
+     "text": "The lesion has four parts: a large anteriorly malaligned VSD, an overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "common",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember this gap: the obstruction at the outflow is what steers blood away from the lungs.",
+    "claims": [
+     "K20"
+    ]
+   }
+  },
+  "common": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Last bet. This lesion is how common among cyanotic congenital heart diseases, and how does it most often present?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Commonest cyanotic CHD, most often a cyanotic neonate",
+     "next": "com_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A rare cyanotic lesion, so it is unlikely in a neonate",
+     "next": "com_hint",
+     "kind": "partial"
+    },
+    {
+     "label": "Commonest cyanotic CHD, but it only shows up at school age",
+     "next": "com_hint",
+     "kind": "partial"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "com_hint",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true
+  },
+  "com_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Hint: the lesion behind your baby's findings has a big title. It is the most common cyanotic congenital heart disease, and the baby on your couch is 12 days old.",
+     "claims": [
+      "K1",
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "common_b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "common_b": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Second try, with the hint.",
+     "claims": []
+    },
+    {
+     "text": "Where does it rank, and how does it most often present?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Commonest cyanotic CHD, most often a cyanotic neonate",
+     "next": "com_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A rare cyanotic lesion, so it is unlikely in a neonate",
+     "next": "com_reveal",
+     "kind": "partial"
+    },
+    {
+     "label": "Commonest cyanotic CHD, but it only shows up at school age",
+     "next": "com_reveal",
+     "kind": "partial"
+    }
+   ],
+   "objectives": [
+    "O1"
+   ]
+  },
+  "com_reveal": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Here is the answer. TOF is the most common cyanotic congenital heart disease, and it most commonly presents as a cyanotic neonate, just like your patient.",
+     "claims": [
+      "K1",
+      "K69",
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "wrap",
+     "kind": "continue"
+    }
+   ]
+  },
+  "com_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. TOF is the most common cyanotic congenital heart disease, and it most commonly presents as a cyanotic neonate.",
+     "claims": [
+      "K1",
+      "K69",
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "wrap",
+     "kind": "continue"
+    }
+   ],
+   "sure_note": {
+    "text": "Confident and correct, so lock it in: most common cyanotic CHD, usually a cyanotic neonate.",
+    "claims": [
+     "K1",
+     "K24"
+    ]
+   }
+  },
+  "wrap": {
+   "role": "bridge",
+   "say": [
+    {
+     "text": "Notice what your first guesses missed: the obstruction at the RVOT steers blood away from the lungs. The severity of that obstruction sets how the child presents.",
+     "claims": [
+      "K1",
+      "K20"
+     ]
+    },
+    {
+     "text": "Next, let us pin down the four parts properly.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}

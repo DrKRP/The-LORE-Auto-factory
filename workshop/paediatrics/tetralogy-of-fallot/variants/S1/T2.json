@@ -1,0 +1,425 @@
+{
+ "segment": "S1",
+ "technique": "T2",
+ "entry": "start",
+ "nodes": {
+  "start": {
+   "role": "case",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 12-day-old is brought in because the lips and tongue look blue, worse when he cries. On auscultation there is a harsh systolic ejection murmur at the left mid to upper sternal border, and you cannot make out a pulmonary component of S2.",
+     "claims": [
+      "K25",
+      "K27"
+     ]
+    },
+    {
+     "text": "What is your most likely diagnosis?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Tetralogy of Fallot",
+     "next": "ok1",
+     "kind": "correct"
+    },
+    {
+     "label": "An innocent flow murmur; he is just cold",
+     "next": "s_p1",
+     "kind": "partial"
+    },
+    {
+     "label": "Any cyanotic heart disease will do, I cannot pick one",
+     "next": "hint1",
+     "kind": "help"
+    },
+    {
+     "label": "Transposition of the great arteries",
+     "next": "s_p2",
+     "kind": "partial"
+    }
+   ]
+  },
+  "s_p1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Newborn murmurs are often innocent, so it is a tempting call. But blue lips with a harsh ejection murmur and an inaudible pulmonary S2 is not a flow murmur: the baby is cyanotic, so this is a cyanotic heart lesion.",
+     "claims": [
+      "K25",
+      "K27"
+     ]
+    },
+    {
+     "text": "Think about which cyanotic lesion is the commonest.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so pause here: cyanosis in a baby is never explained by cold alone. Look again at the murmur and S2 together.",
+    "claims": [
+     "K25",
+     "K27"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start",
+     "kind": "retry"
+    }
+   ]
+  },
+  "s_p2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Transposition is a fair thought because it is also a blue baby. But the question is which lesion is the most common cyanotic one, and the harsh ejection murmur points toward an outflow problem.",
+     "claims": [
+      "K1",
+      "K25"
+     ]
+    },
+    {
+     "text": "Have another look at the options.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember the exam angle: the 'most common cyanotic congenital heart disease' is TOF.",
+    "claims": [
+     "K1",
+     "K69"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start",
+     "kind": "retry"
+    }
+   ]
+  },
+  "hint1": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Blue baby plus a murmur means cyanotic congenital heart disease. Ask yourself which one is the **most common**, and then check whether a harsh ejection murmur with a missing pulmonary S2 fits it.",
+     "claims": [
+      "K1"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start",
+     "kind": "retry"
+    },
+    {
+     "label": "Just tell me",
+     "next": "ok1",
+     "kind": "skip"
+    }
+   ]
+  },
+  "ok1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes, **Tetralogy of Fallot**. TOF is the **most common cyanotic congenital heart disease**, and the pulmonic component of S2 is usually inaudible, as you found.",
+     "claims": [
+      "K1",
+      "K69",
+      "K27"
+     ]
+    },
+    {
+     "text": "The murmur is a **harsh systolic ejection** murmur, best heard at the left mid to upper sternal border.",
+     "claims": [
+      "K25"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q2",
+     "kind": "continue"
+    },
+    {
+     "label": "What are the four parts?",
+     "next": "parts",
+     "kind": "agency"
+    }
+   ]
+  },
+  "parts": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Classic TOF has four components: a large, anteriorly malaligned **VSD**, an **overriding aorta**, **infundibular (sub-pulmonary) RVOT obstruction** and **right ventricular hypertrophy**.",
+     "claims": [
+      "K3"
+     ]
+    },
+    {
+     "text": "We will rebuild these properly in the next part. For now, keep the case in mind.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the case",
+     "next": "q2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q2": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Our baby is blue and has a murmur. Before I explain anything, make a guess.",
+     "claims": []
+    },
+    {
+     "text": "Which single problem is most likely to make him blue?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A narrowed outflow from the right ventricle",
+     "next": "q2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "The VSD hole alone, whatever its size",
+     "next": "q2_vsd",
+     "kind": "partial"
+    },
+    {
+     "label": "Too much blood flooding the lungs",
+     "next": "q2_lungs",
+     "kind": "partial"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "q2_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "q2_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The murmur is an ejection murmur. Ask what blood would do if the way out to the lungs were tight, and the way out to the aorta were not.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q2_vsd": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The VSD is a real part of TOF, which makes it tempting. But the presentation varies with the severity of the **right ventricular outflow tract (RVOT) obstruction**, not with the hole.",
+     "claims": [
+      "K3",
+      "K1"
+     ]
+    },
+    {
+     "text": "So what should you look at to explain how blue he is?",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: the obstruction sets how blue the child is.",
+    "claims": [
+     "K1"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q2_lungs": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Flooded lungs is the classic picture of other shunt lesions, so it is tempting. In TOF the opposite happens: with significant RVOT obstruction, most blood shunts toward the aorta and **bypasses the pulmonary bed**.",
+     "claims": [
+      "K20"
+     ]
+    },
+    {
+     "text": "Now pick again.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note the reversal: in TOF blood bypasses the lungs.",
+    "claims": [
+     "K20"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. The presentation varies with how severe the **RVOT obstruction** is, and with significant obstruction most blood bypasses the lungs and goes toward the aorta.",
+     "claims": [
+      "K1",
+      "K20"
+     ]
+    },
+    {
+     "text": "That one idea is the thread for this whole module.",
+     "claims": [],
+     "device": true
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q3": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Last check before we start. A different baby with the same condition is brought to a clinic.",
+     "claims": []
+    },
+    {
+     "text": "When does TOF most commonly present?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "As a cyanotic neonate",
+     "next": "q3_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "As an acyanotic child with a murmur at school age",
+     "next": "q3_wrong",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, hint please",
+     "next": "q3_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "q3_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Our own case gave it away: think about how old the baby in the vignette was and what colour he was.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q3_wrong": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A school-age murmur is tempting, since many heart lesions are found that way. But TOF most commonly presents as a **cyanotic neonate**.",
+     "claims": [
+      "K24"
+     ]
+    },
+    {
+     "text": "Now answer again.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so fix this one: the usual first picture is a cyanotic neonate, as in our case.",
+    "claims": [
+     "K24"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q3_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes: **cyanotic neonate**. TOF is the **most common cyanotic congenital heart disease**, and it most commonly presents that way.",
+     "claims": [
+      "K1",
+      "K24",
+      "K69"
+     ]
+    },
+    {
+     "text": "Next: the four parts of TOF, and which lesions are not among them.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Let's go",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}

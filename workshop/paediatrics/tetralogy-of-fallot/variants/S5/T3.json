@@ -1,0 +1,795 @@
+{
+ "segment": "S5",
+ "technique": "T3",
+ "entry": "e1",
+ "nodes": {
+  "e1": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "The RVOT is obstructed, so the right ventricle pumps against a high load for years.",
+     "claims": []
+    },
+    {
+     "text": "Predict: what will the ECG show?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Right axis deviation, tall R in V1: right-sided strain",
+     "next": "e1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Left axis deviation: left ventricular hypertrophy",
+     "next": "e1_m",
+     "kind": "misconception",
+     "misconception": "M3"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "e1_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "e1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which ventricle is working against the obstruction. The ECG shows the ventricle that is thick.",
+     "claims": [],
+     "device": true
+    },
+    {
+     "text": "V1 sits over the right side of the heart.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Let me try again",
+     "next": "e1_r",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e1_m": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because LVH is the classic thick-ventricle ECG. But the obstruction is on the right, and TOF's hypertrophy is **right ventricular**.",
+     "claims": [
+      "K12"
+     ]
+    },
+    {
+     "text": "Look at which ventricle faces the load, then try again.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so pause here: the hypertrophy in TOF is right ventricular hypertrophy.",
+    "claims": [
+     "K12"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e1_r",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e1_r": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Same question, plainer. The thickened ventricle in TOF is the one feeding the obstructed outflow.",
+     "claims": []
+    },
+    {
+     "text": "Which ECG pattern fits?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Right axis deviation, prominent R in V1",
+     "next": "e1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Left ventricular hypertrophy pattern",
+     "next": "e1_x",
+     "kind": "misconception",
+     "misconception": "M3"
+    }
+   ]
+  },
+  "e1_x": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Two misses, so here is the answer a different way: follow the pressure. **Right ventricular hypertrophy** is secondary to chronic systemic pressures in the right ventricle.",
+     "claims": [
+      "K12"
+     ]
+    },
+    {
+     "text": "The ECG then shows right axis deviation and prominent R or qR waves in V1.",
+     "claims": [
+      "K30"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "e1_why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "e1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Observe: the **ECG** shows right axis deviation, prominent R or qR waves in V1 and upright T waves in V1.",
+     "claims": [
+      "K30"
+     ]
+    },
+    {
+     "text": "These are characteristic of right atrial enlargement and right ventricular hypertrophy.",
+     "claims": [
+      "K30"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "e1_why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "e1_why": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Explain it: why is the ECG right-sided in TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Right ventricular hypertrophy from chronic systemic pressures",
+     "next": "e1_why_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "The left ventricle thickens to push blood past the aorta",
+     "next": "e1_why_m",
+     "kind": "misconception",
+     "misconception": "M3"
+    }
+   ]
+  },
+  "e1_why_m": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because the aorta overrides the VSD and sounds like a left-sided burden. But the hypertrophy named in TOF is **right ventricular**, secondary to chronic systemic pressures.",
+     "claims": [
+      "K12"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e1_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e1_why_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Right ventricular hypertrophy, secondary to chronic systemic pressures.",
+     "claims": [
+      "K12"
+     ]
+    },
+    {
+     "text": "Now the X-ray, where the same hypertrophy leaves a famous outline.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "x1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "x1": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Predict the chest X-ray. A hypertrophied right ventricle sits at the heart's apex. Is the heart enlarged?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "No: normal size, with an upturned apex",
+     "next": "x1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Yes: a big boot-shaped heart, cardiomegaly",
+     "next": "x1_m",
+     "kind": "misconception",
+     "misconception": "M8"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "x1_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "x1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think of the boot's toe being lifted, not the boot growing. Does the outline get bigger, or change shape?",
+     "claims": [],
+     "device": true
+    }
+   ],
+   "choices": [
+    {
+     "label": "Let me try again",
+     "next": "x1_r",
+     "kind": "retry"
+    }
+   ]
+  },
+  "x1_m": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because hypertrophy sounds like a bigger heart. But StatPearls describes a **normal-size** heart silhouette; it is the shape that changes, with an upturned apex.",
+     "claims": [
+      "K31"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember: boot-shaped does not mean cardiomegaly. The silhouette is normal in size.",
+    "claims": [
+     "K31"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "x1_r",
+     "kind": "retry"
+    }
+   ]
+  },
+  "x1_r": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Boot-shaped describes the outline. Which statement fits the silhouette?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Normal-size silhouette, upturned apex",
+     "next": "x1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Globally enlarged heart",
+     "next": "x1_x",
+     "kind": "misconception",
+     "misconception": "M8"
+    }
+   ]
+  },
+  "x1_x": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Second miss, so the answer: the X-ray shows a normal-size heart silhouette with an upturned apex and a concave or boot-shaped main pulmonary artery segment.",
+     "claims": [
+      "K31"
+     ]
+    },
+    {
+     "text": "Boot shape means a changed outline, not a bigger heart.",
+     "claims": [],
+     "device": true
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "x_why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "x1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Observe: StatPearls describes a **normal-size** heart silhouette with an upturned apex and a concave or **boot-shaped** main pulmonary artery segment.",
+     "claims": [
+      "K31"
+     ]
+    },
+    {
+     "text": "The lung fields can show decreased vascular markings: **pulmonary oligaemia**.",
+     "claims": [
+      "K21"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "x_why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "x_why": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Explain it: what lifts the apex into that boot shape?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Right ventricular hypertrophy, plus a concave pulmonary segment",
+     "next": "x_why_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "An enlarged left ventricle pushing the apex up",
+     "next": "x_why_m",
+     "kind": "misconception",
+     "misconception": "M3"
+    }
+   ]
+  },
+  "x_why_m": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because LV enlargement is the usual cause of apex displacement. But the upturned apex here is attributed to **right ventricular hypertrophy**, together with a concave pulmonary arterial segment.",
+     "claims": [
+      "K32"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "x_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "x_why_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The upturned apex is attributed to right ventricular hypertrophy with a concave pulmonary arterial segment.",
+     "claims": [
+      "K32"
+     ]
+    },
+    {
+     "text": "Chest radiographs may classically show this boot-shaped heart.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g1": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "You have a right-sided ECG and a boot-shaped X-ray.",
+     "claims": []
+    },
+    {
+     "text": "Predict: which test is the gold standard that confirms TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Echocardiography",
+     "next": "g1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "The boot-shaped chest X-ray",
+     "next": "g1_m",
+     "kind": "misconception",
+     "misconception": "M9"
+    },
+    {
+     "label": "The ECG with right axis deviation",
+     "next": "g1_m",
+     "kind": "misconception",
+     "misconception": "M9"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "g1_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "g1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "A classic sign is not the same as the best test. Which test lets you directly visualise the abnormal anatomy?",
+     "claims": [],
+     "device": true
+    }
+   ],
+   "choices": [
+    {
+     "label": "Let me try again",
+     "next": "g1_r",
+     "kind": "retry"
+    }
+   ]
+  },
+  "g1_m": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because the boot and the right-axis ECG are the famous TOF signs. But a classic sign is not the gold standard: you cannot see the anatomy on them.",
+     "claims": [
+      "K4",
+      "K30"
+     ]
+    },
+    {
+     "text": "Think of the test that visualises the defects directly.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember this look-alike: the boot is the classic X-ray sign, while the gold standard is a different test.",
+    "claims": [
+     "K4",
+     "K6"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g1_r",
+     "kind": "retry"
+    }
+   ]
+  },
+  "g1_r": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Which investigation allows direct visualisation of the abnormal anatomy?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Echocardiogram",
+     "next": "g1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Chest X-ray",
+     "next": "g1_x",
+     "kind": "misconception",
+     "misconception": "M9"
+    }
+   ]
+  },
+  "g1_x": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Second miss, so the answer: the **echocardiogram** is the gold standard for diagnosis of TOF.",
+     "claims": [
+      "K34",
+      "K6"
+     ]
+    },
+    {
+     "text": "It allows direct visualisation of the abnormal anatomy and remains the primary diagnostic modality.",
+     "claims": [
+      "K35"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "a1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The **echocardiogram** is the gold standard for diagnosis and remains the primary diagnostic modality.",
+     "claims": [
+      "K6"
+     ]
+    },
+    {
+     "text": "Echocardiography allows direct visualisation of the abnormal anatomy.",
+     "claims": [
+      "K35"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "a1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "a1": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Echo is done. You want an adjunct that gives anatomical detail and functional information without ionising radiation.",
+     "claims": []
+    },
+    {
+     "text": "Which one?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "MRI",
+     "next": "a1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Contrast-enhanced CT",
+     "next": "a1_p",
+     "kind": "partial"
+    },
+    {
+     "label": "Repeat the chest X-ray as the confirming test",
+     "next": "a1_m",
+     "kind": "misconception",
+     "misconception": "M9"
+    }
+   ]
+  },
+  "a1_p": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Close. Contrast-enhanced CT is useful for demonstrating the complex cardiovascular morphology of TOF.",
+     "claims": [
+      "K37"
+     ]
+    },
+    {
+     "text": "But the one described with anatomical detail and functional information without ionising radiation is **MRI**.",
+     "claims": [
+      "K39"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "a1_end",
+     "kind": "continue"
+    }
+   ]
+  },
+  "a1_m": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because the X-ray is where the boot was seen. But it is not the gold standard; the echocardiogram is.",
+     "claims": [
+      "K6"
+     ]
+    },
+    {
+     "text": "The adjuncts are CT and MRI. MRI gives anatomical detail and functional information without ionising radiation.",
+     "claims": [
+      "K37",
+      "K39"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "a1_end",
+     "kind": "continue"
+    }
+   ]
+  },
+  "a1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. **MRI** provides both anatomical detail and functional information without ionising radiation.",
+     "claims": [
+      "K39"
+     ]
+    },
+    {
+     "text": "Contrast-enhanced CT is also useful for complex cardiovascular morphology.",
+     "claims": [
+      "K37"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "a1_end",
+     "kind": "continue"
+    }
+   ]
+  },
+  "a1_end": {
+   "role": "recap",
+   "say": [
+    {
+     "text": "One line to keep: ECG shows right ventricular hypertrophy, the boot is the classic X-ray sign, echo is the gold standard, and CT and MRI are adjuncts.",
+     "claims": [
+      "K30",
+      "K4",
+      "K6",
+      "K37",
+      "K39"
+     ],
+     "device": true
+    }
+   ],
+   "choices": [
+    {
+     "label": "Continue",
+     "next": "@next",
+     "kind": "continue"
+    },
+    {
+     "label": "Go deeper: where echo falls short",
+     "next": "d1",
+     "kind": "deeper"
+    }
+   ]
+  },
+  "d1": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Predict first: would you trust echo alone for the peripheral pulmonary arteries?",
+     "claims": []
+    },
+    {
+     "text": "Echocardiography has limitations in assessing associated extracardiac anomalies, such as peripheral pulmonary stenosis and atresia.",
+     "claims": [
+      "K36"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "choices": [
+    {
+     "label": "Why does that matter?",
+     "next": "d2",
+     "kind": "agency"
+    },
+    {
+     "label": "Continue",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "d2": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Repairing the cardiac defects without addressing pulmonary artery hypoplasia or stenosis has a poor outcome.",
+     "claims": [
+      "K40"
+     ],
+     "flag": "unverified"
+    },
+    {
+     "text": "The main or right pulmonary artery diameter should be compared with that of the ascending aorta.",
+     "claims": [
+      "K41"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "choices": [
+    {
+     "label": "Continue",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}

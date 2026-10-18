@@ -1,0 +1,584 @@
+{
+ "segment": "S2",
+ "technique": "T9",
+ "entry": "gate",
+ "nodes": {
+  "gate": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Quick gate. If you already own this, you skip the recap.",
+     "claims": []
+    },
+    {
+     "text": "From memory, what are the four components of classic Tetralogy of Fallot?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "VSD, overriding aorta, RVOT obstruction, right ventricular hypertrophy",
+     "next": "gate_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "VSD, overriding aorta, RVOT obstruction, atrial septal defect",
+     "next": "gate_m1",
+     "kind": "misconception",
+     "misconception": "M1"
+    },
+    {
+     "label": "VSD, overriding aorta, RVOT obstruction, left ventricular hypertrophy",
+     "next": "gate_m3",
+     "kind": "misconception",
+     "misconception": "M3"
+    },
+    {
+     "label": "Blank. Give me a nudge",
+     "next": "gate_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "gate_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Classic TOF has four components: a large, anteriorly malaligned **VSD**, an **overriding aorta**, **infundibular (sub-pulmonary) RVOT obstruction** and **right ventricular hypertrophy**.",
+     "claims": [
+      "K3"
+     ]
+    },
+    {
+     "text": "The hypertrophy is secondary to chronic systemic pressures.",
+     "claims": [
+      "K12"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Sure. Skip the recap",
+     "next": "odd",
+     "kind": "skip"
+    },
+    {
+     "label": "Walk me through the four anyway",
+     "next": "teach",
+     "kind": "agency"
+    }
+   ]
+  },
+  "gate_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because an ASD is among the other anomalies that **may accompany** TOF. But it is not one of the four.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "The four components listed by StatPearls and CDC include no ASD, PDA or LVH. One item in your set needs swapping.",
+     "claims": [
+      "K13"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: ASD and PDA only accompany TOF at times, which is why they feel like members.",
+    "claims": [
+     "K13"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try a smaller step",
+     "next": "gate_b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "gate_m3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Easy to reach for LVH once you hear 'hypertrophy'. But the four components listed by StatPearls and CDC include no LVH, ASD or PDA.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "The hypertrophy in TOF is of the right ventricle, secondary to chronic systemic pressures.",
+     "claims": [
+      "K12"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: it is the right ventricle that hypertrophies, not the left.",
+    "claims": [
+     "K12"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try a smaller step",
+     "next": "gate_b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "gate_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Follow the blood out of the right ventricle. What sits in the septum, what sits over it, what narrows the exit, and what thickens in response?",
+     "claims": [
+      "K3"
+     ],
+     "device": true
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try a smaller step",
+     "next": "gate_b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "gate_b": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "Different angle. An echo shows a large, anteriorly malaligned VSD, an overriding aorta and infundibular RVOT obstruction.",
+     "claims": [
+      "K9",
+      "K10",
+      "K11"
+     ]
+    },
+    {
+     "text": "Which finding completes classic TOF?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A thickened right ventricular wall",
+     "next": "gate_b_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A second hole, between the atria",
+     "next": "gate_b_m1",
+     "kind": "misconception",
+     "misconception": "M1"
+    },
+    {
+     "label": "A persistent ductus arteriosus",
+     "next": "gate_b_m2",
+     "kind": "misconception",
+     "misconception": "M2"
+    },
+    {
+     "label": "A thickened left ventricular wall",
+     "next": "gate_b_m3",
+     "kind": "misconception",
+     "misconception": "M3"
+    }
+   ]
+  },
+  "gate_b_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes, **right ventricular hypertrophy**, secondary to chronic systemic pressures. That completes the four.",
+     "claims": [
+      "K3",
+      "K12"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "odd",
+     "kind": "continue"
+    }
+   ]
+  },
+  "gate_b_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because an ASD is among the other anomalies that **may accompany** TOF. It is not one of the four.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "The fourth part is **right ventricular hypertrophy**, secondary to chronic systemic pressures.",
+     "claims": [
+      "K3",
+      "K12"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "teach",
+     "kind": "continue"
+    }
+   ]
+  },
+  "gate_b_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because a PDA is among the other anomalies that **may accompany** TOF. It is not one of the four.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "The fourth part is **right ventricular hypertrophy**, secondary to chronic systemic pressures.",
+     "claims": [
+      "K3",
+      "K12"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "teach",
+     "kind": "continue"
+    }
+   ]
+  },
+  "gate_b_m3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Easy to reach for the left ventricle. But the four components listed include no LVH, ASD or PDA.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "The fourth part is **right ventricular hypertrophy**, secondary to chronic systemic pressures.",
+     "claims": [
+      "K3",
+      "K12"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "teach",
+     "kind": "continue"
+    }
+   ]
+  },
+  "teach": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Handle: hole, rider, block, bulk.",
+     "claims": [
+      "K3"
+     ],
+     "device": true
+    },
+    {
+     "text": "Hole: a large, anteriorly malaligned **VSD**. Rider: an **overriding aorta**. Block: **infundibular (sub-pulmonary) RVOT obstruction**. Bulk: **right ventricular hypertrophy**.",
+     "claims": [
+      "K9",
+      "K10",
+      "K11",
+      "K12"
+     ]
+    },
+    {
+     "text": "ASD and PDA may accompany TOF but are not among the four.",
+     "claims": [
+      "K13"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "odd",
+     "kind": "continue"
+    }
+   ]
+  },
+  "odd": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Exam style. Pick the **true** statement about the components of TOF.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "ASD and PDA may accompany TOF but are not among the four",
+     "next": "odd_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "An ASD is the fourth component, beside VSD, aorta and RVOT",
+     "next": "odd_m1",
+     "kind": "misconception",
+     "misconception": "M1"
+    },
+    {
+     "label": "A PDA is one of the four components",
+     "next": "odd_m2",
+     "kind": "misconception",
+     "misconception": "M2"
+    },
+    {
+     "label": "The hypertrophy in TOF is left ventricular",
+     "next": "odd_m3",
+     "kind": "misconception",
+     "misconception": "M3"
+    }
+   ]
+  },
+  "odd_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. ASD and PDA are among the other anomalies that **may accompany** TOF; the four components include no ASD, PDA or LVH.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "PYQs have keyed PDA, ASD and LVH as 'not part of TOF'; current StatPearls lists the four as a VSD, an overriding aorta, RVOT obstruction and right ventricular hypertrophy.",
+     "claims": [
+      "K77"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pent",
+     "kind": "continue"
+    }
+   ]
+  },
+  "odd_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because an ASD does turn up beside TOF as one of the anomalies that **may accompany** it. Accompanying is not the same as being a component.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "The four listed by StatPearls and CDC include no ASD, PDA or LVH.",
+     "claims": [
+      "K13"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: 'may accompany' is the trap in the wording.",
+    "claims": [
+     "K13"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "odd",
+     "kind": "retry"
+    }
+   ]
+  },
+  "odd_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because a PDA is among the other anomalies that **may accompany** TOF. Accompanying is not the same as being a component.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "The four listed by StatPearls and CDC include no ASD, PDA or LVH.",
+     "claims": [
+      "K13"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: PDA only accompanies TOF at times.",
+    "claims": [
+     "K13"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "odd",
+     "kind": "retry"
+    }
+   ]
+  },
+  "odd_m3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because the word 'hypertrophy' invites the left ventricle. But the four listed by StatPearls and CDC include no LVH.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "The hypertrophy in TOF is of the right ventricle, secondary to chronic systemic pressures.",
+     "claims": [
+      "K12"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: right ventricle, not left.",
+    "claims": [
+     "K12"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "odd",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pent": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "Last one. **Pentalogy of Fallot** is TOF plus what?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "An atrial septal defect",
+     "next": "pent_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A patent ductus arteriosus",
+     "next": "pent_m4",
+     "kind": "misconception",
+     "misconception": "M4"
+    },
+    {
+     "label": "Left ventricular hypertrophy",
+     "next": "pent_m3",
+     "kind": "misconception",
+     "misconception": "M3"
+    }
+   ]
+  },
+  "pent_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. **Pentalogy of Fallot** = TOF plus an **atrial septal defect**; the term is old and seldom used now.",
+     "claims": [
+      "K5"
+     ]
+    },
+    {
+     "text": "PYQs have expected pentalogy of Fallot = TOF + atrial septal defect; CDC confirms this and calls it an old term seldom used now.",
+     "claims": [
+      "K76"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pent_m4": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, because a PDA is among the other anomalies that **may accompany** TOF.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "But pentalogy of Fallot specifically means TOF plus an **atrial septal defect**.",
+     "claims": [
+      "K5"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pent",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pent_m3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Tempting, but the four components include no LVH, so it cannot be the fifth.",
+     "claims": [
+      "K13"
+     ]
+    },
+    {
+     "text": "Pentalogy of Fallot means TOF plus an **atrial septal defect**.",
+     "claims": [
+      "K5"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pent",
+     "kind": "retry"
+    }
+   ]
+  }
+ }
+}

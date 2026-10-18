@@ -1,0 +1,526 @@
+{
+ "segment": "S3",
+ "technique": "T4",
+ "entry": "start",
+ "nodes": {
+  "start": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Two infants, both with TOF and the same large VSD. Baby A is deeply blue. Baby B is pink, with only a loud murmur.",
+     "claims": [
+      "K3",
+      "K23"
+     ]
+    },
+    {
+     "text": "I have not taught you why yet. Have a go: what makes Baby A bluer than Baby B?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Baby A's RVOT is more obstructed",
+     "next": "try_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Baby A's VSD is bigger",
+     "next": "m5a",
+     "kind": "misconception",
+     "misconception": "M5"
+    },
+    {
+     "label": "Baby A's aorta overrides more",
+     "next": "m5b",
+     "kind": "misconception",
+     "misconception": "M5"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Blood leaving the right ventricle has two exits: forward to the lungs, or across the VSD into the aorta.",
+     "claims": []
+    },
+    {
+     "text": "Both babies have the same hole. So what could change which exit the blood prefers?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Let me try again",
+     "next": "start_b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "m5a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The VSD is the biggest, most visible lesion, so it is a tempting culprit. But both babies have the same large VSD, so the hole cannot be what differs.",
+     "claims": []
+    },
+    {
+     "text": "Look at the two exits instead. What could change which one the blood prefers?",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so pause here. In TOF the hole is a constant; something else varies from baby to baby.",
+    "claims": []
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start_b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "m5b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Overriding is part of the picture, so it is tempting. But both babies have classic TOF with the same anatomy, so the aorta does not explain the gap between them.",
+     "claims": []
+    },
+    {
+     "text": "Think about the two exits from the right ventricle. What could tip the blood toward one?",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so pause here. The difference between the babies is not a different anatomy; it is how one structure is narrowed.",
+    "claims": []
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start_b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "start_b": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Same hole, same TOF. Blood chooses between the lungs and the aorta. Which difference between A and B would change that choice?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "How tight the RVOT is",
+     "next": "try_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "How large the VSD is",
+     "next": "teach_m5",
+     "kind": "misconception",
+     "misconception": "M5"
+    },
+    {
+     "label": "How far the aorta overrides",
+     "next": "teach_m5",
+     "kind": "misconception",
+     "misconception": "M5"
+    }
+   ]
+  },
+  "try_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Your guess was the right one: TOF's presentation varies with the severity of RVOT obstruction.",
+     "claims": [
+      "K1"
+     ]
+    },
+    {
+     "text": "With significant obstruction, most blood shunts toward the aorta, bypassing the pulmonary bed.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "mech",
+     "kind": "continue"
+    }
+   ]
+  },
+  "teach_m5": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "You picked the hole, which makes sense as it is the biggest lesion. Here is what that misses: the VSD is the same in both babies.",
+     "claims": []
+    },
+    {
+     "text": "What varies is the severity of RVOT obstruction.",
+     "claims": [
+      "K1"
+     ]
+    },
+    {
+     "text": "With significant obstruction, most blood shunts toward the aorta, bypassing the pulmonary bed.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure it was the hole. Corrected now, that is the idea to keep: it is the outflow, not the hole.",
+    "claims": []
+   },
+   "choices": [
+    {
+     "label": "Next",
+     "next": "mech",
+     "kind": "continue"
+    }
+   ]
+  },
+  "mech": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Picture the RVOT as a tap on the lung pipe: the tighter it is turned, the more blood takes the other route into the aorta.",
+     "claims": [
+      "K20"
+     ],
+     "device": true
+    },
+    {
+     "text": "If the resistance across the RVOT is less than the systemic vascular resistance, the patient is minimally cyanotic or acyanotic.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pink",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pink": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Baby B has moderate RVOT obstruction and was not diagnosed before birth. She is pink, with a loud murmur. What is she called?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A pink Tet",
+     "next": "pink_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not TOF, since TOF is always blue",
+     "next": "pink_m",
+     "kind": "misconception",
+     "misconception": "M5"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "pink_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "pink_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Use the tap picture: a half-open tap lets enough blood reach the lungs. What colour would you expect, and what is the nickname?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Let me try again",
+     "next": "pink",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pink_m": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Blue is the textbook picture of TOF, so this is tempting. But colour tracks the obstruction, not the diagnosis.",
+     "claims": []
+    },
+    {
+     "text": "Infants with moderate RVOT obstruction not diagnosed before birth may be asymptomatic apart from a loud murmur, and are referred to as \"pink Tets\".",
+     "claims": [
+      "K23"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure TOF is always blue. That belief fails exactly here: moderate obstruction gives a pink Tet.",
+    "claims": [
+     "K23"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Next",
+     "next": "lung",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pink_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Moderate obstruction, not diagnosed before birth, asymptomatic apart from a loud murmur: a **pink Tet**.",
+     "claims": [
+      "K23"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "lung",
+     "kind": "continue"
+    }
+   ]
+  },
+  "lung": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Back to Baby A, with severe obstruction. What do her lung fields look like on chest X-ray?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Decreased vascular markings",
+     "next": "lung_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Increased markings, the big VSD floods the lungs",
+     "next": "lung_m",
+     "kind": "misconception",
+     "misconception": "M5"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "lung_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "lung_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Use the tap picture again. In Baby A, is the lung pipe getting more blood or less?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Let me try again",
+     "next": "lung",
+     "kind": "retry"
+    }
+   ]
+  },
+  "lung_m": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A big VSD usually makes you think of flooded lungs, so this is tempting. But here the RVOT is tight.",
+     "claims": []
+    },
+    {
+     "text": "With significant obstruction, most blood shunts toward the aorta, bypassing the pulmonary bed, so chest radiographs can show decreased pulmonary vascular markings (**pulmonary oligaemia**).",
+     "claims": [
+      "K20",
+      "K21"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure about the flooded lungs. Re-read it: the obstruction decides, so the lungs get less blood.",
+    "claims": [
+     "K20",
+     "K21"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Next",
+     "next": "final",
+     "kind": "continue"
+    }
+   ]
+  },
+  "lung_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Most blood bypasses the pulmonary bed, so the film can show decreased pulmonary vascular markings (**pulmonary oligaemia**).",
+     "claims": [
+      "K20",
+      "K21"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "final",
+     "kind": "continue"
+    }
+   ]
+  },
+  "final": {
+   "role": "probe",
+   "objectives": [
+    "O1",
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Last step. Pick the one-line summary you would write in your notes.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Most common cyanotic CHD; blueness depends on RVOT obstruction",
+     "next": "final_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Most common cyanotic CHD; blueness depends on VSD size",
+     "next": "final_m1",
+     "kind": "misconception",
+     "misconception": "M5"
+    },
+    {
+     "label": "Every TOF baby is deeply blue from birth",
+     "next": "final_m2",
+     "kind": "misconception",
+     "misconception": "M5"
+    }
+   ]
+  },
+  "final_m1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The VSD is the loudest part of the anatomy, so it is tempting. But the presentation varies with the severity of RVOT obstruction, not the hole.",
+     "claims": [
+      "K1"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure of the VSD. Swap it for the outflow: it is the RVOT.",
+    "claims": [
+     "K1"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "final",
+     "kind": "retry"
+    }
+   ]
+  },
+  "final_m2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Many TOF cases do present blue, so it is tempting. But if resistance across the RVOT is less than systemic vascular resistance, the patient is minimally cyanotic or acyanotic.",
+     "claims": [
+      "K22"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure of always blue. Pink Tets show it is not always so.",
+    "claims": [
+     "K23"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "final",
+     "kind": "retry"
+    }
+   ]
+  },
+  "final_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. TOF is the **most common cyanotic congenital heart disease**, and its presentation varies with the severity of RVOT obstruction.",
+     "claims": [
+      "K1"
+     ]
+    },
+    {
+     "text": "It most commonly presents as a **cyanotic neonate**.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}
