@@ -1,0 +1,786 @@
+{
+  "segment": "S1",
+  "entry": "start",
+  "nodes": {
+    "start": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Here is a stem from an older NEET PG paper: \"Most common cause of intestinal obstruction in India and developing countries?\"",
+          "claims": []
+        },
+        {
+          "text": "Commit to one answer before we go on.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Post-operative adhesions and bands",
+          "next": "hint_adh",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Obstructed or strangulated hernia",
+          "next": "ok_key",
+          "kind": "correct"
+        },
+        {
+          "label": "Colorectal carcinoma of the colon",
+          "next": "hint_ca",
+          "kind": "trap",
+          "trap": "TR35"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "hint_gen",
+          "kind": "help"
+        }
+      ]
+    },
+    "hint_adh": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: adhesions are the commonest adult small bowel cause in the West and wherever surgery is common.",
+          "claims": [
+            "K143"
+          ]
+        },
+        {
+          "text": "But this stem names India and developing countries. Re-read the setting words, then choose again.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look harder at the setting: adhesions answer current practice, and this stem asks for the PYQ key.",
+        "claims": [
+          "K143"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "hint_ca": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: carcinoma is the commonest cause of large bowel obstruction in adults.",
+          "claims": [
+            "K4"
+          ]
+        },
+        {
+          "text": "Check whether this stem limits itself to the large bowel. It does not. Which cause does the PYQ key favour for India?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note the qualifier: 'most common' for carcinoma belongs to the large bowel, not the whole intestine.",
+        "claims": [
+          "K4"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "hint_gen": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "The stem names India and developing countries. PYQs key a cause that is common there, not only in operated abdomens.",
+          "claims": [
+            "K143"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "start_b": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Same stem, one more try. Choose again.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Colorectal carcinoma of the colon",
+          "next": "expl_ca",
+          "kind": "trap",
+          "trap": "TR35"
+        },
+        {
+          "label": "Intussusception of the ileum",
+          "next": "expl_int",
+          "kind": "partial"
+        },
+        {
+          "label": "Obstructed or strangulated hernia",
+          "next": "ok_key",
+          "kind": "correct"
+        },
+        {
+          "label": "Post-operative adhesions and bands",
+          "next": "expl_adh",
+          "kind": "trap",
+          "trap": "TR1"
+        }
+      ]
+    },
+    "expl_adh": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Adhesions are tempting: they are the commonest adult small bowel cause in the West and in current practice.",
+          "claims": [
+            "K3",
+            "K143"
+          ]
+        },
+        {
+          "text": "But this stem asks for the PYQ key for India and developing countries, where hernia is the answer expected.",
+          "claims": [
+            "K143"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "both",
+          "kind": "continue"
+        }
+      ]
+    },
+    "expl_ca": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Carcinoma feels right because it is the commonest cause of large bowel obstruction in adults.",
+          "claims": [
+            "K4"
+          ]
+        },
+        {
+          "text": "But 'most common' is a large bowel claim. Stretching it to the whole intestine is the error. The PYQ key for India is hernia.",
+          "claims": [
+            "K143"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "both",
+          "kind": "continue"
+        }
+      ]
+    },
+    "expl_int": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Intussusception is the commonest cause between 6 months and 2 years, so it is a real answer for infants.",
+          "claims": [
+            "K5"
+          ]
+        },
+        {
+          "text": "This stem gives no age, and the PYQ key for India is not intussusception. It is obstructed or strangulated hernia.",
+          "claims": [
+            "K143"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "both",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ok_key": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. For older PYQs on India and developing countries, the key is obstructed or strangulated hernia.",
+          "claims": [
+            "K143"
+          ]
+        },
+        {
+          "text": "Hold that as the exam key. Next, the same question for current practice.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "both",
+          "kind": "continue"
+        }
+      ]
+    },
+    "both": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two answers hang on one question. Which pairing does a NEET PG answer need to hold?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "PYQ key: adhesions; current practice: adhesions",
+          "next": "expl_same",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "PYQ key: hernia; current practice: adhesions",
+          "next": "ok_both",
+          "kind": "correct"
+        },
+        {
+          "label": "PYQ key: carcinoma; current practice: adhesions",
+          "next": "expl_both_ca",
+          "kind": "trap",
+          "trap": "TR35"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "hint_both",
+          "kind": "help"
+        }
+      ]
+    },
+    "ok_both": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. PYQs expected hernia; current practice says adhesions wherever abdominal surgery is common.",
+          "claims": [
+            "K143"
+          ]
+        },
+        {
+          "text": "Teach both, and say which is which. The two answers answer two different settings.",
+          "claims": [
+            "K143"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sort",
+          "kind": "continue"
+        },
+        {
+          "label": "I know the wall sort, skip it",
+          "next": "which",
+          "kind": "skip"
+        }
+      ]
+    },
+    "expl_same": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: adhesions is the commonest adult answer, so one answer feels as if it should fill both columns.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "It cannot. The PYQ key and current practice differ for this stem.",
+          "claims": [
+            "K143"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is the single-answer habit: PYQ key and current practice are separate columns.",
+        "claims": [
+          "K143"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sort",
+          "kind": "continue"
+        }
+      ]
+    },
+    "expl_both_ca": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: carcinoma is the commonest large bowel cause in adults, so it looks like a PYQ answer (K4).",
+          "claims": [
+            "K4"
+          ]
+        },
+        {
+          "text": "Wrong for this stem. The PYQ key is hernia, and current practice is adhesions.",
+          "claims": [
+            "K143"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep the large bowel fact in its own box; it does not answer this stem.",
+        "claims": [
+          "K4"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sort",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sort": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Sort by relation to the bowel wall. Adhesions and bands, an obstructed hernia and volvulus belong to which class?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Intramural",
+          "next": "expl_sort_intra",
+          "kind": "trap",
+          "trap": "TR40"
+        },
+        {
+          "label": "Extramural",
+          "next": "ok_sort",
+          "kind": "correct"
+        },
+        {
+          "label": "Intraluminal",
+          "next": "expl_sort_lumen",
+          "kind": "trap",
+          "trap": "TR40"
+        }
+      ]
+    },
+    "ok_sort": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A cause lies inside the lumen (intraluminal), in the wall (intramural), or outside it (extramural).",
+          "claims": [
+            "K18"
+          ]
+        },
+        {
+          "text": "Adhesions and bands, obstructed hernia and volvulus sit outside the wall, so they are extramural.",
+          "claims": [
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "which",
+          "kind": "continue"
+        }
+      ]
+    },
+    "expl_sort_intra": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: volvulus twists the gut, so it feels like a problem inside the wall.",
+          "claims": []
+        },
+        {
+          "text": "But adhesions, bands, hernia and volvulus act from outside the wall. They are extramural (K22). Intramural causes are in the wall (K20).",
+          "claims": [
+            "K22",
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "which",
+          "kind": "continue"
+        }
+      ]
+    },
+    "expl_sort_lumen": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a blocked bowel looks as if something is stuck inside its lumen.",
+          "claims": []
+        },
+        {
+          "text": "Luminal causes are gallstones, faecal matter and bezoars (K19). Adhesions, bands, hernia and volvulus sit outside the wall, so extramural (K22).",
+          "claims": [
+            "K19",
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "which",
+          "kind": "continue"
+        }
+      ]
+    },
+    "which": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Which of these is NOT an intramural cause of obstruction?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Intussusception of the ileum",
+          "next": "expl_which_int",
+          "kind": "trap",
+          "trap": "TR40"
+        },
+        {
+          "label": "Carcinoma of the colon",
+          "next": "expl_which_ca",
+          "kind": "trap",
+          "trap": "TR40"
+        },
+        {
+          "label": "Gallstone ileus in the ileum",
+          "next": "ok_which",
+          "kind": "correct"
+        }
+      ]
+    },
+    "ok_which": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Gallstone ileus is intraluminal: the stone sits in the lumen (K19).",
+          "claims": [
+            "K19"
+          ]
+        },
+        {
+          "text": "Intramural causes sit in the wall, such as carcinoma, stricture and intussusception (K20).",
+          "claims": [
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "virgin",
+          "kind": "continue"
+        }
+      ]
+    },
+    "expl_which_int": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: intussusception looks like a telescoping from outside, so it can feel extramural.",
+          "claims": []
+        },
+        {
+          "text": "It is intramural (K20). The NOT answer is the luminal stone, gallstone ileus (K19).",
+          "claims": [
+            "K20",
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "virgin",
+          "kind": "continue"
+        }
+      ]
+    },
+    "expl_which_ca": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a tumour presses in from outside, and external compression by tumour is extramural (K22).",
+          "claims": [
+            "K22"
+          ]
+        },
+        {
+          "text": "But carcinoma of the colon is an intramural cause (K20). The NOT answer is gallstone ileus, which is intraluminal (K19).",
+          "claims": [
+            "K20",
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "virgin",
+          "kind": "continue"
+        }
+      ]
+    },
+    "virgin": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "A 58-year-old man has colicky central pain, vomiting and distension for two days. He has had no previous abdominal surgery.",
+          "claims": []
+        },
+        {
+          "text": "Which cause is most likely?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Adhesive band across the bowel",
+          "next": "hint_virgin",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Obstructed external hernia",
+          "next": "ok_virgin",
+          "kind": "correct"
+        },
+        {
+          "label": "Crohn's stricture of the ileum",
+          "next": "hint_virgin",
+          "kind": "trap",
+          "trap": "TR1"
+        }
+      ]
+    },
+    "ok_virgin": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. With no previous surgery, adhesions are unlikely, so the surgical cause must be sought elsewhere (K101).",
+          "claims": [
+            "K101"
+          ]
+        },
+        {
+          "text": "A hernia comes first: check every hernial orifice (K27, K28).",
+          "claims": [
+            "K27",
+            "K28"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "recap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "expl_virgin_adh": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: adhesions are the commonest adult small bowel cause (K3), so the default answer comes automatically.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "But adhesions are unlikely in a virgin abdomen, and this history says no surgery (K101). Check the orifices first (K27).",
+          "claims": [
+            "K101",
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "recap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "expl_virgin_crohn": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: Crohn's is a real cause of intramural stricture (K20), and it sounds like a chronic small bowel problem.",
+          "claims": [
+            "K20"
+          ]
+        },
+        {
+          "text": "But the history points elsewhere. In a virgin abdomen, the surgical cause to find first is a hernia (K27).",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "recap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "recap": {
+      "role": "recap",
+      "say": [
+        {
+          "text": "Keep three things for the rest of the module. PYQ key and current practice are two columns (K143).",
+          "claims": [
+            "K143"
+          ]
+        },
+        {
+          "text": "Sort causes by wall relation (K18). In a virgin abdomen, check the hernial orifices first (K101, K27).",
+          "claims": [
+            "K18",
+            "K101",
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "hint_both": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "One answer cannot fill both columns. The old PYQ key was set for India and developing countries; current practice is set where abdominal surgery is common.",
+          "claims": [
+            "K143"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "both",
+          "kind": "retry"
+        }
+      ]
+    },
+    "hint_virgin": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Look at what the history rules out. If no operation has ever been done, which part of the abdomen would you examine next?",
+          "claims": [
+            "K101"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "virgin_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "virgin_b": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Same man, no previous abdominal surgery. Choose again: which cause is most likely?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Crohn's stricture of the ileum",
+          "next": "expl_virgin_crohn",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Adhesive band across the bowel",
+          "next": "expl_virgin_adh",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Obstructed external hernia",
+          "next": "ok_virgin",
+          "kind": "correct"
+        }
+      ]
+    }
+  },
+  "technique": "T9+T2",
+  "decision": "merge"
+}
