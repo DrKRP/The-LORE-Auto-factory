@@ -1,0 +1,918 @@
+{
+  "segment": "S2",
+  "entry": "start",
+  "nodes": {
+    "start": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 9-year-old boy has had a cold for 3 days, then 10 hours of pain in the right lower abdomen. Your registrar asks what is blocking his appendix.",
+          "claims": []
+        },
+        {
+          "text": "Which is the **most likely** obstruction?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Faecolith",
+          "next": "t15",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Lymphoid hyperplasia",
+          "next": "ok1",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "s_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "s_hint": {
+      "role": "hint",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Start with his age. Which obstruction is common in a child, and which in an adult?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t15": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Tempting: the faecolith is the cause you probably learned first, and it shows well on CT.",
+          "claims": []
+        },
+        {
+          "text": "But look at the age in the stem. Where is the lymphoid tissue of the appendix largest?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pause on this: the age in the stem decides the cause, not the cause you know best.",
+        "claims": [
+          "K14",
+          "K15"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "t15w",
+          "kind": "agency"
+        },
+        {
+          "label": "Try again",
+          "next": "start",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t15w": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Faecoliths predominate in adults (K15). Lymphoid tissue is richest in young people and atrophies with age (K23).",
+          "claims": [
+            "K15",
+            "K23"
+          ]
+        },
+        {
+          "text": "So in a child, lymphoid hyperplasia, often after a viral illness, is the usual blocker (K14).",
+          "claims": [
+            "K14"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wx1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ok1": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. In a child the lymphoid tissue swells, often after a viral illness, and blocks the lumen (K14).",
+          "claims": [
+            "K14"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wx1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wx1": {
+      "role": "explain",
+      "objectives": [
+        "O2",
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Let's walk one case all the way, with the reasoning shown. This is the worked case: the 9-year-old.",
+          "claims": []
+        },
+        {
+          "text": "Step 1, the lumen. Obstruction is the usual starting event, and here it is lymphoid hyperplasia (K13, K2).",
+          "claims": [
+            "K13",
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wx2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wx2": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Step 2, pressure. The blocked lumen keeps making mucus, and pressure inside the closed tube rises (K24).",
+          "claims": [
+            "K24"
+          ]
+        },
+        {
+          "text": "Step 3, the wall. Venous congestion and bacterial overgrowth follow, then the mucosa ulcerates and inflammation passes through the wall (K24).",
+          "claims": [
+            "K24"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wx3",
+          "kind": "continue"
+        },
+        {
+          "label": "Why does pressure matter for blood flow?",
+          "next": "wx2w",
+          "kind": "agency"
+        }
+      ]
+    },
+    "wx2w": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Rising pressure first causes venous congestion, and only then compromises the arterial supply (K24, K25).",
+          "claims": [
+            "K24",
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wx3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wx3": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Step 4, the pain. Early distension stimulates visceral afferents entering at T10, so the pain is felt **periumbilically** (K26).",
+          "claims": [
+            "K26"
+          ]
+        },
+        {
+          "text": "Step 5, the shift. When inflammation reaches the parietal peritoneum, the pain localises to the **right iliac fossa** (K27, K5).",
+          "claims": [
+            "K27",
+            "K5"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wx4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wx4": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Step 6, the wall dies. The appendicular artery is an **end artery** (K4, K22). When pressure cuts its supply, gangrene follows, then perforation (K25).",
+          "claims": [
+            "K4",
+            "K22",
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c2",
+          "kind": "continue"
+        },
+        {
+          "label": "Why does an end artery matter so much?",
+          "next": "wx4d",
+          "kind": "deeper"
+        }
+      ]
+    },
+    "wx4d": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "An end artery has no backup route. Once its flow stops, the wall loses its blood supply and gangrene follows (K4, K22).",
+          "claims": [
+            "K4",
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c2": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Case 2, a 45-year-old man. A CT shows an appendicolith (K15) and the lumen is blocked. The pressure is rising.",
+          "claims": [
+            "K15"
+          ]
+        },
+        {
+          "text": "You take the next step yourself. Which happens first?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Arterial compromise comes first, then venous congestion",
+          "next": "c2t1",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Venous congestion comes first, then arterial compromise",
+          "next": "c2ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Wall ischaemia starts before the lumen is blocked",
+          "next": "c2t2",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c2h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c2h": {
+      "role": "hint",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Go back to the pressure step. Which vessel system does rising pressure reach first, the veins or the arteries?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c2t1": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Tempting: arterial supply is what gangrene needs, so arterial failure feels like the first thing to go.",
+          "claims": []
+        },
+        {
+          "text": "But gangrene is the end of the chain. What does the pressure reach before the arteries?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so trace the chain again: the end point is easy to remember and easy to place too early.",
+        "claims": [
+          "K24",
+          "K25"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "c2t1w",
+          "kind": "agency"
+        },
+        {
+          "label": "Try again",
+          "next": "c2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c2t1w": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Pressure first causes venous congestion; the arterial supply fails only after that (K24, K25). Gangrene is the end point, not the start.",
+          "claims": [
+            "K24",
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c2t2": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Tempting: the wall is where the disease lives, so its failure feels like the first event.",
+          "claims": []
+        },
+        {
+          "text": "But the lumen is blocked first. Which step came before the wall's blood supply in the chain you traced?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the order: the wall is where the disease is seen, not where it starts.",
+        "claims": [
+          "K13",
+          "K24"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "c2t2w",
+          "kind": "agency"
+        },
+        {
+          "label": "Try again",
+          "next": "c2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c2t2w": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Obstruction starts the chain. Pressure builds, and the wall's blood supply fails only after that (K13, K24, K25).",
+          "claims": [
+            "K13",
+            "K24",
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c2ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. Pressure first congests the veins, then compromises the arteries, and gangrene follows (K24, K25).",
+          "claims": [
+            "K24",
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c3": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Case 3, with more left to you. Obstruction comes first and perforation last.",
+          "claims": []
+        },
+        {
+          "text": "Order the four events in the middle.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Arterial compromise, rising pressure, venous congestion, gangrene",
+          "next": "c3t",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Rising pressure, venous congestion, arterial compromise, gangrene",
+          "next": "c3ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Rising pressure, arterial compromise, venous congestion, gangrene",
+          "next": "c3t",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c3h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c3h": {
+      "role": "hint",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Pressure comes before anything it damages. Which structure did you trace first in case 2, the veins or the arteries?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c3t": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Tempting: gangrene and arterial failure are the dramatic events, so they feel like they belong early.",
+          "claims": []
+        },
+        {
+          "text": "But they sit at the end of the chain. Trace cause to effect again, one step at a time.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so slow down: the dramatic events are the end of the chain, not its start.",
+        "claims": [
+          "K24",
+          "K25"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "c3w",
+          "kind": "agency"
+        },
+        {
+          "label": "Try again",
+          "next": "c3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c3w": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Pressure congests the veins, then compromises the arteries, and gangrene and perforation come last (K24, K25).",
+          "claims": [
+            "K24",
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "s5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c3ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Right. Each step drives the next: pressure, venous congestion, arterial compromise, then gangrene (K24, K25).",
+          "claims": [
+            "K24",
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "s5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "s5": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now the symptoms you hear on the ward round.",
+          "claims": []
+        },
+        {
+          "text": "In typical appendicitis, which order do the symptoms come in?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Vomiting, then pain, then fever",
+          "next": "s5t",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Pain, then vomiting, then fever",
+          "next": "s5ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Fever, then pain, then vomiting",
+          "next": "s5t",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "s5h",
+          "kind": "help"
+        }
+      ]
+    },
+    "s5h": {
+      "role": "hint",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Start from the lumen you just traced. Which symptom does a blocked, distending appendix produce first?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "s5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "s5t": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Tempting: vomiting feels like the opening symptom of any gut illness, so it looks like the first thing to appear.",
+          "claims": []
+        },
+        {
+          "text": "But in appendicitis, what does the distending lumen stimulate first?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the order: vomiting is common, but it does not open this story.",
+        "claims": [
+          "K6"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "s5w",
+          "kind": "agency"
+        },
+        {
+          "label": "Try again",
+          "next": "s5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "s5w": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "The distended lumen gives pain first (K26). Anorexia is almost constant, and nausea with a few vomits follows the pain (K31). Fever is low-grade (K32).",
+          "claims": [
+            "K26",
+            "K31",
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "s6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "s5ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Yes. Pain first, then vomiting, then a low-grade fever: Murphy's sequence (K6, K31, K32).",
+          "claims": [
+            "K6",
+            "K31",
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "s6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "s6": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A young adult vomited several times through the morning, then got diffuse abdominal pain and loose stools.",
+          "claims": []
+        },
+        {
+          "text": "Does this make appendicitis more likely or less likely?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "More likely: vomiting is the typical first symptom",
+          "next": "s6t",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Less likely: the vomiting came before the pain",
+          "next": "s6ok",
+          "kind": "correct"
+        },
+        {
+          "label": "More likely: fever and vomiting come before pain",
+          "next": "s6t",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "s6h",
+          "kind": "help"
+        }
+      ]
+    },
+    "s6h": {
+      "role": "hint",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Ask which symptom came first in this patient, and where that symptom sits in the sequence you just learned.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "s6",
+          "kind": "retry"
+        }
+      ]
+    },
+    "s6t": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Tempting: vomiting feels like the first symptom of any abdominal illness, so the story looks like an early one.",
+          "claims": []
+        },
+        {
+          "text": "But which symptom does the sequence put first in appendicitis?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so use the order as your filter: pain first, not vomiting.",
+        "claims": [
+          "K6"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "s6w",
+          "kind": "agency"
+        },
+        {
+          "label": "Try again",
+          "next": "s6",
+          "kind": "retry"
+        }
+      ]
+    },
+    "s6w": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Vomiting before pain argues against appendicitis, because appendicitis starts with pain (K6). Fever is low-grade, not an early sign (K32).",
+          "claims": [
+            "K6",
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "s6ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Right. Vomiting before the pain points away from appendicitis (K6). Pain-first is your filter.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}

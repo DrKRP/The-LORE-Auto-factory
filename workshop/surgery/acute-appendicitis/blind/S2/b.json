@@ -1,0 +1,676 @@
+{
+  "segment": "S2",
+  "entry": "pain_probe",
+  "nodes": {
+    "pain_probe": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 19-year-old has had central abdominal pain for 12 hours, and it is now worse. Before I explain anything, take a guess.",
+          "claims": []
+        },
+        {
+          "text": "Which course is typical for his pain?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Right iliac fossa pain that later spreads to the umbilicus",
+          "next": "pain_t4a",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Periumbilical colicky pain that later shifts to the right iliac fossa",
+          "next": "pain_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Constant right iliac fossa pain from the start that never moves",
+          "next": "pain_t4b",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pain_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "pain_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about the first sensation. The gut's own nerves are central and vague.",
+          "claims": []
+        },
+        {
+          "text": "Which layer has to be inflamed before pain can point to one spot?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "pain_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pain_t4a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Starting in the right iliac fossa feels right, because that is where the pain ends up. It is tempting for that reason.",
+          "claims": []
+        },
+        {
+          "text": "But early pain is visceral and central, from T10 (K26). It localises to the right iliac fossa only once the parietal peritoneum is involved (K27).",
+          "claims": [
+            "K26",
+            "K27"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look again at the order: the end point of the story is not its start.",
+        "claims": [
+          "K5"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the chain",
+          "next": "chain_teach",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pain_t4b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Constant pain from the start is tempting: the right iliac fossa is the picture you remember from the ward, so it feels like the first picture too.",
+          "claims": []
+        },
+        {
+          "text": "But the early pain is periumbilical and colicky (K30). It shifts to the right iliac fossa later (K5).",
+          "claims": [
+            "K30",
+            "K5"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note it: the classic pain starts in the middle and moves.",
+        "claims": [
+          "K30"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the chain",
+          "next": "chain_teach",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pain_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The pain starts periumbilical and colicky, then shifts to the right iliac fossa.",
+          "claims": [
+            "K5",
+            "K30"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "chain_teach",
+          "kind": "continue"
+        }
+      ]
+    },
+    "chain_teach": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Here is the chain, one link at a time. Luminal obstruction starts it. Mucus keeps coming, so the pressure inside rises.",
+          "claims": [
+            "K13",
+            "K24"
+          ]
+        },
+        {
+          "text": "Venous congestion comes next, then arterial compromise. The appendicular artery is an end artery, so gangrene and then perforation follow.",
+          "claims": [
+            "K25",
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "mech_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "mech_probe": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "The pain is now sharp and sits over the right iliac fossa. Why does it localise there, and not earlier?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Rising lumen pressure over-stimulates T10 afferents directly",
+          "next": "mech_t4a",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Inflammation reaches the parietal peritoneum, giving localised pain",
+          "next": "mech_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Wall ischaemia starts before the lumen is blocked",
+          "next": "mech_t4b",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "mech_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "mech_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Which layer of peritoneum can feel touch and point to a spot?",
+          "claims": []
+        },
+        {
+          "text": "Does the visceral layer do that, or does something else?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "mech_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "mech_t4a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Rising pressure is tempting: it causes the pain, so it feels like it should also decide where the pain sits.",
+          "claims": []
+        },
+        {
+          "text": "But the T10 visceral signal stays central and diffuse, however strong it gets (K26). What is right is the parietal peritoneum, which localises the pain (K27).",
+          "claims": [
+            "K26",
+            "K27"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Pressure explains why it hurts, not where it hurts.",
+        "claims": [
+          "K26"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "mech_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "sym_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "mech_t4b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Ischaemia first is tempting: gangrene is the end picture you remember, so it feels like the start of the story.",
+          "claims": []
+        },
+        {
+          "text": "But the wall is starved only after the lumen blocks, the pressure rises and venous return fails (K24, K25).",
+          "claims": [
+            "K24",
+            "K25"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the order: ischaemia comes after the pressure, not before the block.",
+        "claims": [
+          "K25"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "mech_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "sym_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "mech_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Once inflammation reaches the parietal peritoneum, the pain turns somatic and sits over the right iliac fossa.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sym_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sym_probe": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Typical appendicitis gives three symptoms. Which order do they come in?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Vomiting, then pain, then fever",
+          "next": "sym_t5a",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Pain, then vomiting, then fever",
+          "next": "sym_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Fever, then pain, then vomiting",
+          "next": "sym_t5b",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "sym_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "sym_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Start with the first symptom the inflamed gut produces, the one you feel before anything else.",
+          "claims": []
+        },
+        {
+          "text": "Then ask what comes after it.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "sym_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "sym_t5a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Vomiting first is tempting: it opens gastroenteritis and many obstructions, so it feels like the usual start here too.",
+          "claims": []
+        },
+        {
+          "text": "In appendicitis pain comes first, and vomiting follows it (K6). Vomiting is only a few episodes after the pain starts (K31).",
+          "claims": [
+            "K6",
+            "K31"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Vomiting that comes first points away from appendicitis.",
+        "claims": [
+          "K6"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "sym_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "age_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sym_t5b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Fever first is tempting: fever is the sign people look for, so it feels like it should open the story.",
+          "claims": []
+        },
+        {
+          "text": "In typical appendicitis the fever is low-grade and comes after the pain and vomiting (K6, K32).",
+          "claims": [
+            "K6",
+            "K32"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note it: a high fever early in the story points away from the typical course.",
+        "claims": [
+          "K32"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "sym_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "age_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sym_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Pain comes first, then vomiting, then low-grade fever (K6, K32).",
+          "claims": [
+            "K6",
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "age_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "age_probe": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An 8-year-old had a viral illness last week and now has right iliac fossa pain. What is the commonest cause of the luminal block?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Faecolith",
+          "next": "age_t15",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Lymphoid hyperplasia",
+          "next": "age_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "age_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "age_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Look at the age in the stem first.",
+          "claims": []
+        },
+        {
+          "text": "What sits in a child's appendix wall that shrinks as the child grows older?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "age_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "age_t15": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Faecolith is tempting: it is the cause every textbook names, and it feels like the default answer.",
+          "claims": []
+        },
+        {
+          "text": "But the age decides it. In a child the usual block is lymphoid hyperplasia, often after a viral illness (K14). A faecolith is the adult cause (K15).",
+          "claims": [
+            "K14",
+            "K15"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the age first: the cause changes with it.",
+        "claims": [
+          "K14"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "age_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "adult_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "age_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Lymphoid hyperplasia, often after a viral illness, is the commonest block in children (K14).",
+          "claims": [
+            "K14"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "adult_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "adult_probe": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 45-year-old has had right iliac fossa pain for three days. What is the commonest cause of the luminal block at this age?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Lymphoid hyperplasia",
+          "next": "adult_t15",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Faecolith",
+          "next": "adult_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "adult_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "adult_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Go back to the age: the child's answer may not carry over.",
+          "claims": []
+        },
+        {
+          "text": "What hardens and collects in an older lumen, and what does the wall's lymphoid tissue do with age?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "adult_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "adult_t15": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Lymphoid hyperplasia is tempting: it was the answer a minute ago, so the child case is still fresh.",
+          "claims": []
+        },
+        {
+          "text": "But lymphoid tissue shrinks with age, so in adults a faecolith is the usual block (K15, K95).",
+          "claims": [
+            "K15",
+            "K95"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. The same cause can flip with the age in the stem.",
+        "claims": [
+          "K95"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "adult_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "adult_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. In adults a faecolith is the commonest block, and its presence raises the risk of perforation (K15).",
+          "claims": [
+            "K15"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
