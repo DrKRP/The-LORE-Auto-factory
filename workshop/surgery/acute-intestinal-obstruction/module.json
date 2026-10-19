@@ -586,7 +586,7 @@
       "id": "S6",
       "title": "Cold check and summary",
       "type": "consolidate",
-      "entry": "S6.pyq",
+      "entry": "S6.q1",
       "technique": "T8+T10",
       "decision": "merge"
     }
@@ -658,8 +658,13 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S1.start_b",
+          "next": "S1.start",
           "kind": "retry"
+        },
+        {
+          "label": "Narrow it down for me",
+          "next": "S1.start_b",
+          "kind": "agency"
         }
       ],
       "segment": "S1"
@@ -687,8 +692,13 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S1.start_b",
+          "next": "S1.start",
           "kind": "retry"
+        },
+        {
+          "label": "Narrow it down for me",
+          "next": "S1.start_b",
+          "kind": "agency"
         }
       ],
       "segment": "S1"
@@ -706,7 +716,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S1.start_b",
+          "next": "S1.start",
           "kind": "retry"
         }
       ],
@@ -719,11 +729,16 @@
       ],
       "say": [
         {
-          "text": "Same stem, one more try. Choose again.",
+          "text": "Narrowed down: the stem names India and developing countries, and gives no age. Which cause does the PYQ key expect?",
           "claims": []
         }
       ],
       "choices": [
+        {
+          "label": "Intussusception of the ileum",
+          "next": "S1.expl_int",
+          "kind": "partial"
+        },
         {
           "label": "Colorectal carcinoma of the colon",
           "next": "S1.expl_ca",
@@ -731,20 +746,15 @@
           "trap": "TR35"
         },
         {
-          "label": "Intussusception of the ileum",
-          "next": "S1.expl_int",
-          "kind": "partial"
+          "label": "Post-operative adhesions and bands",
+          "next": "S1.expl_adh",
+          "kind": "trap",
+          "trap": "TR1"
         },
         {
           "label": "Obstructed or strangulated hernia",
           "next": "S1.ok_key",
           "kind": "correct"
-        },
-        {
-          "label": "Post-operative adhesions and bands",
-          "next": "S1.expl_adh",
-          "kind": "trap",
-          "trap": "TR1"
         }
       ],
       "segment": "S1"
@@ -909,7 +919,7 @@
           "kind": "continue"
         },
         {
-          "label": "I know the wall sort, one quick check",
+          "label": "I know the sort by bowel wall, one quick check",
           "next": "S1.which",
           "kind": "skip"
         }
@@ -1262,7 +1272,7 @@
           ]
         },
         {
-          "text": "But adhesions are unlikely in a virgin abdomen, and this history says no surgery. Check the orifices first.",
+          "text": "The answer is an obstructed hernia. With no surgery, adhesions are unlikely, so check every hernial orifice first.",
           "claims": [
             "K101",
             "K27"
@@ -1288,7 +1298,7 @@
           ]
         },
         {
-          "text": "But the history points elsewhere. In a virgin abdomen, the surgical cause to find first is a hernia.",
+          "text": "The answer is an obstructed hernia. With no surgery in the history, check every hernial orifice first.",
           "claims": [
             "K27"
           ]
@@ -1307,15 +1317,20 @@
       "role": "recap",
       "say": [
         {
-          "text": "Keep three things for the rest of the module. PYQ key and current practice are two columns.",
+          "text": "PYQ key and current practice are two columns: hernia for the old India key, adhesions for current practice.",
           "claims": [
             "K143"
           ]
         },
         {
-          "text": "Sort causes by wall relation. In a virgin abdomen, check the hernial orifices first.",
+          "text": "Sort causes by relation to the bowel wall: inside the lumen, in the wall, or outside it.",
           "claims": [
-            "K18",
+            "K18"
+          ]
+        },
+        {
+          "text": "In a virgin abdomen, check the hernial orifices first.",
+          "claims": [
             "K101",
             "K27"
           ]
@@ -1410,6 +1425,12 @@
         {
           "text": "A 45-year-old has a **high** small bowel block, just beyond the stomach. Nothing else is wrong with the gut.",
           "claims": []
+        },
+        {
+          "text": "Each option is a different order for the cardinal features (pain, vomiting, distension, constipation). Pick the order that fits a high block.",
+          "claims": [
+            "K2"
+          ]
         },
         {
           "text": "Predict the feature that comes early and dominates. Which one?",
@@ -1563,16 +1584,11 @@
           "claims": []
         },
         {
-          "text": "Why it fails: the level sets the order. Absolute constipation is late in a high block, because the colon below still empties its stool first, and a high block distends little.",
+          "text": "Why it fails: the level sets the order. Absolute constipation is late in a high block, because the colon below still empties its stool first, and a high block distends little. Right: early vomiting, with little distension.",
           "claims": [
-            "K54",
-            "K53"
-          ]
-        },
-        {
-          "text": "Right: early vomiting, with little distension.",
-          "claims": [
-            "K51"
+            "K51",
+            "K53",
+            "K54"
           ]
         }
       ],
@@ -1601,17 +1617,11 @@
           ]
         },
         {
-          "text": "Why it fails: each feature has its own timeline. A high block vomits early and distends little, and constipation comes late.",
+          "text": "Why it fails: each feature has its own timeline. A high block vomits early and distends little, and constipation comes late. Right: early profuse vomiting, with little distension.",
           "claims": [
             "K51",
             "K53",
             "K54"
-          ]
-        },
-        {
-          "text": "Right: early profuse vomiting, with little distension.",
-          "claims": [
-            "K51"
           ]
         }
       ],
@@ -1654,8 +1664,8 @@
           "kind": "continue"
         },
         {
-          "label": "I know levels and sounds: skip to strangulation",
-          "next": "S2.pain",
+          "label": "I know the levels: skip to the sounds",
+          "next": "S2.snd",
           "kind": "skip"
         }
       ],
@@ -1707,13 +1717,7 @@
           "claims": []
         },
         {
-          "text": "Why it fails: position decides it. A low block has little bowel below it to empty, so constipation is early.",
-          "claims": [
-            "K54"
-          ]
-        },
-        {
-          "text": "Right: the bowel below a small bowel block empties first, so stool and flatus keep passing for a while.",
+          "text": "Why it fails: position decides it. A low block has little bowel below it to empty, so constipation is early. Right: the bowel below a small bowel block empties first, so stool and flatus keep passing for a while.",
           "claims": [
             "K54"
           ]
@@ -1736,14 +1740,9 @@
           "claims": []
         },
         {
-          "text": "Why it fails: contents above a block cannot pass it, and the bowel above dilates.",
+          "text": "Why it fails: contents above a block cannot pass it, and the bowel above dilates. Right: the colon below the block empties first, which delays constipation in a high block.",
           "claims": [
-            "K40"
-          ]
-        },
-        {
-          "text": "Right: the colon below the block empties first, which delays constipation in a high block.",
-          "claims": [
+            "K40",
             "K54"
           ]
         }
@@ -1947,15 +1946,9 @@
           "claims": []
         },
         {
-          "text": "Why it fails: in a mechanical block peristalsis is working against the obstruction, so the bowel is loud, not silent.",
+          "text": "Why it fails: in a mechanical block peristalsis is working against the obstruction, so the bowel is loud, not silent. Right: hyperactive, high-pitched, tinkling sounds mean a mechanical block.",
           "claims": [
             "K12",
-            "K61"
-          ]
-        },
-        {
-          "text": "Right: hyperactive, high-pitched, tinkling sounds mean a mechanical block.",
-          "claims": [
             "K61"
           ]
         }
@@ -1983,15 +1976,10 @@
           "claims": []
         },
         {
-          "text": "Why it fails: a paralysed gut is adynamic, with no fixed block. This patient has a fixed block, so peristalsis is working against it.",
+          "text": "Why it fails: a paralysed gut is adynamic, with no fixed block. This patient has a fixed block, so peristalsis is working against it. Right: tinkling, hyperactive sounds.",
           "claims": [
+            "K12",
             "K13",
-            "K12"
-          ]
-        },
-        {
-          "text": "Right: tinkling, hyperactive sounds.",
-          "claims": [
             "K61"
           ]
         }
@@ -2087,16 +2075,10 @@
           "claims": []
         },
         {
-          "text": "Why it fails: a mechanical block makes the bowel loud, with tinkling sounds. This belly is silent, which points to failed peristalsis.",
+          "text": "Why it fails: a mechanical block makes the bowel loud, with tinkling sounds. This belly is silent, which points to failed peristalsis. Right: paralytic ileus, since the bowel has stopped working rather than being blocked.",
           "claims": [
-            "K61",
-            "K13"
-          ]
-        },
-        {
-          "text": "Right: paralytic ileus, since the bowel has stopped working rather than being blocked.",
-          "claims": [
-            "K13"
+            "K13",
+            "K61"
           ]
         }
       ],
@@ -2123,16 +2105,11 @@
           "claims": []
         },
         {
-          "text": "Why it fails: volvulus is a fixed mechanical block with active peristalsis, so the bowel sounds are loud, not silent.",
+          "text": "Why it fails: volvulus is a fixed mechanical block with active peristalsis, so the bowel sounds are loud, not silent. Right: paralytic ileus, since peristalsis has failed.",
           "claims": [
             "K12",
+            "K13",
             "K61"
-          ]
-        },
-        {
-          "text": "Right: paralytic ileus, since peristalsis has failed.",
-          "claims": [
-            "K13"
           ]
         }
       ],
@@ -2341,16 +2318,11 @@
           ]
         },
         {
-          "text": "Why it fails: colic is where the story starts. Constant, severe pain with a fast pulse and tenderness suggests strangulation.",
+          "text": "Why it fails: colic is where the story starts. Constant, severe pain with a fast pulse and tenderness suggests strangulation. Right: the blood supply is compromised, so the segment needs urgent surgery.",
           "claims": [
-            "K8",
-            "K50"
-          ]
-        },
-        {
-          "text": "Right: the blood supply is compromised, so the segment needs urgent surgery.",
-          "claims": [
-            "K15"
+            "K15",
+            "K50",
+            "K8"
           ]
         }
       ],
@@ -2377,16 +2349,11 @@
           "claims": []
         },
         {
-          "text": "Why it fails: constant pain with a fast pulse and tenderness points to a damaged loop.",
+          "text": "Why it fails: constant pain with a fast pulse and tenderness points to a damaged loop. Right: strangulation, which needs urgent surgery.",
           "claims": [
-            "K8",
-            "K62"
-          ]
-        },
-        {
-          "text": "Right: strangulation, which needs urgent surgery.",
-          "claims": [
-            "K15"
+            "K15",
+            "K62",
+            "K8"
           ]
         }
       ],
@@ -2478,16 +2445,11 @@
           "claims": []
         },
         {
-          "text": "Why it fails: fever and tachycardia are on the list of signs that suggest strangulation or peritonitis.",
+          "text": "Why it fails: fever and tachycardia are on the list of signs that suggest strangulation or peritonitis. Right: colicky central pain with normal tenderness is the one that does not, and it fits simple obstruction.",
           "claims": [
-            "K8",
-            "K62"
-          ]
-        },
-        {
-          "text": "Right: colicky central pain with normal tenderness is the one that does not, and it fits simple obstruction.",
-          "claims": [
-            "K49"
+            "K49",
+            "K62",
+            "K8"
           ]
         }
       ],
@@ -2514,15 +2476,10 @@
           "claims": []
         },
         {
-          "text": "Why it fails: localised guarding and tenderness suggest a damaged segment or peritonitis.",
+          "text": "Why it fails: localised guarding and tenderness suggest a damaged segment or peritonitis. Right: colicky central pain with normal tenderness does not suggest strangulation.",
           "claims": [
+            "K49",
             "K62"
-          ]
-        },
-        {
-          "text": "Right: colicky central pain with normal tenderness does not suggest strangulation.",
-          "claims": [
-            "K49"
           ]
         }
       ],
@@ -3052,24 +3009,24 @@
           ]
         },
         {
-          "text": "Which feature is NOT seen in that loop?",
+          "text": "Which feature IS seen in that loop?",
           "claims": []
         }
       ],
       "choices": [
         {
-          "label": "Centrally placed loops",
+          "label": "Peripheral loops with haustra",
           "next": "S3.film2_xA",
           "kind": "trap",
           "trap": "TR11"
         },
         {
-          "label": "Peripheral loops with haustra",
+          "label": "Central loops, folds crossing the full width",
           "next": "S3.film2_ok",
           "kind": "correct"
         },
         {
-          "label": "Folds crossing the full width",
+          "label": "Folds that stop short of the full width",
           "next": "S3.film2_xB",
           "kind": "trap",
           "trap": "TR11"
@@ -3084,14 +3041,14 @@
       ],
       "say": [
         {
-          "text": "Right. Haustra belong to the large bowel, and they stop short of the lumen. Small bowel loops lie centrally.",
+          "text": "Right. Small bowel loops lie centrally, and valvulae conniventes cross the full width.",
           "claims": [
-            "K73",
-            "K71"
+            "K71",
+            "K6"
           ]
         },
         {
-          "text": "So the peripheral loop with haustra is the feature a dilated small bowel loop does not show.",
+          "text": "Haustra, which stop short of the lumen, mark the large bowel.",
           "claims": [
             "K73"
           ]
@@ -3113,21 +3070,16 @@
       ],
       "say": [
         {
-          "text": "Tempting: a dilated bowel is often picked out by its central position, so central loops look like a feature to rule out.",
-          "claims": [
-            "K71"
-          ]
-        },
-        {
-          "text": "But central loops are the small bowel picture, so they are seen here, not excluded.",
-          "claims": [
-            "K71"
-          ]
-        },
-        {
-          "text": "The feature the question wants is the peripheral loop with haustra, the large bowel pattern.",
+          "text": "Tempting: a dilated loop is easy to call large bowel, and peripheral loops with haustra fit that picture.",
           "claims": [
             "K73"
+          ]
+        },
+        {
+          "text": "But that pattern is the large bowel. A dilated small bowel loop lies centrally with folds across its full width.",
+          "claims": [
+            "K71",
+            "K6"
           ]
         }
       ],
@@ -3147,21 +3099,16 @@
       ],
       "say": [
         {
-          "text": "Tempting: folds are what you look for on a film, and these are the ones that cross the lumen.",
+          "text": "Tempting: folds are what you look for on a film, so any fold feels like a small bowel sign.",
           "claims": [
             "K6"
           ]
         },
         {
-          "text": "But valvulae conniventes cross the full width and mark the small bowel, so they are seen here, not excluded.",
+          "text": "But folds that stop short of the full width are haustra, which mark the large bowel. Valvulae conniventes cross the full width.",
           "claims": [
+            "K73",
             "K6"
-          ]
-        },
-        {
-          "text": "The NOT feature is the peripheral loop with haustra, which belongs to the large bowel.",
-          "claims": [
-            "K73"
           ]
         }
       ],
@@ -3579,32 +3526,26 @@
       ],
       "say": [
         {
-          "text": "A ladder for three questions: the first test for suspected obstruction, the definitive test for small bowel obstruction, and the test of choice for a child with suspected intussusception.",
+          "text": "A plain film has confirmed small bowel obstruction. Which is the definitive test?",
           "claims": [
-            "K138",
-            "K79",
-            "K137"
+            "K79"
           ]
-        },
-        {
-          "text": "Which ladder is correct, in that order?",
-          "claims": []
         }
       ],
       "choices": [
         {
-          "label": "Contrast CT; plain film; ultrasound",
+          "label": "Plain film",
           "next": "S3.inv2_xA",
           "kind": "trap",
           "trap": "TR5"
         },
         {
-          "label": "Plain film; contrast CT; ultrasound",
+          "label": "Contrast CT",
           "next": "S3.inv2_ok",
           "kind": "correct"
         },
         {
-          "label": "Plain film; contrast CT; contrast enema",
+          "label": "Barium meal",
           "next": "S3.inv2_xB",
           "kind": "trap",
           "trap": "TR5"
@@ -3619,18 +3560,17 @@
       ],
       "say": [
         {
-          "text": "Right. Plain film first, contrast CT for the definitive answer in small bowel obstruction, and ultrasound for a child with intussusception.",
+          "text": "Right. Plain film starts the work-up; contrast CT is definitive for small bowel obstruction.",
           "claims": [
             "K138",
-            "K79",
-            "K137"
+            "K79"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S3.coffee",
+          "next": "S3.inv2c",
           "kind": "continue"
         }
       ],
@@ -3643,22 +3583,15 @@
       ],
       "say": [
         {
-          "text": "Tempting: CT is the most definitive test you know, so it feels like the first step too.",
+          "text": "Tempting: the plain film is the familiar first test, so it feels like the test that settles things.",
           "claims": [
-            "K79"
+            "K138"
           ]
         },
         {
-          "text": "But you start with a plain film, and CT comes after obstruction is confirmed, as the definitive test.",
+          "text": "But it only starts the work-up. Contrast CT is the definitive test for small bowel obstruction.",
           "claims": [
-            "K138",
             "K79"
-          ]
-        },
-        {
-          "text": "Right ladder: plain film, then contrast CT, then ultrasound for a child with intussusception.",
-          "claims": [
-            "K137"
           ]
         }
       ],
@@ -3672,7 +3605,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S3.coffee",
+          "next": "S3.inv2c",
           "kind": "continue"
         }
       ],
@@ -3685,36 +3618,29 @@
       ],
       "say": [
         {
-          "text": "Tempting: the contrast enema is the test you link with intussusception, so it feels right for a child.",
+          "text": "Tempting: barium sounds like the contrast study for the small bowel, so it feels definitive.",
           "claims": [
-            "K89"
+            "K79"
           ]
         },
         {
-          "text": "But in a child the investigation of choice is ultrasound, which shows the target or doughnut sign.",
+          "text": "But in obstruction the definitive test is contrast CT, not a barium meal.",
           "claims": [
-            "K137",
-            "K88"
-          ]
-        },
-        {
-          "text": "So the ladder for a child starts with ultrasound, and the enema is not the first test.",
-          "claims": [
-            "K137"
+            "K79",
+            "K136"
           ]
         }
       ],
       "sure_note": {
-        "text": "You were sure, so keep the child's test apart: ultrasound first, with its target or doughnut sign.",
+        "text": "You were sure, so attach the test to the disease: contrast CT for adult small bowel obstruction.",
         "claims": [
-          "K137",
-          "K88"
+          "K79"
         ]
       },
       "choices": [
         {
           "label": "Next",
-          "next": "S3.coffee",
+          "next": "S3.inv2c",
           "kind": "continue"
         }
       ],
@@ -3980,7 +3906,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S3.sign_end",
+          "next": "S4.c1",
           "kind": "continue"
         }
       ],
@@ -4020,7 +3946,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S3.sign_end",
+          "next": "S4.c1",
           "kind": "continue"
         }
       ],
@@ -4063,32 +3989,53 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S3.sign_end",
+          "next": "S4.c1",
           "kind": "continue"
         }
       ],
       "segment": "S3"
     },
-    "S3.sign_end": {
-      "role": "feedback",
-      "objectives": [
-        "O5",
-        "O6",
-        "O7"
-      ],
+    "S3.inv2c": {
+      "role": "probe",
       "say": [
         {
-          "text": "To finish: a plain film is the first test for obstruction, contrast CT is definitive for small bowel obstruction, and ultrasound is the test for a child's intussusception.",
+          "text": "A child has suspected intussusception. Which test is the investigation of choice?",
           "claims": [
-            "K138",
-            "K79",
             "K137"
           ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Contrast enema",
+          "next": "S3.inv2c_xA",
+          "kind": "trap",
+          "trap": "TR5"
         },
         {
-          "text": "Coffee bean is sigmoid volvulus, bird's beak and claw are on enema, and target and pseudokidney are on ultrasound.",
+          "label": "Ultrasound",
+          "next": "S3.inv2c_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Plain film",
+          "next": "S3.inv2c_xB",
+          "kind": "trap",
+          "trap": "TR5"
+        }
+      ],
+      "objectives": [
+        "O6"
+      ],
+      "segment": "S3"
+    },
+    "S3.inv2c_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Ultrasound is the test of choice for a child with suspected intussusception, and it shows the target sign.",
           "claims": [
-            "K146",
+            "K137",
             "K88"
           ]
         }
@@ -4096,9 +4043,75 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S4.c1",
+          "next": "S3.coffee",
           "kind": "continue"
         }
+      ],
+      "objectives": [
+        "O6"
+      ],
+      "segment": "S3"
+    },
+    "S3.inv2c_xA": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the contrast enema is the test you link with intussusception, so it feels right for a child.",
+          "claims": [
+            "K89"
+          ]
+        },
+        {
+          "text": "But the investigation of choice is ultrasound, with its target or doughnut sign.",
+          "claims": [
+            "K137",
+            "K88"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S3.coffee",
+          "kind": "continue"
+        }
+      ],
+      "objectives": [
+        "O6"
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep the child's test apart: ultrasound first, with its target or doughnut sign.",
+        "claims": [
+          "K137"
+        ]
+      },
+      "segment": "S3"
+    },
+    "S3.inv2c_xB": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the plain film starts every obstruction work-up, so it feels right here too.",
+          "claims": [
+            "K138"
+          ]
+        },
+        {
+          "text": "But for a child with suspected intussusception, ultrasound is the test of choice.",
+          "claims": [
+            "K137"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S3.coffee",
+          "kind": "continue"
+        }
+      ],
+      "objectives": [
+        "O6"
       ],
       "segment": "S3"
     },
@@ -4117,18 +4130,18 @@
       ],
       "choices": [
         {
-          "label": "Emergency laparotomy now",
+          "label": "Emergency laparotomy now, before anything else",
           "next": "S4.c1_t31",
           "kind": "trap",
           "trap": "TR31"
         },
         {
-          "label": "IV fluids, NG tube and urinary catheter",
+          "label": "IV fluids, NG tube and catheter",
           "next": "S4.c1_ok",
           "kind": "correct"
         },
         {
-          "label": "Gastrografin study, then decide",
+          "label": "Gastrografin study, then decide on theatre",
           "next": "S4.c1_t23",
           "kind": "trap",
           "trap": "TR23"
@@ -4305,6 +4318,14 @@
         "O8"
       ],
       "say": [
+        {
+          "text": "Step one, already done: resuscitate with IV fluid and potassium, an NG tube and a catheter.",
+          "claims": [
+            "K90",
+            "K91",
+            "K92"
+          ]
+        },
         {
           "text": "Step two: screen for strangulation. Constant, severe pain, fever, localised tenderness or guarding, a raised lactate and tachycardia all point to a compromised bowel wall.",
           "claims": [
@@ -4862,7 +4883,7 @@
       "role": "hint",
       "say": [
         {
-          "text": "Sort each option: which one gets a trial first, and which one goes to theatre now?",
+          "text": "Sort each option by what threatens the bowel's blood supply, or by a trial that has already failed. Which option has neither?",
           "claims": []
         }
       ],
@@ -5132,7 +5153,7 @@
           "trap": "TR31"
         },
         {
-          "label": "Urinary catheter to track urine output",
+          "label": "Analgesia, since it may mask the abdominal signs",
           "next": "S4.c6_p",
           "kind": "trap",
           "trap": "TR31"
@@ -5236,12 +5257,16 @@
       ],
       "say": [
         {
-          "text": "The catheter is a monitoring step, so it looks close to the odd one out, but it is part of the plan.",
-          "claims": []
+          "text": "Analgesia can look risky because it may blur the signs, so it is easy to hold back.",
+          "claims": [
+            "K92"
+          ]
         },
         {
-          "text": "The catheter is part of the plan. The step that skips resuscitation is the laparotomy before fluids.",
-          "claims": []
+          "text": "But it belongs to the first hour with fluids, the tube and the catheter. The step that skips resuscitation is the laparotomy before fluids.",
+          "claims": [
+            "K92"
+          ]
         }
       ],
       "choices": [
@@ -5282,7 +5307,7 @@
           "kind": "correct"
         },
         {
-          "label": "Colonoscopic decompression first",
+          "label": "Colonoscopic decompression, skipping drip and suck",
           "next": "S4.c8_p",
           "kind": "trap",
           "trap": "TR31"
@@ -5387,12 +5412,15 @@
       ],
       "say": [
         {
-          "text": "Colonoscopic decompression is a real treatment, and it tempts for a very large colon.",
-          "claims": []
+          "text": "A procedure feels more decisive than a drug, so colonoscopy tempts for a very large colon.",
+          "claims": [
+            "K117"
+          ]
         },
         {
-          "text": "But it is the step after neostigmine has failed, not the first drug of choice.",
+          "text": "But drip, suck and electrolyte correction are not optional, and the drug of choice for Ogilvie's is neostigmine. Colonoscopy is for failure of the drug.",
           "claims": [
+            "K96",
             "K117",
             "K142"
           ]
@@ -5542,14 +5570,14 @@
       ],
       "say": [
         {
-          "text": "Drip, suck and electrolyte correction are right, and they belong to the first hour.",
+          "text": "Drip, suck and electrolyte correction suit many obstructions, so a trial of conservative care tempts.",
           "claims": [
             "K90",
             "K96"
           ]
         },
         {
-          "text": "But they do not remove the stone. Gallstone ileus needs an operation to take the stone out.",
+          "text": "But a gallstone sits in the lumen and will not pass with waiting. Gallstone ileus needs an operation to take the stone out.",
           "claims": [
             "K110"
           ]
@@ -5592,7 +5620,7 @@
           "label": "Nasogastric drainage alone",
           "next": "S4.c10_p",
           "kind": "trap",
-          "trap": "TR23"
+          "trap": "TR31"
         },
         {
           "label": "Correct the potassium, then drip and suck",
@@ -5699,10 +5727,12 @@
       "say": [
         {
           "text": "Nasogastric drainage is part of the plan, and it relieves distension.",
-          "claims": []
+          "claims": [
+            "K96"
+          ]
         },
         {
-          "text": "But it treats the distension, not the cause. Name the cause, which is low potassium, before you settle on drainage alone.",
+          "text": "But drainage alone leaves out the potassium. Correcting the low potassium is not optional; it is the cause here.",
           "claims": [
             "K135"
           ]
@@ -5820,7 +5850,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Wrong model: adhesions explain every adult obstruction. In a virgin abdomen they are unlikely, so hernia comes first.",
+          "text": "Common slip: adhesions explain every adult obstruction. In a virgin abdomen they are unlikely, so hernia comes first.",
           "claims": [
             "K101"
           ]
@@ -5938,7 +5968,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Wrong model: you read 'most common' as 'most likely to strangulate'. Inguinal hernias are commoner, but the femoral neck is narrow and rigid, so it strangulates most often.",
+          "text": "Common slip: you read 'most common' as 'most likely to strangulate'. Inguinal hernias are commoner, but the femoral neck is narrow and rigid, so it strangulates most often.",
           "claims": [
             "K29",
             "K132"
@@ -6053,7 +6083,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Wrong model: strangulation always means complete obstruction. Richter's traps only part of the wall, so the lumen can stay partly open.",
+          "text": "Common slip: strangulation always means complete obstruction. Richter's traps only part of the wall, so the lumen can stay partly open.",
           "claims": [
             "K30"
           ]
@@ -6108,7 +6138,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Wrong model: Richter's and Littre's are the same hernia. Littre's contains a Meckel's diverticulum, while Richter's traps only part of the wall.",
+          "text": "Common slip: Richter's and Littre's are the same hernia. Littre's contains a Meckel's diverticulum, while Richter's traps only part of the wall.",
           "claims": [
             "K30",
             "K31"
@@ -6227,7 +6257,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Wrong model: intussusception always means an enema cure. A child's is usually idiopathic and reduces with an enema.",
+          "text": "Common slip: intussusception always means an enema cure. A child's is usually idiopathic and reduces with an enema.",
           "claims": [
             "K37",
             "K111"
@@ -6443,7 +6473,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Wrong model: surgery is the safe default. The criteria are peritonitis, perforation, shock or failed enema. Without them, the child is reduced without surgery.",
+          "text": "Common slip: surgery is the safe default. The criteria are peritonitis, perforation, shock or failed enema. Without them, the child is reduced without surgery.",
           "claims": [
             "K111",
             "K112"
@@ -6596,7 +6626,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Yes. Colorectal carcinoma is the most common cause of adult large bowel obstruction, with diverticular disease and volvulus next.",
+          "text": "Yes. Colorectal carcinoma is the commonest cause of adult large bowel obstruction. Diverticular disease and volvulus follow.",
           "claims": [
             "K4",
             "K126",
@@ -6641,13 +6671,13 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Tempting: sigmoid volvulus is the commonest colonic volvulus, so it feels like the big cause. It is common, but it is not the commonest cause of adult large bowel obstruction.",
+          "text": "Tempting: sigmoid volvulus is the commonest colonic volvulus, so it feels like the big cause. But it is not the commonest cause of adult large bowel obstruction.",
           "claims": [
             "K34"
           ]
         },
         {
-          "text": "Carcinoma is the most common cause.",
+          "text": "Carcinoma is.",
           "claims": [
             "K4"
           ]
@@ -6669,31 +6699,29 @@
       ],
       "say": [
         {
-          "text": "Two sites: the commonest site of colonic volvulus, and the commonest site of perforation in closed-loop large bowel obstruction.",
-          "claims": []
-        },
-        {
-          "text": "Which pairing is right?",
-          "claims": []
+          "text": "Which is the commonest site of colonic volvulus?",
+          "claims": [
+            "K34"
+          ]
         }
       ],
       "choices": [
         {
-          "label": "Volvulus caecum; perforation caecum",
+          "label": "Caecum",
           "next": "S5.sites_h_caecum",
           "kind": "trap",
           "trap": "TR35"
         },
         {
-          "label": "Volvulus sigmoid; perforation sigmoid",
-          "next": "S5.sites_h_sigmoid",
-          "kind": "trap",
-          "trap": "TR35"
+          "label": "Sigmoid colon",
+          "next": "S5.sites_ok_a",
+          "kind": "correct"
         },
         {
-          "label": "Volvulus sigmoid; perforation caecum",
-          "next": "S5.sites_ok",
-          "kind": "correct"
+          "label": "Transverse colon",
+          "next": "S5.sites_h_tv",
+          "kind": "trap",
+          "trap": "TR35"
         }
       ],
       "segment": "S5"
@@ -6702,15 +6730,13 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Yes. The sigmoid is the commonest site of volvulus. The caecum is the commonest site of perforation in closed-loop obstruction.",
+          "text": "Yes. The caecum is the commonest site of perforation in closed-loop obstruction.",
           "claims": [
-            "K34",
-            "K129",
             "K133"
           ]
         },
         {
-          "text": "The perforation site follows the widest loop, by Laplace's law.",
+          "text": "Perforation follows the widest loop, by Laplace's law.",
           "claims": [
             "K11"
           ]
@@ -6729,10 +6755,8 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Tempting: the caecum is famous for both, so the two facts merge into one. The caecum is the commonest perforation site; the sigmoid is the commonest volvulus site.",
+          "text": "Tempting: the caecum is the famous perforation site, so it gets carried over to volvulus. The sigmoid is the commonest volvulus site.",
           "claims": [
-            "K11",
-            "K133",
             "K34"
           ]
         }
@@ -6740,7 +6764,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S5.sig_case",
+          "next": "S5.sites_case2",
           "kind": "continue"
         }
       ],
@@ -6783,18 +6807,18 @@
       ],
       "choices": [
         {
-          "label": "Endoscopic detorsion with a flatus tube, then elective sigmoid colectomy",
+          "label": "Endoscopic detorsion, then elective sigmoid colectomy",
           "next": "S5.sig_ok",
           "kind": "correct"
         },
         {
-          "label": "Endoscopic detorsion with a flatus tube, then discharge",
+          "label": "Endoscopic detorsion, then discharge once well",
           "next": "S5.sig_h_discharge",
           "kind": "trap",
           "trap": "TR21"
         },
         {
-          "label": "Emergency Hartmann's procedure",
+          "label": "Emergency Hartmann's procedure straight away",
           "next": "S5.sig_h_hartmann",
           "kind": "trap",
           "trap": "TR21"
@@ -6862,7 +6886,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Wrong model: detorsion is the end of care. Sigmoid volvulus recurs often after detorsion, so elective sigmoid colectomy follows, usually in the same admission.",
+          "text": "Common slip: detorsion is the end of care. Sigmoid volvulus recurs often after detorsion, so elective sigmoid colectomy follows, usually in the same admission.",
           "claims": [
             "K107"
           ]
@@ -6911,7 +6935,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Wrong model: every volvulus needs resection. Hartmann's is for gangrene, perforation or failed detorsion. This loop is viable, so detorsion comes first.",
+          "text": "Common slip: every volvulus needs resection. Hartmann's is for gangrene, perforation or failed detorsion. This loop is viable, so detorsion comes first.",
           "claims": [
             "K106",
             "K108"
@@ -7024,7 +7048,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Wrong model: one operation fits all colon cancers. Left hemicolectomy suits left-sided tumours; the caecum is on the right.",
+          "text": "Common slip: one operation fits all colon cancers. Left hemicolectomy suits left-sided tumours; the caecum is on the right.",
           "claims": [
             "K115"
           ]
@@ -7079,7 +7103,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Wrong model: a stent is definitive treatment for any obstructing cancer. A self-expanding stent relieves malignant left-sided obstruction, as a bridge to surgery or as palliation.",
+          "text": "Common slip: a stent is definitive treatment for any obstructing cancer. A self-expanding stent relieves malignant left-sided obstruction, as a bridge to surgery or as palliation.",
           "claims": [
             "K116"
           ]
@@ -7199,7 +7223,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Wrong model: any volvulus on film looks alike. Caecal volvulus shows a kidney-shaped or comma-shaped caecum displaced to the left upper quadrant.",
+          "text": "Common slip: any volvulus on film looks alike. Caecal volvulus shows a kidney-shaped or comma-shaped caecum displaced to the left upper quadrant.",
           "claims": [
             "K77"
           ]
@@ -7254,7 +7278,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Wrong model: volvulus and intussusception share one sign list. Intussusception shows a target or pseudokidney on ultrasound and a claw on enema.",
+          "text": "Common slip: volvulus and intussusception share one sign list. Intussusception shows a target or pseudokidney on ultrasound and a claw on enema.",
           "claims": [
             "K88",
             "K89"
@@ -7332,7 +7356,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S6.pyq",
+          "next": "S6.q1",
           "kind": "continue"
         }
       ],
@@ -7352,7 +7376,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S6.pyq",
+          "next": "S6.q1",
           "kind": "continue"
         }
       ],
@@ -7378,7 +7402,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S6.pyq",
+          "next": "S6.q1",
           "kind": "continue"
         }
       ],
@@ -7666,7 +7690,7 @@
       "role": "hint",
       "say": [
         {
-          "text": "Tempting: one famous site can absorb two facts. Treat the two questions separately.",
+          "text": "Tempting: the caecum is famous for perforation, but this question is about volvulus.",
           "claims": []
         },
         {
@@ -7703,7 +7727,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S5.sites_case",
+          "next": "S5.sites_case2",
           "kind": "retry"
         },
         {
@@ -7818,58 +7842,170 @@
       ],
       "segment": "S5"
     },
-    "S6.pyq": {
-      "role": "probe",
-      "objectives": [
-        "O1"
-      ],
-      "ask_confidence": true,
+    "S5.sites_ok_a": {
+      "role": "feedback",
       "say": [
         {
-          "text": "A 40-year-old labourer at a district hospital in rural India has small bowel obstruction. He has had no abdominal surgery.",
+          "text": "Yes. The sigmoid is the commonest site of volvulus.",
+          "claims": [
+            "K34",
+            "K129"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S5.sites_case2",
+          "kind": "continue"
+        }
+      ],
+      "objectives": [
+        "O11"
+      ],
+      "segment": "S5"
+    },
+    "S5.sites_case2": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "In closed-loop large bowel obstruction, which is the commonest site of perforation?",
+          "claims": [
+            "K133"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Sigmoid colon",
+          "next": "S5.sites_h_sigmoid",
+          "kind": "trap",
+          "trap": "TR35"
+        },
+        {
+          "label": "Caecum",
+          "next": "S5.sites_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Rectum",
+          "next": "S5.sites_h_rect",
+          "kind": "trap",
+          "trap": "TR35"
+        }
+      ],
+      "objectives": [
+        "O11"
+      ],
+      "segment": "S5"
+    },
+    "S5.sites_h_tv": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: the transverse colon sounds mobile, but ask which loop twists most often.",
           "claims": []
         },
         {
-          "text": "A PYQ asks for the most common cause here. Which is the keyed answer?",
+          "text": "Try again, or see why.",
           "claims": []
         }
       ],
       "choices": [
         {
-          "label": "Post-operative adhesions",
-          "next": "S6.pyq_t1",
-          "kind": "trap",
-          "trap": "TR1"
+          "label": "Try again",
+          "next": "S5.sites_case",
+          "kind": "retry"
         },
         {
-          "label": "Obstructed or strangulated hernia",
-          "next": "S6.pyq_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Adhesive bands, the usual adult cause",
-          "next": "S6.pyq_t2",
-          "kind": "trap",
-          "trap": "TR2"
+          "label": "Show me why",
+          "next": "S5.sites_f_tv",
+          "kind": "agency"
         }
       ],
-      "segment": "S6"
+      "segment": "S5"
     },
-    "S6.pyq_ok": {
+    "S5.sites_f_tv": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the transverse colon has a long mesentery, so it feels like the twisting loop. The sigmoid is the commonest site of volvulus.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S5.sites_case2",
+          "kind": "continue"
+        }
+      ],
+      "objectives": [
+        "O11"
+      ],
+      "segment": "S5"
+    },
+    "S5.sites_h_rect": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: the rectum is where the block feels lowest. Ask which loop is widest.",
+          "claims": []
+        },
+        {
+          "text": "Try again, or see why.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S5.sites_case2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "S5.sites_f_rect",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S5"
+    },
+    "S5.sites_f_rect": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the block is distal, so the rectum feels at risk. Perforation follows the widest loop, which is the caecum.",
+          "claims": [
+            "K11",
+            "K133"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S5.sig_case",
+          "kind": "continue"
+        }
+      ],
+      "objectives": [
+        "O11"
+      ],
+      "segment": "S5"
+    },
+    "S6.q1_ok": {
       "role": "feedback",
       "objectives": [
         "O1"
       ],
       "say": [
         {
-          "text": "Yes. PYQs expected an obstructed or strangulated hernia in India and developing countries.",
+          "text": "Right. A previous operation makes adhesions likely; none points to the hernial orifices first.",
           "claims": [
-            "K143"
-          ]
-        },
-        {
-          "text": "The setting words and the 'no surgery' line point there. Hernia comes first in the adult virgin abdomen.",
-          "claims": [
+            "K3",
             "K27"
           ]
         }
@@ -7877,685 +8013,639 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S6.adh",
+          "next": "S6.q2",
           "kind": "continue"
         }
       ],
       "segment": "S6"
     },
-    "S6.pyq_t1": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: adhesions are the commonest cause of adult small bowel obstruction, so they feel like the answer everywhere.",
-          "claims": [
-            "K3"
-          ]
-        },
-        {
-          "text": "Try again. Re-read the setting words and the history line before you choose.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure of adhesions. Adhesions are the usual Western answer, so reread the setting words before you name a cause.",
-        "claims": [
-          "K143"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.pyq",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.pyq_t1_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.pyq_t1_f": {
+    "S6.q1_f1": {
       "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
       "say": [
         {
-          "text": "But this stem names India and no surgery. The PYQ key expected the hernia there, so the setting decides which answer is keyed.",
+          "text": "Trap: adhesions are not the answer everywhere. PYQs keyed hernia for India, and a virgin abdomen has no scar to form them.",
           "claims": [
-            "K143"
-          ]
-        },
-        {
-          "text": "Hold both: PYQs said hernia in India; current practice in a surgical setting says adhesions.",
-          "claims": [
-            "K143"
+            "K143",
+            "K101"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S6.adh",
+          "next": "S6.q2",
           "kind": "continue"
         }
       ],
+      "segment": "S6"
+    },
+    "S6.q1_f2": {
+      "role": "feedback",
       "objectives": [
         "O1"
       ],
-      "segment": "S6"
-    },
-    "S6.pyq_t2": {
-      "role": "hint",
       "say": [
         {
-          "text": "Tempting: adhesive bands are the usual adult cause, so any adult with obstruction feels like an adhesion case.",
-          "claims": [
-            "K25"
-          ]
-        },
-        {
-          "text": "Try again. Re-read the setting words and the history line before you choose.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure of bands with no surgery in the history. Read the history line before you name an adult cause.",
-        "claims": [
-          "K101"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.pyq",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.pyq_t2_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.pyq_t2_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Adhesions need a previous operation. This patient has none, so the adhesion model does not fit his history.",
+          "text": "Trap: adhesions need an operation behind them. With none, check every hernial orifice first.",
           "claims": [
             "K27",
             "K101"
           ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q2",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q1": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two men have small bowel obstruction. Ravi had an appendicectomy at 20. Imran, a 33-year-old farmer, has never had surgery.",
+          "claims": []
         },
         {
-          "text": "In a virgin abdomen check the hernial orifices first. Hernia comes before tumour.",
+          "text": "Which pairing of causes fits best?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Ravi: adhesions. Imran: a hernia first, then tumour",
+          "next": "S6.q1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Adhesions in both, as they are the commonest cause everywhere",
+          "next": "S6.q1_f1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Adhesions for Ravi, a congenital band for Imran, as any adult fits",
+          "next": "S6.q1_f2",
+          "kind": "trap",
+          "trap": "TR2"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q2_f0": {
+      "role": "feedback",
+      "objectives": [
+        "O6",
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Trap: the familiar film is not the confirming test. In a child, ultrasound is the investigation of choice.",
           "claims": [
-            "K27",
-            "K28"
+            "K88",
+            "K138"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S6.adh",
+          "next": "S6.q3",
           "kind": "continue"
         }
       ],
+      "segment": "S6"
+    },
+    "S6.q2_f1": {
+      "role": "feedback",
       "objectives": [
-        "O1"
+        "O6",
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Trap: not every intussusception goes to theatre. A stable child without peritonitis gets enema reduction first.",
+          "claims": [
+            "K111",
+            "K112"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q3",
+          "kind": "continue"
+        }
       ],
       "segment": "S6"
     },
-    "S6.adh": {
+    "S6.q2_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O6",
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Right. Ultrasound confirms, and a stable child without peritonitis gets enema reduction. An adult, with a lead point, is resected.",
+          "claims": [
+            "K88",
+            "K111",
+            "K113"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q3",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q2": {
       "role": "probe",
       "objectives": [
-        "O4",
+        "O6",
+        "O10"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An 8-month-old has screaming spells with drawn-up legs and red currant jelly stool. He is resuscitated and stable, with no peritonitis.",
+          "claims": []
+        },
+        {
+          "text": "Which confirms the diagnosis, and what comes next?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Plain X-ray as the definitive test, then theatre",
+          "next": "S6.q2_f0",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Barium meal to confirm, then theatre",
+          "next": "S6.q2_f1",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Ultrasound shows a target sign; image-guided enema reduction follows",
+          "next": "S6.q2_ok",
+          "kind": "correct"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q3_f0": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Trap: folds crossing the full width are valvulae of small bowel. Folds that stop short are haustra of large bowel.",
+          "claims": [
+            "K6",
+            "K73"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q4",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q3_f1": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Trap: 9 cm is the caecal limit. The colon limit is 6 cm and small bowel 3 cm.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q4",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q3_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Right. Haustra that do not cross, a peripheral position and a colon over 6 cm all say large bowel.",
+          "claims": [
+            "K6",
+            "K73",
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q4",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q3": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A supine film shows peripheral loops with folds that stop short of the full width. The transverse colon measures 7 cm.",
+          "claims": []
+        },
+        {
+          "text": "What does it show?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Dilated small bowel, because folds mark small bowel",
+          "next": "S6.q3_f0",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Normal colon, as the upper limit is 9 cm",
+          "next": "S6.q3_f1",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Dilated large bowel: haustra, and above the 6 cm limit",
+          "next": "S6.q3_ok",
+          "kind": "correct"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q4_f0": {
+      "role": "feedback",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Trap: commonest does not mean riskiest. The femoral hernia, with its narrow rigid neck, strangulates most.",
+          "claims": [
+            "K29",
+            "K132"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q5",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q4_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Right. Femoral is the groin hernia most likely to strangulate.",
+          "claims": [
+            "K29",
+            "K132"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q5",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q4_f2": {
+      "role": "feedback",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Trap: Richter's traps part of the wall, so it can strangulate with flatus and no distension.",
+          "claims": [
+            "K30"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q5",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q4": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A surgeon teaches about groin hernias in a 68-year-old woman and a 30-year-old man. Which statement is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "The indirect inguinal hernia strangulates most, being the commonest",
+          "next": "S6.q4_f0",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Femoral: narrow, rigid neck gives the highest risk",
+          "next": "S6.q4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Richter's hernia is safe unless obstruction is complete, with vomiting and distension",
+          "next": "S6.q4_f2",
+          "kind": "trap",
+          "trap": "TR14"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q5_f0": {
+      "role": "feedback",
+      "objectives": [
+        "O7",
+        "O11"
+      ],
+      "say": [
+        {
+          "text": "Trap: that is the sigmoid pathway. Caecal volvulus usually fails detorsion and is resected.",
+          "claims": [
+            "K109",
+            "K106"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q6",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q5_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O7",
+        "O11"
+      ],
+      "say": [
+        {
+          "text": "Right. Caecal volvulus gets a right hemicolectomy, and the kidney-shaped caecum separates it from the coffee bean of sigmoid.",
+          "claims": [
+            "K109",
+            "K77"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q6",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q5_f2": {
+      "role": "feedback",
+      "objectives": [
+        "O7",
+        "O11"
+      ],
+      "say": [
+        {
+          "text": "Trap: coffee bean is the sigmoid sign. A kidney-shaped caecum in the left upper quadrant is caecal volvulus.",
+          "claims": [
+            "K76",
+            "K77"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q6",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q5": {
+      "role": "probe",
+      "objectives": [
+        "O7",
+        "O11"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 71-year-old woman is stable. CT shows a whirl sign. The film shows a kidney-shaped caecum in the left upper quadrant.",
+          "claims": []
+        },
+        {
+          "text": "What is the best operation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Colonoscopic detorsion and a flatus tube, then discharge",
+          "next": "S6.q5_f0",
+          "kind": "trap",
+          "trap": "TR21"
+        },
+        {
+          "label": "Right hemicolectomy",
+          "next": "S6.q5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Coffee bean sign, so sigmoid; endoscopic detorsion",
+          "next": "S6.q5_f2",
+          "kind": "trap",
+          "trap": "TR8"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q6_f0": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Trap: theatre does not come first. Fluids, potassium, NG tube and catheter come before any decision.",
+          "claims": [
+            "K90",
+            "K91",
+            "K92"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q7",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q6_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Right. Resuscitate first. A negative screen allows a non-operative trial.",
+          "claims": [
+            "K90",
+            "K91",
+            "K96"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q7",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q6_f2": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Trap: the trial is not a replacement for resuscitation. Drip and suck is how the trial is run.",
+          "claims": [
+            "K95",
+            "K90"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q7",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q6": {
+      "role": "probe",
+      "objectives": [
         "O8"
       ],
       "ask_confidence": true,
       "say": [
         {
-          "text": "Adhesive obstruction, day 2. The pain was colicky and is now constant. Pulse 118, with guarding over one area of the abdomen.",
+          "text": "A 55-year-old is dry, vomiting, with pulse 112 and a distended abdomen. There is no peritonitis and the screen is negative.",
           "claims": []
         },
         {
-          "text": "What is the best next step?",
+          "text": "Which plan is best?",
           "claims": []
         }
       ],
       "choices": [
         {
-          "label": "NG tube and a 72-hour trial",
-          "next": "S6.adh_t23",
-          "kind": "trap",
-          "trap": "TR23"
-        },
-        {
-          "label": "Continue conservative care, this is colic",
-          "next": "S6.adh_t22",
-          "kind": "trap",
-          "trap": "TR22"
-        },
-        {
-          "label": "Resuscitate, then go to theatre",
-          "next": "S6.adh_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Laparotomy now, before any fluids",
-          "next": "S6.adh_t31",
+          "label": "Theatre now, with fluids started on the table",
+          "next": "S6.q6_f0",
           "kind": "trap",
           "trap": "TR31"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.adh_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O4",
-        "O8"
-      ],
-      "say": [
-        {
-          "text": "Yes. Constant pain, tachycardia and localised guarding suggest strangulation or peritonitis.",
-          "claims": [
-            "K8",
-            "K62"
-          ]
         },
         {
-          "text": "Fluids, potassium, an NG tube and antibiotics come first, then theatre, because the strangulation signs override any wait.",
-          "claims": [
-            "K90",
-            "K91",
-            "K93",
-            "K97"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.why",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.adh_t23": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: the 72-hour trial is the rule you learnt for adhesive obstruction, so waiting feels like the safe default.",
-          "claims": [
-            "K95"
-          ]
-        },
-        {
-          "text": "Try again. Ask what the change in pain and pulse says about the bowel, and what must come before theatre.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure the trial applied. Screen for strangulation before any time limit.",
-        "claims": [
-          "K97"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.adh",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.adh_t23_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.adh_t23_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But the trial only follows once strangulation, peritonitis, a hernia and a closed loop are excluded. Here constant pain and guarding exclude it.",
-          "claims": [
-            "K94",
-            "K97"
-          ]
-        },
-        {
-          "text": "What is right: resuscitate, then theatre. The trial is for simple adhesive obstruction without strangulation.",
-          "claims": [
-            "K94",
-            "K97"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.why",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O8"
-      ],
-      "segment": "S6"
-    },
-    "S6.adh_t22": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: colic is the classic picture of simple obstruction, so a change in the pain is easy to miss.",
-          "claims": [
-            "K49"
-          ]
-        },
-        {
-          "text": "Try again. Ask what the change in pain and pulse says about the bowel, and what must come before theatre.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure of simple colic. A change from colicky to constant pain is the cue to look again.",
-        "claims": [
-          "K50"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.adh",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.adh_t22_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.adh_t22_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "The key word is constant. Persistent severe pain with tachycardia and localised guarding points to strangulation.",
-          "claims": [
-            "K50",
-            "K8"
-          ]
-        },
-        {
-          "text": "What is right: resuscitate, then theatre, because the wait ends when the loop is compromised.",
-          "claims": [
-            "K62"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.why",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O4"
-      ],
-      "segment": "S6"
-    },
-    "S6.adh_t31": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: the operation feels decisive, and the patient is unwell, so the theatre seems the fastest fix.",
-          "claims": []
-        },
-        {
-          "text": "Try again. Ask what the change in pain and pulse says about the bowel, and what must come before theatre.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.adh",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.adh_t31_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.adh_t31_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But vomiting and sequestration cause dehydration and electrolyte loss. Operating on that patient first adds risk.",
-          "claims": [
-            "K43",
-            "K59"
-          ]
-        },
-        {
-          "text": "What is right: drip and suck, then laparotomy. Resuscitation is the first step even when the bowel is dying.",
-          "claims": [
-            "K90",
-            "K91"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.why",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O8"
-      ],
-      "segment": "S6"
-    },
-    "S6.why": {
-      "role": "probe",
-      "objectives": [
-        "O4"
-      ],
-      "say": [
-        {
-          "text": "You just named strangulation. Now the reason, which is what the exam tests.",
-          "claims": []
-        },
-        {
-          "text": "Why does constant pain with tachycardia mean the loop is strangulated?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Venous return is blocked, so the loop becomes ischaemic",
-          "next": "S6.why_ok",
+          "label": "Drip and suck first, then decide on a trial",
+          "next": "S6.q6_ok",
           "kind": "correct"
         },
         {
-          "label": "The colic has grown stronger, so the bowel works harder",
-          "next": "S6.why_t22",
+          "label": "Start the 72-hour trial without fluids, since he is stable",
+          "next": "S6.q6_f2",
           "kind": "trap",
-          "trap": "TR22"
-        },
-        {
-          "label": "Absent sounds mean a paralysed bowel, so this is ileus",
-          "next": "S6.why_t18",
-          "kind": "trap",
-          "trap": "TR18"
+          "trap": "TR23"
         }
       ],
       "segment": "S6"
     },
-    "S6.why_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O4"
-      ],
-      "say": [
-        {
-          "text": "Yes. Rising intraluminal pressure first blocks venous return, then arterial inflow, so the wall becomes ischaemic.",
-          "claims": [
-            "K45"
-          ]
-        },
-        {
-          "text": "Acidosis and toxic products follow, which is why a raised lactate and constant pain mean surgery, not waiting.",
-          "claims": [
-            "K46"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.timing",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.why_t22": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: pain is the classic colic of obstruction, so a stronger colic seems the natural explanation.",
-          "claims": [
-            "K49"
-          ]
-        },
-        {
-          "text": "Try again. Think about what rising pressure in a closed loop does to the vessels in its wall.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.why",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.why_t22_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.why_t22_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But colic comes from peristaltic waves against a block. Constant pain comes from a loop whose blood supply is failing.",
-          "claims": [
-            "K8",
-            "K15"
-          ]
-        },
-        {
-          "text": "What is right: venous block and ischaemia explain the constant pain and the tachycardia together.",
-          "claims": [
-            "K45"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.timing",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O4"
-      ],
-      "segment": "S6"
-    },
-    "S6.why_t18": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: silent bowel is the bedside clue most people remember, so it feels like paralysis is the cause of the pain.",
-          "claims": [
-            "K61"
-          ]
-        },
-        {
-          "text": "Try again. Think about what rising pressure in a closed loop does to the vessels in its wall.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.why",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.why_t18_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.why_t18_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But absent sounds fit paralytic ileus and late peritonitis. They do not explain constant pain in a strangulated loop.",
-          "claims": [
-            "K61",
-            "K62"
-          ]
-        },
-        {
-          "text": "What is right: venous block and ischaemia, which is why the pain is constant.",
-          "claims": [
-            "K45",
-            "K15"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.timing",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O4"
-      ],
-      "segment": "S6"
-    },
-    "S6.timing": {
-      "role": "probe",
-      "objectives": [
-        "O8"
-      ],
-      "say": [
-        {
-          "text": "Adhesive obstruction on a Gastrografin study. The contrast reached the colon within 24 hours.",
-          "claims": [
-            "K83",
-            "K84"
-          ]
-        },
-        {
-          "text": "What does that predict?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Operate at 48 hours, the second look",
-          "next": "S6.timing_t26a",
-          "kind": "trap",
-          "trap": "TR26"
-        },
-        {
-          "label": "Operate at 72 hours, the trial's limit",
-          "next": "S6.timing_t26b",
-          "kind": "trap",
-          "trap": "TR26"
-        },
-        {
-          "label": "Resolution without surgery, so continue",
-          "next": "S6.timing_ok",
-          "kind": "correct"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.timing_ok": {
+    "S6.q7_f0": {
       "role": "feedback",
       "objectives": [
         "O8"
       ],
       "say": [
         {
-          "text": "Yes. Contrast in the colon within 24 hours predicts that the obstruction will resolve without surgery.",
-          "claims": [
-            "K84"
-          ]
-        },
-        {
-          "text": "The 24-48 hour window is the second look for doubtful bowel, and 72 hours is the limit of the trial.",
-          "claims": [
-            "K104",
-            "K95"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.richter",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.timing_t26a": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: 24-48 hours is the second-look window in surgery, so it feels like the decision point.",
-          "claims": [
-            "K104"
-          ]
-        },
-        {
-          "text": "Try again. Match each number to what it measures: a contrast result, a trial limit or a second look.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.timing",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.timing_t26a_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.timing_t26a_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But the second look is for bowel that looks doubtful at operation. It does not decide a contrast result.",
-          "claims": [
-            "K104",
-            "K84"
-          ]
-        },
-        {
-          "text": "What is right: a 24-hour contrast result predicts resolution, and 72 hours is the limit.",
+          "text": "Trap: 24 hours and 72 hours are different clocks. Contrast in the colon by 24 hours predicts resolution.",
           "claims": [
             "K84",
             "K95"
@@ -8565,1889 +8655,375 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S6.richter",
+          "next": "S6.q8",
           "kind": "continue"
         }
       ],
+      "segment": "S6"
+    },
+    "S6.q7_ok": {
+      "role": "feedback",
       "objectives": [
         "O8"
       ],
-      "segment": "S6"
-    },
-    "S6.timing_t26b": {
-      "role": "hint",
       "say": [
         {
-          "text": "Tempting: 72 hours is the number everyone quotes, so it feels like the moment to decide.",
+          "text": "Right. Contrast in the colon within 24 hours predicts resolution. The trial limit is about 72 hours.",
           "claims": [
+            "K84",
             "K95"
           ]
-        },
-        {
-          "text": "Try again. Match each number to what it measures: a contrast result, a trial limit or a second look.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.timing",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.timing_t26b_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.timing_t26b_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But 72 hours is the limit for failure of the trial. A 24-hour contrast result already tells you the trial is working.",
-          "claims": [
-            "K95",
-            "K84"
-          ]
-        },
-        {
-          "text": "What is right: contrast in the colon by 24 hours predicts resolution without surgery.",
-          "claims": [
-            "K84"
-          ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S6.richter",
+          "next": "S6.q8",
           "kind": "continue"
         }
       ],
+      "segment": "S6"
+    },
+    "S6.q7_f2": {
+      "role": "feedback",
       "objectives": [
         "O8"
       ],
+      "say": [
+        {
+          "text": "Trap: 24 hours is the contrast marker, not the trial limit. That is about 72 hours.",
+          "claims": [
+            "K84",
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q8",
+          "kind": "continue"
+        }
+      ],
       "segment": "S6"
     },
-    "S6.richter": {
+    "S6.q7": {
       "role": "probe",
       "objectives": [
-        "O9"
+        "O8"
       ],
       "ask_confidence": true,
       "say": [
         {
-          "text": "An adult with obstruction has a tender, irreducible swelling in the femoral region. He passes flatus, has no vomiting, and his lactate is rising.",
+          "text": "A 70-year-old on a trial for adhesive obstruction has no strangulation signs. Water-soluble contrast was given. A film at 24 hours shows contrast in the caecum and rectum.",
           "claims": []
         },
         {
-          "text": "What is the mechanism?",
+          "text": "What does this mean?",
           "claims": []
         }
       ],
       "choices": [
         {
-          "label": "A complete closed loop is trapped in the sac",
-          "next": "S6.richter_t14a",
+          "label": "Nothing yet; contrast means nothing until 72 hours",
+          "next": "S6.q7_f0",
           "kind": "trap",
-          "trap": "TR14"
+          "trap": "TR26"
         },
         {
-          "label": "Part of the wall is trapped, not the whole lumen",
-          "next": "S6.richter_ok",
+          "label": "Resolution without surgery is likely",
+          "next": "S6.q7_ok",
           "kind": "correct"
         },
         {
-          "label": "A Meckel's diverticulum is the sac's content",
-          "next": "S6.richter_t14b",
+          "label": "Trial limit is 24 hours; operate if not resolved",
+          "next": "S6.q7_f2",
           "kind": "trap",
-          "trap": "TR14"
+          "trap": "TR26"
         }
       ],
       "segment": "S6"
     },
-    "S6.richter_ok": {
+    "S6.q8_ok": {
       "role": "feedback",
       "objectives": [
-        "O9"
+        "O4"
       ],
       "say": [
         {
-          "text": "Yes. Richter's hernia traps only part of the bowel circumference, so it can strangulate without complete obstruction.",
+          "text": "Right. Constant pain, fever, tachycardia and localised tenderness override the trial.",
           "claims": [
-            "K30"
-          ]
-        },
-        {
-          "text": "Vomiting and distension can be absent. The warning is pain, tenderness and a rising lactate.",
-          "claims": [
-            "K30",
-            "K62"
+            "K8",
+            "K62",
+            "K97"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S6.femoral",
+          "next": "S6.q9",
           "kind": "continue"
         }
       ],
       "segment": "S6"
     },
-    "S6.richter_t14a": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: strangulated hernia is taught as a complete closed loop with early vomiting, so that picture comes first.",
-          "claims": []
-        },
-        {
-          "text": "Try again. Ask how much of the bowel circumference is caught, and whether he is obstructed.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure of a complete loop. Richter's is the hernia that strangulates without obstructing, so keep the two apart.",
-        "claims": [
-          "K30"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.richter",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.richter_t14a_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.richter_t14a_f": {
+    "S6.q8_f1": {
       "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
       "say": [
         {
-          "text": "But a closed loop obstructs both ends. Richter's involves only part of the wall, and passing flatus fits partial trapping.",
+          "text": "Trap: pain that turns constant is not settling. Constant pain with tachycardia and fever reads as strangulation.",
           "claims": [
-            "K16",
-            "K30"
-          ]
-        },
-        {
-          "text": "What is right: part of the wall is trapped, and the lumen may stay partly open.",
-          "claims": [
-            "K30"
+            "K50",
+            "K8"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S6.femoral",
+          "next": "S6.q9",
           "kind": "continue"
         }
       ],
-      "objectives": [
-        "O9"
-      ],
       "segment": "S6"
     },
-    "S6.richter_t14b": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: Littre's hernia contains a Meckel's diverticulum, and the two eponyms are easy to blur.",
-          "claims": [
-            "K31"
-          ]
-        },
-        {
-          "text": "Try again. Ask how much of the bowel circumference is caught, and whether he is obstructed.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.richter",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.richter_t14b_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.richter_t14b_f": {
+    "S6.q8_f2": {
       "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
       "say": [
         {
-          "text": "But this is partial wall trapping, which is Richter's. Littre's is the hernia that holds the diverticulum.",
+          "text": "Trap: the trial applies only when the screen is negative. Strangulation signs skip it.",
           "claims": [
-            "K30",
-            "K31"
-          ]
-        },
-        {
-          "text": "What is right: part of the wall trapped, the Richter's picture.",
-          "claims": [
-            "K30"
+            "K95",
+            "K97"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S6.femoral",
+          "next": "S6.q9",
           "kind": "continue"
         }
       ],
-      "objectives": [
-        "O9"
-      ],
       "segment": "S6"
     },
-    "S6.femoral": {
+    "S6.q8": {
       "role": "probe",
       "objectives": [
-        "O9"
-      ],
-      "say": [
-        {
-          "text": "Among groin hernias in adults, which one is most likely to strangulate?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Femoral hernia",
-          "next": "S6.femoral_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Indirect inguinal, the commonest hernia",
-          "next": "S6.femoral_t13a",
-          "kind": "trap",
-          "trap": "TR13"
-        },
-        {
-          "label": "Direct inguinal hernia",
-          "next": "S6.femoral_t13b",
-          "kind": "trap",
-          "trap": "TR13"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.femoral_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O9"
-      ],
-      "say": [
-        {
-          "text": "Yes. The femoral hernia has the narrowest, most rigid neck of the groin hernias, so it strangulates most readily.",
-          "claims": [
-            "K29",
-            "K132"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.paired",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.femoral_t13a": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: the indirect inguinal hernia is the commonest groin hernia, so it feels like the most dangerous one too.",
-          "claims": [
-            "K132"
-          ]
-        },
-        {
-          "text": "Try again. Ask which neck is narrowest and most rigid, not which hernia is commonest.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.femoral",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.femoral_t13a_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.femoral_t13a_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But frequency is not risk. Commonest and most likely to strangulate are two different questions.",
-          "claims": [
-            "K132",
-            "K29"
-          ]
-        },
-        {
-          "text": "What is right: the femoral hernia, because its narrow, rigid neck strangulates most.",
-          "claims": [
-            "K29"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.paired",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O9"
-      ],
-      "segment": "S6"
-    },
-    "S6.femoral_t13b": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: direct hernias bulge through the medial wall near the femoral region, so they feel like the risky type.",
-          "claims": []
-        },
-        {
-          "text": "Try again. Ask which neck is narrowest and most rigid, not which hernia is commonest.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.femoral",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.femoral_t13b_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.femoral_t13b_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But the risk comes from a narrow, rigid neck, and the femoral hernia has the narrowest one.",
-          "claims": [
-            "K29"
-          ]
-        },
-        {
-          "text": "What is right: the femoral hernia.",
-          "claims": [
-            "K29",
-            "K132"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.paired",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O9"
-      ],
-      "segment": "S6"
-    },
-    "S6.paired": {
-      "role": "probe",
-      "objectives": [
-        "O10",
-        "O6"
+        "O4"
       ],
       "ask_confidence": true,
       "say": [
         {
-          "text": "Two stable patients, neither with peritonitis, both with intussusception on ultrasound: a 9-month-old and a 60-year-old.",
-          "claims": [
-            "K88"
-          ]
+          "text": "A 49-year-old woman with adhesive obstruction has had colicky pain for two days. Now the pain has become a constant ache. Pulse 122, temperature 38.2, tender in the left iliac fossa.",
+          "claims": []
         },
         {
-          "text": "Which plan fits each patient?",
+          "text": "What do you do?",
           "claims": []
         }
       ],
       "choices": [
         {
-          "label": "Air enema reduction for both, as it is image-guided",
-          "next": "S6.paired_t3",
-          "kind": "trap",
-          "trap": "TR3"
-        },
-        {
-          "label": "Laparotomy for both, as neither is safe to reduce",
-          "next": "S6.paired_t4",
-          "kind": "trap",
-          "trap": "TR4"
-        },
-        {
-          "label": "Air enema for the child, resection for the adult",
-          "next": "S6.paired_ok",
-          "kind": "correct"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.paired_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O10"
-      ],
-      "say": [
-        {
-          "text": "Yes. The child without peritonitis gets image-guided air enema reduction; the adult has a lead point, often a tumour, so it is resected.",
-          "claims": [
-            "K111",
-            "K113",
-            "K38"
-          ]
-        },
-        {
-          "text": "Surgery in a child is needed for peritonitis, perforation, shock or failed reduction.",
-          "claims": [
-            "K112"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.sig",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.paired_t3": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: enema reduction is the treatment that works in the child, so it feels like the universal cure.",
-          "claims": [
-            "K111"
-          ]
-        },
-        {
-          "text": "Try again. Ask which patient is likely to have a lead point, and what age tells you.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure the enema cures both. Age is the qualifier. For an adult, ask about a lead point first.",
-        "claims": [
-          "K38"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.paired",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.paired_t3_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.paired_t3_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But adult intussusception usually has a lead point, often a tumour. Reducing it by enema can leave the cause behind.",
-          "claims": [
-            "K38",
-            "K113"
-          ]
-        },
-        {
-          "text": "What is right: the child gets an enema, the adult gets resection.",
-          "claims": [
-            "K111",
-            "K113"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.sig",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O10"
-      ],
-      "segment": "S6"
-    },
-    "S6.paired_t4": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: intussusception is an acute abdomen, so theatre feels safest for every patient.",
-          "claims": []
-        },
-        {
-          "text": "Try again. Ask which patient is likely to have a lead point, and what age tells you.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.paired",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.paired_t4_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.paired_t4_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But surgery is needed for peritonitis, perforation, shock or failed reduction. A stable child goes to the enema first.",
-          "claims": [
-            "K112",
-            "K111"
-          ]
-        },
-        {
-          "text": "What is right: a child gets image-guided reduction; an adult with a lead point is resected.",
-          "claims": [
-            "K111",
-            "K113"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.sig",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O10"
-      ],
-      "segment": "S6"
-    },
-    "S6.sig": {
-      "role": "probe",
-      "objectives": [
-        "O11"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "A stable elderly man has sigmoid volvulus on the film. There is no gangrene and no peritonitis.",
-          "claims": [
-            "K106"
-          ]
-        },
-        {
-          "text": "What is the best management?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Endoscopic detorsion and flatus tube, then elective colectomy",
-          "next": "S6.sig_ok",
+          "label": "Resuscitate, then operate; this is strangulation",
+          "next": "S6.q8_ok",
           "kind": "correct"
         },
         {
-          "label": "Endoscopic detorsion, then discharge",
-          "next": "S6.sig_t21",
+          "label": "Continue the trial; the pain is settling",
+          "next": "S6.q8_f1",
           "kind": "trap",
-          "trap": "TR21"
+          "trap": "TR22"
         },
         {
-          "label": "Self-expanding stent as the definitive treatment",
-          "next": "S6.sig_t36",
+          "label": "Carry on to 72 hours, then review",
+          "next": "S6.q8_f2",
           "kind": "trap",
-          "trap": "TR36"
+          "trap": "TR23"
         }
       ],
       "segment": "S6"
     },
-    "S6.sig_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O11"
-      ],
-      "say": [
-        {
-          "text": "Yes. Endoscopic detorsion with a flatus tube untwists the bowel, and elective sigmoid colectomy follows because recurrence is common.",
-          "claims": [
-            "K106",
-            "K107"
-          ]
-        },
-        {
-          "text": "Gangrene, perforation or failed detorsion changes this: then emergency resection, usually Hartmann's procedure.",
-          "claims": [
-            "K108"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.coffee",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.sig_t21": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: a detorsed loop looks healthy on the scope, so stopping there feels complete.",
-          "claims": [
-            "K106"
-          ]
-        },
-        {
-          "text": "Try again. Ask what untwisting fixes and what it leaves behind.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure detorsion ends the care. Recurrence is the reason the colectomy follows.",
-        "claims": [
-          "K107"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.sig",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.sig_t21_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.sig_t21_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But sigmoid volvulus recurs often after detorsion, so the definitive operation is an elective sigmoid colectomy.",
-          "claims": [
-            "K107"
-          ]
-        },
-        {
-          "text": "What is right: detorse with a flatus tube, then elective colectomy in the same admission.",
-          "claims": [
-            "K106",
-            "K107"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.coffee",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O11"
-      ],
-      "segment": "S6"
-    },
-    "S6.sig_t36": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: a stent relieves left-sided malignant obstruction, so it feels like a non-operative cure.",
-          "claims": [
-            "K116"
-          ]
-        },
-        {
-          "text": "Try again. Ask what untwisting fixes and what it leaves behind.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.sig",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.sig_t36_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.sig_t36_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But a stent is a bridge to elective surgery or palliation. This volvulus needs detorsion first, then a planned colectomy.",
-          "claims": [
-            "K116",
-            "K107"
-          ]
-        },
-        {
-          "text": "What is right: detorsion with a flatus tube, then elective sigmoid colectomy.",
-          "claims": [
-            "K106",
-            "K107"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.coffee",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O11"
-      ],
-      "segment": "S6"
-    },
-    "S6.coffee": {
-      "role": "probe",
-      "objectives": [
-        "O7"
-      ],
-      "say": [
-        {
-          "text": "A plain film of an elderly man shows a massively dilated loop arising from the pelvis, shaped like a coffee bean.",
-          "claims": []
-        },
-        {
-          "text": "Which diagnosis fits this sign?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Caecal volvulus",
-          "next": "S6.coffee_t8a",
-          "kind": "trap",
-          "trap": "TR8"
-        },
-        {
-          "label": "Sigmoid volvulus",
-          "next": "S6.coffee_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Ileocaecal intussusception",
-          "next": "S6.coffee_t8b",
-          "kind": "trap",
-          "trap": "TR8"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.coffee_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O7"
-      ],
-      "say": [
-        {
-          "text": "Yes. A massively dilated pelvic loop is the coffee bean, or bent inner tube, sign of sigmoid volvulus.",
-          "claims": [
-            "K76"
-          ]
-        },
-        {
-          "text": "A caecal volvulus gives a different sign: a kidney-shaped caecum displaced to the left upper quadrant.",
-          "claims": [
-            "K77"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.caecal",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.coffee_t8a": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: both volvulus types twist the bowel, so one loop shape feels like either of them.",
-          "claims": [
-            "K34"
-          ]
-        },
-        {
-          "text": "Try again. Match the shape and the position of the loop to one disease.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.coffee",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.coffee_t8a_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.coffee_t8a_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But the caecal sign is a comma or kidney-shaped caecum in the left upper quadrant, not a pelvic coffee bean.",
-          "claims": [
-            "K77"
-          ]
-        },
-        {
-          "text": "What is right: sigmoid volvulus, the pelvic loop with the coffee bean or bent inner tube sign.",
-          "claims": [
-            "K76"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.caecal",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O7"
-      ],
-      "segment": "S6"
-    },
-    "S6.coffee_t8b": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: intussusception is a common cause of a bowel loop sign, so a familiar loop feels like the answer.",
-          "claims": [
-            "K5"
-          ]
-        },
-        {
-          "text": "Try again. Match the shape and the position of the loop to one disease.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure of intussusception. Each sign belongs to one disease and one modality.",
-        "claims": [
-          "K146"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.coffee",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.coffee_t8b_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.coffee_t8b_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But the intussusception signs are the target and the claw, seen on ultrasound and enema, not a coffee bean on the plain film.",
-          "claims": [
-            "K88",
-            "K89"
-          ]
-        },
-        {
-          "text": "What is right: sigmoid volvulus. Match each sign to its disease and its modality.",
-          "claims": [
-            "K76",
-            "K146"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.caecal",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O7"
-      ],
-      "segment": "S6"
-    },
-    "S6.caecal": {
-      "role": "probe",
-      "objectives": [
-        "O11"
-      ],
-      "say": [
-        {
-          "text": "A stable, fit patient has an obstructing caecal carcinoma.",
-          "claims": []
-        },
-        {
-          "text": "Which is the operation of choice?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Left hemicolectomy, as for most colon cancers",
-          "next": "S6.caecal_t36a",
-          "kind": "trap",
-          "trap": "TR36"
-        },
-        {
-          "label": "Hartmann's procedure, as for left-sided tumours",
-          "next": "S6.caecal_t36b",
-          "kind": "trap",
-          "trap": "TR36"
-        },
-        {
-          "label": "Right hemicolectomy with primary anastomosis",
-          "next": "S6.caecal_ok",
-          "kind": "correct"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.caecal_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O11"
-      ],
-      "say": [
-        {
-          "text": "Yes. An obstructing right-sided cancer gets a right or extended right hemicolectomy with primary anastomosis.",
-          "claims": [
-            "K114"
-          ]
-        },
-        {
-          "text": "The side of the tumour decides the operation. Left-sided tumours are where Hartmann's or a stent bridge is used.",
-          "claims": [
-            "K115",
-            "K116"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.large",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.caecal_t36a": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: left hemicolectomy is the colon cancer operation most students learn first, so it feels general.",
-          "claims": []
-        },
-        {
-          "text": "Try again. Ask which side the tumour is on and whether the bowel can be joined safely.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.caecal",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.caecal_t36a_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.caecal_t36a_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But the side of the tumour decides the operation. A left-sided operation is wrong for a caecal tumour.",
-          "claims": [
-            "K115",
-            "K114"
-          ]
-        },
-        {
-          "text": "What is right: right hemicolectomy with primary anastomosis.",
-          "claims": [
-            "K114"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.large",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O11"
-      ],
-      "segment": "S6"
-    },
-    "S6.caecal_t36b": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: Hartmann's is the usual answer for obstructing colon cancer, so it feels like the safe choice.",
-          "claims": [
-            "K115"
-          ]
-        },
-        {
-          "text": "Try again. Ask which side the tumour is on and whether the bowel can be joined safely.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.caecal",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.caecal_t36b_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.caecal_t36b_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But Hartmann's suits left-sided tumours, often unstable. This caecal tumour is right-sided and is resected with anastomosis.",
-          "claims": [
-            "K115",
-            "K114"
-          ]
-        },
-        {
-          "text": "What is right: right hemicolectomy with primary anastomosis.",
-          "claims": [
-            "K114"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.large",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O11"
-      ],
-      "segment": "S6"
-    },
-    "S6.large": {
-      "role": "probe",
-      "objectives": [
-        "O1",
-        "O11"
-      ],
-      "say": [
-        {
-          "text": "An adult has large bowel obstruction with no previous surgery.",
-          "claims": []
-        },
-        {
-          "text": "Which is the most common cause?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Sigmoid volvulus",
-          "next": "S6.large_t35a",
-          "kind": "trap",
-          "trap": "TR35"
-        },
-        {
-          "label": "Colorectal carcinoma",
-          "next": "S6.large_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Diverticular stricture",
-          "next": "S6.large_t35b",
-          "kind": "trap",
-          "trap": "TR35"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.large_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O1"
-      ],
-      "say": [
-        {
-          "text": "Yes. Colorectal carcinoma is the most common cause of large bowel obstruction in adults.",
-          "claims": [
-            "K4",
-            "K126"
-          ]
-        },
-        {
-          "text": "Volvulus and diverticular disease come next, and the sigmoid is the commonest site of volvulus.",
-          "claims": [
-            "K26",
-            "K34"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.early",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.large_t35a": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: volvulus is the classic large bowel picture on a film, so it feels like the most common cause.",
-          "claims": [
-            "K34"
-          ]
-        },
-        {
-          "text": "Try again. Ask which cause is commonest, not which is most dramatic on a film.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.large",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.large_t35a_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.large_t35a_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But it is a common cause, not the commonest one. In adults, carcinoma leads.",
-          "claims": [
-            "K26",
-            "K4"
-          ]
-        },
-        {
-          "text": "What is right: colorectal carcinoma. Sigmoid is the usual volvulus site.",
-          "claims": [
-            "K4",
-            "K34"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.early",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O1"
-      ],
-      "segment": "S6"
-    },
-    "S6.large_t35b": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: diverticular disease is common in older adults, so its stricture feels like the leading cause.",
-          "claims": [
-            "K26"
-          ]
-        },
-        {
-          "text": "Try again. Ask which cause is commonest, not which is most dramatic on a film.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.large",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.large_t35b_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.large_t35b_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But diverticular disease comes after carcinoma in adults. Common does not mean most common.",
-          "claims": [
-            "K26",
-            "K126"
-          ]
-        },
-        {
-          "text": "What is right: colorectal carcinoma is the most common cause in adults.",
-          "claims": [
-            "K126"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.early",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O1"
-      ],
-      "segment": "S6"
-    },
-    "S6.early": {
-      "role": "probe",
-      "objectives": [
-        "O3"
-      ],
-      "say": [
-        {
-          "text": "An adult has a large bowel obstruction.",
-          "claims": []
-        },
-        {
-          "text": "Which cardinal feature comes early?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Absolute constipation, with no flatus",
-          "next": "S6.early_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Profuse vomiting, with little distension",
-          "next": "S6.early_t17a",
-          "kind": "trap",
-          "trap": "TR17"
-        },
-        {
-          "label": "Late constipation, with faeculent vomiting",
-          "next": "S6.early_t17b",
-          "kind": "trap",
-          "trap": "TR17"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.early_ok": {
+    "S6.q9_f0": {
       "role": "feedback",
       "objectives": [
         "O3"
       ],
       "say": [
         {
-          "text": "Yes. In a large bowel block the distal bowel is short and empties first, so absolute constipation comes early.",
-          "claims": [
-            "K54"
-          ]
-        },
-        {
-          "text": "Distension is marked and vomiting comes late, the reverse of a high small bowel block.",
-          "claims": [
-            "K53",
-            "K51"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.ct",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.early_t17a": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: profuse vomiting with early distension is the classic picture of obstruction, so it feels like the default.",
-          "claims": [
-            "K56"
-          ]
-        },
-        {
-          "text": "Try again. Think about the length of bowel beyond the block and what empties first.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.early",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.early_t17a_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.early_t17a_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is the high small bowel pattern. In a large bowel block vomiting is late and the distension is marked.",
+          "text": "Trap: timelines differ by level. Early profuse vomiting with minimal distension is a high small bowel block.",
           "claims": [
             "K51",
             "K53"
           ]
-        },
+        }
+      ],
+      "choices": [
         {
-          "text": "What is right: absolute constipation comes early, because the distal bowel empties first.",
+          "label": "Next",
+          "next": "S6.q10",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q9_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Right. In large bowel block constipation is early and vomiting is late. In high small bowel block it is the reverse.",
           "claims": [
-            "K54"
+            "K54",
+            "K51",
+            "K53"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S6.ct",
+          "next": "S6.q10",
           "kind": "continue"
         }
       ],
+      "segment": "S6"
+    },
+    "S6.q9_f2": {
+      "role": "feedback",
       "objectives": [
         "O3"
       ],
-      "segment": "S6"
-    },
-    "S6.early_t17b": {
-      "role": "hint",
       "say": [
         {
-          "text": "Tempting: constipation is a late sign in small bowel obstruction, so it feels like a late sign everywhere.",
+          "text": "Trap: constipation is late in small bowel block but early in large, as the distal bowel empties first.",
           "claims": [
+            "K54",
             "K58"
           ]
-        },
-        {
-          "text": "Try again. Think about the length of bowel beyond the block and what empties first.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.early",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.early_t17b_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.early_t17b_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But in a large bowel block constipation is early, and faeculent vomiting is a late sign.",
-          "claims": [
-            "K54",
-            "K52"
-          ]
-        },
-        {
-          "text": "What is right: early absolute constipation, late vomiting.",
-          "claims": [
-            "K54",
-            "K51"
-          ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S6.ct",
+          "next": "S6.q10",
           "kind": "continue"
         }
       ],
+      "segment": "S6"
+    },
+    "S6.q9": {
+      "role": "probe",
       "objectives": [
         "O3"
       ],
-      "segment": "S6"
-    },
-    "S6.ct": {
-      "role": "probe",
-      "objectives": [
-        "O6"
-      ],
+      "ask_confidence": true,
       "say": [
         {
-          "text": "An adult has suspected small bowel obstruction. The plain X-ray is abnormal.",
-          "claims": [
-            "K138"
-          ]
-        },
-        {
-          "text": "Which investigation is the definitive test for the cause and for strangulation?",
+          "text": "Which patient fits a low large bowel block: a 60-year-old with marked flank distension, no flatus since yesterday and no vomiting yet, or a 40-year-old who vomits profusely with a flat abdomen and still passes flatus?",
           "claims": []
         }
       ],
       "choices": [
         {
-          "label": "Erect and supine abdominal X-ray again",
-          "next": "S6.ct_t5a",
+          "label": "The second: vomiting comes first at every level",
+          "next": "S6.q9_f0",
           "kind": "trap",
-          "trap": "TR5"
+          "trap": "TR17"
         },
         {
-          "label": "Barium meal follow-through",
-          "next": "S6.ct_t5b",
-          "kind": "trap",
-          "trap": "TR5"
-        },
-        {
-          "label": "Contrast-enhanced CT abdomen",
-          "next": "S6.ct_ok",
-          "kind": "correct"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.ct_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O6"
-      ],
-      "say": [
-        {
-          "text": "Yes. Contrast-enhanced CT is the investigation of choice for small bowel obstruction: it shows the transition point, the cause and strangulation.",
-          "claims": [
-            "K79",
-            "K80",
-            "K81"
-          ]
-        },
-        {
-          "text": "The plain film is the first test. It shows the level and which bowel is dilated.",
-          "claims": [
-            "K138",
-            "K69"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.film",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.ct_t5a": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: the X-ray is the first test and confirms obstruction, so it feels finished.",
-          "claims": [
-            "K138"
-          ]
-        },
-        {
-          "text": "Try again. Ask which test settles the cause and strangulation, not just whether there is a block.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.ct",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.ct_t5a_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.ct_t5a_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But the first test answers whether there is obstruction. It does not settle the cause or strangulation.",
-          "claims": [
-            "K138",
-            "K80"
-          ]
-        },
-        {
-          "text": "What is right: contrast-enhanced CT, the definitive test.",
-          "claims": [
-            "K79"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.film",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O6"
-      ],
-      "segment": "S6"
-    },
-    "S6.ct_t5b": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: a barium study shows the bowel directly, so it feels like a definitive study.",
-          "claims": []
-        },
-        {
-          "text": "Try again. Ask which test settles the cause and strangulation, not just whether there is a block.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.ct",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.ct_t5b_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.ct_t5b_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But barium must not be given by mouth in suspected large bowel obstruction or perforation, and CT answers the cause and the strangulation.",
-          "claims": [
-            "K85",
-            "K79"
-          ]
-        },
-        {
-          "text": "What is right: contrast-enhanced CT abdomen.",
-          "claims": [
-            "K79"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.film",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O6"
-      ],
-      "segment": "S6"
-    },
-    "S6.film": {
-      "role": "probe",
-      "objectives": [
-        "O5"
-      ],
-      "say": [
-        {
-          "text": "A plain film shows central loops 4 cm across. The caecum measures 7 cm and the transverse colon 5 cm.",
-          "claims": [
-            "K74"
-          ]
-        },
-        {
-          "text": "Which segment is dilated, and which marker shows it?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Caecum: 7 cm, so the caecum is dilated",
-          "next": "S6.film_t12",
-          "kind": "trap",
-          "trap": "TR12"
-        },
-        {
-          "label": "Small bowel: valvulae conniventes cross the lumen",
-          "next": "S6.film_ok",
+          "label": "The first: absolute constipation and marked distension come early, vomiting late",
+          "next": "S6.q9_ok",
           "kind": "correct"
         },
         {
-          "label": "Large bowel: haustra show on the film",
-          "next": "S6.film_t11",
+          "label": "Neither; constipation is always late",
+          "next": "S6.q9_f2",
           "kind": "trap",
-          "trap": "TR11"
+          "trap": "TR17"
         }
       ],
       "segment": "S6"
     },
-    "S6.film_ok": {
+    "S6.q10_f0": {
       "role": "feedback",
       "objectives": [
-        "O5"
+        "O12"
       ],
       "say": [
         {
-          "text": "Yes. Small bowel upper normal is 3 cm, so 4 cm is dilated, and valvulae conniventes that cross the lumen mark small bowel.",
+          "text": "Trap: bowel sounds are absent in paralytic ileus. Hyperactive sounds belong to mechanical obstruction.",
           "claims": [
-            "K74",
-            "K6"
-          ]
-        },
-        {
-          "text": "The colon limit is 6 cm and the caecum's is 9 cm, so 5 cm and 7 cm are normal.",
-          "claims": [
-            "K74"
+            "K61",
+            "K13"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S6.silent",
+          "next": "S6.q11",
           "kind": "continue"
         }
       ],
       "segment": "S6"
     },
-    "S6.film_t12": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: 7 cm looks big for a number you have just met, so the caecum feels distended.",
-          "claims": [
-            "K74"
-          ]
-        },
-        {
-          "text": "Try again. Check each measurement against its own upper limit, and name the fold pattern.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.film",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.film_t12_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.film_t12_f": {
+    "S6.q10_ok": {
       "role": "feedback",
+      "objectives": [
+        "O12"
+      ],
       "say": [
         {
-          "text": "But the caecum's upper normal is 9 cm, so 7 cm is within the limit. The 3-6-9 numbers are not interchangeable.",
+          "text": "Right. Hypokalaemia is the commonest metabolic cause of ileus, treated non-operatively with correction and drip and suck.",
           "claims": [
-            "K74",
-            "K11"
-          ]
-        },
-        {
-          "text": "What is right: the small bowel, 4 cm against an upper limit of 3 cm.",
-          "claims": [
-            "K74"
+            "K96",
+            "K135"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S6.silent",
+          "next": "S6.q11",
           "kind": "continue"
         }
       ],
-      "objectives": [
-        "O5"
-      ],
       "segment": "S6"
     },
-    "S6.film_t11": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: haustra are the marker of the colon, so a colon marker on any film feels like the answer.",
-          "claims": [
-            "K73"
-          ]
-        },
-        {
-          "text": "Try again. Check each measurement against its own upper limit, and name the fold pattern.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.film",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.film_t11_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.film_t11_f": {
+    "S6.q10_f2": {
       "role": "feedback",
+      "objectives": [
+        "O12"
+      ],
       "say": [
         {
-          "text": "But haustra do not cross the full width. The folds that cross the lumen mark the small bowel.",
+          "text": "Trap: the trial is for mechanical adhesive obstruction. Here, fix the potassium first.",
           "claims": [
-            "K6",
-            "K71"
-          ]
-        },
-        {
-          "text": "What is right: the small bowel, 4 cm, with valvulae conniventes.",
-          "claims": [
-            "K74",
-            "K6"
+            "K95",
+            "K96"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S6.silent",
+          "next": "S6.q11",
           "kind": "continue"
         }
       ],
-      "objectives": [
-        "O5"
-      ],
       "segment": "S6"
     },
-    "S6.silent": {
+    "S6.q10": {
       "role": "probe",
       "objectives": [
         "O12"
@@ -10455,546 +9031,293 @@
       "ask_confidence": true,
       "say": [
         {
-          "text": "Day 3 after abdominal surgery. The abdomen is silent and distended. Potassium is 2.8, and CT shows no mechanical block.",
+          "text": "On day 4 after laparotomy a man is distended and vomiting. The abdomen is silent. Potassium is 2.8. There is no fever.",
           "claims": []
         },
         {
-          "text": "What is the best treatment?",
+          "text": "What fits, and what is first?",
           "claims": []
         }
       ],
       "choices": [
         {
-          "label": "Correct potassium, then drip and suck",
-          "next": "S6.silent_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Laparotomy, since silent bowel means a block",
-          "next": "S6.silent_t18",
+          "label": "Mechanical block, as bowel sounds are always hyperactive in obstruction",
+          "next": "S6.q10_f0",
           "kind": "trap",
           "trap": "TR18"
         },
         {
-          "label": "Start a 72-hour trial, as for adhesive obstruction",
-          "next": "S6.silent_t23",
+          "label": "Ileus: correct potassium, drip and suck",
+          "next": "S6.q10_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Start a 72-hour trial for adhesions and leave potassium",
+          "next": "S6.q10_f2",
           "kind": "trap",
           "trap": "TR23"
         }
       ],
       "segment": "S6"
     },
-    "S6.silent_ok": {
-      "role": "feedback",
+    "S6.close": {
+      "role": "recap",
       "objectives": [
-        "O12"
+        "O4",
+        "O8"
       ],
       "say": [
         {
-          "text": "Yes. Paralytic ileus is treated non-operatively by correcting the cause, especially potassium, with drip and suck.",
-          "claims": [
-            "K96",
-            "K135"
-          ]
-        },
-        {
-          "text": "Silent bowel fits paralysis rather than a mechanical block, so an operation is not the first step.",
-          "claims": [
-            "K13",
-            "K61"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.wall",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.silent_t18": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: silent bowel is the classic sign of a mechanical block, so it feels like an operation case.",
-          "claims": [
-            "K61"
-          ]
-        },
-        {
-          "text": "Try again. Ask what the CT excluded, and which blood result might explain a paralysed gut.",
+          "text": "Level and setting give the cause, strangulation overrides the wait, and resuscitation comes before theatre.",
           "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure silence meant a block. In adynamic obstruction the sounds are absent and the cause is treated, not operated.",
-        "claims": [
-          "K61",
-          "K96"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.silent",
-          "kind": "retry"
         },
         {
-          "label": "Show me why",
-          "next": "S6.silent_t18_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.silent_t18_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But mechanical block gives high-pitched sounds, and silent sounds fit paralytic ileus. The CT already showed no block.",
-          "claims": [
-            "K61",
-            "K13"
-          ]
-        },
-        {
-          "text": "What is right: correct the potassium, then drip and suck.",
-          "claims": [
-            "K96"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.wall",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O12"
-      ],
-      "segment": "S6"
-    },
-    "S6.silent_t23": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: the 72-hour trial is the rule for adhesive obstruction, so waiting feels cautious.",
-          "claims": [
-            "K95"
-          ]
-        },
-        {
-          "text": "Try again. Ask what the CT excluded, and which blood result might explain a paralysed gut.",
+          "text": "The cards that follow carry these into new cases.",
           "claims": []
         }
       ],
       "choices": [
         {
-          "label": "Try again",
-          "next": "S6.silent",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.silent_t23_f",
-          "kind": "agency"
+          "label": "Next",
+          "next": "END",
+          "kind": "continue"
         }
       ],
       "segment": "S6"
     },
-    "S6.silent_t23_f": {
+    "S6.q11_f0": {
       "role": "feedback",
+      "objectives": [
+        "O10",
+        "O11"
+      ],
       "say": [
         {
-          "text": "But this is paralytic ileus with low potassium. The trial is for adhesive obstruction, and the cause must be corrected now.",
+          "text": "Trap: an adult usually has a lead point, often a tumour, so resection is needed.",
           "claims": [
-            "K96",
-            "K135"
-          ]
-        },
-        {
-          "text": "What is right: potassium correction, drip and suck, and reassessment.",
-          "claims": [
-            "K96"
+            "K113"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S6.wall",
+          "next": "S6.q12",
           "kind": "continue"
         }
       ],
+      "segment": "S6"
+    },
+    "S6.q11_f1": {
+      "role": "feedback",
       "objectives": [
-        "O12"
+        "O10",
+        "O11"
+      ],
+      "say": [
+        {
+          "text": "Trap: a stent bridges left-sided disease. Right-sided cancer gets right hemicolectomy with primary anastomosis.",
+          "claims": [
+            "K114"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q12",
+          "kind": "continue"
+        }
       ],
       "segment": "S6"
     },
-    "S6.wall": {
+    "S6.q11_f2": {
+      "role": "feedback",
+      "objectives": [
+        "O10",
+        "O11"
+      ],
+      "say": [
+        {
+          "text": "Trap: colorectal carcinoma is commonest. Diverticular disease and volvulus follow.",
+          "claims": [
+            "K26",
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q12",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q11_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O10",
+        "O11"
+      ],
+      "say": [
+        {
+          "text": "Right. The operation follows the site of the cancer; carcinoma is the commonest cause of adult large bowel block.",
+          "claims": [
+            "K114",
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.q12",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q11": {
       "role": "probe",
+      "objectives": [
+        "O10",
+        "O11"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which statement about large bowel and intussusception in adults is true?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Adult intussusception is reduced by enema, as in a child",
+          "next": "S6.q11_f0",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Obstructing right-sided cancer is stented as standard",
+          "next": "S6.q11_f1",
+          "kind": "trap",
+          "trap": "TR36"
+        },
+        {
+          "label": "Diverticular disease is the commonest cause of adult large bowel block",
+          "next": "S6.q11_f2",
+          "kind": "trap",
+          "trap": "TR35"
+        },
+        {
+          "label": "Right-sided obstructing cancer: right hemicolectomy, primary anastomosis",
+          "next": "S6.q11_ok",
+          "kind": "correct"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q12_f0": {
+      "role": "feedback",
       "objectives": [
         "O2"
       ],
       "say": [
         {
-          "text": "Causes of obstruction are sorted by their relation to the bowel wall.",
+          "text": "Trap: carcinoma, stricture and intussusception lie in the wall. Sort by the bowel wall, not by name.",
           "claims": [
-            "K18"
+            "K18",
+            "K19"
           ]
-        },
+        }
+      ],
+      "choices": [
         {
-          "text": "Which cause lies within the wall?",
+          "label": "Next",
+          "next": "S6.close",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q12_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Right. Bands, hernia and volvulus are extramural; the wall holds carcinoma, strictures and intussusception.",
+          "claims": [
+            "K20",
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.close",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q12_f2": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Trap: a stricture sits in the wall and is intramural. Name does not sort causes; relation to the wall does.",
+          "claims": [
+            "K19",
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S6.close",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.q12": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which of these is NOT an intramural cause of obstruction?",
           "claims": []
         }
       ],
       "choices": [
         {
-          "label": "Adhesive band",
-          "next": "S6.wall_t40a",
+          "label": "Carcinoma of the colon",
+          "next": "S6.q12_f0",
           "kind": "trap",
           "trap": "TR40"
+        },
+        {
+          "label": "An adhesive band",
+          "next": "S6.q12_ok",
+          "kind": "correct"
         },
         {
           "label": "Crohn's stricture",
-          "next": "S6.wall_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Faecal impaction",
-          "next": "S6.wall_t40b",
+          "next": "S6.q12_f2",
           "kind": "trap",
           "trap": "TR40"
         }
-      ],
-      "segment": "S6"
-    },
-    "S6.wall_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O2"
-      ],
-      "say": [
-        {
-          "text": "Yes. A Crohn's stricture narrows the wall itself, so it is intramural.",
-          "claims": [
-            "K20"
-          ]
-        },
-        {
-          "text": "Adhesive bands sit outside the bowel, which makes them extramural. Faecal impaction sits in the lumen.",
-          "claims": [
-            "K22",
-            "K19"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.summary",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.wall_t40a": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: adhesions cause most obstructions, so a band feels like a cause inside the bowel.",
-          "claims": [
-            "K3"
-          ]
-        },
-        {
-          "text": "Try again. Ask where the lesion sits relative to the wall: in the lumen, in the wall or outside.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.wall",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.wall_t40a_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.wall_t40a_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But bands lie outside the bowel and tie it down. They are extramural, not in the wall.",
-          "claims": [
-            "K22"
-          ]
-        },
-        {
-          "text": "What is right: Crohn's stricture, a narrowing of the wall, is intramural.",
-          "claims": [
-            "K20"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.summary",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O2"
-      ],
-      "segment": "S6"
-    },
-    "S6.wall_t40b": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: faecal impaction is a common and dramatic obstruction, so it feels like a wall problem.",
-          "claims": [
-            "K19"
-          ]
-        },
-        {
-          "text": "Try again. Ask where the lesion sits relative to the wall: in the lumen, in the wall or outside.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.wall",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.wall_t40b_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.wall_t40b_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But the impacted faeces sit in the lumen. That makes impaction intraluminal, not a wall cause.",
-          "claims": [
-            "K19"
-          ]
-        },
-        {
-          "text": "What is right: Crohn's stricture is intramural.",
-          "claims": [
-            "K20"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.summary",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O2"
-      ],
-      "segment": "S6"
-    },
-    "S6.summary": {
-      "role": "probe",
-      "objectives": [
-        "O4",
-        "O8"
-      ],
-      "say": [
-        {
-          "text": "Build the take-home. Which one-line summary is best?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Every obstruction gets a 72-hour trial before a decision",
-          "next": "S6.summary_t23",
-          "kind": "trap",
-          "trap": "TR23"
-        },
-        {
-          "label": "Adhesions are the commonest cause, so start there",
-          "next": "S6.summary_t1",
-          "kind": "trap",
-          "trap": "TR1"
-        },
-        {
-          "label": "Level sets the picture; strangulation overrides; resuscitate first",
-          "next": "S6.summary_ok",
-          "kind": "correct"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.summary_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O4",
-        "O8"
-      ],
-      "say": [
-        {
-          "text": "Yes. The level of block gives the picture, strangulation overrides the wait, and resuscitation comes first.",
-          "claims": [
-            "K51",
-            "K8",
-            "K90"
-          ]
-        },
-        {
-          "text": "The cards that follow carry these ideas into a new case.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "END",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.summary_t23": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: the 72-hour rule is the famous number, so it feels like the first rule of the case.",
-          "claims": [
-            "K95"
-          ]
-        },
-        {
-          "text": "Try again. Pick the line that puts screening for strangulation and resuscitation ahead of any rule.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure the trial comes first. Screen for strangulation before any time limit.",
-        "claims": [
-          "K97"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.summary",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.summary_t23_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.summary_t23_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But the trial only follows a screen for strangulation, hernia, closed loop and peritonitis.",
-          "claims": [
-            "K94",
-            "K97",
-            "K98",
-            "K99"
-          ]
-        },
-        {
-          "text": "What is right: screen first, then resuscitate. The trial is for simple adhesive obstruction.",
-          "claims": [
-            "K94"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "END",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O8"
-      ],
-      "segment": "S6"
-    },
-    "S6.summary_t1": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: adhesions are the commonest cause of adult small bowel obstruction, so they feel like the answer everywhere.",
-          "claims": [
-            "K3"
-          ]
-        },
-        {
-          "text": "Try again. Pick the line that puts screening for strangulation and resuscitation ahead of any rule.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.summary",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.summary_t1_f",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.summary_t1_f": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "But the setting decides. In India PYQs expected hernia, and in a virgin abdomen adhesions are unlikely.",
-          "claims": [
-            "K143",
-            "K101"
-          ]
-        },
-        {
-          "text": "What is right: the level and the setting give the picture, and the cause follows from them.",
-          "claims": [
-            "K143"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "END",
-          "kind": "continue"
-        }
-      ],
-      "objectives": [
-        "O1"
       ],
       "segment": "S6"
     },
@@ -11097,13 +9420,6 @@
     },
     "K15": {
       "text": "**Strangulated obstruction**: the blood supply of the involved segment is compromised, leading to ischaemia and gangrene.",
-      "refs": [
-        "1"
-      ],
-      "status": "verified"
-    },
-    "K16": {
-      "text": "**Closed-loop obstruction**: a segment of bowel is obstructed at both ends, as in volvulus, a strangulated hernia, or large bowel obstruction with a competent ileocaecal valve.",
       "refs": [
         "1"
       ],
@@ -11228,13 +9544,6 @@
       ],
       "status": "verified"
     },
-    "K43": {
-      "text": "Vomiting and sequestration together cause **dehydration, hypovolaemia and electrolyte loss** (sodium, potassium, chloride).",
-      "refs": [
-        "1"
-      ],
-      "status": "verified"
-    },
     "K45": {
       "text": "Rising intraluminal pressure first obstructs venous return, then arterial inflow, causing ischaemia, gangrene and perforation.",
       "refs": [
@@ -11277,13 +9586,6 @@
       ],
       "status": "verified"
     },
-    "K52": {
-      "text": "Vomitus progresses from gastric content to bile-stained and, in late low obstruction, to **faeculent** vomiting.",
-      "refs": [
-        "1"
-      ],
-      "status": "verified"
-    },
     "K53": {
       "text": "**Distension** is minimal in high small bowel obstruction and marked in low small bowel and large bowel obstruction.",
       "refs": [
@@ -11293,13 +9595,6 @@
     },
     "K54": {
       "text": "**Absolute constipation** (no flatus or faeces) is early in large bowel obstruction and late in small bowel obstruction, as the distal bowel first empties its contents.",
-      "refs": [
-        "1"
-      ],
-      "status": "verified"
-    },
-    "K56": {
-      "text": "Vomiting — Early, profuse",
       "refs": [
         "1"
       ],
@@ -11412,13 +9707,6 @@
     },
     "K82": {
       "text": "A \"**whirl sign**\" of twisted mesentery and vessels indicates volvulus.",
-      "refs": [
-        "1"
-      ],
-      "status": "verified"
-    },
-    "K83": {
-      "text": "An oral **water-soluble contrast** (Gastrografin) study in adhesive small bowel obstruction is both diagnostic and therapeutic.",
       "refs": [
         "1"
       ],
