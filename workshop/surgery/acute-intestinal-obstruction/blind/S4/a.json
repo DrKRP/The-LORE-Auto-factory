@@ -1,0 +1,1296 @@
+{
+  "segment": "S4",
+  "entry": "r1",
+  "nodes": {
+    "r1": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two days after a laparotomy, a patient has vomited since yesterday. The pain began as colic; now it is **constant and severe**. Pulse 124, fever, one tender spot and guarding.",
+          "claims": []
+        },
+        {
+          "text": "Rung one: what does this most likely mean?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Simple obstruction; the colic has just got worse",
+          "next": "r1_hint",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Resolving obstruction; the pain is settling",
+          "next": "r1_hint",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Strangulation: the loop needs urgent surgery",
+          "next": "r1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "r1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "r1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Colic comes in waves from a bowel that is still working. Ask what it means when the pain stops coming in waves and the pulse climbs.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this miss is worth a second look. Read the word that changed before you choose again.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r1_retry",
+          "kind": "retry"
+        }
+      ]
+    },
+    "r1_retry": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Have another go. Constant, severe pain, a pulse of 124, guarding, two days after surgery. What does it mean?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Simple obstruction; the colic has just got worse",
+          "next": "r1_x1",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Resolving obstruction; the pain is settling",
+          "next": "r1_x2",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Strangulation: the loop needs urgent surgery",
+          "next": "r1_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "r1_x1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "It is tempting: colic was the first symptom, so colic still looks like a simple block.",
+          "claims": []
+        },
+        {
+          "text": "But constant, severe pain is the change that suggests strangulation. Fever, a fast pulse and localised guarding add to it.",
+          "claims": [
+            "K50",
+            "K62"
+          ]
+        },
+        {
+          "text": "A strangulated loop has lost its blood supply and needs surgery now, not a watch.",
+          "claims": [
+            "K15"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep this one: a change in the pain is the warning.",
+        "claims": [
+          "K50"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r1_x2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "It is tempting: obstruction pain often comes and goes, so a quieter spell looks like resolution.",
+          "claims": []
+        },
+        {
+          "text": "Here the pain is getting worse, not settling. Constant pain with a fast pulse suggests strangulation.",
+          "claims": [
+            "K8",
+            "K50"
+          ]
+        },
+        {
+          "text": "Strangulation overrides the wait: resuscitate and operate. The trial applies only to adhesive block without strangulation.",
+          "claims": [
+            "K94",
+            "K97"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep this one: settling pain is not the same as a settling bowel.",
+        "claims": [
+          "K50"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Constant severe pain with a fast pulse, fever and localised guarding points to **strangulation**.",
+          "claims": [
+            "K50",
+            "K62"
+          ]
+        },
+        {
+          "text": "A strangulated loop has lost its blood supply, so it cannot wait for a trial.",
+          "claims": [
+            "K15",
+            "K97"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r2": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same kind of patient, now at the bedside: obstruction is confirmed. He is dry, tachycardic, with a dry tongue and a distended abdomen.",
+          "claims": []
+        },
+        {
+          "text": "Rung two: what is your first step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Emergency laparotomy right now",
+          "next": "r2_hint",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Drip, suck and catheter",
+          "next": "r2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Antibiotics, then a 72-hour trial",
+          "next": "r2_hint",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "r2_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "r2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the operation needs first: a patient who is dry, with a bowel full of fluid. What must be corrected before theatre?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look again at the patient before the diagnosis.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r2_retry",
+          "kind": "retry"
+        }
+      ]
+    },
+    "r2_retry": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Have another go. Dry, tachycardic, distended, obstruction confirmed. What is the first step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Emergency laparotomy right now",
+          "next": "r2_x1",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Drip, suck and catheter",
+          "next": "r2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Antibiotics, then a 72-hour trial",
+          "next": "r2_x2",
+          "kind": "trap",
+          "trap": "TR23"
+        }
+      ]
+    },
+    "r2_x1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "It is tempting: the blockage is the problem, so removing it first looks decisive.",
+          "claims": []
+        },
+        {
+          "text": "A dry, tachycardic patient needs fluid and electrolytes first. The drip, the nasogastric tube and the catheter come first.",
+          "claims": [
+            "K59",
+            "K90",
+            "K91",
+            "K92"
+          ]
+        },
+        {
+          "text": "Surgery follows once the patient is resuscitated, unless strangulation makes theatre urgent.",
+          "claims": [
+            "K97"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep this one: the operation is rarely the first step.",
+        "claims": [
+          "K90"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r2_x2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "It is tempting: antibiotics and a wait look cautious, and many adhesive blocks do settle.",
+          "claims": []
+        },
+        {
+          "text": "The trial is for adhesive obstruction without strangulation, and it does not replace resuscitation. Antibiotics are for suspected strangulation or perforation.",
+          "claims": [
+            "K94",
+            "K93"
+          ]
+        },
+        {
+          "text": "Drip, suck and catheter come first; the trial decision follows.",
+          "claims": [
+            "K90",
+            "K92"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep this one: the trial comes after the resuscitation, not instead of it.",
+        "claims": [
+          "K94"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Intravenous fluids with potassium, a nasogastric tube and a urinary catheter come first.",
+          "claims": [
+            "K90",
+            "K91",
+            "K92"
+          ]
+        },
+        {
+          "text": "They correct the dry patient, decompress the stomach and track urine output.",
+          "claims": [
+            "K91",
+            "K92"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r3": {
+      "role": "probe",
+      "objectives": [
+        "O8",
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Adhesive obstruction, day 2 after surgery. Fever, pulse 118 and guarding across the abdomen.",
+          "claims": []
+        },
+        {
+          "text": "Rung three: which is the most appropriate management?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Resuscitate and operate now",
+          "next": "r3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Nasogastric tube, review at 72 hours",
+          "next": "r3_hint",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Antibiotics only, continue conservative care",
+          "next": "r3_hint",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "r3_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "r3_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Count the signs of trouble: fever, a fast pulse, guarding. Which of them says the bowel may be losing its blood supply, and what would that override?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-read the signs. The trial is the usual default, and the signs here are the exception.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r3_retry",
+          "kind": "retry"
+        }
+      ]
+    },
+    "r3_retry": {
+      "role": "probe",
+      "objectives": [
+        "O8",
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Have another go. Fever, pulse 118, guarding, after surgery. Most appropriate management?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Resuscitate and operate now",
+          "next": "r3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Nasogastric tube, review at 72 hours",
+          "next": "r3_x1",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Antibiotics only, continue conservative care",
+          "next": "r3_x2",
+          "kind": "trap",
+          "trap": "TR23"
+        }
+      ]
+    },
+    "r3_x1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "It is tempting: the tube is part of resuscitation, so a 72-hour review feels like the natural next step.",
+          "claims": []
+        },
+        {
+          "text": "Fever, tachycardia and guarding mean strangulation or peritonitis, and those are indications for urgent surgery.",
+          "claims": [
+            "K62",
+            "K97"
+          ]
+        },
+        {
+          "text": "The 72-hour trial applies only when strangulation is absent. Resuscitate, then operate.",
+          "claims": [
+            "K94",
+            "K95"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep this one: the trial is the default only when the signs are absent.",
+        "claims": [
+          "K94"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r4a",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r3_x2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "It is tempting: antibiotics are given in these patients, so antibiotics alone may seem enough.",
+          "claims": []
+        },
+        {
+          "text": "Antibiotics are given when strangulation is suspected, before surgery. They do not replace the operation for a strangulated loop.",
+          "claims": [
+            "K93"
+          ]
+        },
+        {
+          "text": "Resuscitate, then operate: strangulation or peritonitis is an indication for urgent surgery.",
+          "claims": [
+            "K97"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep this one: antibiotics are an add-on to the operation here.",
+        "claims": [
+          "K93"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r4a",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Fever, tachycardia and guarding point to strangulation or peritonitis.",
+          "claims": [
+            "K62"
+          ]
+        },
+        {
+          "text": "Those signs are indications for urgent surgery, after resuscitation.",
+          "claims": [
+            "K97"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r4a",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r4a": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Adhesive obstruction is being managed without surgery. The patient is stable, with no strangulation signs.",
+          "claims": []
+        },
+        {
+          "text": "Rung four: within what time must contrast reach the colon to predict that the block will resolve without an operation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "72 hours",
+          "next": "r4a_hint",
+          "kind": "trap",
+          "trap": "TR26"
+        },
+        {
+          "label": "24 hours",
+          "next": "r4a_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "48 hours",
+          "next": "r4a_hint",
+          "kind": "trap",
+          "trap": "TR26"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "r4a_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "r4a_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think of the earliest film that can show a moving bowel. Which window is the first check, and which one is the end of the trial?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-check the timeline. Each number belongs to a different decision.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r4a_retry",
+          "kind": "retry"
+        }
+      ]
+    },
+    "r4a_retry": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Have another go. Contrast in adhesive obstruction: within what time, reaching the colon, predicts resolution without surgery?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "72 hours",
+          "next": "r4a_x1",
+          "kind": "trap",
+          "trap": "TR26"
+        },
+        {
+          "label": "24 hours",
+          "next": "r4a_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "48 hours",
+          "next": "r4a_x2",
+          "kind": "trap",
+          "trap": "TR26"
+        }
+      ]
+    },
+    "r4a_x1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "It is tempting: 72 hours is the familiar limit for the trial, so it feels like the moment to judge.",
+          "claims": []
+        },
+        {
+          "text": "72 hours is the end of the trial, not the contrast check. Contrast in the colon within 24 hours predicts resolution.",
+          "claims": [
+            "K84",
+            "K95"
+          ]
+        },
+        {
+          "text": "Check the contrast at 24 hours; 72 hours is the limit for a trial that has not resolved.",
+          "claims": [
+            "K84",
+            "K95"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep this one: the 72-hour number belongs to the end of the trial.",
+        "claims": [
+          "K95"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r4b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r4a_x2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "It is tempting: second looks happen at 24 to 48 hours, so 48 feels like the contrast window.",
+          "claims": []
+        },
+        {
+          "text": "The 24 to 48 hour window belongs to a planned second look at doubtful bowel after laparotomy, not to the contrast study.",
+          "claims": [
+            "K104"
+          ]
+        },
+        {
+          "text": "The contrast predictor is reaching the colon within 24 hours.",
+          "claims": [
+            "K84"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep this one: 24 to 48 hours is a second look, not a contrast window.",
+        "claims": [
+          "K104"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r4b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r4a_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Contrast reaching the colon within 24 hours predicts that the obstruction will resolve without surgery.",
+          "claims": [
+            "K84"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r4b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r4b": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Rung five: the whole timeline. Match each decision to its time: a second look after doubtful bowel, the end of a conservative trial, and the contrast check.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Second look 24 h; trial end 24–48 h; contrast 72 h",
+          "next": "r4b_hint",
+          "kind": "trap",
+          "trap": "TR26"
+        },
+        {
+          "label": "Second look 24–48 h; trial end 72 h; contrast 24 h",
+          "next": "r4b_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Second look 72 h; trial end 24 h; contrast 24–48 h",
+          "next": "r4b_hint",
+          "kind": "trap",
+          "trap": "TR26"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "r4b_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "r4b_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Each time belongs to one decision, not to a rank. When do you check the contrast, and where does the trial's limit sit?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so build the timeline from the decisions, not from the numbers.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r4b_retry",
+          "kind": "retry"
+        }
+      ]
+    },
+    "r4b_retry": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Have another go. Match the second look, the end of the trial and the contrast check to their times.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Second look 24 h; trial end 24–48 h; contrast 72 h",
+          "next": "r4b_x1",
+          "kind": "trap",
+          "trap": "TR26"
+        },
+        {
+          "label": "Second look 24–48 h; trial end 72 h; contrast 24 h",
+          "next": "r4b_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Second look 72 h; trial end 24 h; contrast 24–48 h",
+          "next": "r4b_x2",
+          "kind": "trap",
+          "trap": "TR26"
+        }
+      ]
+    },
+    "r4b_x1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "It is tempting: numbers that rise look like a schedule, so you line them up in ascending order.",
+          "claims": []
+        },
+        {
+          "text": "Each time belongs to a different decision: the contrast check at 24 hours, the second look at 24 to 48 hours, the trial limit at 72 hours.",
+          "claims": [
+            "K84",
+            "K104",
+            "K95"
+          ]
+        },
+        {
+          "text": "So the second look is 24 to 48 hours, the trial ends at 72 hours, and the contrast is checked at 24 hours.",
+          "claims": [
+            "K104",
+            "K95",
+            "K84"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep this one: the order of the numbers is not the order of the decisions.",
+        "claims": [
+          "K84"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r4b_done",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r4b_x2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "It is tempting: 72 hours is the number everyone quotes, so it seems to belong first.",
+          "claims": []
+        },
+        {
+          "text": "72 hours is the last decision on the timeline, the end of a trial that has not resolved.",
+          "claims": [
+            "K95"
+          ]
+        },
+        {
+          "text": "The order is contrast at 24 hours, second look at 24 to 48 hours, and trial limit at 72 hours.",
+          "claims": [
+            "K84",
+            "K104",
+            "K95"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep this one: 72 hours is the end of the timeline, not the start.",
+        "claims": [
+          "K95"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r4b_done",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r4b_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Contrast at 24 hours, a second look at 24 to 48 hours for a doubtful loop, and 72 hours as the trial limit.",
+          "claims": [
+            "K84",
+            "K104",
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r4b_done",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r4b_done": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Teach both keys. The old dictum, never let the sun rise and set on small bowel obstruction, is still quoted in exams.",
+          "claims": [
+            "K144"
+          ]
+        },
+        {
+          "text": "Current practice gives adhesive obstruction without strangulation a non-operative trial of up to about 72 hours.",
+          "claims": [
+            "K144",
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r5": {
+      "role": "probe",
+      "objectives": [
+        "O12"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Post-operative day 4. The abdomen is distended and there is no flatus. The potassium has been corrected, but the colon is still dilated and no mechanical block is seen.",
+          "claims": []
+        },
+        {
+          "text": "Rung six: which treatment now?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "IV neostigmine with cardiac monitoring",
+          "next": "r5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Emergency laparotomy to decompress the colon",
+          "next": "r5_hint",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "r5_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "r5_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Nothing physically blocks the colon here. Which treatment acts on the tone of the bowel, not on a block?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check for a mechanical cause before you operate. A dilated colon is not automatically a blockage.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r5_retry",
+          "kind": "retry"
+        }
+      ]
+    },
+    "r5_retry": {
+      "role": "probe",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Have another go. The colon is still dilated after potassium is corrected, and no mechanical block is seen. Which treatment now?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "IV neostigmine with cardiac monitoring",
+          "next": "r5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Emergency laparotomy to decompress the colon",
+          "next": "r5_x1",
+          "kind": "trap",
+          "trap": "TR31"
+        }
+      ]
+    },
+    "r5_x1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "It is tempting: a distended colon looks like a blockage, and an operation seems decisive.",
+          "claims": []
+        },
+        {
+          "text": "Ogilvie's syndrome is dilatation without a mechanical block. Treating the cause and the electrolytes comes first, not the knife.",
+          "claims": [
+            "K117"
+          ]
+        },
+        {
+          "text": "Give IV neostigmine with cardiac monitoring; atropine is ready for bradycardia.",
+          "claims": [
+            "K117",
+            "K118",
+            "K142"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep this one: check for a mechanical cause before you operate on a dilated colon.",
+        "claims": [
+          "K117"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r5_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. In Ogilvie's syndrome, neostigmine is the drug of choice once the cause and electrolytes are corrected.",
+          "claims": [
+            "K117",
+            "K142"
+          ]
+        },
+        {
+          "text": "Atropine stays at hand, because neostigmine can cause bradycardia.",
+          "claims": [
+            "K118"
+          ]
+        },
+        {
+          "text": "Paralytic ileus after surgery is treated by correcting potassium with drip and suck. Gallstone ileus is the surgical exception: enterolithotomy.",
+          "claims": [
+            "K96",
+            "K135",
+            "K110",
+            "K141"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r6": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Last rung: which finding does NOT point to strangulation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Fever and a fast pulse",
+          "next": "r6_hint",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Colicky pain, normal tenderness",
+          "next": "r6_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Localised guarding over one loop",
+          "next": "r6_hint",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "r6_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "r6_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Sort each finding into one of two groups: what a simple block gives, and what a dying loop gives.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate the colic from the signs of a loop in trouble.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r6_retry",
+          "kind": "retry"
+        }
+      ]
+    },
+    "r6_retry": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Have another go. Which finding does NOT point to strangulation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Fever and a fast pulse",
+          "next": "r6_x1",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Colicky pain, normal tenderness",
+          "next": "r6_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Localised guarding over one loop",
+          "next": "r6_x2",
+          "kind": "trap",
+          "trap": "TR22"
+        }
+      ]
+    },
+    "r6_x1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "It is tempting: fever and a fast pulse look like a general reaction to any bowel block.",
+          "claims": []
+        },
+        {
+          "text": "Fever and tachycardia are signs of strangulation or peritonitis, so they point to surgery.",
+          "claims": [
+            "K62"
+          ]
+        },
+        {
+          "text": "The finding that does not point to strangulation is colicky pain with normal tenderness, the picture of a simple block.",
+          "claims": [
+            "K8"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep this one: fever and tachycardia are not the simple picture.",
+        "claims": [
+          "K62"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r6_x2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "It is tempting: guarding looks like the colic-driven spasm of a bowel that is working hard.",
+          "claims": []
+        },
+        {
+          "text": "Localised guarding is a peritoneal sign, and it points to strangulation or peritonitis.",
+          "claims": [
+            "K62"
+          ]
+        },
+        {
+          "text": "Colicky pain with normal tenderness fits a simple block; constant pain and peritoneal signs point to surgery.",
+          "claims": [
+            "K8",
+            "K50"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep this one: localised guarding is a peritoneal sign.",
+        "claims": [
+          "K62"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r6_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Colicky pain with normal tenderness fits a simple block.",
+          "claims": [
+            "K8"
+          ]
+        },
+        {
+          "text": "Strangulation signs are constant pain, fever, tachycardia, localised tenderness or guarding, leucocytosis and a raised lactate.",
+          "claims": [
+            "K8",
+            "K50",
+            "K62",
+            "K67"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,426 @@
+{
+  "segment": "S4",
+  "technique": "T11",
+  "entry": "ex",
+  "nodes": {
+    "ex": {
+      "role": "explain",
+      "objectives": ["O8", "O4"],
+      "say": [
+        {"text": "Worked case first. A 55-year-old man, two days after an appendicectomy, has colicky central pain and vomiting. Pulse 88, temperature normal, abdomen soft and mildly distended, no guarding.", "claims": []},
+        {"text": "Step one is **drip and suck**: IV fluids with potassium, an NG tube and a urinary catheter, nil by mouth. These come before any decision about surgery.", "claims": ["K90", "K91", "K92"]},
+        {"text": "Step two: no sign of strangulation or peritonitis, so this is adhesive obstruction without strangulation. Non-operative care, a contrast check at 24 hours, and surgery if it has not resolved by 72 hours.", "claims": ["K94", "K84", "K95"]}
+      ],
+      "choices": [{"label": "Next", "next": "ex_q", "kind": "continue"}]
+    },
+    "ex_q": {
+      "role": "probe",
+      "objectives": ["O8", "O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Now a classmate's plan for a different patient: 70 years old, known adhesive obstruction, temperature 38.4, pulse 118, constant pain and guarding.", "claims": []},
+        {"text": "A: IV fluids, potassium, an NG tube and a urinary catheter. B: look for strangulation, with fever, pulse and lactate. C: a 72-hour non-operative trial with the NG tube.", "claims": []},
+        {"text": "One step is wrong. Which one?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Step A: IV fluids, potassium, NG tube and catheter", "next": "hA", "kind": "trap", "trap": "TR31"},
+        {"label": "Step B: look for strangulation with fever, pulse and lactate", "next": "hB", "kind": "trap", "trap": "TR22"},
+        {"label": "Step C: 72-hour non-operative trial with NG tube", "next": "ex_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "hh", "kind": "help"}
+      ]
+    },
+    "hA": {
+      "role": "hint",
+      "say": [
+        {"text": "Tempting: the operation feels like the decisive act, so fluids and a tube look like a delay before it.", "claims": []},
+        {"text": "Ask which step this patient needs before any decision about theatre, however ready the theatre is.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so re-check the order: resuscitation is the first move in every obstruction, not a delay.", "claims": ["K90"]},
+      "choices": [{"label": "Try again", "next": "ex_q_b", "kind": "retry"}]
+    },
+    "hB": {
+      "role": "hint",
+      "say": [
+        {"text": "Tempting: a known adhesive case feels routine, and constant pain in someone with a scar looks like the same old obstruction.", "claims": []},
+        {"text": "Ask which findings would change the plan, and whether this patient shows any of them.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so look at the vitals again: a known history does not rule out strangulation, and fever and tachycardia are the first things to check.", "claims": ["K8"]},
+      "choices": [{"label": "Try again", "next": "ex_q_b", "kind": "retry"}]
+    },
+    "hh": {
+      "role": "hint",
+      "say": [
+        {"text": "Look at the pain and the vital signs before you judge any step.", "claims": []},
+        {"text": "Then ask which step assumes this is simple adhesive obstruction.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "ex_q_b", "kind": "retry"}]
+    },
+    "ex_q_b": {
+      "role": "probe",
+      "objectives": ["O8", "O4"],
+      "say": [
+        {"text": "Same classmate's plan, asked once more.", "claims": []},
+        {"text": "A: IV fluids, potassium, an NG tube and a urinary catheter. B: look for strangulation, with fever, pulse and lactate. C: a 72-hour non-operative trial with the NG tube.", "claims": []},
+        {"text": "Which step is wrong?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Step A: IV fluids, potassium, NG tube and catheter", "next": "fA", "kind": "trap", "trap": "TR31"},
+        {"label": "Step C: 72-hour non-operative trial with NG tube", "next": "ex_ok", "kind": "correct"},
+        {"label": "Step B: look for strangulation with fever, pulse and lactate", "next": "fB", "kind": "trap", "trap": "TR22"}
+      ]
+    },
+    "fA": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the operation is the decisive act, so fluids and tubes feel like a delay before it.", "claims": []},
+        {"text": "Why it is wrong: fluids, potassium and decompression come first in any obstruction, and they are not optional.", "claims": ["K90", "K91"]},
+        {"text": "Right: step A is correct. The wrong step is the trial that ignores fever, tachycardia and guarding.", "claims": ["K62"]}
+      ],
+      "choices": [{"label": "Next", "next": "ex_why", "kind": "continue"}]
+    },
+    "fB": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: a known adhesive case feels routine, and constant pain in a patient with a scar seems like the usual obstruction.", "claims": []},
+        {"text": "Why it is wrong: constant pain, fever and tachycardia are signs of strangulation, so checking for them protects the bowel.", "claims": ["K50", "K62", "K8"]},
+        {"text": "Right: step B is correct. The wrong step is C, because it skips that check.", "claims": ["K97"]}
+      ],
+      "choices": [{"label": "Next", "next": "ex_why", "kind": "continue"}]
+    },
+    "ex_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Step C is the wrong one: a 72-hour trial is only for adhesive obstruction without strangulation or peritonitis.", "claims": ["K94", "K97"]},
+        {"text": "This patient has fever, pulse 118 and guarding, the signs that override the trial.", "claims": ["K62"]}
+      ],
+      "choices": [{"label": "Next", "next": "ex_why", "kind": "continue"}]
+    },
+    "ex_why": {
+      "role": "probe",
+      "objectives": ["O4", "O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Same patient, same plan. Now the reason: why does the 72-hour trial fail for this patient?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Signs of strangulation or peritonitis are present, so resuscitate and operate", "next": "ex_why_ok", "kind": "correct"},
+        {"label": "Every obstruction, whatever the signs, gets the same 72-hour trial", "next": "fW23", "kind": "trap", "trap": "TR23"},
+        {"label": "Constant pain is only colic, so a trial stays safe here", "next": "fW22", "kind": "trap", "trap": "TR22"},
+        {"label": "Not sure, give me a hint", "next": "hwh", "kind": "help"}
+      ]
+    },
+    "hwh": {
+      "role": "hint",
+      "say": [
+        {"text": "Think about what the trial risks when the bowel's blood supply may be compromised.", "claims": ["K15"]},
+        {"text": "Which sign in the vignette shows that possibility?", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "ex_why", "kind": "retry"}]
+    },
+    "ex_why_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Signs of strangulation or peritonitis override the trial: the blood supply can fail, and ischaemia leads to gangrene and perforation.", "claims": ["K15", "K45"]},
+        {"text": "Constant, severe pain with tachycardia is a change of pattern, not colic.", "claims": ["K50"]}
+      ],
+      "choices": [{"label": "Next", "next": "r31", "kind": "continue"}]
+    },
+    "fW23": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the 72-hour trial is the headline rule, so it feels like the default for every obstruction.", "claims": []},
+        {"text": "Why it is wrong: the trial is for uncomplicated adhesive obstruction. Strangulation, a hernia and a closed loop override it.", "claims": ["K94", "K97", "K98", "K99"]},
+        {"text": "Right: resuscitate, give antibiotics and operate when strangulation or peritonitis is suspected.", "claims": ["K93", "K97"]}
+      ],
+      "sure_note": {"text": "You were sure, so re-check the rule: 72 hours applies only after strangulation, hernia and closed loop are excluded.", "claims": ["K94"]},
+      "choices": [{"label": "Next", "next": "r31", "kind": "continue"}]
+    },
+    "fW22": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: colic is the classic picture of simple obstruction, so a steady-sounding pain feels like the same story.", "claims": []},
+        {"text": "Why it is wrong: constant, severe pain is the change that suggests strangulation. Colic does not make a trial safe.", "claims": ["K50", "K8"]},
+        {"text": "Right: constant pain with tachycardia suggests strangulation, so resuscitate and operate.", "claims": ["K50", "K62"]}
+      ],
+      "sure_note": {"text": "You were sure, so look at the pain word: constant is the qualifier that changes the answer.", "claims": ["K50"]},
+      "choices": [{"label": "Next", "next": "r31", "kind": "continue"}]
+    },
+    "r31": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A dehydrated patient has vomiting, tachycardia and a distended abdomen. Obstruction is diagnosed on the film.", "claims": []},
+        {"text": "What is the first step?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Drip and suck: fluids, potassium, NG tube, catheter", "next": "r31_ok", "kind": "correct"},
+        {"label": "Emergency laparotomy, with fluids to follow in theatre", "next": "f31", "kind": "trap", "trap": "TR31"},
+        {"label": "NG tube and a 72-hour review, with no fluids yet", "next": "f23a", "kind": "trap", "trap": "TR23"},
+        {"label": "Not sure, give me a hint", "next": "h31", "kind": "help"}
+      ]
+    },
+    "h31": {
+      "role": "hint",
+      "say": [
+        {"text": "Start with what the patient needs before the operation decision.", "claims": []},
+        {"text": "Dehydration and electrolytes come first in any obstruction. Which option treats them first?", "claims": ["K90"]}
+      ],
+      "choices": [{"label": "Try again", "next": "r31", "kind": "retry"}]
+    },
+    "r31_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Drip and suck come first: fluids and potassium correct the dehydration, and the NG tube and catheter decompress and track output.", "claims": ["K90", "K91", "K92"]},
+        {"text": "The operation is decided after this, not before it.", "claims": []}
+      ],
+      "choices": [{"label": "Next", "next": "p5", "kind": "continue"}]
+    },
+    "f31": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: theatre feels like the cure, and resuscitation seems to delay it.", "claims": []},
+        {"text": "Why it is wrong: fluids, potassium and decompression come first in any obstruction and are not optional.", "claims": ["K90", "K91"]},
+        {"text": "Right: drip and suck first, then decide on surgery, with the catheter tracking output.", "claims": ["K92"]}
+      ],
+      "sure_note": {"text": "You were sure, so the order is the point: resuscitate first, then decide on theatre.", "claims": ["K90"]},
+      "choices": [{"label": "Next", "next": "p5", "kind": "continue"}]
+    },
+    "f23a": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the trial is the familiar rule, and a tube with a wait sounds cautious.", "claims": []},
+        {"text": "Why it is wrong: fluids and potassium are not optional, and the 72-hour trial applies only to uncomplicated adhesive obstruction.", "claims": ["K90", "K94"]},
+        {"text": "Right: resuscitate first, then decide whether a trial is safe.", "claims": ["K90", "K97"]}
+      ],
+      "sure_note": {"text": "You were sure, so the trial is not the first move: resuscitation is.", "claims": ["K90"]},
+      "choices": [{"label": "Next", "next": "p5", "kind": "continue"}]
+    },
+    "p5": {
+      "role": "probe",
+      "objectives": ["O8", "O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 62-year-old man has a groin lump that is tense, tender and will not reduce. He is vomiting, pulse 110, and there is no cough impulse.", "claims": ["K63"]},
+        {"text": "What is the next step?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Resuscitate, then emergency repair of the hernia in theatre", "next": "p5_ok", "kind": "correct"},
+        {"label": "Non-operative trial with an NG tube, reviewed at 72 hours", "next": "f5", "kind": "trap", "trap": "TR23"},
+        {"label": "Gastrografin study and observation for 24 hours", "next": "f5", "kind": "trap", "trap": "TR23"},
+        {"label": "Not sure, give me a hint", "next": "h5", "kind": "help"}
+      ]
+    },
+    "h5": {
+      "role": "hint",
+      "say": [
+        {"text": "Tempting: the 72-hour trial is the standard plan for obstruction, so it feels like the default here.", "claims": []},
+        {"text": "Ask what a tense, tender hernia means for whether a trial is safe.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "p5", "kind": "retry"}]
+    },
+    "f5": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the trial, whether with a tube or a contrast study and a day's wait, feels cautious.", "claims": []},
+        {"text": "Why it is wrong: an obstructed or strangulated hernia overrides the trial and needs urgent surgery.", "claims": ["K98", "K94"]},
+        {"text": "Right: resuscitate, give antibiotics if strangulation is suspected, and repair the hernia.", "claims": ["K93", "K98"]}
+      ],
+      "sure_note": {"text": "You were sure, so the trial rule has exceptions, and a tense hernia is one.", "claims": ["K98"]},
+      "choices": [{"label": "Next", "next": "p6", "kind": "continue"}]
+    },
+    "p5_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. A tense, tender, irreducible hernia with no cough impulse is a strangulated hernia.", "claims": ["K63"]},
+        {"text": "An obstructed or strangulated hernia is an override: resuscitate, then operate, with no trial.", "claims": ["K98"]}
+      ],
+      "choices": [{"label": "Next", "next": "p6", "kind": "continue"}]
+    },
+    "p6": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Adhesive obstruction is managed with a trial. Water-soluble contrast is given by mouth, and an X-ray is taken later.", "claims": ["K84"]},
+        {"text": "If the contrast has still not reached the colon by a given time, the trial is likely to fail. By what time?", "claims": []}
+      ],
+      "choices": [
+        {"label": "48 hours", "next": "f6a", "kind": "trap", "trap": "TR26"},
+        {"label": "24 hours", "next": "p6_ok", "kind": "correct"},
+        {"label": "72 hours", "next": "f6b", "kind": "trap", "trap": "TR26"},
+        {"label": "Not sure, give me a hint", "next": "h6", "kind": "help"}
+      ]
+    },
+    "h6": {
+      "role": "hint",
+      "say": [
+        {"text": "Tempting: 72 hours is the number you remember for the trial, so it feels like the check time too.", "claims": ["K95"]},
+        {"text": "Ask which timing belongs to the contrast check, and which to the overall limit.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "p6", "kind": "retry"}]
+    },
+    "f6a": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: all the timings blur into day two, so 48 hours can feel like a check point.", "claims": []},
+        {"text": "Why it is wrong: 48 hours is the second-look window after resection for doubtful bowel, not the contrast check.", "claims": ["K104"]},
+        {"text": "Right: contrast that has not reached the colon by 24 hours flags a trial that is likely to fail.", "claims": ["K84"]}
+      ],
+      "sure_note": {"text": "You were sure, so anchor each number to its decision: contrast first, the limit last.", "claims": ["K84"]},
+      "choices": [{"label": "Next", "next": "p7", "kind": "continue"}]
+    },
+    "f6b": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: 72 hours is the trial's limit, so it feels like the moment to judge the contrast too.", "claims": []},
+        {"text": "Why it is wrong: 72 hours is the limit for the whole trial. The contrast check comes much earlier, at 24 hours.", "claims": ["K84", "K95"]},
+        {"text": "Right: contrast by 24 hours is the early check; surgery if not resolved within about 72 hours.", "claims": ["K84", "K95"]}
+      ],
+      "sure_note": {"text": "You were sure, so re-check the timing: the limit is the last decision, not the first.", "claims": ["K95"]},
+      "choices": [{"label": "Next", "next": "p7", "kind": "continue"}]
+    },
+    "p6_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Contrast in the colon by 24 hours predicts resolution; if it has not reached the colon by then, the trial is likely to fail.", "claims": ["K84"]},
+        {"text": "Each timing has a different job: 24 hours for the contrast check, about 72 hours as the trial limit.", "claims": ["K95"]}
+      ],
+      "choices": [{"label": "Next", "next": "p7", "kind": "continue"}]
+    },
+    "p7": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "A patient is on a non-operative trial for adhesive obstruction. Two decision points matter: the contrast check and the limit of the trial.", "claims": []},
+        {"text": "Which pair is in the right time order?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Trial limit at 72 hours, then contrast check at 24 hours", "next": "f7", "kind": "trap", "trap": "TR26"},
+        {"label": "Both at 24 hours, with no fixed trial limit", "next": "f7", "kind": "trap", "trap": "TR26"},
+        {"label": "Contrast check at 24 hours, then trial limit at 72 hours", "next": "p7_ok", "kind": "correct"},
+        {"label": "Contrast check at 72 hours, then trial limit at 24 hours", "next": "f7", "kind": "trap", "trap": "TR26"}
+      ]
+    },
+    "f7": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the three numbers blur together, so almost any order can feel plausible.", "claims": []},
+        {"text": "Why it is wrong: swapping the numbers, or giving both checks one time, puts a decision in the wrong place on the timeline.", "claims": ["K84", "K95"]},
+        {"text": "Right: the contrast check is at 24 hours; the trial limit is about 72 hours.", "claims": ["K84", "K95"]}
+      ],
+      "choices": [{"label": "Next", "next": "p8", "kind": "continue"}]
+    },
+    "p7_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. The contrast check is the early prediction at 24 hours, and the trial is judged at its 72-hour limit.", "claims": ["K84", "K95"]}
+      ],
+      "choices": [{"label": "Next", "next": "p8", "kind": "continue"}]
+    },
+    "p8": {
+      "role": "probe",
+      "objectives": ["O12"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 68-year-old after hip surgery has a hugely dilated colon on X-ray. CT shows no mechanical block, and the drip and suck are running.", "claims": []},
+        {"text": "What is the drug of choice to decompress the colon?", "claims": []}
+      ],
+      "choices": [
+        {"label": "IV neostigmine, with cardiac monitoring", "next": "p8_ok", "kind": "correct"},
+        {"label": "Emergency laparotomy and caecostomy at once", "next": "f8a", "kind": "trap", "trap": "TR31"},
+        {"label": "Bowel rest and a 72-hour trial", "next": "f8b", "kind": "trap", "trap": "TR23"},
+        {"label": "Not sure, give me a hint", "next": "h8", "kind": "help"}
+      ]
+    },
+    "h8": {
+      "role": "hint",
+      "say": [
+        {"text": "Tempting: a huge colon looks like an emergency that needs the operation now.", "claims": []},
+        {"text": "Ask what treats the colon, medically, when no mechanical block is found.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "p8", "kind": "retry"}]
+    },
+    "f8a": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: a massively dilated colon looks like a catastrophe that the operation must fix at once.", "claims": []},
+        {"text": "Why it is wrong: with no mechanical block, the colon is decompressed medically first; surgery is not the first treatment.", "claims": ["K117"]},
+        {"text": "Right: correct the cause and electrolytes, then IV neostigmine with cardiac monitoring.", "claims": ["K117"]}
+      ],
+      "sure_note": {"text": "You were sure, so treat the colon medically first: in Ogilvie's, surgery is not the first move.", "claims": ["K117"]},
+      "choices": [{"label": "Next", "next": "gp", "kind": "continue"}]
+    },
+    "f8b": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: a 72-hour trial is the rule for every obstruction, so waiting feels like the default.", "claims": []},
+        {"text": "Why it is wrong: a dilated colon with no block needs active medical decompression; waiting alone is not the answer.", "claims": ["K117"]},
+        {"text": "Right: neostigmine with monitoring, and colonoscopic decompression if the colon stays dilated.", "claims": ["K117", "K118"]}
+      ],
+      "sure_note": {"text": "You were sure, so the 72-hour rule belongs to adhesive obstruction, not to every dilated bowel.", "claims": ["K94"]},
+      "choices": [{"label": "Next", "next": "gp", "kind": "continue"}]
+    },
+    "p8_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Ogilvie's is treated by correcting the cause and electrolytes; if the colon stays dilated, IV neostigmine is the drug of choice.", "claims": ["K117", "K142"]},
+        {"text": "Neostigmine can cause bradycardia, so atropine should be to hand.", "claims": ["K118"]}
+      ],
+      "choices": [{"label": "Next", "next": "gp", "kind": "continue"}]
+    },
+    "gp": {
+      "role": "probe",
+      "objectives": ["O12"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "An elderly woman with a history of gallstones has a small bowel obstruction. Her abdomen is distended, and she has had no previous surgery. The team suspects gallstone ileus.", "claims": []},
+        {"text": "What is the treatment of choice?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Enterolithotomy: remove the stone through the bowel", "next": "gs", "kind": "correct"},
+        {"label": "Non-operative trial with NG tube for 72 hours", "next": "gf23", "kind": "trap", "trap": "TR23"},
+        {"label": "Operate at once, leaving fluids for later", "next": "gf31", "kind": "trap", "trap": "TR31"},
+        {"label": "Not sure, give me a hint", "next": "gh", "kind": "help"}
+      ]
+    },
+    "gh": {
+      "role": "hint",
+      "say": [
+        {"text": "Think about where the stone must come out, and what the operation has to remove.", "claims": []},
+        {"text": "Which option removes the stone itself?", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "gp", "kind": "retry"}]
+    },
+    "gf23": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the 72-hour trial is the rule for every obstruction, so a tube and a wait seems the safe start.", "claims": []},
+        {"text": "Why it is wrong: a stone blocking the bowel does not clear with a trial; the standard emergency operation is enterolithotomy.", "claims": ["K110"]},
+        {"text": "Right: enterolithotomy removes the stone; the fistula is usually left for later.", "claims": ["K110", "K141"]}
+      ],
+      "sure_note": {"text": "You were sure, so the trial rule belongs to adhesive obstruction, not to a stone in the bowel.", "claims": ["K94"]},
+      "choices": [{"label": "Next", "next": "gs", "kind": "continue"}]
+    },
+    "gf31": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the operation feels urgent, so going to theatre at once without fluids seems right.", "claims": []},
+        {"text": "Why it is wrong: resuscitation comes first in every obstruction, before the operation is planned.", "claims": ["K90"]},
+        {"text": "Right: resuscitate, then enterolithotomy to remove the stone.", "claims": ["K90", "K110"]}
+      ],
+      "sure_note": {"text": "You were sure, so resuscitate first, then remove the stone.", "claims": ["K90"]},
+      "choices": [{"label": "Next", "next": "gs", "kind": "continue"}]
+    },
+    "gs": {
+      "role": "explain",
+      "objectives": ["O12"],
+      "say": [
+        {"text": "Gallstone ileus: a large gallstone passes through a cholecystoenteric fistula, most often cholecystoduodenal, and impacts most often in the **terminal ileum**.", "claims": ["K36", "K130", "K131"]},
+        {"text": "Its treatment of choice is **enterolithotomy**: the stone is removed through a proximal enterotomy, and the fistula is usually left for later.", "claims": ["K110", "K141"]},
+        {"text": "Paralytic ileus is the adynamic kind, most often after abdominal surgery and worsened by hypokalaemia. Treat the cause, correct potassium, and use drip and suck.", "claims": ["K47", "K135", "K96"]}
+      ],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    }
+  }
+}
