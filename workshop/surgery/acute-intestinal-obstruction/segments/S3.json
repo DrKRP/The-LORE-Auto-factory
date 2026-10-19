@@ -1,0 +1,1427 @@
+{
+  "segment": "S3",
+  "entry": "film",
+  "nodes": {
+    "film": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 58-year-old man has a distended abdomen. The supine film shows dilated central loops with regular folds in a 'stack of coins' pattern.",
+          "claims": [
+            "K69",
+            "K71"
+          ]
+        },
+        {
+          "text": "Which bowel is dilated, and which marker shows it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Large bowel: haustral markings",
+          "next": "film_hA",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Small bowel: valvulae conniventes",
+          "next": "film_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Small bowel: haustral markings",
+          "next": "film_hB",
+          "kind": "trap",
+          "trap": "TR11"
+        }
+      ]
+    },
+    "film_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Yes. Valvulae conniventes cross the full width of the lumen, and they mark the small bowel.",
+          "claims": [
+            "K6"
+          ]
+        },
+        {
+          "text": "The loops sit centrally, which is the small bowel picture, not the large bowel's peripheral one.",
+          "claims": [
+            "K71",
+            "K73"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "num",
+          "kind": "continue"
+        }
+      ]
+    },
+    "film_hA": {
+      "role": "hint",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Tempting: haustra are the large bowel's marker, and you have spotted folds on the film.",
+          "claims": [
+            "K73"
+          ]
+        },
+        {
+          "text": "Check the position first. Where do these loops lie, centrally or at the edge of the abdomen?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "film",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "film_xA",
+          "kind": "agency"
+        }
+      ]
+    },
+    "film_xA": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Haustra do mark the large bowel, but they stop short of the lumen, and these loops lie centrally.",
+          "claims": [
+            "K73",
+            "K71"
+          ]
+        },
+        {
+          "text": "Here the folds cross the full width, which is the valvulae conniventes of small bowel.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-check the rule: valvulae cross the full width and mark small bowel; haustra stop short and mark large bowel.",
+        "claims": [
+          "K6",
+          "K73"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "num",
+          "kind": "continue"
+        }
+      ]
+    },
+    "film_hB": {
+      "role": "hint",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Tempting: haustra are the folds most often pictured on a film, so the familiar marker feels right.",
+          "claims": [
+            "K73"
+          ]
+        },
+        {
+          "text": "Look at the folds again. Do they cross the full width of the lumen, or stop short of it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "film",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "film_xB",
+          "kind": "agency"
+        }
+      ]
+    },
+    "film_xB": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Haustra are real, but they stop short of the lumen and belong to the large bowel.",
+          "claims": [
+            "K73"
+          ]
+        },
+        {
+          "text": "The folds here cross the full width, so the marker is valvulae conniventes, and the bowel is small.",
+          "claims": [
+            "K6",
+            "K71"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pin the pair: valvulae cross the full width and mark the small bowel; haustra stop short.",
+        "claims": [
+          "K6"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "num",
+          "kind": "continue"
+        }
+      ]
+    },
+    "num": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "On a plain film of a distended abdomen, the radiologist measures the loops against the 3-6-9 rule.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "What is the upper normal diameter of the small bowel?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "6 cm",
+          "next": "num_h6",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "3 cm",
+          "next": "num_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "9 cm",
+          "next": "num_h9",
+          "kind": "trap",
+          "trap": "TR12"
+        }
+      ]
+    },
+    "num_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Yes. Small bowel's upper normal diameter is 3 cm, widening to 6 cm in the colon and 9 cm in the caecum.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "Calibre rises from small bowel to caecum, so a small bowel loop above 3 cm is dilated.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "film2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "num_h6": {
+      "role": "hint",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Tempting: 6 cm is the colon's limit, and it is the middle number you have just heard.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "Think about calibre. Which segment is the narrowest, and which number belongs to it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "num",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "num_x6",
+          "kind": "agency"
+        }
+      ]
+    },
+    "num_x6": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "6 cm is the colon's upper normal, not the small bowel's.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "Small bowel is the narrowest segment, so its limit is the smallest number: 3 cm.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-learn the ladder: 3 small, 6 colon, 9 caecum, each widening towards the caecum.",
+        "claims": [
+          "K74"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "film2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "num_h9": {
+      "role": "hint",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Tempting: 9 cm is the largest number on the rule, so it feels like the 'big bowel' answer.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "Ask which segment is narrowest. Its limit is the smallest number, so check that one.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "num",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "num_x9",
+          "kind": "agency"
+        }
+      ]
+    },
+    "num_x9": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "9 cm is the caecum's upper normal, the widest segment, not the small bowel's.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "The small bowel's upper normal is 3 cm.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so anchor the rule to calibre: the numbers rise as the bowel widens, small bowel lowest, caecum highest.",
+        "claims": [
+          "K74"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "film2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "film2": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Another supine film of a distended abdomen. The question is about a dilated small bowel loop.",
+          "claims": [
+            "K69"
+          ]
+        },
+        {
+          "text": "Which feature is NOT seen in that loop?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Centrally placed loops",
+          "next": "film2_xA",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Peripheral loops with haustra",
+          "next": "film2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Folds crossing the full width",
+          "next": "film2_xB",
+          "kind": "trap",
+          "trap": "TR11"
+        }
+      ]
+    },
+    "film2_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Right. Haustra belong to the large bowel, and they stop short of the lumen. Small bowel loops lie centrally.",
+          "claims": [
+            "K73",
+            "K71"
+          ]
+        },
+        {
+          "text": "So the peripheral loop with haustra is the feature a dilated small bowel loop does not show.",
+          "claims": [
+            "K73"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "caecum",
+          "kind": "continue"
+        }
+      ]
+    },
+    "film2_xA": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Tempting: a dilated bowel is often picked out by its central position, so central loops look like a feature to rule out.",
+          "claims": [
+            "K71"
+          ]
+        },
+        {
+          "text": "But central loops are the small bowel picture, so they are seen here, not excluded.",
+          "claims": [
+            "K71"
+          ]
+        },
+        {
+          "text": "The feature the question wants is the peripheral loop with haustra, the large bowel pattern.",
+          "claims": [
+            "K73"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "caecum",
+          "kind": "continue"
+        }
+      ]
+    },
+    "film2_xB": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Tempting: folds are what you look for on a film, and these are the ones that cross the lumen.",
+          "claims": [
+            "K6"
+          ]
+        },
+        {
+          "text": "But valvulae conniventes cross the full width and mark the small bowel, so they are seen here, not excluded.",
+          "claims": [
+            "K6"
+          ]
+        },
+        {
+          "text": "The NOT feature is the peripheral loop with haustra, which belongs to the large bowel.",
+          "claims": [
+            "K73"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "caecum",
+          "kind": "continue"
+        }
+      ]
+    },
+    "caecum": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A plain film report in an adult with distension gives small bowel 4 cm, transverse colon 5 cm and caecum 7 cm.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "Which segment is dilated?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "The small bowel and the caecum",
+          "next": "caecum_h1",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "The small bowel segment",
+          "next": "caecum_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "The caecum, as the widest segment",
+          "next": "caecum_h2",
+          "kind": "trap",
+          "trap": "TR12"
+        }
+      ]
+    },
+    "caecum_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Yes. Small bowel at 4 cm is above its 3 cm limit; the colon at 5 cm and caecum at 7 cm are under 6 cm and 9 cm.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "Apply each segment's own limit, and only the small bowel is dilated.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "inv",
+          "kind": "continue"
+        }
+      ]
+    },
+    "caecum_h1": {
+      "role": "hint",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Tempting: 7 cm looks large when you have the colon's 6 cm in mind.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "Each segment has its own limit. Which limit applies to the caecum, and is 7 cm above it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "caecum",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "caecum_x1",
+          "kind": "agency"
+        }
+      ]
+    },
+    "caecum_x1": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "The caecum's upper normal is 9 cm, so 7 cm is normal; you borrowed the colon's 6 cm.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "The small bowel is the only segment above its own limit: 4 cm against 3 cm.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so apply each segment's own limit, not the nearest number you remember.",
+        "claims": [
+          "K74"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "inv",
+          "kind": "continue"
+        }
+      ]
+    },
+    "caecum_h2": {
+      "role": "hint",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Tempting: the caecum has the biggest number, so it feels like the dilated one. Raw size is not the test.",
+          "claims": []
+        },
+        {
+          "text": "Check each segment against its own limit, one at a time. Which of them is above its limit?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "caecum",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "caecum_x2",
+          "kind": "agency"
+        }
+      ]
+    },
+    "caecum_x2": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "The colon at 5 cm is under its 6 cm limit, and the caecum at 7 cm is under its 9 cm limit.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "Only the small bowel, at 4 cm against 3 cm, is dilated.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so remember that the limits differ by segment: 3 small, 6 colon, 9 caecum.",
+        "claims": [
+          "K74"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "inv",
+          "kind": "continue"
+        }
+      ]
+    },
+    "inv": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An adult has vomiting, distension and no flatus, and obstruction is suspected.",
+          "claims": [
+            "K138"
+          ]
+        },
+        {
+          "text": "Which investigation is the investigation of choice to confirm small bowel obstruction and show its cause?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Erect and supine abdominal X-ray",
+          "next": "inv_hX",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Contrast-enhanced CT abdomen",
+          "next": "inv_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Ultrasound of the abdomen",
+          "next": "inv_hU",
+          "kind": "trap",
+          "trap": "TR5"
+        }
+      ]
+    },
+    "inv_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Yes. Contrast-enhanced CT is the investigation of choice for small bowel obstruction: it shows the level, the cause and the signs of strangulation.",
+          "claims": [
+            "K7",
+            "K79",
+            "K81"
+          ]
+        },
+        {
+          "text": "A plain film is the initial test; it shows that obstruction is present, not why.",
+          "claims": [
+            "K138"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "inv2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "inv_hX": {
+      "role": "hint",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Tempting: the erect and supine X-ray is the first test you order, and it does show dilated bowel.",
+          "claims": [
+            "K138"
+          ]
+        },
+        {
+          "text": "Ask what each test answers. Which one shows the level and cause, not just that the bowel is blocked?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "inv",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "inv_xX",
+          "kind": "agency"
+        }
+      ]
+    },
+    "inv_xX": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "A plain X-ray is the initial test for suspected obstruction; it shows that the bowel is blocked, not its cause or strangulation.",
+          "claims": [
+            "K138"
+          ]
+        },
+        {
+          "text": "The definitive test for small bowel obstruction is contrast-enhanced CT, which shows the transition point and the cause.",
+          "claims": [
+            "K79",
+            "K80"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep two tests apart: X-ray is the first test, CT the definitive one for small bowel obstruction.",
+        "claims": [
+          "K138",
+          "K79"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "inv2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "inv_hU": {
+      "role": "hint",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Tempting: ultrasound is quick and at the bedside, and it is the test you use for a child with intussusception.",
+          "claims": [
+            "K137"
+          ]
+        },
+        {
+          "text": "Ask which disease that test is for. Is it the investigation of choice for an adult with small bowel obstruction?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "inv",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "inv_xU",
+          "kind": "agency"
+        }
+      ]
+    },
+    "inv_xU": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Ultrasound is the investigation of choice for intussusception in children, not for small bowel obstruction in adults.",
+          "claims": [
+            "K137"
+          ]
+        },
+        {
+          "text": "For adult small bowel obstruction, contrast-enhanced CT is the investigation of choice.",
+          "claims": [
+            "K79",
+            "K136"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so attach each test to its disease: ultrasound for a child's intussusception, CT for adult small bowel obstruction.",
+        "claims": [
+          "K137",
+          "K79"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "inv2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "inv2": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "A ladder for three questions: the first test for suspected obstruction, the definitive test for small bowel obstruction, and the test of choice for a child with suspected intussusception.",
+          "claims": [
+            "K138",
+            "K79",
+            "K137"
+          ]
+        },
+        {
+          "text": "Which ladder is correct, in that order?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Contrast CT; plain film; ultrasound",
+          "next": "inv2_xA",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Plain film; contrast CT; ultrasound",
+          "next": "inv2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Plain film; contrast CT; contrast enema",
+          "next": "inv2_xB",
+          "kind": "trap",
+          "trap": "TR5"
+        }
+      ]
+    },
+    "inv2_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Right. Plain film first, contrast CT for the definitive answer in small bowel obstruction, and ultrasound for a child with intussusception.",
+          "claims": [
+            "K138",
+            "K79",
+            "K137"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "coffee",
+          "kind": "continue"
+        }
+      ]
+    },
+    "inv2_xA": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Tempting: CT is the most definitive test you know, so it feels like the first step too.",
+          "claims": [
+            "K79"
+          ]
+        },
+        {
+          "text": "But you start with a plain film, and CT comes after obstruction is confirmed, as the definitive test.",
+          "claims": [
+            "K138",
+            "K79"
+          ]
+        },
+        {
+          "text": "Right ladder: plain film, then contrast CT, then ultrasound for a child with intussusception.",
+          "claims": [
+            "K137"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so order the tests: the test that starts the work-up is not the one that settles the diagnosis.",
+        "claims": [
+          "K138",
+          "K79"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "coffee",
+          "kind": "continue"
+        }
+      ]
+    },
+    "inv2_xB": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Tempting: the contrast enema is the test you link with intussusception, so it feels right for a child.",
+          "claims": [
+            "K89"
+          ]
+        },
+        {
+          "text": "But in a child the investigation of choice is ultrasound, which shows the target or doughnut sign.",
+          "claims": [
+            "K137",
+            "K88"
+          ]
+        },
+        {
+          "text": "So the ladder for a child starts with ultrasound, and the enema is not the first test.",
+          "claims": [
+            "K137"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep the child's test apart: ultrasound first, with its target or doughnut sign.",
+        "claims": [
+          "K137",
+          "K88"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "coffee",
+          "kind": "continue"
+        }
+      ]
+    },
+    "coffee": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Plain film: a massively dilated loop arises from the pelvis and is shaped like a coffee bean.",
+          "claims": [
+            "K76"
+          ]
+        },
+        {
+          "text": "Which diagnosis fits this sign?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Caecal volvulus",
+          "next": "coffee_hC",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Sigmoid volvulus",
+          "next": "coffee_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Ileocaecal intussusception",
+          "next": "coffee_hI",
+          "kind": "trap",
+          "trap": "TR8"
+        }
+      ]
+    },
+    "coffee_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Yes. The coffee bean, or bent inner tube, is the plain film sign of sigmoid volvulus.",
+          "claims": [
+            "K76"
+          ]
+        },
+        {
+          "text": "On contrast enema the same twist shows as a bird's beak, and on CT as a whirl sign.",
+          "claims": [
+            "K87",
+            "K82"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sign",
+          "kind": "continue"
+        }
+      ]
+    },
+    "coffee_hC": {
+      "role": "hint",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Tempting: both are volvulus, and both show as a dilated loop on the same plain film.",
+          "claims": [
+            "K76",
+            "K77"
+          ]
+        },
+        {
+          "text": "Check the site. The stem places the loop in the pelvis; where does a caecal volvulus sit?",
+          "claims": [
+            "K77"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "coffee",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "coffee_xC",
+          "kind": "agency"
+        }
+      ]
+    },
+    "coffee_xC": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Caecal volvulus is a dilated, kidney-shaped caecum displaced to the left upper quadrant, not a coffee-bean loop from the pelvis.",
+          "claims": [
+            "K77"
+          ]
+        },
+        {
+          "text": "The coffee bean, bent inner tube or omega sign is the plain film sign of sigmoid volvulus.",
+          "claims": [
+            "K76"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so link the shape to the site: a coffee bean from the pelvis is sigmoid; a kidney-shaped caecum in the left upper quadrant is caecal.",
+        "claims": [
+          "K76",
+          "K77"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sign",
+          "kind": "continue"
+        }
+      ]
+    },
+    "coffee_hI": {
+      "role": "hint",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Tempting: a coiled bowel loop can look like a target or a claw, so you may have pinned this shape on intussusception.",
+          "claims": [
+            "K88",
+            "K89"
+          ]
+        },
+        {
+          "text": "Name the shape first, then the disease it belongs to. Which disease carries the coffee-bean sign?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "coffee",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "coffee_xI",
+          "kind": "agency"
+        }
+      ]
+    },
+    "coffee_xI": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Intussusception shows the target or doughnut on ultrasound and the claw on contrast enema, not a coffee bean.",
+          "claims": [
+            "K88",
+            "K89"
+          ]
+        },
+        {
+          "text": "The coffee bean is the plain film sign of sigmoid volvulus.",
+          "claims": [
+            "K76"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep each sign with its disease and modality: the coffee bean is sigmoid volvulus on plain film.",
+        "claims": [
+          "K76",
+          "K146"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sign",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sign": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Each sign below belongs to one disease and one imaging test.",
+          "claims": [
+            "K146"
+          ]
+        },
+        {
+          "text": "Which pairing of sign and test is correct?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Claw on plain film; target on ultrasound",
+          "next": "sign_xA",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Claw on enema; target on ultrasound",
+          "next": "sign_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Bird's beak on plain film; target on ultrasound",
+          "next": "sign_xB",
+          "kind": "trap",
+          "trap": "TR8"
+        }
+      ]
+    },
+    "sign_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Right. The claw sign sits at the apex of the intussusceptum on contrast enema; the target sign is on ultrasound.",
+          "claims": [
+            "K89",
+            "K88"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sign_end",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sign_xA": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Tempting: the claw sounds like a bowel-gas sign, so a plain film feels like enough to find it.",
+          "claims": [
+            "K89"
+          ]
+        },
+        {
+          "text": "But the claw sign is seen at the apex of the intussusceptum on contrast enema, not on a plain film.",
+          "claims": [
+            "K89"
+          ]
+        },
+        {
+          "text": "Right pairing: claw on contrast enema, target on ultrasound.",
+          "claims": [
+            "K146"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pin the claw to the enema: a plain film does not show it.",
+        "claims": [
+          "K89"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sign_end",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sign_xB": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Tempting: the bird's beak is a sigmoid volvulus shape, so it feels as if it belongs with the plain film coffee bean.",
+          "claims": [
+            "K76",
+            "K87"
+          ]
+        },
+        {
+          "text": "But the bird's beak is the tapering twist seen on contrast enema, not on a plain film.",
+          "claims": [
+            "K87"
+          ]
+        },
+        {
+          "text": "Right pairing: claw on contrast enema, target on ultrasound.",
+          "claims": [
+            "K89",
+            "K88"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep the bird's beak with the enema, and the coffee bean with the plain film.",
+        "claims": [
+          "K87",
+          "K76"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sign_end",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sign_end": {
+      "role": "feedback",
+      "objectives": [
+        "O5",
+        "O6",
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "To finish: a plain film is the first test for obstruction, contrast CT is definitive for small bowel obstruction, and ultrasound is the test for a child's intussusception.",
+          "claims": [
+            "K138",
+            "K79",
+            "K137"
+          ]
+        },
+        {
+          "text": "Coffee bean is sigmoid volvulus, bird's beak and claw are on enema, and target and pseudokidney are on ultrasound.",
+          "claims": [
+            "K146",
+            "K88"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  },
+  "technique": "T2",
+  "decision": "merge"
+}

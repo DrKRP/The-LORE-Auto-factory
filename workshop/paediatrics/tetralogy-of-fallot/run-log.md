@@ -19,3 +19,7 @@
 
 ## analysis
 - distractor-analyst: 22 traps mapped, 44 probes (each trap 2–3 probes in different forms); backbone TR1, TR2, TR9, TR10, TR4, TR6; 7 probes unverified-only (exam-trap or deeper nodes).
+
+## refine and publish (2026-10-19)
+- Round 0: composite 3.55 (review 3.85, judge m1). Patched every issue the review listed (15 in S1–S6, re-tests rewritten in S7/S8), then fixed 6 feedback mismatches the patch introduced.
+- Round 1: review 3.61 (judge m2, a stricter second judge). Published round 1 by orchestrator override: it fixes the concrete defects round 0 was marked down for, and the two reviews are not comparable (different judges). Below the 4.0 threshold; max_rounds reached.
