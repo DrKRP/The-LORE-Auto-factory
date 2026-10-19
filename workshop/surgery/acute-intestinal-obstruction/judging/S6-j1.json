@@ -1,0 +1,69 @@
+{
+  "segment": "S6",
+  "judge": "j1",
+  "lens": "learner-advocate",
+  "variants": {
+    "a": {
+      "gates": [],
+      "scores": {"R1": 5, "R2": 4, "R3": 5, "R4": 4, "R5": 3, "R6": 5, "R7": 4, "R8": 4, "R9": 5},
+      "weighted": 4.39,
+      "best_parts": [
+        "node pyq (entry): exam-form PYQ probe with a teach-both repair in pyq_t1 ('Hold both: PYQs said hernia in India; current practice says adhesions')",
+        "node why: mechanism probe (venous block versus colic versus silent bowel) that tests the reason behind the strangulation call, with pyq_t22 and why_t18 giving a distinct refutation for each",
+        "node adh: four-option strangulation probe where each wrong option is a different trap (TR23, TR22, TR31) and the key is the only one that orders resuscitation before theatre"
+      ],
+      "flaws": [
+        "node paired: both wrong options open with 'Both:' and the key is the only option that splits child from adult, so the key is found by form rather than by reasoning (DP1 risk); 'Both: laparotomy first' is weak against the stable-child stem",
+        "node silent: 'Observe for 72 hours without treatment' is dominated by the other options in a hypokalaemic patient; it diagnoses nothing a tired student would pick",
+        "node wall and large: two wrong options map to the same trap (TR40, TR35), so the path cannot say which wrong model was held",
+        "node summary_ok and sig_ok: final links use '@next' in the last segment; confirm the assembler resolves it to the module end (no explicit end node in this file)",
+        "no fast lane and no hint on any probe: a student who knows the content must still sit through about 80 nodes, and a student who is shaky gets only sure_note remediation"
+      ]
+    },
+    "b": {
+      "gates": [],
+      "scores": {"R1": 5, "R2": 3, "R3": 5, "R4": 4, "R5": 4, "R6": 4, "R7": 4, "R8": 4, "R9": 4},
+      "weighted": 4.11,
+      "best_parts": [
+        "node p1 / p1_h / p1b: first-miss hint ('Read the setting words again: India and developing countries') that names no answer, then a retry; this is a clean hint ladder for the PYQ trap",
+        "node p16: paralytic ileus probe with silent abdomen against adhesive SBO and volvulus, and p16_ok ties potassium and drip and suck to the answer",
+        "node p19: three numeric timing options (48, 72, 24 hours) where each wrong number is a distinct decision error, with feedback that anchors each number to its decision"
+      ],
+      "flaws": [
+        "partial options are not mapped to any trap in the trap map (p1 Crohn's stricture, p4 Hartmann's, p6 hydrostatic reduction, p8 MR enterography, p9 gallstone ileus, p13 direct inguinal, p14 Maydl, p16 sigmoid volvulus, p19 72 hours, p22 both sigmoid, p23 intraluminal); this breaks one-error-per-option (DP-trap) and makes the path less diagnostic",
+        "node p12: 'All three segments' is a filler option (a learner holding any single wrong model is not tempted by it)",
+        "node p1 and p2: the help option ('Not sure, give me a hint') sits inside a segment framed as a cold check, which blurs the cold-evidence purpose; only some probes are unaided",
+        "node p23: 'Intramural' trap ('adhesions and volvulus sit in the bowel itself') is weak because volvulus and bands clearly sit outside the wall; the key is partly findable by elimination",
+        "about 80 nodes with 2 to 3 messages in most feedback nodes; long for a 1 a.m. learner"
+      ]
+    },
+    "c": {
+      "gates": [],
+      "scores": {"R1": 4, "R2": 2, "R3": 3, "R4": 4, "R5": 4, "R6": 3, "R7": 4, "R8": 4, "R9": 3},
+      "weighted": 3.33,
+      "best_parts": [
+        "node gate: an honest readiness choice ('Ready, straight to the cold check' versus 'Shaky, give me a quick refresher') with the explicit rule 'no hints and no retries'; this is the strongest learner-facing fast lane of the three",
+        "node p16: three-way classification of gallstone ileus (intramural, intraluminal, extramural) where each wrong class is a separate wall-relation error and p16_1 gives the enterolithotomy repair",
+        "node p18: management probe with three options spanning the three errors (theatre first, resuscitate and check orifices, 72-hour trial now), mapped one to one to TR31, correct, and TR23"
+      ],
+      "flaws": [
+        "node p1: the stem says 'a tender, irreducible lump in the groin', which gives the hernia answer away; the key is found by content, not by the PYQ key",
+        "node p5: the trap 'loud sounds mean the gut has stopped' is dominated by the stem's 'loud, high-pitched tinkling', so the probe is trivial",
+        "node p6: 'Simple obstruction; colicky pain is still the picture' is dominated by the stem's 'constant and severe' and the pulse",
+        "node p9: 'Any intussusception in a child, since surgery is safest' is dominated by the 'which finding' stem; the probe asks for the key directly",
+        "node p15: 'Caecum, 3 cm' is an absurd option that loses every pairing (DP2)",
+        "about 13 of 18 probes are two-option probes, so a student who guesses is right half the time and learns little from the miss",
+        "objective O12: paralytic ileus and Ogilvie's treatment are never probed and no card covers them; only gallstone ileus is tested (node p16)",
+        "node p18: the stem says 'the hernial orifices have not been examined yet', which tells the learner the correct option ('check orifices') before any reasoning"
+      ]
+    }
+  },
+  "ranking": ["a", "b", "c"],
+  "merge_ideas": [
+    "a's probe set (pyq, why, adh, sig, large, early, silent) with b's first-miss hint ladder on the opening PYQ probe (hint names no answer, then retry), so adaptivity is present without breaking the cold check on later probes",
+    "c's gate node as the entry for a fast lane: a student who is ready can skip to a cold check, and a student who is shaky gets a recap, but the recap should be a real second explanation rather than a restatement",
+    "replace b's partial options with a's trap-mapped options, and replace c's two-option probes (p1, p2, p5, p6, p9, p15) with a's three- or four-option versions so the guess rate falls and each distractor carries one trap",
+    "add b's paralytic ileus probe (p16) and card to a's path so O12 is covered on every path, including the fast lane",
+    "give the 'why' probe from a a counterpart in the gate's fast lane, so a student who skips the cases still answers one mechanism question before the cards"
+  ]
+}
