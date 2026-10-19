@@ -1,0 +1,684 @@
+{
+  "segment": "S1",
+  "entry": "gate",
+  "nodes": {
+    "gate": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 58-year-old man has a groin sac found at laparoscopy. It comes through the posterior wall of the canal, medial to the inferior epigastric vessels.",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "Which hernia is it? Answer from what you already remember.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Indirect inguinal hernia",
+          "next": "gate_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Direct inguinal hernia",
+          "next": "gate_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Femoral hernia",
+          "next": "gate_t40",
+          "kind": "trap",
+          "trap": "TR40"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "gate_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "gate_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Set the name aside. Trace the sac: does it enter at the deep ring, or come through the posterior wall of the canal?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "gate",
+          "kind": "retry"
+        }
+      ]
+    },
+    "gate_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A direct hernia bulges through Hesselbach's triangle, medial to the inferior epigastric vessels.",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "So the side of the vessels decides the route. The name only tells you the family.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "I have it, skip the route lesson",
+          "next": "pos",
+          "kind": "skip"
+        },
+        {
+          "label": "Show me the route",
+          "next": "route",
+          "kind": "continue"
+        }
+      ]
+    },
+    "gate_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: indirect is the commonest groin hernia, so it feels like the safe pick.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "It fails on the route. An indirect sac enters at the deep ring, lateral to the vessels. This sac is medial to them.",
+          "claims": [
+            "K12"
+          ]
+        },
+        {
+          "text": "Try again, and trace the route rather than the name.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check your reason: were you reading the name, or the route?",
+        "claims": [
+          "K3"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "gate",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "route",
+          "kind": "agency"
+        }
+      ]
+    },
+    "gate_t40": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a sac on the medial side of the groin feels like the femoral type, since both sit in the groin.",
+          "claims": []
+        },
+        {
+          "text": "It fails on position. A femoral hernia lies below and lateral to the pubic tubercle. This one comes through the posterior wall of the canal.",
+          "claims": [
+            "K6"
+          ]
+        },
+        {
+          "text": "Try again, and place the sac on the route first.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check where the femoral type sits against the pubic tubercle.",
+        "claims": [
+          "K6"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "gate",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "route",
+          "kind": "agency"
+        }
+      ]
+    },
+    "route": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Names mislead here. 'Direct' and 'indirect' describe the route the sac takes, so read the route.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "An indirect hernia enters at the deep ring, lateral to the inferior epigastric vessels, and runs down the canal in the cord coverings.",
+          "claims": [
+            "K12"
+          ]
+        },
+        {
+          "text": "A direct hernia bulges through Hesselbach's triangle, through the posterior wall, medial to the vessels.",
+          "claims": [
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pos",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pos": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now the other groin type: a femoral hernia.",
+          "claims": []
+        },
+        {
+          "text": "Where does its neck sit relative to the pubic tubercle?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Above and medial to the tubercle",
+          "next": "pos_t40a",
+          "kind": "trap",
+          "trap": "TR40"
+        },
+        {
+          "label": "Below and lateral to the tubercle",
+          "next": "pos_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Below and medial to the tubercle",
+          "next": "pos_t40b",
+          "kind": "trap",
+          "trap": "TR40"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pos_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "pos_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Use the pubic tubercle as the landmark. Is the femoral neck higher than the inguinal type, or lower?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pos",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pos_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A femoral hernia lies below and lateral to the pubic tubercle.",
+          "claims": [
+            "K6"
+          ]
+        },
+        {
+          "text": "An inguinal hernia emerges above and medial to it. That position is what separates the two.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "most",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pos_t40a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the inguinal position is the one you know best, so it gets copied onto the femoral type.",
+          "claims": []
+        },
+        {
+          "text": "It fails on the tubercle. An inguinal hernia emerges above and medial to it. A femoral one lies below and lateral.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the inguinal position may have been carried across. Check it against the tubercle.",
+        "claims": [
+          "K6"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pos",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pos_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "pos_t40b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the femoral type sits on the medial side of the groin, so medial feels right.",
+          "claims": []
+        },
+        {
+          "text": "It fails on the tubercle. The femoral neck lies lateral to it, and below. Medial is where the inguinal type sits.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the side of the tubercle before you trust 'medial'.",
+        "claims": [
+          "K6"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pos",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pos_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "pos_why": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Put the two side by side against the same landmark, the pubic tubercle.",
+          "claims": [
+            "K6"
+          ]
+        },
+        {
+          "text": "Inguinal: above and medial. Femoral: below and lateral. Hold that pair and the position settles the type.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "most",
+          "kind": "continue"
+        }
+      ]
+    },
+    "most": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An exam stem asks: most common hernia in females. Which do you pick?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Indirect inguinal hernia",
+          "next": "most_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Femoral hernia",
+          "next": "most_t5a",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Direct inguinal hernia",
+          "next": "most_t5b",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "most_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "most_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Read the stem as a ranking. Which type leads overall, and does a female skew change that ranking?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "most",
+          "kind": "retry"
+        }
+      ]
+    },
+    "most_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Indirect inguinal hernia is the most common hernia overall, in both sexes and in children.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "The female skew changes femoral's share, not the top of the ranking.",
+          "claims": [
+            "K109"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "contrast",
+          "kind": "continue"
+        }
+      ]
+    },
+    "most_t5a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: femoral is the type you remember as female-skewed, so it feels like the female answer.",
+          "claims": []
+        },
+        {
+          "text": "It fails on the qualifier. Femoral is relatively more common in women, but indirect still leads in women.",
+          "claims": [
+            "K109"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the word 'relatively' in the stem.",
+        "claims": [
+          "K109"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "most",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "most_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "most_t5b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: direct is the other inguinal type you reach for, so it can look like a safe second pick.",
+          "claims": []
+        },
+        {
+          "text": "It fails on the ranking. Indirect is the most common hernia in women as well as in men.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so a skew between sexes does not reorder the ranking.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "most",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "most_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "most_why": {
+      "role": "explain",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "'Relatively more common in women' compares women with men. 'Most common in women' ranks the types within women.",
+          "claims": [
+            "K109"
+          ]
+        },
+        {
+          "text": "Indirect inguinal hernia tops the ranking in women, as in men. The femoral skew does not move it.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "contrast",
+          "kind": "continue"
+        }
+      ]
+    },
+    "contrast": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same idea, now as a statement. Which one is correct?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Femoral hernia outnumbers every inguinal type in women",
+          "next": "contrast_t5a",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Femoral is relatively commoner in women, yet indirect leads",
+          "next": "contrast_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Direct hernia is the commonest type in women",
+          "next": "contrast_t5b",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "contrast_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "contrast_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Keep two readings apart: a relative skew between the sexes, and a ranking inside one sex. Which statement keeps both true?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "contrast_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Femoral is relatively commoner in women, so the qualifier carries the meaning.",
+          "claims": [
+            "K109"
+          ]
+        },
+        {
+          "text": "Indirect still tops the ranking in women, so the top spot does not move.",
+          "claims": [
+            "K96"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "contrast_t5a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a female skew sounds like it should lift femoral above every inguinal type.",
+          "claims": []
+        },
+        {
+          "text": "It fails on the comparison. 'Relatively commoner' compares women with men. It is not a ranking, and indirect still leads in women.",
+          "claims": [
+            "K109"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check whether the statement ranks or compares.",
+        "claims": [
+          "K109"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "contrast",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "contrast_t5b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: direct is a familiar inguinal type, so it can look like the female top pick.",
+          "claims": []
+        },
+        {
+          "text": "It fails on the ranking. Indirect is the most common hernia in women, as the table gives it.",
+          "claims": [
+            "K96"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "contrast",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
