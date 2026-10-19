@@ -1,0 +1,782 @@
+{
+  "segment": "S1",
+  "entry": "open",
+  "cards": [],
+  "nodes": {
+    "open": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Before we teach anything, let's see what you already hold.",
+          "claims": []
+        },
+        {
+          "text": "Which is the most common surgical emergency of the abdomen?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Acute cholecystitis",
+          "next": "open_t1",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Acute appendicitis",
+          "next": "open_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Acute intestinal obstruction",
+          "next": "open_t2",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "open_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "open_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Read one word first: 'most common' asks which condition occurs most often, not which is most dangerous.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try the question again",
+          "next": "open_2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "open_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Cholecystitis feels right: it is a dramatic, serious emergency.",
+          "claims": []
+        },
+        {
+          "text": "But 'most common' counts how often a condition occurs, not how dangerous it is. Take that word and try again.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pause on the first word of the question before you commit.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "open_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "open_x3",
+          "kind": "agency"
+        }
+      ]
+    },
+    "open_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Intestinal obstruction feels right: it is a serious, urgent presentation.",
+          "claims": []
+        },
+        {
+          "text": "But 'most common' counts how often a condition occurs, not how dangerous it is. Take that word and try again.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pause on the first word of the question before you commit.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "open_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "open_x1",
+          "kind": "agency"
+        }
+      ]
+    },
+    "open_2": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, now with the word 'most' in mind.",
+          "claims": []
+        },
+        {
+          "text": "Which is the most common surgical emergency of the abdomen?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Acute intestinal obstruction",
+          "next": "open_x1",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Perforated peptic ulcer",
+          "next": "open_x2",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Acute cholecystitis",
+          "next": "open_x3",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Acute appendicitis",
+          "next": "open_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "open_x1": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Obstruction is serious, so severity can feel like frequency.",
+          "claims": []
+        },
+        {
+          "text": "But 'most common' is a frequency word. Appendicitis is the most common surgical emergency of the abdomen, and the most common non-obstetric one in pregnancy.",
+          "claims": [
+            "K1",
+            "K97"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is the one to fix: 'most common' is about how often, not how dangerous.",
+        "claims": [
+          "K1"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "teach1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "open_x2": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "A perforated ulcer is deadly, so it can feel like the top emergency. It kills more, but it occurs less often.",
+          "claims": []
+        },
+        {
+          "text": "The most common surgical emergency of the abdomen is appendicitis. Read 'most' as frequency here.",
+          "claims": [
+            "K1",
+            "K91"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is the one to fix: 'most common' is about how often, not how dangerous.",
+        "claims": [
+          "K1"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "teach1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "open_x3": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Cholecystitis is painful and dramatic, so it can feel like the top emergency.",
+          "claims": []
+        },
+        {
+          "text": "But the most common surgical emergency of the abdomen is appendicitis. Read 'most' as frequency here.",
+          "claims": [
+            "K1"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is the one to fix: 'most common' is about how often, not how dangerous.",
+        "claims": [
+          "K1"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "teach1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "open_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. Acute appendicitis is the most common surgical emergency of the abdomen.",
+          "claims": [
+            "K1"
+          ]
+        },
+        {
+          "text": "It is also the most common non-obstetric surgical emergency in pregnancy.",
+          "claims": [
+            "K97"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "teach1",
+          "kind": "continue"
+        },
+        {
+          "label": "Skip the teaching, go to the next case",
+          "next": "age_a",
+          "kind": "skip"
+        }
+      ]
+    },
+    "teach1": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Acute appendicitis is inflammation of the vermiform appendix.",
+          "claims": [
+            "K11"
+          ]
+        },
+        {
+          "text": "Its peak falls in the second and third decades, so you will meet it most often in young adults.",
+          "claims": [
+            "K17"
+          ]
+        },
+        {
+          "text": "Picture the appendix as a dead-end lane: block the entrance and everything behind it backs up.",
+          "claims": [],
+          "device": true
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "age_a",
+          "kind": "continue"
+        }
+      ]
+    },
+    "age_a": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An 8-year-old has a viral illness, then pain in the right iliac fossa and vomiting.",
+          "claims": []
+        },
+        {
+          "text": "What is the commonest cause of the luminal block in this child?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Faecolith, a faecal stone",
+          "next": "age_a_t",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "A foreign body, such as a swallowed seed",
+          "next": "age_a_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Lymphoid hyperplasia of the wall",
+          "next": "age_a_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "age_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "age_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Start with the age in the stem. Which tissue is most abundant in a child's appendix?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try the child's case again",
+          "next": "age_a2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "age_a_t": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "A faecal stone is the classic adult cause, so the pattern feels familiar.",
+          "claims": []
+        },
+        {
+          "text": "Check the age again: this child is not an adult, so the usual block is not a stone. Try once more.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so age is the cue to check first: who the patient is before what the cause is.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "age_a2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "age_a_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "age_a_p": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Foreign bodies can block the appendix, so this is a real cause.",
+          "claims": [
+            "K16"
+          ]
+        },
+        {
+          "text": "But it is uncommon. In a child, a viral illness points to the tissue in the wall. Try once more.",
+          "claims": [
+            "K14"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "age_a2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "age_a_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "age_a2": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "The same child, now with the age in mind.",
+          "claims": []
+        },
+        {
+          "text": "What is the commonest cause of the luminal block in this child?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Lymphoid hyperplasia of the wall",
+          "next": "age_a_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Faecolith, a faecal stone",
+          "next": "age_a_x",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "A foreign body, such as a swallowed seed",
+          "next": "age_a_x",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "age_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "age_a_x": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "In a child the commonest cause is lymphoid hyperplasia, often after a viral illness.",
+          "claims": [
+            "K14",
+            "K94"
+          ]
+        },
+        {
+          "text": "A faecolith is the adult cause, and a foreign body is a rare one.",
+          "claims": [
+            "K15",
+            "K16"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep the age rule: child lymphoid, adult faecolith.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "age_b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "age_a_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. Lymphoid hyperplasia, often after a viral illness, is the commonest cause in children and young people.",
+          "claims": [
+            "K14",
+            "K94"
+          ]
+        },
+        {
+          "text": "So the age in the stem decides the cause.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "age_b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "age_b": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now a 45-year-old with the same right iliac fossa pain and a thickened appendix on CT.",
+          "claims": []
+        },
+        {
+          "text": "What is the commonest cause of obstruction at this age?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Lymphoid hyperplasia of the wall",
+          "next": "age_bt",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Carcinoma of the caecum",
+          "next": "age_b_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Faecolith, a faecal stone",
+          "next": "age_b_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "age_hint_b",
+          "kind": "help"
+        }
+      ]
+    },
+    "age_hint_b": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Lymphoid tissue is abundant in the young and shrinks with age. What fills the lumen in an older adult?",
+          "claims": [
+            "K23"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the adult case",
+          "next": "age_b2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "age_bt": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Lymphoid hyperplasia is the child's pattern, and this stem has changed the age.",
+          "claims": []
+        },
+        {
+          "text": "Look at the age first, then the cause. Try once more with the age in mind.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so slow down on this pattern: the adult case is the reverse of the child.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "age_b2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "age_bx",
+          "kind": "agency"
+        }
+      ]
+    },
+    "age_b_p": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "A caecal tumour can block the appendix, and it is worth thinking of in an older adult.",
+          "claims": [
+            "K16"
+          ]
+        },
+        {
+          "text": "But it is less common than the usual cause at this age. Try once more.",
+          "claims": [
+            "K15"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "age_b2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "age_bx",
+          "kind": "agency"
+        }
+      ]
+    },
+    "age_b2": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "The same adult, now with the age in mind.",
+          "claims": []
+        },
+        {
+          "text": "What is the commonest cause of obstruction at this age?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Faecolith, a faecal stone",
+          "next": "age_b_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Lymphoid hyperplasia of the wall",
+          "next": "age_bx",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Carcinoma of the caecum",
+          "next": "age_bx",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "age_hint_b",
+          "kind": "help"
+        }
+      ]
+    },
+    "age_bx": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "In adults the commonest cause is a faecolith, since lymphoid tissue atrophies with age.",
+          "claims": [
+            "K15",
+            "K95",
+            "K23"
+          ]
+        },
+        {
+          "text": "Lymphoid hyperplasia is the child's pattern; a tumour is a rarer adult cause.",
+          "claims": [
+            "K14",
+            "K16"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep the age rule: child lymphoid, adult faecolith.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "age_b_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. In an adult a faecolith is the commonest cause of obstruction.",
+          "claims": [
+            "K15",
+            "K95"
+          ]
+        },
+        {
+          "text": "Lymphoid tissue is abundant in the young and atrophies with age, so the cause changes with age.",
+          "claims": [
+            "K23"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  },
+  "technique": "T9+T2+T4",
+  "decision": "merge"
+}
