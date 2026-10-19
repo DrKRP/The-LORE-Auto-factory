@@ -1,0 +1,995 @@
+{
+  "segment": "S2",
+  "entry": "tri",
+  "nodes": {
+    "tri": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Hesselbach's triangle is the patch where a direct hernia breaks through the posterior wall.",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "Which of these is one of its **three sides**?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "The deep inguinal ring at the canal's mouth",
+          "next": "tri_deep",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "The lateral border of the rectus abdominis sheath",
+          "next": "tri_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "The superficial ring in the external oblique",
+          "next": "tri_sup",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "tri_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "tri_deep": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the deep ring is the first landmark you find, right beside the triangle.",
+          "claims": []
+        },
+        {
+          "text": "But it is the opening the indirect sac uses, lateral to the vessels, so it is not a side. The sides are the artery, the rectus edge and the inguinal ligament.",
+          "claims": [
+            "K3",
+            "K4"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the ring was a side. Fix that belief: the ring is an opening, while the triangle is a field bounded by three structures.",
+        "claims": [
+          "K4"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tri",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the three sides",
+          "next": "sides",
+          "kind": "agency"
+        }
+      ]
+    },
+    "tri_sup": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the superficial ring is the gap you feel at the front of the groin, so it seems to form the floor.",
+          "claims": []
+        },
+        {
+          "text": "But it sits in the front wall, the external oblique aponeurosis, not the posterior wall where the triangle lies. Its sides are the artery, the rectus edge and the inguinal ligament.",
+          "claims": [
+            "K18",
+            "K4"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the superficial ring is a side. It is a gap in the front layer; the triangle's sides are the three structures.",
+        "claims": [
+          "K18"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tri",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the three sides",
+          "next": "sides",
+          "kind": "agency"
+        }
+      ]
+    },
+    "tri_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what the triangle is bounded by: a vessel, the edge of a muscle sheath and a ligament. A ring is not one of them.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tri",
+          "kind": "retry"
+        }
+      ]
+    },
+    "tri_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. That edge is one of the three sides. The other two are the inferior epigastric artery and the inguinal ligament.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sides",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sides": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The triangle has three sides. Laterally, the inferior epigastric artery. Medially, the lateral border of the rectus sheath. Below, the inguinal ligament.",
+          "claims": [
+            "K4"
+          ]
+        },
+        {
+          "text": "The deep and superficial rings are openings, not sides, so a sac through the triangle lies inside this patch.",
+          "claims": [
+            "K3",
+            "K13"
+          ]
+        },
+        {
+          "text": "Older texts used Cooper's ligament as the base; exam keys expect the inguinal ligament.",
+          "claims": [
+            "K108"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wall",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wall": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "The inguinal canal has an anterior and a posterior wall, and each has its own layer and reinforcement.",
+          "claims": [
+            "K18",
+            "K19"
+          ]
+        },
+        {
+          "text": "Which structure reinforces the **posterior wall** medially?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Internal oblique",
+          "next": "wall_io",
+          "kind": "trap",
+          "trap": "TR28"
+        },
+        {
+          "label": "Conjoint tendon",
+          "next": "wall_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "External oblique aponeurosis",
+          "next": "wall_eo",
+          "kind": "trap",
+          "trap": "TR28"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "wall_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "wall_io": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the internal oblique lies right beside the canal and is a muscle of the wall, so it feels like the reinforcement.",
+          "claims": []
+        },
+        {
+          "text": "But it reinforces the anterior wall laterally. The posterior wall is the transversalis fascia, reinforced medially by the conjoint tendon.",
+          "claims": [
+            "K18",
+            "K19"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the internal oblique covers the back. It reinforces the front, laterally; the back is transversalis fascia.",
+        "claims": [
+          "K18",
+          "K19"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wall",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the two walls",
+          "next": "walls",
+          "kind": "agency"
+        }
+      ]
+    },
+    "wall_eo": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the external oblique is the layer you cut first, so it feels like the wall that matters most.",
+          "claims": []
+        },
+        {
+          "text": "But it is the anterior wall itself, not a reinforcement of the posterior wall. The posterior wall is the transversalis fascia, reinforced medially by the conjoint tendon.",
+          "claims": [
+            "K18",
+            "K19"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the external oblique guards the back. It forms the front of the canal; the back is transversalis fascia.",
+        "claims": [
+          "K18"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wall",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the two walls",
+          "next": "walls",
+          "kind": "agency"
+        }
+      ]
+    },
+    "wall_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Find the back wall first. Its reinforcement sits at the medial end, where two muscle layers fuse.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wall",
+          "kind": "retry"
+        }
+      ]
+    },
+    "wall_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The conjoint tendon reinforces the posterior wall medially, and the posterior wall is transversalis fascia.",
+          "claims": [
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "walls",
+          "kind": "continue"
+        }
+      ]
+    },
+    "walls": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The anterior wall is the external oblique aponeurosis, reinforced laterally by the internal oblique.",
+          "claims": [
+            "K18"
+          ]
+        },
+        {
+          "text": "The posterior wall is the transversalis fascia, reinforced medially by the conjoint tendon. A direct sac pushes through this back wall.",
+          "claims": [
+            "K19",
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "route",
+          "kind": "continue"
+        }
+      ]
+    },
+    "route": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "On laparoscopy, a sac pushes out through the posterior wall of the canal, medial to the inferior epigastric vessels.",
+          "claims": []
+        },
+        {
+          "text": "Which hernia is this?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Indirect inguinal hernia",
+          "next": "route_ind",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Direct inguinal hernia",
+          "next": "route_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Femoral hernia",
+          "next": "route_fem",
+          "kind": "trap",
+          "trap": "TR40"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "route_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "route_ind": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: indirect is the commonest hernia, so it is the default guess when you are unsure of the route.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "But an indirect sac enters at the deep ring, lateral to the inferior epigastric vessels, and runs down the canal. This sac is medial to them.",
+          "claims": [
+            "K12",
+            "K3"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure it was indirect. The deep ring is lateral to the vessels; a sac medial to them comes through the back wall.",
+        "claims": [
+          "K3"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "route",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the route",
+          "next": "route_explain",
+          "kind": "agency"
+        }
+      ]
+    },
+    "route_fem": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a groin sac on the medial side sounds like the femoral one, which is also in the groin.",
+          "claims": []
+        },
+        {
+          "text": "But a femoral hernia lies below and lateral to the pubic tubercle. This sac passes through the posterior wall, so it is direct.",
+          "claims": [
+            "K6",
+            "K13"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure it was femoral. A femoral hernia sits below and lateral to the pubic tubercle; this one is medial.",
+        "claims": [
+          "K6"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "route",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the route",
+          "next": "route_explain",
+          "kind": "agency"
+        }
+      ]
+    },
+    "route_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Trace the route. Ask whether the sac enters at the deep ring beside the vessels, or pushes through the back wall medial to them.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "route",
+          "kind": "retry"
+        }
+      ]
+    },
+    "route_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A sac that passes through the posterior wall, medial to the inferior epigastric vessels, is direct.",
+          "claims": [
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "route_explain",
+          "kind": "continue"
+        }
+      ]
+    },
+    "route_explain": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The vessels divide the groin. Lateral to them, the deep ring is the door of an indirect sac, which follows the cord down the canal.",
+          "claims": [
+            "K12",
+            "K3"
+          ]
+        },
+        {
+          "text": "Medial to them, a direct sac bulges forward through the posterior wall in Hesselbach's triangle. Trace the route, not the name.",
+          "claims": [
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cause",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cause": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 3-month-old boy has a right inguinal swelling.",
+          "claims": []
+        },
+        {
+          "text": "What underlies it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A patent processus vaginalis, open from birth",
+          "next": "cause_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Weak posterior wall of the canal",
+          "next": "cause_wall",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Defect in the transversalis fascia at Hesselbach's triangle",
+          "next": "cause_tri",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "cause_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "cause_wall": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a groin swelling is usually put down to a weak back wall, because that is the classic cause in adults.",
+          "claims": []
+        },
+        {
+          "text": "But weakness of the posterior wall causes a direct hernia, and it is acquired. A child's hernia here is indirect, from a patent processus vaginalis.",
+          "claims": [
+            "K26",
+            "K25"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure a baby's back wall was weak. Wall weakness is the acquired cause of direct hernia; the baby's cause is the open processus.",
+        "claims": [
+          "K26",
+          "K25"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cause",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "cause_explain",
+          "kind": "agency"
+        }
+      ]
+    },
+    "cause_tri": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: Hesselbach's triangle is the famous weak patch, so it feels like the site of any groin defect.",
+          "claims": []
+        },
+        {
+          "text": "But a triangle defect gives a direct hernia from acquired weakness. The infant's sac comes down through the processus vaginalis, which stays open.",
+          "claims": [
+            "K13",
+            "K26",
+            "K25"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the triangle was the site. It is the site of direct hernias only; the baby's hernia is indirect.",
+        "claims": [
+          "K13"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cause",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "cause_explain",
+          "kind": "agency"
+        }
+      ]
+    },
+    "cause_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what is normal in a baby. The processus should close once the testis has descended. What is left open?",
+          "claims": [
+            "K33"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cause",
+          "kind": "retry"
+        }
+      ]
+    },
+    "cause_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. An indirect hernia is congenital, because the processus vaginalis stays patent.",
+          "claims": [
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cause_explain",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cause_explain": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Congenital or acquired is the key split. An indirect hernia is congenital, arising in a patent processus vaginalis.",
+          "claims": [
+            "K25"
+          ]
+        },
+        {
+          "text": "A direct hernia is acquired, from weakness of the posterior wall. The processus normally closes after testicular descent.",
+          "claims": [
+            "K26",
+            "K33"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "complete",
+          "kind": "continue"
+        }
+      ]
+    },
+    "complete": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "In a child, the processus vaginalis stays open all the way down to the testis.",
+          "claims": []
+        },
+        {
+          "text": "What hernia does that produce?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Complete congenital indirect hernia",
+          "next": "complete_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Funicular hernia of the spermatic cord",
+          "next": "comp_fun",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Direct inguinal hernia",
+          "next": "comp_dir",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "comp_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "comp_fun": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a funicular hernia is also congenital and also runs down the cord, so the two blur together.",
+          "claims": []
+        },
+        {
+          "text": "But in a funicular hernia the process is open only in part, and the sac stops above the testis. Open all the way to the testis means complete.",
+          "claims": [
+            "K33"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure it was funicular. Funicular means partly open, with the sac stopping above the testis.",
+        "claims": [
+          "K33"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "complete",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the difference",
+          "next": "funic",
+          "kind": "agency"
+        }
+      ]
+    },
+    "comp_dir": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: direct is the name you know best, so it is the easy label for any boy's groin lump.",
+          "claims": []
+        },
+        {
+          "text": "But a direct hernia is acquired, from posterior wall weakness. It does not arise from a patent processus; an open processus gives an indirect hernia.",
+          "claims": [
+            "K26",
+            "K25"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure it was direct. Direct is acquired; an open processus is indirect.",
+        "claims": [
+          "K25",
+          "K26"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "complete",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the difference",
+          "next": "funic",
+          "kind": "agency"
+        }
+      ]
+    },
+    "comp_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask how far the open processus reaches: all the way to the testis, or only part of the way down the cord.",
+          "claims": [
+            "K33"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "complete",
+          "kind": "retry"
+        }
+      ]
+    },
+    "complete_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A whole open processus reaching the testis gives a complete congenital hernia; a partly open one gives a funicular hernia.",
+          "claims": [
+            "K33"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "funic",
+          "kind": "continue"
+        }
+      ]
+    },
+    "funic": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Track the processus vaginalis. Open to the testis: complete congenital hernia, which is indirect. Open only in part, stopping above the testis: funicular.",
+          "claims": [
+            "K33",
+            "K25"
+          ]
+        },
+        {
+          "text": "Direct hernias are a different cause entirely: acquired weakness of the posterior wall.",
+          "claims": [
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "clin",
+          "kind": "continue"
+        }
+      ]
+    },
+    "clin": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 45-year-old man has a groin swelling that reaches into his scrotum.",
+          "claims": []
+        },
+        {
+          "text": "Which hernia is it most likely?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Indirect inguinal hernia",
+          "next": "clin_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Direct inguinal hernia",
+          "next": "clin_dir",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "clin_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "clin_dir": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a scrotal swelling sounds like the more serious hernia, and direct is the one you know by name.",
+          "claims": []
+        },
+        {
+          "text": "But a direct hernia is globular near the pubic tubercle and rarely reaches the scrotum. An oblique swelling that commonly descends into the scrotum is indirect.",
+          "claims": [
+            "K42",
+            "K41"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure a scrotal swelling meant direct. It is the indirect sac that commonly reaches the scrotum.",
+        "claims": [
+          "K41"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "clin",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the difference",
+          "next": "desc",
+          "kind": "agency"
+        }
+      ]
+    },
+    "clin_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which sac follows the cord all the way down the canal into the scrotum.",
+          "claims": [
+            "K12"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "clin",
+          "kind": "retry"
+        }
+      ]
+    },
+    "clin_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The indirect hernia is the oblique, pear-shaped swelling that commonly descends into the scrotum.",
+          "claims": [
+            "K41"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "desc",
+          "kind": "continue"
+        }
+      ]
+    },
+    "desc": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Indirect: oblique and pear-shaped, commonly scrotal, reducing upwards, laterally and backwards.",
+          "claims": [
+            "K41"
+          ]
+        },
+        {
+          "text": "Direct: globular near the pubic tubercle, reducing straight backwards, rarely scrotal, often bilateral in elderly men.",
+          "claims": [
+            "K42"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
