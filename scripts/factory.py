@@ -774,6 +774,20 @@ def cmd_check_segment(a):
 
 # ---------------------------------------------------------------- assemble
 
+INLINE_ID_RE = re.compile(r"\s*[(\[](?:[a-z-]+/[a-z0-9-]+#)?K\d+(?:\s*(?:,|;|/|and|&)?\s*(?:[a-z-]+/[a-z0-9-]+#)?K\d+)*[)\]]")
+
+
+def strip_inline_ids(x):
+    """Remove claim IDs like "(K4)" or "(K4, K7)" from learner-facing text; the claims arrays keep the links."""
+    if isinstance(x, str):
+        return INLINE_ID_RE.sub("", x)
+    if isinstance(x, list):
+        return [strip_inline_ids(v) for v in x]
+    if isinstance(x, dict):
+        return {k: (v if k == "claims" else strip_inline_ids(v)) for k, v in x.items()}
+    return x
+
+
 def cmd_assemble(a):
     w = work(a.module)
     bp, bank = read_json(w / "blueprint.json"), load_bank(a.module)
@@ -847,6 +861,9 @@ def cmd_assemble(a):
               "cards": cards}
     if report:
         module["report"] = report
+    for key in ("nodes", "cards", "report"):
+        if key in module:
+            module[key] = strip_inline_ids(module[key])
     write_json(w / "module.json", module)
     print(f"assembled {len(nodes)} nodes, {len(segs)} segments, {len(claims)} claims, {len(cards)} cards")
 
