@@ -11,11 +11,9 @@ What every module must do, why, and how it is checked. Agents read this before a
 
 ## 1. Facts
 
-- Every factual sentence the tutor says cites claim IDs from `claim-bank.json`, and says only what those claims say: same numbers, same qualifiers. **[V]** for IDs; dialogue-verifier for wording.
-- A message with `claims: []` states no fact. Questions, prompts, encouragement and signposting only.
-- Unverified claims never sit on the core path. They may appear only in a `deeper` branch or an exam-trap node, with `flag: "unverified"` so the learner sees ⚠. **[V]**
-- Mnemonics, analogies and image cues are welcome when marked `device: true`; they restate cited facts, never add one.
-- Where the note's ⚠ Exam notes show the PYQ key differs from the current source, teach both: "PYQs have expected X; current <source> says Y." Learners must be able to answer the exam *and* know the truth.
+- Content comes from the module's note, written from the factory's own knowledge (`CLAUDE.md`). Messages that teach a fact cite the note's claim IDs, so cards and the report can link back. There is no fact-checking stage.
+- Mnemonics, analogies and image cues are welcome when marked `device: true`.
+- Where the note's ⚠ Exam notes show the PYQ key differs from current practice, teach both: "PYQs have expected X; current practice is Y." Learners must be able to answer the exam *and* know the truth.
 
 ## 2. The learner does the thinking
 

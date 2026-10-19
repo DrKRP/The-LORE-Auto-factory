@@ -1,12 +1,12 @@
 ---
 name: lore-factory
-description: One tick of the autonomous LORE factory. Picks the next piece of work (plan the queue, refine the design, research a topic, or advance a module by one stage) and runs it: research → trap brief → branch analysis → design → author tournament → blind judging → pick/merge/fold → assemble → pre-authored report → fact-check → simulated learners → refine → publish. Use when asked to run, continue or tick the factory, or to build a module.
+description: One tick of the autonomous LORE factory. Picks the next piece of work (plan the queue, refine the design, research a topic, or advance a module by one stage) and runs it: note from knowledge → trap brief → branch analysis → design → author tournament → blind judging → pick/merge/fold → assemble → pre-authored report → simulated learners → refine → publish. Use when asked to run, continue or tick the factory, or to build a module.
 argument-hint: "[<subject>/<slug> to force a module]"
 ---
 
-You are the **factory orchestrator** for one tick. You plan, dispatch agents, run `scripts/factory.py`, and record state; agents do the authoring, judging and checking. Your context stays thin: read agents' short replies and the script's JSON, not variant files, except where a step says so.
+You are the **factory orchestrator** for one tick. You plan, dispatch agents, run `scripts/factory.py`, and record state; agents do the writing, authoring and judging. Your context stays thin: read agents' short replies and the script's JSON, not variant files, except where a step says so.
 
-Modules are **buttons only, with no AI at run time**, and **distractor-first**: the trap brief and its branch analysis come before any dialogue (`reference/pedagogy.md` §0).
+Modules are **buttons only, with no AI at run time**, and **distractor-first**: the trap brief and its branch analysis come before any dialogue (`reference/pedagogy.md` §0). **Knowledge only**: content comes from the factory's own medical knowledge; there is no fetching and no fact-checking stage (`CLAUDE.md`).
 
 Never ask the user anything: the factory is unattended. Where a choice is needed, decide, write the reason in the module's `run-log.md`, and continue. Limits come from the `Config` block in `CLAUDE.md`; formats from `reference/module-format.md`.
 
@@ -14,7 +14,7 @@ Agents are in `.claude/agents/`. If one is not available as a subagent type, dis
 
 `W` below means `workshop/<subject>/<slug>/`; `F` means `python3 scripts/factory.py`.
 
-"All in one message" means as many as the runtime allows at once (Claude Code caps concurrent subagents, 20 by default). Dispatch in batches up to that cap, and start the next batch as agents finish.
+**Never more than 5 agents at once** (`concurrency.max_parallel_agents`). "In parallel" below means batches of up to 5; start the next batch only as agents finish.
 
 ## 0. What does this tick do?
 
@@ -33,19 +33,13 @@ Each stage ends with `F advance <module> <next stage>` (plus `--round` where sho
 
 ## Stages
 
-**Network.** Research needs the source domains in `reference/sources.md`. If scouts report that every fetch failed for network reasons (proxy 403/407, DNS `ENOTFOUND`), the environment is blocking them: `F fail <module> --reason "network: <hosts>"` rather than writing a note without evidence, and put the blocked hosts in `factory/status.md`'s log line so the user can allow them. Stages after research need no network.
-
 ### research
 
-**Knowledge mode** (`research.mode: knowledge` in `CLAUDE.md`): dispatch `knowledge-writer` with the topic, subject and note path, then `knowledge-checker` with the note; apply its outcomes (`AGREE` keep; `CORRECT` replace the sentence with its wording; `DISPUTE` keep the sentence, tag ⚠ Unverified and list it under "Unverified claims"); write `evidence/<subject>/<slug>/run-log.md`. No network is needed. Then continue as below from `F bank`.
-
-**Sources mode**: Follow `.claude/skills/lore-research/SKILL.md` for the topic in **auto mode** (its "Auto mode" section): you are its orchestrator. If `notes/<subject>/<slug>.md` already exists and this is not a refresh, skip research and say so in `W/run-log.md`. Done → `F bank <module>` (if it reports fewer than 8 verified claims, `F fail`: "note too thin to teach") → `F advance <module> traps`.
+Dispatch `knowledge-writer` with the topic, subject and note path `notes/<subject>/<slug>.md`. If the note already exists and this is not a refresh, skip this and say so in `W/run-log.md`. Then `F bank <module>` (fewer than 8 claims → `F fail`: "note too thin to teach") → `F advance <module> traps`.
 
 ### traps
 
-1. Dispatch `trap-scout` with the module and `W`. Check `W/trap-brief.md` has at least 8 trap entries.
-2. **Research follows the traps.** If `## Unrefutable` lists high- or medium-yield traps, dispatch one `rescue-scout` with them as **gaps** (each phrased as the fact that would refute the trap, e.g. "most common cyanotic CHD presenting in the neonate"), with the evidence directory `evidence/<subject>/<slug>/` and the `rescue_fetches` budget. Apply each `GAP … FOUND` to the note as step 8 of `.claude/skills/lore-research/SKILL.md` describes, append to `run-log.md` there, then `F bank <module>` and dispatch `trap-scout` again with the instruction "update mode: move the traps the new claims refute from Unrefutable into full entries; keep existing IDs". Do this once per module.
-3. → `F advance <module> analysis`.
+Dispatch `trap-scout` with the module and `W`. Check `W/trap-brief.md` has at least 8 trap entries. → `F advance <module> analysis`.
 
 ### analysis
 
@@ -60,17 +54,17 @@ Dispatch `distractor-analyst` with `W`. Check `W/trap-map.json` parses and every
 
 1. Segments to build: round 0, every segment in `W/blueprint.json`; later rounds, `rebuild` in `W/refine-plan.json`. Clear old work for them: `F clear <module> variants <S…>`, `F clear <module> blind <S…>`, `F clear <module> judging <S…>`.
 2. For each segment: `F pick <type> --seed <module>:<S>:<round>` (add `--require <T>` when the segment's `prefer.technique` names one). It returns the competing techniques.
-3. Dispatch one `dialogue-author` per (segment, technique), **all in one message so they run in parallel**: module, segment, technique, output path `W/variants/<S>/<T>.json`, and in later rounds the segment's critique from `refine-plan.json`.
+3. Dispatch one `dialogue-author` per (segment, technique), in parallel batches: module, segment, technique, output path `W/variants/<S>/<T>.json`, and in later rounds the segment's critique from `refine-plan.json`.
 4. `F blind <module> <S>` for each segment built. It drops any variant that fails `check-segment` and says so. A segment left with fewer than 2 variants gets one retry author on a technique not yet used, then `F blind` again; with none, `F fail`.
 5. → `F advance <module> judge`.
 
 ### judge
 
-For each segment built this round, dispatch `judges_per_segment` `dialogue-judge`s in segment mode, lenses in order `learning-scientist`, `examiner`, `learner-advocate` (IDs `j1`, `j2`, `j3`), **all segments' judges in one message**. → `F advance <module> edit`.
+For each segment built this round, dispatch `judges_per_segment` `dialogue-judge`s in segment mode (IDs `j1`, `j2`, …), in parallel batches. With one judge per segment, rotate the lens by segment number: S1 `learning-scientist`, S2 `examiner`, S3 `learner-advocate`, S4 `learning-scientist`, and so on. → `F advance <module> edit`.
 
 ### edit
 
-1. Dispatch one `module-editor` in **select** mode per segment built this round, all in one message.
+1. Dispatch one `module-editor` in **select** mode per segment built this round, in parallel batches.
 2. `F record <module> <S>` for each segment (updates `factory/technique-stats.json` and `factory/playbook.md`).
 3. → `F advance <module> assemble`.
 
@@ -84,19 +78,13 @@ For each segment built this round, dispatch `judges_per_segment` `dialogue-judge
 
 1. Dispatch `report-author` with `W`. It writes `W/report.json`, re-assembles, and validates with `--require-report`.
 2. Run `F assemble <module>` and `F validate <module> --require-report` yourself; errors → back to `report-author` once with them; still failing → `F fail`.
-3. → `F advance <module> verify`.
+3. → `F advance <module> evaluate`.
 
 From here on, every `F validate` in this module uses `--require-report`.
 
-### verify
-
-1. Dispatch `dialogue-verifier` with `W`.
-2. FAIL rows → `module-editor` patch per affected segment (FAILs on `report.*` rows go to `report-author` instead), then `F assemble` and `F validate`, then the verifier again. At most 2 loops; still failing → `F fail`.
-3. All PASS → `F advance <module> evaluate`.
-
 ### evaluate
 
-1. `F clear <module> sim`. Dispatch, in one message, one `learner-sim` per persona in `sim_personas`, and one `dialogue-judge` in **module mode** with the lens "all three lenses in turn" writing `W/review.json`. Dispatch the judge after the sims finish, so it can read their rendered reports (`W/sim/*.report.json`).
+1. `F clear <module> sim`. Dispatch one `learner-sim` per persona in `sim_personas` (parallel, up to 5), then one `dialogue-judge` in **module mode** with the lens "all three lenses in turn" writing `W/review.json`. Dispatch the judge after the sims finish, so it can read their rendered reports (`W/sim/*.report.json`).
 2. `F score <module>`. It prints the composite, whether this round is the best so far (and snapshots it to `W/best/`), and the threshold.
 3. → `F advance <module> refine`.
 
@@ -119,7 +107,7 @@ Read `W/scorecard.json` and the round number from `factory/state/`.
 ### publish
 
 1. `F publish <module>` (publishes the best round to `modules/<subject>/<slug>.json`).
-2. Finish `W/run-log.md`: rounds, composite per round, decisions per segment (pick / merge / fold and techniques), verifier and validator results, sims' biggest fixes, and anything left below threshold.
+2. Finish `W/run-log.md`: rounds, composite per round, decisions per segment (pick / merge / fold and techniques), validator results, sims' biggest fixes, and anything left below threshold.
 3. → `F advance <module> done`.
 
 ## End (every tick)

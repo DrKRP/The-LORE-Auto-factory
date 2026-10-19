@@ -6,8 +6,6 @@ Used by `dialogue-judge` to score segment variants (segment mode) and whole modu
 
 | Gate | Fails when |
 |---|---|
-| G1 Fidelity | A message states a fact with no claim, or says more than its claims (numbers, qualifiers, "most common", "first-line") |
-| G2 Unverified on core path | An unverified claim is taught outside a `deeper` branch or exam-trap node, or without `flag: "unverified"` |
 | G3 Broken graph | A `next` points nowhere, or a node has no way forward |
 | G4 Not buttons-only | Anything asks the learner to type, or depends on a model at run time |
 
@@ -37,7 +35,7 @@ Weighted score = Σ(score × weight) / Σ(weight), on the 1–5 scale.
   "variants": {
     "a": {"gates": [], "scores": {"R1": 4, "R2": 5, "R3": 4, "R4": 3, "R5": 4, "R6": 4, "R7": 5, "R8": 4},
            "weighted": 4.19, "best_parts": ["node case_m2: tempting-then-refute feedback"], "flaws": ["node exp1: 84 words"]},
-    "b": {"gates": ["G1: node k2 says 'always' but K44 does not"], "scores": {}, "weighted": 0}
+    "b": {"gates": ["G3: node k2 next points nowhere"], "scores": {}, "weighted": 0}
   },
   "ranking": ["a", "c", "b"],
   "merge_ideas": ["a's vignette with c's fast lane"]

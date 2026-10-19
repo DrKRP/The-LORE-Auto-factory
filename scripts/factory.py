@@ -28,7 +28,7 @@ NOTES = ROOT / "notes"
 EVIDENCE = ROOT / "evidence"
 
 STAGES = ["research", "traps", "analysis", "design", "author", "judge", "edit", "assemble",
-          "report", "verify", "evaluate", "refine", "publish", "done"]
+          "report", "evaluate", "refine", "publish", "done"]
 SEGMENT_TYPES = ["hook", "retrieve", "mechanism", "clinical", "diagnosis",
                  "management", "traps", "consolidate"]
 ROLES = {"probe", "explain", "feedback", "hint", "case", "recap", "bridge", "end"}
@@ -1279,7 +1279,7 @@ def cmd_score(a):
     m_score = 1 + 4 * sum(parts) / len(parts)
     composite = round(0.5 * j + 0.25 * s_score + 0.25 * m_score, 3)
     fails = verifier_fails(w)
-    gated = bool(val.get("errors")) or fails is None or fails > 0 or not review
+    gated = bool(val.get("errors")) or not review  # knowledge-only: no fact-check gate
     card = read_json(w / "scorecard.json", {"rounds": [], "best": None})
     entry = {"round": st["round"], "at": now(), "judges": round(j, 3), "sims": round(s_score, 3),
              "metrics": round(m_score, 3), "composite": composite, "gated": gated,
