@@ -1,0 +1,771 @@
+{
+  "segment": "S2",
+  "entry": "m1",
+  "nodes": {
+    "m1": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "A classmate writes: 'TOF is a VSD, an overriding aorta, pulmonary stenosis, plus ASD and PDA. More holes, more blue.'",
+          "claims": []
+        },
+        {
+          "text": "Which correction is best?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "ASD and PDA may accompany TOF but are not among the four",
+          "next": "m1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Keep ASD as the fourth component; PDA is the extra",
+          "next": "m1_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Swap ASD and PDA for LVH; the left ventricle overworks",
+          "next": "m1_t14",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "m1_h",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "m1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. ASD and PDA are among the other anomalies that may accompany TOF; the four components listed by StatPearls and CDC include no ASD, PDA or LVH.",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "The four: a large anteriorly malaligned VSD, an overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy (RVH).",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "m2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "m1_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because an ASD really does turn up with TOF and the pentalogy name uses it. But a hole that turns up alongside is not a component: the four listed by StatPearls and CDC include no ASD or PDA.",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "The four are the VSD, overriding aorta, infundibular obstruction and RVH.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "m1",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note the exam form: PYQs have keyed PDA, ASD and LVH as 'not part of TOF'; current StatPearls lists the four as VSD, overriding aorta, RVOT obstruction and RVH.",
+        "claims": [
+          "K77"
+        ]
+      }
+    },
+    "m1_t14": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because an overriding aorta sounds like left-heart work. But the four components listed by StatPearls and CDC include no LVH.",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "The thick ventricle in TOF is the right one: RVH, secondary to chronic systemic pressures.",
+          "claims": [
+            "K12"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "m1",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this one is worth a second look: PYQs have keyed LVH, with ASD and PDA, as 'not part of TOF'.",
+        "claims": [
+          "K77"
+        ]
+      }
+    },
+    "m1_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Look at the word 'may'. Some lesions merely turn up beside TOF. Which of the classmate's five are defining, and which only accompany?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "m1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "m2": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Second belief: 'TOF is a pulmonary valve disease.'",
+          "claims": []
+        },
+        {
+          "text": "Where does the RVOT (right ventricular outflow tract) obstruction sit in classic TOF?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "At the pulmonary valve only",
+          "next": "m2_t2",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Infundibular, below the valve (sub-pulmonary)",
+          "next": "m2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "In the left ventricular outflow tract",
+          "next": "m2_t14",
+          "kind": "trap",
+          "trap": "TR14"
+        }
+      ]
+    },
+    "m2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The obstruction is infundibular (sub-pulmonary) RVOT obstruction, one of the four components.",
+          "claims": [
+            "K11",
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "m4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "m2_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because the pulmonary valve is the name we attach to pulmonary stenosis. But the component is infundibular (sub-pulmonary) RVOT obstruction, below the valve.",
+          "claims": [
+            "K11"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "m2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "m2_t14": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because the aorta overrides and the left side feels involved. But the obstruction is infundibular (sub-pulmonary) RVOT obstruction, on the right.",
+          "claims": [
+            "K11"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "m2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "m4": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Now follow the blood. The VSD is large, the aorta overrides, and the infundibulum is narrowed.",
+          "claims": []
+        },
+        {
+          "text": "With significant obstruction, where does most of the right ventricular blood go?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Across the VSD to the aorta, bypassing the lungs",
+          "next": "m4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Into the lungs; flow rises and the film turns plethoric",
+          "next": "m4_t14",
+          "kind": "trap",
+          "trap": "TR14"
+        }
+      ]
+    },
+    "m4_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. With significant RVOT obstruction, most of the blood shunts toward the aorta, bypassing the pulmonary bed.",
+          "claims": [
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "m3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "m4_t14": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because a VSD usually sends blood to the lungs. But here the outflow is blocked, so most blood shunts toward the aorta and bypasses the pulmonary bed.",
+          "claims": [
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "m4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "m3": {
+      "role": "probe",
+      "objectives": [
+        "O2",
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The right ventricle now pumps against that block and the systemic pressure. Which ventricle thickens, and how does it fit the chain?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Right ventricle; the thick wall is what narrows the outflow",
+          "next": "m3_t2",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Right ventricle; thickening is secondary to systemic pressures",
+          "next": "m3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Left ventricle, since it feeds the overriding aorta",
+          "next": "m3_t14",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "m3_h",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "m3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. RVH is secondary to chronic systemic pressures, so it comes last in the chain, not first.",
+          "claims": [
+            "K12"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "recap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "m3_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because a thick wall and a narrow outflow sit side by side. But the arrow runs the other way: RVH is secondary to chronic systemic pressures.",
+          "claims": [
+            "K12"
+          ]
+        },
+        {
+          "text": "The narrowing is the infundibular obstruction, a separate component.",
+          "claims": [
+            "K11"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "m3",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this one is worth a second look: RVH is a consequence in this chain, never the cause of the obstruction.",
+        "claims": [
+          "K12"
+        ]
+      }
+    },
+    "m3_t14": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because the aorta overrides. But the component is right ventricular hypertrophy, secondary to chronic systemic pressures; LVH is not one of the four.",
+          "claims": [
+            "K12",
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "m3",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this one is worth a second look: PYQs have keyed LVH as 'not part of TOF'.",
+        "claims": [
+          "K77"
+        ]
+      }
+    },
+    "m3_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which side meets the block and the aortic pressure. Is the thickening a cause of the narrowing, or a response to it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "m3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "recap": {
+      "role": "recap",
+      "say": [
+        {
+          "text": "Chain to keep: malaligned VSD, overriding aorta, infundibular obstruction, blood bypasses the lungs, RV pressure up, RVH last.",
+          "claims": [
+            "K3",
+            "K20",
+            "K12"
+          ],
+          "device": true
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "m5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "m5": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Last belief: 'Pentalogy of Fallot is TOF plus a PDA, five lesions in all.'",
+          "claims": []
+        },
+        {
+          "text": "What does the fifth lesion actually add?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A patent ductus arteriosus",
+          "next": "m5_t3",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "An atrial septal defect",
+          "next": "m5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "A second ventricular septal defect",
+          "next": "m5_t3b",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "m5_h",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "m5_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Pentalogy of Fallot is TOF plus an atrial septal defect; the term is old and seldom used now.",
+          "claims": [
+            "K5"
+          ]
+        },
+        {
+          "text": "PYQs have expected the same, and CDC confirms it.",
+          "claims": [
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "offer",
+          "kind": "continue"
+        }
+      ]
+    },
+    "m5_t3": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because PDA is the other lesion named beside ASD as accompanying TOF. But the pentalogy is TOF plus an atrial septal defect.",
+          "claims": [
+            "K13",
+            "K5"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "m5",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note: PYQs have expected pentalogy = TOF + ASD; CDC agrees.",
+        "claims": [
+          "K76"
+        ]
+      }
+    },
+    "m5_t3b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because a VSD is already the core of TOF. But the fifth lesion is an atrial septal defect, not another VSD.",
+          "claims": [
+            "K5"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "m5",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note: PYQs have expected pentalogy = TOF + ASD; CDC agrees.",
+        "claims": [
+          "K76"
+        ]
+      }
+    },
+    "m5_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think of the two chambers on top, not the vessels or the ventricles. Which hole sits there?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "m5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "offer": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Core rebuilt. Want the optional side-branch on arch and syndrome numbers?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Go deeper: arch and syndromes",
+          "next": "d1",
+          "kind": "deeper"
+        },
+        {
+          "label": "Skip to the next part",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "d1": {
+      "role": "probe",
+      "objectives": [
+        "O11"
+      ],
+      "say": [
+        {
+          "text": "Quick refutation: someone says a right aortic arch is 'about 6% or up to 15%' in TOF.",
+          "claims": []
+        },
+        {
+          "text": "What is the right aortic arch figure?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Up to 15% of TOF cases",
+          "next": "d1_t",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "20-25% of TOF",
+          "next": "d1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "About 6% of TOF cases",
+          "next": "d1_t",
+          "kind": "trap",
+          "trap": "TR17"
+        }
+      ]
+    },
+    "d1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A right aortic arch is seen in 20-25% of TOF.",
+          "claims": [
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "d2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "d1_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because those figures sound familiar. They belong to 22q11.2 deletion frequency: up to 15% in some sources, 6% in one cohort.",
+          "claims": [
+            "K79"
+          ]
+        },
+        {
+          "text": "The right aortic arch is seen in 20-25%.",
+          "claims": [
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "d1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "d2": {
+      "role": "probe",
+      "objectives": [
+        "O11"
+      ],
+      "say": [
+        {
+          "text": "Which statement about syndromes in TOF is best?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Down syndrome is the usual association",
+          "next": "d2_t",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "22q11.2 deletion is present in most TOF cases",
+          "next": "d2_t2",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "22q11.2 deletion is the commonest link, in a minority",
+          "next": "d2_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "d2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. 22q11.2 deletion is the most common syndromic association, in up to 15% of cases.",
+          "claims": [
+            "K17"
+          ],
+          "flag": "unverified"
+        },
+        {
+          "text": "Sources differ: up to 15% versus 6% in one cohort.",
+          "claims": [
+            "K79"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "d2_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because Down syndrome is the famous heart-defect syndrome. But the most common syndromic association is the 22q11.2 deletion.",
+          "claims": [
+            "K7"
+          ],
+          "flag": "unverified"
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "d2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "d2_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because it is the top association. But sources differ on its frequency: up to 15% versus 6% in one cohort, not most cases.",
+          "claims": [
+            "K79"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "d2",
+          "kind": "retry"
+        }
+      ]
+    }
+  }
+}
