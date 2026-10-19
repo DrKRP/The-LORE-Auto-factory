@@ -115,12 +115,12 @@ claims_unverified: 0
 - Conservative measures are leg elevation, exercise, weight reduction and avoiding prolonged standing [1].
 - **Graduated compression stockings** relieve symptoms and are used when intervention is unsuitable or declined, in pregnancy, and after treatment [1].
 - Compression is **contraindicated** in significant peripheral arterial disease (ABPI <0.8) [1].
-- NICE advises against offering compression hosiery as treatment for symptomatic varicose veins when interventional treatment is suitable [2].
+- NICE advises against offering compression hosiery as treatment for symptomatic varicose veins when interventional treatment is suitable [1].
 
 ### Interventional: order of preference for truncal reflux (NICE)
-1. **Endothermal ablation** — **radiofrequency ablation (RFA)** or **endovenous laser ablation (EVLA)** — is first-line [2].
-2. **Ultrasound-guided foam sclerotherapy** is offered if endothermal ablation is unsuitable [2].
-3. **Open surgery** (ligation and stripping) is offered if neither is suitable [2].
+1. **Endothermal ablation** — **radiofrequency ablation (RFA)** or **endovenous laser ablation (EVLA)** — is first-line [1].
+2. **Ultrasound-guided foam sclerotherapy** is offered if endothermal ablation is unsuitable [1].
+3. **Open surgery** (ligation and stripping) is offered if neither is suitable [1].
 
 - Endothermal ablation is done under **tumescent local anaesthesia**, which also protects surrounding tissue from heat [1].
 - Endovenous heat-induced thrombosis (**EHIT**), thrombus extending from the ablated vein into the deep vein, is a specific complication of thermal ablation [1].
@@ -172,7 +172,7 @@ claims_unverified: 0
 | Most common type | Primary varicose veins | [1] |
 | Most common site of venous ulcer | Gaiter area, just above the medial malleolus | [1] |
 | Investigation of choice | Duplex ultrasound (colour Doppler) | [1] |
-| First-line treatment of truncal reflux (current) | Endothermal ablation (RFA / EVLA) | [2] |
+| First-line treatment of truncal reflux (current) | Endothermal ablation (RFA / EVLA) | [1] |
 | Classic surgery for SFJ incompetence | Trendelenburg operation (flush SFJ ligation) + stripping to knee | [1] |
 | Sclerosant commonly used | Sodium tetradecyl sulphate (or polidocanol) | [1] |
 | Test for deep vein patency | Perthes test | [1] |
