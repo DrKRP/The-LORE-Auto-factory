@@ -295,8 +295,17 @@ function summary() {
   r.className = "panel";
   r.innerHTML = "<h2>References</h2><ol>" + Object.entries(M.references).map(([n, ref]) =>
     `<li value="${esc(n)}">${esc(ref.title)} <a href="${esc(ref.url)}" target="_blank" rel="noopener">link</a> <span class="days">tier ${ref.tier ?? "?"}</span></li>`).join("") +
-    `</ol><button id="export">Download session record</button>`;
+    `</ol><div class="row"><button id="export">Download session record</button><button id="copyrec">Copy session record</button></div>`;
   $("chat").appendChild(r);
+  const record = () => {
+    const { steps, ...computed } = R;
+    return { module: M.id, version: M.version, started: S.hist.length ? new Date(S.hist[0].t || Date.now()).toISOString() : null,
+      finished: new Date().toISOString(), path: S.hist.map((h) => ({ node: h.at, choice: h.choice, sure: h.sure ?? null, t: h.t || null })), report: computed };
+  };
+  $("copyrec").onclick = async (e) => {
+    try { await navigator.clipboard.writeText(JSON.stringify(record(), null, 2)); e.target.textContent = "Copied"; }
+    catch (err) { e.target.textContent = "Copy blocked: use Download"; }
+  };
   $("export").onclick = () => {
     const { steps, ...computed } = R;
     const rec = { module: M.id, version: M.version, started: S.hist.length ? new Date(S.hist[0].t || Date.now()).toISOString() : null,
@@ -363,6 +372,7 @@ $("picker").onchange = async (e) => { if (e.target.value) load(await (await fetc
       $("picker").appendChild(o);
     }
   } catch (e) { $("picker").hidden = true; }
+  if (window.LORE_MODULE) { $("picker").hidden = true; load(window.LORE_MODULE); return; }
   if (q) { try { load(await (await fetch(q)).json()); } catch (e) { bubble("tutor", "Could not load " + esc(q)); } }
 })();
 </script>

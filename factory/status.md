@@ -1,25 +1,25 @@
 # Factory status
 
-Updated 2026-10-19T12:24:54. Written by `scripts/factory.py status`; do not edit.
+Updated 2026-10-19T12:39:34. Written by `scripts/factory.py status`; do not edit.
 
 ## Modules
 
 | module | stage | round | best | status |
 |---|---|---|---|---|
 | paediatrics/tetralogy-of-fallot | author | 0 |  | in progress |
+| surgery/acute-appendicitis | research | 0 |  | in progress |
+| surgery/acute-intestinal-obstruction | research | 0 |  | in progress |
+| surgery/burns-assessment-and-fluid-resuscitation | research | 0 |  | in progress |
+| surgery/carcinoma-breast | research | 0 |  | in progress |
+| surgery/gallstones-and-acute-cholecystitis | research | 0 |  | in progress |
+| surgery/inguinal-hernia | research | 0 |  | in progress |
+| surgery/perforated-peptic-ulcer | research | 0 |  | in progress |
+| surgery/thyroid-nodule-and-differentiated-thyroid-cancer | research | 0 |  | in progress |
+| surgery/trauma-primary-survey-atls | research | 0 |  | in progress |
+| surgery/varicose-veins | research | 0 |  | in progress |
 
-## Queue (15 waiting)
+## Queue (5 waiting)
 
-- 1 · surgery · Acute appendicitis
-- 1 · surgery · Inguinal hernia
-- 1 · surgery · Acute intestinal obstruction
-- 1 · surgery · Gallstones and acute cholecystitis
-- 1 · surgery · Perforated peptic ulcer
-- 1 · surgery · Carcinoma breast
-- 1 · surgery · Thyroid nodule and differentiated thyroid cancer
-- 1 · surgery · Burns: assessment and fluid resuscitation
-- 1 · surgery · Trauma primary survey (ATLS)
-- 1 · surgery · Varicose veins
 - 2 · paediatrics · Transposition of the great arteries
 - 2 · paediatrics · Ventricular septal defect
 - 2 · paediatrics · Patent ductus arteriosus
@@ -30,3 +30,12 @@ Updated 2026-10-19T12:24:54. Written by `scripts/factory.py status`; do not edit
 
 | segment type | technique | trials | win rate | mean judge score |
 |---|---|---|---|---|
+| hook | T9 Retrieval gate | 1 | 1.00 | 4.03 |
+| hook | T4 Productive failure | 1 | 0.50 | 3.58 |
+| hook | T2 Case-first vignette | 1 | 0.50 | 1.80 |
+| clinical | T2 Case-first vignette | 1 | 1.00 | 4.05 |
+| clinical | T7 Contrasting cases | 1 | 0.50 | 3.81 |
+| clinical | T3 Predict–observe–explain | 1 | 0.00 | 0.00 |
+| diagnosis | T5 Worked example, then fade | 1 | 1.00 | 4.06 |
+| diagnosis | T3 Predict–observe–explain | 1 | 0.50 | 3.86 |
+| diagnosis | T1 Socratic ladder | 1 | 0.50 | 1.92 |

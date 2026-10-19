@@ -1,0 +1,1027 @@
+{
+  "segment": "S5",
+  "entry": "m1",
+  "nodes": {
+    "m1": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Before any management: a child with TOF goes into a tet spell. The systolic murmur you were hearing a minute ago:",
+          "claims": []
+        },
+        {
+          "text": "What does it do during the spell?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "It becomes louder",
+          "next": "m1_t",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "It stays the same",
+          "next": "m1_t",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "It becomes softer",
+          "next": "m1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "m1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "m1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Treat the murmur as the sound of blood crossing the outflow tract. In a spell, where is most of the blood heading instead?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "m1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "m1_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the rule 'more obstruction, more prominent murmur' is true for the anatomy.",
+          "claims": [
+            "K26"
+          ]
+        },
+        {
+          "text": "Hold that rule for a moment. Ask how much blood is actually crossing the RVOT during a spell, then try once more in a case.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this one is worth the retry: a spell is a moving event, not the fixed anatomy.",
+        "claims": [
+          "K29"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try the case",
+          "next": "m1b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "m1b": {
+      "role": "probe",
+      "objectives": [
+        "O4",
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "A 4-month-old with known TOF is crying and deeply blue. The murmur heard last week is now hard to hear.",
+          "claims": []
+        },
+        {
+          "text": "What is happening?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Heart failure from left ventricular dysfunction",
+          "next": "m1_expl",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "A hypercyanotic (tet) spell",
+          "next": "m1_ok2",
+          "kind": "correct"
+        },
+        {
+          "label": "Improvement: the obstruction is lessening",
+          "next": "m1_expl",
+          "kind": "trap",
+          "trap": "TR8"
+        }
+      ]
+    },
+    "m1_ok2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Agitation is a recognised trigger, and a fall in murmur intensity is the sign that goes with the spell.",
+          "claims": [
+            "K28",
+            "K29"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "m1_expl": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Both readings are tempting, because a quieter murmur sounds like less trouble. It is the opposite.",
+          "claims": []
+        },
+        {
+          "text": "During a tet spell the murmur decreases in intensity. With significant RVOT obstruction most blood shunts toward the aorta, bypassing the lungs.",
+          "claims": [
+            "K29",
+            "K20"
+          ]
+        },
+        {
+          "text": "Less blood crosses the RVOT, so there is less to hear.",
+          "claims": [
+            "K20"
+          ],
+          "device": true
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "m1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. During a tet spell the murmur decreases in intensity, because most blood shunts toward the aorta and bypasses the lungs.",
+          "claims": [
+            "K29",
+            "K20"
+          ]
+        },
+        {
+          "text": "The older rule 'more obstruction, more prominent murmur' describes the anatomy, not the spell.",
+          "claims": [
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a2": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Worked case A: a toddler cries hard, turns deeply blue, and the murmur softens. Agitation is a trigger and the softer murmur marks the spell, so we start at the bedside now.",
+          "claims": [
+            "K28",
+            "K29",
+            "K42"
+          ]
+        },
+        {
+          "text": "Step 2: knee-chest positioning. Its lever is to increase systemic vascular resistance (SVR).",
+          "claims": [
+            "K43"
+          ]
+        },
+        {
+          "text": "Reason: cyanosis follows the balance between RVOT resistance and SVR. Lift the systemic side and the balance moves toward the minimally cyanotic state.",
+          "claims": [
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a3",
+          "kind": "continue"
+        },
+        {
+          "label": "Why does the balance matter?",
+          "next": "a2_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "a2_why": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "If resistance across the RVOT is less than SVR, the patient is minimally cyanotic or acyanotic. Pink Tets sit on that side, with moderate obstruction and may show only a loud murmur.",
+          "claims": [
+            "K22",
+            "K23"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a3": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Step 3: oxygen. Its lever is pulmonary vasodilation, so it acts on the lung side while knee-chest acts on the systemic side.",
+          "claims": [
+            "K44",
+            "K43"
+          ]
+        },
+        {
+          "text": "Case A is finished through step 3. In case B you will carry out the next step yourself.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "b1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b1": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Case B: a feverish infant with TOF in a spell. Knee-chest and oxygen are done, and the child is still blue.",
+          "claims": []
+        },
+        {
+          "text": "Which measure fills the right ventricle (RV) better?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Restrict fluids to protect the heart",
+          "next": "b1_t11",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "IV phenylephrine",
+          "next": "b1_t9",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "IV fluid bolus",
+          "next": "b1_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "b1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. IV fluid boluses improve RV filling. IV beta-blockers follow the same theme: they decrease heart rate and aid RV filling further.",
+          "claims": [
+            "K45",
+            "K46"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "b2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b1_t11": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a distressed, breathless child pulls us toward heart-failure reflexes such as a diuretic.",
+          "claims": []
+        },
+        {
+          "text": "A spell is not that problem. The listed measure for RV filling is the IV fluid bolus, and beta-blockers add to it by slowing the rate.",
+          "claims": [
+            "K45",
+            "K46"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "b2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b1_t9": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Phenylephrine is a real spell drug, which makes it tempting here. Its aim is different: it increases systemic afterload.",
+          "claims": [
+            "K47"
+          ]
+        },
+        {
+          "text": "For RV filling the measure is the IV fluid bolus.",
+          "claims": [
+            "K45"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "b2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b2": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Case B so far: position and oxygen, fluid for filling, then beta-blocker. Phenylephrine raises systemic afterload, and morphine can be given as a sedative.",
+          "claims": [
+            "K43",
+            "K44",
+            "K45",
+            "K46",
+            "K47",
+            "K48"
+          ]
+        },
+        {
+          "text": "Case C removes the steps. You choose the opening move.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c1": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Case C: a 6-month-old with TOF goes into a tet spell in the outpatient clinic. Nothing has been done yet.",
+          "claims": []
+        },
+        {
+          "text": "What do you do first?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "IV propranolol",
+          "next": "c1_t",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Intubate and ventilate",
+          "next": "c1_t",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Knee-chest position and oxygen",
+          "next": "c1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "c1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Case A and B began with measures that need no drug. Which two were they, and which one acts on the systemic side?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "c1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c1_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a spell feels like an emergency that calls for the most active step.",
+          "claims": []
+        },
+        {
+          "text": "Check against the lists you have seen: where did case A begin, and where did drugs come in? Try the same case phrased differently.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look again: the StatPearls list opens with positioning and oxygen, not a drug or airway step.",
+        "claims": [
+          "K43",
+          "K44"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c1b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c1b": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Same clinic, same child, still in the spell. The nurse asks which two measures come first.",
+          "claims": []
+        },
+        {
+          "text": "Choose.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Morphine and phenylephrine",
+          "next": "c1_expl",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "IV fluids and propranolol",
+          "next": "c1_expl",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Knee-chest and oxygen",
+          "next": "c1_ok2",
+          "kind": "correct"
+        }
+      ]
+    },
+    "c1_ok2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Positioning raises SVR and oxygen causes pulmonary vasodilation, so both are used before IV drugs.",
+          "claims": [
+            "K43",
+            "K44"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c1_expl": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Drugs are tempting because they sound decisive. The listed sequence runs knee-chest positioning, oxygen, IV fluid boluses, IV beta-blockers, IV phenylephrine, with morphine as a sedative.",
+          "claims": [
+            "K43",
+            "K44",
+            "K45",
+            "K46",
+            "K47",
+            "K48"
+          ]
+        },
+        {
+          "text": "Rapid and aggressive means working through that list promptly, bedside measures first.",
+          "claims": [
+            "K42"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Knee-chest positioning and oxygen open the list; IV fluids, beta-blockers and phenylephrine follow, with morphine as a sedative.",
+          "claims": [
+            "K43",
+            "K44",
+            "K45",
+            "K46",
+            "K47",
+            "K48"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "Confident and right: keep the habit of starting at the bedside because spells need a rapid, aggressive approach.",
+        "claims": [
+          "K42"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c2": {
+      "role": "probe",
+      "objectives": [
+        "O7",
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Case C continues. The registrar asks how knee-chest positioning helps.",
+          "claims": []
+        },
+        {
+          "text": "Pick its lever.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Reduces venous return to the right heart",
+          "next": "c2_t11",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Lowers pulmonary vascular resistance",
+          "next": "c2_t9",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "Raises systemic vascular resistance",
+          "next": "c2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c2_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "c2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Recall case A: oxygen acted on the lung side. Knee-chest acts on the other side of the balance. Which one?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "c2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Knee-chest positioning increases systemic vascular resistance. IV phenylephrine shares that lever by increasing systemic afterload.",
+          "claims": [
+            "K43",
+            "K47"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "Good: oxygen is the lung-side measure, since it causes pulmonary vasodilation.",
+        "claims": [
+          "K44"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c2_t9": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because the aim is more lung flow, and oxygen does act on the lungs.",
+          "claims": [
+            "K44"
+          ]
+        },
+        {
+          "text": "Positioning acts on the other side: it increases systemic vascular resistance, and the balance shifts when RVOT resistance is less than SVR.",
+          "claims": [
+            "K43",
+            "K22"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so fix the pairing: knee-chest and phenylephrine raise SVR; oxygen dilates the pulmonary bed.",
+        "claims": [
+          "K43",
+          "K47",
+          "K44"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c2_t11": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting if you picture the child unloading the heart, as in failure.",
+          "claims": []
+        },
+        {
+          "text": "The lever listed for positioning is an increase in SVR. The filling measures are the IV fluid boluses and beta-blockers.",
+          "claims": [
+            "K43",
+            "K45",
+            "K46"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note it: spell measures do not offload the right heart; fluids improve RV filling.",
+        "claims": [
+          "K45"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c3": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Another child with TOF has only a loud murmur, no spells and little cyanosis (a 'pink Tet').",
+          "claims": []
+        },
+        {
+          "text": "Which resistance relationship fits?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "RVOT resistance is higher than SVR",
+          "next": "c3_t",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Pulmonary vascular resistance is raised",
+          "next": "c3_t9",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "RVOT resistance is less than SVR",
+          "next": "c3_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "c3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. When RVOT resistance is below SVR the patient is minimally cyanotic or acyanotic; moderate obstruction with a loud murmur is the pink Tet.",
+          "claims": [
+            "K22",
+            "K23"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "d1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c3_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: that is the balance in a blue child, which you just treated.",
+          "claims": []
+        },
+        {
+          "text": "A pink Tet is the other side: RVOT resistance less than SVR, so minimal or no cyanosis.",
+          "claims": [
+            "K22",
+            "K23"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "d1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c3_t9": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because lung resistance sounds like the lung problem.",
+          "claims": []
+        },
+        {
+          "text": "The relationship that decides colour is RVOT resistance against SVR; below SVR means minimally cyanotic or acyanotic.",
+          "claims": [
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "d1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "d1": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Case D, all yours: a toddler in a spell, nothing done.",
+          "claims": []
+        },
+        {
+          "text": "Which order is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Oxygen, then IV furosemide, then digoxin",
+          "next": "d1_t11",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Phenylephrine, then morphine, then knee-chest and oxygen",
+          "next": "d1_t10",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Knee-chest and oxygen, then IV fluids, then beta-blocker or phenylephrine",
+          "next": "d1_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "d1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Positioning (SVR up) and oxygen (pulmonary vasodilation), then fluids for RV filling, then beta-blockers or phenylephrine; morphine can be given as a sedative.",
+          "claims": [
+            "K43",
+            "K44",
+            "K45",
+            "K46",
+            "K47",
+            "K48"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "z",
+          "kind": "continue"
+        }
+      ]
+    },
+    "d1_t11": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: oxygen opens well, then the heart-failure reflex takes over.",
+          "claims": [
+            "K44"
+          ]
+        },
+        {
+          "text": "A spell wants RV filling and a higher systemic afterload, not diuresis. After bedside measures come IV fluids, then beta-blockers or phenylephrine.",
+          "claims": [
+            "K45",
+            "K46",
+            "K47"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "z",
+          "kind": "continue"
+        }
+      ]
+    },
+    "d1_t10": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: these are real spell measures, so the list looks right.",
+          "claims": [
+            "K47",
+            "K48"
+          ]
+        },
+        {
+          "text": "The order is the issue: knee-chest and oxygen open the sequence, drugs follow.",
+          "claims": [
+            "K43",
+            "K44"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "z",
+          "kind": "continue"
+        }
+      ]
+    },
+    "z": {
+      "role": "recap",
+      "say": [
+        {
+          "text": "Take-home: spell murmur softer; knee-chest raises SVR; oxygen dilates the lungs; fluids and beta-blockers help RV filling; phenylephrine raises afterload.",
+          "claims": [
+            "K29",
+            "K43",
+            "K44",
+            "K45",
+            "K46",
+            "K47"
+          ]
+        },
+        {
+          "text": "Bedside first, and act fast.",
+          "claims": [
+            "K42"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Continue",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  },
+  "technique": "A",
+  "cards": [
+    {
+      "q": "What does the murmur do during a tet spell?",
+      "a": "It decreases in intensity, because most blood shunts toward the aorta and bypasses the lungs.",
+      "claims": [
+        "K29"
+      ],
+      "objective": "O4"
+    },
+    {
+      "q": "First measures in a tet spell, and the lever of knee-chest positioning?",
+      "a": "Knee-chest position and oxygen first; knee-chest raises systemic vascular resistance.",
+      "claims": [
+        "K43",
+        "K44"
+      ],
+      "objective": "O7"
+    },
+    {
+      "q": "Which spell measures aid RV filling, and which raises systemic afterload?",
+      "a": "IV fluid boluses and beta-blockers aid RV filling; phenylephrine raises systemic afterload.",
+      "claims": [
+        "K45",
+        "K46",
+        "K47"
+      ],
+      "objective": "O7"
+    },
+    {
+      "q": "Which resistance relationship gives a pink Tet?",
+      "a": "RVOT resistance less than SVR: minimally cyanotic or acyanotic.",
+      "claims": [
+        "K22",
+        "K23"
+      ],
+      "objective": "O3"
+    }
+  ]
+}
