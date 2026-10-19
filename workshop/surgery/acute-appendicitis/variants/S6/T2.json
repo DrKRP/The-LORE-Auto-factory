@@ -1014,6 +1014,7 @@
   "p7": {
    "role": "probe",
    "objectives": [
+    "O1",
     "O8"
    ],
    "ask_confidence": true,
@@ -1055,6 +1056,7 @@
   "p7_h": {
    "role": "hint",
    "objectives": [
+    "O1",
     "O8"
    ],
    "say": [
@@ -1074,6 +1076,7 @@
   "p7_ok": {
    "role": "feedback",
    "objectives": [
+    "O1",
     "O8"
    ],
    "say": [
@@ -1096,6 +1099,7 @@
   "p7_t2": {
    "role": "feedback",
    "objectives": [
+    "O1",
     "O8"
    ],
    "say": [
@@ -1141,6 +1145,7 @@
   "p7_t3": {
    "role": "feedback",
    "objectives": [
+    "O1",
     "O8"
    ],
    "say": [
@@ -1186,37 +1191,36 @@
   "p8": {
    "role": "probe",
    "objectives": [
-    "O7",
-    "O8"
+    "O7"
    ],
    "ask_confidence": true,
    "say": [
     {
-     "text": "A 24-year-old woman has right iliac fossa pain for 10 hours. No pregnancy test has been done. The junior doctor says, 'Let's get an MRI first; it is the most accurate test.'",
+     "text": "A 26-year-old woman at 18 weeks of pregnancy has right iliac fossa pain. Her junior suggests a contrast CT, since CT is the most accurate test.",
      "claims": []
     },
     {
-     "text": "What is the right first step?",
+     "text": "What do you order first?",
      "claims": []
     }
    ],
    "choices": [
     {
-     "label": "MRI first, since it is the most accurate test",
+     "label": "Contrast-enhanced CT first, as the most accurate test",
      "next": "p8_t1",
      "kind": "trap",
-     "trap": "TR10"
+     "trap": "TR9"
     },
     {
-     "label": "Beta-hCG now, then ultrasound",
+     "label": "Graded-compression ultrasound",
      "next": "p8_ok",
      "kind": "correct"
     },
     {
-     "label": "Ultrasound now, and the pregnancy test afterwards",
+     "label": "MRI abdomen without gadolinium first, to avoid radiation",
      "next": "p8_t3",
      "kind": "trap",
-     "trap": "TR12"
+     "trap": "TR10"
     },
     {
      "label": "Not sure, give me a hint",
@@ -1228,12 +1232,11 @@
   "p8_h": {
    "role": "hint",
    "objectives": [
-    "O7",
-    "O8"
+    "O7"
    ],
    "say": [
     {
-     "text": "Start with what every woman of reproductive age needs before any scan.",
+     "text": "Ask which test is first-line in pregnancy, and which one is kept for when that test does not answer.",
      "claims": []
     }
    ],
@@ -1248,34 +1251,33 @@
   "p8_t1": {
    "role": "feedback",
    "objectives": [
-    "O7",
-    "O8"
+    "O7"
    ],
    "say": [
     {
-     "text": "MRI avoids radiation and gives excellent images, so it feels like the safe first choice.",
+     "text": "CT is the most accurate test in adults, so accuracy feels like the right first criterion.",
      "claims": []
     },
     {
-     "text": "MRI without gadolinium is the second rung in pregnancy, used when ultrasound is inconclusive.",
+     "text": "In pregnancy, ultrasound is the first test. CT is not the first test in a pregnant woman.",
      "claims": [
-      "K56",
-      "K100"
+      "K8",
+      "K98"
      ]
     },
     {
-     "text": "The order is beta-hCG, then ultrasound, then MRI only if the ultrasound is inconclusive.",
+     "text": "The order is graded-compression ultrasound first, then MRI without gadolinium only if it is inconclusive.",
      "claims": [
-      "K56",
-      "K100"
+      "K8",
+      "K98"
      ]
     }
    ],
    "sure_note": {
-    "text": "You were sure MRI comes first. In pregnancy it is the second rung.",
+    "text": "You were sure accuracy decides the first test. In pregnancy the first-line test is chosen for safety and availability.",
     "claims": [
-     "K56",
-     "K100"
+     "K8",
+     "K98"
     ]
    },
    "choices": [
@@ -1294,15 +1296,14 @@
   "p8_ok": {
    "role": "feedback",
    "objectives": [
-    "O7",
-    "O8"
+    "O7"
    ],
    "say": [
     {
-     "text": "Yes. Beta-hCG is needed in every woman of reproductive age, to exclude ectopic pregnancy. If she is pregnant, graded ultrasound is the first imaging.",
+     "text": "Yes. Ultrasound is the first-line test in pregnancy. MRI without gadolinium is the second rung, used when ultrasound is inconclusive.",
      "claims": [
-      "K53",
-      "K98"
+      "K98",
+      "K56"
      ]
     }
    ],
@@ -1317,34 +1318,33 @@
   "p8_t3": {
    "role": "feedback",
    "objectives": [
-    "O7",
-    "O8"
+    "O7"
    ],
    "say": [
     {
-     "text": "Ultrasound is the first imaging test, so booking it at once feels right.",
+     "text": "MRI gives good images without ionising radiation, so it feels like the safe first step.",
      "claims": []
     },
     {
-     "text": "The pregnancy test comes before imaging in every woman of reproductive age.",
+     "text": "MRI without gadolinium is the second rung in pregnancy, used when ultrasound is inconclusive.",
      "claims": [
-      "K53",
-      "K98"
+      "K56",
+      "K100"
      ]
     },
     {
-     "text": "Test first, then image: beta-hCG, then ultrasound.",
+     "text": "The order is ultrasound first, then MRI only if the ultrasound is inconclusive.",
      "claims": [
-      "K53",
-      "K98"
+      "K56",
+      "K100"
      ]
     }
    ],
    "sure_note": {
-    "text": "You were sure imaging comes first. The pregnancy test comes first.",
+    "text": "You were sure MRI comes first. In pregnancy it comes second.",
     "claims": [
-     "K53",
-     "K98"
+     "K56",
+     "K100"
     ]
    },
    "choices": [
@@ -1363,6 +1363,177 @@
   "p9": {
    "role": "probe",
    "objectives": [
+    "O8"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 24-year-old woman has right iliac fossa pain for 12 hours. The surgical team wants her in theatre this evening, and no pregnancy test has been sent.",
+     "claims": []
+    },
+    {
+     "text": "What comes first before theatre?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Theatre now, and send the pregnancy test with the swab",
+     "next": "p9_t1",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "Serum or urine beta-hCG, before anything else",
+     "next": "p9_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Ultrasound first, and the pregnancy test only if it is positive",
+     "next": "p9_t3",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p9_h",
+     "kind": "help"
+    }
+   ]
+  },
+  "p9_h": {
+   "role": "hint",
+   "objectives": [
+    "O8"
+   ],
+   "say": [
+    {
+     "text": "Start with the test that every woman of reproductive age needs before any scan or operation.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p9",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p9_t1": {
+   "role": "feedback",
+   "objectives": [
+    "O8"
+   ],
+   "say": [
+    {
+     "text": "She needs theatre urgently, so every minute counts and the test seems able to wait.",
+     "claims": []
+    },
+    {
+     "text": "Beta-hCG comes before any imaging or surgery in every woman of reproductive age, to exclude ectopic pregnancy.",
+     "claims": [
+      "K53",
+      "K59"
+     ]
+    },
+    {
+     "text": "Test first: beta-hCG, then decide on imaging or theatre.",
+     "claims": [
+      "K53",
+      "K59"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure the test can wait. It comes before theatre.",
+    "claims": [
+     "K53",
+     "K59"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p9",
+     "kind": "retry"
+    },
+    {
+     "label": "Next",
+     "next": "p10",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p9_ok": {
+   "role": "feedback",
+   "objectives": [
+    "O8"
+   ],
+   "say": [
+    {
+     "text": "Yes. Beta-hCG is needed in every woman of reproductive age, to exclude ectopic pregnancy, before imaging or surgery.",
+     "claims": [
+      "K53"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p10",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p9_t3": {
+   "role": "feedback",
+   "objectives": [
+    "O8"
+   ],
+   "say": [
+    {
+     "text": "The scan answers the diagnosis, so it feels like the step to take first.",
+     "claims": []
+    },
+    {
+     "text": "The pregnancy test is required before imaging, not conditional on what the scan shows.",
+     "claims": [
+      "K53",
+      "K98"
+     ]
+    },
+    {
+     "text": "Beta-hCG first in every woman of reproductive age, then the scan.",
+     "claims": [
+      "K53",
+      "K98"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure the scan leads. The pregnancy test leads.",
+    "claims": [
+     "K53",
+     "K98"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p9",
+     "kind": "retry"
+    },
+    {
+     "label": "Next",
+     "next": "p10",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p10": {
+   "role": "probe",
+   "objectives": [
     "O7"
    ],
    "ask_confidence": true,
@@ -1379,29 +1550,29 @@
    "choices": [
     {
      "label": "Discharge with advice, as the scan did not show appendicitis",
-     "next": "p9_t1",
+     "next": "p10_t1",
      "kind": "trap",
      "trap": "TR8"
     },
     {
      "label": "Repeat graded-compression ultrasound, the investigation of choice",
-     "next": "p9_t2",
+     "next": "p10_t2",
      "kind": "trap",
      "trap": "TR11"
     },
     {
      "label": "Contrast-enhanced CT of the abdomen",
-     "next": "p9_ok",
+     "next": "p10_ok",
      "kind": "correct"
     },
     {
      "label": "Not sure, give me a hint",
-     "next": "p9_h",
+     "next": "p10_h",
      "kind": "help"
     }
    ]
   },
-  "p9_h": {
+  "p10_h": {
    "role": "hint",
    "objectives": [
     "O7"
@@ -1415,12 +1586,12 @@
    "choices": [
     {
      "label": "Try again",
-     "next": "p9",
+     "next": "p10",
      "kind": "retry"
     }
    ]
   },
-  "p9_t1": {
+  "p10_t1": {
    "role": "feedback",
    "objectives": [
     "O7"
@@ -1455,17 +1626,17 @@
    "choices": [
     {
      "label": "Try again",
-     "next": "p9",
+     "next": "p10",
      "kind": "retry"
     },
     {
      "label": "Next",
-     "next": "p10",
+     "next": "p11",
      "kind": "continue"
     }
    ]
   },
-  "p9_t2": {
+  "p10_t2": {
    "role": "feedback",
    "objectives": [
     "O7"
@@ -1500,17 +1671,17 @@
    "choices": [
     {
      "label": "Try again",
-     "next": "p9",
+     "next": "p10",
      "kind": "retry"
     },
     {
      "label": "Next",
-     "next": "p10",
+     "next": "p11",
      "kind": "continue"
     }
    ]
   },
-  "p9_ok": {
+  "p10_ok": {
    "role": "feedback",
    "objectives": [
     "O7"
@@ -1527,12 +1698,12 @@
    "choices": [
     {
      "label": "Next",
-     "next": "p10",
+     "next": "p11",
      "kind": "continue"
     }
    ]
   },
-  "p10": {
+  "p11": {
    "role": "probe",
    "objectives": [
     "O9"
@@ -1540,172 +1711,171 @@
    "ask_confidence": true,
    "say": [
     {
-     "text": "A 52-year-old woman has CT-confirmed appendicitis, with a faecolith in the appendix. She wants to avoid an operation and asks about antibiotics alone.",
+     "text": "A 47-year-old fit woman has CT-proven uncomplicated appendicitis. There is no abscess, no perforation and no appendicolith. She asks whether she must have surgery.",
      "claims": []
     },
     {
-     "text": "What do you advise?",
+     "text": "What do you tell her?",
      "claims": []
     }
    ],
    "choices": [
     {
-     "label": "Antibiotics alone, since the CT shows no abscess",
-     "next": "p10_t1",
+     "label": "Appendicectomy is the only treatment, so surgery is the only offer",
+     "next": "p11_t1",
      "kind": "trap",
-     "trap": "TR23"
+     "trap": "TR22"
     },
     {
-     "label": "Appendicectomy, since a faecolith predicts antibiotic failure",
-     "next": "p10_ok",
+     "label": "Antibiotics-first is an accepted option, with surgery if it fails",
+     "next": "p11_ok",
      "kind": "correct"
     },
     {
-     "label": "Antibiotics alone, since the disease is uncomplicated",
-     "next": "p10_t3",
+     "label": "Antibiotics-first, even though the scan shows a small abscess",
+     "next": "p11_t3",
      "kind": "trap",
      "trap": "TR23"
     },
     {
      "label": "Not sure, give me a hint",
-     "next": "p10_h",
+     "next": "p11_h",
      "kind": "help"
     }
    ]
   },
-  "p10_h": {
+  "p11_h": {
    "role": "hint",
    "objectives": [
     "O9"
    ],
    "say": [
     {
-     "text": "Look again at what the CT shows besides the inflamed appendix.",
+     "text": "Check what the scan shows against the words 'uncomplicated' and 'no appendicolith' before you answer.",
      "claims": []
     }
    ],
    "choices": [
     {
      "label": "Try again",
-     "next": "p10",
-     "kind": "retry"
-    }
-   ]
-  },
-  "p10_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O9"
-   ],
-   "say": [
-    {
-     "text": "No abscess or perforation on the scan makes antibiotics look safe.",
-     "claims": []
-    },
-    {
-     "text": "Antibiotics-first is for uncomplicated disease without an appendicolith. Here the faecolith is the reason to operate.",
-     "claims": [
-      "K71",
-      "K15"
-     ]
-    },
-    {
-     "text": "Appendicectomy, since antibiotics-first needs both uncomplicated disease and no appendicolith.",
-     "claims": [
-      "K71",
-      "K15"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure no abscess means antibiotics are safe. The appendicolith is the qualifier.",
-    "claims": [
-     "K71",
-     "K15"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p10",
-     "kind": "retry"
-    },
-    {
-     "label": "Next",
      "next": "p11",
-     "kind": "continue"
+     "kind": "retry"
     }
    ]
   },
-  "p10_ok": {
+  "p11_t1": {
    "role": "feedback",
    "objectives": [
     "O9"
    ],
    "say": [
     {
-     "text": "Yes. An appendicolith predicts failure of antibiotics, and it also links with a higher risk of perforation. Appendicectomy is the treatment of choice.",
+     "text": "Appendicectomy is the textbook answer, so 'only treatment' feels like a safe absolute.",
+     "claims": []
+    },
+    {
+     "text": "PYQs expected appendicectomy as the only treatment. Current practice accepts antibiotics-first for selected CT-proven uncomplicated adults.",
      "claims": [
-      "K71",
-      "K15",
+      "K110",
+      "K9"
+     ]
+    },
+    {
+     "text": "Offer both: appendicectomy as the treatment of choice, and antibiotics-first as an accepted option for selected patients.",
+     "claims": [
+      "K110",
       "K9"
      ]
     }
    ],
+   "sure_note": {
+    "text": "You were sure the textbook 'only' applies. It is the older key.",
+    "claims": [
+     "K110",
+     "K9"
+    ]
+   },
    "choices": [
     {
-     "label": "Next",
+     "label": "Try again",
      "next": "p11",
+     "kind": "retry"
+    },
+    {
+     "label": "Next",
+     "next": "p12",
      "kind": "continue"
     }
    ]
   },
-  "p10_t3": {
+  "p11_ok": {
    "role": "feedback",
    "objectives": [
     "O9"
    ],
    "say": [
     {
-     "text": "Uncomplicated is the word for the mild cases antibiotics can treat, so this seems to fit.",
+     "text": "Yes. For selected CT-proven uncomplicated disease, antibiotics-first is accepted, and appendicectomy follows if the antibiotics fail.",
+     "claims": [
+      "K71",
+      "K110"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p12",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p11_t3": {
+   "role": "feedback",
+   "objectives": [
+    "O9"
+   ],
+   "say": [
+    {
+     "text": "Antibiotics are the first step for most infections, so a small abscess seems no barrier.",
      "claims": []
     },
     {
-     "text": "Uncomplicated is necessary but not enough. A faecolith predicts antibiotic failure.",
+     "text": "Antibiotics-first is for uncomplicated disease. An abscess is complicated, and it is drained.",
      "claims": [
       "K12",
-      "K71"
+      "K76"
      ]
     },
     {
-     "text": "Antibiotics-first suits CT-proven uncomplicated disease with no appendicolith.",
+     "text": "Drain an abscess and treat it. Offer antibiotics-first only for uncomplicated disease with no appendicolith.",
      "claims": [
       "K12",
-      "K71"
+      "K76"
      ]
     }
    ],
    "sure_note": {
-    "text": "You were sure uncomplicated is enough. The appendicolith is the extra qualifier.",
+    "text": "You were sure antibiotics are safe with an abscess. It is complicated.",
     "claims": [
      "K12",
-     "K71"
+     "K76"
     ]
    },
    "choices": [
     {
      "label": "Try again",
-     "next": "p10",
+     "next": "p11",
      "kind": "retry"
     },
     {
      "label": "Next",
-     "next": "p11",
+     "next": "p12",
      "kind": "continue"
     }
    ]
   },
-  "p11": {
+  "p12": {
    "role": "probe",
    "objectives": [
     "O10"
@@ -1724,29 +1894,29 @@
    "choices": [
     {
      "label": "Mass: Ochsner-Sherren regimen. Abscess: image-guided drainage",
-     "next": "p11_ok",
+     "next": "p12_ok",
      "kind": "correct"
     },
     {
      "label": "Mass: immediate appendicectomy. Abscess: open drainage",
-     "next": "p11_t2",
+     "next": "p12_t2",
      "kind": "trap",
      "trap": "TR25"
     },
     {
      "label": "Mass: routine interval appendicectomy at 6-8 weeks. Abscess: drainage",
-     "next": "p11_t3",
+     "next": "p12_t3",
      "kind": "trap",
      "trap": "TR24"
     },
     {
      "label": "Not sure, give me a hint",
-     "next": "p11_h",
+     "next": "p12_h",
      "kind": "help"
     }
    ]
   },
-  "p11_h": {
+  "p12_h": {
    "role": "hint",
    "objectives": [
     "O10"
@@ -1760,12 +1930,12 @@
    "choices": [
     {
      "label": "Try again",
-     "next": "p11",
+     "next": "p12",
      "kind": "retry"
     }
    ]
   },
-  "p11_ok": {
+  "p12_ok": {
    "role": "feedback",
    "objectives": [
     "O10"
@@ -1784,12 +1954,12 @@
    "choices": [
     {
      "label": "Next",
-     "next": "p12",
+     "next": "p13",
      "kind": "continue"
     }
    ]
   },
-  "p11_t2": {
+  "p12_t2": {
    "role": "feedback",
    "objectives": [
     "O10"
@@ -1824,17 +1994,17 @@
    "choices": [
     {
      "label": "Try again",
-     "next": "p11",
+     "next": "p12",
      "kind": "retry"
     },
     {
      "label": "Next",
-     "next": "p12",
+     "next": "p13",
      "kind": "continue"
     }
    ]
   },
-  "p11_t3": {
+  "p12_t3": {
    "role": "feedback",
    "objectives": [
     "O10"
@@ -1869,17 +2039,17 @@
    "choices": [
     {
      "label": "Try again",
-     "next": "p11",
+     "next": "p12",
      "kind": "retry"
     },
     {
      "label": "Next",
-     "next": "p12",
+     "next": "p13",
      "kind": "continue"
     }
    ]
   },
-  "p12": {
+  "p13": {
    "role": "probe",
    "objectives": [
     "O12"
@@ -1898,24 +2068,24 @@
    "choices": [
     {
      "label": "Mucocele of the appendix",
-     "next": "p12_t1",
+     "next": "p13_t1",
      "kind": "trap",
      "trap": "TR13"
     },
     {
      "label": "Carcinoid, the neuroendocrine tumour",
-     "next": "p12_ok",
+     "next": "p13_ok",
      "kind": "correct"
     },
     {
      "label": "Adenocarcinoma of the appendix",
-     "next": "p12_t3",
+     "next": "p13_t3",
      "kind": "trap",
      "trap": "TR13"
     }
    ]
   },
-  "p12_t1": {
+  "p13_t1": {
    "role": "feedback",
    "objectives": [
     "O12"
@@ -1955,7 +2125,7 @@
     }
    ]
   },
-  "p12_ok": {
+  "p13_ok": {
    "role": "feedback",
    "objectives": [
     "O12"
@@ -1978,7 +2148,7 @@
     }
    ]
   },
-  "p12_t3": {
+  "p13_t3": {
    "role": "feedback",
    "objectives": [
     "O12"
