@@ -1,0 +1,178 @@
+{
+  "segment": "S1",
+  "technique": "T2",
+  "entry": "hook",
+  "nodes": {
+    "hook": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 58-year-old man is found at laparoscopy to have a groin sac. It comes through the posterior wall of the canal, medial to the inferior epigastric vessels.", "claims": []},
+        {"text": "Which hernia is it?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Indirect inguinal hernia", "next": "hook_t1", "kind": "trap", "trap": "TR1"},
+        {"label": "Femoral hernia", "next": "hook_t40", "kind": "trap", "trap": "TR40"},
+        {"label": "Direct inguinal hernia", "next": "hook_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "hook_hint", "kind": "help"}
+      ]
+    },
+    "hook_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ignore the names for a moment. Which hernia comes through the deep ring, lateral to the vessels, and which through the posterior wall, medial to them?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "hook", "kind": "retry"}
+      ]
+    },
+    "hook_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. A direct hernia bulges through Hesselbach's triangle, medial to the inferior epigastric vessels.", "claims": ["K3", "K13"]},
+        {"text": "So the side of the vessels decides the route. The name only tells you the family.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Next", "next": "position", "kind": "continue"}
+      ]
+    },
+    "hook_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: indirect is the commonest groin hernia, so it feels like the safe pick.", "claims": ["K2"]},
+        {"text": "It fails here. An indirect sac enters through the deep ring, lateral to the inferior epigastric vessels. This sac is medial to them.", "claims": ["K12"]},
+        {"text": "Direct is the one that passes through the posterior wall, medial to the vessels.", "claims": ["K3"]}
+      ],
+      "sure_note": {"text": "You were sure, so check this one: a confident pick of 'indirect' is the one to test against the vessels.", "claims": ["K3"]},
+      "choices": [
+        {"label": "Try again", "next": "hook", "kind": "retry"},
+        {"label": "Show me the route", "next": "hook_route", "kind": "agency"}
+      ]
+    },
+    "hook_t40": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: a femoral hernia is a groin lump, and a sac that sits medial can look like one.", "claims": []},
+        {"text": "It fails. A femoral hernia lies below and lateral to the pubic tubercle, not beside the vessels.", "claims": ["K6"]},
+        {"text": "The sac here comes through the posterior wall, medial to the vessels, which is a direct inguinal hernia.", "claims": ["K13"]}
+      ],
+      "sure_note": {"text": "You were sure, so look again at the route: a groin lump is not placed by its side alone.", "claims": ["K6"]},
+      "choices": [
+        {"label": "Try again", "next": "hook", "kind": "retry"},
+        {"label": "Show me the route", "next": "hook_route", "kind": "agency"}
+      ]
+    },
+    "hook_route": {
+      "role": "explain",
+      "say": [
+        {"text": "Use the route, not the name. An indirect sac enters through the deep ring, lateral to the inferior epigastric vessels, then runs down the canal.", "claims": ["K12"]},
+        {"text": "A direct sac bulges through the posterior wall in Hesselbach's triangle, medial to the vessels.", "claims": ["K13"]},
+        {"text": "A femoral hernia is a different site, below and lateral to the pubic tubercle.", "claims": ["K6"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "position", "kind": "continue"}
+      ]
+    },
+    "position": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 45-year-old woman has a groin lump. Her surgeon marks it against the pubic tubercle.", "claims": []},
+        {"text": "Where does a femoral hernia's neck lie?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Above and medial to the tubercle", "next": "position_t40", "kind": "trap", "trap": "TR40"},
+        {"label": "Below and lateral to the tubercle", "next": "position_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "position_hint", "kind": "help"}
+      ]
+    },
+    "position_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Start with the inguinal canal. Does its exit lie above the tubercle or below it?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "position", "kind": "retry"}
+      ]
+    },
+    "position_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. A femoral hernia emerges below and lateral to the pubic tubercle.", "claims": ["K6"]},
+        {"text": "An inguinal hernia emerges above and medial to it, so the tubercle separates the two.", "claims": ["K6"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "sex", "kind": "continue"}
+      ]
+    },
+    "position_t40": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: an inguinal hernia does emerge above and medial to the tubercle, so a groin lump seems to copy that spot.", "claims": ["K6"]},
+        {"text": "It fails. That is where the inguinal hernia emerges. The femoral neck lies below and lateral to the tubercle.", "claims": ["K6"]},
+        {"text": "Check where the neck sits against the tubercle before you name the hernia.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so the inguinal position is the habit to break: femoral is the other side of the tubercle.", "claims": ["K6"]},
+      "choices": [
+        {"label": "Try again", "next": "position", "kind": "retry"}
+      ]
+    },
+    "sex": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 40-year-old woman has a groin lump, and her surgeon asks which hernia is the most common in women.", "claims": []},
+        {"text": "Which is it?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Indirect inguinal hernia", "next": "sex_ok", "kind": "correct"},
+        {"label": "Femoral hernia", "next": "sex_t5", "kind": "trap", "trap": "TR5"},
+        {"label": "Not sure, give me a hint", "next": "sex_hint", "kind": "help"}
+      ]
+    },
+    "sex_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Look at the exact word in the question: 'most common', not 'more common in one sex'. Which hernia leads overall?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "sex", "kind": "retry"}
+      ]
+    },
+    "sex_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Indirect inguinal hernia is the most common hernia in women, as it is in men and in children.", "claims": ["K2", "K96"]},
+        {"text": "Inguinal hernia is far more common in men overall, so the female skew does not change the ranking.", "claims": ["K27"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "recap", "kind": "continue"}
+      ]
+    },
+    "sex_t5": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: femoral hernia is relatively more common in women, so it sounds like the answer.", "claims": ["K109"]},
+        {"text": "It fails. Relatively more common is not most common. Indirect inguinal still leads in women.", "claims": ["K109"]},
+        {"text": "Read the qualifier 'relatively' before you rank anything.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the qualifier: 'relatively' in a 'most common' stem is the trap.", "claims": ["K109"]},
+      "choices": [
+        {"label": "Try again", "next": "sex", "kind": "retry"}
+      ]
+    },
+    "recap": {
+      "role": "recap",
+      "say": [
+        {"text": "The vessels split the canal hernias: indirect lateral, direct medial.", "claims": ["K3"]},
+        {"text": "The pubic tubercle splits inguinal from femoral, and the qualifier decides the most common.", "claims": ["K6", "K109"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
