@@ -1,0 +1,262 @@
+{
+  "segment": "S1",
+  "technique": "T2",
+  "entry": "start",
+  "nodes": {
+    "start": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A patient with intestinal obstruction is brought to a district hospital in India.", "claims": []},
+        {"text": "An older PYQ asks the most common cause of intestinal obstruction in India and developing countries. Your pick?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Post-operative adhesions and bands", "next": "t_adh", "kind": "trap", "trap": "TR1"},
+        {"label": "Obstructed or strangulated hernia", "next": "ok_a", "kind": "correct"},
+        {"label": "Carcinoma of the colon and rectum", "next": "t_carc", "kind": "trap", "trap": "TR35"},
+        {"label": "Not sure, give me a hint", "next": "hint_a", "kind": "help"}
+      ]
+    },
+    "hint_a": {
+      "role": "hint",
+      "say": [
+        {"text": "Read the setting words in the stem first. The exam key was written for a region, and it is not the Western answer.", "claims": ["K143"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "start", "kind": "retry"},
+        {"label": "Show me the answer", "next": "teach", "kind": "continue"}
+      ]
+    },
+    "t_adh": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: adhesions are the top answer in current practice, so they are the first thing you recall.", "claims": ["K3"]},
+        {"text": "Wrong: the stem names India and developing countries, and the PYQ key for that setting is hernia.", "claims": ["K143"]},
+        {"text": "Right: the PYQ key here is hernia, while adhesions are the current answer.", "claims": ["K143", "K3"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the setting words in every stem before you name a cause.", "claims": ["K143"]},
+      "choices": [
+        {"label": "Try again", "next": "start", "kind": "retry"},
+        {"label": "Next", "next": "teach", "kind": "continue"}
+      ]
+    },
+    "t_carc": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: colorectal carcinoma is the commonest cause of large bowel obstruction in adults.", "claims": ["K4"]},
+        {"text": "Wrong: the question covers the whole intestine, and the PYQ key for this setting is hernia.", "claims": ["K143"]},
+        {"text": "Right: keep carcinoma for the adult large bowel, where it is the commonest cause.", "claims": ["K26"]}
+      ],
+      "sure_note": {"text": "You were sure, so ask whether the stem means the whole gut or one part of it.", "claims": ["K4"]},
+      "choices": [
+        {"label": "Try again", "next": "start", "kind": "retry"},
+        {"label": "Next", "next": "teach", "kind": "continue"}
+      ]
+    },
+    "ok_a": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. PYQs for India and developing countries expected obstructed or strangulated hernia.", "claims": ["K143"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "teach", "kind": "continue"}
+      ]
+    },
+    "teach": {
+      "role": "explain",
+      "say": [
+        {"text": "Teach both answers. **PYQs** expected hernia for this setting. **Current practice**, where abdominal surgery is common, says adhesions.", "claims": ["K143", "K3"]},
+        {"text": "In the exam, say both: PYQs hernia; today adhesions.", "claims": ["K143"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "contrast", "kind": "continue"}
+      ]
+    },
+    "contrast": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Now hold both answers together. Which pairing is right?", "claims": []}
+      ],
+      "choices": [
+        {"label": "PYQ key: adhesions; current practice: hernia", "next": "t_rev", "kind": "trap", "trap": "TR1"},
+        {"label": "PYQ key: hernia; current practice: adhesions", "next": "ok_b", "kind": "correct"},
+        {"label": "PYQ key: adhesions; current practice: adhesions", "next": "t_rev", "kind": "trap", "trap": "TR1"},
+        {"label": "Not sure, give me a hint", "next": "hint_b", "kind": "help"}
+      ]
+    },
+    "hint_b": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask what the PYQ setting pointed to, then what current practice says after abdominal surgery.", "claims": ["K143", "K3"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "contrast", "kind": "retry"},
+        {"label": "Show me the answer", "next": "ok_b", "kind": "continue"}
+      ]
+    },
+    "ok_b": {
+      "role": "feedback",
+      "say": [
+        {"text": "This is the pairing to hold: the exam key is hernia, and current practice is adhesions.", "claims": ["K143", "K3"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "vg", "kind": "continue"}
+      ]
+    },
+    "t_rev": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: adhesions are the answer you remember best, so they slide under the PYQ label.", "claims": ["K3"]},
+        {"text": "Wrong: the PYQ key for this setting is hernia, and adhesions belong to current practice.", "claims": ["K143"]},
+        {"text": "Right: keep the two labels apart, one for the exam and one for today.", "claims": ["K143", "K3"]}
+      ],
+      "sure_note": {"text": "You were sure, so swapping the two labels is a common slip. Check which label each answer carries.", "claims": ["K143"]},
+      "choices": [
+        {"label": "Try again", "next": "contrast", "kind": "retry"},
+        {"label": "Next", "next": "vg", "kind": "continue"}
+      ]
+    },
+    "vg": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 45-year-old man has small bowel obstruction. His notes record no previous abdominal surgery.", "claims": []},
+        {"text": "Most likely cause?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Adhesions from an old operation", "next": "t_virgin", "kind": "trap", "trap": "TR2"},
+        {"label": "An obstructed hernia at any orifice", "next": "ok_c", "kind": "correct"},
+        {"label": "Adhesive bands from earlier surgery", "next": "t_virgin", "kind": "trap", "trap": "TR2"},
+        {"label": "Not sure, give me a hint", "next": "hint_c", "kind": "help"}
+      ]
+    },
+    "hint_c": {
+      "role": "hint",
+      "say": [
+        {"text": "Read the history line first. What does it rule out, and which part of the abdomen would you examine next?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "vg", "kind": "retry"},
+        {"label": "Show me the answer", "next": "ok_c", "kind": "continue"}
+      ]
+    },
+    "t_virgin": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: adhesions are the commonest cause of adult small bowel obstruction, so the reflex is to name them.", "claims": ["K3"]},
+        {"text": "Wrong: with no previous surgery, adhesions are unlikely. In a virgin abdomen, hernia comes first.", "claims": ["K101", "K27"]},
+        {"text": "Right: check every hernial orifice before you name a cause.", "claims": ["K27"]}
+      ],
+      "sure_note": {"text": "You were sure, so read the history line before reaching for adhesions.", "claims": ["K101"]},
+      "choices": [
+        {"label": "Try again", "next": "vg", "kind": "retry"},
+        {"label": "Next", "next": "wall", "kind": "continue"}
+      ]
+    },
+    "ok_c": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. With no previous surgery, hernia comes first, so check every orifice.", "claims": ["K27"]},
+        {"text": "Adhesions are unlikely in a virgin abdomen.", "claims": ["K101"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "wall", "kind": "continue"}
+      ]
+    },
+    "wall": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Causes of obstruction can be sorted by where they sit relative to the bowel wall. Which is NOT an intramural cause?", "claims": ["K18"]}
+      ],
+      "choices": [
+        {"label": "Intussusception", "next": "t_intus", "kind": "trap", "trap": "TR40"},
+        {"label": "Gallstone ileus", "next": "ok_wall", "kind": "correct"},
+        {"label": "Congenital atresia", "next": "t_atre", "kind": "trap", "trap": "TR40"},
+        {"label": "Not sure, give me a hint", "next": "hint_d", "kind": "help"}
+      ]
+    },
+    "hint_d": {
+      "role": "hint",
+      "say": [
+        {"text": "For each cause, ask whether it lies inside the lumen, inside the wall, or outside the wall.", "claims": ["K18"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "wall", "kind": "retry"},
+        {"label": "Show me the answer", "next": "ok_wall", "kind": "continue"}
+      ]
+    },
+    "t_intus": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: intussusception looks like a mass from outside, so it feels extramural.", "claims": []},
+        {"text": "Wrong: the bowel telescopes within its own wall, so it is intramural.", "claims": ["K20"]},
+        {"text": "Right: gallstone ileus is the NOT answer, because it is intraluminal.", "claims": ["K19"]}
+      ],
+      "sure_note": {"text": "You were sure, so ask whether the lesion sits in the lumen, the wall, or outside it.", "claims": ["K18"]},
+      "choices": [
+        {"label": "Try again", "next": "wall", "kind": "retry"},
+        {"label": "Next", "next": "ext", "kind": "continue"}
+      ]
+    },
+    "t_atre": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: congenital atresia is a neonatal cause, so it is easy to file by age, not by wall.", "claims": ["K23"]},
+        {"text": "Wrong: atresia is a lesion of the bowel wall, so it is intramural.", "claims": ["K20"]},
+        {"text": "Right: the NOT answer is gallstone ileus, which lies in the lumen.", "claims": ["K19"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "wall", "kind": "retry"},
+        {"label": "Next", "next": "ext", "kind": "continue"}
+      ]
+    },
+    "ok_wall": {
+      "role": "feedback",
+      "say": [
+        {"text": "Gallstone ileus is the NOT answer: it is intraluminal, lying inside the lumen.", "claims": ["K19"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "ext", "kind": "continue"}
+      ]
+    },
+    "ext": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "say": [
+        {"text": "Adhesions and bands, an obstructed hernia and volvulus all share one class by wall relation. Which class?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Intramural", "next": "t_ext", "kind": "trap", "trap": "TR40"},
+        {"label": "Extramural", "next": "ok_ext", "kind": "correct"},
+        {"label": "Intraluminal", "next": "t_ext", "kind": "trap", "trap": "TR40"}
+      ]
+    },
+    "t_ext": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the obstruction is felt inside the gut, so it seems to sit in the lumen or the wall.", "claims": []},
+        {"text": "Wrong: these causes press on or tether the bowel from outside its wall.", "claims": ["K22"]},
+        {"text": "Right: adhesions, bands, obstructed hernia and volvulus are extramural.", "claims": ["K22"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "ext", "kind": "retry"},
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    },
+    "ok_ext": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. Adhesions, bands, obstructed hernia and volvulus are extramural.", "claims": ["K22"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
