@@ -1,6 +1,6 @@
 # Factory status
 
-Updated 2026-10-19T17:30:23. Written by `scripts/factory.py status`; do not edit.
+Updated 2026-10-19T17:39:11. Written by `scripts/factory.py status`; do not edit.
 
 ## Modules
 
@@ -46,11 +46,12 @@ Updated 2026-10-19T17:30:23. Written by `scripts/factory.py status`; do not edit
 | diagnosis | T1 Socratic ladder | 1 | 0.50 | 1.92 |
 | diagnosis | T11 Erroneous example (spot the mistake) | 1 | 0.00 | 3.61 |
 | diagnosis | T7 Contrasting cases | 1 | 0.00 | 3.50 |
-| management | T5 Worked example, then fade | 1 | 1.00 | 1.89 |
+| management | T5 Worked example, then fade | 2 | 1.00 | 2.92 |
 | management | T4 Productive failure | 1 | 1.00 | 1.92 |
 | management | T8 Self-explanation pick | 1 | 0.50 | 1.70 |
+| management | T1 Socratic ladder | 1 | 0.50 | 3.94 |
 | management | T2 Case-first vignette | 2 | 0.00 | 0.93 |
-| management | T11 Erroneous example (spot the mistake) | 1 | 0.00 | 1.89 |
+| management | T11 Erroneous example (spot the mistake) | 2 | 0.00 | 2.33 |
 | traps | T6 Refutation (misconception-first) | 1 | 1.00 | 4.11 |
 | traps | T11 Erroneous example (spot the mistake) | 1 | 0.00 | 3.17 |
 | traps | T10 Exam-trap drill | 1 | 0.00 | 3.50 |
