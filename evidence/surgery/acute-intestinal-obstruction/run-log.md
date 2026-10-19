@@ -1,1 +1,2 @@
 - 2026-10-19 orchestrator: S1.ok_both skip relabelled 'one quick check' (strong sim: skip landed on a wall question).
+- 2026-10-19 round 0 composite 3.699 (review 3.65). Refine round 1: S6 rewritten by the editor as a short new-stem cold quiz instead of a new tournament (cost; problem is structural, not technique choice); S1–S5 patched. S3/S4 (3/5) patched rather than rebuilt: issues are local and listed.
