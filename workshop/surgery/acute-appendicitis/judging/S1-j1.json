@@ -1,0 +1,62 @@
+{
+  "segment": "S1",
+  "judge": "j1",
+  "lens": "learning-scientist",
+  "variants": {
+    "a": {
+      "gates": [],
+      "scores": {"R1": 4, "R2": 4, "R3": 4, "R4": 4, "R5": 4, "R6": 3, "R7": 3, "R8": 4, "R9": 4},
+      "weighted": 3.83,
+      "best_parts": [
+        "node case_t_chole: names the model (familiar = frequent), says why it is tempting, then a nudge ('frequency, not familiarity') with Try again and Show me why, so the first miss is retried before it is explained",
+        "node q3_t15: nudge ('Compare his age with the child's before you answer') keeps the retry generative, and the mirror adult probe q3 tests the child-to-adult model in a new form",
+        "node q2_t15_x: explanation contrasts the two ages in one line each and ends with a portable rule ('the cause follows the age')"
+      ],
+      "flaws": [
+        "node q2 / q3: 'Intestinal worms' is a partial that almost no one holding a wrong model would pick once faecolith and lymphoid hyperplasia are on the list, so it is close to dominated (DP2); give it a real wrong model or drop it",
+        "segment: no fast lane. An expert who gets case right still walks through case_t_chole_x-style teaching nodes for every idea, so R5 stays at a single path",
+        "node case: TR13 is probed once in this segment and not re-tested here; the trap-map's contrast retest sits in a later segment, so the S1 retrieval loop is open"
+      ]
+    },
+    "b": {
+      "gates": [],
+      "scores": {"R1": 4, "R2": 3, "R3": 4, "R4": 3, "R5": 3, "R6": 3, "R7": 3, "R8": 4, "R9": 4},
+      "weighted": 3.44,
+      "best_parts": [
+        "node hint1: the hint points to the qualifier and asks 'which would fill the most places on an emergency surgical list?' without giving the answer, a good first-rung hint",
+        "node reveal2 / hint2: a two-step ladder (hint, then 'Show me the answer') that is explicit about when the learner gets the answer",
+        "node age_adult: mirror probe re-tests the child-to-adult TR15 model directly after the teaching in age_a_*, which is the right delayed-retest idea"
+      ],
+      "flaws": [
+        "node t_chole, t_ulcer, t_faec, t_lymph: each wrong pick gives the answer on the first miss (e.g. 'appendicitis occurs more often [K1]', 'the age decides it ... usual cause in children [K14][K94]') and offers only Next, so the learner never retries the question and cannot generate the answer after the error (breaks the hint-ladder contract)",
+        "nodes t_chole, t_ulcer, t_faec, t_lymph, p_worms: raw claim IDs appear in learner-facing text in brackets ([K1], [K14][K94], [K15][K95]); these add noise for a tired reader and belong in the claims array, not the sentence",
+        "node age_adult: two choices only, with no hint or help option, so this probe is inconsistent with the rest of the segment and offers no ladder",
+        "segment: no 'Show me why' or retry on any trap, so R2's repair step (explain, then re-test) is done by the teach node alone; TR13 is not re-tested in S1"
+      ]
+    },
+    "c": {
+      "gates": [],
+      "scores": {"R1": 4, "R2": 4, "R3": 4, "R4": 3, "R5": 5, "R6": 3, "R7": 4, "R8": 4, "R9": 5},
+      "weighted": 4.00,
+      "best_parts": [
+        "node open_ok: a skip choice ('Skip the teaching, go to the next case') that jumps to age_a, the clearest fast lane in this set and right for the expertise-reversal effect",
+        "node age_bt: first miss on the adult probe gives 'Lymphoid hyperplasia is the child's pattern, and this stem has changed the age. Try once more', naming the wrong model without giving the answer; the second miss in age_bx then explains and contrasts with the child case (K15, K95, K23)",
+        "node teach1: the dead-end-lane analogy is marked device: true, an image cue that helps the learner hold 'block the entrance, the lumen backs up' before the mechanism is taught in S2",
+        "node age_a_t: 'Try the adult case' retries with a different case rather than the same question, a second explanation in a different form"
+      ],
+      "flaws": [
+        "node open_2: after a first miss on the TR13 probe, the retry is the same question with the same three options, so the retry is a same-form re-ask rather than a delayed re-test in a new form",
+        "node age_b2: identical options and key position to age_b (faecolith second in both), so the second adult probe reveals a constant key position to a learner who remembers the first",
+        "nodes age_a_p, age_b and open_x1 / open_x3: 'Worms' is a partial that almost nobody would pick once the other two are visible (DP2), and age_a_p moves to Next without a retry",
+        "several teach and feedback nodes carry raw claim IDs in parentheses, e.g. '(K1)', '(K11)', '(K15, K95)', which adds visual load in a 60-word, one-idea-per-node format (R4)"
+      ]
+    }
+  },
+  "ranking": ["c", "a", "b"],
+  "merge_ideas": [
+    "c's fast lane (open_ok skip) and age_bt / age_bx first-miss-then-explain ladder, plus a's case_t_chole nudge with Try again and Show me why, so every trap has retry, agency and a no-answer first miss",
+    "c's adult mirror probe (age_b) with a's q3 nudge text ('Compare his age with the child's') and b's two-step hint (hint1 qualifier hint, then reveal) so each wrong model gets a hint, a retry and an answer only on the second miss",
+    "a's clean claim presentation (claims array only, no bracket IDs in learner text) combined with c's teach1 device lane analogy",
+    "replace worms with a real wrong model (for example, a learner who thinks any mass blocks the lumen) in all variants so no option is dominated"
+  ]
+}
