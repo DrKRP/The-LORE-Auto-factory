@@ -1,0 +1,378 @@
+{
+  "segment": "S1",
+  "technique": "T4",
+  "entry": "hook",
+  "nodes": {
+    "hook": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Before I teach this, make a call from memory. Here is an old exam question (PYQ).", "claims": []},
+        {"text": "**Most common** cause of intestinal obstruction in India and developing countries?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Adhesions after previous surgery", "next": "h1", "kind": "trap", "trap": "TR1"},
+        {"label": "Obstructed or strangulated hernia", "next": "ok1", "kind": "correct"},
+        {"label": "Carcinoma of the colon and rectum", "next": "h2", "kind": "trap", "trap": "TR35"},
+        {"label": "Not sure, give me a hint", "next": "hint1", "kind": "help"}
+      ]
+    },
+    "hint1": {
+      "role": "hint",
+      "say": [
+        {"text": "Read the setting words in the stem. The old exam wrote its answer for the setting it names, not for a textbook in general.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "hook2", "kind": "retry"}
+      ]
+    },
+    "h1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Adhesions feel right: in adults they are the commonest small bowel cause.", "claims": ["K3"]},
+        {"text": "Check the setting before you commit. Which country or setting does this stem name?", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure of adhesions. One answer for every setting is the model to fix.", "claims": ["K143"]},
+      "choices": [
+        {"label": "Try again", "next": "hook2", "kind": "retry"}
+      ]
+    },
+    "h2": {
+      "role": "feedback",
+      "say": [
+        {"text": "Carcinoma feels right: it is the commonest adult large bowel cause.", "claims": ["K4"]},
+        {"text": "Check the scope. This stem asks about intestinal obstruction in general, not the large bowel alone.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure of carcinoma. A large bowel answer does not automatically answer a whole-gut question.", "claims": ["K126"]},
+      "choices": [
+        {"label": "Try again", "next": "hook2", "kind": "retry"}
+      ]
+    },
+    "hook2": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Same question, with the setting in mind.", "claims": []},
+        {"text": "**Most common** cause of intestinal obstruction in India and developing countries?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Adhesions after previous surgery", "next": "f1", "kind": "trap", "trap": "TR1"},
+        {"label": "Obstructed or strangulated hernia", "next": "ok1", "kind": "correct"},
+        {"label": "Carcinoma of the colon and rectum", "next": "f2", "kind": "trap", "trap": "TR35"}
+      ]
+    },
+    "ok1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. The old exam keyed the **obstructed or strangulated hernia** for India and developing countries.", "claims": ["K143"]},
+        {"text": "Current practice gives a different answer, and you will hold both.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Next", "next": "t1", "kind": "continue"}
+      ]
+    },
+    "f1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Adhesions are tempting: in the West they lead adult small bowel obstruction.", "claims": ["K3"]},
+        {"text": "This stem names India and developing countries, and the old exam keyed the hernia there.", "claims": ["K143"]}
+      ],
+      "sure_note": {"text": "You were sure of adhesions, twice. Fix the model: one answer for every setting.", "claims": ["K143"]},
+      "choices": [
+        {"label": "Next", "next": "t1", "kind": "continue"}
+      ]
+    },
+    "f2": {
+      "role": "feedback",
+      "say": [
+        {"text": "Carcinoma is tempting: it is the commonest adult large bowel cause.", "claims": ["K4"]},
+        {"text": "But this stem asks about intestinal obstruction in general, and the old exam keyed the hernia for India.", "claims": ["K143"]}
+      ],
+      "sure_note": {"text": "You were sure of carcinoma. Check which part of the gut a question names before you choose its commonest cause.", "claims": ["K126"]},
+      "choices": [
+        {"label": "Next", "next": "t1", "kind": "continue"}
+      ]
+    },
+    "t1": {
+      "role": "explain",
+      "say": [
+        {"text": "Here is the split. The old exam question expected the **hernia** for India and developing countries.", "claims": ["K143"]},
+        {"text": "Where abdominal surgery is common, current practice says **adhesions**, the commonest adult small bowel cause.", "claims": ["K143", "K3"]},
+        {"text": "Hold both: PYQs said hernia; today says adhesions.", "claims": ["K143"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "p2", "kind": "continue"}
+      ]
+    },
+    "p2": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Same question, two answers. One is the old exam key for adult small bowel obstruction in India. The other is what a busy surgical unit sees.", "claims": []},
+        {"text": "Which pairing is right?", "claims": []}
+      ],
+      "choices": [
+        {"label": "PYQ: adhesions; practice: hernia", "next": "h3", "kind": "trap", "trap": "TR1"},
+        {"label": "PYQ: carcinoma; practice: adhesions", "next": "h4", "kind": "trap", "trap": "TR35"},
+        {"label": "PYQ: hernia; practice: adhesions", "next": "ok2", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "hint2", "kind": "help"}
+      ]
+    },
+    "hint2": {
+      "role": "hint",
+      "say": [
+        {"text": "Each half has its own setting. Check which answer the exam wrote for India, and which one a busy unit sees.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the pairs", "next": "p2r", "kind": "retry"}
+      ]
+    },
+    "h3": {
+      "role": "feedback",
+      "say": [
+        {"text": "Swapping them is tempting: adhesions feel like the exam's answer because they are the classic one.", "claims": ["K3"]},
+        {"text": "Check which half the exam asked for before you place the answer.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure of the swap. The two halves answer different questions, so hold them apart.", "claims": ["K143"]},
+      "choices": [
+        {"label": "Try again", "next": "p2r", "kind": "retry"}
+      ]
+    },
+    "h4": {
+      "role": "feedback",
+      "say": [
+        {"text": "Carcinoma is tempting: it leads adult large bowel obstruction.", "claims": ["K126"]},
+        {"text": "This pairing is about intestinal obstruction in general, so check the scope of the question.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure of carcinoma. Keep the large bowel answer for large bowel questions.", "claims": ["K126"]},
+      "choices": [
+        {"label": "Try again", "next": "p2r", "kind": "retry"}
+      ]
+    },
+    "p2r": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Same pairing, one more try.", "claims": []},
+        {"text": "Which pairing is right?", "claims": []}
+      ],
+      "choices": [
+        {"label": "PYQ: adhesions; practice: hernia", "next": "f3", "kind": "trap", "trap": "TR1"},
+        {"label": "PYQ: carcinoma; practice: adhesions", "next": "f4", "kind": "trap", "trap": "TR35"},
+        {"label": "PYQ: hernia; practice: adhesions", "next": "ok2", "kind": "correct"}
+      ]
+    },
+    "ok2": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. The old key is the **hernia**; current practice is **adhesions**.", "claims": ["K143"]},
+        {"text": "Next, a patient with no previous surgery, where adhesions drop out of the picture.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Next", "next": "v1", "kind": "continue"}
+      ]
+    },
+    "f3": {
+      "role": "feedback",
+      "say": [
+        {"text": "Swapping is tempting: adhesions feel like the exam's classic answer.", "claims": ["K3"]},
+        {"text": "The exam keyed the hernia for India and developing countries. Adhesions lead in current practice.", "claims": ["K143"]}
+      ],
+      "sure_note": {"text": "You were sure of the swap, twice. Hold the PYQ key and practice as two separate answers.", "claims": ["K143"]},
+      "choices": [
+        {"label": "Next", "next": "v1", "kind": "continue"}
+      ]
+    },
+    "f4": {
+      "role": "feedback",
+      "say": [
+        {"text": "Carcinoma is tempting: it is the commonest adult large bowel cause.", "claims": ["K126"]},
+        {"text": "This pairing is about intestinal obstruction in general. The PYQ key is the hernia, and practice gives adhesions.", "claims": ["K143"]}
+      ],
+      "sure_note": {"text": "You were sure of carcinoma, twice. Large bowel answers belong to large bowel questions.", "claims": ["K126"]},
+      "choices": [
+        {"label": "Next", "next": "v1", "kind": "continue"}
+      ]
+    },
+    "v1": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 61-year-old man has colicky pain, vomiting and no bowel movement. He has never had an abdominal operation.", "claims": []},
+        {"text": "What is the likeliest cause?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Adhesive band from earlier surgery", "next": "vh", "kind": "trap", "trap": "TR2"},
+        {"label": "Obstructed hernia; check every orifice", "next": "ok4", "kind": "correct"},
+        {"label": "Tumour of the colon or rectum", "next": "pp", "kind": "partial"},
+        {"label": "Not sure, give me a hint", "next": "vhelp", "kind": "help"}
+      ]
+    },
+    "vhelp": {
+      "role": "hint",
+      "say": [
+        {"text": "Start with the history line. What does it say about earlier surgery, and what would that change?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the patient", "next": "v1r", "kind": "retry"}
+      ]
+    },
+    "vh": {
+      "role": "feedback",
+      "say": [
+        {"text": "Adhesions feel right: they are the commonest adult small bowel cause.", "claims": ["K3"]},
+        {"text": "Before naming a cause, check the history. Did this patient have any previous abdominal surgery?", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure of adhesions. Read the surgical history before you choose the cause.", "claims": ["K101"]},
+      "choices": [
+        {"label": "Try again", "next": "v1r", "kind": "retry"}
+      ]
+    },
+    "v1r": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Same patient, no previous surgery. What is the likeliest cause?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Adhesive band from earlier surgery", "next": "f9", "kind": "trap", "trap": "TR2"},
+        {"label": "Obstructed hernia; check every orifice", "next": "ok4", "kind": "correct"},
+        {"label": "Tumour of the colon or rectum", "next": "pp", "kind": "partial"}
+      ]
+    },
+    "ok4": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. With no previous surgery, the **hernia** comes first, so check every hernial orifice.", "claims": ["K27"]},
+        {"text": "Adhesions are unlikely without earlier surgery.", "claims": ["K101"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "o2a", "kind": "continue"}
+      ]
+    },
+    "f9": {
+      "role": "feedback",
+      "say": [
+        {"text": "Adhesions are tempting: they are the commonest adult small bowel cause.", "claims": ["K3"]},
+        {"text": "But in a virgin abdomen adhesions are unlikely. Hernia comes first, then tumour.", "claims": ["K27", "K101"]}
+      ],
+      "sure_note": {"text": "You were sure of adhesions, twice. Read the surgical history before you name a cause.", "claims": ["K101"]},
+      "choices": [
+        {"label": "Next", "next": "o2a", "kind": "continue"}
+      ]
+    },
+    "pp": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tumour is a real cause with no previous surgery, but it comes second.", "claims": ["K27"]},
+        {"text": "Hernia comes first, so check every orifice before you blame a tumour.", "claims": ["K27"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "o2a", "kind": "continue"}
+      ]
+    },
+    "o2a": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "say": [
+        {"text": "New question. Sort each cause by where it sits relative to the bowel wall, not by its name.", "claims": []},
+        {"text": "Gallstone ileus: which class?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Intramural", "next": "f6", "kind": "trap", "trap": "TR40"},
+        {"label": "Intraluminal", "next": "ok3", "kind": "correct"},
+        {"label": "Extramural", "next": "f5", "kind": "trap", "trap": "TR40"}
+      ]
+    },
+    "ok3": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Gallstone ileus sits in the lumen, so it is **intraluminal**.", "claims": ["K19"]},
+        {"text": "Causes are classed by where they lie relative to the wall.", "claims": ["K18"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "o2b", "kind": "continue"}
+      ]
+    },
+    "f5": {
+      "role": "feedback",
+      "say": [
+        {"text": "Extramural feels right: the gallbladder lies outside the bowel, so the stone seems to come from outside.", "claims": ["K18"]},
+        {"text": "The class asks where the cause sits, not where its source lies. A gallstone lies in the lumen.", "claims": ["K19"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "o2b", "kind": "continue"}
+      ]
+    },
+    "f6": {
+      "role": "feedback",
+      "say": [
+        {"text": "Intramural feels right: gallstone ileus is a bowel disease, so it sounds like a wall problem.", "claims": ["K18"]},
+        {"text": "Intramural causes sit in the wall, such as carcinoma and stricture. The gallstone lies in the lumen.", "claims": ["K20", "K19"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "o2b", "kind": "continue"}
+      ]
+    },
+    "o2b": {
+      "role": "explain",
+      "say": [
+        {"text": "Every cause has one place: **intraluminal** inside the lumen, **intramural** in the wall, **extramural** outside the wall.", "claims": ["K18"]},
+        {"text": "Intraluminal: gallstone, faecal impaction, food bolus, bezoar.", "claims": ["K19"]},
+        {"text": "Intramural: carcinoma, stricture, atresia, intussusception. Extramural: adhesions, hernia, volvulus.", "claims": ["K20", "K22"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "p5", "kind": "continue"}
+      ]
+    },
+    "p5": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "say": [
+        {"text": "Same logic, a new cause.", "claims": []},
+        {"text": "Adhesions and bands: which class?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Intramural", "next": "f7", "kind": "trap", "trap": "TR40"},
+        {"label": "Intraluminal", "next": "f8", "kind": "trap", "trap": "TR40"},
+        {"label": "Extramural", "next": "ok5", "kind": "correct"}
+      ]
+    },
+    "ok5": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Adhesions and bands sit outside the wall, so they are **extramural**.", "claims": ["K22"]},
+        {"text": "Two things to carry: 'most common' depends on the setting, and causes sort by wall.", "claims": ["K143", "K18"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    },
+    "f7": {
+      "role": "feedback",
+      "say": [
+        {"text": "Intramural feels right if you picture bands pressing on the gut. The class asks where the cause sits.", "claims": ["K18"], "device": true},
+        {"text": "Adhesions sit outside the wall. Intramural causes sit in it, such as carcinoma and intussusception.", "claims": ["K22", "K20"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    },
+    "f8": {
+      "role": "feedback",
+      "say": [
+        {"text": "Intraluminal feels right if you think of the blockage as something inside the gut.", "claims": ["K18"]},
+        {"text": "But adhesions and bands sit outside the wall, and intraluminal causes are the stone, bolus or impaction.", "claims": ["K22", "K19"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
