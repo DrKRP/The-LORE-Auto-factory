@@ -1,0 +1,503 @@
+{
+  "segment": "S3",
+  "technique": "T2",
+  "entry": "case",
+  "nodes": {
+    "case": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 24-year-old man has had central pain for 18 hours. It has moved to the right iliac fossa (RIF), and he is tender there.", "claims": []},
+        {"text": "You want his psoas sign. Which manoeuvre do you perform?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Internally rotate the flexed right hip, supine", "next": "case_t1", "kind": "trap", "trap": "TR1"},
+        {"label": "Press firmly over the left iliac fossa, supine", "next": "case_t3", "kind": "trap", "trap": "TR3"},
+        {"label": "Extend the right hip with him on his left side", "next": "case_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "case_hint", "kind": "help"}
+      ]
+    },
+    "case_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Psoas is a hip flexor, and a retrocaecal appendix lies on top of it. Ask which hip movement loads the muscle, not which one moves the pelvis.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "case", "kind": "retry"}]
+    },
+    "case_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Extending the right hip stretches the psoas. Pain on that movement suggests a retrocaecal appendix lying on the muscle.", "claims": ["K38"]},
+        {"text": "Retrocaecal is the commonest position of the appendix, so this is the sign you will meet most often.", "claims": ["K3"]}
+      ],
+      "choices": [{"label": "Next", "next": "obt", "kind": "continue"}]
+    },
+    "case_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: internal rotation of the flexed hip is a real right-hip test, and it is easy to file it next to this one.", "claims": []},
+        {"text": "Nudge: the psoas is a hip flexor. Which of the two movements stretches it?", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the psoas again: the sign comes from extending the hip, and the rotation test belongs to another muscle.", "claims": ["K38"]},
+      "choices": [
+        {"label": "Try again", "next": "case", "kind": "retry"},
+        {"label": "Show me why", "next": "case_t1_why", "kind": "agency"}
+      ]
+    },
+    "case_t1_why": {
+      "role": "explain",
+      "say": [
+        {"text": "Internal rotation of the flexed right hip stretches obturator internus. That is the obturator sign, and it suggests a pelvic appendix.", "claims": ["K39"]},
+        {"text": "The psoas sign is pain on extending the right hip, which suggests a retrocaecal appendix lying on the psoas.", "claims": ["K38"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "case", "kind": "retry"},
+        {"label": "Next", "next": "obt", "kind": "continue"}
+      ]
+    },
+    "case_t3": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: pressing the left iliac fossa is the Rovsing manoeuvre, so it feels like the right physical test for this patient.", "claims": []},
+        {"text": "Nudge: the psoas test does not press anywhere. Which movement of the right hip makes the pain happen?", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so separate the two: pressing the left side is Rovsing's sign, and it is not a psoas test.", "claims": ["K37"]},
+      "choices": [
+        {"label": "Try again", "next": "case", "kind": "retry"},
+        {"label": "Show me why", "next": "case_t3_why", "kind": "agency"}
+      ]
+    },
+    "case_t3_why": {
+      "role": "explain",
+      "say": [
+        {"text": "Pressing the left iliac fossa is Rovsing's sign: pain is felt in the right iliac fossa (K37). It is not a psoas manoeuvre.", "claims": ["K37"]},
+        {"text": "The psoas sign is pain on extending the right hip, with the patient on the left side (K38).", "claims": ["K38"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "case", "kind": "retry"},
+        {"label": "Next", "next": "obt", "kind": "continue"}
+      ]
+    },
+    "obt": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Next patient: the examiner flexes the right hip, rotates the leg inwards, and he winces with hypogastric pain.", "claims": []},
+        {"text": "Name the sign.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Psoas sign", "next": "obt_t1", "kind": "trap", "trap": "TR1"},
+        {"label": "Obturator sign", "next": "obt_ok", "kind": "correct"},
+        {"label": "Rovsing's sign", "next": "obt_t3", "kind": "trap", "trap": "TR3"}
+      ]
+    },
+    "obt_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Internal rotation of the flexed right hip stretches obturator internus, and pain there suggests a pelvic appendix touching that muscle.", "claims": ["K39", "K93"]}
+      ],
+      "choices": [{"label": "Next", "next": "pos", "kind": "continue"}]
+    },
+    "obt_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: you named the psoas sign first in the last case, and both signs are right-hip movements, so the name comes back easily.", "claims": []},
+        {"text": "Wrong: the psoas sign is extension of the right hip (K38). Internal rotation of the flexed hip is the obturator sign, for a pelvic appendix (K39).", "claims": ["K38", "K39"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "obt", "kind": "retry"},
+        {"label": "Next", "next": "pos", "kind": "continue"}
+      ]
+    },
+    "obt_t3": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: Rovsing's sign is the other right-iliac-fossa sign in the same set, so it can seem to match any hip case.", "claims": []},
+        {"text": "Wrong: Rovsing's needs pressure in the left iliac fossa and gives right-sided pain (K37). This patient's movement is the obturator sign (K39).", "claims": ["K37", "K39"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "obt", "kind": "retry"},
+        {"label": "Next", "next": "pos", "kind": "continue"}
+      ]
+    },
+    "pos": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A young man has loin pain on hip extension and little anterior tenderness (K33). The sign and the position both matter.", "claims": ["K33"]},
+        {"text": "Which pairing fits the picture?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Psoas with pelvic; obturator with retrocaecal", "next": "pos_t1", "kind": "trap", "trap": "TR2"},
+        {"label": "Psoas with retrocaecal; obturator with pelvic", "next": "pos_ok", "kind": "correct"},
+        {"label": "Psoas with retrocaecal; rectal tenderness with retrocaecal", "next": "pos_t3", "kind": "trap", "trap": "TR2"},
+        {"label": "Not sure, give me a hint", "next": "pos_hint", "kind": "help"}
+      ]
+    },
+    "pos_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask which organ the appendix touches in each position: the muscle at the back of the abdomen, or the bladder and rectum in the pelvis.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "pos", "kind": "retry"}]
+    },
+    "pos_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Each sign follows the organ its position touches: retrocaecal lies on the psoas (K38), pelvic lies on the obturator internus (K39).", "claims": ["K38", "K39"]},
+        {"text": "Pelvic is the second most common position, after retrocaecal (K93).", "claims": ["K93"]}
+      ],
+      "choices": [{"label": "Next", "next": "pos_mech", "kind": "continue"}]
+    },
+    "pos_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: psoas and pelvic feel like a natural pair, because both are familiar pictures from the exam.", "claims": []},
+        {"text": "Nudge: which organ does a retrocaecal appendix sit on, and which organ does a pelvic one touch?", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so tie each sign to the organ, not to the name: the psoas belongs to the retrocaecal position.", "claims": ["K38"]},
+      "choices": [
+        {"label": "Try again", "next": "pos", "kind": "retry"},
+        {"label": "Show me why", "next": "pos_t1_why", "kind": "agency"}
+      ]
+    },
+    "pos_t1_why": {
+      "role": "explain",
+      "say": [
+        {"text": "A retrocaecal appendix lies on the psoas, so extending the hip hurts (K38). It typically gives loin pain (K33).", "claims": ["K38", "K33"]},
+        {"text": "A pelvic appendix lies against the obturator internus, so internal rotation of the flexed hip hurts (K39).", "claims": ["K39"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "pos", "kind": "retry"},
+        {"label": "Next", "next": "pos_mech", "kind": "continue"}
+      ]
+    },
+    "pos_t3": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: rectal tenderness is a real finding, so it feels as if it could sit with any position of the appendix.", "claims": []},
+        {"text": "Nudge: right-sided rectal tenderness points to one position. Which one, and where does it sit?", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so link the rectal sign to where the appendix lies: rectal tenderness comes from the pelvic position.", "claims": ["K42"]},
+      "choices": [
+        {"label": "Try again", "next": "pos", "kind": "retry"},
+        {"label": "Show me why", "next": "pos_t3_why", "kind": "agency"}
+      ]
+    },
+    "pos_t3_why": {
+      "role": "explain",
+      "say": [
+        {"text": "Right-sided rectal tenderness suggests a pelvic appendix (K42), so it cannot go with the retrocaecal position.", "claims": ["K42"]},
+        {"text": "The correct pairing keeps the psoas with retrocaecal (K38) and the obturator with pelvic (K39).", "claims": ["K38", "K39"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "pos", "kind": "retry"},
+        {"label": "Next", "next": "pos_mech", "kind": "continue"}
+      ]
+    },
+    "pos_mech": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Why does a pelvic appendix cause diarrhoea, urinary frequency and right rectal tenderness?", "claims": []}
+      ],
+      "choices": [
+        {"label": "It lies on the psoas muscle, stretching it", "next": "pos_mech_t1", "kind": "trap", "trap": "TR2"},
+        {"label": "It lies against the rectum and bladder, irritating them", "next": "pos_mech_ok", "kind": "correct"},
+        {"label": "It lies behind the caecum, irritating the ureter", "next": "pos_mech_t2", "kind": "trap", "trap": "TR2"}
+      ]
+    },
+    "pos_mech_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. A pelvic appendix touches the rectum and bladder, so it causes diarrhoea, frequency and dysuria (K34).", "claims": ["K34"]}
+      ],
+      "choices": [{"label": "Next", "next": "rov", "kind": "continue"}]
+    },
+    "pos_mech_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the psoas picture is the one you have just learnt, so it sounds like a mechanism for any bowel symptom.", "claims": []},
+        {"text": "Wrong: stretching the psoas gives pain on hip extension (K38), not bowel symptoms. Right answer: a pelvic appendix touches the rectum and bladder (K34).", "claims": ["K38", "K34"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "pos_mech", "kind": "retry"},
+        {"label": "Next", "next": "rov", "kind": "continue"}
+      ]
+    },
+    "pos_mech_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the ureter is close to the pelvic appendix, so it can seem the nearest structure to irritate.", "claims": []},
+        {"text": "Wrong: an appendix behind the caecum is retrocaecal, which gives loin pain with little anterior tenderness (K33). Pelvic symptoms come from the rectum and bladder (K34).", "claims": ["K33", "K34"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "pos_mech", "kind": "retry"},
+        {"label": "Next", "next": "rov", "kind": "continue"}
+      ]
+    },
+    "rov": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Next, Rovsing's sign. Predict first: where is the pressure applied, and where does the patient feel the pain?", "claims": []},
+        {"text": "Which statement about Rovsing's sign is correct?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Pressure in the right iliac fossa causes pain in the left", "next": "rov_t3", "kind": "trap", "trap": "TR3"},
+        {"label": "Pain in the right iliac fossa on extending the right hip", "next": "rov_t1", "kind": "trap", "trap": "TR1"},
+        {"label": "Pressure in the left iliac fossa causes pain in the right", "next": "rov_ok", "kind": "correct"}
+      ]
+    },
+    "rov_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Pressure in the left iliac fossa causes pain in the right iliac fossa. That reversed-looking direction is what makes it Rovsing's sign.", "claims": ["K37"]}
+      ],
+      "choices": [{"label": "Next", "next": "alv", "kind": "continue"}]
+    },
+    "rov_t3": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the pain is on the right, so pressing the right side feels like the way to reproduce it.", "claims": []},
+        {"text": "Wrong: the direction runs the other way. Pressure in the left iliac fossa gives pain in the right (K37). Pressing the right side does not test this sign.", "claims": ["K37"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "rov", "kind": "retry"},
+        {"label": "Next", "next": "alv", "kind": "continue"}
+      ]
+    },
+    "rov_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: pain on a right-hip movement is the psoas picture from the first case, so it feels like the same sign.", "claims": []},
+        {"text": "Wrong: pain on extending the right hip is the psoas sign (K38). Rovsing's is pressure in the left iliac fossa with pain on the right (K37).", "claims": ["K38", "K37"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "rov", "kind": "retry"},
+        {"label": "Next", "next": "alv", "kind": "continue"}
+      ]
+    },
+    "alv": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Now the Alvarado score, used for a patient with suspected appendicitis. Which items carry 2 points?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Migration of pain and rebound tenderness", "next": "alv_t1", "kind": "trap", "trap": "TR6"},
+        {"label": "RIF tenderness and leucocytosis", "next": "alv_ok", "kind": "correct"},
+        {"label": "RIF tenderness and rebound tenderness", "next": "alv_t2", "kind": "trap", "trap": "TR6"},
+        {"label": "Not sure, give me a hint", "next": "alv_hint", "kind": "help"}
+      ]
+    },
+    "alv_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Only two items score 2 and the rest score 1. Look for the local sign at the appendix and the one blood result in the score.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "alv", "kind": "retry"}]
+    },
+    "alv_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. RIF tenderness and leucocytosis each score 2, the other items score 1, and the total is out of 10.", "claims": ["K107", "K46"]}
+      ],
+      "choices": [{"label": "Next", "next": "alv2", "kind": "continue"}]
+    },
+    "alv_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: migration and rebound are classic appendicitis signs, so they feel like the heavy items in the score.", "claims": []},
+        {"text": "Nudge: look at the table again. Which two items weigh 2, and do migration and rebound make that list?", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the weights: migration and rebound each score 1, and only two items score 2.", "claims": ["K107"]},
+      "choices": [
+        {"label": "Try again", "next": "alv", "kind": "retry"},
+        {"label": "Show me why", "next": "alv_t1_why", "kind": "agency"}
+      ]
+    },
+    "alv_t1_why": {
+      "role": "explain",
+      "say": [
+        {"text": "Only tenderness in the right iliac fossa and leucocytosis score 2 (K107). Migration and rebound each score 1.", "claims": ["K107"]},
+        {"text": "The total is out of 10, and a score of 7 or more makes appendicitis likely (K46, K47).", "claims": ["K46", "K47"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "alv", "kind": "retry"},
+        {"label": "Next", "next": "alv2", "kind": "continue"}
+      ]
+    },
+    "alv_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: RIF tenderness and rebound come together on the examination, so the pair feels like one finding.", "claims": []},
+        {"text": "Nudge: rebound is in the list at a lower weight. Which other item has the same weight as RIF tenderness?", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so re-check the second 2-point item: it is a blood count, not an examination finding.", "claims": ["K107"]},
+      "choices": [
+        {"label": "Try again", "next": "alv", "kind": "retry"},
+        {"label": "Show me why", "next": "alv_t2_why", "kind": "agency"}
+      ]
+    },
+    "alv_t2_why": {
+      "role": "explain",
+      "say": [
+        {"text": "Rebound tenderness scores 1, not 2. The two 2-point items are RIF tenderness and leucocytosis (K107).", "claims": ["K107"]},
+        {"text": "Your pair keeps the correct examination item but drops the blood count, which also scores 2 (K46).", "claims": ["K46"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "alv", "kind": "retry"},
+        {"label": "Next", "next": "alv2", "kind": "continue"}
+      ]
+    },
+    "alv2": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "say": [
+        {"text": "A patient has migration of pain, nausea, RIF tenderness, rebound tenderness and leucocytosis. What is the Alvarado total?", "claims": []}
+      ],
+      "choices": [
+        {"label": "9", "next": "alv2_t9", "kind": "trap", "trap": "TR6"},
+        {"label": "6", "next": "alv2_t6", "kind": "trap", "trap": "TR6"},
+        {"label": "7", "next": "alv2_ok", "kind": "correct"}
+      ]
+    },
+    "alv2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Migration 1, nausea 1, RIF tenderness 2, rebound 1 and leucocytosis 2 give 7 (K107, K46).", "claims": ["K107", "K46"]}
+      ],
+      "choices": [{"label": "Next", "next": "ttr", "kind": "continue"}]
+    },
+    "alv2_t9": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: migration and rebound feel like the heavy signs, so giving each 2 seems to follow.", "claims": []},
+        {"text": "Wrong: migration and rebound each score 1, which gives 7, not 9 (K107). Rebuild the total item by item.", "claims": ["K107"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "alv2", "kind": "retry"},
+        {"label": "Next", "next": "ttr", "kind": "continue"}
+      ]
+    },
+    "alv2_t6": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: leucocytosis is a laboratory result, so it can feel like a minor item scored 1.", "claims": []},
+        {"text": "Wrong: leucocytosis scores 2 (K107). Scoring it 1 drops the total to 6, and the correct total is 7 (K46).", "claims": ["K107", "K46"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "alv2", "kind": "retry"},
+        {"label": "Next", "next": "ttr", "kind": "continue"}
+      ]
+    },
+    "ttr": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A young woman has sudden mid-cycle RIF pain. There is no migration, she is afebrile and her count is normal. It settles over a few hours.", "claims": []},
+        {"text": "Most likely diagnosis?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Acute appendicitis", "next": "ttr_t14", "kind": "trap", "trap": "TR14"},
+        {"label": "Mittelschmerz", "next": "ttr_ok", "kind": "correct"},
+        {"label": "Pelvic inflammatory disease", "next": "ttr_pid", "kind": "partial"},
+        {"label": "Not sure, give me a hint", "next": "ttr_hint", "kind": "help"}
+      ]
+    },
+    "ttr_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Mid-cycle pain with a normal count and no migration does not follow the appendix pattern. Which condition in women causes mid-cycle pain?", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "ttr", "kind": "retry"}]
+    },
+    "ttr_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Mittelschmerz is pain from a ruptured Graafian follicle at mid-cycle, a women's cause of RIF pain (K59).", "claims": ["K59"]},
+        {"text": "Look-alikes differ by group: children have mesenteric lymphadenitis, women have ectopic pregnancy or mittelschmerz, adults have ureteric colic or caecal diverticulitis (K58, K59, K60).", "claims": ["K58", "K59", "K60"]}
+      ],
+      "choices": [{"label": "Next", "next": "cl", "kind": "continue"}]
+    },
+    "ttr_t14": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: right iliac fossa pain in a young woman is the picture most students learn first, so the diagnosis comes to mind at once.", "claims": []},
+        {"text": "Nudge: appendicitis is built on its whole pattern. Which feature of this story is missing from that pattern?", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so remember that RIF pain alone never means appendicitis: in a young woman the differential starts with mittelschmerz.", "claims": ["K59"]},
+      "choices": [
+        {"label": "Try again", "next": "ttr", "kind": "retry"},
+        {"label": "Show me why", "next": "ttr_t14_why", "kind": "agency"}
+      ]
+    },
+    "ttr_t14_why": {
+      "role": "explain",
+      "say": [
+        {"text": "Mid-cycle RIF pain from a ruptured Graafian follicle, mittelschmerz, mimics appendicitis in a young woman (K59).", "claims": ["K59"]},
+        {"text": "RIF pain alone never means appendicitis. Look for the whole pattern, and for the group the patient belongs to (K60).", "claims": ["K60"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "ttr", "kind": "retry"},
+        {"label": "Next", "next": "cl", "kind": "continue"}
+      ]
+    },
+    "ttr_pid": {
+      "role": "feedback",
+      "say": [
+        {"text": "Pelvic inflammatory disease is a real differential in women (K59), but this story has no fever and a normal count, and the pain settles within hours.", "claims": ["K59"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "ttr", "kind": "retry"},
+        {"label": "Next", "next": "ttr_ok", "kind": "continue"}
+      ]
+    },
+    "cl": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Last check for this segment. Which finding does NOT point to a pelvic appendix?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Pain on internal rotation of the flexed right hip", "next": "cl_t1", "kind": "trap", "trap": "TR1"},
+        {"label": "Pain on extension of the right hip", "next": "cl_ok", "kind": "correct"},
+        {"label": "Right-sided tenderness on rectal examination", "next": "cl_t2", "kind": "trap", "trap": "TR2"}
+      ]
+    },
+    "cl_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Pain on extending the right hip is the psoas sign, which points to a retrocaecal appendix (K38, K21).", "claims": ["K38", "K21"]}
+      ],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    },
+    "cl_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: internal rotation is the other right-hip movement, so it feels like the retrocaecal one.", "claims": []},
+        {"text": "Wrong: internal rotation of the flexed hip is the obturator sign, which fits a pelvic appendix (K39). The psoas sign is extension (K38).", "claims": ["K39", "K38"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "cl", "kind": "retry"},
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    },
+    "cl_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: rectal tenderness sounds like a general bowel finding, so it seems to fit any position of the appendix.", "claims": []},
+        {"text": "Wrong: right-sided rectal tenderness suggests a pelvic appendix touching the rectum (K42). Retrocaecal gives loin pain with little anterior tenderness (K33).", "claims": ["K42", "K33"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "cl", "kind": "retry"},
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
