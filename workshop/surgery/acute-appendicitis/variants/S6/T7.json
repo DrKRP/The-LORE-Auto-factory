@@ -8,67 +8,25 @@
       "objectives": ["O5"],
       "ask_confidence": true,
       "say": [
-        {"text": "Two cases on your ward round. Case X: pain when you extend the right hip. Case Y: pain when you rotate the flexed right hip inwards.", "claims": []},
-        {"text": "Which case suggests a retrocaecal appendix?", "claims": []}
+        {"text": "Your registrar says: 'For the psoas sign you flex the right hip and rotate it inwards.'", "claims": []},
+        {"text": "Which correction is right?", "claims": []}
       ],
       "choices": [
-        {"label": "Case Y, the internal-rotation case", "next": "p1_t2", "kind": "trap", "trap": "TR2"},
-        {"label": "Case X, the hip-extension case", "next": "p1_ok", "kind": "correct"},
+        {"label": "You're right: flexed internal rotation is the psoas test", "next": "p1_t1", "kind": "trap", "trap": "TR1"},
+        {"label": "Psoas needs hip extension; flexed internal rotation is obturator", "next": "p1_ok", "kind": "correct"},
+        {"label": "Psoas extension points to a pelvic appendix, which lies in the pelvis", "next": "p1_t2", "kind": "trap", "trap": "TR2"},
         {"label": "Not sure, give me a hint", "next": "p1_h", "kind": "help"}
       ]
     },
     "p1_ok": {
       "role": "feedback",
       "say": [
-        {"text": "Yes. Extending the hip stretches the psoas, and a retrocaecal appendix lies on it, so pain appears on extension.", "claims": ["K38", "K92"]},
-        {"text": "Retrocaecal is the commonest position of the appendix, which is why this sign matters most.", "claims": ["K3"]}
+        {"text": "Yes. Extending the right hip stretches the psoas. Flexing it and rotating it inwards tenses the obturator internus.", "claims": ["K38", "K39"]},
+        {"text": "A retrocaecal appendix lies on the psoas, so the psoas sign points to a retrocaecal tip, the commonest position (K92).", "claims": ["K92"]}
       ],
       "choices": [{"label": "Next", "next": "p2", "kind": "continue"}]
     },
-    "p1_t2": {
-      "role": "feedback",
-      "say": [
-        {"text": "Tempting: both signs are right-hip tests, so it feels natural to pair the second case with the position you learned first.", "claims": []},
-        {"text": "But internal rotation of the flexed hip loads the obturator internus, which a pelvic appendix touches. That pairs Case Y with the pelvic position (K39, K93).", "claims": ["K39", "K93"]},
-        {"text": "What is right: Case X is extension, the psoas and the retrocaecal appendix. Pair each sign with the muscle it stresses.", "claims": ["K38", "K92"]}
-      ],
-      "sure_note": {"text": "You were sure, so pair the signs by muscle: psoas with extension and retrocaecal; obturator with internal rotation and pelvic.", "claims": ["K38", "K39"]},
-      "choices": [
-        {"label": "Try again", "next": "p1", "kind": "retry"},
-        {"label": "Next", "next": "p2", "kind": "continue"}
-      ]
-    },
-    "p1_h": {
-      "role": "hint",
-      "say": [
-        {"text": "Ask which muscle each movement stretches. Then ask which part of the caecum or pelvis lies against that muscle.", "claims": ["K38", "K39"]}
-      ],
-      "choices": [{"label": "Try again", "next": "p1", "kind": "retry"}]
-    },
-    "p2": {
-      "role": "probe",
-      "objectives": ["O5"],
-      "ask_confidence": true,
-      "say": [
-        {"text": "Your registrar says: 'For the psoas sign you flex the right hip and rotate it inwards.'", "claims": []},
-        {"text": "Which correction is right?", "claims": []}
-      ],
-      "choices": [
-        {"label": "You're right: flexed internal rotation is the psoas test", "next": "p2_t1", "kind": "trap", "trap": "TR1"},
-        {"label": "Psoas needs hip extension; flexed internal rotation is obturator", "next": "p2_ok", "kind": "correct"},
-        {"label": "Both are the same hip test, so either name will do", "next": "p2_t1m", "kind": "trap", "trap": "TR1"},
-        {"label": "Not sure, give me a hint", "next": "p2_h", "kind": "help"}
-      ]
-    },
-    "p2_ok": {
-      "role": "feedback",
-      "say": [
-        {"text": "Yes. Extending the right hip stretches the psoas. Flexing it and rotating it inwards tenses the obturator internus.", "claims": ["K38", "K39"]},
-        {"text": "Each name belongs to one movement, so keep the two apart by the muscle each one stresses.", "claims": ["K106"]}
-      ],
-      "choices": [{"label": "Next", "next": "p3", "kind": "continue"}]
-    },
-    "p2_t1": {
+    "p1_t1": {
       "role": "feedback",
       "say": [
         {"text": "Tempting: both are right-hip manoeuvres that hurt in the same lower abdomen, so the names feel swappable.", "claims": []},
@@ -77,74 +35,108 @@
       ],
       "sure_note": {"text": "You were sure, so fix the movement first: extension is psoas, internal rotation of the flexed hip is obturator.", "claims": ["K38", "K39"]},
       "choices": [
-        {"label": "Try again", "next": "p2", "kind": "retry"},
-        {"label": "Next", "next": "p3", "kind": "continue"}
+        {"label": "Try again", "next": "p1", "kind": "retry"},
+        {"label": "Next", "next": "p2", "kind": "continue"}
       ]
     },
-    "p2_t1m": {
+    "p1_t2": {
       "role": "feedback",
       "say": [
-        {"text": "Tempting: both signs are pain-on-movement tests of the same joint, so they can feel like one manoeuvre with two labels.", "claims": []},
-        {"text": "But each one stresses a different muscle. The psoas is stretched by extension; the obturator internus is tensed by internal rotation of a flexed hip (K38, K39).", "claims": ["K38", "K39"]},
-        {"text": "What is right: learn one movement per name. They are two signs, each with its own muscle (K106).", "claims": ["K106"]}
+        {"text": "Tempting: the psoas sign is a hip test, and the hip is close to the pelvis, so the pelvic position feels like a neighbour.", "claims": []},
+        {"text": "But the psoas sign suggests a retrocaecal appendix lying on the psoas. The pelvic position goes with the obturator sign (K38, K39).", "claims": ["K38", "K39"]},
+        {"text": "What is right: pair each sign with the muscle it stresses, and the muscle with the position it touches (K93).", "claims": ["K93"]}
       ],
-      "sure_note": {"text": "You were sure the two are one test. They stress different muscles, so they are two signs.", "claims": ["K38", "K39"]},
+      "sure_note": {"text": "You were sure the psoas sign means pelvic. Psoas means retrocaecal; obturator means pelvic (K38, K39).", "claims": ["K38", "K39"]},
+      "choices": [
+        {"label": "Try again", "next": "p1", "kind": "retry"},
+        {"label": "Next", "next": "p2", "kind": "continue"}
+      ]
+    },
+    "p1_h": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask which muscle each movement stretches or tenses. Then ask which part of the caecum or pelvis lies against that muscle.", "claims": ["K38", "K39"]}
+      ],
+      "choices": [{"label": "Try again", "next": "p1", "kind": "retry"}]
+    },
+    "p2": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "You want Rovsing's sign, and the patient's pain is in the right iliac fossa.", "claims": []},
+        {"text": "Where do you press?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Right iliac fossa, where the pain is", "next": "p2_t3", "kind": "trap", "trap": "TR3"},
+        {"label": "Left iliac fossa", "next": "p2_ok", "kind": "correct"}
+      ]
+    },
+    "p2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Pressure in the left iliac fossa pushes gas towards the caecum, and the inflamed right iliac fossa hurts (K37).", "claims": ["K37"]},
+        {"text": "So Rovsing's sign is pressure on one side and pain on the other. The pain is never on the side you press (K106).", "claims": ["K106"]}
+      ],
+      "choices": [{"label": "Next", "next": "p3", "kind": "continue"}]
+    },
+    "p2_t3": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the sign seems to be named for where the pain is, so you press where the patient hurts.", "claims": []},
+        {"text": "But pressing the inflamed side tests the local tenderness, not Rovsing's mechanism. The sign needs pressure away from the pain (K37).", "claims": ["K37"]},
+        {"text": "What is right: press the left iliac fossa, and the pain felt in the right iliac fossa is Rovsing's sign (K37, K106).", "claims": ["K37", "K106"]}
+      ],
+      "sure_note": {"text": "You were sure you press where it hurts. Rovsing is pressure on the left, pain on the right (K37).", "claims": ["K37"]},
       "choices": [
         {"label": "Try again", "next": "p2", "kind": "retry"},
         {"label": "Next", "next": "p3", "kind": "continue"}
       ]
-    },
-    "p2_h": {
-      "role": "hint",
-      "say": [
-        {"text": "Ask what extending the hip stretches, and what internally rotating a flexed hip tenses.", "claims": ["K38", "K39"]}
-      ],
-      "choices": [{"label": "Try again", "next": "p2", "kind": "retry"}]
     },
     "p3": {
       "role": "probe",
-      "objectives": ["O3"],
+      "objectives": ["O3", "O4"],
       "ask_confidence": true,
       "say": [
-        {"text": "A surgeon says: 'The appendix gangrenes first, and the lumen blocks only later.'", "claims": []},
-        {"text": "Which correction is right?", "claims": []}
+        {"text": "A student lists the early course of a typical case of appendicitis.", "claims": []},
+        {"text": "Which order is right?", "claims": []}
       ],
       "choices": [
-        {"label": "Pain localises to the right iliac fossa first, then the umbilicus", "next": "p3_t4a", "kind": "trap", "trap": "TR4"},
-        {"label": "The lumen blocks first; rising pressure then cuts the artery supply", "next": "p3_ok", "kind": "correct"},
-        {"label": "Ischaemia starts before any blockage, and the lumen blocks afterwards", "next": "p3_t4b", "kind": "trap", "trap": "TR4"},
+        {"label": "Vomiting, then pain, then fever", "next": "p3_t5", "kind": "trap", "trap": "TR5"},
+        {"label": "Pain, then vomiting, then fever", "next": "p3_ok", "kind": "correct"},
+        {"label": "Right iliac fossa pain first, then pain at the umbilicus", "next": "p3_t4", "kind": "trap", "trap": "TR4"},
         {"label": "Not sure, give me a hint", "next": "p3_h", "kind": "help"}
       ]
     },
     "p3_ok": {
       "role": "feedback",
       "say": [
-        {"text": "Yes. Obstruction raises intraluminal pressure, venous congestion follows, and the end-artery supply then fails (K24, K25).", "claims": ["K24", "K25"]},
-        {"text": "The appendicular artery is an end artery, so ischaemia leads to gangrene and then perforation, at the end of the chain (K4).", "claims": ["K4"]}
+        {"text": "Yes. Pain comes first, then anorexia and vomiting, and fever later (K6, K31).", "claims": ["K6", "K31"]},
+        {"text": "Vomiting before pain argues against appendicitis, so the order is itself the discriminator (K6).", "claims": ["K6"]}
       ],
       "choices": [{"label": "Next", "next": "p4", "kind": "continue"}]
     },
-    "p3_t4a": {
+    "p3_t5": {
       "role": "feedback",
       "say": [
-        {"text": "Tempting: pain is the first thing the patient describes, so it feels like the first event in the chain.", "claims": []},
-        {"text": "But early pain is visceral and periumbilical, from the T10 supply. It moves to the right iliac fossa only when the parietal peritoneum is involved (K26, K27).", "claims": ["K26", "K27"]},
-        {"text": "What is right: the lumen blocks first, pressure rises, and only then the pain localises to the right iliac fossa (K5, K24).", "claims": ["K5", "K24"]}
+        {"text": "Tempting: vomiting is the first symptom in gastroenteritis and in obstruction, so it feels like an opening symptom here.", "claims": []},
+        {"text": "But in typical appendicitis vomiting follows the pain. Vomiting first argues against the diagnosis (K6, K31).", "claims": ["K6", "K31"]},
+        {"text": "What is right: pain, then vomiting, then fever. The order carries the diagnosis (K6).", "claims": ["K6"]}
       ],
-      "sure_note": {"text": "You were sure the pain localises first. It starts periumbilical and shifts to the right iliac fossa later (K5, K27).", "claims": ["K5", "K27"]},
+      "sure_note": {"text": "You were sure vomiting comes first. In appendicitis it follows pain, and that order is the clue (K6).", "claims": ["K6"]},
       "choices": [
         {"label": "Try again", "next": "p3", "kind": "retry"},
         {"label": "Next", "next": "p4", "kind": "continue"}
       ]
     },
-    "p3_t4b": {
+    "p3_t4": {
       "role": "feedback",
       "say": [
-        {"text": "Tempting: gangrene is the feared end, so the picture of a dying appendix feels like the opening event.", "claims": []},
-        {"text": "But the artery fails because rising pressure compresses it. Ischaemia sits downstream of the blockage, so it cannot come first (K24, K25).", "claims": ["K24", "K25"]},
-        {"text": "What is right: obstruction, rising pressure, venous congestion, arterial compromise, then gangrene and perforation (K24, K25).", "claims": ["K24", "K25"]}
+        {"text": "Tempting: the pain ends in the right iliac fossa, so the student has started from where it finally settles.", "claims": []},
+        {"text": "But early pain is visceral and periumbilical, from the T10 supply. It reaches the right iliac fossa only when the parietal peritoneum is involved (K26, K27).", "claims": ["K26", "K27"]},
+        {"text": "What is right: pain begins periumbilical and shifts to the right iliac fossa later (K5, K30).", "claims": ["K5", "K30"]}
       ],
-      "sure_note": {"text": "You were sure ischaemia came first. The lumen blocks first, and pressure cuts the end-artery supply afterwards (K25).", "claims": ["K25"]},
+      "sure_note": {"text": "You were sure the right iliac fossa pain comes first. The migration runs from the umbilicus to the right iliac fossa (K30).", "claims": ["K30"]},
       "choices": [
         {"label": "Try again", "next": "p3", "kind": "retry"},
         {"label": "Next", "next": "p4", "kind": "continue"}
@@ -153,7 +145,7 @@
     "p3_h": {
       "role": "hint",
       "say": [
-        {"text": "Start with what blocks the lumen. Then ask what raised pressure does to venous flow, and then to arterial flow.", "claims": ["K24"]}
+        {"text": "Ask which pain is visceral and comes from the midgut supply, and which pain needs the parietal peritoneum to be involved.", "claims": ["K26", "K27"]}
       ],
       "choices": [{"label": "Try again", "next": "p3", "kind": "retry"}]
     },
@@ -162,30 +154,30 @@
       "objectives": ["O6"],
       "ask_confidence": true,
       "say": [
-        {"text": "A patient has right iliac fossa tenderness, rebound tenderness, leucocytosis, fever, anorexia and nausea. He has no migration of pain and no left shift.", "claims": []},
+        {"text": "A patient has rebound tenderness, right iliac fossa tenderness, leucocytosis, anorexia, nausea, fever and a left shift. He has no migration of pain.", "claims": []},
         {"text": "What is his Alvarado total?", "claims": []}
       ],
       "choices": [
-        {"label": "9", "next": "p4_t6", "kind": "trap", "trap": "TR6"},
-        {"label": "8", "next": "p4_ok", "kind": "correct"},
-        {"label": "7", "next": "p4_t7", "kind": "trap", "trap": "TR6"},
+        {"label": "10", "next": "p4_t6", "kind": "trap", "trap": "TR6"},
+        {"label": "9", "next": "p4_ok", "kind": "correct"},
+        {"label": "8", "next": "p4_t7", "kind": "trap", "trap": "TR6"},
         {"label": "Not sure, give me a hint", "next": "p4_h", "kind": "help"}
       ]
     },
     "p4_ok": {
       "role": "feedback",
       "say": [
-        {"text": "Yes. Right iliac fossa tenderness and leucocytosis score 2 each; rebound, fever, anorexia and nausea score 1 each (K7, K107).", "claims": ["K7", "K107"]},
-        {"text": "Two 2-point items plus four 1-point items give 8. A score of 7 or more makes appendicitis likely (K47).", "claims": ["K47"]}
+        {"text": "Yes. Right iliac fossa tenderness and leucocytosis score 2 each; rebound, anorexia, nausea, fever and left shift score 1 each (K7, K107).", "claims": ["K7", "K107"]},
+        {"text": "Two 2-point items and five 1-point items give 9. A total of 7 or more makes appendicitis likely (K47).", "claims": ["K47"]}
       ],
       "choices": [{"label": "Next", "next": "p5", "kind": "continue"}]
     },
     "p4_t6": {
       "role": "feedback",
       "say": [
-        {"text": "Tempting: rebound tenderness is a peritoneal sign, so it feels as if it deserves the top weight alongside tenderness.", "claims": []},
-        {"text": "But only right iliac fossa tenderness and leucocytosis score 2. Rebound scores 1, so a total of 9 overcounts (K107, K7).", "claims": ["K107", "K7"]},
-        {"text": "What is right: two 2-point items plus four 1-point items give 8. Count the weights, not the feel of each sign.", "claims": ["K7"]}
+        {"text": "Tempting: rebound tenderness is a peritoneal sign, so it feels as if it deserves the top weight with tenderness.", "claims": []},
+        {"text": "But only right iliac fossa tenderness and leucocytosis score 2. Rebound scores 1, so 10 overcounts (K107, K7).", "claims": ["K107", "K7"]},
+        {"text": "What is right: two 2-point items and five 1-point items total 9. Count the weights in the table (K7).", "claims": ["K7"]}
       ],
       "sure_note": {"text": "You were sure rebound scores 2. The table gives it 1; only tenderness and leucocytosis take 2 (K107).", "claims": ["K107"]},
       "choices": [
@@ -196,11 +188,11 @@
     "p4_t7": {
       "role": "feedback",
       "say": [
-        {"text": "Tempting: leucocytosis is a laboratory result, so it feels like a minor item next to the clinical signs.", "claims": []},
-        {"text": "But leucocytosis scores 2, the same as right iliac fossa tenderness. Scoring it 1 drops the total to 7 and understates the risk (K107).", "claims": ["K107"]},
-        {"text": "What is right: two 2-point items and four 1-point items total 8 (K7).", "claims": ["K7"]}
+        {"text": "Tempting: a left shift is a fine detail of the blood film, so it feels too small to count.", "claims": []},
+        {"text": "But left shift is a 1-point item of its own. Leaving it out understates the score (K7).", "claims": ["K7"]},
+        {"text": "What is right: 2 + 2 for the two 2-point items, then 1 for each of the five others, total 9 (K7, K107).", "claims": ["K7", "K107"]}
       ],
-      "sure_note": {"text": "You were sure leucocytosis scores 1. In the Alvarado table it scores 2, like tenderness (K107).", "claims": ["K107"]},
+      "sure_note": {"text": "You were sure left shift scores nothing. Every other item in the score scores 1 (K7).", "claims": ["K7"]},
       "choices": [
         {"label": "Try again", "next": "p4", "kind": "retry"},
         {"label": "Next", "next": "p5", "kind": "continue"}
@@ -209,7 +201,7 @@
     "p4_h": {
       "role": "hint",
       "say": [
-        {"text": "Score the items in pairs: which two carry 2 points, and what does every other item carry?", "claims": ["K7"]}
+        {"text": "Score in pairs: which two items carry 2 points, and what does every other item carry?", "claims": ["K7"]}
       ],
       "choices": [{"label": "Try again", "next": "p4", "kind": "retry"}]
     },
@@ -222,9 +214,9 @@
         {"text": "Which reply is right?", "claims": []}
       ],
       "choices": [
-        {"label": "Ultrasound is the investigation of choice for all ages, as old keys say", "next": "p5_t11", "kind": "trap", "trap": "TR11"},
-        {"label": "A negative scan in an adult is decisive, so the patient can go home", "next": "p5_t8", "kind": "trap", "trap": "TR8"},
-        {"label": "CT is most accurate in adults; a negative scan does not exclude appendicitis", "next": "p5_ok", "kind": "correct"}
+        {"label": "Ultrasound is the investigation of choice at every age", "next": "p5_t11", "kind": "trap", "trap": "TR11"},
+        {"label": "A negative scan in an adult is decisive; discharge", "next": "p5_t8", "kind": "trap", "trap": "TR8"},
+        {"label": "CT is most accurate in adults; a negative scan doesn't exclude it", "next": "p5_ok", "kind": "correct"}
       ]
     },
     "p5_ok": {
@@ -314,24 +306,24 @@
       "objectives": ["O8"],
       "ask_confidence": true,
       "say": [
-        {"text": "A 26-year-old woman has right iliac fossa pain and a late period. She reaches casualty.", "claims": []},
-        {"text": "What is your first step?", "claims": []}
+        {"text": "A 22-year-old woman has right iliac fossa pain and nausea. Her last period was seven weeks ago. The house surgeon wants her in theatre.", "claims": []},
+        {"text": "What do you do first?", "claims": []}
       ],
       "choices": [
-        {"label": "Contrast CT now; the pregnancy test can follow", "next": "p7_t12a", "kind": "trap", "trap": "TR12"},
-        {"label": "Serum or urine beta-hCG before any scan or theatre", "next": "p7_ok", "kind": "correct"},
-        {"label": "Diagnostic laparoscopy at once; it answers both questions", "next": "p7_t12b", "kind": "trap", "trap": "TR12"}
+        {"label": "Contrast CT now; the pregnancy test can follow", "next": "p7_t12", "kind": "trap", "trap": "TR12"},
+        {"label": "Appendicectomy now; right iliac fossa pain in a woman is appendicitis", "next": "p7_t14", "kind": "trap", "trap": "TR14"},
+        {"label": "Serum or urine beta-hCG before any scan or theatre", "next": "p7_ok", "kind": "correct"}
       ]
     },
     "p7_ok": {
       "role": "feedback",
       "say": [
         {"text": "Yes. Every woman of reproductive age needs a beta-hCG, because ectopic pregnancy changes the imaging and the operation (K53, K59).", "claims": ["K53", "K59"]},
-        {"text": "The pregnancy test comes before the scan or theatre, not after the appendix looks normal (K53).", "claims": ["K53"]}
+        {"text": "Right iliac fossa pain in a woman has several causes, so the test comes before the label (K59).", "claims": ["K59"]}
       ],
       "choices": [{"label": "Next", "next": "p8", "kind": "continue"}]
     },
-    "p7_t12a": {
+    "p7_t12": {
       "role": "feedback",
       "say": [
         {"text": "Tempting: the appendix is the likely cause, so imaging it now feels like the efficient step.", "claims": []},
@@ -344,14 +336,14 @@
         {"label": "Next", "next": "p8", "kind": "continue"}
       ]
     },
-    "p7_t12b": {
+    "p7_t14": {
       "role": "feedback",
       "say": [
-        {"text": "Tempting: laparoscopy both looks and treats, so it feels like one efficient step that answers both questions.", "claims": []},
-        {"text": "But operating before excluding pregnancy risks a wrong operation for an ectopic pregnancy (K59, K53).", "claims": ["K59", "K53"]},
-        {"text": "What is right: beta-hCG first, then imaging or theatre, depending on the result (K53).", "claims": ["K53"]}
+        {"text": "Tempting: right iliac fossa pain with nausea looks like the textbook picture, so surgery feels like the logical next step.", "claims": []},
+        {"text": "But right iliac fossa pain is not always appendicitis. In women, ectopic pregnancy, ovarian cysts and pelvic inflammatory disease share it (K59).", "claims": ["K59"]},
+        {"text": "What is right: beta-hCG first; then choose imaging or theatre for the likeliest cause (K53, K59).", "claims": ["K53", "K59"]}
       ],
-      "sure_note": {"text": "You were sure one operation answers everything. The pregnancy test comes first, every time (K53).", "claims": ["K53"]},
+      "sure_note": {"text": "You were sure this pain means appendicitis. In women it has gynaecological causes too (K59).", "claims": ["K59"]},
       "choices": [
         {"label": "Try again", "next": "p7", "kind": "retry"},
         {"label": "Next", "next": "p8", "kind": "continue"}
@@ -410,72 +402,24 @@
       "objectives": ["O10"],
       "ask_confidence": true,
       "say": [
-        {"text": "Two patients. A has five days of right iliac fossa pain, a tender stable mass and low-grade fever. B has swinging fever and a drainable collection on CT.", "claims": []},
-        {"text": "Which pair of actions is right?", "claims": []}
+        {"text": "A 58-year-old man's appendicular mass has resolved on the regimen.", "claims": []},
+        {"text": "What is your next step?", "claims": []}
       ],
       "choices": [
-        {"label": "A: immediate appendicectomy; B: image-guided drainage with antibiotics", "next": "p9_t25a", "kind": "trap", "trap": "TR25"},
-        {"label": "A: Ochsner-Sherren regimen; B: image-guided drainage with antibiotics", "next": "p9_ok", "kind": "correct"},
-        {"label": "A: Ochsner-Sherren regimen; B: laparotomy and open drainage", "next": "p9_t25b", "kind": "trap", "trap": "TR25"}
+        {"label": "Routine interval appendicectomy at six to eight weeks", "next": "p9_t24", "kind": "trap", "trap": "TR24"},
+        {"label": "Colonoscopy or CT to exclude caecal carcinoma, then decide on surgery", "next": "p9_ok", "kind": "correct"},
+        {"label": "Immediate appendicectomy, since the mass proves the appendix is diseased", "next": "p9_t25", "kind": "trap", "trap": "TR25"}
       ]
     },
     "p9_ok": {
       "role": "feedback",
       "say": [
-        {"text": "Yes. A stable appendicular mass is treated by the Ochsner-Sherren regimen; a drainable abscess by image-guided drainage with antibiotics (K73, K76).", "claims": ["K73", "K76"]},
-        {"text": "The regimen is stopped and surgery done if pulse, pain or mass size worsens, or peritonitis spreads (K74).", "claims": ["K74"]}
-      ],
-      "choices": [{"label": "Next", "next": "p10", "kind": "continue"}]
-    },
-    "p9_t25a": {
-      "role": "feedback",
-      "say": [
-        {"text": "Tempting: a tender mass and five days of pain feel like a reason to remove the appendix at once.", "claims": []},
-        {"text": "But a stable appendicular mass is first treated conservatively. Early surgery is reserved for a regimen that fails (K73, K74).", "claims": ["K73", "K74"]},
-        {"text": "What is right: the regimen for the mass, and image-guided drainage for the drainable collection (K73, K103).", "claims": ["K73", "K103"]}
-      ],
-      "sure_note": {"text": "You were sure surgery is right for a mass. The regimen comes first, and surgery follows its failure (K74).", "claims": ["K74"]},
-      "choices": [
-        {"label": "Try again", "next": "p9", "kind": "retry"},
-        {"label": "Next", "next": "p10", "kind": "continue"}
-      ]
-    },
-    "p9_t25b": {
-      "role": "feedback",
-      "say": [
-        {"text": "Tempting: open drainage feels definitive when the collection is large, so laparotomy looks thorough.", "claims": []},
-        {"text": "But percutaneous image-guided drainage is first-line for a drainable abscess. Open drainage is the fallback when it fails or is unavailable (K76, K103).", "claims": ["K76", "K103"]},
-        {"text": "What is right: image-guided drainage with antibiotics for Patient B (K103).", "claims": ["K103"]}
-      ],
-      "sure_note": {"text": "You were sure open drainage is right. Image-guided drainage is first-line; open drainage is the fallback (K76).", "claims": ["K76"]},
-      "choices": [
-        {"label": "Try again", "next": "p9", "kind": "retry"},
-        {"label": "Next", "next": "p10", "kind": "continue"}
-      ]
-    },
-    "p10": {
-      "role": "probe",
-      "objectives": ["O10"],
-      "ask_confidence": true,
-      "say": [
-        {"text": "A 58-year-old man's appendicular mass has resolved on the regimen.", "claims": []},
-        {"text": "What is your next step?", "claims": []}
-      ],
-      "choices": [
-        {"label": "Routine interval appendicectomy at six to eight weeks, as the old key says", "next": "p10_t24", "kind": "trap", "trap": "TR24"},
-        {"label": "Colonoscopy or CT to exclude caecal carcinoma, then decide on surgery", "next": "p10_ok", "kind": "correct"},
-        {"label": "Immediate appendicectomy, since the mass proves the appendix is diseased", "next": "p10_t25", "kind": "trap", "trap": "TR25"}
-      ]
-    },
-    "p10_ok": {
-      "role": "feedback",
-      "say": [
         {"text": "Yes. Interval surgery is now selective, and an older patient needs colonoscopy or CT to exclude caecal carcinoma (K75).", "claims": ["K75"]},
         {"text": "Decide on surgery after the work-up, not from the calendar (K75).", "claims": ["K75"]}
       ],
-      "choices": [{"label": "Next", "next": "p11", "kind": "continue"}]
+      "choices": [{"label": "Next", "next": "p10", "kind": "continue"}]
     },
-    "p10_t24": {
+    "p9_t24": {
       "role": "feedback",
       "say": [
         {"text": "Tempting: interval appendicectomy at six to eight weeks is the classic answer, so it feels like the routine.", "claims": []},
@@ -484,11 +428,11 @@
       ],
       "sure_note": {"text": "You were sure the calendar decides. The routine is now selective, with work-up in older patients (K109).", "claims": ["K109"]},
       "choices": [
-        {"label": "Try again", "next": "p10", "kind": "retry"},
-        {"label": "Next", "next": "p11", "kind": "continue"}
+        {"label": "Try again", "next": "p9", "kind": "retry"},
+        {"label": "Next", "next": "p10", "kind": "continue"}
       ]
     },
-    "p10_t25": {
+    "p9_t25": {
       "role": "feedback",
       "say": [
         {"text": "Tempting: the mass proves the appendix is diseased, so removing it now feels like the logical step.", "claims": []},
@@ -496,6 +440,54 @@
         {"text": "What is right: work-up for caecal carcinoma first, then a selective decision on interval surgery (K75).", "claims": ["K75"]}
       ],
       "sure_note": {"text": "You were sure a mass means immediate surgery. A resolved mass is managed by work-up and selection (K75).", "claims": ["K75"]},
+      "choices": [
+        {"label": "Try again", "next": "p9", "kind": "retry"},
+        {"label": "Next", "next": "p10", "kind": "continue"}
+      ]
+    },
+    "p10": {
+      "role": "probe",
+      "objectives": ["O11"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 45-year-old man with appendicitis develops rigors, jaundice and liver abscesses.", "claims": []},
+        {"text": "Which complication is this?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Faecal fistula after the appendicectomy", "next": "p10_t16a", "kind": "trap", "trap": "TR16"},
+        {"label": "Pylephlebitis, septic thrombosis of the portal vein", "next": "p10_ok", "kind": "correct"},
+        {"label": "Wound infection after the appendicectomy", "next": "p10_t16b", "kind": "trap", "trap": "TR16"}
+      ]
+    },
+    "p10_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Pylephlebitis is septic thrombophlebitis of the portal venous system, with rigors, jaundice and liver abscesses (K80).", "claims": ["K80"]},
+        {"text": "It is a complication of the disease itself, so it is not a problem of the operation (K80, K78).", "claims": ["K80", "K78"]}
+      ],
+      "choices": [{"label": "Next", "next": "p11", "kind": "continue"}]
+    },
+    "p10_t16a": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: once the appendix is out, the fistula is the complication everyone remembers, so it feels like the episode's complication.", "claims": []},
+        {"text": "But a faecal fistula comes from a slipped stump or caecal necrosis after surgery. It is an operative complication (K84).", "claims": ["K84"]},
+        {"text": "What is right: rigors, jaundice and liver abscesses point to the portal vein, which is pylephlebitis (K80).", "claims": ["K80"]}
+      ],
+      "sure_note": {"text": "You were sure the fistula fits. A fistula is an operative complication from the stump (K84).", "claims": ["K84"]},
+      "choices": [
+        {"label": "Try again", "next": "p10", "kind": "retry"},
+        {"label": "Next", "next": "p11", "kind": "continue"}
+      ]
+    },
+    "p10_t16b": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: wound infection is the most common complication after appendicectomy, so it feels like the default answer.", "claims": []},
+        {"text": "But it is the commonest operative complication, not a disease complication, and it does not explain rigors and jaundice (K82).", "claims": ["K82"]},
+        {"text": "What is right: pylephlebitis, septic portal thrombophlebitis with liver abscesses (K80).", "claims": ["K80"]}
+      ],
+      "sure_note": {"text": "You were sure wound infection fits. It is the commonest operative complication, not the cause of rigors and jaundice (K82).", "claims": ["K82"]},
       "choices": [
         {"label": "Try again", "next": "p10", "kind": "retry"},
         {"label": "Next", "next": "p11", "kind": "continue"}
@@ -506,30 +498,44 @@
       "objectives": ["O11"],
       "ask_confidence": true,
       "say": [
-        {"text": "Two patients. A is ten days after open appendicectomy, with faecal discharge from the wound and a slipped stump. B is two days into a stay, with perforation and peritonitis before theatre.", "claims": []},
-        {"text": "Which patient has a complication of the operation?", "claims": []}
+        {"text": "The gridiron incision splits the oblique muscles along their fibres. A nerve in its path, if cut, gives a right inguinal hernia.", "claims": ["K65"]},
+        {"text": "Which nerve is it?", "claims": []}
       ],
       "choices": [
-        {"label": "Patient B, as peritonitis is the complication of the surgical episode", "next": "p11_t16", "kind": "trap", "trap": "TR16"},
-        {"label": "Patient A, with a faecal fistula from the stump", "next": "p11_ok", "kind": "correct"}
+        {"label": "Iliohypogastric nerve", "next": "p11_t18a", "kind": "trap", "trap": "TR18"},
+        {"label": "Ilioinguinal nerve", "next": "p11_ok", "kind": "correct"},
+        {"label": "Genitofemoral nerve", "next": "p11_t18b", "kind": "trap", "trap": "TR18"}
       ]
     },
     "p11_ok": {
       "role": "feedback",
       "say": [
-        {"text": "Yes. A faecal fistula can follow a slipped stump ligature, so it is a complication of the operation (K84).", "claims": ["K84"]},
-        {"text": "Perforation with peritonitis is a complication of the disease itself, before any operation (K78).", "claims": ["K78"]}
+        {"text": "Yes. The ilioinguinal nerve is injured with a gridiron incision, and the injury gives a right inguinal hernia (K85).", "claims": ["K85"]},
+        {"text": "The gridiron splits the muscles along their fibres, so the nerve in the path is the one at risk (K65).", "claims": ["K65"]}
       ],
       "choices": [{"label": "Next", "next": "p12", "kind": "continue"}]
     },
-    "p11_t16": {
+    "p11_t18a": {
       "role": "feedback",
       "say": [
-        {"text": "Tempting: peritonitis is the dramatic outcome of the whole episode, so it feels like a complication of the surgery too.", "claims": []},
-        {"text": "But perforation with generalised peritonitis comes from the disease, before theatre. Merging the two complication lists is the error (K78, K82).", "claims": ["K78", "K82"]},
-        {"text": "What is right: disease complications are perforation, mass, abscess and pylephlebitis; operative ones are wound infection, fistula and stump problems (K80, K84).", "claims": ["K80", "K84"]}
+        {"text": "Tempting: the iliac-region nerves are learned together as one bundle, so a neighbour feels equally likely.", "claims": []},
+        {"text": "But the gridiron path, not the bundle, decides which nerve is at risk. The iliohypogastric is a neighbour, not the nerve that gives this hernia (K65).", "claims": ["K65"]},
+        {"text": "What is right: the ilioinguinal nerve, injured with a gridiron incision, gives a right inguinal hernia (K85).", "claims": ["K85"]}
       ],
-      "sure_note": {"text": "You were sure perforation is an operative complication. It is a disease complication, and it can happen before theatre (K78).", "claims": ["K78"]},
+      "sure_note": {"text": "You were sure the neighbour is the one. The nerve is the ilioinguinal, which the gridiron crosses (K85).", "claims": ["K85"]},
+      "choices": [
+        {"label": "Try again", "next": "p11", "kind": "retry"},
+        {"label": "Next", "next": "p12", "kind": "continue"}
+      ]
+    },
+    "p11_t18b": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the genitofemoral nerve runs close to the inguinal canal, so it feels like the nerve at risk.", "claims": []},
+        {"text": "But running near the canal is not the same as being the nerve the gridiron crosses to produce this hernia (K65, K85).", "claims": ["K65", "K85"]},
+        {"text": "What is right: the ilioinguinal nerve is injured with a gridiron incision, giving a right inguinal hernia (K85).", "claims": ["K85"]}
+      ],
+      "sure_note": {"text": "You were sure the genitofemoral is at risk. The hernia comes from the ilioinguinal nerve (K85).", "claims": ["K85"]},
       "choices": [
         {"label": "Try again", "next": "p11", "kind": "retry"},
         {"label": "Next", "next": "p12", "kind": "continue"}
@@ -537,11 +543,10 @@
     },
     "p12": {
       "role": "probe",
-      "objectives": ["O12"],
+      "objectives": ["O1", "O12"],
       "ask_confidence": true,
       "say": [
-        {"text": "A histology report after appendicectomy is read in the teaching round.", "claims": []},
-        {"text": "Which is the most common tumour of the appendix?", "claims": []}
+        {"text": "Acute appendicitis is the commonest surgical emergency of the abdomen. Which is the commonest tumour of the appendix itself?", "claims": ["K1"]}
       ],
       "choices": [
         {"label": "Mucocele", "next": "p12_t13a", "kind": "trap", "trap": "TR13"},
@@ -553,7 +558,8 @@
       "role": "feedback",
       "say": [
         {"text": "Yes. Carcinoid, the neuroendocrine tumour, is the commonest appendix tumour and usually sits at the tip (K105, K89).", "claims": ["K105", "K89"]},
-        {"text": "PYQs expected under 2 cm at the tip to need appendicectomy alone, and over 2 cm to need right hemicolectomy (K111).", "claims": ["K111"]}
+        {"text": "PYQs expected under 2 cm at the tip to need appendicectomy alone, and over 2 cm to need right hemicolectomy (K111).", "claims": ["K111"]},
+        {"text": "Keep the two commonest facts apart: appendicitis for the emergency, carcinoid for the tumour (K1, K105).", "claims": ["K1", "K105"]}
       ],
       "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
     },
