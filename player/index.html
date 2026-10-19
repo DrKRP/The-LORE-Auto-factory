@@ -306,7 +306,7 @@ function summary() {
     try { await navigator.clipboard.writeText(JSON.stringify(record(), null, 2)); e.target.textContent = "Copied"; }
     catch (err) { e.target.textContent = "Copy blocked: use Download"; }
   };
-  $("export").onclick = () => {
+  if ($("export")) $("export").onclick = () => {
     const { steps, ...computed } = R;
     const rec = { module: M.id, version: M.version, started: S.hist.length ? new Date(S.hist[0].t || Date.now()).toISOString() : null,
       finished: new Date().toISOString(), path: S.hist.map((h) => ({ node: h.at, choice: h.choice, sure: h.sure ?? null, t: h.t || null })), report: computed };

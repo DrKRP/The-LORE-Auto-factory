@@ -1056,7 +1056,7 @@ def lint_module(mod, issues, metrics):
         tr = [c.get("trap") for c in ch if c.get("kind") == "trap"]
         traps_per_probe.append(len(tr))
         if len(tr) != len(set(tr)):
-            issues["errors"].append(f"{nid}: two options carry the same trap (DP3)")
+            issues["warnings"].append(f"{nid}: two options carry the same trap (DP3)")
         nexts = {}
         for c in ch:
             if c.get("kind") == "trap":

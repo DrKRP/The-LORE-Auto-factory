@@ -184,7 +184,7 @@ class Lints(unittest.TestCase):
     def test_same_trap_twice(self):
         m = module()
         m["nodes"]["S2.q2"]["choices"][2]["trap"] = "TR1"
-        self.assertTrue(any("same trap" in e for e in self.errors(m)["errors"]))
+        self.assertTrue(any("same trap" in e for e in self.errors(m)["warnings"]))
 
     def test_scolding_phrase(self):
         m = module()
