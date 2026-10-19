@@ -1,0 +1,1350 @@
+{
+  "segment": "S4",
+  "entry": "d1",
+  "nodes": {
+    "d1": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 6-year-old boy has right iliac fossa pain, fever and localised tenderness. Which imaging do you order first?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Graded-compression ultrasound",
+          "next": "d1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Contrast-enhanced CT abdomen",
+          "next": "d1_t9",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "d1_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "d1_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Start with the patient, not the scanner. Age decides which test is the first rung, and the first rung is the one that is safe for that patient.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "d1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "d1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. In a child, graded-compression ultrasound is the first imaging test.",
+          "claims": [
+            "K8"
+          ]
+        },
+        {
+          "text": "Keep the child in mind, because age sets the first rung before any sign is read.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me the worked case",
+          "next": "w1",
+          "kind": "continue"
+        },
+        {
+          "label": "I know this, skip the worked case",
+          "next": "c2",
+          "kind": "skip"
+        }
+      ]
+    },
+    "d1_t9": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: CT is the most accurate test in adults, so it feels like the strong first choice. Look again at who this patient is before you pick the first rung.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look at this one twice: the child's age changes the first test.",
+        "claims": [
+          "K8"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "d1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "d1_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "d1_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "CT is the most accurate test in adults, so the habit is understandable. In children and in pregnancy, ultrasound is the first test.",
+          "claims": [
+            "K99",
+            "K8"
+          ]
+        },
+        {
+          "text": "On ultrasound, you look for a non-compressible, blind-ending tube over 6 mm.",
+          "claims": [
+            "K54"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "w1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "w1": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Worked case, step by step. Step 1, the patient: a child, so age sets the first rung. Step 2, the test: graded-compression ultrasound, first-line in children and in pregnancy.",
+          "claims": [
+            "K8"
+          ]
+        },
+        {
+          "text": "Step 3, the sign: a non-compressible, blind-ending tubular structure over 6 mm. Now the same reasoning, with the first step left to you.",
+          "claims": [
+            "K54"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c2": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Second case: a 26-year-old woman with right iliac fossa pain for 12 hours. No investigations have been done yet.",
+          "claims": []
+        },
+        {
+          "text": "Before any scan or theatre, what is your first step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Graded-compression ultrasound of the appendix now",
+          "next": "c2_t12",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c2_h",
+          "kind": "help"
+        },
+        {
+          "label": "Serum or urine beta-hCG pregnancy test",
+          "next": "c2_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "c2_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what could be going on in a woman of this age that would change every later step, including surgery. Name the test that checks it before any imaging.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c2_t12": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: the appendix is the diagnosis you are chasing, so a scan feels like the next step. Ask what else must be excluded before you look at the appendix.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pause here: in this patient, the pregnancy question comes before any scan.",
+        "claims": [
+          "K53"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "c2_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c2_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Ectopic pregnancy is on the women's list of look-alikes, and it changes both the imaging and the surgery.",
+          "claims": [
+            "K59"
+          ]
+        },
+        {
+          "text": "So beta-hCG comes first in every woman of reproductive age, and the appendix is imaged afterwards.",
+          "claims": [
+            "K53"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c2b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Beta-hCG in every woman of reproductive age excludes ectopic pregnancy, so it is the first step.",
+          "claims": [
+            "K53"
+          ]
+        },
+        {
+          "text": "Keep that order: pregnancy is checked before the appendix is scanned.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c2b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c2b": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Put the steps in order for a woman of reproductive age with suspected appendicitis. Which sequence is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Imaging first, then surgery, then beta-hCG if normal",
+          "next": "c2b_t12",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Beta-hCG, then imaging, then surgery if needed",
+          "next": "c2b_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c2b_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c2b_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what must be settled before a scan can change anything. Then ask what the scan is for.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c2b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c2b_t12": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: imaging feels like progress, so putting it early looks efficient. Ask what the pregnancy result changes before you order anything.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so hold the order: in this group, the pregnancy test is the first step.",
+        "claims": [
+          "K53"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c2b",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "c2b_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c2b_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Pregnancy is excluded first, because ectopic pregnancy changes both the imaging and the surgery.",
+          "claims": [
+            "K53",
+            "K59"
+          ]
+        },
+        {
+          "text": "The order is beta-hCG, then imaging, then surgery when indicated.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c2b_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Beta-hCG comes first, then imaging, then surgery when indicated.",
+          "claims": [
+            "K53"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c3": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "The next patient is 20 weeks pregnant, with right iliac fossa pain and suspected appendicitis. Which imaging do you order first?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "MRI abdomen without gadolinium",
+          "next": "c3_t10",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Graded-compression ultrasound",
+          "next": "c3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Contrast-enhanced CT abdomen",
+          "next": "c3_t9",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c3_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c3_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Radiation to the developing baby should weigh on the first choice. Which test is first in pregnancy, and which is the next rung?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Graded-compression ultrasound is the first imaging test in pregnancy.",
+          "claims": [
+            "K8",
+            "K98"
+          ]
+        },
+        {
+          "text": "If it is inconclusive, MRI without gadolinium is the next rung.",
+          "claims": [
+            "K56"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c3_t10": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: MRI avoids ionising radiation and is very accurate, so it feels like the safe first choice. Which rung is first in pregnancy, and what is the second rung for?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate accuracy from order: the first test is the first rung, not the most accurate one.",
+        "claims": [
+          "K98"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "c3_why10",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c3_why10": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Ultrasound is the first test in pregnancy. MRI without gadolinium is the next step when ultrasound is inconclusive.",
+          "claims": [
+            "K98",
+            "K56"
+          ]
+        },
+        {
+          "text": "That is a ladder: a safe first rung, then a second one for the cases the first cannot settle.",
+          "claims": [
+            "K100"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c3_t9": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: CT is the most accurate imaging test, so it seems the strongest first choice in any patient. Does the first rung stay the same for a pregnant woman?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the patient group before the test: pregnancy changes the first rung.",
+        "claims": [
+          "K8"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "c3_why9",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c3_why9": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Contrast-enhanced CT is the most accurate test in adults, but it is not the first test in pregnancy.",
+          "claims": [
+            "K99"
+          ]
+        },
+        {
+          "text": "In pregnancy, graded-compression ultrasound is the first rung.",
+          "claims": [
+            "K8",
+            "K98"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c4": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which pathway is right for a pregnant woman with suspected appendicitis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Ultrasound, then MRI if inconclusive, then surgery",
+          "next": "c4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "MRI first, then ultrasound if inconclusive, then surgery",
+          "next": "c4_t10",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c4_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c4_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Start with the first rung you would use in any pregnant patient, then ask what happens if it does not settle the question.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c4_t10": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: MRI is the most accurate of the safe options, so putting it first looks sensible. Accuracy is not the only criterion for the first test.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the order matters: the first test is the first rung of a ladder.",
+        "claims": [
+          "K98"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "c4_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c4_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Ultrasound is first in pregnancy, and MRI without gadolinium follows when ultrasound is inconclusive.",
+          "claims": [
+            "K98",
+            "K56"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c4_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The pregnancy ladder starts with ultrasound, and MRI without gadolinium is the second rung.",
+          "claims": [
+            "K98",
+            "K56"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a1": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An exam stem reads: investigation of choice for acute appendicitis, with no age or group named. Which answer do you give?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Graded-compression ultrasound of the abdomen",
+          "next": "a1_t11",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "a1_h",
+          "kind": "help"
+        },
+        {
+          "label": "Contrast-enhanced CT of the abdomen",
+          "next": "a1_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "a1_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Does this stem name a patient group? If it does not, which test is most accurate in an adult?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "a1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "a1_t11": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: ultrasound is the answer many past papers printed, so it sounds like the key. Check what the stem names, and who the answer is for.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the key you carry: past papers and current practice part ways on this.",
+        "claims": [
+          "K108"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "a1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "a1_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "a1_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Past papers expected ultrasound as the investigation of choice in general.",
+          "claims": [
+            "K108"
+          ]
+        },
+        {
+          "text": "Current practice uses ultrasound first in children and pregnancy, and contrast-enhanced CT as the most accurate test in adults.",
+          "claims": [
+            "K8",
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. In an adult, contrast-enhanced CT is the most accurate test.",
+          "claims": [
+            "K99"
+          ]
+        },
+        {
+          "text": "Keep the old key too: past papers expected ultrasound, so read how the stem frames the question.",
+          "claims": [
+            "K108"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a2": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An adult man has persisting right iliac fossa tenderness and a rising white count. Ultrasound did not show the appendix. What do you do next?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Discharge, the scan has excluded appendicitis",
+          "next": "a2_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Contrast-enhanced CT abdomen",
+          "next": "a2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "a2_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "a2_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "A scan that could not show the appendix is not the same as a scan that ruled it out. Which imaging test is next for an adult?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "a2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "a2_t8": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: a scan that shows no appendix feels like a normal scan, so the work-up seems finished. What did the scan actually show, and can it exclude the disease?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate not seen from ruled out: an inconclusive scan is not a negative one.",
+        "claims": [
+          "K55"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "a2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "a2_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "a2_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "An inconclusive scan is not a negative one. A scan that cannot see the appendix has not excluded the disease.",
+          "claims": [
+            "K55"
+          ]
+        },
+        {
+          "text": "In adults, contrast-enhanced CT is the most accurate test, and it shows complications such as abscess and perforation.",
+          "claims": [
+            "K99",
+            "K55"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. An inconclusive ultrasound does not exclude appendicitis in an adult, so contrast-enhanced CT is the next step.",
+          "claims": [
+            "K55",
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a3": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which statement about imaging in suspected appendicitis in adults is correct?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A normal graded-compression scan rules it out",
+          "next": "a3_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "A negative scan does not exclude appendicitis",
+          "next": "a3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Ultrasound is the most accurate test in adults",
+          "next": "a3_t11",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "a3_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "a3_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Check each statement against the adult ladder: what does a normal scan prove in an adult?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "a3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "a3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A negative scan does not exclude appendicitis in an adult, because contrast-enhanced CT is more accurate.",
+          "claims": [
+            "K55",
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a3_t8": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: ultrasound is the first test, and a normal-looking scan feels decisive. Is the first test also the final one?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the rung: a first test does not settle the question on its own.",
+        "claims": [
+          "K55"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "a3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "a3_why8",
+          "kind": "agency"
+        }
+      ]
+    },
+    "a3_why8": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "A normal scan does not rule out appendicitis in an adult. Being first-line does not make a test final.",
+          "claims": [
+            "K55"
+          ]
+        },
+        {
+          "text": "Contrast-enhanced CT is the more accurate test in adults.",
+          "claims": [
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a3_t11": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: ultrasound is the classic first test, so it sounds like the most accurate one as well. Accurate for which group?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the group decides the answer, and this stem names the adult.",
+        "claims": [
+          "K108"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "a3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "a3_why11",
+          "kind": "agency"
+        }
+      ]
+    },
+    "a3_why11": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Ultrasound is first-line in children and in pregnancy.",
+          "claims": [
+            "K8"
+          ]
+        },
+        {
+          "text": "In adults, contrast-enhanced CT is the most accurate test, so the group decides the answer.",
+          "claims": [
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a5": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A patient has migration of pain, nausea, right iliac fossa tenderness, rebound and leucocytosis. There is no anorexia, no fever and no left shift on the count. What is the Alvarado total?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "9",
+          "next": "a5_t6",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "a5_h",
+          "kind": "help"
+        },
+        {
+          "label": "7",
+          "next": "a5_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "a5_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Score each item as the table gives it, then add. Count the items that are present, not the ones that feel most specific.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "a5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "a5_t6": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: migration and rebound feel like the strongest signs, so scoring them 2 each seems right. Add the total again using the table weights.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so rebuild the score item by item from the table, not from memory.",
+        "claims": [
+          "K7"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "a5",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "a5_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "a5_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Migration and rebound each score 1, so the total is 7, not 9.",
+          "claims": [
+            "K7",
+            "K107"
+          ]
+        },
+        {
+          "text": "Migration 1, nausea 1, right iliac fossa tenderness 2, rebound 1 and leucocytosis 2 give 7.",
+          "claims": [
+            "K7"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a5_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Right iliac fossa tenderness and leucocytosis carry 2 each, and every other item scores 1 when present.",
+          "claims": [
+            "K7",
+            "K107"
+          ]
+        },
+        {
+          "text": "Migration 1, nausea 1, tenderness 2, rebound 1 and leucocytosis 2 total 7.",
+          "claims": [
+            "K7"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a6": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A patient's Alvarado score comes to 7. What does that tell you?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Appendicitis is likely; the score estimates risk",
+          "next": "a6_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Appendicitis is confirmed, so imaging can be skipped",
+          "next": "a6_t6",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "a6_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "a6_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether a clinical score is a test result, or an estimate that a test then checks.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "a6",
+          "kind": "retry"
+        }
+      ]
+    },
+    "a6_t6": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: a score that high feels like a result, so the diagnosis seems settled. Is a clinical score a test result?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate the score from the test: a high score makes disease likely, it does not prove it.",
+        "claims": [
+          "K47"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "a6",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "a6_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "a6_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "A score of 7 or more makes appendicitis likely, not confirmed.",
+          "claims": [
+            "K47"
+          ]
+        },
+        {
+          "text": "Diagnosis is primarily clinical, supported by scores and imaging.",
+          "claims": [
+            "K50"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a6_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A score of 7 or more makes appendicitis likely.",
+          "claims": [
+            "K47"
+          ]
+        },
+        {
+          "text": "The score is a clinical aid; imaging supports the diagnosis and does not replace it.",
+          "claims": [
+            "K50"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}

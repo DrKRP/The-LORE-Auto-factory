@@ -1,0 +1,1271 @@
+{
+  "segment": "S4",
+  "entry": "wx",
+  "nodes": {
+    "wx": {
+      "role": "explain",
+      "objectives": [
+        "O7",
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Worked case first. A 28-year-old woman has **right iliac fossa (RIF)** pain for 14 hours and irregular periods.",
+          "claims": []
+        },
+        {
+          "text": "**Step 1** is a **beta-hCG** (human chorionic gonadotropin) test, before any scan. An ectopic pregnancy changes both the imaging and the surgery, so pregnancy is excluded first in every woman of reproductive age.",
+          "claims": [
+            "K53",
+            "K59"
+          ]
+        },
+        {
+          "text": "**Step 2**: the beta-hCG is negative and she is an adult, so **contrast-enhanced CT (CECT)** is the most accurate test here.",
+          "claims": [
+            "K99",
+            "K55"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next: a classmate's plan",
+          "next": "p1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p1": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A classmate planned this for a 26-year-old woman with RIF pain and irregular periods.",
+          "claims": []
+        },
+        {
+          "text": "'Step 1: contrast CT abdomen to settle the diagnosis. Step 2: beta-hCG only if the scan is normal.'",
+          "claims": []
+        },
+        {
+          "text": "Which is the error in this plan?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "The pregnancy test should come before imaging",
+          "next": "p1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Nothing is wrong; settling the appendix comes first",
+          "next": "p1_w1",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Diagnostic laparoscopy should come first",
+          "next": "p1_w2",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p1_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "p1_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the first result could change. Could this pain be something other than the appendix, and would that change what you do next?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1r",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p1_w1": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is the working-diagnosis model: the appendix is the likely cause, so scanning it feels like the first job.",
+          "claims": []
+        },
+        {
+          "text": "Look at the patient before the scan. What could she have that would change the next step?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Re-check the first step: what has to be settled before any imaging in this woman?",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1r",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "p1_x1",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p1_w2": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is the surgeon's model: a RIF pain that is not settling goes to theatre to be looked at.",
+          "claims": []
+        },
+        {
+          "text": "Before any operation, which test would change the plan in this woman?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. The operation is the last step here, not the first.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1r",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "p1_x2",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p1r": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Try once more. The same classmate plan:",
+          "claims": []
+        },
+        {
+          "text": "'Step 1: contrast CT abdomen to settle the diagnosis. Step 2: beta-hCG only if the scan is normal.'",
+          "claims": []
+        },
+        {
+          "text": "Which is the error?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Diagnostic laparoscopy should come first",
+          "next": "p1_x2",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Nothing is wrong; settling the appendix comes first",
+          "next": "p1_x1",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "The pregnancy test should come before imaging",
+          "next": "p1_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "p1_x1": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Tempting: the appendix is the working diagnosis, and contrast CT is the most accurate test in an adult.",
+          "claims": [
+            "K99"
+          ]
+        },
+        {
+          "text": "Why it is wrong: in any woman of reproductive age, beta-hCG comes first, because an ectopic pregnancy changes both the imaging and the surgery.",
+          "claims": [
+            "K53",
+            "K59"
+          ]
+        },
+        {
+          "text": "Right: beta-hCG first, then imaging for the appendix.",
+          "claims": [
+            "K53",
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p1_x2": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Tempting: a RIF pain that is not settling makes a surgeon want to look, so the operation feels like the decisive step.",
+          "claims": []
+        },
+        {
+          "text": "Why it is wrong: an ectopic pregnancy changes the operation itself, so the pregnancy test has to come before theatre.",
+          "claims": [
+            "K53",
+            "K59"
+          ]
+        },
+        {
+          "text": "Right: beta-hCG first; for a non-pregnant adult, contrast CT is the most accurate test before the knife.",
+          "claims": [
+            "K99",
+            "K55"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p1_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. The pregnancy test comes before any imaging in a woman of reproductive age, because an ectopic pregnancy changes the next step.",
+          "claims": [
+            "K53",
+            "K59"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p2": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A classmate's answer for a 20-week pregnant woman with RIF pain was:",
+          "claims": []
+        },
+        {
+          "text": "'MRI first, because it is the most accurate test.'",
+          "claims": []
+        },
+        {
+          "text": "Which correction is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Keep MRI first, as it is the most accurate",
+          "next": "p2_w1",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Ultrasound first, then MRI if it is unclear",
+          "next": "p2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Contrast CT first, as it is the most accurate",
+          "next": "p2_w2",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p2_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "p2_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the first test is for in this patient group. Accuracy is only one criterion when you choose the first test.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2r",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p2_w1": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "That is the accuracy model: rank the tests by how good they are, and MRI comes out on top.",
+          "claims": []
+        },
+        {
+          "text": "The first test is a rung on a ladder, not the best test on paper. Which rung is this patient on?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure that accuracy sets the order. Check the ladder again before you choose.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2r",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "p2_x1",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p2_w2": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "That is the adult model: contrast CT is the most accurate test, so it seems to go first for everyone.",
+          "claims": [
+            "K55"
+          ]
+        },
+        {
+          "text": "Who is the patient? Ask that before you ask which test is most accurate.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Check the patient group first, then the test.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2r",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "p2_x2",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p2r": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Try again. The same classmate's answer:",
+          "claims": []
+        },
+        {
+          "text": "'MRI first, because it is the most accurate test.'",
+          "claims": []
+        },
+        {
+          "text": "Which correction is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Contrast CT first, as it is the most accurate",
+          "next": "p2_x2",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "Keep MRI first, as it is the most accurate",
+          "next": "p2_x1",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Ultrasound first, then MRI if it is unclear",
+          "next": "p2_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "p2_x1": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Tempting: MRI is accurate, and the most accurate test feels like the right first test.",
+          "claims": []
+        },
+        {
+          "text": "Why it is wrong: in pregnancy, ultrasound is the first test, and MRI without gadolinium is the second rung, used when ultrasound is inconclusive.",
+          "claims": [
+            "K54",
+            "K56"
+          ]
+        },
+        {
+          "text": "Right: ultrasound first, then MRI if it is unclear, then surgery as indicated.",
+          "claims": [
+            "K98",
+            "K100"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p2_x2": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Tempting: contrast CT is the most accurate test, and in adults it is the test of choice, so it feels right for any patient.",
+          "claims": [
+            "K55",
+            "K99"
+          ]
+        },
+        {
+          "text": "Why it is wrong: the patient group changes the first test. In pregnancy, the first test is ultrasound.",
+          "claims": [
+            "K54",
+            "K98"
+          ]
+        },
+        {
+          "text": "Right: ultrasound first, then MRI if it is unclear.",
+          "claims": [
+            "K56",
+            "K100"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p2_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Yes. In pregnancy, ultrasound is the first rung. MRI without gadolinium comes next if ultrasound is inconclusive.",
+          "claims": [
+            "K54",
+            "K56"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r1": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "The same test, three patients. In which one is contrast CT the test of choice?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "An 8-year-old boy with RIF pain",
+          "next": "r1_x1",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "A 35-year-old man with equivocal signs",
+          "next": "r1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "A pregnant woman at 26 weeks with RIF pain",
+          "next": "r1_x2",
+          "kind": "trap",
+          "trap": "TR9"
+        }
+      ]
+    },
+    "r1_x1": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Tempting: the child has the same pain, and CT is the most accurate test, so it looks like the answer at any age.",
+          "claims": [
+            "K55"
+          ]
+        },
+        {
+          "text": "Why it is wrong: in a child, the first test is ultrasound, because age sets the first rung.",
+          "claims": [
+            "K8",
+            "K54"
+          ]
+        },
+        {
+          "text": "Right: contrast CT belongs to the adult with equivocal signs.",
+          "claims": [
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r1_x2": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Tempting: a pregnant woman with pain also needs a scan, and CT is the most accurate test, so it looks like the first choice.",
+          "claims": [
+            "K55"
+          ]
+        },
+        {
+          "text": "Why it is wrong: pregnancy changes the first test. Ultrasound comes first, then MRI if it is unclear.",
+          "claims": [
+            "K54",
+            "K56"
+          ]
+        },
+        {
+          "text": "Right: contrast CT is the adult's test of choice, not the first test in pregnancy.",
+          "claims": [
+            "K98",
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r1_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Yes. Contrast CT is the test of choice in an adult; in a child or a pregnant woman, ultrasound is first.",
+          "claims": [
+            "K99",
+            "K8"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p3": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Which statement about ultrasound in suspected appendicitis in an adult is correct?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A normal ultrasound rules appendicitis out in adults",
+          "next": "p3_x1",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "A negative scan does not exclude it; CT is better",
+          "next": "p3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Ultrasound is the most accurate test in adults",
+          "next": "p3_x2",
+          "kind": "trap",
+          "trap": "TR11"
+        }
+      ]
+    },
+    "p3_x1": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Tempting: a clean scan feels final, and ultrasound was the first test, so the work-up seems finished.",
+          "claims": []
+        },
+        {
+          "text": "Why it is wrong: in an adult, a scan that shows nothing does not exclude appendicitis; the next test is contrast CT.",
+          "claims": [
+            "K55"
+          ]
+        },
+        {
+          "text": "Right: ultrasound starts the work-up, and a negative or unclear result in an adult moves on to CT.",
+          "claims": [
+            "K99",
+            "K50"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p3_x2": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Tempting: ultrasound was the investigation of choice in older exam keys, so it still feels like the most accurate test.",
+          "claims": [
+            "K108"
+          ]
+        },
+        {
+          "text": "Why it is wrong: current practice keeps ultrasound first in children and pregnancy, but in adults contrast CT is the most accurate test.",
+          "claims": [
+            "K108",
+            "K8"
+          ]
+        },
+        {
+          "text": "Right: read the patient before naming the test; in an adult, contrast CT is the answer for accuracy.",
+          "claims": [
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p3_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Yes. A negative or unclear ultrasound does not close the case in an adult; contrast CT is the more accurate test.",
+          "claims": [
+            "K55",
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r2": {
+      "role": "probe",
+      "objectives": [
+        "O7",
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "A woman of reproductive age has suspected appendicitis and may be pregnant. Which pathway is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Beta-hCG, MRI first, ultrasound if unclear, surgery",
+          "next": "r2_x1",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Ultrasound, then surgery, beta-hCG only if normal",
+          "next": "r2_x2",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Beta-hCG, ultrasound, MRI if unclear, then surgery",
+          "next": "r2_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "r2_x1": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Tempting: MRI is the most accurate test in pregnancy, so it seems to belong first in the pathway.",
+          "claims": []
+        },
+        {
+          "text": "Why it is wrong: ultrasound is the first rung in pregnancy, and MRI without gadolinium is the second rung, used when ultrasound is inconclusive.",
+          "claims": [
+            "K98",
+            "K100"
+          ]
+        },
+        {
+          "text": "Right: beta-hCG, then ultrasound, then MRI if unclear, then surgery as indicated.",
+          "claims": [
+            "K53",
+            "K56"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r2_x2": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Tempting: the imaging is the working step, and the pregnancy test feels like a formality to do later.",
+          "claims": []
+        },
+        {
+          "text": "Why it is wrong: beta-hCG comes before imaging in every woman of reproductive age, because an ectopic pregnancy changes the next step.",
+          "claims": [
+            "K53",
+            "K59"
+          ]
+        },
+        {
+          "text": "Right: beta-hCG first, then the imaging ladder, then surgery as indicated.",
+          "claims": [
+            "K53",
+            "K54"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r2_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O7",
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. Beta-hCG comes first, then the ladder: ultrasound first, and MRI second if ultrasound is unclear.",
+          "claims": [
+            "K53",
+            "K54",
+            "K56"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r3": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "A 45-year-old man has persisting RIF tenderness and a rising count. Ultrasound could not show the appendix. What is the next step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Repeat ultrasound, as it is the investigation of choice",
+          "next": "r3_x2",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Discharge, as ultrasound has excluded appendicitis",
+          "next": "r3_x1",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Contrast-enhanced CT abdomen, the next test in adults",
+          "next": "r3_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "r3_x1": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Tempting: the scan was done and found nothing, so the work-up feels finished and discharge looks safe.",
+          "claims": []
+        },
+        {
+          "text": "Why it is wrong: an ultrasound that does not show the appendix does not exclude appendicitis in an adult.",
+          "claims": [
+            "K55"
+          ]
+        },
+        {
+          "text": "Right: with persisting tenderness and a rising count, the next step is contrast CT, the most accurate test in adults.",
+          "claims": [
+            "K99",
+            "K55"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r3_x2": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Tempting: ultrasound was the investigation of choice in older exam keys, so repeating it feels like the textbook answer.",
+          "claims": [
+            "K108"
+          ]
+        },
+        {
+          "text": "Why it is wrong: current practice uses ultrasound first in children and pregnancy; in an adult it has already been done, and CT is more accurate.",
+          "claims": [
+            "K108",
+            "K8"
+          ]
+        },
+        {
+          "text": "Right: contrast CT abdomen, the most accurate test for an adult.",
+          "claims": [
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r3_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Yes. An unhelpful ultrasound does not end the work-up in an adult; contrast CT is the next test.",
+          "claims": [
+            "K55",
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p4": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "The Alvarado (MANTRELS) score totals 10. Which two items score 2 points each?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Migration of pain and rebound tenderness",
+          "next": "p4_x1",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "Tenderness in RIF and leucocytosis",
+          "next": "p4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Tenderness in RIF and rebound tenderness",
+          "next": "p4_x2",
+          "kind": "trap",
+          "trap": "TR6"
+        }
+      ]
+    },
+    "p4_x1": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Tempting: migration and rebound are classic signs, so they feel like the heavy items in the score.",
+          "claims": []
+        },
+        {
+          "text": "Why it is wrong: only tenderness in the RIF and leucocytosis score 2; every other item, migration and rebound included, scores 1.",
+          "claims": [
+            "K7",
+            "K107"
+          ]
+        },
+        {
+          "text": "Right: RIF tenderness and leucocytosis carry the 2s, and the whole score totals 10.",
+          "claims": [
+            "K7",
+            "K46"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p4_x2": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Tempting: rebound is the sign taught as the most specific, so it feels like a 2-point item.",
+          "claims": []
+        },
+        {
+          "text": "Why it is wrong: rebound tenderness scores 1; only RIF tenderness and leucocytosis score 2.",
+          "claims": [
+            "K7",
+            "K107"
+          ]
+        },
+        {
+          "text": "Right: the 2-point items are RIF tenderness and leucocytosis, and the total is 10.",
+          "claims": [
+            "K7",
+            "K46"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p4_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Yes. RIF tenderness and leucocytosis score 2 each; the other items score 1 each.",
+          "claims": [
+            "K7",
+            "K107"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r4": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "A man with migration of pain, nausea, RIF tenderness, rebound tenderness and leucocytosis. What is his Alvarado total?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "9",
+          "next": "r4_x1",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "7",
+          "next": "r4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "6",
+          "next": "r4_x2",
+          "kind": "trap",
+          "trap": "TR6"
+        }
+      ]
+    },
+    "r4_x1": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Tempting: migration and rebound feel like specific signs, so you score each one as 2.",
+          "claims": []
+        },
+        {
+          "text": "Why it is wrong: migration and rebound each score 1. Only RIF tenderness and leucocytosis score 2.",
+          "claims": [
+            "K7",
+            "K107"
+          ]
+        },
+        {
+          "text": "Right: 1 + 1 + 2 + 1 + 2 = 7. A score of 7 or more makes appendicitis likely, not certain.",
+          "claims": [
+            "K47",
+            "K46"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r4_x2": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Tempting: leucocytosis feels like an ordinary blood result, so it gets scored as 1 like the rest.",
+          "claims": []
+        },
+        {
+          "text": "Why it is wrong: leucocytosis scores 2, not 1, and it is one of the two items that do.",
+          "claims": [
+            "K7",
+            "K107"
+          ]
+        },
+        {
+          "text": "Right: 1 + 1 + 2 + 1 + 2 = 7, and a score of 7 or more makes appendicitis likely.",
+          "claims": [
+            "K47",
+            "K7"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r4_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Yes. The total is 7: migration 1, nausea 1, RIF tenderness 2, rebound 1, leucocytosis 2.",
+          "claims": [
+            "K7",
+            "K107"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
