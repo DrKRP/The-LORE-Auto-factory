@@ -1,0 +1,557 @@
+{
+  "module": "surgery/burns-assessment-and-fluid-resuscitation",
+  "conventions": "Each distractor is {option, trap}; trap is one surviving trap ID or 'partial' (correct-adjacent or from a dropped/merged trap). Probes carry an id (P1..P39). A shared probe is written in full under its owner trap; other traps list the same id with only their own distractors and 'shared_with'.",
+  "traps": [
+    {
+      "id": "TR1", "trap": "Parkland 4 mL/kg/%TBSA is the answer to every fluid question", "error_type": "E5", "yield": "high",
+      "refuted_by": ["K82", "K47"], "objectives": [],
+      "probes": [
+        {"id": "P18", "form": "recognition", "stem_idea": "Current ATLS/ABA-style practice sets the adult starting rate per %TBSA per 24 h at what figure, to be titrated to urine output?",
+         "correct": "About 2 mL/kg/%TBSA of Ringer lactate, then titrate",
+         "distractor_set": [
+           {"option": "4 mL/kg/%TBSA of Ringer lactate, then titrate", "trap": "TR1"},
+           {"option": "3 mL/kg/%TBSA of Ringer lactate, then titrate", "trap": "partial"},
+           {"option": "1 mL/kg/%TBSA of Ringer lactate, then titrate", "trap": "partial"}],
+         "note": "K47 is unverified: show with a caution flag. Teach both: PYQs key 4 mL (K82), current practice starts lower."},
+        {"id": "P19", "form": "numbers", "stem_idea": "Question says 'as per current ATLS practice': 70 kg adult, 40% TBSA. Starting 24-h volume?",
+         "correct": "About 5,600 mL in 24 h",
+         "distractor_set": [
+           {"option": "About 11,200 mL in 24 h", "trap": "TR1"},
+           {"option": "About 8,400 mL in 24 h", "trap": "partial"},
+           {"option": "About 2,800 mL in 24 h", "trap": "partial"}],
+         "note": "Tests reading the qualifier word in the stem; 8,400 is the child figure (3 mL), 2,800 halves the right answer."}
+      ],
+      "diagnoses": "Learner treats the memorised exam formula as the only formula and does not read stem qualifiers such as 'current' or 'modified'.",
+      "first_wrong_step": "Sees 'fluid volume in a burn' and retrieves 4 mL x kg x %TBSA without checking whether the stem asks for the PYQ key or current practice.",
+      "repair": {"strategy": "E5: teach both. 'PYQs expected 4 mL; current practice starts about 2 mL and titrates to urine output; read the qualifier.'", "claims": ["K82", "K47", "K2"]},
+      "retest": "P19 numbers form with a 'current' qualifier; the formula resurfaces in P20 to P23 (as the base number) and P27 (why it is only a start).",
+      "co_traps": ["TR16"],
+      "report_hint": "Avoided: they separate the exam key from current practice. Recovered: they learned to read the qualifier. Open: they will answer 4 mL even when the stem says 'current'; revise both numbers side by side."
+    },
+    {
+      "id": "TR2", "trap": "The 8-hour half of the Parkland volume is counted from arrival at hospital", "error_type": "E9", "yield": "high",
+      "refuted_by": ["K83", "K43"], "objectives": [],
+      "probes": [
+        {"id": "P20", "form": "numbers", "stem_idea": "70 kg adult, 40% TBSA, arrives 3 h after the burn with no fluid yet. At what rate should the first-half volume be run over the time remaining?",
+         "correct": "1,120 mL/h for the remaining 5 h",
+         "distractor_set": [
+           {"option": "700 mL/h for 8 h from arrival", "trap": "TR2"},
+           {"option": "2,240 mL/h for the remaining 5 h", "trap": "TR3"},
+           {"option": "350 mL/h for the remaining 5 h", "trap": "partial"}],
+         "note": "Owner probe for TR2; the TR3 option gives the whole 24-h volume in the window (wrong total); 350 is the second-phase rate."},
+        {"id": "P21", "form": "mechanism", "stem_idea": "Why is the 8 h counted from the time of burn?",
+         "correct": "Capillary leak begins at injury, so the deficit builds from the burn time",
+         "distractor_set": [
+           {"option": "Resuscitation is the team's responsibility, so the clock starts when they take over", "trap": "TR2"},
+           {"option": "Leak is greatest in the first 8 h of any hospital stay, whenever it starts", "trap": "TR2"},
+           {"option": "The hospital record is the only reliable time recorded for the patient", "trap": "partial"}],
+         "note": "Each TR2 option is the arrival-clock model in a different dress."},
+        {"id": "P24", "form": "vignette", "shared_with": "TR4", "stem_idea": "Arrives 3 h post-burn with 1,500 mL RL already given by ambulance; 5,600 mL first-half target",
+         "correct": "4,100 mL over the remaining 5 h",
+         "distractor_set": [{"option": "4,100 mL over 8 h from arrival", "trap": "TR2"}]}
+      ],
+      "diagnoses": "Learner starts the resuscitation clock when the patient reaches the team, rather than when the injury happened.",
+      "first_wrong_step": "Takes 'now' as time zero and ignores the burn time in the stem.",
+      "repair": {"strategy": "E9: order the steps. Step 1 find the time of burn; step 2 set the first 8 h from it; step 3 fit the remaining volume into the time left. 'What first, and why': the leak started at injury.", "claims": ["K83", "K43", "K17"]},
+      "retest": "P21 mechanism; P24 vignette (arrival delay with pre-hospital fluid).",
+      "co_traps": ["TR3", "TR4"],
+      "report_hint": "Avoided: they anchor to the burn time. Recovered: they now start the clock at injury. Open: they still start from arrival; always read the burn time first."
+    },
+    {
+      "id": "TR3", "trap": "Halving the 24-hour total in the wrong place (whole 24 h volume given in 8 h, or half given over 24 h)", "error_type": "E6", "yield": "high",
+      "refuted_by": ["K44", "K2"], "objectives": [],
+      "probes": [
+        {"id": "P20", "form": "numbers", "shared_with": "TR2", "stem_idea": "Delayed arrival rate question",
+         "correct": "1,120 mL/h for the remaining 5 h",
+         "distractor_set": [{"option": "2,240 mL/h for the remaining 5 h", "trap": "TR3"}]},
+        {"id": "P22", "form": "numbers", "stem_idea": "70 kg adult, 40% TBSA, arrives at the time of burn: infusion rate for the first 8 h?",
+         "correct": "700 mL/h",
+         "distractor_set": [
+           {"option": "1,400 mL/h", "trap": "TR3"},
+           {"option": "233 mL/h", "trap": "TR3"},
+           {"option": "350 mL/h", "trap": "partial"}],
+         "note": "1,400 = full 24-h volume in 8 h; 233 = half spread over 24 h; 350 is the second-phase rate."},
+        {"id": "P23", "form": "which-is-not", "stem_idea": "Which statement about the 70 kg, 40% burn is NOT correct?",
+         "correct": "The whole 11,200 mL is run in the first 8 h",
+         "distractor_set": [
+           {"option": "5,600 mL is run in the first 8 h", "trap": "TR3"},
+           {"option": "The next 16 h run at 350 mL/h", "trap": "TR3"},
+           {"option": "The 24-h total is 11,200 mL", "trap": "partial"}],
+         "note": "A learner holding the wrong halving picks a true statement as the false one."}
+      ],
+      "diagnoses": "Learner remembers 'half in 8 h' as a phrase without attaching it to the right total and the right time window.",
+      "first_wrong_step": "Applies the half to the wrong quantity (rate or volume) and does not divide by the window length.",
+      "repair": {"strategy": "E6: anchor the number: total -> half -> divide by 8 h -> 700 mL/h; then 16 h -> 350 mL/h. Retest in a different form.", "claims": ["K44", "K2"]},
+      "retest": "P23 which-is-not after P22 numbers; P20 reuses the arithmetic in a delayed-arrival case.",
+      "co_traps": ["TR2", "TR4"],
+      "report_hint": "Avoided: the 700 and 350 anchors are secure. Recovered: arithmetic now follows the half-in-8-h rule. Open: they scramble where the half goes; practise total, half, divide."
+    },
+    {
+      "id": "TR4", "trap": "Volume already given before arrival is not deducted from the first-8-hour total", "error_type": "E9", "yield": "medium",
+      "refuted_by": ["K45"], "objectives": [],
+      "probes": [
+        {"id": "P24", "form": "vignette", "stem_idea": "70 kg, 40% burn, arrives 3 h post-burn; ambulance already gave 1,500 mL RL; first-half target 5,600 mL. What is prescribed?",
+         "correct": "4,100 mL over the remaining 5 h",
+         "distractor_set": [
+           {"option": "5,600 mL over the remaining 5 h", "trap": "TR4"},
+           {"option": "4,100 mL over 8 h from arrival", "trap": "TR2"},
+           {"option": "1,500 mL more, then reassess at 8 h", "trap": "partial"}],
+         "note": "Owner probe. Deduction right but clock wrong is the TR2 option."},
+        {"id": "P25", "form": "sequence", "stem_idea": "Patient arrives with a drip running. After confirming time of burn and TBSA, which step comes next?",
+         "correct": "Subtract fluid already given from the first-8-h volume",
+         "distractor_set": [
+           {"option": "Start the full formula rate on top of the running infusion", "trap": "TR4"},
+           {"option": "Stop the drip and restart the formula from zero", "trap": "TR4"},
+           {"option": "Give a colloid bolus to catch up on lost time", "trap": "partial"}],
+         "note": "Colloid bolus is a correct-adjacent distractor, not a separate trap."}
+      ],
+      "diagnoses": "Learner uses the formula as a standalone number and omits the adjustment for treatment already received.",
+      "first_wrong_step": "Computes the target volume and prescribes it without asking what has already been given.",
+      "repair": {"strategy": "E9: order the steps; ask 'what first, and why': time of burn, fluid given, then remaining volume over remaining time.", "claims": ["K45", "K43"]},
+      "retest": "P25 sequence after P24 vignette.",
+      "co_traps": ["TR2"],
+      "report_hint": "Avoided: they credit pre-hospital fluid. Recovered: they now subtract it. Open: they double-dose transferred patients; add 'what has already been given' to every fluid plan."
+    },
+    {
+      "id": "TR6", "trap": "The adult rule of nines is applied to a child", "error_type": "E7", "yield": "high",
+      "refuted_by": ["K5", "K85"], "objectives": [],
+      "probes": [
+        {"id": "P16", "form": "vignette", "stem_idea": "2-year-old with extensive scald over head and both legs; best method to estimate TBSA?",
+         "correct": "Lund and Browder chart",
+         "distractor_set": [
+           {"option": "Wallace rule of nines", "trap": "TR6"},
+           {"option": "Palm method", "trap": "partial"},
+           {"option": "Rule of nines with legs doubled", "trap": "TR6"}],
+         "note": "Doubled legs is the adult leg figure applied again; kept as a TR6 variant."},
+        {"id": "P17", "form": "numbers", "stem_idea": "Infant with burns to the whole head and one whole leg. TBSA?",
+         "correct": "32%",
+         "distractor_set": [
+           {"option": "27%", "trap": "TR6"},
+           {"option": "36%", "trap": "partial"},
+           {"option": "23%", "trap": "partial"}],
+         "note": "Partials mix one adult and one child figure."}
+      ],
+      "diagnoses": "Learner treats the rule of nines as a universal default and overlooks that the stem's age changes the proportions.",
+      "first_wrong_step": "Reaches for the adult chart before checking the patient's age.",
+      "repair": {"strategy": "E7: highlight the qualifier. Put adult and infant side by side: head 9 vs 18, each leg 18 vs 14; name age as the discriminating feature.", "claims": ["K5", "K85", "K4"]},
+      "retest": "P17 numbers after P16 vignette; P30 (child urine target) revisits the child qualifier in another domain.",
+      "co_traps": ["TR19", "TR22"],
+      "report_hint": "Avoided: they check age first. Recovered: they now switch to Lund and Browder for children. Open: they default to adult values; make age the first question."
+    },
+    {
+      "id": "TR8", "trap": "Colloid is given in the first 24 h of classic Parkland, or Parkland is confused with Evans and Brooke", "error_type": "E10", "yield": "high",
+      "refuted_by": ["K46", "K50", "K87"], "objectives": [],
+      "probes": [
+        {"id": "P32", "form": "recognition", "stem_idea": "Fluid in the first 24 h of classic Parkland?",
+         "correct": "Ringer lactate alone, no colloid",
+         "distractor_set": [
+           {"option": "Ringer lactate with albumin", "trap": "TR8"},
+           {"option": "Normal saline alone", "trap": "partial"},
+           {"option": "Ringer lactate with 5% dextrose in water", "trap": "partial"}],
+         "note": "Saline option is the fluid-of-choice confusion; dextrose is the Brooke/Evans add-on or paediatric maintenance."},
+        {"id": "P33", "form": "contrast", "stem_idea": "Which formula pairs colloid with crystalloid in the first 24 h?",
+         "correct": "Evans",
+         "distractor_set": [
+           {"option": "Parkland", "trap": "TR8"},
+           {"option": "Modified Brooke", "trap": "partial"},
+           {"option": "ABLS rule of tens", "trap": "partial"}],
+         "note": "Brooke itself is not offered so that the key is unique."},
+        {"id": "P11", "form": "mechanism", "shared_with": "TR31", "stem_idea": "First-line treatment of burn shock",
+         "correct": "Titrated Ringer lactate",
+         "distractor_set": [{"option": "Albumin infusion started at once", "trap": "TR8"}]}
+      ],
+      "diagnoses": "Learner blends the colloid-containing formulae with Parkland and cannot say which formula holds which fluid.",
+      "first_wrong_step": "Carries the colloid-plus-crystalloid structure of Evans and Brooke across to Parkland.",
+      "repair": {"strategy": "E10: pair recall and contrast. Table of Parkland, modified Brooke, Brooke, Evans against fluids; Parkland is crystalloid only, colloid later (8-24 h).", "claims": ["K46", "K50", "K87"]},
+      "retest": "P33 contrast after P32; P11 again as a third surface in the shock segment.",
+      "co_traps": ["TR31"],
+      "report_hint": "Avoided: formula-fluid pairs are clear. Recovered: Parkland is now crystalloid only. Open: they mix formulae; rebuild the pairs table."
+    },
+    {
+      "id": "TR12", "trap": "A chest X-ray or arterial blood gas is taken as the test that confirms inhalation injury", "error_type": "E8", "yield": "high",
+      "refuted_by": ["K34", "K35", "K72"], "objectives": [],
+      "probes": [
+        {"id": "P6", "form": "recognition", "stem_idea": "Best test to confirm inhalation injury?",
+         "correct": "Fibreoptic bronchoscopy",
+         "distractor_set": [
+           {"option": "Chest X-ray", "trap": "TR12"},
+           {"option": "Arterial blood gas", "trap": "TR12"},
+           {"option": "Carboxyhaemoglobin level", "trap": "partial"}],
+         "note": "COHb confirms CO exposure, not airway injury: correct-adjacent."},
+        {"id": "P7", "form": "vignette", "stem_idea": "Soot in the mouth and hoarseness; chest X-ray at arrival is normal. Interpretation?",
+         "correct": "Does not exclude inhalation injury; bronchoscopy shows it early",
+         "distractor_set": [
+           {"option": "Excludes inhalation injury; discharge from airway concern", "trap": "TR12"},
+           {"option": "Needs a repeat X-ray in 6 h before any decision", "trap": "TR12"},
+           {"option": "Carbon monoxide is the only likely injury", "trap": "partial"}],
+         "note": "The partial option is a plausible clinical lean but sidesteps the point."}
+      ],
+      "diagnoses": "Learner picks the routine investigation on a burns ward over the test that actually confirms the diagnosis.",
+      "first_wrong_step": "Reads 'investigation for inhalation injury' as 'standard first imaging' and stops at the familiar test.",
+      "repair": {"strategy": "E8: ladder of tests with what each answers: X-ray (often normal early), ABG/COHb (gas exchange, CO), bronchoscopy (direct view of the airway).", "claims": ["K34", "K72", "K35", "K33"]},
+      "retest": "P7 vignette after P6 recognition.",
+      "co_traps": ["TR13"],
+      "report_hint": "Avoided: they know bronchoscopy confirms. Recovered: they rebuilt the test ladder. Open: they trust X-ray and ABG; a normal early film never excludes airway injury."
+    },
+    {
+      "id": "TR13", "trap": "Pulse oximetry is used as reassurance that carbon monoxide poisoning is excluded", "error_type": "E8", "yield": "high",
+      "refuted_by": ["K30", "K33", "K86"], "objectives": [],
+      "probes": [
+        {"id": "P4", "form": "vignette", "stem_idea": "Fire victim with headache and confusion; SpO2 reads normal. Next step?",
+         "correct": "Send carboxyhaemoglobin by co-oximetry",
+         "distractor_set": [
+           {"option": "Reassure: normal SpO2 excludes carbon monoxide poisoning", "trap": "TR13"},
+           {"option": "Repeat pulse oximetry hourly and observe", "trap": "TR13"},
+           {"option": "Send serum lactate alone", "trap": "partial"}],
+         "note": "Lactate is correct-adjacent (useful for cyanide) but does not answer the CO question."},
+        {"id": "P5", "form": "mechanism", "stem_idea": "Why does pulse oximetry read normal in CO poisoning?",
+         "correct": "It cannot tell carboxyhaemoglobin from oxyhaemoglobin",
+         "distractor_set": [
+           {"option": "Oxygen delivery is truly normal because arterial saturation is truly normal", "trap": "TR13"},
+           {"option": "Cherry-red skin reflects light and interferes with the probe", "trap": "partial"},
+           {"option": "Dissolved oxygen compensates for the lost carrying capacity", "trap": "TR13"}],
+         "note": "Both TR13 options treat the SpO2 number as a true measure of oxygen content."}
+      ],
+      "diagnoses": "Learner believes the screening saturation number measures oxygen content in every poisoning.",
+      "first_wrong_step": "Accepts a normal oximeter reading as proof that haemoglobin is carrying oxygen.",
+      "repair": {"strategy": "E8: ladder of tests with what each answers: oximetry measures light absorbance at two wavelengths (blind to COHb); co-oximetry measures COHb directly.", "claims": ["K30", "K33", "K86"]},
+      "retest": "P5 mechanism after P4 vignette; later in the antidote segment (P8, P9) CO and cyanide are separated again.",
+      "co_traps": ["TR12", "TR27"],
+      "report_hint": "Avoided: they distrust oximetry in smoke. Recovered: they learned why it reads normal. Open: a normal SpO2 still reassures them; this is a favoured exam trap."
+    },
+    {
+      "id": "TR14", "trap": "Curling's ulcer and Marjolin's ulcer are swapped", "error_type": "E10", "yield": "medium",
+      "refuted_by": ["K60", "K65", "K67", "K80"], "objectives": [],
+      "probes": [
+        {"id": "P36", "form": "recognition", "stem_idea": "Stress ulcer of the stomach or duodenum after major burns?",
+         "correct": "Curling's ulcer",
+         "distractor_set": [
+           {"option": "Marjolin's ulcer", "trap": "TR14"},
+           {"option": "Cushing's ulcer", "trap": "partial"},
+           {"option": "Meleney's ulcer", "trap": "partial"}],
+         "note": "Cushing's is the intracranial look-alike for stress ulcer."},
+        {"id": "P37", "form": "vignette", "stem_idea": "Non-healing ulcer with raised everted edges in an old burn scar; biopsy result?",
+         "correct": "Squamous cell carcinoma (Marjolin's ulcer)",
+         "distractor_set": [
+           {"option": "Stress ulcer change (Curling's ulcer)", "trap": "TR14"},
+           {"option": "Keloid with ulceration", "trap": "partial"},
+           {"option": "Basal cell carcinoma arising in the scar", "trap": "partial"}],
+         "note": "BCC is a plausible near-miss; the key pairs Marjolin's with SCC."}
+      ],
+      "diagnoses": "Learner links both eponyms to 'burns' without keeping the organ and timing that separate them.",
+      "first_wrong_step": "Sorts the two eponyms by the shared word 'burn' instead of by gut (acute) versus scar (chronic).",
+      "repair": {"strategy": "E10: pair recall; contrast Curling (gut, early, stress ulcer) with Marjolin (scar, late, SCC).", "claims": ["K60", "K67", "K80"]},
+      "retest": "P37 vignette after P36 recognition.",
+      "co_traps": [],
+      "report_hint": "Avoided: eponyms are anchored to site and time. Recovered: they swapped then fixed them. Open: they keep swapping; pair gut-early, scar-late."
+    },
+    {
+      "id": "TR16", "trap": "The formula is followed rigidly, with no hourly titration to urine output", "error_type": "E4", "yield": "high",
+      "refuted_by": ["K45", "K51", "K1"], "objectives": [],
+      "probes": [
+        {"id": "P26", "form": "vignette", "stem_idea": "Hour 3 of 700 mL/h; urine 15 mL/h in a 70 kg adult. Action?",
+         "correct": "Increase the rate by about 20-25% and reassess hourly",
+         "distractor_set": [
+           {"option": "Continue 700 mL/h exactly as calculated", "trap": "TR16"},
+           {"option": "Reduce the rate by 20-25% to protect the kidneys", "trap": "TR17"},
+           {"option": "Give a 1 L colloid bolus and keep the rate", "trap": "partial"}],
+         "note": "Owner probe; the TR17 option is the reversed direction."},
+        {"id": "P27", "form": "mechanism", "stem_idea": "Why is the Parkland result only a starting estimate?",
+         "correct": "Fluid need varies with depth, delay and inhalation injury, so urine output guides it",
+         "distractor_set": [
+           {"option": "The formula is exact and titration is needed only if the sum was miscalculated", "trap": "TR16"},
+           {"option": "It always overestimates, so the rate is cut once the patient is stable", "trap": "partial"},
+           {"option": "It applies only to the first 8 h; the rest is by protocol", "trap": "TR16"}],
+         "note": "'Protocol rate for the next 16 h' is the rigid-formula model."},
+        {"id": "P28", "form": "vignette", "shared_with": "TR17", "stem_idea": "Hour 6, urine 90 mL/h",
+         "correct": "Reduce the rate and keep watching hourly urine",
+         "distractor_set": [{"option": "Keep the calculated rate unchanged", "trap": "TR16"}]},
+        {"id": "P29", "form": "contrast", "shared_with": "TR17", "stem_idea": "Two patients, same start rate: A urine 15 mL/h, B urine 100 mL/h",
+         "correct": "Raise A's rate and lower B's",
+         "distractor_set": [{"option": "Leave both at the formula rate", "trap": "TR16"}]}
+      ],
+      "diagnoses": "Learner treats the memorised formula as a prescription to be delivered, not an estimate to be adjusted.",
+      "first_wrong_step": "Stops thinking once the first number is computed and does not use the hourly urine output as feedback.",
+      "repair": {"strategy": "E4: show the exact qualifier ('starting estimate', 'titrate hourly') and a counter-case where the formula under- or over-shoots.", "claims": ["K45", "K51", "K3"]},
+      "retest": "P27 mechanism, then P28 and P29 vignette and contrast in the management segment; cold probe in the last segment should include P29.",
+      "co_traps": ["TR1", "TR17"],
+      "report_hint": "Avoided: they treat the formula as a start. Recovered: they now titrate hourly. Open: they hold the formula rate whatever the kidneys say; this is the commonest management error."
+    },
+    {
+      "id": "TR17", "trap": "Fluid is increased when urine output is high, and reduced when it is low", "error_type": "E3", "yield": "medium",
+      "refuted_by": ["K51", "K52"], "objectives": [],
+      "probes": [
+        {"id": "P26", "form": "vignette", "shared_with": "TR16", "stem_idea": "Hour 3, urine 15 mL/h",
+         "correct": "Increase the rate by about 20-25% and reassess hourly",
+         "distractor_set": [{"option": "Reduce the rate by 20-25% to protect the kidneys", "trap": "TR17"}]},
+        {"id": "P28", "form": "vignette", "stem_idea": "Hour 6, urine 90 mL/h in a 70 kg adult on the formula rate. Action?",
+         "correct": "Reduce the rate and keep watching hourly urine",
+         "distractor_set": [
+           {"option": "Increase the rate by 25% to keep pace with output", "trap": "TR17"},
+           {"option": "Keep the calculated rate unchanged", "trap": "TR16"},
+           {"option": "Stop fluids and remove the catheter", "trap": "partial"}],
+         "note": "Predict-then-show: ask for the learner's direction before the explanation."},
+        {"id": "P29", "form": "contrast", "stem_idea": "Two patients, same start rate: A urine 15 mL/h, B urine 100 mL/h. Which adjustment?",
+         "correct": "Raise A's rate and lower B's",
+         "distractor_set": [
+           {"option": "Raise B's rate and lower A's", "trap": "TR17"},
+           {"option": "Leave both at the formula rate", "trap": "TR16"},
+           {"option": "Raise both, B by less", "trap": "partial"}],
+         "note": "Side-by-side contrast of the two directions; suited to the cold probe."}
+      ],
+      "diagnoses": "Learner reads urine output as a demand signal (more output, more fluid) rather than as a perfusion signal for the fluid already given.",
+      "first_wrong_step": "Takes urine output as a measure of how much fluid the patient is losing instead of whether kidneys are adequately perfused.",
+      "repair": {"strategy": "E3: predict-then-show. Trace the mechanism: low output means under-perfusion so more fluid; high output means adequate or excess so reduce, to avoid pulmonary oedema and compartment syndromes.", "claims": ["K51", "K52", "K31"]},
+      "retest": "P28 and P29 in different forms (vignette, contrast); P29 is also the cold probe.",
+      "co_traps": ["TR16"],
+      "report_hint": "Avoided: direction of titration is clear. Recovered: they reversed their direction after trace. Open: they still raise fluid for high output, which risks over-resuscitation."
+    },
+    {
+      "id": "TR18", "trap": "Pain tracks depth in a straight line, so the least painful burn is taken as full thickness", "error_type": "E1", "yield": "high",
+      "refuted_by": ["K23", "K25", "K26"], "objectives": [],
+      "probes": [
+        {"id": "P12", "form": "vignette", "stem_idea": "Forearm burn mottled red-white, less painful than expected, sluggish capillary refill. Depth?",
+         "correct": "Deep partial thickness",
+         "distractor_set": [
+           {"option": "Full thickness", "trap": "TR18"},
+           {"option": "Superficial partial thickness", "trap": "partial"},
+           {"option": "Superficial (first degree)", "trap": "partial"}],
+         "note": "Reduced pain pulls the learner toward full thickness."},
+        {"id": "P13", "form": "contrast", "stem_idea": "Which feature separates full thickness from deep partial thickness?",
+         "correct": "Dry, leathery skin that does not blanch and is insensate",
+         "distractor_set": [
+           {"option": "Less painful than surrounding skin with sluggish refill", "trap": "TR18"},
+           {"option": "Healing needs more than 3 weeks with scarring", "trap": "TR18"},
+           {"option": "Blisters with a moist pink base", "trap": "partial"}],
+         "note": "Deep partial features that overlap full thickness; blisters belong to superficial partial."}
+      ],
+      "diagnoses": "Learner runs pain on a single scale from most to least and cannot separate 'less painful' from 'painless'.",
+      "first_wrong_step": "Equates reduced pain with absent pain and reads the lower pain as the next depth step.",
+      "repair": {"strategy": "E1: contrasting cases side by side: deep partial (mottled, less painful, sluggish refill) vs full thickness (leathery, painless, non-blanching); name the discriminating features.", "claims": ["K25", "K26", "K23", "K24"]},
+      "retest": "P13 contrast after P12 vignette.",
+      "co_traps": ["TR22"],
+      "report_hint": "Avoided: they separate reduced from absent sensation. Recovered: they learned the discriminators. Open: they read less pain as full thickness; note blanching and sensation."
+    },
+    {
+      "id": "TR19", "trap": "The adult urine output target (0.5 mL/kg/h) is used in a child, and kept in special settings such as electrical injury", "error_type": "E6", "yield": "high",
+      "refuted_by": ["K7", "K70", "K71", "K53"], "objectives": [],
+      "probes": [
+        {"id": "P30", "form": "vignette", "stem_idea": "20 kg child with 25% scald: hourly urine target?",
+         "correct": "20 mL/h (1 mL/kg/h)",
+         "distractor_set": [
+           {"option": "10 mL/h (0.5 mL/kg/h)", "trap": "TR19"},
+           {"option": "30-50 mL/h, the adult range", "trap": "TR19"},
+           {"option": "40 mL/h (2 mL/kg/h)", "trap": "partial"}],
+         "note": "Weight-based figure and adult range are the same number-anchor error."},
+        {"id": "P31", "form": "recognition", "stem_idea": "Electrical burn with myoglobinuria in a 70 kg adult: urine output target?",
+         "correct": "About 75-100 mL/h (1-1.5 mL/kg/h)",
+         "distractor_set": [
+           {"option": "30-50 mL/h, the routine adult target", "trap": "TR19"},
+           {"option": "Not needed: alkalinise the urine first", "trap": "partial"},
+           {"option": "20 mL/h, as in a child", "trap": "partial"}],
+         "note": "Absorbs the electrical-injury trap: the routine figure kept where a higher target applies."}
+      ],
+      "diagnoses": "Learner holds one urine-output number for all patients, the first one memorised, and does not switch for age or injury type.",
+      "first_wrong_step": "Retrieves the adult figure and does not check whether the patient is a child or has rhabdomyolysis.",
+      "repair": {"strategy": "E6: anchor each number to something meaningful: adult 0.5 mL/kg/h about 30-50 mL/h; child 1 mL/kg/h for smaller kidneys and higher metabolic rate; electrical about 1-1.5 mL/kg/h to flush myoglobin. Retest in another form.", "claims": ["K7", "K70", "K71", "K53"]},
+      "retest": "P31 in a different setting after P30; urine target is reused inside P26-P29.",
+      "co_traps": ["TR6"],
+      "report_hint": "Avoided: they pick the target to the patient. Recovered: they linked target to child and electrical settings. Open: they use the adult number everywhere."
+    },
+    {
+      "id": "TR22", "trap": "Rule-of-nines values are swapped, for example perineum or head given the wrong figure", "error_type": "E6", "yield": "high",
+      "refuted_by": ["K4"], "objectives": [],
+      "probes": [
+        {"id": "P14", "form": "numbers", "stem_idea": "Adult with burns to head and neck, whole anterior trunk and perineum. TBSA?",
+         "correct": "28%",
+         "distractor_set": [
+           {"option": "36%", "trap": "TR22"},
+           {"option": "37%", "trap": "TR22"},
+           {"option": "27%", "trap": "partial"}],
+         "note": "36 = perineum counted 9; 37 = head counted 18; 27 omits the perineum."},
+        {"id": "P15", "form": "recognition", "stem_idea": "In the adult rule of nines, the perineum is counted as?",
+         "correct": "1%",
+         "distractor_set": [
+           {"option": "9%", "trap": "TR22"},
+           {"option": "18%", "trap": "TR22"},
+           {"option": "4.5%", "trap": "partial"}],
+         "note": "4.5 is the half-of-9 figure used for the front of an arm or head in other charts."}
+      ],
+      "diagnoses": "Learner remembers that there are 9s and 18s but not which region owns which figure.",
+      "first_wrong_step": "Transposes figures between regions, which a memorised list cannot catch.",
+      "repair": {"strategy": "E6: anchor the figures: 9 for head and each arm, 18 for each leg and each trunk side, 1 for perineum; a quick total check of 9 + 9 + 9 + 18 + 18 + 18 + 18 + 1 = 100.", "claims": ["K4"]},
+      "retest": "P15 recognition after the P14 numbers question; P17 reuses the figures in a child.",
+      "co_traps": ["TR6"],
+      "report_hint": "Avoided: they hold the figures. Recovered: figures corrected after practice. Open: they transpose regions; re-derive the 100 total."
+    },
+    {
+      "id": "TR23", "trap": "Escharotomy is offered for any deep or any circumferential burn, or without the full-thickness qualifier", "error_type": "E7", "yield": "medium",
+      "refuted_by": ["K10", "K56"], "objectives": [],
+      "probes": [
+        {"id": "P38", "form": "vignette", "stem_idea": "Which burn needs escharotomy?",
+         "correct": "Circumferential full-thickness forearm burn with falling distal pulses",
+         "distractor_set": [
+           {"option": "Circumferential deep partial-thickness forearm burn with blisters", "trap": "TR23"},
+           {"option": "Superficial burn over the whole chest with normal ventilation", "trap": "TR23"},
+           {"option": "Small full-thickness burn on the palm with intact pulses", "trap": "partial"}],
+         "note": "Each wrong option drops one of the two qualifiers (full thickness, circumferential with compromise)."},
+        {"id": "P39", "form": "mechanism", "stem_idea": "Why does a circumferential full-thickness limb burn threaten the limb?",
+         "correct": "Inelastic eschar constricts as oedema develops, compressing distal vessels",
+         "distractor_set": [
+           {"option": "Every deep burn forms eschar, so release is needed as soon as it forms", "trap": "TR23"},
+           {"option": "Heat directly destroys the main artery in the limb", "trap": "partial"},
+           {"option": "Contracture of the wound pulls the joint into flexion at once", "trap": "partial"}],
+         "note": "Cause (constriction plus oedema) is what justifies both qualifiers."}
+      ],
+      "diagnoses": "Learner links escharotomy with 'deep burn' as a category and drops the full-thickness and circumferential-with-compromise qualifiers.",
+      "first_wrong_step": "Reads 'deep' as sufficient indication and does not ask whether the eschar is constricting.",
+      "repair": {"strategy": "E7: highlight the qualifiers and contrast two limbs: circumferential full thickness with falling pulses vs circumferential partial thickness (elastic, blistering).", "claims": ["K10", "K56", "K26"]},
+      "retest": "P39 mechanism after P38 vignette.",
+      "co_traps": [],
+      "report_hint": "Avoided: they ask 'is the eschar constricting?'. Recovered: qualifiers now stick. Open: they offer escharotomy for any deep burn."
+    },
+    {
+      "id": "TR25", "trap": "Topical agents are paired with the wrong side effect or the wrong property (including eschar penetration)", "error_type": "E10", "yield": "high",
+      "refuted_by": ["K57", "K76", "K77", "K78", "K75"], "objectives": [],
+      "probes": [
+        {"id": "P34", "form": "recognition", "stem_idea": "Topical agent that causes metabolic acidosis?",
+         "correct": "Mafenide",
+         "distractor_set": [
+           {"option": "Silver sulfadiazine", "trap": "TR25"},
+           {"option": "Silver nitrate", "trap": "TR25"},
+           {"option": "Povidone iodine", "trap": "partial"}],
+         "note": "Mafenide acts via carbonic anhydrase inhibition; a single-line mnemonic is welcome (device)."},
+        {"id": "P35", "form": "vignette", "stem_idea": "Burn of the ear cartilage: which topical agent, and what must be watched?",
+         "correct": "Mafenide; metabolic acidosis",
+         "distractor_set": [
+           {"option": "Mafenide; leucopenia", "trap": "TR25"},
+           {"option": "Silver sulfadiazine; leucopenia", "trap": "TR25"},
+           {"option": "Silver nitrate; hyponatraemia", "trap": "partial"}],
+         "note": "Absorbs the eschar-penetration trap: silver sulfadiazine is the default agent that does not penetrate eschar."}
+      ],
+      "diagnoses": "Learner holds one memorable side effect per agent but swaps them, and defaults to silver sulfadiazine for every use.",
+      "first_wrong_step": "Recalls the agent list as a bag of facts without the pairing between each agent and its own property.",
+      "repair": {"strategy": "E10: pair recall; a four-row table (agent, property, side effect) with the contrast between mafenide (penetrates, acidosis) and silver sulfadiazine (broad, painless, leucopenia).", "claims": ["K57", "K75", "K76", "K77", "K78"]},
+      "retest": "P35 vignette after P34 recognition.",
+      "co_traps": [],
+      "report_hint": "Avoided: pairs are clear. Recovered: pairs corrected after the table. Open: agents and side effects are swapped; rebuild the four-row table."
+    },
+    {
+      "id": "TR27", "trap": "Antidotes are paired with the wrong poison (CO versus cyanide)", "error_type": "E10", "yield": "medium",
+      "refuted_by": ["K41", "K73", "K74"], "objectives": [],
+      "probes": [
+        {"id": "P8", "form": "vignette", "stem_idea": "Smoke from burning plastics, shock and unexplained lactic acidosis. Antidote?",
+         "correct": "Hydroxocobalamin",
+         "distractor_set": [
+           {"option": "100% oxygen as the antidote", "trap": "TR27"},
+           {"option": "Hyperbaric oxygen as the first measure", "trap": "partial"},
+           {"option": "Calcium gluconate", "trap": "partial"}],
+         "note": "Calcium gluconate is the hydrofluoric acid antidote (another poison)."},
+        {"id": "P9", "form": "contrast", "stem_idea": "Match the treatment to each poison in smoke inhalation",
+         "correct": "CO: 100% oxygen; cyanide: hydroxocobalamin",
+         "distractor_set": [
+           {"option": "CO: hydroxocobalamin; cyanide: 100% oxygen", "trap": "TR27"},
+           {"option": "CO: hyperbaric oxygen first; cyanide: hydroxocobalamin", "trap": "partial"},
+           {"option": "CO: 100% oxygen; cyanide: 100% oxygen alone", "trap": "TR27"}],
+         "note": "Hyperbaric oxygen is reserved for selected cases (K40)."}
+      ],
+      "diagnoses": "Learner merges the two smoke poisonings into one oxygen-type treatment because both come from the same fire.",
+      "first_wrong_step": "Treats 'smoke inhalation poisoning' as one entity and assigns one treatment to it.",
+      "repair": {"strategy": "E10: pair recall; contrast the two poisonings by mechanism (CO displaces oxygen on haemoglobin; cyanide blocks cellular respiration) and by clue (cherry-red/headache versus unexplained lactic acidosis).", "claims": ["K41", "K73", "K74", "K40"]},
+      "retest": "P9 contrast after P8 vignette.",
+      "co_traps": ["TR13"],
+      "report_hint": "Avoided: both poisons are separated. Recovered: antidotes now paired. Open: they merge CO and cyanide; link each to its mechanism."
+    },
+    {
+      "id": "TR29", "trap": "Burn assessment and fluid calculation start before the primary survey", "error_type": "E9", "yield": "medium",
+      "refuted_by": ["K32"], "objectives": [],
+      "probes": [
+        {"id": "P1", "form": "sequence", "stem_idea": "Man pulled from a house fire with hoarse voice, soot in the mouth and 30% burns. First priority?",
+         "correct": "Secure the airway with early intubation as part of the primary survey",
+         "distractor_set": [
+           {"option": "Calculate the Parkland volume and start fluids", "trap": "TR29"},
+           {"option": "Observe the airway and intubate only if stridor appears", "trap": "TR30"},
+           {"option": "Cool the burn with running water for 20 minutes", "trap": "partial"}],
+         "note": "Owner probe; shared with TR30. Cooling is correct-adjacent first aid but not the first hospital priority."},
+        {"id": "P2", "form": "contrast", "stem_idea": "Which task belongs to the secondary survey rather than the primary survey?",
+         "correct": "Estimating TBSA and depth",
+         "distractor_set": [
+           {"option": "Calculating the first-8-h fluid volume", "trap": "TR29"},
+           {"option": "Airway assessment with cervical spine protection", "trap": "TR29"},
+           {"option": "Checking for circulation and external bleeding", "trap": "partial"}],
+         "note": "Fluid volume sits right after the survey; this tests whether the learner puts burn numbers before the ABCDE."}
+      ],
+      "diagnoses": "Learner puts the burn-specific numbers first and treats ABCDE as a separate trauma routine.",
+      "first_wrong_step": "Starts with the calculation because it feels like the burn-specific task.",
+      "repair": {"strategy": "E9: order the steps; ask 'what first, and why': airway can close within hours, numbers can wait minutes.", "claims": ["K32", "K39", "K9"]},
+      "retest": "P2 contrast after P1 sequence; fluid segments reintroduce ordering.",
+      "co_traps": ["TR30"],
+      "report_hint": "Avoided: ABCDE first. Recovered: they reorder the plan. Open: they calculate before checking the airway; ABCDE precedes TBSA."
+    },
+    {
+      "id": "TR30", "trap": "Intubation is delayed until oedema or obstruction is established", "error_type": "E9", "yield": "high",
+      "refuted_by": ["K39", "K29"], "objectives": [],
+      "probes": [
+        {"id": "P1", "form": "sequence", "shared_with": "TR29", "stem_idea": "Soot, hoarseness, 30% burns",
+         "correct": "Secure the airway with early intubation as part of the primary survey",
+         "distractor_set": [{"option": "Observe the airway and intubate only if stridor appears", "trap": "TR30"}]},
+        {"id": "P3", "form": "mechanism", "stem_idea": "Why intubate early in a patient with soot and facial burns who is speaking comfortably?",
+         "correct": "Oedema peaks after resuscitation begins and can make later intubation impossible",
+         "distractor_set": [
+           {"option": "Airway swelling matters only once stridor or desaturation appears", "trap": "TR30"},
+           {"option": "Hoarseness already proves lung injury that intubation will treat", "trap": "partial"},
+           {"option": "A tube lowers the fluid volume the patient will need", "trap": "partial"}],
+         "note": "The stable-looking patient is the temptation, so the stem must keep him talking."}
+      ],
+      "diagnoses": "Learner waits for the airway to fail before acting, because a currently stable patient looks safe.",
+      "first_wrong_step": "Judges airway safety by how the patient looks now rather than how swelling will progress.",
+      "repair": {"strategy": "E9: order the steps; ask 'what first, and why': oedema grows over hours and with fluids, so secure the airway while it is easy.", "claims": ["K39", "K29", "K17"]},
+      "retest": "P3 mechanism after P1 sequence.",
+      "co_traps": ["TR29"],
+      "report_hint": "Avoided: they intubate early on red flags. Recovered: they changed to act before oedema. Open: they wait for stridor, which is too late."
+    },
+    {
+      "id": "TR31", "trap": "Burn shock is called septic or cardiogenic instead of hypovolaemic", "error_type": "E1", "yield": "high",
+      "refuted_by": ["K19", "K79"], "objectives": [],
+      "probes": [
+        {"id": "P10", "form": "vignette", "stem_idea": "Tachycardic, hypotensive burn patient at 6 h with low urine output and rising haematocrit. Type of shock?",
+         "correct": "Hypovolaemic",
+         "distractor_set": [
+           {"option": "Septic", "trap": "TR31"},
+           {"option": "Cardiogenic", "trap": "TR31"},
+           {"option": "Neurogenic", "trap": "partial"}],
+         "note": "Raised haematocrit points to plasma loss, not sepsis."},
+        {"id": "P11", "form": "mechanism", "stem_idea": "Despite some myocardial depression, what is first-line treatment of burn shock in the first 24 h?",
+         "correct": "Titrated Ringer lactate",
+         "distractor_set": [
+           {"option": "Inotropes to support the heart", "trap": "TR31"},
+           {"option": "Broad-spectrum antibiotics for sepsis", "trap": "TR31"},
+           {"option": "Albumin infusion started at once", "trap": "TR8"}],
+         "note": "Shared with TR8 (the albumin option)."}
+      ],
+      "diagnoses": "Learner reads the cardiovascular picture by its look-alike features and not by cause, so a second contributor becomes the diagnosis.",
+      "first_wrong_step": "Takes the myocardial depression and vasodilation as the main shock type.",
+      "repair": {"strategy": "E1: contrasting cases: burn shock (plasma loss, haemoconcentration, low urine) against septic (fever, warm, lactate) and cardiogenic (pump failure, congestion).", "claims": ["K19", "K79", "K18", "K31"]},
+      "retest": "P11 mechanism after P10 vignette; later P26-P29 fluid decisions build on the hypovolaemia model.",
+      "co_traps": ["TR8"],
+      "report_hint": "Avoided: they name the right shock. Recovered: they link shock to plasma loss. Open: they read it as septic or cardiogenic; start from the haematocrit."
+    }
+  ],
+  "dropped": [
+    {"id": "TR5", "reason": "Adult fluid threshold 15% versus 20%: medium yield, covered by the K84 exam note in teaching; options mapped to partial where they appear."},
+    {"id": "TR7", "reason": "Paediatric maintenance dextrose: medium yield; the child qualifier is already met through TR6 and TR19; its option shown as partial in P32."},
+    {"id": "TR9", "reason": "Low yield; Brooke/Evans constants merged into the TR8 formula-pair table; its options appear as partial."},
+    {"id": "TR10", "reason": "Normal saline as fluid of choice: medium; appears as a partial distractor in P32."},
+    {"id": "TR11", "reason": "Jackson's zones: medium; lowest exam yield after the core set."},
+    {"id": "TR15", "reason": "Pseudomonas early versus late: medium; capped out."},
+    {"id": "TR20", "reason": "Electrical urine target merged into TR19; its options are re-tagged to TR19 in P31."},
+    {"id": "TR21", "reason": "Erythema counted in TBSA: medium; capped out."},
+    {"id": "TR24", "reason": "Succinylcholine timing: medium; capped out."},
+    {"id": "TR26", "reason": "Eschar penetration merged into TR25; its options are re-tagged to TR25 in P35."},
+    {"id": "TR28", "reason": "Hyperbaric oxygen first-line: low yield; its options appear as partial in P8 and P9."},
+    {"id": "TR32", "reason": "Hypermetabolic phase misread: medium; capped out."},
+    {"id": "TR33", "reason": "Ice cooling: low yield; the cooling option appears as partial in P1."},
+    {"id": "TR34", "reason": "Excision timing: low yield."}
+  ],
+  "probe_plan": "Twenty traps are mapped through 39 probes; no dropped ID appears as an option tag. Backbone traps: TR29 and TR30 (airway-first sequence, met in the opening segment), TR13 and TR12 (investigation ladder in the inhalation segment), TR31 (shock type, which sets up every fluid probe), TR18 (depth), TR22 then TR6 (adult figures before the child qualifier), TR1 then TR2, TR3, TR4 (the Parkland chain, each building on the last) and TR16 with TR17 (titration, the management backbone). Order of meeting: TR29 and TR30 (P1-P3), TR13 and TR12 (P4-P7), TR27 (P8-P9), TR31 (P10-P11, with TR8 first surface), TR18 (P12-P13), TR22 (P14-P15), TR6 (P16-P17), TR1 (P18-P19), TR2 and TR3 (P20-P23), TR4 (P24-P25), TR16 and TR17 (P26-P29), TR19 (P30-P31), TR8 (P32-P33), TR25 (P34-P35), TR14 (P36-P37), TR23 (P38-P39). Shared probes: P1 (TR29, TR30), P11 (TR31, TR8), P20 (TR2, TR3), P24 (TR4, TR2), P26 (TR16, TR17), P28 and P29 (TR17, TR16). Competing traps inside a stem: P1, P20, P24, P26, P28, P29, P11. Shared underlying models: 'the formula is a prescription' (TR1, TR16, TR3), 'children are small adults' (TR6, TR19), 'screening test is enough' (TR12, TR13), 'wait until it fails' (TR30, TR16). The final segment's cold probes (no hint option) should be P29 (titration), P22 (halving arithmetic) and P7 (inhalation test ladder), since these test the backbone traps unaided. K47 is unverified; P18 should carry a caution flag. Every first probe of a trap is met before its re-test with a different surface; no trap is re-tested in the same form."
+}
