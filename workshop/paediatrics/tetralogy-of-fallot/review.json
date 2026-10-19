@@ -1,58 +1,124 @@
 {
   "module": "paediatrics/tetralogy-of-fallot",
-  "judge": "m1",
   "mode": "module",
-  "lens": "all three in turn: learning-scientist, examiner, learner-advocate",
-  "coverage": "Read module.json in full (nodes S1.start to END, traps, objectives, claims, cards, report). Walked the first two probes of every segment (S1 to S8) with their trap feedback, retries, hints and fast lanes; sampled the deeper branches (S2.d1-d4, S4.dp1, S6.d_*, S6.pal/bt_q2, S7.d1-d4). Spot-checked the target of every next in the sampled nodes. Not every node was read individually.",
+  "judge": "m2",
+  "round": 1,
+  "lenses": ["learning-scientist", "examiner", "learner-advocate"],
+  "scope_note": "Partial read of a 12,375-line module.json. Read in full: S1 (all), S2 (all), S3 (all), S4 (all), S5 (all), S6 (all), S7 (all), S8 (all), plus the trap feedback of every probe read. Report section sampled (objectives O1-O11, error types, calibration, help). sim/*.report.json were not found at workshop/paediatrics/tetralogy-of-fallot/sim/ or sims/, so R9 is judged on the pre-authored report only. Gate checks traced every next pointer I read; no dangling target found in the traced set.",
   "gates": [],
-  "gate_notes": "No gate failure found. No node asks the learner to type; no run-time AI. Graph: no dead ends or missing targets found in the nodes read. No execution tool was available, so the graph check is a read-through, not a programmatic validation.",
-  "lens_scores": {
-    "learning-scientist": {"R1": 4, "R2": 4, "R3": 4, "R4": 4, "R5": 4, "R6": 3, "R7": 3, "R8": 4, "R9": 4, "weighted": 3.83},
-    "examiner": {"R1": 4, "R2": 3, "R3": 4, "R4": 4, "R5": 3, "R6": 4, "R7": 4, "R8": 4, "R9": 4, "weighted": 3.72},
-    "learner-advocate": {"R1": 4, "R2": 4, "R3": 4, "R4": 4, "R5": 4, "R6": 4, "R7": 4, "R8": 4, "R9": 4, "weighted": 4.00}
+  "gate_note": "No G3 or G4 failure found. Buttons only, no typed input, no run-time model.",
+  "refine_plan_check": {
+    "S1": [
+      {"item": "S1.q1b same-form retest changed", "status": "fixed", "note": "now a classmate-correction probe"},
+      {"item": "S1.q3b restates the cue", "status": "partial", "note": "form changed to a vignette, but 'lips pink at rest' still hands over the answer"}
+    ],
+    "S2": [
+      {"item": "S2.s2 add a plausible trap", "status": "fixed", "note": "two TR5 traps now; both route to one feedback node (S2.s2_t14) that talks only about plethora, so the 'Equally to both' pick gets a mismatched explanation"},
+      {"item": "S2.s3 stem gives key away ('day after day')", "status": "fixed"},
+      {"item": "S2.d4 dominated option replaced", "status": "partial", "note": "'All series agree on 5 to 7' is gone, but its replacement '12 to 15' is itself filler"}
+    ],
+    "S3": [
+      {"item": "S3.case1r repeats S3.case1 in same form", "status": "not fixed", "note": "still a pink-infant vignette with the same answer shape"},
+      {"item": "S3.ret key findable by length", "status": "fixed", "note": "option lengths now 51 / 62 / 61 characters; key is shortest, so no length cue"}
+    ],
+    "S4": [
+      {"item": "S4.f3 telegraphed hedge", "status": "fixed", "note": "stem neutral; only the key is hedged. Its hint still points at the word 'may'"},
+      {"item": "S4.t2 explanation before probe", "status": "fixed", "note": "S4.t3_ok -> S4.t2 -> S4.t4"},
+      {"item": "S4.start distractor balance", "status": "fixed", "note": "one left-axis and one right-axis-with-LVH distractor"}
+    ],
+    "S5": [
+      {"item": "S5.c1b key is the only drug-free option", "status": "not fixed", "note": "'Knee-chest and oxygen' is still the only option with no drug and no airway step"},
+      {"item": "S5.m1_expl names the heart-failure model", "status": "fixed"},
+      {"item": "S5.d1 key is the longest option", "status": "not fixed", "note": "key is still the longest option"}
+    ],
+    "S6": [
+      {"item": "S6.open dominated 'Deferred until school age'", "status": "partial", "note": "option replaced with 'Only if spells begin...', but S6.t_school feedback still says 'You picked school age' (mismatch)"},
+      {"item": "S6.open / S6.bt repeated in S7", "status": "partial", "note": "see S7.m7a and S7.m7b below"}
+    ],
+    "S7": [
+      {"item": "S7.m4 near copy of S3.not, change form", "status": "partial", "note": "form changed to 'which line is the error'; feedback S7.m4_t1 still refers to 'a which does NOT fit stem' and S7.m4_t2 explains a louder murmur, not the quieter-murmur choice (see flaws)"},
+      {"item": "S7.m3b near copy of S3.case1, change form", "status": "fixed", "note": "now 'which statement about colour is correct'; trap 3 is weak (see flaws)"},
+      {"item": "S7.m7a near copy of S6.open, change form", "status": "not fixed", "note": "same vignette shape, same key (elective after 3 months), same traps (neonatal, school age)"},
+      {"item": "S7.m7b near copy of S6.bt, change form", "status": "partial", "note": "now a cloze ('tube from the ____'), but the three options and their trap IDs are identical to S6.bt"},
+      {"item": "S7.d2 distractor 'stays pink until neonatal period ends' replaced", "status": "fixed", "note": "now 'only if cyanotic since birth' (plausible TR7 model)"},
+      {"item": "typo 'Right. one surgical review' and 'do not'", "status": "fixed", "note": "S7.d3_ok reads 'Right. One surgical review'; no 'do not' string found"}
+    ],
+    "S8": [
+      {"item": "S8.g2 copies S4.f1, rewrite", "status": "fixed", "note": "now a radiology-report completion"},
+      {"item": "S8.g2b copies S4.start, rewrite", "status": "partial", "note": "now a which-chamber probe; overlaps S4.ecg_why"},
+      {"item": "S8.g3 copies S4.t4, rewrite", "status": "fixed", "note": "parent question, new form"},
+      {"item": "S8.g4 copies S5.d1, rewrite", "status": "fixed", "note": "what-next probe; still has a hint option"},
+      {"item": "S8.g5 copies S6.r1, rewrite", "status": "not fixed", "note": "same stem frame and identical three options as S6.r1"},
+      {"item": "S8.g1b copies S2.s3, rewrite", "status": "fixed", "note": "statement about RVH; but S8.g1b_t1 feedback is about the overriding aorta while the option is ASD/PDA (mismatch)"},
+      {"item": "cold checks hint-free", "status": "partial", "note": "g3, g4b, g5b are hint-free; g1, g2, g4, g5 still carry a 'Give me a hint' option"}
+    ],
+    "tally": "About 11 items fixed, 7 partial, 6 not fixed. Several fixes introduced new label/feedback mismatches."
   },
-  "scores": {"R1": 4, "R2": 3.67, "R3": 4, "R4": 4, "R5": 3.67, "R6": 3.67, "R7": 3.67, "R8": 4, "R9": 4},
-  "weighted": 3.85,
-  "segments": [
-    {"segment": "S1", "score": 4, "reason": "Strong blue-baby hook; probes come before teaching. Weak points: S1.q1b and S1.q3b are same-form retests, and S1.q3b restates the cue from the stem, so the answer is nearly given."},
-    {"segment": "S2", "score": 4, "reason": "Best mechanism ladder: four rungs with a trap and a causal repair on each. Weak points: S2.s2 has only two options, S2.s3 stem gives the key away ('day after day'), and S2.d4 has a dominated option ('All series agree on exactly 5 to 7')."},
-    {"segment": "S3", "score": 4, "reason": "Pink-Tet vignette, predict-the-murmur before listening, and the spell murmur is traced via K20. Weak points: S3.case1r repeats S3.case1 in the same form, and S3.ret keys by length."},
-    {"segment": "S4", "score": 3, "reason": "S4.f3 is telegraphed: the only hedged option is the key, and the stem says 'reading the wording of the source'. S4.t2 explains CT before the S4.t3 probe asks it, so there is no retrieval. S4.start puts two left-sided distractors against one right-sided key."},
-    {"segment": "S5", "score": 4, "reason": "Worked case A/B then a learner-chosen case C; ordering and lever probes; trap feedback gives the reason. Weak points: S5.c1b's key is the only drug-free option; S5.m1_expl is generic for both TR8 and TR11 and never names the heart-failure model; S5.d1's key is the longest option."},
-    {"segment": "S6", "score": 3, "reason": "Good 'What it misses' trap feedback and a clean repair pathway. But S6.open has a dominated distractor ('Deferred until school age'), and S6.open and S6.bt are repeated almost verbatim in S7.m7a and S7.m7b."},
-    {"segment": "S7", "score": 3, "reason": "Classmate-correction format is a good PYQ drill, but many items repeat earlier probes in the same form (S3.not to S7.m4, S3.case1 to S7.m3b, S6.open to S7.m7a, S6.bt to S7.m7b, S2.s3 to S8.g1b). S7.d2's distractor 'TOF stays pink until the neonatal period ends' maps to TR7 but no TR7 holder would pick it. Typos: 'Right. one surgical review', 'one surgical review do not'."},
-    {"segment": "S8", "score": 3, "reason": "Cold checks are mostly verbatim copies of earlier probes: S8.g2 = S4.f1, S8.g2b ~ S4.start, S8.g3 = S4.t4, S8.g4 ~ S5.d1, S8.g5 ~ S6.r1. A learner who got the earlier item right can repeat it, so the 'cold' evidence the report relies on cannot separate recall from memory of the key. Otherwise the take-home is clean."}
+  "lens_scores": {
+    "learning-scientist": {"R1": 4, "R2": 3, "R3": 4, "R4": 4, "R5": 4, "R6": 3, "R7": 4, "R8": 3, "R9": 3, "weighted": 3.56},
+    "examiner": {"R1": 4, "R2": 3, "R3": 4, "R4": 4, "R5": 3, "R6": 4, "R7": 3, "R8": 4, "R9": 3, "weighted": 3.56},
+    "learner-advocate": {"R1": 4, "R2": 3, "R3": 4, "R4": 4, "R5": 4, "R6": 4, "R7": 4, "R8": 4, "R9": 3, "weighted": 3.72}
+  },
+  "scores": {
+    "R1": 4.0,
+    "R2": 3.0,
+    "R3": 4.0,
+    "R4": 4.0,
+    "R5": 3.67,
+    "R6": 3.67,
+    "R7": 3.67,
+    "R8": 3.67,
+    "R9": 3.0
+  },
+  "weighted": 3.61,
+  "weighted_note": "Mean of the three lens weighted scores (3.56, 3.56, 3.72). Weights R1 3, R2 3, R3 2, R4 2, R5 2, R6 2, R7 1, R8 1, R9 2; sum 18.",
+  "segments": {
+    "S1": {"score": 4, "reason": "Strong ask-first hook; the classmate-correction retest works. S1.q3b still hands over the answer through its cue."},
+    "S2": {"score": 4, "reason": "Rung-by-rung build with a hint ladder and a fast lane. Filler options in S2.d2 and S2.d4 and a telegraphed key in S2.vig."},
+    "S3": {"score": 3, "reason": "S3.case1r is still a same-form repeat of S3.case1, and S3.spellr repeats S3.spell option for option."},
+    "S4": {"score": 4, "reason": "Balanced S4.start, hedged-only-key S4.f3, explanation moved after the probe. S4.f1 stem telegraphs the key."},
+    "S5": {"score": 3, "reason": "S5.c1b and S5.d1 still telegraph the key (only drug-free option; longest option). S5.m1 re-asks the S3 spell question nearly verbatim."},
+    "S6": {"score": 3, "reason": "S6.t_school feedback names an option the learner never picked. S6.k2 orders the stem exactly as the key does, so the key is findable."},
+    "S7": {"score": 3, "reason": "S7.m4_t1 and S7.m4_t2 explain a different stem and a different choice from the one shown. S7.m7a is unchanged in form. S7.m3b trap 3 is the pink Tet itself, so it is not a trap."},
+    "S8": {"score": 3, "reason": "S8.g5 and S8.g5b copy S6.r1 and S6.a1 near-verbatim. S8.g1b_t1 feedback is about the wrong option. Cold checks g1, g2, g4, g5 still offer hints. Good cold g3, g4b, g5b."}
+  },
+  "weakest": ["S7", "S8", "S6", "S5", "S3"],
+  "defects": [
+    {"node": "S7.m4_t2", "severity": "high", "problem": "Choice 'The murmur became quieter while the baby cried and turned blue' routes here, but the feedback says 'A louder murmur in a spell feels logical' and calls the quieter murmur the fit. The label and the explanation describe different wrong models."},
+    {"node": "S7.m4_t1", "severity": "high", "problem": "Feedback opens 'In a which does NOT fit stem...'. The stem of S7.m4 is 'Which line is the error?'. The text was copied from S3.not."},
+    {"node": "S8.g1b_t1", "severity": "high", "problem": "Choice is 'It is an accompaniment like ASD or PDA' (TR1), but the feedback says 'The overriding aorta is tempting...'. The learner who picked ASD/PDA is told about the aorta."},
+    {"node": "S6.t_school", "severity": "high", "problem": "Choice 'Only if spells begin; otherwise left unrepaired' routes here, but the feedback says 'You picked school age'. Mismatch from the refine patch."},
+    {"node": "S8.g5", "severity": "high", "problem": "Same stem frame and the same three options as S6.r1 (residual VSD / pulmonary insufficiency / recurrent infundibular stenosis). The cold check tests memory of an item, not the idea. Patch item not applied."},
+    {"node": "S8.g5b", "severity": "high", "problem": "Stem and all three options are a verbatim copy of S6.a1 ('A 25-year-old had TOF repaired in infancy...'). Not on the patch list."},
+    {"node": "S7.m7a", "severity": "medium", "problem": "Same vignette shape, key and traps as S6.open (elective after 3 months / neonatal / school age). Patch said change form; not done."},
+    {"node": "S7.m7b", "severity": "medium", "problem": "Cloze form, but the three options and their TR19/TR19/TR18 IDs are the same as S6.bt. A learner who saw S6.bt gets the same answer for the same reason."},
+    {"node": "S7.m3b", "severity": "medium", "problem": "Trap 3 'A pink infant with a loud harsh murmur is in the middle of a spell' describes the pink Tet the key teaches, so it is not a wrong model. It is dominated."},
+    {"node": "S7.d2", "severity": "medium", "problem": "Distractor 'Another lesion, since the neonatal wording does not match' is a filler: no one who knows TOF is the commonest cyanotic CHD would pick it. Dominated (DP2)."},
+    {"node": "S5.c1b", "severity": "medium", "problem": "'Knee-chest and oxygen' is the only option with no drug and no airway step, so the key is findable by form. Patch item not applied."},
+    {"node": "S5.d1", "severity": "medium", "problem": "Key 'Knee-chest, oxygen, fluids, then beta-blocker or phenylephrine' is the longest option. Patch item not applied."},
+    {"node": "S6.k2", "severity": "medium", "problem": "Stem lists 'deaths from hypoxic spells, stroke and brain abscess' in the same order as the key (68/17/13). The key is findable by stem order, and the 13/17/68 option is an obvious reverse."},
+    {"node": "S3.case1r", "severity": "medium", "problem": "Same pink-infant vignette and the same answer shape as S3.case1. Patch item not applied."},
+    {"node": "S3.spellr", "severity": "low", "problem": "Option-for-option repeat of S3.spell in the same form, one segment later."},
+    {"node": "S4.f1", "severity": "low", "problem": "Stem 'Follow the blood that leaves the right ventricle against a narrowed outflow, with a VSD beside it' names the mechanism; the key is also the longest option with a 'because' clause."},
+    {"node": "S8.g4b", "severity": "medium", "problem": "Three options are the same as S5.c2 (venous return / pulmonary resistance / systemic resistance). Recall of the option, not of the lever. Not on the patch list."},
+    {"node": "S8.g1, S8.g2, S8.g4, S8.g5", "severity": "low", "problem": "Labelled 'cold' or placed in the cold-evidence gate, but each offers 'Give me a hint'. The patch asked for hint-free cold checks."},
+    {"node": "S7.d2_t1, S7.d2_t2, S7.d4_t1, S7.d4_t2, S7.d3_t1, S7.d3_t2", "severity": "low", "problem": "'sure_note': null. Schema-wise an object is expected; the renderer may trip."},
+    {"node": "S6.open", "severity": "low", "problem": "Lead-in says 'Three problems before I teach anything' but there is one question."},
+    {"node": "module metadata", "severity": "low", "problem": "module.json 'provenance' is 'sources'. CLAUDE.md says modules carry 'model-knowledge'. Metadata only; not a fact check."}
   ],
-  "weakest": ["S8", "S7", "S4", "S6"],
   "best_parts": [
-    "S2.s1 to S2.asm (four-rung ladder): each rung has a trap, and S2.s3_t1 names the 'flat list' model; S2.s3_ok then shows the chain in a device line.",
-    "S3.spell_t8a / S3.spell_ex / S3.not and S3.ret: predict the murmur change before listening, trace the falling RVOT flow via K20, and re-test the idea in a vignette (S3.ret) with a distinct TR11 distractor.",
-    "S5.c1_t to S5.c1b: a wrong first step routes to a re-test in another form (pick two) rather than straight to the answer; S5.c2_t9 names the pulmonary-side lever as tempting and then rebuilds SVR vs PVR."
+    "node S3.ret: three models in one vignette (spell, improvement, heart failure) with keys balanced to the shortest option; the mother's 'last week/today' cue makes the spell case the only one that uses the mechanism.",
+    "nodes S4.f3 -> S4.f3_ok / S4.f3_t1 / S4.f3_t2: the 'may classically' key is hedged, the stem is neutral, and the trap feedback names the superlative ('always present') as the model. A good template for E4.",
+    "nodes S4.t3 -> S4.t3_ok -> S4.t2 -> S4.t4: probe first, then the explanation, then a contrast probe. The order the refine plan asked for.",
+    "node S5.m1_expl: names both wrong readings ('improvement' and 'failing left ventricle') and explains the murmur with the flow mechanism. Good for TR8/TR11 together.",
+    "nodes S5.a2 -> S5.a3 -> S5.b1: worked case A, then case B done by the learner. Fading from worked example to learner-owned step.",
+    "nodes S7.m5 / S7.m6 / S7.m8: classmate-correction probes where each wrong correction is one trap and the feedback names the model. The best form in the module for TR12/TR17/TR22.",
+    "report section: each trap has avoided / fell_recovered / fell_open text, each objective has secure / shaky / gap text, and calibration and help patterns are present. The per-trap fell_open lines point at a card."
   ],
-  "flaws": [
-    "S4.f3 (key 'Films may classically show a boot; it is not guaranteed'): the only hedged option, while the other two are absolute. The stem's 'Reading the wording of the source' gives the key away (DP1).",
-    "S8.g2, S8.g2b, S8.g3, S8.g4, S8.g5 (cold 'Gate' checks): near-verbatim copies of S4.f1, S4.start, S4.t4, S5.d1 and S6.r1 with the same keys and distractors. Cold evidence is compromised (DP11; re-test not in another form).",
-    "S4.t2 (explain): tells CT as the morphology test one node before S4.t3 asks it. Ask-before-tell is broken; the probe is a recall check of the line just read."
-  ],
-  "further_flaws": [
-    "S6.open: 'Deferred until school age' is dominated (no learner who knows TOF repair timing would pick it). S7.m7a is the same stem and options as S6.open.",
-    "S7.d2 'TOF stays pink until the neonatal period ends' is mapped to TR7, but TR7 is 'every TOF is blue from birth'. Nobody holding TR7 picks this; it diagnoses nothing.",
-    "S2.start 'Right ventricular hypertrophy' is mapped TR14 while its feedback (S2.start_t14) refutes the TR2 model (RVH as a defect). S2.s3 'Overriding aorta' is mapped TR2; trap-map P05 says TR1. Label mismatches break the trap-to-feedback link.",
-    "S5.c1b key 'Knee-chest and oxygen' is the only option with no drug name; the trap options all name drugs (findable by form, DP1). S5.d1 key is the longest option.",
-    "S5.m1b 'Heart failure from left ventricular dysfunction' (TR11) routes to S5.m1_expl, which explains only the murmur (TR8) and opens with 'Both readings are tempting', which fits neither option as the learner just saw it.",
-    "S2.d4 'All series agree on exactly 5 to 7' is an absolute-word distractor that nobody holding TR17 would pick (dominated).",
-    "S2.s2 has two options only; S2.s3 stem 'consequence of the others... day after day' gives the key.",
-    "S4.start: two of three distractors start 'Left'; the key is the only option without 'left' (findable by form).",
-    "Voice and meta: 'the source' / 'this source' / 'Imaging teaching' appear on main-path feedback (S4.f3_hint, S4.f3, S6.a_endo, S6.a_hint, S2.d1_t1) and read as citation-talk to a learner. Typos: S7.d3_ok 'Right. one surgical review', S7.d3_t1 'one surgical review do not'.",
-    "Schema: sure_note is null on S7.d2_t1, S7.d2_t2, S7.d3_t1, S7.d3_t2, S7.d4_t1 and S7.d4_t2; S7.d1_t1's sure_note carries a 'flag' key that the other sure_notes lack. Check the renderer."
-  ],
-  "trap_coverage_check": "Every TR1 to TR22 appears on at least one main-path probe; TR16 is on the main path only in deeper nodes (S2.d1-d2, S7.d4). Unverified claims (K7, K17, K18, K33, K38, K40, K41, K51 to K58, K71, K75, K78) appear only in deeper or flagged nodes that I read.",
-  "objective_coverage": "Core O1 to O10 are on the main path and survive the fast-lane skips (S2.start_ok to S2.s3, S3.case1_ok to S3.safe, S4.ecg_why_ok to S4.f1, S4.t0_ok to S4.t3, S8.g2_ok to S8.g3). O11 and O12 are on the main path through S7.m6 and S7.m3a/S7.m7a; the numbers and palliation detail sit in deeper nodes.",
   "merge_ideas": [
-    "Keep the S2 four-rung ladder and S3 spell-murmur prediction; replace the cold S8 gates with new vignettes (new stems, new distractors) so the report can credit unaided recall.",
-    "Fix S4.f3 by giving the two absolute distractors a hedge of their own ('may' on all three, or none) and drop the 'reading the wording of the source' cue.",
-    "Give S5.m1_expl a separate heart-failure branch for TR11 (as S5.b1_t11 already does for fluids), and drop the 'both readings' phrasing."
+    "S4.f3's hedged-key-plus-counter-case structure applied to S7.m7a and S7.d1 (boot shape) so the 3-month timing question is tested as a counter-case, not a copy.",
+    "S5.c1b's 'which two measures come first' with S5.d1's ordering, but with the drug-free option removed from the key pool so no option is the only non-drug one.",
+    "S7.m4's 'exactly one error' clerking note (a new form) with the S3.not option set (softer murmur / inaudible P2 / pink Tet as distractors) so each option is one trap and the key is not the only option that names a sound."
   ],
-  "sim_reports": "No sim/*.report.json files could be opened at workshop/paediatrics/tetralogy-of-fallot/sim/ (the directory exists, but the expected file names did not resolve). R9 is therefore judged from report.json and the path design alone.",
-  "R9_report_judgement": "report.json is detailed and well aimed: objective-level secure/shaky/gap with the matching card, trap-level avoided/fell_recovered/fell_open with the repair named, calibration and hint-use patterns. Weakness: it reports on the cold S8 gates, which repeat earlier items, so 'secure' on O6, O7 and O9 may reflect memory of keys rather than recall. The 'strong' headline also says 'mostly right the first time' without separating key recall from unaided answers."
+  "merge_notes": "The top fix is mechanical: rewrite the four mismatched feedback nodes (S7.m4_t1, S7.m4_t2, S8.g1b_t1, S6.t_school) so each names the option the learner actually picked. That alone moves R2 and R9 up. Then apply the three unfixed patch items (S5.c1b, S5.d1, S3.case1r) and replace the copied cold checks (S8.g5, S8.g5b, S7.m7a) with new stems in new forms."
 }

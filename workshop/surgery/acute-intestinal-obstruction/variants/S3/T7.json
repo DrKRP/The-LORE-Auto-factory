@@ -1,0 +1,363 @@
+{
+  "segment": "S3",
+  "technique": "T7",
+  "entry": "film_a",
+  "nodes": {
+    "film_a": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A supine plain abdominal film. Loops sit centrally, and their folds cross the full width of the lumen in a stack-of-coins pattern.", "claims": []},
+        {"text": "Which bowel is this, and which marker tells you?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Large bowel: valvulae conniventes", "next": "ha_lv", "kind": "trap", "trap": "TR11"},
+        {"label": "Small bowel: valvulae conniventes", "next": "ok_a", "kind": "correct"},
+        {"label": "Small bowel: haustra", "next": "ha_sh", "kind": "trap", "trap": "TR11"}
+      ]
+    },
+    "ha_lv": {
+      "role": "hint",
+      "say": [
+        {"text": "Tempting: valvulae conniventes are the first fold you learned, and the big bowel is the loop people expect to dilate.", "claims": []},
+        {"text": "But a fold does not name a bowel by itself. Check where these folds sit and whether they cross the lumen, then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the marker before the bowel: the fold that crosses the full width belongs to one bowel only.", "claims": ["K6"]},
+      "choices": [{"label": "Try again", "next": "film_a2", "kind": "retry"}]
+    },
+    "ha_sh": {
+      "role": "hint",
+      "say": [
+        {"text": "Tempting: haustra are the folds you see most on a colon film, and these loops have folds, so the label feels right.", "claims": []},
+        {"text": "Look at the fold again. Does it cross the full width of the lumen, or stop short? Then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so test the fold's reach across the lumen: haustra do not cross the full width.", "claims": ["K73"]},
+      "choices": [{"label": "Try again", "next": "film_a2", "kind": "retry"}]
+    },
+    "film_a2": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Same film, one more look. Choose again.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Small bowel: valvulae conniventes", "next": "ok_a", "kind": "correct"},
+        {"label": "Large bowel: valvulae conniventes", "next": "x_lv", "kind": "trap", "trap": "TR11"},
+        {"label": "Small bowel: haustra", "next": "x_sh", "kind": "trap", "trap": "TR11"}
+      ]
+    },
+    "x_lv": {
+      "role": "feedback",
+      "say": [
+        {"text": "Valvulae conniventes do cross the full width, but they mark the small bowel, not the colon.", "claims": ["K6", "K71"]},
+        {"text": "Large bowel lies peripherally and shows haustra that stop short of the lumen. A large-bowel label needs haustra.", "claims": ["K73"]}
+      ],
+      "choices": [{"label": "Next", "next": "cmp_a", "kind": "continue"}]
+    },
+    "x_sh": {
+      "role": "feedback",
+      "say": [
+        {"text": "Haustra are real, but they are the colon's marker, and they stop short of the lumen.", "claims": ["K73"]},
+        {"text": "The folds on this film cross the full width. That is the small bowel's valvulae conniventes.", "claims": ["K6", "K71"]}
+      ],
+      "choices": [{"label": "Next", "next": "cmp_a", "kind": "continue"}]
+    },
+    "ok_a": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Valvulae conniventes cross the full width and sit in central loops, so this is small bowel.", "claims": ["K6", "K71"]},
+        {"text": "Haustra never cross the full width. That reach is the feature that separates the two markers.", "claims": ["K6", "K73"]}
+      ],
+      "choices": [{"label": "Next", "next": "cmp_a", "kind": "continue"}]
+    },
+    "cmp_a": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Two films side by side. Film A: central loops, folds crossing the full width. Film B: peripheral loops, folds that stop short of the lumen.", "claims": []},
+        {"text": "Film B is the colon. Which feature settles which film is which?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Whether any fold is visible at all", "next": "x_any", "kind": "trap", "trap": "TR11"},
+        {"label": "Whether the folds cross the full width", "next": "ok_c", "kind": "correct"}
+      ]
+    },
+    "x_any": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: every film has some fold, so spotting a fold feels like the marker. Both bowels have folds, so presence does not separate them.", "claims": []},
+        {"text": "What differs is reach: valvulae cross the full width and mark small bowel; haustra stop short and mark colon.", "claims": ["K6", "K73"]}
+      ],
+      "choices": [{"label": "Next", "next": "num", "kind": "continue"}]
+    },
+    "ok_c": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Folds that cross the full width are valvulae conniventes, so film A is small bowel.", "claims": ["K6", "K71"]},
+        {"text": "Film B has folds that stop short, which is the haustral pattern of colon.", "claims": ["K73"]}
+      ],
+      "choices": [{"label": "Next", "next": "num", "kind": "continue"}]
+    },
+    "num": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "By the 3-6-9 rule, what is the upper normal calibre of the caecum on a plain film?", "claims": []}
+      ],
+      "choices": [
+        {"label": "3 cm", "next": "h_n3", "kind": "trap", "trap": "TR12"},
+        {"label": "9 cm", "next": "ok_n", "kind": "correct"},
+        {"label": "6 cm", "next": "h_n6", "kind": "trap", "trap": "TR12"}
+      ]
+    },
+    "h_n3": {
+      "role": "hint",
+      "say": [
+        {"text": "Tempting: 3 is the first number of the rule, so it feels like the caecum's place in a sequence you memorised.", "claims": []},
+        {"text": "The caecum is the widest of the three segments. Which number goes with the widest one? Then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so re-anchor the number to calibre: 3 belongs to the narrowest segment, the small bowel.", "claims": ["K74"]},
+      "choices": [{"label": "Try again", "next": "num2", "kind": "retry"}]
+    },
+    "h_n6": {
+      "role": "hint",
+      "say": [
+        {"text": "Tempting: 6 is the middle value, and a middle number feels like a safe guess for a segment you cannot place.", "claims": []},
+        {"text": "Count the segments from narrow to wide: small bowel, colon, caecum. Which number matches the widest one? Then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check which segment 6 belongs to: the colon, the middle of the three.", "claims": ["K74"]},
+      "choices": [{"label": "Try again", "next": "num2", "kind": "retry"}]
+    },
+    "num2": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Same question. Choose again.", "claims": []}
+      ],
+      "choices": [
+        {"label": "6 cm", "next": "x_n6", "kind": "trap", "trap": "TR12"},
+        {"label": "9 cm", "next": "ok_n", "kind": "correct"},
+        {"label": "3 cm", "next": "x_n3", "kind": "trap", "trap": "TR12"}
+      ]
+    },
+    "x_n3": {
+      "role": "feedback",
+      "say": [
+        {"text": "3 cm is the small bowel's upper normal, the narrowest of the three segments.", "claims": ["K74"]},
+        {"text": "You gave the narrow end's number to the widest segment. Calibre rises from 3 to 6 to 9 along the gut.", "claims": ["K74", "K11"]}
+      ],
+      "choices": [{"label": "Next", "next": "vig_n", "kind": "continue"}]
+    },
+    "x_n6": {
+      "role": "feedback",
+      "say": [
+        {"text": "6 cm is the colon's upper normal, not the caecum's.", "claims": ["K74"]},
+        {"text": "The caecum is the widest segment and the first to perforate, so it takes the largest number.", "claims": ["K11"]}
+      ],
+      "choices": [{"label": "Next", "next": "vig_n", "kind": "continue"}]
+    },
+    "ok_n": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Small bowel 3, colon 6, caecum 9. The numbers rise with calibre.", "claims": ["K74"]},
+        {"text": "The caecum is the widest segment, so it has the largest upper limit.", "claims": ["K11"]}
+      ],
+      "choices": [{"label": "Next", "next": "vig_n", "kind": "continue"}]
+    },
+    "vig_n": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Film report: small bowel 4 cm, transverse colon 5 cm, caecum 7 cm. Which segment is dilated?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Small bowel and caecum", "next": "x_v1", "kind": "trap", "trap": "TR12"},
+        {"label": "Small bowel alone", "next": "ok_v", "kind": "correct"},
+        {"label": "Transverse colon and caecum", "next": "x_v2", "kind": "trap", "trap": "TR12"}
+      ]
+    },
+    "x_v1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the caecum at 7 cm looks big next to the other two numbers.", "claims": []},
+        {"text": "But the caecum's upper normal is 9 cm, so 7 cm is within normal. Only the small bowel, at 4 cm against 3, is above its limit.", "claims": ["K74"]}
+      ],
+      "choices": [{"label": "Next", "next": "sign1", "kind": "continue"}]
+    },
+    "x_v2": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the transverse colon at 5 cm sits near the middle of the numbers, so it feels large.", "claims": []},
+        {"text": "The colon's upper normal is 6 cm, so 5 cm is normal. Only the small bowel is dilated here.", "claims": ["K74"]}
+      ],
+      "choices": [{"label": "Next", "next": "sign1", "kind": "continue"}]
+    },
+    "ok_v": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Small bowel at 4 cm is above its 3 cm limit, while colon at 5 cm and caecum at 7 cm are under 6 and 9.", "claims": ["K74"]}
+      ],
+      "choices": [{"label": "Next", "next": "sign1", "kind": "continue"}]
+    },
+    "sign1": {
+      "role": "probe",
+      "objectives": ["O7"],
+      "say": [
+        {"text": "Plain film: a massively dilated loop arising from the pelvis, shaped like a coffee bean. What is the diagnosis?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Caecal volvulus", "next": "x_s", "kind": "trap", "trap": "TR8"},
+        {"label": "Sigmoid volvulus", "next": "ok_s", "kind": "correct"}
+      ]
+    },
+    "x_s": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: both are a volvulus of a dilated loop, and the caecum is the other big loop people remember.", "claims": []},
+        {"text": "But this loop arises from the pelvis and looks like a coffee bean. Caecal volvulus gives a comma-shaped caecum displaced to the left upper quadrant.", "claims": ["K76", "K77"]}
+      ],
+      "choices": [{"label": "Next", "next": "sign_m", "kind": "continue"}]
+    },
+    "ok_s": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. A massive pelvic loop with a coffee-bean or bent-inner-tube sign is sigmoid volvulus.", "claims": ["K76"]},
+        {"text": "Caecal volvulus shows a kidney-shaped caecum in the left upper quadrant instead.", "claims": ["K77"]}
+      ],
+      "choices": [{"label": "Next", "next": "sign_m", "kind": "continue"}]
+    },
+    "sign_m": {
+      "role": "probe",
+      "objectives": ["O7"],
+      "say": [
+        {"text": "Each sign belongs to one disease and one modality. Which pairing is correct?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Claw sign: ultrasound; pseudokidney: contrast enema", "next": "x_sm1", "kind": "trap", "trap": "TR8"},
+        {"label": "Claw sign: contrast enema; target sign: ultrasound", "next": "ok_sm", "kind": "correct"},
+        {"label": "Bird's beak: intussusception on enema; target: plain film", "next": "x_sm2", "kind": "trap", "trap": "TR8"}
+      ]
+    },
+    "x_sm1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: both signs look like bowel folding back on itself, so the modality is easy to swap in memory.", "claims": []},
+        {"text": "The claw is the contrast-enema sign of intussusception. The pseudokidney is the ultrasound longitudinal sign. Swapping the modalities puts each sign on the wrong test.", "claims": ["K89", "K88"]}
+      ],
+      "choices": [{"label": "Next", "next": "test_a", "kind": "continue"}]
+    },
+    "x_sm2": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: bird's beak and claw both appear on an enema, so the enema looks like the common thread.", "claims": []},
+        {"text": "Bird's beak is the contrast-enema sign of sigmoid volvulus, not of intussusception. Target is an ultrasound sign, not a plain-film sign.", "claims": ["K87", "K88", "K146"]}
+      ],
+      "choices": [{"label": "Next", "next": "test_a", "kind": "continue"}]
+    },
+    "ok_sm": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. The claw is the enema sign of intussusception, and the target is the ultrasound sign of the same disease.", "claims": ["K89", "K88"]},
+        {"text": "Bird's beak belongs to volvulus on contrast enema, so keep each sign on its own disease and test.", "claims": ["K87", "K146"]}
+      ],
+      "choices": [{"label": "Next", "next": "test_a", "kind": "continue"}]
+    },
+    "test_a": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "An adult with suspected small bowel obstruction. Which is the definitive investigation, the test that gives the level and the cause?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Erect and supine abdominal X-ray", "next": "ha_tx", "kind": "trap", "trap": "TR5"},
+        {"label": "Contrast-enhanced CT abdomen", "next": "ok_t", "kind": "correct"},
+        {"label": "Barium meal follow-through", "next": "ha_tb", "kind": "trap", "trap": "TR5"}
+      ]
+    },
+    "ha_tx": {
+      "role": "hint",
+      "say": [
+        {"text": "Tempting: the plain film is the first test you order, and it does show the dilated bowel, so it feels complete.", "claims": []},
+        {"text": "It shows that the bowel is blocked. Which test shows where the block is and what is causing it? Then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so separate the two jobs: the film says obstruction is present, and a different test answers level and cause.", "claims": ["K138"]},
+      "choices": [{"label": "Try again", "next": "test_r", "kind": "retry"}]
+    },
+    "ha_tb": {
+      "role": "hint",
+      "say": [
+        {"text": "Tempting: a barium meal is a classic contrast study of the gut, so it feels like the definitive test.", "claims": []},
+        {"text": "Think about what barium would do if the bowel were perforated or the colon were blocked. Then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so note the danger: barium is unsafe when there is perforation or large bowel obstruction.", "claims": ["K85"]},
+      "choices": [{"label": "Try again", "next": "test_r", "kind": "retry"}]
+    },
+    "test_r": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "say": [
+        {"text": "Same question, one more try. Choose again.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Contrast-enhanced CT abdomen", "next": "ok_t", "kind": "correct"},
+        {"label": "Erect and supine abdominal X-ray", "next": "x_tx", "kind": "trap", "trap": "TR5"},
+        {"label": "Barium meal follow-through", "next": "x_tb", "kind": "trap", "trap": "TR5"}
+      ]
+    },
+    "x_tx": {
+      "role": "feedback",
+      "say": [
+        {"text": "The plain film is the initial investigation: it confirms obstruction and shows which bowel is dilated.", "claims": ["K138", "K69"]},
+        {"text": "It does not give the level, the cause or the signs of strangulation. Contrast CT does, so it is the definitive test.", "claims": ["K7", "K80"]}
+      ],
+      "choices": [{"label": "Next", "next": "ladder", "kind": "continue"}]
+    },
+    "x_tb": {
+      "role": "feedback",
+      "say": [
+        {"text": "Barium must not be given in suspected large bowel obstruction or perforation, so it is not the test to reach for here.", "claims": ["K85", "K136"]},
+        {"text": "In adhesive obstruction a water-soluble oral contrast study can be diagnostic and therapeutic, but that is not barium.", "claims": ["K83"]}
+      ],
+      "choices": [{"label": "Next", "next": "ladder", "kind": "continue"}]
+    },
+    "ok_t": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Contrast CT is the investigation of choice for small bowel obstruction: it shows the level, the cause and signs of strangulation.", "claims": ["K7", "K79", "K80"]},
+        {"text": "The plain film is the initial test, and CT is the definitive one.", "claims": ["K138", "K136"]}
+      ],
+      "choices": [{"label": "Next", "next": "ladder", "kind": "continue"}]
+    },
+    "ladder": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "say": [
+        {"text": "Three rungs, in order: initial test for suspected obstruction; definitive test for small bowel obstruction; diagnostic test for a child with suspected intussusception.", "claims": []},
+        {"text": "Which ladder is right?", "claims": []}
+      ],
+      "choices": [
+        {"label": "CT; plain film; contrast enema", "next": "x_l", "kind": "trap", "trap": "TR5"},
+        {"label": "Plain film; contrast CT; ultrasound", "next": "ok_l", "kind": "correct"}
+      ]
+    },
+    "x_l": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: CT is the definitive test, so putting it first feels efficient, and the enema is a familiar test for a child.", "claims": []},
+        {"text": "The ladder runs from the test that confirms obstruction to the one that gives level and cause. Ultrasound, not enema, is the child's diagnostic test.", "claims": ["K138", "K136", "K137"]}
+      ],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    },
+    "ok_l": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Plain film first, then contrast CT for the definitive answer, then ultrasound for a child with suspected intussusception.", "claims": ["K138", "K136", "K137"]},
+        {"text": "Each test answers a different question, so the order is the ladder.", "claims": []}
+      ],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    }
+  }
+}
