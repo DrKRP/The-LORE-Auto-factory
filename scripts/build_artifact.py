@@ -20,7 +20,7 @@ body = re.search(r"<body>(.*)</body>", html, re.S).group(1)
 style = style.replace("padding: 10px 16px;", "padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px));")
 # Hosted pages cannot start downloads; keep only the copy button.
 body = body.replace('`</ol><div class="row"><button id="export">Download session record</button>', '`</ol><div class="row">')
-style = style
+body = re.sub(r'  if \(\$\("export"\)\) \$\("export"\)\.onclick = \(\) => \{.*?\n  \};\n', "", body, flags=re.S)
 data = json.dumps(mod, ensure_ascii=False).replace("</", "<\\/")
 page = (f"<title>{mod.get('title', 'LORE journey')}</title>\n"
         f"{style}\n<script>window.LORE_MODULE = {data};</script>\n{body}")
