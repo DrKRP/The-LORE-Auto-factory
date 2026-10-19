@@ -24,3 +24,8 @@ What the factory has learned about teaching by conversation. `scripts/factory.py
 - [consolidate] T8 over T10, T9 (surgery/acute-intestinal-obstruction S6, merge): For a final cold-check segment, take the entry with the most distinct trap-mapped distractors and turn every miss into hint-then-retry; form cues in the key (the lone option that splits cases) need a final pass.
 - [mechanism] T7 over T4, T5 (surgery/acute-appendicitis S2, merge): For a mechanism segment, a probe-per-step spine with a skip lane wins, but each trap needs a second test in a reversed form, every first miss must be a nudge that does not state the key, and option wording must be length-matched so no key can be found by form.
 - [clinical] T2 over T7, T6 (surgery/acute-appendicitis S3, merge): When two variants tie, take the one with the real clinical hook and cold close as the spine and graft the other's per-option hypercorrection notes and direction probe; give look-alike traps (signs sharing a limb) a probe in more than one form, and never let a hint name the key.
+
+## Lessons from surgery/acute-intestinal-obstruction (2026-10-19)
+- The final consolidate segment must be a short mixed quiz (8–10 new stems), not a replay of earlier items; sims of every persona flagged the replay as dead weight and it inflates "cold" recall in the report.
+- Re-ask nodes (a reordered copy of a probe after "Try again") count as new probes in the report engine, so an immediate retry reads as recovery. Prefer "Try again" back to the same node; a later re-test in a new form is the recovery evidence.
+- Skip buttons must land past the material they skip, or be labelled as a quick check.
