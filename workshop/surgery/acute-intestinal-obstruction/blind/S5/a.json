@@ -1,0 +1,1019 @@
+{
+  "segment": "S5",
+  "entry": "start",
+  "nodes": {
+    "start": {
+      "role": "explain",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Worked answer first. A woman has a tender groin lump that will not go back.",
+          "claims": []
+        },
+        {
+          "text": "Femoral hernia is the groin hernia most likely to strangulate, because its neck is narrow and rigid.",
+          "claims": [
+            "K29",
+            "K132"
+          ]
+        },
+        {
+          "text": "Richter's hernia traps only part of the bowel wall, so it can strangulate without full obstruction.",
+          "claims": [
+            "K30"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "hA1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "hA1": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "A classmate wrote this for the same woman. One step is wrong.\n(1) An irreducible tender groin lump is at risk of strangulation. (2) The commonest groin hernia is the indirect inguinal, so it is the one most likely to strangulate. (3) A femoral hernia needs early repair.",
+          "claims": []
+        },
+        {
+          "text": "Which step is wrong?",
+          "claims": []
+        }
+      ],
+      "objectives": [
+        "O9"
+      ],
+      "choices": [
+        {
+          "label": "Step 1: an irreducible lump is at risk",
+          "next": "fA1_s1",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Step 2: the commonest one is the most dangerous",
+          "next": "fA1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Step 3: a femoral hernia needs early repair",
+          "next": "fA1_s3",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "hA1_h",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "hA1_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which feature of a hernia decides strangulation: how often it occurs, or the shape of its neck.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "hA1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fA1_s1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: strangulation looks like a full blockage, with vomiting and distension.",
+          "claims": []
+        },
+        {
+          "text": "Refuted: Richter's hernia traps only part of the wall, so it strangulates without complete obstruction [K30]. Step 1 is right.",
+          "claims": [
+            "K30"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "hA1",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the wall, not the blockage: partial-wall strangulation can look quiet.",
+        "claims": [
+          "K30"
+        ]
+      }
+    },
+    "fA1_s3": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the femoral is the rare groin hernia, so rarity feels like safety.",
+          "claims": []
+        },
+        {
+          "text": "Refuted: the risk comes from its narrow, rigid neck, not from how often it occurs [K29]. Step 3 is right.",
+          "claims": [
+            "K29"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "hA1",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate frequency from risk: this is the same mix-up as step 2.",
+        "claims": [
+          "K29",
+          "K132"
+        ]
+      }
+    },
+    "fA1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Step 2 is the error: the commonest groin hernia is not the most dangerous [K132].",
+          "claims": [
+            "K132"
+          ]
+        },
+        {
+          "text": "Frequency is not risk. The neck decides.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "hA2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "hA2": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Right, step 2 is the error. Why does it fail?",
+          "claims": []
+        }
+      ],
+      "objectives": [
+        "O9"
+      ],
+      "choices": [
+        {
+          "label": "Frequency is not risk; the narrow, rigid neck is",
+          "next": "fA2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Strangulation needs complete obstruction with vomiting",
+          "next": "fA2_t14",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "A wide neck lets contents slip, so it strangulates most",
+          "next": "fA2_t13",
+          "kind": "trap",
+          "trap": "TR13"
+        }
+      ]
+    },
+    "fA2_t14": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the classic picture is obstruction with vomiting and distension.",
+          "claims": []
+        },
+        {
+          "text": "Refuted: a Richter's hernia strangulates without complete obstruction [K30]. Right reason: the neck [K29].",
+          "claims": [
+            "K30",
+            "K29"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "hA2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fA2_t13": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a wide-necked sac seems to move freely, so it looks dangerous.",
+          "claims": []
+        },
+        {
+          "text": "Refuted: the danger is a narrow, rigid neck that traps the bowel [K29].",
+          "claims": [
+            "K29"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "hA2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fA2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The narrow, rigid neck explains the femoral risk, not how common the hernia is [K29].",
+          "claims": [
+            "K29"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "bB0",
+          "kind": "continue"
+        }
+      ]
+    },
+    "bB0": {
+      "role": "explain",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Worked answer: a child with red currant jelly stool and a sausage-shaped mass.",
+          "claims": [
+            "K65",
+            "K66"
+          ]
+        },
+        {
+          "text": "Child intussusception is usually idiopathic and ileocolic [K37]. A stable child without peritonitis is reduced under imaging, with air or saline [K111].",
+          "claims": [
+            "K37",
+            "K111"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "bB1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "bB1": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "A classmate wrote this for an adult with colicky pain, a mass and intussusception on CT.\n(1) An adult mass with colicky pain fits intussusception. (2) Enema reduction, as in children, is the first move. (3) Look for a lead point, usually a tumour.",
+          "claims": []
+        },
+        {
+          "text": "Which step is wrong?",
+          "claims": []
+        }
+      ],
+      "objectives": [
+        "O10"
+      ],
+      "choices": [
+        {
+          "label": "Step 1: an adult mass with colicky pain fits",
+          "next": "fB1_s1",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Step 2: enema reduction first, as in children",
+          "next": "fB1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Step 3: look for a lead point, usually a tumour",
+          "next": "fB1_s3",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "bB1_h",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "bB1_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what drives a child's intussusception, and whether that driver is still there in an adult.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "bB1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fB1_s1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: intussusception is taught as a childhood disease, so an adult mass looks odd.",
+          "claims": []
+        },
+        {
+          "text": "Refuted: adult intussusception is common enough to need its own rule, with a lead point, often a tumour [K38]. Step 1 is right.",
+          "claims": [
+            "K38"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "bB1",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so remember: an adult with this picture has a cause until proved otherwise [K38].",
+        "claims": [
+          "K38"
+        ]
+      }
+    },
+    "fB1_s3": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the child's pattern, idiopathic and ileocolic, feels like the template for everyone.",
+          "claims": []
+        },
+        {
+          "text": "Refuted: that pattern belongs to children; an adult usually has a pathological lead point [K38, K113]. Step 3 is right.",
+          "claims": [
+            "K38",
+            "K113"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "bB1",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the age before copying the child's pattern [K113].",
+        "claims": [
+          "K113"
+        ]
+      }
+    },
+    "fB1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Step 2 is the error: an adult's intussusception is usually driven by a lead point, so enema reduction is not the default [K113].",
+          "claims": [
+            "K113"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "bB2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "bB2": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Why is enema reduction the wrong first move in the adult?",
+          "claims": []
+        }
+      ],
+      "objectives": [
+        "O10"
+      ],
+      "choices": [
+        {
+          "label": "A lead point, often a tumour, usually drives it",
+          "next": "fB2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Adults have the same idiopathic cause as children",
+          "next": "fB2_t3",
+          "kind": "trap",
+          "trap": "TR3"
+        }
+      ]
+    },
+    "fB2_t3": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the enema worked in the child, so it feels like the same cure.",
+          "claims": []
+        },
+        {
+          "text": "Refuted: the cause decides the cure, and a lead point is not reduced by an enema [K38]. Right reason: the lead point.",
+          "claims": [
+            "K38"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "bB2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fB2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. In children no lead point is usual; in adults it is the rule [K37, K38].",
+          "claims": [
+            "K37",
+            "K38"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "bB3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "bB3": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "A 9-month-old, resuscitated and stable, no peritonitis. Ultrasound confirms intussusception. Best next step?",
+          "claims": []
+        }
+      ],
+      "objectives": [
+        "O10"
+      ],
+      "choices": [
+        {
+          "label": "Image-guided air enema reduction",
+          "next": "fB3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Laparotomy and manual reduction",
+          "next": "fB3_t4",
+          "kind": "trap",
+          "trap": "TR4"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "fB3_t4": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: surgery feels like the safest default in any obstructed child.",
+          "claims": []
+        },
+        {
+          "text": "Refuted: a stable child without peritonitis is reduced first; theatre is for peritonitis, perforation, shock or failed reduction [K111, K112].",
+          "claims": [
+            "K111",
+            "K112"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "bB3",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so start with the criteria, not the age: resuscitate, check the belly, then reduce [K112].",
+        "claims": [
+          "K112"
+        ]
+      }
+    },
+    "fB3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A stable child is reduced under imaging first; surgery is kept for the criteria [K111, K112].",
+          "claims": [
+            "K111",
+            "K112"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cC0",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cC0": {
+      "role": "explain",
+      "objectives": [
+        "O11"
+      ],
+      "say": [
+        {
+          "text": "Worked answer: a stable elderly man with sigmoid volvulus, no gangrene, no peritonitis.",
+          "claims": [
+            "K106"
+          ]
+        },
+        {
+          "text": "Endoscopic detorsion with a flatus tube, then elective sigmoid colectomy, because it recurs [K106, K107].",
+          "claims": [
+            "K106",
+            "K107"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cC1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cC1": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "A classmate wrote this for a caecal volvulus on a film.\n(1) A caecal twist on the film is rare, so this is probably sigmoid. (2) Stable patient, so endoscopic detorsion with a flatus tube is enough. (3) Once untwisted, the team plans the definitive operation.",
+          "claims": []
+        },
+        {
+          "text": "Which step is wrong?",
+          "claims": []
+        }
+      ],
+      "objectives": [
+        "O11"
+      ],
+      "choices": [
+        {
+          "label": "Step 1: a caecal twist is rare, so probably sigmoid",
+          "next": "fC1_s1",
+          "kind": "trap",
+          "trap": "TR35"
+        },
+        {
+          "label": "Step 2: endoscopic detorsion is enough",
+          "next": "fC1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Step 3: plan the definitive operation after detorsion",
+          "next": "fC1_s3",
+          "kind": "trap",
+          "trap": "TR21"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "cC1_h",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "cC1_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether an endoscope can fix a caecal loop, and what the caecum is shaped like on the film.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cC1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fC1_s1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: sigmoid is the usual volvulus, so the caecal one feels rare.",
+          "claims": []
+        },
+        {
+          "text": "Refuted: the caecum is the next site after the sigmoid [K34]. Step 1 is right.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cC1",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so do not let the commonest site decide the rare one [K34].",
+        "claims": [
+          "K34"
+        ]
+      }
+    },
+    "fC1_s3": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: once the bowel is untwisted, the crisis looks over.",
+          "claims": []
+        },
+        {
+          "text": "Refuted: detorsion usually fails in caecal volvulus, so the definitive operation is planned [K109]. Step 3 is right.",
+          "claims": [
+            "K109"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cC1",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so detorsion is a step, not the end of care [K109].",
+        "claims": [
+          "K109"
+        ]
+      }
+    },
+    "fC1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Step 2 is the error: caecal volvulus goes to right hemicolectomy, not endoscopy [K109, K140].",
+          "claims": [
+            "K109",
+            "K140"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cC2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cC2": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Obstructing caecal carcinoma, patient stable and fit. Which operation?",
+          "claims": []
+        }
+      ],
+      "objectives": [
+        "O11"
+      ],
+      "choices": [
+        {
+          "label": "Right hemicolectomy with primary anastomosis",
+          "next": "fC2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Hartmann's procedure, as for any obstructing cancer",
+          "next": "fC2_t36",
+          "kind": "trap",
+          "trap": "TR36"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "fC2_t36": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: obstruction from cancer is treated the same way everywhere.",
+          "claims": []
+        },
+        {
+          "text": "Refuted: the side decides the operation; a right-sided tumour is resected by right hemicolectomy [K114]. Right side: right hemicolectomy.",
+          "claims": [
+            "K114"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cC2",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so name the side first, then the operation [K114].",
+        "claims": [
+          "K114"
+        ]
+      }
+    },
+    "fC2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Right-sided obstructing cancer: right or extended right hemicolectomy with primary anastomosis [K114].",
+          "claims": [
+            "K114"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "dD0",
+          "kind": "continue"
+        }
+      ]
+    },
+    "dD0": {
+      "role": "explain",
+      "objectives": [
+        "O11"
+      ],
+      "say": [
+        {
+          "text": "Worked answer: a massively dilated loop from the pelvis, shaped like a coffee bean, is sigmoid volvulus [K76].",
+          "claims": [
+            "K76"
+          ]
+        },
+        {
+          "text": "A dilated, kidney-shaped caecum displaced to the left upper quadrant is caecal volvulus [K77].",
+          "claims": [
+            "K77"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "dD1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "dD1": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "A classmate read a film and tested the signs.\n(1) Coffee bean on the film: sigmoid volvulus. (2) Kidney-shaped caecum on the film: sigmoid volvulus, bent inner tube. (3) Claw sign on enema: intussusception.",
+          "claims": []
+        },
+        {
+          "text": "Which step is wrong?",
+          "claims": []
+        }
+      ],
+      "objectives": [
+        "O11"
+      ],
+      "choices": [
+        {
+          "label": "Step 1: coffee bean means sigmoid volvulus",
+          "next": "fD1_s1",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Step 2: kidney-shaped caecum means sigmoid volvulus",
+          "next": "fD1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Step 3: claw sign on enema means intussusception",
+          "next": "fD1_s3",
+          "kind": "trap",
+          "trap": "TR8"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "fD1_s1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a coffee-bean loop and a kidney caecum look like two shapes of one volvulus.",
+          "claims": []
+        },
+        {
+          "text": "Refuted: the coffee bean is sigmoid, but the kidney-shaped caecum is a different loop [K76, K77]. Step 1 is right.",
+          "claims": [
+            "K76",
+            "K77"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "dD1",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the sign names the disease and the site, not just the shape [K146].",
+        "claims": [
+          "K146"
+        ]
+      }
+    },
+    "fD1_s3": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a claw and a target both seem to be bowel-in-bowel signs.",
+          "claims": []
+        },
+        {
+          "text": "Refuted: the claw is on contrast enema, and the target is on ultrasound [K146]. Step 3 is right.",
+          "claims": [
+            "K146"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "dD1",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so match each sign to its modality and disease [K146].",
+        "claims": [
+          "K146"
+        ]
+      }
+    },
+    "fD1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Step 2 is the error: a kidney-shaped caecum is caecal volvulus, displaced left [K77].",
+          "claims": [
+            "K77"
+          ]
+        },
+        {
+          "text": "Coffee bean and bent inner tube belong to sigmoid [K146].",
+          "claims": [
+            "K146"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "eE1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "eE1": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Adult with small bowel obstruction. History: no previous abdominal surgery. Most likely cause?",
+          "claims": []
+        }
+      ],
+      "objectives": [
+        "O1"
+      ],
+      "choices": [
+        {
+          "label": "Obstructed external hernia",
+          "next": "fE1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Adhesive band",
+          "next": "fE1_t2",
+          "kind": "trap",
+          "trap": "TR2"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "fE1_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: adhesions are the commonest adult cause, so a band is the reflex answer.",
+          "claims": []
+        },
+        {
+          "text": "Refuted: no previous surgery means adhesions are unlikely; check every hernial orifice first [K27, K101].",
+          "claims": [
+            "K27",
+            "K101"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "eE1",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so read the surgical history before naming a cause [K28].",
+        "claims": [
+          "K28"
+        ]
+      }
+    },
+    "fE1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. In a virgin abdomen, look for a hernia first; an obstructed external hernia is the classic cause [K27, K28].",
+          "claims": [
+            "K27",
+            "K28"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
