@@ -1,0 +1,1573 @@
+{
+  "segment": "S4",
+  "entry": "c1",
+  "nodes": {
+    "c1": {
+      "role": "probe",
+      "objectives": [
+        "O8",
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 61-year-old man with known adhesive small bowel obstruction is vomiting and looks dry. Pulse 96, abdomen distended. His pain is colicky, not constant, and he has no fever. What is your first move?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Emergency laparotomy now",
+          "next": "c1_t31",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "IV fluids, NG tube and urinary catheter",
+          "next": "c1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Gastrografin study, then decide",
+          "next": "c1_t23",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c1_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c1_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what he has lost before what is blocking him. Vomiting and a dry mouth come first, and a distended stomach needs emptying before any decision.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c1_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. Resuscitation comes before any decision about theatre. Fluid and potassium correct what vomiting has taken, and the tube empties the stomach (K90, K91).",
+          "claims": [
+            "K90",
+            "K91"
+          ]
+        },
+        {
+          "text": "The catheter tells you whether he is passing urine (K92). Nothing he needs is optional at this stage.",
+          "claims": [
+            "K92"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "On to the next case",
+          "next": "c3",
+          "kind": "skip"
+        },
+        {
+          "label": "Show me the worked case",
+          "next": "w2",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c1_t31": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Emergency laparotomy looks decisive, which is why it tempts. But he is dry, and his electrolytes are not yet known.",
+          "claims": []
+        },
+        {
+          "text": "Operating before you resuscitate adds anaesthetic risk to a patient who is already losing fluid. Drip, suck and catheter come first (K90, K91, K92).",
+          "claims": [
+            "K90",
+            "K91",
+            "K92"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the order again: the operation is a decision you make after the first hour, not the first move.",
+        "claims": [
+          "K90"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the worked case",
+          "next": "w1",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c1_t23": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "A contrast study is a fine test for a stable patient, and it tempts when you want the diagnosis first (K84).",
+          "claims": []
+        },
+        {
+          "text": "But the non-operative route starts only after resuscitation and once strangulation is excluded (K94, K90). A contrast study is not the first move in a dry patient.",
+          "claims": [
+            "K94",
+            "K90"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look again: the contrast study answers a question you ask once he is stable.",
+        "claims": [
+          "K84"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the worked case",
+          "next": "w1",
+          "kind": "agency"
+        }
+      ]
+    },
+    "w1": {
+      "role": "explain",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Worked case, step one: resuscitate before you decide. Give IV crystalloid such as Ringer's lactate, with potassium as needed (K90).",
+          "claims": [
+            "K90"
+          ]
+        },
+        {
+          "text": "Pass an NG tube to empty the stomach, stop the vomiting and cut the aspiration risk (K91). Put in a urinary catheter, keep him nil by mouth and give analgesia (K92).",
+          "claims": [
+            "K91",
+            "K92"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "w2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "w2": {
+      "role": "explain",
+      "objectives": [
+        "O4",
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Step two: screen for strangulation. Constant, severe pain, fever, localised tenderness or guarding, a raised lactate and tachycardia all point to a compromised bowel wall (K8, K50, K62, K67).",
+          "claims": [
+            "K8",
+            "K50",
+            "K62",
+            "K67"
+          ]
+        },
+        {
+          "text": "This patient's colic has not turned constant, he has no fever and no localised tenderness or guarding, and nothing suggests a raised lactate. So this is uncomplicated adhesive obstruction, which gets a non-operative trial first (K94).",
+          "claims": [
+            "K94"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c3",
+          "kind": "continue"
+        },
+        {
+          "label": "Why does constant pain matter?",
+          "next": "w2b",
+          "kind": "agency"
+        }
+      ]
+    },
+    "w2b": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Colic is peristalsis pushing against a blocked lumen. Constant pain means the bowel wall itself is in trouble: rising pressure first stops venous return, then arterial inflow (K45, K15).",
+          "claims": [
+            "K45",
+            "K15"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c3": {
+      "role": "probe",
+      "objectives": [
+        "O4",
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Known adhesive obstruction for two days. Overnight his pain has become constant and severe. Pulse 118, with localised tenderness and guarding over the lower abdomen. What does this mean?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Simple obstruction: continue conservative care",
+          "next": "c3_t22",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Gastrografin study and observe for 24 hours",
+          "next": "c3_t23",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Strangulation: operate urgently after resuscitation",
+          "next": "c3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c3_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c3_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Look at what has changed in the history, and at the pulse. A pain that used to rise and fall, and now does not, is telling you about the wall.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c3_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Yes. Constant pain, a fast pulse and localised guarding mean the wall may be compromised, so the trial stops and he goes to theatre once resuscitated (K8, K50, K62, K97).",
+          "claims": [
+            "K8",
+            "K50",
+            "K62",
+            "K97"
+          ]
+        },
+        {
+          "text": "A change in the character of the pain is the sign to watch in every adhesive patient (K50).",
+          "claims": [
+            "K50"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c3_t22": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Colic is the classic picture of simple obstruction, so this reading feels natural and tempts many learners (K50).",
+          "claims": []
+        },
+        {
+          "text": "But the pain has become constant and the pulse is rising, which is the change that points to strangulation (K8, K50). Colic that persists is not the same as constant pain.",
+          "claims": [
+            "K8",
+            "K50"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look at the word constant: it is the qualifier that changes the decision (K50).",
+        "claims": [
+          "K50"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c3",
+          "kind": "retry"
+        },
+        {
+          "label": "Why does constant pain matter?",
+          "next": "w2b",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c3_t23": {
+      "role": "feedback",
+      "objectives": [
+        "O4",
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "A contrast study and a trial are the default for adhesive obstruction, so they tempt when the diagnosis feels settled (K94).",
+          "claims": []
+        },
+        {
+          "text": "Not here: constant pain with guarding and a fast pulse override the non-operative route, so you resuscitate and go to theatre (K97, K94).",
+          "claims": [
+            "K97",
+            "K94"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the override: a trial is for a patient whose wall is not at risk (K97).",
+        "claims": [
+          "K97"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c3",
+          "kind": "retry"
+        },
+        {
+          "label": "Why does constant pain matter?",
+          "next": "w2b",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c2": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Simple adhesive obstruction, now stable on drip and suck, with a negative screen. Water-soluble contrast has been given through the NG tube. Contrast reaching the colon within what time predicts resolution without surgery?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Within 72 hours",
+          "next": "c2_t26",
+          "kind": "trap",
+          "trap": "TR26"
+        },
+        {
+          "label": "Within 24 hours",
+          "next": "c2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Within 24 to 48 hours",
+          "next": "c2_p",
+          "kind": "trap",
+          "trap": "TR26"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c2_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c2_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Which check comes first on the timeline: the contrast film, or the end of the trial?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c2_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. Contrast reaching the colon within 24 hours predicts that the obstruction will resolve without surgery (K84). Keep the trial going, and check the film at that point.",
+          "claims": [
+            "K84"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c2_t26": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "The 72 hours is a real figure, so it tempts whenever a time is asked for (K95).",
+          "claims": []
+        },
+        {
+          "text": "But 72 hours is the limit of the trial, not the contrast check. The check at 24 hours is the one that predicts success (K84, K95).",
+          "claims": [
+            "K84",
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c2",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "c4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c2_p": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "The 24-48 hour window is real, but it belongs to the second look after an operation where viability was doubtful (K104).",
+          "claims": []
+        },
+        {
+          "text": "The contrast check is the earlier single time point: 24 hours (K84).",
+          "claims": [
+            "K84"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c2",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "c4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c4": {
+      "role": "probe",
+      "objectives": [
+        "O8",
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Adhesive obstruction, day two of a trial. Pain is still colicky, but he now has fever 38.6, pulse 124 and guarding over the lower abdomen. What is the next step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Keep the 72-hour trial and reassess",
+          "next": "c4_t23",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Colicky pain, so keep the trial",
+          "next": "c4_t22",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Resuscitate, give antibiotics, then laparotomy",
+          "next": "c4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c4_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c4_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which signs have appeared since the trial began. Colic alone does not decide the trial; what else has changed?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c4_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8",
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Yes. Fever, tachycardia and guarding are signs of strangulation or peritonitis, and they override the non-operative route (K97, K62).",
+          "claims": [
+            "K97",
+            "K62"
+          ]
+        },
+        {
+          "text": "Resuscitate, start antibiotics because strangulation is suspected, and take him to theatre (K93, K90).",
+          "claims": [
+            "K93",
+            "K90"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c4_t23": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "The 72-hour rule is real, so an unfinished trial feels safe to continue (K95).",
+          "claims": []
+        },
+        {
+          "text": "But the rule covers uncomplicated adhesive obstruction only. With fever and guarding the trial is over, whatever the day (K94, K97).",
+          "claims": [
+            "K94",
+            "K97"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note the override: the time limit does not apply once the wall is at risk (K97).",
+        "claims": [
+          "K97"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c4",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "c5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c4_t22": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Colic is the classic simple-obstruction picture, so persisting colic reads as reassuring (K50).",
+          "claims": []
+        },
+        {
+          "text": "Here colic is no longer the point. Fever, tachycardia and guarding are the signs that matter, and they point to strangulation (K8, K62).",
+          "claims": [
+            "K8",
+            "K62"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look at what has been added to the colic: the fever and the guarding (K62).",
+        "claims": [
+          "K62"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c4",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "c5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c5": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Which of these is NOT an indication for urgent surgery in intestinal obstruction?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Obstructed hernia",
+          "next": "c5_t23",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Failure of non-operative treatment after 72 hours",
+          "next": "c5_p",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Uncomplicated adhesive obstruction on day one",
+          "next": "c5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c5_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c5_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Sort each option: which one gets a trial first, and which one goes to theatre now?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c5_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. Uncomplicated adhesive obstruction on day one gets a non-operative trial first (K94). An obstructed hernia, a closed loop and a failed trial are all indications for surgery (K98, K99, K100).",
+          "claims": [
+            "K94",
+            "K98",
+            "K99",
+            "K100"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c5_t23": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "The trial is the default for adhesions, so it tempts to file every obstruction under it, hernia included.",
+          "claims": []
+        },
+        {
+          "text": "An obstructed or strangulated hernia goes to theatre now, not after a trial (K98, K97).",
+          "claims": [
+            "K98",
+            "K97"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c5",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "c7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c5_p": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "A failed trial is a real indication for surgery, but it comes at the end of the trial, not as day-one advice (K100, K95).",
+          "claims": [
+            "K100",
+            "K95"
+          ]
+        },
+        {
+          "text": "So it is correct to name it as an indication. The question asks for the one that is not.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c5",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "c7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c7": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "An adhesive obstruction that fails its trial. Put these in the order they happen: the contrast check, the operation, and a second look after doubtful bowel.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "72 h operation, 24 h check, then 24-48 h second look",
+          "next": "c7_t26",
+          "kind": "trap",
+          "trap": "TR26"
+        },
+        {
+          "label": "24 h check, 72 h operation, then 24-48 h second look",
+          "next": "c7_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "24-48 h second look, 24 h check, then 72 h operation",
+          "next": "c7_p",
+          "kind": "trap",
+          "trap": "TR26"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c7_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c7_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Anchor each time to its decision: which one tells you the trial is working, and which one is the limit of the trial?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c7",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c7_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. The contrast check at 24 hours tells you whether the trial is working (K84). If the obstruction has not resolved by about 72 hours, surgery is indicated (K95).",
+          "claims": [
+            "K84",
+            "K95"
+          ]
+        },
+        {
+          "text": "The 24-48 hour second look comes after an operation on doubtful bowel, so it is last (K104).",
+          "claims": [
+            "K104"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c7_t26": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "The three numbers look like a list, so the 72 hours tends to come first, as the headline rule (K95).",
+          "claims": []
+        },
+        {
+          "text": "They are a timeline: the check at 24, the operation by 72, and the second look after surgery (K84, K95, K104).",
+          "claims": [
+            "K84",
+            "K95",
+            "K104"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c7",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "c6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c7_p": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "The second look belongs after an operation, so it cannot come before the check (K104).",
+          "claims": []
+        },
+        {
+          "text": "Anchor the 24-hour contrast check first, then the 72-hour limit (K84, K95).",
+          "claims": [
+            "K84",
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c7",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "c6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c6": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which of these should NOT happen before the patient is resuscitated?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Nasogastric tube to decompress the stomach",
+          "next": "c6_t31",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Urinary catheter to track urine output",
+          "next": "c6_p",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Laparotomy before any fluids are given",
+          "next": "c6_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c6_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c6_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Pick out the one that is an action you take before deciding on theatre, and ask whether it is a step or a decision.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c6",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c6_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. Theatre comes after resuscitation, not before it. Fluid, potassium, decompression and catheterisation all belong to the first hour (K90, K91, K92).",
+          "claims": [
+            "K90",
+            "K91",
+            "K92"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c8",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c6_t31": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "The NG tube can look optional when vomiting has eased, so it is easy to drop (K91).",
+          "claims": []
+        },
+        {
+          "text": "But it empties the stomach, relieves vomiting and lowers the aspiration risk, so it stays in the first hour (K91, K121).",
+          "claims": [
+            "K91",
+            "K121"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so decompression is a step, not a choice: the tube is part of resuscitation (K91).",
+        "claims": [
+          "K91"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c6",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "c8",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c6_p": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "The catheter is a monitoring step, so it looks close to the odd one out, but it is part of the plan (K92).",
+          "claims": []
+        },
+        {
+          "text": "The catheter is part of the plan. The step that skips resuscitation is the laparotomy before fluids.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c6",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "c8",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c8": {
+      "role": "probe",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Post-operative day three. The colon is dilated to 11 cm with no mechanical block on contrast. Potassium is now normal and he is still distended. What is the drug of choice?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Emergency laparotomy and caecostomy",
+          "next": "c8_t31",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "IV neostigmine with cardiac monitoring",
+          "next": "c8_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Colonoscopic decompression first",
+          "next": "c8_p",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c8_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c8_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about which drug stimulates the bowel's own motor supply, and what that drug does to the heart.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c8",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c8_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Yes. Intravenous neostigmine is the drug of choice for Ogilvie's syndrome when the colon stays dilated (K117, K142).",
+          "claims": [
+            "K117",
+            "K142"
+          ]
+        },
+        {
+          "text": "It can cause bradycardia, so monitor the heart and keep atropine ready (K118). Colonoscopic decompression is the next step only if it fails (K117).",
+          "claims": [
+            "K118",
+            "K117"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c9",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c8_t31": {
+      "role": "feedback",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Surgery looks decisive when the colon is that large, which is why it tempts (K117).",
+          "claims": []
+        },
+        {
+          "text": "Ogilvie's is treated first by correcting the cause and giving neostigmine. Operating first adds risk without treating the cause (K117, K96).",
+          "claims": [
+            "K117",
+            "K96"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the default: the first treatment for a colonic pseudo-obstruction is medical, not the knife (K117).",
+        "claims": [
+          "K117"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c8",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "c9",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c8_p": {
+      "role": "feedback",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Colonoscopic decompression is a real treatment, and it tempts for a very large colon (K117).",
+          "claims": []
+        },
+        {
+          "text": "But it is the step after neostigmine has failed, not the first drug of choice (K117, K142).",
+          "claims": [
+            "K117",
+            "K142"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c8",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "c9",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c9": {
+      "role": "probe",
+      "objectives": [
+        "O12"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An elderly woman with a past gallbladder problem has pneumobilia on her film and a small bowel obstruction. A gallstone is the likely cause. What is the treatment?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Non-operative trial for 72 hours",
+          "next": "c9_t23",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Drip and suck, correct electrolytes, then reassess",
+          "next": "c9_p",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Enterolithotomy, leaving the fistula for later",
+          "next": "c9_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c9_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c9_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what is blocking the lumen, and whether time alone will move it.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c9",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c9_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Yes. Gallstone ileus is a mechanical block, and the standard emergency operation is enterolithotomy, with the fistula usually left for later (K110, K141).",
+          "claims": [
+            "K110",
+            "K141"
+          ]
+        },
+        {
+          "text": "The stone most often impacts in the terminal ileum, and the fistula is most often cholecystoduodenal (K130, K131).",
+          "claims": [
+            "K130",
+            "K131"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c10",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c9_t23": {
+      "role": "feedback",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "The 72-hour trial is the rule for adhesions, so it tempts for any small bowel block (K94).",
+          "claims": []
+        },
+        {
+          "text": "A stone blocking the lumen does not respond to time. Gallstone ileus is a mechanical block that needs the stone removed (K110).",
+          "claims": [
+            "K110"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the trial rule is for adhesions. Check what is blocking before you choose the rule (K94, K110).",
+        "claims": [
+          "K94",
+          "K110"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c9",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "c10",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c9_p": {
+      "role": "feedback",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Drip, suck and electrolyte correction are right, and they belong to the first hour (K90, K96).",
+          "claims": [
+            "K90",
+            "K96"
+          ]
+        },
+        {
+          "text": "But they do not remove the stone. Gallstone ileus needs an operation to take the stone out (K110).",
+          "claims": [
+            "K110"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c9",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "c10",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c10": {
+      "role": "probe",
+      "objectives": [
+        "O12"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two days after laparotomy he is distended, with no mechanical block and no fever. His potassium is 2.9 mmol per litre. What is your first step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Relaparotomy to look for a leak",
+          "next": "c10_t31",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Nasogastric drainage alone",
+          "next": "c10_p",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Correct the potassium, then drip and suck",
+          "next": "c10_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c10_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "c10_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what is driving the gut to stop before you ask where a leak is. Look at the electrolytes first.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c10",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c10_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Yes. Hypokalaemia is the commonest metabolic cause of paralytic ileus (K135), so correct it, with drip and suck (K96).",
+          "claims": [
+            "K135",
+            "K96"
+          ]
+        },
+        {
+          "text": "Relaparotomy is for signs of peritonitis, which this man does not show (K62).",
+          "claims": [
+            "K62"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c10_t31": {
+      "role": "feedback",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "A leak is a real danger after surgery, and relaparotomy looks decisive (K62).",
+          "claims": []
+        },
+        {
+          "text": "Paralytic ileus is treated by correcting the cause first, with potassium and drip and suck, and by watching for peritonitis (K47, K96).",
+          "claims": [
+            "K47",
+            "K96"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look at the cause before the wound.",
+        "claims": [
+          "K47"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c10",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c10_p": {
+      "role": "feedback",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Nasogastric drainage is part of the plan, and it relieves distension (K96).",
+          "claims": []
+        },
+        {
+          "text": "But it treats the distension, not the cause. Name the cause, which is low potassium, before you settle on drainage alone (K135).",
+          "claims": [
+            "K135"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c10",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
