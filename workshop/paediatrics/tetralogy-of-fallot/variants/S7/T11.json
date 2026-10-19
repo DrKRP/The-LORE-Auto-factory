@@ -1,0 +1,1957 @@
+{
+ "segment": "S7",
+ "technique": "T11",
+ "entry": "start",
+ "nodes": {
+  "start": {
+   "role": "bridge",
+   "objectives": [],
+   "say": [
+    {
+     "text": "Peer-review round. Your classmate Rohan has been marking PYQ-style answers, and every sheet hides one wrong step.",
+     "claims": []
+    },
+    {
+     "text": "First, see what a sound sheet looks like.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Show me a sound sheet",
+     "next": "meera",
+     "kind": "continue"
+    }
+   ]
+  },
+  "meera": {
+   "role": "explain",
+   "objectives": [
+    "O1"
+   ],
+   "say": [
+    {
+     "text": "Meera's sheet. Q: Which is NOT a component of classic tetralogy of Fallot (TOF)? Step 1: the four are a large anteriorly malaligned VSD, overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy (RVH).",
+     "claims": [
+      "K3"
+     ]
+    },
+    {
+     "text": "Step 2: ASD and PDA may accompany TOF but are not among the four. Answer: ASD.",
+     "claims": [
+      "K13"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Now check Rohan's sheets",
+     "next": "a",
+     "kind": "continue"
+    }
+   ]
+  },
+  "a_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Doubting the list is tempting if you store TOF as a pile of shunt lesions. But step 1 is right: the four are VSD, overriding aorta, infundibular RVOT obstruction and RVH.",
+     "claims": [
+      "K3"
+     ]
+    },
+    {
+     "text": "ASD and PDA are not among them.",
+     "claims": [
+      "K13"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: the four contain no ASD, PDA or LVH.",
+    "claims": [
+     "K77"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "a",
+     "kind": "retry"
+    }
+   ]
+  },
+  "a_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The word 'pentalogy' could sound like it adds anything, which makes step 2 look shaky. It is sound: pentalogy of Fallot is TOF plus one lesion, the ASD.",
+     "claims": [
+      "K5"
+     ]
+    },
+    {
+     "text": "The slip comes later, in choosing which lesion.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note it: the fifth lesion has a name, the ASD.",
+    "claims": [
+     "K5"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "a",
+     "kind": "retry"
+    }
+   ]
+  },
+  "a_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes, step 3. Both may accompany TOF, but they are not interchangeable: pentalogy of Fallot is TOF plus an atrial septal defect, an old term seldom used now.",
+     "claims": [
+      "K5",
+      "K13"
+     ]
+    },
+    {
+     "text": "PYQs have expected the same pairing, and CDC confirms it.",
+     "claims": [
+      "K76"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "a_why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "a_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Steps 1 and 2 are the sound ones. Look at the step that lets two different lesions share one slot.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "a",
+     "kind": "retry"
+    }
+   ]
+  },
+  "a": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Rohan's sheet. Q: Pentalogy of Fallot is TOF plus what? Step 1: the four are VSD, overriding aorta, RVOT obstruction and RVH.",
+     "claims": [
+      "K3"
+     ]
+    },
+    {
+     "text": "Step 2: pentalogy is TOF plus one more lesion. Step 3: ASD and PDA both accompany TOF, so it is a toss-up and I pick PDA.",
+     "claims": [
+      "K5",
+      "K13"
+     ]
+    },
+    {
+     "text": "Which step goes wrong?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Step 1: the list of four",
+     "next": "a_t0",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Step 2: pentalogy adds one lesion",
+     "next": "a_t1",
+     "kind": "trap",
+     "trap": "TR3"
+    },
+    {
+     "label": "Step 3: treating ASD and PDA as swappable",
+     "next": "a_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "a_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "a_why_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A second VSD feels natural because the VSD is already the core lesion. But pentalogy of Fallot is TOF plus an atrial septal defect.",
+     "claims": [
+      "K5",
+      "K76"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: the extra lesion is an ASD.",
+    "claims": [
+     "K5"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "a_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "a_why_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That would be neat, but PDA is not among the four. The four are VSD, overriding aorta, RVOT obstruction and RVH, and PYQs have keyed PDA, ASD and LVH as 'not part of TOF'.",
+     "claims": [
+      "K3",
+      "K77"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: neither PDA nor ASD is among the four.",
+    "claims": [
+     "K13"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "a_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "a_why_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. ASD and PDA may accompany TOF, but the pentalogy's fifth lesion is the ASD.",
+     "claims": [
+      "K5",
+      "K13"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "b",
+     "kind": "continue"
+    }
+   ]
+  },
+  "a_why_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think about what the word pentalogy is tied to, not about which lesion is commoner.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "a_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "a_why": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Why does choosing PDA fail?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A second VSD is the fifth lesion of pentalogy",
+     "next": "a_why_t0",
+     "kind": "trap",
+     "trap": "TR3"
+    },
+    {
+     "label": "PDA is one of the four, so it cannot be fifth",
+     "next": "a_why_t1",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "The fifth is the ASD; PDA only may accompany",
+     "next": "a_why_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "a_why_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "b_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The left ventricle is the big chamber, so blaming it for the apex is tempting. But the upturned apex is attributed to right ventricular hypertrophy, with a concave pulmonary arterial segment.",
+     "claims": [
+      "K32"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: the apex is lifted by the RV.",
+    "claims": [
+     "K32"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "b_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Shunt pictures suggest crowded lungs, so oligaemia can look odd. But with significant RVOT obstruction most blood bypasses the lungs, and the film can show decreased pulmonary vascular markings.",
+     "claims": [
+      "K20",
+      "K21"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: low pulmonary flow means oligaemia.",
+    "claims": [
+     "K21"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "b_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes, step 3. Radiographs may classically show a boot-shaped heart; 'may classically' is not 'always'.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "b_note",
+     "kind": "continue"
+    }
+   ]
+  },
+  "b_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Check the verb the source uses for the boot shape. Is it 'always', or something softer?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "b": {
+   "role": "probe",
+   "objectives": [
+    "O5",
+    "O12"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Rohan's sheet. Q: A 3-month-old has echo-confirmed TOF, but the chest X-ray shows no boot-shaped heart. How do you read it? Step 1: the boot's upturned apex is attributed to RVH.",
+     "claims": [
+      "K32"
+     ]
+    },
+    {
+     "text": "Step 2: the lung fields look oligaemic, matching low pulmonary flow. Step 3: no boot, so the film argues against TOF; the boot is always there.",
+     "claims": [
+      "K21"
+     ]
+    },
+    {
+     "text": "Which step goes wrong?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Step 1: what lifts the apex",
+     "next": "b_t0",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Step 2: oligaemic lung fields",
+     "next": "b_t1",
+     "kind": "trap",
+     "trap": "TR5"
+    },
+    {
+     "label": "Step 3: no boot, so TOF is unlikely",
+     "next": "b_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "b_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "b_note": {
+   "role": "explain",
+   "objectives": [
+    "O12"
+   ],
+   "say": [
+    {
+     "text": "PYQs have keyed the boot-shaped heart to TOF; Radiopaedia says most infants with TOF may not show this finding.",
+     "claims": [
+      "K78"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "b_why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "b_why_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Plethora is a familiar sign of shunt disease, so it can seem like the fair comparison. But TOF is the oligaemic film: low pulmonary flow, decreased vascular markings.",
+     "claims": [
+      "K21"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: oligaemia belongs to TOF.",
+    "claims": [
+     "K21"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "b_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "b_why_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "It is tempting to link a boot to a big pulmonary artery. But the boot is described with a concave pulmonary arterial segment, and the apex is lifted by RVH.",
+     "claims": [
+      "K31",
+      "K32"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: concave segment, RVH apex.",
+    "claims": [
+     "K32"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "b_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "b_why_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. The film may classically show the boot, so a film without it does not exclude TOF; echo confirms it.",
+     "claims": [
+      "K4",
+      "K35"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "c",
+     "kind": "continue"
+    }
+   ]
+  },
+  "b_why_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what the source promises about the boot: a guarantee, or a possibility?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "b_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "b_why": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Why is step 3 unsafe?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "True TOF films are plethoric, so no boot points elsewhere",
+     "next": "b_why_t0",
+     "kind": "trap",
+     "trap": "TR5"
+    },
+    {
+     "label": "A large pulmonary artery makes the boot; a normal one means none",
+     "next": "b_why_t1",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Boot is only a 'may classically' sign; absence does not exclude TOF",
+     "next": "b_why_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "b_why_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "c_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Stems that name another lesion can make step 1 look doubtful. But TOF is stated as the most common cyanotic congenital heart disease, and an unqualified stem keys TOF.",
+     "claims": [
+      "K1",
+      "K69"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: the unqualified key is TOF.",
+    "claims": [
+     "K69"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "c",
+     "kind": "retry"
+    }
+   ]
+  },
+  "c_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Some learners doubt step 2 because they picture TOF as appearing later. But TOF most commonly presents as a cyanotic neonate, so step 2 stands. Pink Tets are the exception.",
+     "claims": [
+      "K24",
+      "K23"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: step 2 is the source's statement.",
+    "claims": [
+     "K24"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "c",
+     "kind": "retry"
+    }
+   ]
+  },
+  "c_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes, step 3. 'Most common' and 'most commonly presents as' are different statements, so the qualifier does not remove TOF.",
+     "claims": [
+      "K1",
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "c_note",
+     "kind": "continue"
+    }
+   ]
+  },
+  "c_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Steps 1 and 2 are each quoted from the source. Look at the step that joins them.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "c",
+     "kind": "retry"
+    }
+   ]
+  },
+  "c": {
+   "role": "probe",
+   "objectives": [
+    "O3",
+    "O12"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Rohan's sheet. Q: Most common cyanotic CHD beyond the neonatal period? Step 1: TOF is the most common cyanotic congenital heart disease.",
+     "claims": [
+      "K1"
+     ]
+    },
+    {
+     "text": "Step 2: TOF most commonly presents as a cyanotic neonate. Step 3: so the qualifier is a trick, and TOF cannot be the answer.",
+     "claims": [
+      "K24"
+     ]
+    },
+    {
+     "text": "Which step goes wrong?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Step 1: TOF as the most common",
+     "next": "c_t0",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Step 2: presenting as a cyanotic neonate",
+     "next": "c_t1",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Step 3: dropping TOF over the qualifier",
+     "next": "c_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "c_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "c_note": {
+   "role": "explain",
+   "objectives": [
+    "O12"
+   ],
+   "say": [
+    {
+     "text": "PYQs have expected TOF as the most common cyanotic CHD beyond the neonatal period; current StatPearls says TOF most commonly presents as a cyanotic neonate.",
+     "claims": [
+      "K75"
+     ],
+     "flag": "unverified"
+    },
+    {
+     "text": "Answer the stem as asked, and know both lines.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "c_why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "c_why_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "'Cyanotic heart disease' sounds like 'blue at birth', which is tempting. But if resistance across the RVOT is below systemic resistance, the patient is minimally cyanotic or acyanotic, and infants with moderate obstruction may be 'pink Tets'.",
+     "claims": [
+      "K22",
+      "K23"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: cyanosis follows the RVOT versus systemic balance.",
+    "claims": [
+     "K22"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "c_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "c_why_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. How a lesion usually presents and how common it is are separate statements; the first does not cancel the second.",
+     "claims": [
+      "K1",
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "d",
+     "kind": "continue"
+    }
+   ]
+  },
+  "c_why_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Reading the qualifier into the key is tempting when two lines both mention neonates. But the source gives TOF as the most common cyanotic CHD without that limit.",
+     "claims": [
+      "K1",
+      "K69"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: the unqualified key is TOF.",
+    "claims": [
+     "K69"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "c_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "c_why_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask whether 'usually presents as' and 'is the commonest' make the same claim.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "c_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "c_why": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Why is step 3 wrong?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Every TOF baby is blue from birth, so a qualifier cannot apply",
+     "next": "c_why_t0",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Presenting age is a different claim from being the most common",
+     "next": "c_why_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "TOF leads only in neonates; older children need another answer",
+     "next": "c_why_t2",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "c_why_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "d_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Pulmonary lesions tend to bring a loud P2 to mind, so an inaudible one looks off. But in TOF the pulmonic component of S2 is usually inaudible, and the murmur is a harsh systolic ejection murmur.",
+     "claims": [
+      "K27",
+      "K25"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: the usual P2 in TOF is inaudible.",
+    "claims": [
+     "K27"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "d",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Treating the X-ray as proof is tempting because the boot is so well known. But it is a sign that may classically appear, not the test that confirms.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: the diagnostic modality is echo.",
+    "claims": [
+     "K35"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "d",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes, step 3. Invasiveness does not rank a test. The echocardiogram is the gold standard for diagnosis.",
+     "claims": [
+      "K6",
+      "K34"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "d_why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "d_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "One step ranks a test by how invasive it is. Does the source rank tests that way?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "d",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d": {
+   "role": "probe",
+   "objectives": [
+    "O6",
+    "O4"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Rohan's sheet. Q: A cyanotic 2-month-old has a harsh ejection murmur at the left upper sternal border. Which test confirms the diagnosis? Step 1: a harsh ejection murmur there with an inaudible P2 fits TOF.",
+     "claims": [
+      "K25",
+      "K27"
+     ]
+    },
+    {
+     "text": "Step 2: a boot-shaped film would support TOF but cannot confirm it. Step 3: catheterisation is the most invasive test, so it is the gold standard.",
+     "claims": [
+      "K4"
+     ]
+    },
+    {
+     "text": "Which step goes wrong?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Step 1: murmur plus inaudible P2",
+     "next": "d_t0",
+     "kind": "trap",
+     "trap": "TR15"
+    },
+    {
+     "label": "Step 2: a boot film supports, not confirms",
+     "next": "d_t1",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Step 3: invasive means gold standard",
+     "next": "d_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "d_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "d_why_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "CT sounds more advanced, which is tempting. But the source names the echocardiogram as the gold standard for diagnosis.",
+     "claims": [
+      "K34",
+      "K72"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: the key is echo.",
+    "claims": [
+     "K72"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "d_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d_why_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Echocardiography allows direct visualisation of the abnormal anatomy and remains the primary modality for diagnosis.",
+     "claims": [
+      "K35"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "e",
+     "kind": "continue"
+    }
+   ]
+  },
+  "d_why_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "More measurements feel like better proof, hence the pull. But the echocardiogram stays the primary diagnostic modality because it shows the anatomy directly.",
+     "claims": [
+      "K35",
+      "K6"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: echo is the gold standard.",
+    "claims": [
+     "K6"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "d_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d_why_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think about what echo shows, not how much a test records.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "d_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d_why": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Why does echo, not another test, take the gold-standard slot?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "CT angiography shows vessels best, so it ranks higher",
+     "next": "d_why_t0",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "It directly shows the abnormal anatomy and is the primary diagnostic test",
+     "next": "d_why_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Catheterisation measures more, so it outranks echo for diagnosis",
+     "next": "d_why_t2",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "d_why_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "e_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Several eponymous shunts share one pile in memory, so step 1 can look shaky. But the Blalock-Taussig shunt does connect the subclavian artery to the ipsilateral branch pulmonary artery.",
+     "claims": [
+      "K54"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: subclavian to ipsilateral branch pulmonary artery.",
+    "claims": [
+     "K54"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A fixed rule feels safer, so 'debated' can seem wrong. But the source says the timing of TOF repair is still in debate.",
+     "claims": [
+      "K49"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: the source calls timing debated.",
+    "claims": [
+     "K49"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes, step 3. StatPearls describes deferring complete repair until after the first 3 months of life.",
+     "claims": [
+      "K50"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "e_note",
+     "kind": "continue"
+    }
+   ]
+  },
+  "e_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Check what the source says about a well baby's repair relative to the first 3 months.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "e",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e": {
+   "role": "probe",
+   "objectives": [
+    "O8",
+    "O12"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Rohan's sheet. Q: A well, asymptomatic 6-week-old with TOF and good-sized pulmonary arteries. Plan? Step 1: the Blalock-Taussig shunt connects the subclavian artery to the ipsilateral branch pulmonary artery.",
+     "claims": [
+      "K54"
+     ]
+    },
+    {
+     "text": "Step 2: the timing of TOF repair is still debated. Step 3: he is well, so repair him right now, in the neonatal period.",
+     "claims": [
+      "K49"
+     ]
+    },
+    {
+     "text": "Which step goes wrong?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Step 1: what the BT shunt joins",
+     "next": "e_t0",
+     "kind": "trap",
+     "trap": "TR19"
+    },
+    {
+     "label": "Step 2: timing is debated",
+     "next": "e_t1",
+     "kind": "trap",
+     "trap": "TR18"
+    },
+    {
+     "label": "Step 3: repairing a well baby now",
+     "next": "e_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "e_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "e_note": {
+   "role": "explain",
+   "objectives": [
+    "O12"
+   ],
+   "say": [
+    {
+     "text": "Al Mosa et al. consider 3-6 months likely the ideal time for elective repair in asymptomatic patients, and prefer neonatal or early repair for symptomatic infants.",
+     "claims": [
+      "K51",
+      "K52"
+     ],
+     "flag": "unverified"
+    },
+    {
+     "text": "They reserve initial palliation for infants with high-risk features, such as low birth weight or prematurity, and small or discontinuous pulmonary arteries.",
+     "claims": [
+      "K55"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "e_why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "e_why_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "One tidy timeline is tempting. But the source defers complete repair to after the first 3 months, and the unverified paper keeps early repair for symptomatic infants and does not palliate neonates without high-risk features.",
+     "claims": [
+      "K50",
+      "K52",
+      "K56"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: timing depends on the infant.",
+    "claims": [
+     "K50"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e_why_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The shunt is a famous operation, so it can pass as the fix. But the unverified source calls it the first treatment of TOF and a palliative shunt, with drawbacks such as limited shunt lifespan and later sudden death.",
+     "claims": [
+      "K53",
+      "K57"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: the shunt is palliation, not the repair.",
+    "claims": [
+     "K53"
+    ],
+    "flag": "unverified"
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e_why_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Complete repair is deferred to after the first 3 months of life, and the timing is still debated.",
+     "claims": [
+      "K50",
+      "K49"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "f",
+     "kind": "continue"
+    }
+   ]
+  },
+  "e_why_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "A well baby with good-sized pulmonary arteries has no reason for a stop-gap or a rush.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "e_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e_why": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "For this well infant, which plan fits?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Neonatal repair for every infant with TOF",
+     "next": "e_why_t0",
+     "kind": "trap",
+     "trap": "TR18"
+    },
+    {
+     "label": "A BT shunt now, because it is the definitive repair",
+     "next": "e_why_t1",
+     "kind": "trap",
+     "trap": "TR19"
+    },
+    {
+     "label": "Elective complete repair after the first 3 months",
+     "next": "e_why_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "e_why_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "f_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "A heart-failure answer can make the list look incomplete. But hypoxic spells, cerebrovascular accidents (17%) and brain abscesses (13%) are all listed among the causes of mortality without surgery.",
+     "claims": [
+      "K65",
+      "K66"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: the list is spells, stroke, abscess.",
+    "claims": [
+     "K74"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "f",
+     "kind": "retry"
+    }
+   ]
+  },
+  "f_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes, step 2. Drama is not frequency. Hypoxic spells come first, at 68%.",
+     "claims": [
+      "K65",
+      "K74"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "f_why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "f_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The abscess is the most vivid complication, which is why it sounds like the killer. But it is listed after hypoxic spells and cerebrovascular accidents, at 13%.",
+     "claims": [
+      "K66",
+      "K74"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: spells lead at 68%.",
+    "claims": [
+     "K65"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "f",
+     "kind": "retry"
+    }
+   ]
+  },
+  "f_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Does the sheet rank by how often each cause occurs?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "f",
+     "kind": "retry"
+    }
+   ]
+  },
+  "f": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Rohan's sheet. Q: Most frequent cause of death in unrepaired TOF? Step 1: without surgery, causes include hypoxic spells, cerebrovascular accidents and brain abscesses.",
+     "claims": [
+      "K65",
+      "K66"
+     ]
+    },
+    {
+     "text": "Step 2: rank by drama, so brain abscess leads. Answer: brain abscess.",
+     "claims": []
+    },
+    {
+     "text": "Which step goes wrong?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Step 1: the list of causes",
+     "next": "f_t0",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "Step 2: ranking by drama",
+     "next": "f_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "None; the answer stands",
+     "next": "f_t2",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "f_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "f_why_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That order puts the vivid abscess on top, which is tempting. But the shares are reversed: spells 68%, stroke 17%, abscess 13%.",
+     "claims": [
+      "K74"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: spells are about two-thirds.",
+    "claims": [
+     "K65"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "f_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "f_why_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Stroke is a dramatic complication, so it can seem large. But hypoxic spells are the 68% cause; strokes are 17%.",
+     "claims": [
+      "K74",
+      "K66"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: spells are 68%.",
+    "claims": [
+     "K65"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "f_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "f_why_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Hypoxic spells 68%, cerebrovascular accidents 17%, brain abscesses 13%.",
+     "claims": [
+      "K74"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g",
+     "kind": "continue"
+    }
+   ]
+  },
+  "f_why_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Spells are the event this module drills. Are they a small share or the bulk?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "f_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "f_why": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Which shares fit unrepaired TOF: spells, stroke, abscess?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "13%, 17% and 68%",
+     "next": "f_why_t0",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "17%, 68% and 13%",
+     "next": "f_why_t1",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "68%, 17% and 13%",
+     "next": "f_why_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "f_why_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "g_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Frequencies from different lists blur together, so step 1 can look off. But a right aortic arch is seen in 20-25% of TOF, about one in four or five.",
+     "claims": [
+      "K19"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: right arch is 20-25%.",
+    "claims": [
+     "K19"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g",
+     "kind": "retry"
+    }
+   ]
+  },
+  "g_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Down syndrome is the best-known heart-disease syndrome, so it tempts here. But the 22q11.2 deletion is listed as the most common syndromic association of TOF.",
+     "claims": [
+      "K7",
+      "K71"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: the pairing is 22q11.2.",
+    "claims": [
+     "K71"
+    ],
+    "flag": "unverified"
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g",
+     "kind": "retry"
+    }
+   ]
+  },
+  "g_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes, step 3. The most common association is not the same as present in most cases. Sources differ: up to 15% of TOF cases versus 6% in one cohort.",
+     "claims": [
+      "K79"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g_why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Compare the words 'most common' with 'most cases'. Do they count the same thing?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "g",
+     "kind": "retry"
+    }
+   ]
+  },
+  "g": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Rohan's sheet. Q: Associations and figures in TOF. Step 1: a right aortic arch is seen in 20-25% of TOF.",
+     "claims": [
+      "K19"
+     ]
+    },
+    {
+     "text": "Step 2: 22q11.2 deletion is the most common syndromic association. Step 3: so it is present in most TOF cases.",
+     "claims": [
+      "K7",
+      "K71"
+     ],
+     "flag": "unverified"
+    },
+    {
+     "text": "Which step goes wrong?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Step 1: right aortic arch frequency",
+     "next": "g_t0",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Step 2: 22q11.2 as the association",
+     "next": "g_t1",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Step 3: 'most common' means most cases",
+     "next": "g_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "g_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "g_why_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "'Most common' invites a majority reading. But the figures given are up to 15% of TOF cases, and 6% in one cohort.",
+     "claims": [
+      "K17",
+      "K18",
+      "K79"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: the sources differ at 15% and 6%.",
+    "claims": [
+     "K79"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "g_why_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Sources differ on frequency: up to 15% versus 6% in one TOF cohort.",
+     "claims": [
+      "K79"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "recap",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g_why_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Two figures in the same range of memory can swap. But 20-25% is the right aortic arch share, a different statistic.",
+     "claims": [
+      "K19"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck: 20-25% is the arch.",
+    "claims": [
+     "K19"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "g_why_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The figure is smaller than the majority and sources do not agree on it.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "g_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "g_why": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "About what share of TOF carries a 22q11.2 deletion?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "More than half of cases",
+     "next": "g_why_t0",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Up to 15%, or 6% in one cohort",
+     "next": "g_why_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "20-25%, the same as the right aortic arch",
+     "next": "g_why_t2",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Give me a hint",
+     "next": "g_why_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "recap": {
+   "role": "recap",
+   "objectives": [],
+   "say": [
+    {
+     "text": "Rohan's slips all share a pattern: a qualifier or a mechanism dropped. Before you pick, ask what the stem qualifies and what the source actually promises.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Continue",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}
