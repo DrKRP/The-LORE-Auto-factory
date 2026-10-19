@@ -438,7 +438,7 @@
    "choices": [
     {
      "label": "Next",
-     "next": "p4",
+     "next": "p3b",
      "kind": "continue"
     }
    ]
@@ -567,6 +567,191 @@
     {
      "label": "Back to the question",
      "next": "p3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p3b": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A young man has loin pain on hip extension and little anterior tenderness. Which pairing of sign and appendix position fits?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Psoas sign with a pelvic appendix",
+     "next": "p3b_t2a",
+     "kind": "trap",
+     "trap": "TR2"
+    },
+    {
+     "label": "Psoas sign with a retrocaecal appendix",
+     "next": "p3b_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Obturator sign with a retrocaecal appendix",
+     "next": "p3b_t2b",
+     "kind": "trap",
+     "trap": "TR2"
+    },
+    {
+     "label": "Give me a hint first",
+     "next": "p3b_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p3b_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Extension of the hip tests the psoas, which lies against a retrocaecal appendix, the most common position.",
+     "claims": [
+      "K38",
+      "K92"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p3b_t2a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Both signs are common in exams, so the pelvic position feels like a neighbour of the psoas sign.",
+     "claims": []
+    },
+    {
+     "text": "Ask where the appendix lies for each sign, rather than which sign is more common.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so link each sign to its own position before you pair them.",
+    "claims": [
+     "K38",
+     "K39"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3b",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p3b_t2a_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p3b_t2a_why": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The psoas sign suggests a retrocaecal appendix lying on the psoas muscle.",
+     "claims": [
+      "K38"
+     ]
+    },
+    {
+     "text": "A pelvic appendix is the one that gives the obturator sign, so this pairing mixes the two positions.",
+     "claims": [
+      "K39",
+      "K93"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p3b_t2b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The obturator and psoas tests come as a pair, so one may get attached to the position it does not belong to.",
+     "claims": []
+    },
+    {
+     "text": "Ask which position the obturator sign is linked to, and then check the pairing.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so fix the pair: the obturator sign goes with the pelvic appendix.",
+    "claims": [
+     "K39"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3b",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p3b_t2b_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p3b_t2b_why": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The obturator sign suggests a pelvic appendix in contact with obturator internus.",
+     "claims": [
+      "K39"
+     ]
+    },
+    {
+     "text": "A retrocaecal appendix is the one that gives the psoas sign. Psoas with retrocaecal is the right pair.",
+     "claims": [
+      "K38",
+      "K92"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p3b_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Work out which muscle each sign tests, then ask which appendix position sits against that muscle.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "p3b",
      "kind": "retry"
     }
    ]
@@ -1668,27 +1853,27 @@
    "ask_confidence": true,
    "say": [
     {
-     "text": "Which of these is a complication of appendicitis itself, before any operation?",
+     "text": "A 28-year-old has a right groin bulge and numbness after open appendicectomy through a gridiron incision. Which complication fits?",
      "claims": []
     }
    ],
    "choices": [
     {
-     "label": "Wound infection of the incision",
-     "next": "p10_t16a",
+     "label": "Pylephlebitis, from the operation",
+     "next": "p10_t16",
      "kind": "trap",
      "trap": "TR16"
     },
     {
-     "label": "Pylephlebitis (portal pyaemia)",
+     "label": "Right inguinal hernia from iliohypogastric nerve injury",
+     "next": "p10_t18",
+     "kind": "trap",
+     "trap": "TR18"
+    },
+    {
+     "label": "Right inguinal hernia from ilioinguinal nerve injury",
      "next": "p10_ok",
      "kind": "correct"
-    },
-    {
-     "label": "Right inguinal hernia after gridiron incision",
-     "next": "p10_t16b",
-     "kind": "trap",
-     "trap": "TR16"
     }
    ]
   },
@@ -1696,9 +1881,9 @@
    "role": "feedback",
    "say": [
     {
-     "text": "Yes. Pylephlebitis is septic thrombosis of the portal venous system from the disease itself, with rigors, jaundice and liver abscesses.",
+     "text": "Yes. A gridiron incision can injure the ilioinguinal nerve, and that injury gives the right inguinal hernia.",
      "claims": [
-      "K80"
+      "K85"
      ]
     }
    ],
@@ -1733,22 +1918,22 @@
     }
    ]
   },
-  "p10_t16a": {
+  "p10_t16": {
    "role": "feedback",
    "say": [
     {
-     "text": "Wound infection is the most common complication after the operation, so it comes to mind first.",
+     "text": "Pylephlebitis is a serious complication, so it comes to mind after any abdominal operation.",
      "claims": []
     },
     {
-     "text": "Ask which complication arises before any operation, from the disease itself.",
+     "text": "Ask what the groin bulge and numbness point to at the incision.",
      "claims": []
     }
    ],
    "sure_note": {
-    "text": "You were sure, so note that wound infection belongs to the operation, not to the disease.",
+    "text": "You were sure, so note that pylephlebitis comes from the disease, not from this incision.",
     "claims": [
-     "K82"
+     "K80"
     ]
    },
    "choices": [
@@ -1759,26 +1944,24 @@
     },
     {
      "label": "Show me why",
-     "next": "p10_t16a_why",
+     "next": "p10_t16_why",
      "kind": "agency"
     }
    ]
   },
-  "p10_t16a_why": {
+  "p10_t16_why": {
    "role": "feedback",
    "say": [
     {
-     "text": "Wound infection is the most common complication after appendicectomy. It is a surgical complication.",
+     "text": "Pylephlebitis is septic thrombosis of the portal venous system from the disease itself, with liver abscesses.",
      "claims": [
-      "K82",
-      "K104"
+      "K80"
      ]
     },
     {
-     "text": "Complications of the disease itself include perforation with generalised peritonitis, abscess and pylephlebitis.",
+     "text": "The groin signs point to the nerve at the gridiron incision, not to the portal veins.",
      "claims": [
-      "K78",
-      "K80"
+      "K85"
      ]
     }
    ],
@@ -1790,20 +1973,20 @@
     }
    ]
   },
-  "p10_t16b": {
+  "p10_t18": {
    "role": "feedback",
    "say": [
     {
-     "text": "A hernia through the incision is a real problem, so it feels like a disease effect.",
+     "text": "The iliohypogastric nerve lies close to the ilioinguinal nerve, so the two are easy to mix.",
      "claims": []
     },
     {
-     "text": "Ask when it arises, relative to the operation.",
+     "text": "Ask which nerve is injured by a gridiron incision, and gives the hernia.",
      "claims": []
     }
    ],
    "sure_note": {
-    "text": "You were sure, so note that a hernia through the incision follows the operation.",
+    "text": "You were sure, so name the nerve at risk with this incision.",
     "claims": [
      "K85"
     ]
@@ -1816,25 +1999,24 @@
     },
     {
      "label": "Show me why",
-     "next": "p10_t16b_why",
+     "next": "p10_t18_why",
      "kind": "agency"
     }
    ]
   },
-  "p10_t16b_why": {
+  "p10_t18_why": {
    "role": "feedback",
    "say": [
     {
-     "text": "A right inguinal hernia follows injury to the ilioinguinal nerve with a gridiron incision.",
+     "text": "A gridiron incision puts the ilioinguinal nerve at risk, and its injury gives a right inguinal hernia.",
      "claims": [
       "K85"
      ]
     },
     {
-     "text": "It is a complication of the operation, so it does not belong to the disease before surgery.",
+     "text": "The neighbouring nerve is not the one named for this incision.",
      "claims": [
-      "K85",
-      "K78"
+      "K85"
      ]
     }
    ],
