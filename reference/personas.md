@@ -14,7 +14,7 @@
 
 - Read only what the module shows on the path taken. Do not use outside knowledge to answer, except the **strong** persona, who may use any knowledge.
 - Record every node visited, the choice made and why (one clause, in character).
-- Stop at an end node, or after 80 steps (report a loop).
+- Stop at an end node, or after 220 steps (report a loop).
 - At the end, answer every review card from what the walk taught. A card the walk did not prepare you for is a **coverage hole**.
 
 ## Report (`sim/<persona>.md`)
