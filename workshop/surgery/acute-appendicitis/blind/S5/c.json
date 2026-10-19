@@ -1,0 +1,1248 @@
+{
+  "segment": "S5",
+  "entry": "open",
+  "nodes": {
+    "open": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A fit 34-year-old man has had 16 hours of right iliac fossa pain. CT shows uncomplicated appendicitis with no appendicolith. He would rather avoid an operation.",
+          "claims": [
+            "K12"
+          ]
+        },
+        {
+          "text": "What plan do you offer him?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Appendicectomy, since it is the only treatment",
+          "next": "open_t22",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Antibiotics-first, with appendicectomy if it fails",
+          "next": "open_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "open_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "open_help": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Check the stem: what the CT shows, and whether anything in it rules out a non-operative start. Which option still holds once you check that?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "open",
+          "kind": "retry"
+        }
+      ]
+    },
+    "open_t22": {
+      "role": "feedback",
+      "sure_note": {
+        "text": "You were sure, so check the word 'only'. In exam stems it often marks an outdated absolute.",
+        "claims": [
+          "K110"
+        ]
+      },
+      "say": [
+        {
+          "text": "Tempting: 'treatment of choice' is often memorised as 'the only treatment', and the operation is the default in most textbooks.",
+          "claims": [
+            "K9"
+          ]
+        },
+        {
+          "text": "Nudge: is an operation the only door for a fit man with uncomplicated disease on CT?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "open",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "open_t22_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "open_t22_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "PYQs have expected appendicectomy as the only treatment. Current practice keeps it as the treatment of choice, and accepts antibiotics-first for selected CT-proven uncomplicated adults.",
+          "claims": [
+            "K110",
+            "K9",
+            "K71"
+          ]
+        },
+        {
+          "text": "The option fails on 'only', not on the operation itself: appendicectomy is still the treatment of choice.",
+          "claims": [
+            "K9"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "lith",
+          "kind": "continue"
+        }
+      ]
+    },
+    "open_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Yes. For a fit adult with CT-proven uncomplicated appendicitis and no appendicolith, antibiotics-first is an accepted option.",
+          "claims": [
+            "K71"
+          ]
+        },
+        {
+          "text": "Appendicectomy stays the treatment of choice. A significant share of these patients later need it for recurrence, so tell him that before you start.",
+          "claims": [
+            "K9",
+            "K71"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "lith",
+          "kind": "continue"
+        }
+      ]
+    },
+    "lith": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same man, but the CT now shows an appendicolith. The disease is still uncomplicated.",
+          "claims": [
+            "K12"
+          ]
+        },
+        {
+          "text": "Which plan now?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Antibiotics alone, as the CT shows no perforation",
+          "next": "lith_t23",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Appendicectomy, since an appendicolith predicts antibiotic failure",
+          "next": "lith_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "lith_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "lith_help": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Look at the scan beyond perforation. Which finding tells you the antibiotics are likely to fail?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "lith",
+          "kind": "retry"
+        }
+      ]
+    },
+    "lith_t23": {
+      "role": "feedback",
+      "sure_note": {
+        "text": "You were sure. No perforation is not the whole test for antibiotics-first; a stone changes the answer.",
+        "claims": [
+          "K71"
+        ]
+      },
+      "say": [
+        {
+          "text": "Tempting: the CT shows no perforation, which sounds like the safety check that matters most.",
+          "claims": []
+        },
+        {
+          "text": "Nudge: is no perforation the full list of conditions? Look again at the CT findings you have not used yet.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "lith",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "lith_t23_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "lith_t23_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Antibiotics-first is for CT-proven uncomplicated appendicitis with no appendicolith. A stone predicts failure of antibiotics and is linked to a higher risk of perforation.",
+          "claims": [
+            "K71",
+            "K15"
+          ]
+        },
+        {
+          "text": "The option drops the stone, so it is wrong for this man even though it names a real treatment.",
+          "claims": [
+            "K71"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "mass_w",
+          "kind": "continue"
+        }
+      ]
+    },
+    "lith_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Yes. An appendicolith predicts failure of antibiotics-first, so this man needs an operation.",
+          "claims": [
+            "K71"
+          ]
+        },
+        {
+          "text": "It is also linked to a higher risk of perforation, which is one more reason not to wait.",
+          "claims": [
+            "K15"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "mass_w",
+          "kind": "continue"
+        }
+      ]
+    },
+    "mass_w": {
+      "role": "explain",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Worked case: 5 days of right iliac fossa pain, now a tender lump, low-grade fever and a stable pulse. The omentum and bowel have walled off the inflamed appendix.",
+          "claims": [
+            "K28"
+          ]
+        },
+        {
+          "text": "This is an appendicular mass. The usual plan is the Ochsner–Sherren regimen: nil by mouth, IV fluids, IV antibiotics, analgesia, and charting of pulse, temperature and lump size.",
+          "claims": [
+            "K73",
+            "K10"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "spot",
+          "kind": "continue"
+        }
+      ]
+    },
+    "spot": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A classmate writes this plan for the same man. 1. 'A stable lump with fever: this is an appendicular mass.' 2. 'Nil by mouth, IV fluids and antibiotics; chart pulse and lump size.' 3. 'The lump is not settling, so book an appendicectomy this afternoon.'",
+          "claims": []
+        },
+        {
+          "text": "One of the three steps is wrong. Which one?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Step 1: calling the lump a mass",
+          "next": "spot_t1",
+          "kind": "trap",
+          "trap": "TR25"
+        },
+        {
+          "label": "Step 3: booking an appendicectomy this afternoon",
+          "next": "spot_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Step 2: nil by mouth, fluids and antibiotics",
+          "next": "spot_t2",
+          "kind": "trap",
+          "trap": "TR25"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "spot_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "spot_help": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what has changed since the lump was found. Which step acts on a change that the story does not describe?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "spot",
+          "kind": "retry"
+        }
+      ]
+    },
+    "spot_t1": {
+      "role": "feedback",
+      "sure_note": {
+        "text": "You were sure. A lump with fever is a walled-off mass until the findings say otherwise, not yet a collection to open.",
+        "claims": [
+          "K28",
+          "K10"
+        ]
+      },
+      "say": [
+        {
+          "text": "Tempting: a lump with fever sounds like pus, and pus sounds like an abscess that must be drained.",
+          "claims": []
+        },
+        {
+          "text": "Nudge: what does the story say about the lump, and does a mass need opening?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "spot",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "spot_t1_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "spot_t1_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Pus inside the mass forms an abscess; the mass itself is the walled-off inflamed appendix, so naming it a mass is correct.",
+          "claims": [
+            "K28",
+            "K10"
+          ]
+        },
+        {
+          "text": "The error lies later in the plan.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "spot_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "spot_t2": {
+      "role": "feedback",
+      "sure_note": {
+        "text": "You were sure. Conservative care is the treatment for a stable mass, not a delay of the operation.",
+        "claims": [
+          "K73"
+        ]
+      },
+      "say": [
+        {
+          "text": "Tempting: fluids and antibiotics look passive next to an operation that seems decisive.",
+          "claims": []
+        },
+        {
+          "text": "Nudge: is anything in the story worse, or is the lump doing what the regimen expects?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "spot",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "spot_t2_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "spot_t2_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The Ochsner–Sherren regimen is the conservative treatment for an appendicular mass. It is stopped only if pulse, pain or lump size rises, or peritonitis appears.",
+          "claims": [
+            "K73",
+            "K74"
+          ]
+        },
+        {
+          "text": "So step 2 is correct, and the error lies later in the plan.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "spot_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "spot_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Yes. Step 3 is the error. The lump is stable, and the regimen continues unless pulse, pain, lump size or peritonitis change.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "Operating this afternoon abandons a treatment that is doing its job.",
+          "claims": [
+            "K73"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "why",
+          "kind": "continue"
+        }
+      ]
+    },
+    "why": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now the reason. Why is step 3 wrong?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "This lump is an abscess, so its pus needs open drainage today",
+          "next": "why_t25",
+          "kind": "trap",
+          "trap": "TR25"
+        },
+        {
+          "label": "The lump is stable and walled off; the regimen still works",
+          "next": "why_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "why_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "why_help": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the story says about the lump now, not what it might become. What does a stable, walled-off lump call for?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why",
+          "kind": "retry"
+        }
+      ]
+    },
+    "why_t25": {
+      "role": "feedback",
+      "sure_note": {
+        "text": "You were sure. A walled-off lump is treated medically; drainage is for a collection that imaging shows to be drainable.",
+        "claims": [
+          "K76",
+          "K28"
+        ]
+      },
+      "say": [
+        {
+          "text": "Tempting: fever and a lump sound like pus, and pus is what gets drained.",
+          "claims": []
+        },
+        {
+          "text": "Nudge: what is the lump doing on the chart, and what does the regimen expect to happen?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "why_t25_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "why_t25_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "A walled-off lump with a stable pulse is an appendicular mass, not a drainable abscess. The regimen is the treatment, and it works while the lump stays stable.",
+          "claims": [
+            "K28",
+            "K73"
+          ]
+        },
+        {
+          "text": "Open drainage is kept for when image-guided drainage of an abscess fails or is not available.",
+          "claims": [
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "abscess",
+          "kind": "continue"
+        }
+      ]
+    },
+    "why_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Yes. The lump is walled-off inflammation that settles on the regimen, so an operation this afternoon has no reason behind it.",
+          "claims": [
+            "K28",
+            "K73"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "abscess",
+          "kind": "continue"
+        }
+      ]
+    },
+    "abscess": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Five days of right iliac fossa pain, now a swinging fever. Imaging shows a drainable appendicular collection, which is pus within the mass.",
+          "claims": [
+            "K28"
+          ]
+        },
+        {
+          "text": "Best treatment?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Laparotomy and open drainage now",
+          "next": "abscess_t1",
+          "kind": "trap",
+          "trap": "TR25"
+        },
+        {
+          "label": "Image-guided percutaneous drainage, with antibiotics",
+          "next": "abscess_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "abscess_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "abscess_help": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the first step is for a collection you can reach through the skin. Which option matches that?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "abscess",
+          "kind": "retry"
+        }
+      ]
+    },
+    "abscess_t1": {
+      "role": "feedback",
+      "sure_note": {
+        "text": "You were sure. Open surgery is the fallback when image-guided drainage fails, not the first step.",
+        "claims": [
+          "K76"
+        ]
+      },
+      "say": [
+        {
+          "text": "Tempting: a swinging fever and a collection sound like an emergency that needs the surgeon at once.",
+          "claims": []
+        },
+        {
+          "text": "Nudge: which first step drains the collection without a laparotomy?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "abscess",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "abscess_t1_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "abscess_t1_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "A drainable appendicular abscess is treated first by image-guided percutaneous drainage with antibiotics.",
+          "claims": [
+            "K103"
+          ]
+        },
+        {
+          "text": "Open drainage is kept for when that fails or is not available.",
+          "claims": [
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "interval",
+          "kind": "continue"
+        }
+      ]
+    },
+    "abscess_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Yes. Image-guided drainage with antibiotics is the first treatment for a drainable abscess, and open drainage is the fallback.",
+          "claims": [
+            "K103",
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "interval",
+          "kind": "continue"
+        }
+      ]
+    },
+    "interval": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "After an appendicular mass has settled on conservative treatment, the old exam teaching and the current view differ.",
+          "claims": [
+            "K75"
+          ]
+        },
+        {
+          "text": "Which statement gives both?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Routine interval appendicectomy at 6–8 weeks for every patient",
+          "next": "interval_t24",
+          "kind": "trap",
+          "trap": "TR24"
+        },
+        {
+          "label": "Traditionally 6–8 weeks; now selective, with colonoscopy or CT in older patients",
+          "next": "interval_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "interval_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "interval_help": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether every patient with a settled mass needs the same operation at the same time, and what an older patient needs first.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "interval",
+          "kind": "retry"
+        }
+      ]
+    },
+    "interval_t24": {
+      "role": "feedback",
+      "sure_note": {
+        "text": "You were sure. The routine 6–8 week operation is the older key; the current view adds selection and a check for cancer.",
+        "claims": [
+          "K109"
+        ]
+      },
+      "say": [
+        {
+          "text": "Tempting: 6–8 weeks is the number every book gives, so it feels like the rule.",
+          "claims": []
+        },
+        {
+          "text": "Nudge: what changes for a patient over about 40?",
+          "claims": [
+            "K75"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "interval",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "interval_t24_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "interval_t24_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "PYQs have expected interval appendicectomy at 6–8 weeks after a mass. Current practice makes it selective, with colonoscopy or CT in older patients to exclude caecal carcinoma.",
+          "claims": [
+            "K109",
+            "K75"
+          ]
+        },
+        {
+          "text": "The routine operation with no check is the wrong plan on its own.",
+          "claims": [
+            "K109"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "comp",
+          "kind": "continue"
+        }
+      ]
+    },
+    "interval_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Yes. Both columns: the keyed teaching is 6–8 weeks, and current practice is selective, with colonoscopy or CT in older patients.",
+          "claims": [
+            "K75",
+            "K109"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "comp",
+          "kind": "continue"
+        }
+      ]
+    },
+    "comp": {
+      "role": "probe",
+      "objectives": [
+        "O11"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which of these is a complication of the operation, not of the disease itself?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Pylephlebitis, septic thrombosis of the portal veins",
+          "next": "comp_t16",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "Faecal fistula, after a slipped stump ligature",
+          "next": "comp_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "comp_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "comp_help": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether the complication comes from the disease or from the knife. Which of these is caused by the operation itself?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "comp",
+          "kind": "retry"
+        }
+      ]
+    },
+    "comp_t16": {
+      "role": "feedback",
+      "sure_note": {
+        "text": "You were sure. Keep the two lists apart: disease complications come before the knife, operation complications after it.",
+        "claims": [
+          "K78",
+          "K82"
+        ]
+      },
+      "say": [
+        {
+          "text": "Tempting: pylephlebitis is a serious complication, and it sits on the same complications page as the operative ones.",
+          "claims": []
+        },
+        {
+          "text": "Nudge: does pylephlebitis come from the disease or from the operation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "comp",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "comp_t16_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "comp_t16_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Pylephlebitis is septic thrombophlebitis of the portal venous system from the inflamed appendix, so it is a complication of the disease.",
+          "claims": [
+            "K80"
+          ]
+        },
+        {
+          "text": "Complications of the operation are wound infection, faecal fistula, stump appendicitis and inguinal hernia.",
+          "claims": [
+            "K82",
+            "K84",
+            "K86",
+            "K85"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "nerve",
+          "kind": "continue"
+        }
+      ]
+    },
+    "comp_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O11"
+      ],
+      "say": [
+        {
+          "text": "Yes. A faecal fistula follows a slipped stump ligature, caecal necrosis, or an unrecognised disease such as Crohn's.",
+          "claims": [
+            "K84"
+          ]
+        },
+        {
+          "text": "Disease complications are perforation, mass, abscess and pylephlebitis, which come from the disease itself.",
+          "claims": [
+            "K78",
+            "K79",
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "nerve",
+          "kind": "continue"
+        }
+      ]
+    },
+    "nerve": {
+      "role": "probe",
+      "objectives": [
+        "O11"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 28-year-old man has a right groin bulge and numbness after an open appendicectomy through McBurney's point.",
+          "claims": []
+        },
+        {
+          "text": "Which nerve was injured?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Iliohypogastric nerve",
+          "next": "nerve_t18a",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Ilioinguinal nerve",
+          "next": "nerve_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Genitofemoral nerve",
+          "next": "nerve_t18b",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "nerve_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "nerve_help": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about which of the three nerves lies on the abdominal wall where the incision goes, and how the gridiron divides the muscles.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "nerve",
+          "kind": "retry"
+        }
+      ]
+    },
+    "nerve_t18a": {
+      "role": "feedback",
+      "sure_note": {
+        "text": "You were sure. These nerves sit together in the iliac region, so name the one the incision actually crosses.",
+        "claims": [
+          "K85"
+        ]
+      },
+      "say": [
+        {
+          "text": "Tempting: iliohypogastric is the nerve most often named beside the ilioinguinal, and the two get learned as a pair.",
+          "claims": []
+        },
+        {
+          "text": "Nudge: which nerve does the incision cross on the way to a groin bulge?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "nerve",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "nerve_t18a_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "nerve_t18a_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The gridiron splits the oblique muscles along their fibres, and the nerve injured is the ilioinguinal, causing a right inguinal hernia.",
+          "claims": [
+            "K65",
+            "K85"
+          ]
+        },
+        {
+          "text": "Iliohypogastric is not the nerve named for this injury.",
+          "claims": [
+            "K85"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "nerve_end",
+          "kind": "continue"
+        }
+      ]
+    },
+    "nerve_t18b": {
+      "role": "feedback",
+      "sure_note": {
+        "text": "You were sure. The genitofemoral is a neighbour, but this groin bulge and numbness come from the ilioinguinal.",
+        "claims": [
+          "K85"
+        ]
+      },
+      "say": [
+        {
+          "text": "Tempting: genitofemoral is another named nerve close to the groin, so it feels near enough.",
+          "claims": []
+        },
+        {
+          "text": "Nudge: which nerve lies on the abdominal wall where the incision goes, not on the thigh side?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "nerve",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "nerve_t18b_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "nerve_t18b_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The gridiron splits the oblique muscles along their fibres, and the ilioinguinal nerve is the one injured, causing a right inguinal hernia.",
+          "claims": [
+            "K65",
+            "K85"
+          ]
+        },
+        {
+          "text": "Genitofemoral is not the nerve named for this injury.",
+          "claims": [
+            "K85"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "nerve_end",
+          "kind": "continue"
+        }
+      ]
+    },
+    "nerve_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O11"
+      ],
+      "say": [
+        {
+          "text": "Yes. The ilioinguinal nerve is the one injured by a gridiron incision, and the result is a right inguinal hernia.",
+          "claims": [
+            "K85"
+          ]
+        },
+        {
+          "text": "The gridiron splits the oblique muscles along their fibres, so the nerve is at risk where the muscles are divided.",
+          "claims": [
+            "K65"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "nerve_end",
+          "kind": "continue"
+        }
+      ]
+    },
+    "nerve_end": {
+      "role": "recap",
+      "say": [
+        {
+          "text": "Keep the complications in two lists: disease first, then operation. Wound infection is the most common operative complication.",
+          "claims": [
+            "K82",
+            "K104"
+          ]
+        },
+        {
+          "text": "On the gridiron map, the ilioinguinal nerve is the one that causes a right inguinal hernia.",
+          "claims": [
+            "K85"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
