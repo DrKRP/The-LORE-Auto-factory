@@ -27,7 +27,8 @@ All 20 module traps were offered on this path and I fell for each one at least o
   - It does not say that my S6 re-quiz reversed most of the S1 to S5 corrections. That is the main thing a novice needs to hear.
 
 ## Cards
-- 11 of 11 answerable from the path. Each card's topic was walked on this path: PYQ key (S1.recap), early features (S2.a_ok, S6.q9), strangulation (S2.pain_ok), plain-film markers (S3.film_ok, S3.num_ok), first and definitive test (S3.inv_ok, S3.inv2_ok), coffee bean (S3.coffee_ok), trial timings (S4.c2_ok, S4.c7_ok), femoral and Richter (S5.femoral_ok, S5.richter_ok), intussusception (S5.intus_ok, S5.child_ok), volvulus and right hemicolectomy (S5.sig_ok, S5.caecal_ok), ileus (S4.c8_ok, S4.c10_ok).
+- 11 of 11 answerable from the path, with the teaching nodes I actually reached: PYQ key (S1.recap), early features (S2.a_ok, S6.q9_ok), strangulation (S2.pain_ok), plain-film markers (S3.film_xA, S3.num_ok), first and definitive test (S3.inv_xX, S3.inv2_xA), coffee bean (S3.coffee_ok), trial timings (S4.c2_ok, S4.c7_ok), femoral and Richter (S5.femoral_ok, S5.richter_ok), intussusception (S5.intus_ok, S5.child_ok), volvulus and right hemicolectomy (S5.sig_ok, S5.caecal_ok), ileus (S4.c8_t31 names neostigmine and potassium first; S4.c10_t31 and S6.q10_f0 for the sound and potassium cues).
+- Card 11 is answerable only in part-by-part form: I got the potassium-first step and the neostigmine name from feedback I was shown on wrong answers, not from a correct answer of my own.
 - Caveat: "answerable" means the walk taught it. My recall of the card answers was not tested; I got most of the matching questions wrong first time.
 
 ## Verdict

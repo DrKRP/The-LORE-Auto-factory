@@ -978,8 +978,10 @@ def render_report(mod, path):
     guess_right = sum((s_["sure"] is False) and s_["kind"] == "correct" for s_ in conf)
     calibration = None
     if len(conf) >= 3:
-        calibration = "overconfident" if sure_wrong >= 2 else ("underconfident" if guess_right >= 3 and sure_wrong == 0 else "calibrated")
-    hints = sum(s_["kind"] == "help" for s_ in steps)
+        any_sure = any(s_["sure"] is True for s_ in conf)
+        calibration = "overconfident" if sure_wrong >= 2 else ("underconfident" if guess_right >= 3 and sure_wrong == 0
+                                                               else ("calibrated" if any_sure else None))
+    hints = sum(s_["kind"] in ("help", "agency") for s_ in steps)  # hint taps and "Show me why"
     # DP11: objectives answered right only with a hint, and not right on any cold probe
     hinted_only = sorted({o for s_ in first if s_["hinted"] and s_["kind"] == "correct" for o in s_["objectives"]}
                          - {o for s_ in first if s_["cold"] and s_["kind"] == "correct" for o in s_["objectives"]}

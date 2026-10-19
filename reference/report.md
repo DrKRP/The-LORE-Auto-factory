@@ -32,13 +32,13 @@ Each step: `{node, choice, kind, trap, sure, objectives}`, in order. `kind` is t
 
 **Error-type profile.** Count traps fallen into (`fell_recovered` + `fell_open`) by `error_type`. Each type with ≥ 2 falls shows its `error_types` text; with exactly one, the trap's own text covers it.
 
-**Calibration.** Over first answers on probes that asked for confidence: `sure_wrong` ≥ 2 → `overconfident`; `guess_right` ≥ 3 and `sure_wrong` = 0 → `underconfident`; otherwise `calibrated` (only when at least 3 confidence answers exist).
+**Calibration.** Over first answers on probes that asked for confidence: `sure_wrong` ≥ 2 → `overconfident`; `guess_right` ≥ 3 and `sure_wrong` = 0 → `underconfident`; otherwise `calibrated` if at least one answer was "Sure", else no calibration line (only when at least 3 confidence answers exist).
 
 **Confident errors (DP7).** Traps the learner fell into while tapping Sure are listed first, marked "you were sure", and their objectives' cards come first in the review order.
 
 **Cold evidence (DP11).** A first answer is *hinted* if the learner opened a hint on that probe before answering, and *cold* if the probe offers no hint at all. The report shows cold right / cold total. `hinted_only` = objectives answered right only after a hint, never right unaided.
 
-**Help.** Hints used ≥ 3 → `hints_heavy`; else any `hinted_only` objective → `hinted_only`; else 0 hints and ≥ 1 trap fallen → `hints_none`; otherwise nothing.
+**Help.** Hints used (taps on a `help` or `agency` choice, e.g. "Show me why") ≥ 3 → `hints_heavy`; else any `hinted_only` objective → `hinted_only`; else 0 hints and ≥ 1 trap fallen → `hints_none`; otherwise nothing.
 
 **Pace.** Any fast lane taken → `fast_lane`.
 

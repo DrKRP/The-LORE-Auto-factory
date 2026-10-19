@@ -225,8 +225,8 @@ function computeReport() {
   const sureWrong = conf.filter((s) => s.sure && s.kind !== "correct").length;
   const guessRight = conf.filter((s) => s.sure === false && s.kind === "correct").length;
   let calibration = null;
-  if (conf.length >= 3) calibration = sureWrong >= 2 ? "overconfident" : (guessRight >= 3 && sureWrong === 0 ? "underconfident" : "calibrated");
-  const hints = steps.filter((s) => s.kind === "help").length;
+  if (conf.length >= 3) calibration = sureWrong >= 2 ? "overconfident" : (guessRight >= 3 && sureWrong === 0 ? "underconfident" : (conf.some((s) => s.sure === true) ? "calibrated" : null));
+  const hints = steps.filter((s) => s.kind === "help" || s.kind === "agency").length;
   const objsOf = (pred) => new Set(first.filter(pred).flatMap((s) => s.objectives));
   const coldRight = objsOf((s) => s.cold && s.kind === "correct"), plainRight = objsOf((s) => !s.hinted && s.kind === "correct");
   const hintedOnly = [...objsOf((s) => s.hinted && s.kind === "correct")].filter((o) => !coldRight.has(o) && !plainRight.has(o)).sort();
