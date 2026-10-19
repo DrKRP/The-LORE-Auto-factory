@@ -30,3 +30,4 @@ What the factory has learned about teaching by conversation. `scripts/factory.py
 - Re-ask nodes (a reordered copy of a probe after "Try again") count as new probes in the report engine, so an immediate retry reads as recovery. Prefer "Try again" back to the same node; a later re-test in a new form is the recovery evidence.
 - Skip buttons must land past the material they skip, or be labelled as a quick check.
 - [diagnosis] T2 over T5, T11 (surgery/acute-appendicitis S4, merge): Probe-first with a skip lane and a two-form test of each trap beats worked-case-first for investigation segments; make sure every dominated distractor is rewritten, and write trap options in the same hedged register as the key.
+- [management] T8 over T1, T11 (surgery/acute-appendicitis S5, merge): For management segments, one compact probe per decision with a nudge-then-Show-me-why path beats a long branching tree; rewrite dominated over-correction distractors into plausible hedged options.
