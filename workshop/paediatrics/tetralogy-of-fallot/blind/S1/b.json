@@ -1,0 +1,376 @@
+{
+  "segment": "S1",
+  "entry": "start",
+  "nodes": {
+    "start": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 3-month-old is brought in with bluish lips and tongue. The echo is on its way. You have no teaching yet, only what you already know.",
+          "claims": []
+        },
+        {
+          "text": "Which is the most common cyanotic congenital heart disease?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Tetralogy of Fallot",
+          "next": "q1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Transposition of the great arteries",
+          "next": "q1_t6",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "q1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "q1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Read the stem again: it names no age group at all. Which cyanotic lesion do textbooks list first when a 'most common' stem has no qualifier?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "start",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q1_t6": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Transposition is a famous blue lesion, so it is a natural pull. But an unqualified 'most common cyanotic CHD' stem keys tetralogy of Fallot (TOF).",
+          "claims": [
+            "K1",
+            "K69"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so fix this one now: with no age qualifier in the stem, the key is TOF.",
+        "claims": [
+          "K1",
+          "K69"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. TOF is the most common cyanotic CHD, and how it presents varies with the severity of right ventricular outflow tract (RVOT) obstruction.",
+          "claims": [
+            "K1",
+            "K69"
+          ]
+        },
+        {
+          "text": "Now a harder one. Have a go before I teach anything; getting it wrong is useful here.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Go on",
+          "next": "q2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q2": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which of these is NOT a component of classic TOF?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Overriding aorta",
+          "next": "q2_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Atrial septal defect",
+          "next": "q2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Infundibular obstruction of the RVOT",
+          "next": "q2_t2",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Give me a hint",
+          "next": "q2_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "q2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Don't sort by 'sounds like a heart defect'. Ask which options belong to one malformation of the septum between the ventricles and which are separate lesions.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "q2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q2_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "It is easy to pick the aorta, since 'overriding' sounds like an add-on. But it is one of the four: a large, anteriorly malaligned VSD, an overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "The one that is not in that list is the ASD. Let's see why.",
+          "claims": [
+            "K13"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so notice it: an overriding aorta is a member of the four, not an extra.",
+        "claims": [
+          "K3"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Show me",
+          "next": "gap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q2_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "'Infundibular' looks odd next to a valve name, so it feels like the outsider. But infundibular (sub-pulmonary) RVOT obstruction is itself one of the four.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "The one that is not in the four is the ASD. Let's see why.",
+          "claims": [
+            "K13"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so notice it: the obstruction sits at the infundibulum, and it is a member of the four.",
+        "claims": [
+          "K3"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Show me",
+          "next": "gap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right: ASD and PDA may accompany TOF, but the four components listed by StatPearls and CDC include no ASD, PDA or LVH.",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "Was that recall or reasoning? Let's test which.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me",
+          "next": "gap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "gap": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Whichever you picked, a memorised list is fragile. The four are not a list: they are a large, anteriorly malaligned VSD, an overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "Exam note: PYQs keyed PDA, ASD and LVH as 'not part of TOF'. Current StatPearls lists the four as above.",
+          "claims": [
+            "K77"
+          ]
+        },
+        {
+          "text": "Next module segment rebuilds all four from the malaligned septum, so you derive them instead of memorising.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q3": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "One more stretch before we build. Two TOF children differ in how tight the RVOT is. In one, resistance across the RVOT is less than systemic vascular resistance.",
+          "claims": []
+        },
+        {
+          "text": "Predict how cyanosed that child is.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Deeply cyanotic, as every TOF child is",
+          "next": "q3_t7",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Minimally cyanotic or acyanotic",
+          "next": "q3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Give me a hint",
+          "next": "q3_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "q3_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Blood takes the path of least resistance. Compare the resistance to flow through the RVOT with the resistance in the body, and ask which way the VSD blood leans.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "q3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q3_t7": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "'TOF means blue' is a tempting shortcut, since TOF most commonly presents as a cyanotic neonate. But presentation varies with RVOT obstruction severity.",
+          "claims": [
+            "K24",
+            "K1"
+          ]
+        },
+        {
+          "text": "If RVOT resistance is below systemic vascular resistance, the child is minimally cyanotic or acyanotic.",
+          "claims": [
+            "K22"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep this: colour follows RVOT resistance versus systemic resistance, not the diagnosis name.",
+        "claims": [
+          "K22"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. If RVOT resistance is less than systemic vascular resistance, the patient is minimally cyanotic or acyanotic.",
+          "claims": [
+            "K22"
+          ]
+        },
+        {
+          "text": "That is the key to the colour: it follows the obstruction, and TOF most commonly presents as a cyanotic neonate.",
+          "claims": [
+            "K1",
+            "K24"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Now build it",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
