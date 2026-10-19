@@ -320,11 +320,11 @@ def parse_note(path):
             m = re.match(r"(\d+)\.\s+(.*)", s)
             if m:
                 url = re.search(r"https?://\S+", m.group(2))
-                tier = re.search(r"tier (\d)", m.group(2))
+                tier = re.search(r"tier (\d|K)", m.group(2))
                 refs[m.group(1)] = {
                     "title": re.split(r"\s+https?://", m.group(2))[0].rstrip(". "),
                     "url": url.group(0) if url else "",
-                    "tier": int(tier.group(1)) if tier else None}
+                    "tier": (int(tier.group(1)) if tier.group(1).isdigit() else tier.group(1)) if tier else None}
             continue
         if section.startswith("Unverified"):
             continue
@@ -374,7 +374,9 @@ def cmd_bank(a):
         if missing:
             entry["missing_refs"] = missing
         claims[f"K{i}"] = entry
+    prov = re.search(r"^provenance:\s*(\S+)", note.read_text(encoding="utf-8"), re.M)
     bank = {"module": a.module, "note": str(note.relative_to(ROOT)), "built": today(),
+            "provenance": prov.group(1) if prov else "sources",
             "references": refs, "claims": claims}
     write_json(work(a.module) / "claim-bank.json", bank)
     ver = sum(c["status"] == "verified" for c in claims.values())
@@ -837,6 +839,7 @@ def cmd_assemble(a):
     module = {"schema": "lore.module/v1", "id": a.module, "title": bp.get("title", a.module),
               "subject": a.module.split("/")[0], "exam": "NEET PG / INI-CET",
               "version": (prev["version"] + 1) if prev else 1, "built": today(), "status": "draft",
+              "provenance": bank.get("provenance", "sources"),
               "summary": bp.get("summary", ""),
               "objectives": bp.get("objectives", []), "traps": bp.get("traps", []),
               "segments": seg_meta, "start": seg_meta[0]["entry"], "nodes": nodes,

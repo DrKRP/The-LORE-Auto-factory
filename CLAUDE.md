@@ -17,6 +17,8 @@ Run one tick with `/lore-factory`; run the factory unattended with `scripts/run-
 Change limits and models here only; the skills, agents and `scripts/factory.py` read them from this block.
 
 ```yaml
+research:
+  mode: knowledge               # knowledge = notes written from model medical knowledge and cross-checked (user's choice, 2026-10-19); sources = fetch-and-quote pipeline
 budget:
   max_scouts_per_topic: 4        # 1 exam-pattern scout + up to 3 content scouts
   max_fetches_per_scout: 6       # WebFetch calls per scout
@@ -41,7 +43,7 @@ models:                          # set in each agent's frontmatter; keep in sync
 chapter_mode:
   confirm_subtopics_with_user: true   # interactive /lore-research only; the factory never waits
 factory:
-  max_modules_in_progress: 1     # finish a module before starting the next
+  max_modules_in_progress: 11    # modules advanced in parallel (11 while the surgery batch runs)
   queue_min: 3                   # below this many waiting topics, the planner refills the queue
   planner_batch: 8               # topics the planner adds per refill
   subjects_focus: []             # e.g. [paediatrics, pharmacology]; empty = all 19 subjects
@@ -92,6 +94,8 @@ design_refinement:
 3. Coaching sites and PYQ recalls decide *what to cover* and feed **⚠ Exam notes**; they are never a fact source.
 4. Two trusted sources disagree: show both, attributed. For Indian programme / PSM questions list Indian sources (MoHFW, ICMR, NTEP, NACO, NHM) first.
 5. A claim that fails verification and cannot be rescued stays in the note tagged **⚠ Unverified** and is listed under "Unverified claims".
+**Knowledge mode** (`research.mode: knowledge`, chosen by the user): rules 1–3 are replaced by: a `knowledge-writer` writes the note from its own medical knowledge, standard-textbook level, with no invented citations; an independent `knowledge-checker` reviews every claim; a claim it disputes is corrected by agreement or tagged ⚠ Unverified (rule 5). Such notes and their modules carry `provenance: model-knowledge`, shown to learners. Switch back to `sources` and refresh to replace them with source-verified versions.
+
 6. A module teaches only claims from its note's claim bank, citing their IDs, and says no more than they say. Unverified claims stay off the core path and are shown with ⚠. Conversation agents' own knowledge decides pedagogy, wording, vignette framing and distractors; it never supplies a fact.
 
 ## Autonomy rules

@@ -117,7 +117,7 @@ function sayNode(id, sure) {
   const n = M.nodes[id];
   const seg = M.segments.find((s) => s.id === n.segment);
   if (seg) {
-    $("seg").textContent = `${seg.id} · ${seg.title}`;
+    $("seg").textContent = `${$("seg").dataset.prov || ""}${seg.id} · ${seg.title}`;
     const i = M.segments.indexOf(seg);
     $("prog").style.width = `${Math.round(((i + (n.end ? 1 : 0.5)) / M.segments.length) * 100)}%`;
   }
@@ -330,6 +330,7 @@ function load(mod) {
   $("title").textContent = M.title + (M.status && M.status !== "published" ? ` (${M.status})` : "");
   document.title = M.title + " · LORE";
   $("empty").hidden = true;
+  $("seg").dataset.prov = M.provenance === "model-knowledge" ? "Written from expert knowledge and cross-checked; not yet source-verified. " : "";
   const saved = store("lore:" + M.id);
   S = { at: M.start, hist: (saved && saved.hist) || [], pending: null };
   try { replay(); } catch (e) { S.hist = []; replay(); }

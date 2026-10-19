@@ -37,7 +37,9 @@ Each stage ends with `F advance <module> <next stage>` (plus `--round` where sho
 
 ### research
 
-Follow `.claude/skills/lore-research/SKILL.md` for the topic in **auto mode** (its "Auto mode" section): you are its orchestrator. If `notes/<subject>/<slug>.md` already exists and this is not a refresh, skip research and say so in `W/run-log.md`. Done → `F bank <module>` (if it reports fewer than 8 verified claims, `F fail`: "note too thin to teach") → `F advance <module> traps`.
+**Knowledge mode** (`research.mode: knowledge` in `CLAUDE.md`): dispatch `knowledge-writer` with the topic, subject and note path, then `knowledge-checker` with the note; apply its outcomes (`AGREE` keep; `CORRECT` replace the sentence with its wording; `DISPUTE` keep the sentence, tag ⚠ Unverified and list it under "Unverified claims"); write `evidence/<subject>/<slug>/run-log.md`. No network is needed. Then continue as below from `F bank`.
+
+**Sources mode**: Follow `.claude/skills/lore-research/SKILL.md` for the topic in **auto mode** (its "Auto mode" section): you are its orchestrator. If `notes/<subject>/<slug>.md` already exists and this is not a refresh, skip research and say so in `W/run-log.md`. Done → `F bank <module>` (if it reports fewer than 8 verified claims, `F fail`: "note too thin to teach") → `F advance <module> traps`.
 
 ### traps
 

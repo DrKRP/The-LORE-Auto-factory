@@ -1,0 +1,1012 @@
+{
+  "segment": "S3",
+  "entry": "case1",
+  "nodes": {
+    "case1": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "A 2-month-old, not diagnosed before birth, is pink and feeding well. There is a loud harsh systolic murmur at the left upper sternal border. Echo confirms tetralogy of Fallot (TOF).",
+          "claims": []
+        },
+        {
+          "text": "What best explains a pink baby with TOF?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Moderate obstruction: he is a 'pink Tet'",
+          "next": "case1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "The echo is wrong; TOF is always blue from birth",
+          "next": "case1_t7",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "He is in a spell, so the murmur is loud",
+          "next": "case1_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Give me a hint",
+          "next": "case1_hint",
+          "kind": "help"
+        }
+      ],
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true
+    },
+    "case1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Presentation varies with how severe the RVOT obstruction is. How severe could it be in a baby who is pink and feeding well?",
+          "claims": [
+            "K1"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case1r",
+          "kind": "retry"
+        }
+      ]
+    },
+    "case1_t7": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: TOF is the classic blue baby, and it most commonly presents as a cyanotic neonate.",
+          "claims": [
+            "K24"
+          ]
+        },
+        {
+          "text": "But 'most commonly' is not 'always'. This baby is well apart from a loud murmur. What does that suggest about the degree of obstruction?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case1r",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pause here: 'most common' is a frequency, not a rule for every child.",
+        "claims": [
+          "K24"
+        ]
+      }
+    },
+    "case1_t8": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a harsh, loud murmur sounds like trouble. But this baby is pink and feeding well, which is not the picture of a hypercyanotic spell.",
+          "claims": []
+        },
+        {
+          "text": "Ask what level of obstruction leaves a baby well apart from a loud murmur.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case1r",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note it: infants with moderate obstruction may be asymptomatic apart from a loud murmur.",
+        "claims": [
+          "K23"
+        ]
+      }
+    },
+    "case1r": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Same baby: pink, feeding well, loud murmur, TOF on echo. Which explanation fits?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Moderate obstruction: he is a 'pink Tet'",
+          "next": "case1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "The echo is wrong; TOF is always blue from birth",
+          "next": "case1_ex",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "He is in a spell, so the murmur is loud",
+          "next": "case1_ex",
+          "kind": "trap",
+          "trap": "TR8"
+        }
+      ],
+      "objectives": [
+        "O3"
+      ]
+    },
+    "case1_ex": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Different angle: the obstruction can be moderate. Such infants, if not diagnosed before birth, may be asymptomatic apart from a loud murmur, and are called 'pink Tets'.",
+          "claims": [
+            "K23"
+          ]
+        },
+        {
+          "text": "So the picture is the answer: pink and well with a loud murmur means moderate obstruction, not a spell and not a wrong echo.",
+          "claims": [
+            "K23"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "bal",
+          "kind": "continue"
+        }
+      ]
+    },
+    "case1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Moderate RVOT obstruction in an infant not diagnosed before birth may leave only a loud murmur: a 'pink Tet'.",
+          "claims": [
+            "K23"
+          ]
+        },
+        {
+          "text": "The rule behind it: when resistance across the RVOT is less than systemic vascular resistance, the child is minimally cyanotic or acyanotic.",
+          "claims": [
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "bal",
+          "kind": "continue"
+        },
+        {
+          "label": "I have the balance; skip to the exam wording",
+          "next": "safe",
+          "kind": "skip"
+        }
+      ]
+    },
+    "bal": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Picture a seesaw: RVOT resistance on one end, systemic resistance on the other. Blood takes the easier way.",
+          "claims": [
+            "K22"
+          ],
+          "device": true
+        },
+        {
+          "text": "Months later this baby's obstruction becomes significant. Predict his colour.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "He turns blue: most blood now bypasses the lungs",
+          "next": "bal_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "He stays pink: 'pink Tet' is a fixed type of TOF",
+          "next": "bal_t7",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "He turns blue because pulmonary vascular resistance has risen",
+          "next": "bal_t9",
+          "kind": "trap",
+          "trap": "TR9"
+        }
+      ],
+      "objectives": [
+        "O3"
+      ]
+    },
+    "bal_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. With significant RVOT obstruction, most blood shunts toward the aorta, bypassing the pulmonary bed.",
+          "claims": [
+            "K20"
+          ]
+        },
+        {
+          "text": "Presentation varies with how severe the obstruction is, so 'pink' describes a degree, not a separate disease.",
+          "claims": [
+            "K1"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "safe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "bal_t7": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: 'pink Tet' sounds like a category. But it was described for infants with moderate obstruction, and the balance depends on RVOT resistance versus systemic resistance.",
+          "claims": [
+            "K23",
+            "K22"
+          ]
+        },
+        {
+          "text": "When obstruction becomes significant, most blood shunts toward the aorta, bypassing the pulmonary bed: he turns blue.",
+          "claims": [
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "safe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "bal_t9": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: pulmonary resistance sounds like the lungs' fault. But the balance that decides colour is resistance across the RVOT against systemic vascular resistance.",
+          "claims": [
+            "K22"
+          ]
+        },
+        {
+          "text": "With significant obstruction, most blood shunts toward the aorta, bypassing the pulmonary bed.",
+          "claims": [
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "safe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "safe": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "A friend is writing a one-line summary of TOF for her notes.",
+          "claims": []
+        },
+        {
+          "text": "Which line is safe for the exam?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Commonest cyanotic CHD; every child is cyanotic from birth",
+          "next": "safe_t7",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Commonest cyanotic CHD; most often presents as a cyanotic neonate",
+          "next": "safe_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Commonest cyanotic CHD; so most cyanotic neonates have TOF",
+          "next": "safe_t6",
+          "kind": "trap",
+          "trap": "TR6"
+        }
+      ],
+      "objectives": [
+        "O3"
+      ]
+    },
+    "safe_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. TOF is the most common cyanotic congenital heart disease, and it most commonly presents as a cyanotic neonate.",
+          "claims": [
+            "K1",
+            "K24"
+          ]
+        },
+        {
+          "text": "Both hold, and pink Tets still exist.",
+          "claims": [
+            "K23"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ausc",
+          "kind": "continue"
+        }
+      ]
+    },
+    "safe_t7": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the first line is true, so 'always' feels like a small step. But pink Tets are asymptomatic apart from a loud murmur.",
+          "claims": [
+            "K1",
+            "K23"
+          ]
+        },
+        {
+          "text": "The safe wording: most commonly presents as a cyanotic neonate.",
+          "claims": [
+            "K24"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ausc",
+          "kind": "continue"
+        }
+      ]
+    },
+    "safe_t6": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: it swaps the direction of the pair. The source says TOF is the most common cyanotic CHD, and that TOF most commonly presents as a cyanotic neonate.",
+          "claims": [
+            "K1",
+            "K24"
+          ]
+        },
+        {
+          "text": "Keep the two statements separate: one ranks TOF among cyanotic CHD, the other describes how TOF presents.",
+          "claims": [
+            "K1",
+            "K24"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ausc",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ausc": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Now listen to a 6-month-old with TOF at the left upper sternal border.",
+          "claims": []
+        },
+        {
+          "text": "Which auscultation fits?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Harsh ejection murmur, pulmonary S2 component inaudible",
+          "next": "ausc_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Harsh ejection murmur, loud pulmonary S2 component",
+          "next": "ausc_t15a",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Harsh ejection murmur, widely split S2",
+          "next": "ausc_t15b",
+          "kind": "trap",
+          "trap": "TR15"
+        }
+      ],
+      "objectives": [
+        "O4"
+      ]
+    },
+    "ausc_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The murmur is harsh systolic ejection, best heard at the left mid to upper sternal border with posterior radiation, and the pulmonic component of S2 is usually inaudible.",
+          "claims": [
+            "K25",
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "spell",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ausc_t15a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: 'pulmonary' lesions bring to mind a loud P2. But in TOF the pulmonic component of S2 is usually inaudible.",
+          "claims": [
+            "K27"
+          ]
+        },
+        {
+          "text": "Blood bypasses the pulmonary bed when obstruction is significant, so little reaches that valve.",
+          "claims": [
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "spell",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ausc_t15b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a split S2 is a familiar exam sound, so it attracts a pick. But in TOF the pulmonic component of S2 is usually inaudible, so there is little to split.",
+          "claims": [
+            "K27"
+          ]
+        },
+        {
+          "text": "The murmur itself is harsh systolic ejection at the left mid to upper sternal border.",
+          "claims": [
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "spell",
+          "kind": "continue"
+        }
+      ]
+    },
+    "spell": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Back to the same child at 4 months. He has been crying hard, turns deeply blue and breathes fast. Agitation can trigger a tet spell.",
+          "claims": [
+            "K28"
+          ]
+        },
+        {
+          "text": "Before you listen, predict: how does the systolic murmur change during the spell?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "It becomes softer",
+          "next": "spell_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "It becomes louder",
+          "next": "spell_t8a",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "It stays the same",
+          "next": "spell_t8b",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Give me a hint",
+          "next": "spell_hint",
+          "kind": "help"
+        }
+      ],
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true
+    },
+    "spell_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Do not use the usual rule yet. In this moment, where is the blood going: across the RVOT or toward the aorta?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "spellr",
+          "kind": "retry"
+        }
+      ]
+    },
+    "spell_t8a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the greater the obstruction, the more prominent the murmur.",
+          "claims": [
+            "K26"
+          ]
+        },
+        {
+          "text": "Hold that rule and ask where the blood is going right now, in the middle of a spell.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "spellr",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is worth a second look: a rule from the resting state does not automatically hold during a spell.",
+        "claims": [
+          "K26"
+        ]
+      }
+    },
+    "spell_t8b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the anatomy has not changed, so the murmur should not either. But the child's state has changed: he is blue and breathing fast.",
+          "claims": []
+        },
+        {
+          "text": "Ask where the blood is going right now.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "spellr",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note: a spell is a change in flow, not in anatomy.",
+        "claims": [
+          "K20"
+        ]
+      }
+    },
+    "spellr": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Same child, deep in the spell. How does the murmur change?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "It becomes softer",
+          "next": "spell_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "It becomes louder",
+          "next": "spell_ex",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "It stays the same",
+          "next": "spell_ex",
+          "kind": "trap",
+          "trap": "TR8"
+        }
+      ],
+      "objectives": [
+        "O4"
+      ]
+    },
+    "spell_ex": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Trace it. With significant obstruction, most blood shunts toward the aorta, bypassing the pulmonary bed. Less blood crosses the RVOT, so less noise.",
+          "claims": [
+            "K20"
+          ]
+        },
+        {
+          "text": "That is why the intensity of the murmur decreases during a tet spell, even though at rest more obstruction means a more prominent murmur.",
+          "claims": [
+            "K29",
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "not",
+          "kind": "continue"
+        }
+      ]
+    },
+    "spell_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. During a tet spell the intensity of the murmur decreases.",
+          "claims": [
+            "K29"
+          ]
+        },
+        {
+          "text": "Why: most blood shunts toward the aorta, bypassing the pulmonary bed, so less crosses the RVOT. At rest, more obstruction means a more prominent murmur.",
+          "claims": [
+            "K20",
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "not",
+          "kind": "continue"
+        }
+      ]
+    },
+    "not": {
+      "role": "probe",
+      "objectives": [
+        "O3",
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Two weeks later, a doctor lists four findings. Three fit TOF and one does not.",
+          "claims": []
+        },
+        {
+          "text": "Which does NOT fit?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A murmur that softens during a spell",
+          "next": "not_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "A loud pulmonic component of S2",
+          "next": "not_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "An inaudible pulmonic component of S2",
+          "next": "not_t15",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "A pink infant with a loud murmur and TOF on echo",
+          "next": "not_t7",
+          "kind": "trap",
+          "trap": "TR7"
+        }
+      ]
+    },
+    "not_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. The pulmonic component of S2 is usually inaudible, so a loud one does not fit.",
+          "claims": [
+            "K27"
+          ]
+        },
+        {
+          "text": "The other three do fit: a softer murmur in a spell, a pink Tet, and an inaudible P2.",
+          "claims": [
+            "K29",
+            "K23",
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ret",
+          "kind": "continue"
+        }
+      ]
+    },
+    "not_t15": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: an inaudible P2 sounds like a missing finding, not a feature. But it is the usual finding in TOF.",
+          "claims": [
+            "K27"
+          ]
+        },
+        {
+          "text": "The one that does not fit is the loud pulmonary component.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ret",
+          "kind": "continue"
+        }
+      ]
+    },
+    "not_t8": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: at rest, more obstruction means a more prominent murmur, so a softer one looks wrong.",
+          "claims": [
+            "K26"
+          ]
+        },
+        {
+          "text": "But it fits: during a tet spell the murmur's intensity decreases. The odd one out is a loud pulmonic S2, since P2 is usually inaudible.",
+          "claims": [
+            "K29",
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ret",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ret": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "A mother says: 'Doctor, last week you heard a loud murmur; today it is almost gone, so he must be better.' The baby is deeply blue and crying.",
+          "claims": []
+        },
+        {
+          "text": "What is going on?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A hypercyanotic spell: less blood crosses the RVOT",
+          "next": "ret_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Improvement: the obstruction is lessening",
+          "next": "ret_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Heart failure from left ventricular dysfunction",
+          "next": "ret_t11",
+          "kind": "trap",
+          "trap": "TR11"
+        }
+      ],
+      "objectives": [
+        "O3",
+        "O4"
+      ]
+    },
+    "ret_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. During a tet spell the intensity of the murmur decreases: with significant obstruction, most blood shunts toward the aorta, bypassing the pulmonary bed.",
+          "claims": [
+            "K29",
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ret_t8": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: at rest, a softer murmur would mean less obstruction, since more obstruction gives a more prominent murmur.",
+          "claims": [
+            "K26"
+          ]
+        },
+        {
+          "text": "But in a spell the intensity decreases because most blood shunts toward the aorta, bypassing the pulmonary bed.",
+          "claims": [
+            "K29",
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "not_t7": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: it looks odd because TOF most commonly presents as a cyanotic neonate.",
+          "claims": [
+            "K24"
+          ]
+        },
+        {
+          "text": "But it fits: infants with moderate obstruction may be asymptomatic apart from a loud murmur, the 'pink Tets'. The odd one out is a loud pulmonic S2, since P2 is usually inaudible.",
+          "claims": [
+            "K23",
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ret",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ret_t11": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: heart failure is a familiar cause of a breathless, distressed baby.",
+          "claims": []
+        },
+        {
+          "text": "But this baby has TOF, was crying hard, is deeply blue, and his murmur has faded. Agitation can trigger a tet spell, and in a spell the murmur's intensity decreases.",
+          "claims": [
+            "K28",
+            "K29"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  },
+  "technique": "T2+T7",
+  "cards": [
+    {
+      "q": "What makes a 'pink Tet'?",
+      "a": "Moderate RVOT obstruction: infants not diagnosed before birth may be asymptomatic apart from a loud murmur.",
+      "claims": [
+        "K23"
+      ],
+      "objective": "O3"
+    },
+    {
+      "q": "When is a child with TOF minimally cyanotic or acyanotic?",
+      "a": "When resistance across the RVOT is less than systemic vascular resistance.",
+      "claims": [
+        "K22"
+      ],
+      "objective": "O3"
+    },
+    {
+      "q": "Most common cyanotic CHD vs usual presentation of TOF?",
+      "a": "TOF is the most common cyanotic CHD, and it most commonly presents as a cyanotic neonate.",
+      "claims": [
+        "K1",
+        "K24"
+      ],
+      "objective": "O3"
+    },
+    {
+      "q": "Auscultation in TOF?",
+      "a": "Harsh systolic ejection murmur at the left mid to upper sternal border, radiating posteriorly; P2 usually inaudible.",
+      "claims": [
+        "K25",
+        "K27"
+      ],
+      "objective": "O4"
+    },
+    {
+      "q": "What happens to the TOF murmur during a tet spell?",
+      "a": "Its intensity decreases.",
+      "claims": [
+        "K29"
+      ],
+      "objective": "O4"
+    }
+  ],
+  "decision": "merge"
+}

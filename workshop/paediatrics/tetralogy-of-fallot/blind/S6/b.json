@@ -1,0 +1,1076 @@
+{
+  "segment": "S6",
+  "entry": "open",
+  "nodes": {
+    "open": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Three problems before I teach anything. Have a go; the misses are useful.",
+          "claims": []
+        },
+        {
+          "text": "A well, pink-enough 6-week-old with TOF, no spells and good-sized pulmonary arteries. When is complete repair usually planned?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Electively, after the first 3 months of life",
+          "next": "t_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Immediately, in the neonatal period",
+          "next": "t_neo",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Deferred until school age",
+          "next": "t_school",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "t_hint",
+          "kind": "help"
+        }
+      ],
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true
+    },
+    "t_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask two things first: is this infant symptomatic, and is there anything high-risk? Then ask which end of the age range a well infant sits at: the first days, or somewhere between.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "open",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. StatPearls describes deferring complete repair to after the first 3 months of life, and the timing is still debated.",
+          "claims": [
+            "K50",
+            "K49"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "bt",
+          "kind": "continue"
+        },
+        {
+          "label": "Go deeper: other sources on timing",
+          "next": "d_time",
+          "kind": "deeper"
+        }
+      ]
+    },
+    "t_neo": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You picked neonatal repair: tempting, because the defects are present from birth. What it misses: this infant is well, so there is no push to operate early.",
+          "claims": []
+        },
+        {
+          "text": "StatPearls describes deferring complete repair to after the first 3 months of life, and the timing is still debated.",
+          "claims": [
+            "K50",
+            "K49"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "bt",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note the qualifier: it is 'a well infant' that gets deferral, not every infant.",
+        "claims": [
+          "K50"
+        ]
+      }
+    },
+    "t_school": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You picked school age: tempting, because waiting sounds safer for a small child. What it misses: the deferral is short, to after the first 3 months, not years.",
+          "claims": []
+        },
+        {
+          "text": "StatPearls describes deferring complete repair to after the first 3 months of life.",
+          "claims": [
+            "K50"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "bt",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so recheck the unit: months, not school years.",
+        "claims": [
+          "K50"
+        ]
+      }
+    },
+    "d_time": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Not core, so take it with care. One group of authors considers 3-6 months likely ideal for elective repair in asymptomatic patients.",
+          "claims": [
+            "K51"
+          ],
+          "flag": "unverified"
+        },
+        {
+          "text": "The same authors prefer primary neonatal or early repair for symptomatic infants.",
+          "claims": [
+            "K52"
+          ],
+          "flag": "unverified"
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "d_time2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "d_time2": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "They reserve initial palliation for infants with high-risk features: low birth weight or prematurity, and small or discontinuous pulmonary arteries.",
+          "claims": [
+            "K55"
+          ],
+          "flag": "unverified"
+        },
+        {
+          "text": "They do not palliate neonates without high-risk features.",
+          "claims": [
+            "K56"
+          ],
+          "flag": "unverified"
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "bt",
+          "kind": "continue"
+        }
+      ]
+    },
+    "bt": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Problem two. Some infants need an operation that sends more blood to the lungs before repair.",
+          "claims": []
+        },
+        {
+          "text": "The Blalock-Taussig shunt connects which two structures?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Ascending aorta to right pulmonary artery",
+          "next": "b_aorta",
+          "kind": "trap",
+          "trap": "TR19"
+        },
+        {
+          "label": "Superior vena cava to right pulmonary artery",
+          "next": "b_svc",
+          "kind": "trap",
+          "trap": "TR19"
+        },
+        {
+          "label": "Subclavian artery to ipsilateral pulmonary artery",
+          "next": "b_ok",
+          "kind": "correct"
+        }
+      ],
+      "objectives": [
+        "O8"
+      ]
+    },
+    "b_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The Blalock-Taussig shunt connects the subclavian artery to the ipsilateral branch pulmonary artery.",
+          "claims": [
+            "K54"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "b_deep_gate",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b_aorta": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You picked aorta to pulmonary artery: tempting, because a shunt must bring systemic blood to the lungs, and the aorta is the obvious source. What it misses: the Blalock-Taussig shunt starts one branch off the aorta.",
+          "claims": []
+        },
+        {
+          "text": "It connects the subclavian artery to the ipsilateral branch pulmonary artery.",
+          "claims": [
+            "K54"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "b_deep_gate",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b_svc": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You picked a vein to pulmonary artery: tempting, because veins also drain towards the lungs. What it misses: the Blalock-Taussig shunt is an artery-to-artery connection.",
+          "claims": []
+        },
+        {
+          "text": "It joins the subclavian artery to the ipsilateral branch pulmonary artery.",
+          "claims": [
+            "K54"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "b_deep_gate",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b_deep_gate": {
+      "role": "recap",
+      "say": [
+        {
+          "text": "Anchor it: subclavian to same-side pulmonary artery.",
+          "claims": [
+            "K54"
+          ],
+          "device": true
+        },
+        {
+          "text": "Want the shunt's role and drawbacks, or move on?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Move on to life after repair",
+          "next": "r1",
+          "kind": "continue"
+        },
+        {
+          "label": "Go deeper: palliation and its costs",
+          "next": "d_bt",
+          "kind": "deeper"
+        }
+      ]
+    },
+    "d_bt": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Not core, so take it with care. The first surgical treatment of TOF was a palliative subclavian-to-pulmonary-artery shunt by Blalock and Taussig.",
+          "claims": [
+            "K53"
+          ],
+          "flag": "unverified"
+        },
+        {
+          "text": "Drawbacks include the limited lifespan of the shunt and more late sudden death.",
+          "claims": [
+            "K57"
+          ],
+          "flag": "unverified"
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "d_bt2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "d_bt2": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Morbidities of initial palliation include pulmonary artery stenosis and distortion, and smaller pulmonary arteries before repair.",
+          "claims": [
+            "K58"
+          ],
+          "flag": "unverified"
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r1": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Problem three: the repair is done and years pass. The child needs another operation.",
+          "claims": []
+        },
+        {
+          "text": "Which is the most common indication for reoperation after TOF repair?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Residual ventricular septal defect",
+          "next": "r_vsd",
+          "kind": "trap",
+          "trap": "TR20"
+        },
+        {
+          "label": "Recurrent infundibular stenosis",
+          "next": "r_inf",
+          "kind": "trap",
+          "trap": "TR20"
+        },
+        {
+          "label": "Pulmonary insufficiency",
+          "next": "r_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "r_hint",
+          "kind": "help"
+        }
+      ],
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true
+    },
+    "r_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the operation itself changed, rather than which old defect might come back. Think about the outflow tract the surgeon had to rebuild.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "r1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "r_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Pulmonary insufficiency is the most common indication for reoperation, and the regurgitation results from reconstruction of the RVOT.",
+          "claims": [
+            "K61",
+            "K73",
+            "K60"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r_why",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r_vsd": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You picked residual VSD: tempting, because the old defects seem like the ones that return. What it misses: the repair itself created a new problem.",
+          "claims": []
+        },
+        {
+          "text": "Pulmonary regurgitation results from reconstruction of the RVOT, and pulmonary insufficiency is the most common indication for reoperation.",
+          "claims": [
+            "K60",
+            "K61"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r_why",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so reverse the habit: ask what the operation changed.",
+        "claims": [
+          "K60"
+        ]
+      }
+    },
+    "r_inf": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You picked recurrent infundibular stenosis: tempting, because the obstruction is the defect you just relieved. What it misses: rebuilding that outflow tract leaves the valve leaking.",
+          "claims": []
+        },
+        {
+          "text": "Pulmonary regurgitation results from reconstruction of the RVOT, and pulmonary insufficiency is the most common indication for reoperation.",
+          "claims": [
+            "K60",
+            "K61"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r_why",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so reverse the habit: ask what the operation changed.",
+        "claims": [
+          "K60"
+        ]
+      }
+    },
+    "r_why": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Same idea, new angle. Why does pulmonary regurgitation follow repair?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "It results from reopening of the VSD patch",
+          "next": "w_vsd",
+          "kind": "trap",
+          "trap": "TR20"
+        },
+        {
+          "label": "It results from reconstruction of the RVOT",
+          "next": "w_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "It results from left ventricular failure",
+          "next": "w_lv",
+          "kind": "trap",
+          "trap": "TR20"
+        }
+      ],
+      "objectives": [
+        "O9"
+      ]
+    },
+    "w_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Correct. Pulmonary regurgitation results from reconstruction of the RVOT. Pulmonary valve replacement can be done surgically or by a transcatheter approach.",
+          "claims": [
+            "K60",
+            "K59"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "w_vsd": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You picked the VSD patch: tempting, because it is the other repair suture line. But the leak is at the pulmonary valve, and the cause is the outflow reconstruction.",
+          "claims": []
+        },
+        {
+          "text": "Pulmonary regurgitation results from reconstruction of the RVOT.",
+          "claims": [
+            "K60"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "w_lv": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You picked LV failure: tempting, because heart failure explains many late problems. But this is a right-sided leak, and its cause is the RVOT reconstruction.",
+          "claims": []
+        },
+        {
+          "text": "Pulmonary regurgitation results from reconstruction of the RVOT.",
+          "claims": [
+            "K60"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a1": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "A 25-year-old had TOF repaired in infancy and asks about the future.",
+          "claims": []
+        },
+        {
+          "text": "Which statement is true?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Repair is curative; arrhythmia risk has ended",
+          "next": "a_cure",
+          "kind": "trap",
+          "trap": "TR21"
+        },
+        {
+          "label": "Endocarditis risk ended with the repair",
+          "next": "a_endo",
+          "kind": "trap",
+          "trap": "TR21"
+        },
+        {
+          "label": "Ventricular arrhythmias and sudden death remain risks",
+          "next": "a_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "a_hint",
+          "kind": "help"
+        }
+      ],
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true
+    },
+    "a_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Look at the qualifier in how these risks are described: does the source say 'repaired', 'unrepaired', or both?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "a1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "a_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Arrhythmias, including ventricular tachycardia, can occur after repair, and patients with TOF, repaired or unrepaired, are at risk of endocarditis.",
+          "claims": [
+            "K62",
+            "K68"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a_cure": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You picked cure: tempting, because the anatomy has been fixed. What it misses: the risks outlast the operation.",
+          "claims": []
+        },
+        {
+          "text": "Arrhythmias, including ventricular tachycardia, can occur after repair. The risk of sudden death is 6-9% 30 years after the procedure.",
+          "claims": [
+            "K62",
+            "K64"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a2",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep the qualifier: follow-up after repair is for these risks.",
+        "claims": [
+          "K62",
+          "K68"
+        ]
+      }
+    },
+    "a_endo": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You picked endocarditis ending: tempting, because repair closes the hole where infection might settle. What it misses: the source names both groups.",
+          "claims": []
+        },
+        {
+          "text": "Patients with TOF, repaired or unrepaired, are at risk of endocarditis.",
+          "claims": [
+            "K68"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a2",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep the phrase 'repaired or unrepaired'.",
+        "claims": [
+          "K68"
+        ]
+      }
+    },
+    "a2": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "About what share of adults with repaired TOF can have ventricular arrhythmias?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Under 1%",
+          "next": "n_low",
+          "kind": "trap",
+          "trap": "TR21"
+        },
+        {
+          "label": "40-50%",
+          "next": "n_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "None after a good repair",
+          "next": "n_none",
+          "kind": "trap",
+          "trap": "TR21"
+        }
+      ],
+      "objectives": [
+        "O9"
+      ]
+    },
+    "n_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes: 40-50% of adults with repaired TOF can have ventricular arrhythmias, and the risk of sudden death is 6-9% 30 years after surgery.",
+          "claims": [
+            "K63",
+            "K64"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "k1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "n_low": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You picked under 1%: tempting, because repair sounds like cure. What it misses: the figure is large.",
+          "claims": []
+        },
+        {
+          "text": "40-50% of adults with repaired TOF can have ventricular arrhythmias.",
+          "claims": [
+            "K63"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "k1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "n_none": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You picked none: tempting, because a good repair feels final. What it misses: arrhythmias can occur after repair.",
+          "claims": []
+        },
+        {
+          "text": "40-50% of adults with repaired TOF can have ventricular arrhythmias.",
+          "claims": [
+            "K63"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "k1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "k1": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Last problem. Without surgery, which is the most frequent cause of death in TOF?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Brain abscess",
+          "next": "k_abs",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Cerebrovascular accident",
+          "next": "k_cva",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Hypoxic spells",
+          "next": "k_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "k_hint",
+          "kind": "help"
+        }
+      ],
+      "objectives": [
+        "O10"
+      ],
+      "ask_confidence": true
+    },
+    "k_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "You have spent time on one sudden event in this module. Which cause would you expect to be the most frequent: the dramatic late complication, or the event that can happen at any crying bout?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "k1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "k_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Hypoxic spells are the most frequent cause of death without surgery, at 68%.",
+          "claims": [
+            "K65",
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "k2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "k_abs": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You picked brain abscess: tempting, because it is the vivid complication of chronic hypoxaemia, and it is real. What it misses: it is less frequent.",
+          "claims": []
+        },
+        {
+          "text": "Brain abscesses account for 13%, and hypoxic spells for 68%.",
+          "claims": [
+            "K66",
+            "K65"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "k2",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so let frequency outrank vividness.",
+        "claims": [
+          "K67",
+          "K74"
+        ]
+      }
+    },
+    "k_cva": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You picked stroke: tempting, because hyperviscosity makes it a known complication. What it misses: it ranks second.",
+          "claims": []
+        },
+        {
+          "text": "Cerebrovascular accidents account for 17%, and hypoxic spells for 68%.",
+          "claims": [
+            "K66",
+            "K65"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "k2",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so let frequency outrank vividness.",
+        "claims": [
+          "K67",
+          "K74"
+        ]
+      }
+    },
+    "k2": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Put numbers on it. Without surgery, deaths from hypoxic spells, stroke and brain abscess are roughly:",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "13%, 17% and 68%",
+          "next": "m_rev",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "17%, 68% and 13%",
+          "next": "m_swap",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "68%, 17% and 13%",
+          "next": "m_ok",
+          "kind": "correct"
+        }
+      ],
+      "objectives": [
+        "O10"
+      ]
+    },
+    "m_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes: 68% hypoxic spells, 17% cerebrovascular accidents, 13% brain abscesses.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wrap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "m_rev": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You reversed the order: tempting, because the dramatic causes feel biggest. Spells lead.",
+          "claims": []
+        },
+        {
+          "text": "Hypoxic spells 68%, cerebrovascular accidents 17%, brain abscesses 13%.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wrap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "m_swap": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "You swapped the top two: tempting, because the shares are easy to shuffle. Anchor it: spells are about two-thirds.",
+          "claims": []
+        },
+        {
+          "text": "Hypoxic spells 68%, cerebrovascular accidents 17%, brain abscesses 13%.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wrap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wrap": {
+      "role": "recap",
+      "say": [
+        {
+          "text": "Your misses showed the pattern: timing, shunt, repair legacy and killer each hide a qualifier.",
+          "claims": [],
+          "device": true
+        },
+        {
+          "text": "Well infant: repair after 3 months. BT: subclavian to pulmonary artery. After repair: pulmonary insufficiency, arrhythmia, endocarditis. Unrepaired: spells first.",
+          "claims": [
+            "K50",
+            "K54",
+            "K61",
+            "K62",
+            "K68",
+            "K65"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "On to the PYQ traps",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}

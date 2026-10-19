@@ -1,0 +1,1001 @@
+{
+  "segment": "S8",
+  "entry": "start",
+  "nodes": {
+    "start": {
+      "role": "bridge",
+      "say": [
+        {
+          "text": "Last stretch. You will build the one-page TOF summary yourself, one piece at a time, with no teaching first.",
+          "claims": []
+        },
+        {
+          "text": "Pick the line you would want on your own revision sheet.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Start building",
+          "next": "p1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p1": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Piece 1: the anatomy. Which set lists the four components of classic TOF?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "VSD, overriding aorta, pulmonary stenosis, ASD",
+          "next": "p1_tr1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "VSD, overriding aorta, RVOT obstruction, RVH",
+          "next": "p1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "VSD, overriding aorta, RVOT obstruction, LVH",
+          "next": "p1_tr14",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Give me a hint",
+          "next": "p1_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Start from one septal defect and ask which ventricle faces the obstruction. Which ventricle would thicken?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "p1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p1_tr1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "ASD is tempting: it is a familiar shunt that sits beside cyanotic heart disease, so it slips into the list.",
+          "claims": []
+        },
+        {
+          "text": "But ASD and PDA only may accompany TOF; the four listed by StatPearls and CDC include no ASD, PDA or LVH.",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "The fourth component is right ventricular hypertrophy.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pause here: the four come from one malaligned septum, not from a list of shunts.",
+        "claims": [
+          "K3",
+          "K13"
+        ]
+      }
+    },
+    "p1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes: a large, anteriorly malaligned VSD, an overriding aorta, infundibular RVOT obstruction and right ventricular hypertrophy.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "ASD and PDA may accompany TOF but are not among the four. PYQs have keyed PDA, ASD and LVH as not part of TOF.",
+          "claims": [
+            "K13",
+            "K77"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p1_tr14": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "LVH is tempting because 'ventricular hypertrophy' was stored without a side.",
+          "claims": []
+        },
+        {
+          "text": "The ventricle that thickens is the one pushing against the narrowed outflow: right ventricular hypertrophy, secondary to chronic systemic pressures. LVH is not among the four.",
+          "claims": [
+            "K12",
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pause here: the thick ventricle in TOF is the right one.",
+        "claims": [
+          "K12"
+        ]
+      }
+    },
+    "p2": {
+      "role": "probe",
+      "objectives": [
+        "O2",
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Piece 2: the chain. Which sequence puts cause before effect?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Large VSD floods the lungs, then left ventricle overloads, then LVH",
+          "next": "p2_tr14",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Malaligned VSD, then infundibular narrowing, then RV pressure load, then RVH",
+          "next": "p2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "RV muscle thickens first, which then narrows the infundibulum, then the VSD",
+          "next": "p2_tr2",
+          "kind": "trap",
+          "trap": "TR2"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p2_tr14": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "A shunt that floods the lungs is tempting because most holes in the septum do that.",
+          "claims": []
+        },
+        {
+          "text": "In TOF, with significant RVOT obstruction most blood shunts toward the aorta, bypassing the pulmonary bed. The ventricle that hypertrophies is the right one.",
+          "claims": [
+            "K20",
+            "K12"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so recheck the direction of flow: past the obstruction, towards the aorta.",
+        "claims": [
+          "K20"
+        ]
+      }
+    },
+    "p2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. The malaligned septum comes with infundibular obstruction, and the right ventricle then hypertrophies, secondary to chronic systemic pressures.",
+          "claims": [
+            "K3",
+            "K11",
+            "K12"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p2_tr2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "This reverses cause and effect. A thick muscle looks like a primary lesion, so it is tempting to start there.",
+          "claims": []
+        },
+        {
+          "text": "RVH is secondary to chronic systemic pressures, so it sits at the end of the chain, after the infundibular obstruction.",
+          "claims": [
+            "K12",
+            "K11"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so recheck: the hypertrophy is a consequence, not the start.",
+        "claims": [
+          "K12"
+        ]
+      }
+    },
+    "p3": {
+      "role": "probe",
+      "objectives": [
+        "O5",
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Piece 3: ECG and film. Which pair belongs on the summary?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Right axis deviation with prominent R in V1; oligaemic lung fields",
+          "next": "p3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Left axis deviation with LVH pattern; plethoric lung fields",
+          "next": "p3_tr14",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Right axis deviation with RVH pattern; increased pulmonary vascular markings",
+          "next": "p3_tr5",
+          "kind": "trap",
+          "trap": "TR5"
+        }
+      ]
+    },
+    "p3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The ECG shows right axis deviation and prominent R or qR waves in V1. Blood bypasses the lungs, so the film can show pulmonary oligaemia.",
+          "claims": [
+            "K30",
+            "K20",
+            "K21"
+          ]
+        },
+        {
+          "text": "StatPearls describes a normal-size heart silhouette; the boot shape is a classic that may be seen.",
+          "claims": [
+            "K31",
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p3_tr14": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Left-sided changes are tempting if hypertrophy is stored without a side and a VSD is expected to flood the lungs.",
+          "claims": []
+        },
+        {
+          "text": "The load is on the right ventricle, so the ECG is right-sided, and with RVOT obstruction most blood bypasses the pulmonary bed.",
+          "claims": [
+            "K30",
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p3_tr5": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The ECG half is right, which makes the second half tempting: a VSD sounds like extra lung flow.",
+          "claims": []
+        },
+        {
+          "text": "But the blood is shunted toward the aorta, so the film can show decreased pulmonary vascular markings, not increased ones.",
+          "claims": [
+            "K20",
+            "K21"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p4": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Piece 4: the test ladder. Which line is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Catheterisation is the gold standard; echo is only a screen",
+          "next": "p4_tr12",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "MRI is first-line diagnosis; echo is kept for follow-up",
+          "next": "p4_tr13",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Echo diagnoses; CT shows morphology; MRI adds function without radiation",
+          "next": "p4_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "p4_tr12": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Catheterisation sounds like the invasive, definitive test, so it is tempting as gold standard.",
+          "claims": []
+        },
+        {
+          "text": "The source names the echocardiogram as the gold standard for diagnosis; it allows direct visualisation of the abnormal anatomy.",
+          "claims": [
+            "K6",
+            "K35"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p4_tr13": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "MRI is tempting because it gives rich detail without radiation, so it feels like a better first test.",
+          "claims": []
+        },
+        {
+          "text": "But echocardiography remains the primary modality for diagnosis. MRI adds anatomical detail plus functional information.",
+          "claims": [
+            "K35",
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p4_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Echocardiography is the gold standard and primary diagnostic modality; contrast-enhanced CT shows the complex morphology; MRI gives anatomy and function without ionising radiation.",
+          "claims": [
+            "K6",
+            "K37",
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p5": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Piece 5: a tet spell. Which order of steps goes on the summary?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Phenylephrine, then morphine, then knee-chest position and oxygen",
+          "next": "p5_tr10",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Oxygen, then IV furosemide, then digoxin",
+          "next": "p5_tr11",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Knee-chest position and oxygen, then IV fluids, then beta-blocker or phenylephrine",
+          "next": "p5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Give me a hint",
+          "next": "p5_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p5_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think of what you can do in seconds with no drug, then volume, then drugs. Which measures need no cannula?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "p5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p5_tr10": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Starting with the strongest drug is tempting because a blue, limp child looks like an emergency for drugs.",
+          "claims": []
+        },
+        {
+          "text": "But the list begins with the bedside levers, knee-chest positioning and oxygen. Morphine is a sedative given during a spell.",
+          "claims": [
+            "K43",
+            "K44",
+            "K48"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p5",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is worth a second look: bedside levers come before drugs.",
+        "claims": [
+          "K43",
+          "K44"
+        ]
+      }
+    },
+    "p5_tr11": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "A diuretic and digoxin are tempting if a breathless child is read as heart failure.",
+          "claims": []
+        },
+        {
+          "text": "Each spell measure acts on systemic resistance, pulmonary vasodilation or RV filling, such as fluid boluses to improve RV filling. A diuretic empties the RV further.",
+          "claims": [
+            "K43",
+            "K44",
+            "K45"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p5",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is worth a second look: a spell is about resistance and filling, not congestion.",
+        "claims": [
+          "K22",
+          "K45"
+        ]
+      }
+    },
+    "p5_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Spells need a rapid, aggressive approach, and the list runs: knee-chest to raise systemic resistance, oxygen for pulmonary vasodilation, IV fluid boluses for RV filling.",
+          "claims": [
+            "K42",
+            "K43",
+            "K44",
+            "K45"
+          ]
+        },
+        {
+          "text": "Then IV beta-blockers slow the heart rate, and IV phenylephrine raises systemic afterload.",
+          "claims": [
+            "K46",
+            "K47"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p6": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Piece 6: levers. Which two measures share the same aim?",
+          "claims": []
+        },
+        {
+          "text": "Aim: raise systemic afterload.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Knee-chest position and oxygen",
+          "next": "p6_tr9",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "IV furosemide and digoxin",
+          "next": "p6_tr11",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Knee-chest position and IV phenylephrine",
+          "next": "p6_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "p6_tr9": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Pairing them is tempting if positioning is thought to help the lungs directly.",
+          "claims": []
+        },
+        {
+          "text": "Oxygen causes pulmonary vasodilation, but knee-chest positioning acts on the systemic side, to increase systemic vascular resistance. If resistance across the RVOT is less than systemic resistance, the child is minimally cyanotic or acyanotic.",
+          "claims": [
+            "K44",
+            "K43",
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p6",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p6_tr11": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Heart-failure drugs are tempting for a child who looks breathless and limp.",
+          "claims": []
+        },
+        {
+          "text": "The spell measures aim at systemic resistance, pulmonary vasodilation and RV filling. Neither a diuretic nor digoxin is among them.",
+          "claims": [
+            "K43",
+            "K44",
+            "K45",
+            "K47"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p6",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p6_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Knee-chest positioning increases systemic vascular resistance, and IV phenylephrine increases systemic afterload. Oxygen works on the pulmonary side.",
+          "claims": [
+            "K43",
+            "K47",
+            "K44"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p7": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Piece 7: after repair. Which line belongs on the summary?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Residual VSD is the commonest reoperation reason; late risks continue",
+          "next": "p7_tr20",
+          "kind": "trap",
+          "trap": "TR20"
+        },
+        {
+          "label": "Pulmonary insufficiency is the commonest reoperation reason; late risks end",
+          "next": "p7_tr21",
+          "kind": "trap",
+          "trap": "TR21"
+        },
+        {
+          "label": "Pulmonary insufficiency is the commonest reoperation reason; late risks continue",
+          "next": "p7_ok",
+          "kind": "correct"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p7_tr20": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Residual VSD is tempting if surgery is imagined to leave the old defects behind.",
+          "claims": []
+        },
+        {
+          "text": "The repair itself changes the RVOT: reconstruction produces pulmonary regurgitation, and pulmonary insufficiency is the most common indication for reoperation.",
+          "claims": [
+            "K60",
+            "K61"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p7",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask what the operation itself changed: the RVOT.",
+        "claims": [
+          "K60"
+        ]
+      }
+    },
+    "p7_tr21": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The second half is tempting because repair feels like cure.",
+          "claims": []
+        },
+        {
+          "text": "But arrhythmias, including ventricular tachycardia, can occur after repair, and patients with TOF, repaired or unrepaired, are at risk of endocarditis.",
+          "claims": [
+            "K62",
+            "K68"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p7",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note the qualifier: repaired or unrepaired.",
+        "claims": [
+          "K68"
+        ]
+      }
+    },
+    "p7_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Pulmonary regurgitation results from reconstruction of the RVOT, and pulmonary insufficiency is the most common indication for reoperation.",
+          "claims": [
+            "K60",
+            "K61"
+          ]
+        },
+        {
+          "text": "Ventricular tachycardia can occur after repair, and patients with TOF, repaired or unrepaired, are at risk of endocarditis.",
+          "claims": [
+            "K62",
+            "K68"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p8",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p8": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Piece 8: a number for the sheet. About what share of adults with repaired TOF can have ventricular arrhythmias?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "40–50%",
+          "next": "p8_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Under 1%",
+          "next": "p8_tr21",
+          "kind": "trap",
+          "trap": "TR21"
+        }
+      ]
+    },
+    "p8_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes: 40–50% of adults with repaired TOF can have ventricular arrhythmias. Sudden death risk is 6–9% 30 years after the procedure.",
+          "claims": [
+            "K63",
+            "K64"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wrap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p8_tr21": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "A good repair feels like it should end the risk, which makes this tempting.",
+          "claims": []
+        },
+        {
+          "text": "Yet 40–50% of adults with repaired TOF can have ventricular arrhythmias.",
+          "claims": [
+            "K63"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p8",
+          "kind": "retry"
+        }
+      ]
+    },
+    "wrap": {
+      "role": "recap",
+      "say": [
+        {
+          "text": "Your sheet: one malaligned septum gives the four; RV load gives right-sided ECG and oligaemic lungs; echo diagnoses; spells are managed by resistance and filling levers.",
+          "claims": [
+            "K3",
+            "K30",
+            "K21",
+            "K6",
+            "K43",
+            "K45"
+          ]
+        },
+        {
+          "text": "Without surgery, hypoxic spells (68%) lead the causes of death.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show my review cards",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  },
+  "cards": [
+    {
+      "q": "Four components of classic TOF?",
+      "a": "Large anteriorly malaligned VSD, overriding aorta, infundibular RVOT obstruction, RV hypertrophy. ASD and PDA may accompany but are not among the four.",
+      "claims": [
+        "K3",
+        "K13"
+      ],
+      "objective": "O1"
+    },
+    {
+      "q": "Why does RVH occur in TOF?",
+      "a": "It is secondary to chronic systemic pressures, after infundibular obstruction.",
+      "claims": [
+        "K12",
+        "K11"
+      ],
+      "objective": "O2"
+    },
+    {
+      "q": "TOF ECG and lung fields?",
+      "a": "Right axis deviation, prominent R or qR in V1; decreased pulmonary vascular markings.",
+      "claims": [
+        "K30",
+        "K21"
+      ],
+      "objective": "O5"
+    },
+    {
+      "q": "Gold standard for TOF diagnosis?",
+      "a": "Echocardiography; contrast CT shows complex morphology, MRI adds function without ionising radiation.",
+      "claims": [
+        "K6",
+        "K37",
+        "K39"
+      ],
+      "objective": "O6"
+    },
+    {
+      "q": "Tet spell levers?",
+      "a": "Knee-chest raises systemic resistance, oxygen dilates the pulmonary bed, fluids improve RV filling, beta-blockers slow rate, phenylephrine raises afterload.",
+      "claims": [
+        "K43",
+        "K44",
+        "K45",
+        "K46",
+        "K47"
+      ],
+      "objective": "O7"
+    },
+    {
+      "q": "Commonest reoperation after repair?",
+      "a": "Pulmonary insufficiency, from RVOT reconstruction; arrhythmia and endocarditis risks remain.",
+      "claims": [
+        "K61",
+        "K60",
+        "K62",
+        "K68"
+      ],
+      "objective": "O9"
+    }
+  ]
+}
