@@ -1,0 +1,183 @@
+{
+  "segment": "S1",
+  "technique": "T4",
+  "entry": "start",
+  "nodes": {
+    "start": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Before I teach anything, take a real exam stem. A guess is fine; it shows me where to start.", "claims": []},
+        {"text": "Which is the most common surgical emergency of the abdomen?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Acute cholecystitis", "next": "t_chole", "kind": "trap", "trap": "TR13"},
+        {"label": "Acute appendicitis", "next": "ok1", "kind": "correct"},
+        {"label": "Perforated peptic ulcer", "next": "t_ulcer", "kind": "trap", "trap": "TR13"},
+        {"label": "Not sure, give me a hint", "next": "hint1", "kind": "help"}
+      ]
+    },
+    "ok1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Acute appendicitis is the commonest surgical emergency of the abdomen, so the word 'most common' points straight at it.", "claims": ["K1", "K91"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "teach1", "kind": "continue"}
+      ]
+    },
+    "t_chole": {
+      "role": "feedback",
+      "say": [
+        {"text": "You picked acute cholecystitis. It is tempting: it is a sharp, operative emergency, so it feels like the biggest one on the list.", "claims": []},
+        {"text": "But 'most common' counts how often a disease occurs, and appendicitis occurs more often [K1]. Frequency is the test here, not severity.", "claims": ["K1"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the qualifier next time: 'most common' asks for frequency, not severity [K1].", "claims": ["K1"]},
+      "choices": [
+        {"label": "Next", "next": "teach1", "kind": "continue"}
+      ]
+    },
+    "t_ulcer": {
+      "role": "feedback",
+      "say": [
+        {"text": "You picked perforated peptic ulcer. It is tempting: a perforation is dramatic and life-threatening, and exams love it.", "claims": []},
+        {"text": "But the stem asks for the commonest, and appendicitis is more frequent [K1]. Danger is a different question from frequency.", "claims": ["K1"]}
+      ],
+      "sure_note": {"text": "You were sure, so look at the qualifier again: 'most common' asks for frequency, and appendicitis leads [K91].", "claims": ["K91"]},
+      "choices": [
+        {"label": "Next", "next": "teach1", "kind": "continue"}
+      ]
+    },
+    "hint1": {
+      "role": "hint",
+      "say": [
+        {"text": "Reread the qualifier: 'most common' counts how many patients, not how sick they are. Which would fill the most places on an emergency surgical list?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "start", "kind": "retry"},
+        {"label": "Show me the reasoning", "next": "teach1", "kind": "continue"}
+      ]
+    },
+    "teach1": {
+      "role": "explain",
+      "objectives": ["O1"],
+      "say": [
+        {"text": "So the answer is appendicitis, and the qualifier decides it. 'Most common' counts cases, and appendicitis tops that count among surgical emergencies [K1].", "claims": ["K1"]},
+        {"text": "It is also the commonest non-obstetric surgical emergency in pregnancy [K97]. Peak age is the second and third decades [K17], so think of it first in a young adult with pain.", "claims": ["K97", "K17"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "age_q", "kind": "continue"}
+      ]
+    },
+    "age_q": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Second problem, same rule: commit before I teach.", "claims": []},
+        {"text": "An 8-year-old has a recent viral illness and right iliac fossa pain. What is the commonest cause of the blockage in this child?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Faecolith", "next": "t_faec", "kind": "trap", "trap": "TR15"},
+        {"label": "Intestinal worms", "next": "p_worms", "kind": "partial"},
+        {"label": "Lymphoid hyperplasia", "next": "ok2", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "hint2", "kind": "help"}
+      ]
+    },
+    "hint2": {
+      "role": "hint",
+      "say": [
+        {"text": "Start with the age in the stem. Think about what fills a child's appendix, and what changes as the child grows up.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "age_q", "kind": "retry"},
+        {"label": "Show me the answer", "next": "reveal2", "kind": "continue"}
+      ]
+    },
+    "reveal2": {
+      "role": "explain",
+      "say": [
+        {"text": "The answer is lymphoid hyperplasia, which often follows a viral illness and leads in children [K14][K94].", "claims": ["K14", "K94"]},
+        {"text": "Faecolith is the adult cause, and you will meet it in a moment [K15].", "claims": ["K15"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "age_adult", "kind": "continue"}
+      ]
+    },
+    "ok2": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. In a child, lymphoid hyperplasia, often after a viral illness, is the usual cause of the blockage [K14][K94].", "claims": ["K14", "K94"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "age_adult", "kind": "continue"}
+      ]
+    },
+    "t_faec": {
+      "role": "feedback",
+      "say": [
+        {"text": "You picked faecolith. It is tempting: it is the classic blockage, and it is the cause most scans show.", "claims": []},
+        {"text": "But the age decides it. A child's appendix is full of lymphoid tissue, and hyperplasia of that tissue is the usual cause in children [K14][K94].", "claims": ["K14", "K94"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the age before the cause: the stone is the adult pattern [K15][K95].", "claims": ["K15", "K95"]},
+      "choices": [
+        {"label": "Next", "next": "age_adult", "kind": "continue"}
+      ]
+    },
+    "p_worms": {
+      "role": "feedback",
+      "say": [
+        {"text": "Worms are a real cause, so you are not far off.", "claims": []},
+        {"text": "But they are less common than lymphoid hyperplasia in a child [K16]. Pick the commonest cause, not any cause.", "claims": ["K16"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "age_adult", "kind": "continue"}
+      ]
+    },
+    "age_adult": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "The mirror. Same rule, different age.", "claims": []},
+        {"text": "A 45-year-old's CT shows an appendicolith. What is the commonest cause of the blockage at this age?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Faecolith", "next": "ok3", "kind": "correct"},
+        {"label": "Lymphoid hyperplasia", "next": "t_lymph", "kind": "trap", "trap": "TR15"}
+      ]
+    },
+    "ok3": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. In adults the usual cause is a faecolith, because the lymphoid tissue has shrunk by then [K15][K95][K23].", "claims": ["K15", "K95", "K23"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "teach2", "kind": "continue"}
+      ]
+    },
+    "t_lymph": {
+      "role": "feedback",
+      "say": [
+        {"text": "You picked lymphoid hyperplasia. It is tempting: it was the answer to the child stem a moment ago, so the cause feels familiar.", "claims": []},
+        {"text": "But the age has changed. Lymphoid tissue is richest in youth and atrophies with age [K23]. In adults the usual cause is a faecolith [K15][K95].", "claims": ["K23", "K15", "K95"]}
+      ],
+      "sure_note": {"text": "You were sure, so notice the mirror: the same cause can be right at one age and wrong at another [K23].", "claims": ["K23"]},
+      "choices": [
+        {"label": "Next", "next": "teach2", "kind": "continue"}
+      ]
+    },
+    "teach2": {
+      "role": "explain",
+      "objectives": ["O2"],
+      "say": [
+        {"text": "The cause follows the age. Lymphoid tissue peaks in children and adolescents and then atrophies [K23], so lymphoid hyperplasia leads in the young [K14].", "claims": ["K23", "K14"]},
+        {"text": "In adults a faecolith leads, and it carries a higher risk of perforation [K15][K95]. Worms and tumours are real but less common [K16].", "claims": ["K15", "K95", "K16"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
