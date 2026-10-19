@@ -1,2 +1,3 @@
 - 2026-10-19 orchestrator: S1.ok_both skip relabelled 'one quick check' (strong sim: skip landed on a wall question).
 - 2026-10-19 round 0 composite 3.699 (review 3.65). Refine round 1: S6 rewritten by the editor as a short new-stem cold quiz instead of a new tournament (cost; problem is structural, not technique choice); S1–S5 patched. S3/S4 (3/5) patched rather than rebuilt: issues are local and listed.
+- 2026-10-19 round 1 composite 3.701 (review 3.85, sims engagement 3/5 all). Published round 1 by orchestrator override: within noise of round 0 but carries the structural fixes; below threshold 4.0. Remaining weakness per review: S5 eponym feedback, same-stem retries in S1/S2, S6 overlap with earlier items.
