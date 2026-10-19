@@ -923,7 +923,9 @@ def render_report(mod, path):
     nodes, traps = mod["nodes"], {t["id"]: t for t in mod.get("traps", [])}
     steps = []
     for st in path:
-        n = nodes[st["node"]]
+        n = nodes.get(st["node"])
+        if not n or not n.get("choices") or st.get("choice") is None or st["choice"] >= len(n["choices"]):
+            continue  # end node or a step with no tap
         c = n["choices"][st["choice"]]
         steps.append({"node": st["node"], "role": n.get("role"), "kind": c.get("kind"), "trap": c.get("trap"),
                       "sure": st.get("sure"), "objectives": n.get("objectives", []),
