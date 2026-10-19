@@ -1,0 +1,1 @@
+- 2026-10-19 orchestrator: S1.ok_both skip relabelled 'one quick check' (strong sim: skip landed on a wall question).
