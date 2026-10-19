@@ -134,7 +134,7 @@ class Report(unittest.TestCase):
                                          {"node": "S2.q2", "choice": 0}, {"node": "S2.ok", "choice": 0},
                                          {"node": "S2.q3", "choice": 0}])
         self.assertEqual(rep["traps"]["TR1"], "fell_recovered")
-        self.assertEqual(rep["objectives"]["O1"], "gap")  # half of O1's first answers wrong
+        self.assertEqual(rep["objectives"]["O1"], "shaky")  # half wrong at first, but the latest answer is right
 
     def test_fell_open_and_error_profile(self):
         rep = F.render_report(module(), [{"node": "S1.q1", "choice": 1, "sure": True}, {"node": "S1.t1", "choice": 0},

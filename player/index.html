@@ -214,7 +214,7 @@ function computeReport() {
     const wrong = ans.filter((s) => s.kind !== "correct").length;
     const sureWrong = ans.filter((s) => s.sure === true && s.kind !== "correct").length;
     const guessed = ans.filter((s) => s.sure === false).length;
-    if (openTrap || (ans.length && wrong * 2 >= ans.length)) levels[o.id] = "gap";
+    if (openTrap || (ans.length && wrong * 2 >= ans.length && ans[ans.length - 1].kind !== "correct")) levels[o.id] = "gap";
     else if ((wrong === 0 && sureWrong === 0 && guessed * 2 < Math.max(1, ans.length)) || (lane && wrong === 0)) levels[o.id] = "secure";
     else levels[o.id] = "shaky";
   }

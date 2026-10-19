@@ -26,7 +26,7 @@ Each step: `{node, choice, kind, trap, sure, objectives}`, in order. `kind` is t
 | level | when |
 |---|---|
 | `secure` | all first answers correct, none "Sure" and wrong; or a fast lane was earned (correct + Sure on the diagnostic) |
-| `gap` | at least half the first answers wrong, or any trap linked to the objective is `fell_open` |
+| `gap` | at least half the first answers wrong and the latest one still wrong, or any trap linked to the objective is `fell_open` |
 | `shaky` | anything else (some misses, or right but Guessing on most) |
 | `unseen` | no tagged probe answered |
 

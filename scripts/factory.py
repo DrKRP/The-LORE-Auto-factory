@@ -963,7 +963,7 @@ def render_report(mod, path):
         wrong = sum(s_["kind"] != "correct" for s_ in ans)
         sure_wrong = sum(s_["sure"] is True and s_["kind"] != "correct" for s_ in ans)
         guessed = sum(s_["sure"] is False for s_ in ans)
-        if open_trap or (ans and wrong * 2 >= len(ans)):
+        if open_trap or (ans and wrong * 2 >= len(ans) and ans[-1]["kind"] != "correct"):
             levels[o["id"]] = "gap"
         elif (wrong == 0 and sure_wrong == 0 and guessed * 2 < max(1, len(ans))) or (lane and wrong == 0):
             levels[o["id"]] = "secure"
