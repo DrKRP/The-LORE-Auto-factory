@@ -1,0 +1,1209 @@
+{
+  "segment": "S2",
+  "entry": "start",
+  "nodes": {
+    "start": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 45-year-old has a **high** small bowel block, just beyond the stomach. Nothing else is wrong with the gut.",
+          "claims": []
+        },
+        {
+          "text": "Predict the feature that comes early and dominates. Which one?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Early absolute constipation, with marked distension",
+          "next": "a_h1",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Early profuse vomiting, with little distension",
+          "next": "a_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Four features arrive together, from the first hour",
+          "next": "a_h2",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "a_hg",
+          "kind": "help"
+        }
+      ]
+    },
+    "a_h1": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: constipation and marked distension are the picture of a block low in the bowel, so they feel like the default for any blockage.",
+          "claims": [
+            "K53"
+          ]
+        },
+        {
+          "text": "Ask how much bowel lies below this block, and what has to empty before the patient becomes constipated.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the level first. Distension and constipation are the low-block picture, and this block is high.",
+        "claims": [
+          "K53"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "a_h2": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: the four cardinal features are taught as one package, so it feels natural that they all arrive together.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "Ask which feature depends on the level of the block, and which needs the bowel above the block to be full.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the package is the trap. The four features are a list, and their order depends on where the block sits.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "a_hg": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about the level. A block high in the jejunum leaves the gut above it full and dilated.",
+          "claims": [
+            "K40"
+          ]
+        },
+        {
+          "text": "Which feature comes from that full gut above the block, and which from the emptier gut below?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "start_b": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Same high block, asked again. Commit to the feature that comes early.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Early absolute constipation, with marked distension",
+          "next": "a_x1",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Four features arrive together, from the first hour",
+          "next": "a_x2",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Early profuse vomiting, with little distension",
+          "next": "a_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "a_x1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: constipation and distension feel like the signature of obstruction, so they seem to come first wherever the block sits.",
+          "claims": []
+        },
+        {
+          "text": "Why it fails: the level sets the order. Absolute constipation is late in a high block, because the colon below still empties its stool first, and a high block distends little.",
+          "claims": [
+            "K54",
+            "K53"
+          ]
+        },
+        {
+          "text": "Right: early vomiting, with little distension (K51).",
+          "claims": [
+            "K51"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-check the timeline: the order of the features moves with the level of the block.",
+        "claims": [
+          "K54"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "why",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a_x2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the four features are taught as one package, so they feel as if they should arrive together.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "Why it fails: each feature has its own timeline. A high block vomits early and distends little, and constipation comes late (K51, K53, K54).",
+          "claims": [
+            "K51",
+            "K53",
+            "K54"
+          ]
+        },
+        {
+          "text": "Right: early profuse vomiting, with little distension.",
+          "claims": [
+            "K51"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the package is the trap: the four features arrive in an order set by the level.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "why",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A high block vomits early and profusely, and distension stays minimal (K51, K53).",
+          "claims": [
+            "K51",
+            "K53"
+          ]
+        },
+        {
+          "text": "The gut above the block dilates with gas and fluid, while the gut below empties and collapses (K40).",
+          "claims": [
+            "K40"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "why",
+          "kind": "continue"
+        },
+        {
+          "label": "I know levels and sounds: skip to strangulation",
+          "next": "pain",
+          "kind": "skip"
+        }
+      ]
+    },
+    "why": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Why is absolute constipation **late** in a high block, but **early** in a low block?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Large bowel contents are more solid, so they cannot pass",
+          "next": "why_x1",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Small bowel contents are watery, so flatus still passes",
+          "next": "why_x2",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "The colon below a small bowel block still empties its stool first",
+          "next": "why_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "why_hg",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "why_x1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: solid stool feels like the thing that cannot move, so consistency seems to be the cause.",
+          "claims": []
+        },
+        {
+          "text": "Why it fails: position decides it. A low block has little bowel below it to empty, so constipation is early (K54).",
+          "claims": [
+            "K54"
+          ]
+        },
+        {
+          "text": "Right: the bowel below a small bowel block empties first, so stool and flatus keep passing for a while.",
+          "claims": [
+            "K54"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "snd",
+          "kind": "continue"
+        }
+      ]
+    },
+    "why_x2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: watery small bowel contents feel as if they must move along, so flatus should keep passing.",
+          "claims": []
+        },
+        {
+          "text": "Why it fails: contents above a block cannot pass it, and the bowel above dilates (K40).",
+          "claims": [
+            "K40"
+          ]
+        },
+        {
+          "text": "Right: the colon below the block empties first, which delays constipation in a high block (K54).",
+          "claims": [
+            "K54"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "snd",
+          "kind": "continue"
+        }
+      ]
+    },
+    "why_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Stool in the colon below a small bowel block still passes first, so constipation comes late (K54).",
+          "claims": [
+            "K54"
+          ]
+        },
+        {
+          "text": "Remember the rule: the more bowel lies below the block, the later constipation comes.",
+          "claims": [
+            "K54"
+          ],
+          "device": true
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "snd",
+          "kind": "continue"
+        }
+      ]
+    },
+    "snd": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A fixed block sits in the ileum, and the bowel above it is still trying to move contents along.",
+          "claims": []
+        },
+        {
+          "text": "What do you hear on auscultation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Absent, since nothing can get past the block",
+          "next": "snd_h1",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Hypoactive and low-pitched, like a paralysed gut",
+          "next": "snd_h2",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Hyperactive, high-pitched, tinkling sounds across the abdomen",
+          "next": "snd_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "snd_hg",
+          "kind": "help"
+        }
+      ]
+    },
+    "snd_h1": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: a blocked pipe should be quiet, because nothing seems to be getting through.",
+          "claims": []
+        },
+        {
+          "text": "Ask what the gut is doing at the block. Is it still pushing against the block, or has it stopped working?",
+          "claims": [
+            "K12"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so test the belief: in a fixed block the gut keeps pushing, and that pushing makes noise.",
+        "claims": [
+          "K61"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "snd_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "snd_h2": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: a quiet, slow gut is what paralysis sounds like, so a silent belly feels like a blockage too.",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "Ask which problem this is: a fixed block that the gut is pushing against, or a gut that has stopped working.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate the two. A fixed block and a failed gut are different problems, and they sound different.",
+        "claims": [
+          "K61"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "snd_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "snd_hg": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about peristalsis itself. Is it working against a fixed block, or is it failing?",
+          "claims": [
+            "K12",
+            "K13"
+          ]
+        },
+        {
+          "text": "Then ask what working peristalsis against a block would sound like.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "snd_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "snd_b": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Same fixed ileal block, asked again. What do you hear?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Hyperactive, high-pitched, tinkling sounds across the abdomen",
+          "next": "snd_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Absent, since nothing can get past the block",
+          "next": "snd_x1",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Hypoactive and low-pitched, like a paralysed gut",
+          "next": "snd_x2",
+          "kind": "trap",
+          "trap": "TR18"
+        }
+      ]
+    },
+    "snd_x1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: silence feels like a blockage, because nothing seems to be getting through.",
+          "claims": []
+        },
+        {
+          "text": "Why it fails: in a mechanical block peristalsis is working against the obstruction, so the bowel is loud, not silent (K12, K61).",
+          "claims": [
+            "K12",
+            "K61"
+          ]
+        },
+        {
+          "text": "Right: hyperactive, high-pitched, tinkling sounds mean a mechanical block (K61).",
+          "claims": [
+            "K61"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note the trap: silence points to ileus or late peritonitis, not to a fixed block (K61).",
+        "claims": [
+          "K61"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ile",
+          "kind": "continue"
+        }
+      ]
+    },
+    "snd_x2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a slow, quiet gut feels like the usual picture of an obstructed bowel.",
+          "claims": []
+        },
+        {
+          "text": "Why it fails: a paralysed gut is adynamic, with no fixed block (K13). This patient has a fixed block, so peristalsis is working against it (K12).",
+          "claims": [
+            "K13",
+            "K12"
+          ]
+        },
+        {
+          "text": "Right: tinkling, hyperactive sounds (K61).",
+          "claims": [
+            "K61"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate the two: a fixed block is mechanical, and a gut that has stopped is adynamic.",
+        "claims": [
+          "K12",
+          "K13"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ile",
+          "kind": "continue"
+        }
+      ]
+    },
+    "snd_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Peristalsis works against the block, so the bowel sounds are hyperactive and high-pitched (K61).",
+          "claims": [
+            "K61"
+          ]
+        },
+        {
+          "text": "Absent or silent sounds point the other way, to paralytic ileus or late peritonitis (K61).",
+          "claims": [
+            "K61"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ile",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ile": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A man had a laparotomy 3 days ago and is now on opioids. He is distended and vomiting, and the abdomen is silent on auscultation.",
+          "claims": []
+        },
+        {
+          "text": "Which is most likely?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Adhesive small bowel obstruction, from the earlier surgery",
+          "next": "ile_x1",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Sigmoid volvulus, twisting the colon around its base",
+          "next": "ile_x2",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Paralytic ileus, from failed peristalsis with no fixed block",
+          "next": "ile_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "ile_hg",
+          "kind": "help"
+        }
+      ]
+    },
+    "ile_x1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: adhesions are the usual reason for distension and vomiting after surgery, so the story feels ready-made.",
+          "claims": []
+        },
+        {
+          "text": "Why it fails: a mechanical block makes the bowel loud, with tinkling sounds (K61). This belly is silent, which points to failed peristalsis (K13).",
+          "claims": [
+            "K61",
+            "K13"
+          ]
+        },
+        {
+          "text": "Right: paralytic ileus, since the bowel has stopped working rather than being blocked (K13).",
+          "claims": [
+            "K13"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the sound first. Silence after surgery is the ileus trap, while a fixed block is loud (K61).",
+        "claims": [
+          "K61"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pain",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ile_x2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a distended, vomiting belly with a twisted loop feels like a closed mechanical block.",
+          "claims": []
+        },
+        {
+          "text": "Why it fails: volvulus is a fixed mechanical block with active peristalsis, so the bowel sounds are loud, not silent (K12, K61).",
+          "claims": [
+            "K12",
+            "K61"
+          ]
+        },
+        {
+          "text": "Right: paralytic ileus, since peristalsis has failed (K13).",
+          "claims": [
+            "K13"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate the two: silence is the failed gut, not the twisted loop (K61).",
+        "claims": [
+          "K61"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pain",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ile_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Peristalsis has failed with no fixed block, so the bowel is silent (K13).",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "Silent bowel after surgery is the adynamic picture, and the sounds are absent (K61).",
+          "claims": [
+            "K61"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pain",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pain": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A man with known adhesive obstruction has had colicky pain for two days. Now the pain is constant and severe, his pulse is fast, and one spot on the belly is tender.",
+          "claims": []
+        },
+        {
+          "text": "What does this most likely mean?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Simple obstruction, so continue conservative care",
+          "next": "pain_h1",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Strangulation, needing urgent surgery and resuscitation",
+          "next": "pain_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Simple but worse, so give a longer trial of drip and suction",
+          "next": "pain_h2",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pain_hg",
+          "kind": "help"
+        }
+      ]
+    },
+    "pain_h1": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: colic is the classic first symptom of a simple block, so the earlier picture still feels like the answer (K49).",
+          "claims": [
+            "K49"
+          ]
+        },
+        {
+          "text": "Ask what has changed. The pain has moved from colicky to constant, and the pulse and the belly have changed too.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-read the words: constant pain, a fast pulse and tenderness are the change that matters (K50).",
+        "claims": [
+          "K50"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pain_h2": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: the colic is still underneath, so more time on drip and suction feels safe.",
+          "claims": []
+        },
+        {
+          "text": "Ask what constant pain, a fast pulse and one tender spot say about the blood supply of the loop.",
+          "claims": [
+            "K50"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-read the change: constant pain with tenderness is a damaged loop, not a longer wait (K50).",
+        "claims": [
+          "K50"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pain_hg": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Read the pain description first. Does it still sound like the colic you had at the start?",
+          "claims": []
+        },
+        {
+          "text": "Then check the pulse and the tenderness, and what they add to the picture.",
+          "claims": [
+            "K62"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pain_b": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Same patient, asked again: constant pain, a fast pulse and one tender spot. What does it mean?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Simple obstruction, so continue conservative care",
+          "next": "pain_x1",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Strangulation, needing urgent surgery and resuscitation",
+          "next": "pain_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Simple but worse, so give a longer trial of drip and suction",
+          "next": "pain_x2",
+          "kind": "trap",
+          "trap": "TR22"
+        }
+      ]
+    },
+    "pain_x1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: colic is the first symptom of simple obstruction, so the old picture is still in your head (K49).",
+          "claims": [
+            "K49"
+          ]
+        },
+        {
+          "text": "Why it fails: colic is where the story starts. Constant, severe pain with a fast pulse and tenderness suggests strangulation (K8, K50).",
+          "claims": [
+            "K8",
+            "K50"
+          ]
+        },
+        {
+          "text": "Right: the blood supply is compromised, so the segment needs urgent surgery (K15).",
+          "claims": [
+            "K15"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so treat the change in pain as the warning: colic is simple, while constant pain means the blood supply is at risk (K50).",
+        "claims": [
+          "K50"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cnot",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pain_x2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: the colic is still underneath, so more time on drip and suction feels safe.",
+          "claims": []
+        },
+        {
+          "text": "Why it fails: constant pain with a fast pulse and tenderness points to a damaged loop (K8, K62).",
+          "claims": [
+            "K8",
+            "K62"
+          ]
+        },
+        {
+          "text": "Right: strangulation, which needs urgent surgery (K15).",
+          "claims": [
+            "K15"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look at the tenderness: a damaged loop cannot wait (K62).",
+        "claims": [
+          "K62"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cnot",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pain_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Constant, severe pain with tachycardia and localised tenderness suggests strangulation (K8, K50).",
+          "claims": [
+            "K8",
+            "K50"
+          ]
+        },
+        {
+          "text": "The blood supply of the segment is compromised, and a raised lactate follows the acidosis (K15, K46).",
+          "claims": [
+            "K15",
+            "K46"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cnot",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cnot": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which finding does NOT suggest strangulation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Colicky central pain, normal tenderness",
+          "next": "cnot_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Fever and tachycardia in the same patient",
+          "next": "cnot_x1",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Localised guarding on examination of the belly",
+          "next": "cnot_x2",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "cnot_hg",
+          "kind": "help"
+        }
+      ]
+    },
+    "cnot_x1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: fever and tachycardia look like a general infection, so they feel non-specific.",
+          "claims": []
+        },
+        {
+          "text": "Why it fails: fever and tachycardia are on the list of signs that suggest strangulation or peritonitis (K8, K62).",
+          "claims": [
+            "K8",
+            "K62"
+          ]
+        },
+        {
+          "text": "Right: colicky central pain with normal tenderness is the one that does not, and it fits simple obstruction (K49).",
+          "claims": [
+            "K49"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-read the list: systemic signs count toward strangulation (K8).",
+        "claims": [
+          "K8"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cnot_x2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: guarding sounds like an infection, so it feels like a separate story from the bowel.",
+          "claims": []
+        },
+        {
+          "text": "Why it fails: localised guarding and tenderness suggest a damaged segment or peritonitis (K62).",
+          "claims": [
+            "K62"
+          ]
+        },
+        {
+          "text": "Right: colicky central pain with normal tenderness does not suggest strangulation (K49).",
+          "claims": [
+            "K49"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check whether the guarding is local to one segment: that is a strangulation sign (K62).",
+        "claims": [
+          "K62"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cnot_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Colicky central pain with normal tenderness is the picture of simple obstruction, where the blood supply is intact (K49, K14).",
+          "claims": [
+            "K49",
+            "K14"
+          ]
+        },
+        {
+          "text": "Constant pain, fever, tachycardia, guarding and a raised lactate point the other way (K8).",
+          "claims": [
+            "K8"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "why_hg": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Picture the bowel below the block. In a high block, how much of it is there, and what is still in it?",
+          "claims": [
+            "K54"
+          ]
+        },
+        {
+          "text": "Then ask what happens in a low block, where almost nothing lies below.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ile_hg": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Listen to the story. Is this belly loud like a pushing gut, or silent like a stopped one?",
+          "claims": [
+            "K61"
+          ]
+        },
+        {
+          "text": "Then ask whether an opioid-treated belly after surgery needs a fixed block to explain it.",
+          "claims": [
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ile",
+          "kind": "retry"
+        }
+      ]
+    },
+    "cnot_hg": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Test each option against simple obstruction. Which finding fits an intact blood supply?",
+          "claims": [
+            "K14"
+          ]
+        },
+        {
+          "text": "Remember that strangulation changes the pain, the pulse and the tenderness.",
+          "claims": [
+            "K8"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cnot",
+          "kind": "retry"
+        }
+      ]
+    }
+  },
+  "technique": "T3",
+  "decision": "merge"
+}
