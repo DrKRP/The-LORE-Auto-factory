@@ -1,0 +1,587 @@
+{
+  "segment": "S6",
+  "technique": "T7",
+  "entry": "p1",
+  "nodes": {
+    "p1": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Two cases on your ward round. Case X: pain when you extend the right hip. Case Y: pain when you rotate the flexed right hip inwards.", "claims": []},
+        {"text": "Which case suggests a retrocaecal appendix?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Case Y, the internal-rotation case", "next": "p1_t2", "kind": "trap", "trap": "TR2"},
+        {"label": "Case X, the hip-extension case", "next": "p1_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "p1_h", "kind": "help"}
+      ]
+    },
+    "p1_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Extending the hip stretches the psoas, and a retrocaecal appendix lies on it, so pain appears on extension.", "claims": ["K38", "K92"]},
+        {"text": "Retrocaecal is the commonest position of the appendix, which is why this sign matters most.", "claims": ["K3"]}
+      ],
+      "choices": [{"label": "Next", "next": "p2", "kind": "continue"}]
+    },
+    "p1_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: both signs are right-hip tests, so it feels natural to pair the second case with the position you learned first.", "claims": []},
+        {"text": "But internal rotation of the flexed hip loads the obturator internus, which a pelvic appendix touches. That pairs Case Y with the pelvic position (K39, K93).", "claims": ["K39", "K93"]},
+        {"text": "What is right: Case X is extension, the psoas and the retrocaecal appendix. Pair each sign with the muscle it stresses.", "claims": ["K38", "K92"]}
+      ],
+      "sure_note": {"text": "You were sure, so pair the signs by muscle: psoas with extension and retrocaecal; obturator with internal rotation and pelvic.", "claims": ["K38", "K39"]},
+      "choices": [
+        {"label": "Try again", "next": "p1", "kind": "retry"},
+        {"label": "Next", "next": "p2", "kind": "continue"}
+      ]
+    },
+    "p1_h": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask which muscle each movement stretches. Then ask which part of the caecum or pelvis lies against that muscle.", "claims": ["K38", "K39"]}
+      ],
+      "choices": [{"label": "Try again", "next": "p1", "kind": "retry"}]
+    },
+    "p2": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Your registrar says: 'For the psoas sign you flex the right hip and rotate it inwards.'", "claims": []},
+        {"text": "Which correction is right?", "claims": []}
+      ],
+      "choices": [
+        {"label": "You're right: flexed internal rotation is the psoas test", "next": "p2_t1", "kind": "trap", "trap": "TR1"},
+        {"label": "Psoas needs hip extension; flexed internal rotation is obturator", "next": "p2_ok", "kind": "correct"},
+        {"label": "Both are the same hip test, so either name will do", "next": "p2_t1m", "kind": "trap", "trap": "TR1"},
+        {"label": "Not sure, give me a hint", "next": "p2_h", "kind": "help"}
+      ]
+    },
+    "p2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Extending the right hip stretches the psoas. Flexing it and rotating it inwards tenses the obturator internus.", "claims": ["K38", "K39"]},
+        {"text": "Each name belongs to one movement, so keep the two apart by the muscle each one stresses.", "claims": ["K106"]}
+      ],
+      "choices": [{"label": "Next", "next": "p3", "kind": "continue"}]
+    },
+    "p2_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: both are right-hip manoeuvres that hurt in the same lower abdomen, so the names feel swappable.", "claims": []},
+        {"text": "But flexing and rotating the hip inwards tests the obturator, not the psoas. The psoas sign needs the hip extended (K38, K39).", "claims": ["K38", "K39"]},
+        {"text": "What is right: psoas is extension; obturator is flexion with internal rotation. The movement sets the name (K106).", "claims": ["K106"]}
+      ],
+      "sure_note": {"text": "You were sure, so fix the movement first: extension is psoas, internal rotation of the flexed hip is obturator.", "claims": ["K38", "K39"]},
+      "choices": [
+        {"label": "Try again", "next": "p2", "kind": "retry"},
+        {"label": "Next", "next": "p3", "kind": "continue"}
+      ]
+    },
+    "p2_t1m": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: both signs are pain-on-movement tests of the same joint, so they can feel like one manoeuvre with two labels.", "claims": []},
+        {"text": "But each one stresses a different muscle. The psoas is stretched by extension; the obturator internus is tensed by internal rotation of a flexed hip (K38, K39).", "claims": ["K38", "K39"]},
+        {"text": "What is right: learn one movement per name. They are two signs, each with its own muscle (K106).", "claims": ["K106"]}
+      ],
+      "sure_note": {"text": "You were sure the two are one test. They stress different muscles, so they are two signs.", "claims": ["K38", "K39"]},
+      "choices": [
+        {"label": "Try again", "next": "p2", "kind": "retry"},
+        {"label": "Next", "next": "p3", "kind": "continue"}
+      ]
+    },
+    "p2_h": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask what extending the hip stretches, and what internally rotating a flexed hip tenses.", "claims": ["K38", "K39"]}
+      ],
+      "choices": [{"label": "Try again", "next": "p2", "kind": "retry"}]
+    },
+    "p3": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A surgeon says: 'The appendix gangrenes first, and the lumen blocks only later.'", "claims": []},
+        {"text": "Which correction is right?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Pain localises to the right iliac fossa first, then the umbilicus", "next": "p3_t4a", "kind": "trap", "trap": "TR4"},
+        {"label": "The lumen blocks first; rising pressure then cuts the artery supply", "next": "p3_ok", "kind": "correct"},
+        {"label": "Ischaemia starts before any blockage, and the lumen blocks afterwards", "next": "p3_t4b", "kind": "trap", "trap": "TR4"},
+        {"label": "Not sure, give me a hint", "next": "p3_h", "kind": "help"}
+      ]
+    },
+    "p3_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Obstruction raises intraluminal pressure, venous congestion follows, and the end-artery supply then fails (K24, K25).", "claims": ["K24", "K25"]},
+        {"text": "The appendicular artery is an end artery, so ischaemia leads to gangrene and then perforation, at the end of the chain (K4).", "claims": ["K4"]}
+      ],
+      "choices": [{"label": "Next", "next": "p4", "kind": "continue"}]
+    },
+    "p3_t4a": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: pain is the first thing the patient describes, so it feels like the first event in the chain.", "claims": []},
+        {"text": "But early pain is visceral and periumbilical, from the T10 supply. It moves to the right iliac fossa only when the parietal peritoneum is involved (K26, K27).", "claims": ["K26", "K27"]},
+        {"text": "What is right: the lumen blocks first, pressure rises, and only then the pain localises to the right iliac fossa (K5, K24).", "claims": ["K5", "K24"]}
+      ],
+      "sure_note": {"text": "You were sure the pain localises first. It starts periumbilical and shifts to the right iliac fossa later (K5, K27).", "claims": ["K5", "K27"]},
+      "choices": [
+        {"label": "Try again", "next": "p3", "kind": "retry"},
+        {"label": "Next", "next": "p4", "kind": "continue"}
+      ]
+    },
+    "p3_t4b": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: gangrene is the feared end, so the picture of a dying appendix feels like the opening event.", "claims": []},
+        {"text": "But the artery fails because rising pressure compresses it. Ischaemia sits downstream of the blockage, so it cannot come first (K24, K25).", "claims": ["K24", "K25"]},
+        {"text": "What is right: obstruction, rising pressure, venous congestion, arterial compromise, then gangrene and perforation (K24, K25).", "claims": ["K24", "K25"]}
+      ],
+      "sure_note": {"text": "You were sure ischaemia came first. The lumen blocks first, and pressure cuts the end-artery supply afterwards (K25).", "claims": ["K25"]},
+      "choices": [
+        {"label": "Try again", "next": "p3", "kind": "retry"},
+        {"label": "Next", "next": "p4", "kind": "continue"}
+      ]
+    },
+    "p3_h": {
+      "role": "hint",
+      "say": [
+        {"text": "Start with what blocks the lumen. Then ask what raised pressure does to venous flow, and then to arterial flow.", "claims": ["K24"]}
+      ],
+      "choices": [{"label": "Try again", "next": "p3", "kind": "retry"}]
+    },
+    "p4": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A patient has right iliac fossa tenderness, rebound tenderness, leucocytosis, fever, anorexia and nausea. He has no migration of pain and no left shift.", "claims": []},
+        {"text": "What is his Alvarado total?", "claims": []}
+      ],
+      "choices": [
+        {"label": "9", "next": "p4_t6", "kind": "trap", "trap": "TR6"},
+        {"label": "8", "next": "p4_ok", "kind": "correct"},
+        {"label": "7", "next": "p4_t7", "kind": "trap", "trap": "TR6"},
+        {"label": "Not sure, give me a hint", "next": "p4_h", "kind": "help"}
+      ]
+    },
+    "p4_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Right iliac fossa tenderness and leucocytosis score 2 each; rebound, fever, anorexia and nausea score 1 each (K7, K107).", "claims": ["K7", "K107"]},
+        {"text": "Two 2-point items plus four 1-point items give 8. A score of 7 or more makes appendicitis likely (K47).", "claims": ["K47"]}
+      ],
+      "choices": [{"label": "Next", "next": "p5", "kind": "continue"}]
+    },
+    "p4_t6": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: rebound tenderness is a peritoneal sign, so it feels as if it deserves the top weight alongside tenderness.", "claims": []},
+        {"text": "But only right iliac fossa tenderness and leucocytosis score 2. Rebound scores 1, so a total of 9 overcounts (K107, K7).", "claims": ["K107", "K7"]},
+        {"text": "What is right: two 2-point items plus four 1-point items give 8. Count the weights, not the feel of each sign.", "claims": ["K7"]}
+      ],
+      "sure_note": {"text": "You were sure rebound scores 2. The table gives it 1; only tenderness and leucocytosis take 2 (K107).", "claims": ["K107"]},
+      "choices": [
+        {"label": "Try again", "next": "p4", "kind": "retry"},
+        {"label": "Next", "next": "p5", "kind": "continue"}
+      ]
+    },
+    "p4_t7": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: leucocytosis is a laboratory result, so it feels like a minor item next to the clinical signs.", "claims": []},
+        {"text": "But leucocytosis scores 2, the same as right iliac fossa tenderness. Scoring it 1 drops the total to 7 and understates the risk (K107).", "claims": ["K107"]},
+        {"text": "What is right: two 2-point items and four 1-point items total 8 (K7).", "claims": ["K7"]}
+      ],
+      "sure_note": {"text": "You were sure leucocytosis scores 1. In the Alvarado table it scores 2, like tenderness (K107).", "claims": ["K107"]},
+      "choices": [
+        {"label": "Try again", "next": "p4", "kind": "retry"},
+        {"label": "Next", "next": "p5", "kind": "continue"}
+      ]
+    },
+    "p4_h": {
+      "role": "hint",
+      "say": [
+        {"text": "Score the items in pairs: which two carry 2 points, and what does every other item carry?", "claims": ["K7"]}
+      ],
+      "choices": [{"label": "Try again", "next": "p4", "kind": "retry"}]
+    },
+    "p5": {
+      "role": "probe",
+      "objectives": ["O7"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A house officer says: 'Ultrasound is the investigation of choice in every adult, so a negative scan ends the work-up.'", "claims": []},
+        {"text": "Which reply is right?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Ultrasound is the investigation of choice for all ages, as old keys say", "next": "p5_t11", "kind": "trap", "trap": "TR11"},
+        {"label": "A negative scan in an adult is decisive, so the patient can go home", "next": "p5_t8", "kind": "trap", "trap": "TR8"},
+        {"label": "CT is most accurate in adults; a negative scan does not exclude appendicitis", "next": "p5_ok", "kind": "correct"}
+      ]
+    },
+    "p5_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. CT is the most accurate test in adults, and ultrasound is first only in children and pregnancy (K99, K98).", "claims": ["K99", "K98"]},
+        {"text": "A negative ultrasound in an adult does not close the question, so the work-up goes on to CT (K55).", "claims": ["K55"]}
+      ],
+      "choices": [{"label": "Next", "next": "p6", "kind": "continue"}]
+    },
+    "p5_t11": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: ultrasound is the test named in most past-paper stems, so it feels like the answer for everyone.", "claims": []},
+        {"text": "But the old key expected ultrasound as the investigation of choice in general (K108). That key does not describe adults, where CT is the most accurate test (K99).", "claims": ["K108", "K99"]},
+        {"text": "What is right: teach both. PYQs expected ultrasound in general; current practice uses it first in children and pregnancy, and CT for adults (K98).", "claims": ["K98"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the age: the ultrasound key fits children and pregnancy, not adults (K98).", "claims": ["K98"]},
+      "choices": [
+        {"label": "Try again", "next": "p5", "kind": "retry"},
+        {"label": "Next", "next": "p6", "kind": "continue"}
+      ]
+    },
+    "p5_t8": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: a scan that shows nothing feels reassuring, and the ultrasound is the test you ordered.", "claims": []},
+        {"text": "But in an adult a negative ultrasound does not exclude appendicitis. CT has the highest sensitivity and specificity (K55).", "claims": ["K55"]},
+        {"text": "What is right: a negative ultrasound in an adult leads to contrast CT, not to discharge (K55, K99).", "claims": ["K55", "K99"]}
+      ],
+      "sure_note": {"text": "You were sure a negative scan is decisive in an adult. It is not; CT is the test that settles it (K55).", "claims": ["K55"]},
+      "choices": [
+        {"label": "Try again", "next": "p5", "kind": "retry"},
+        {"label": "Next", "next": "p6", "kind": "continue"}
+      ]
+    },
+    "p6": {
+      "role": "probe",
+      "objectives": ["O7"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 9-year-old boy and a 31-year-old pregnant woman at 24 weeks both have right iliac fossa pain.", "claims": []},
+        {"text": "Which first imaging is right for each?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Contrast CT for both, since CT is the most accurate test", "next": "p6_t9", "kind": "trap", "trap": "TR9"},
+        {"label": "Graded-compression ultrasound for both", "next": "p6_ok", "kind": "correct"},
+        {"label": "Ultrasound for the boy, MRI for the woman", "next": "p6_t10", "kind": "trap", "trap": "TR10"}
+      ]
+    },
+    "p6_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Ultrasound is the first test in children and in pregnancy, as graded compression (K98, K54).", "claims": ["K98", "K54"]},
+        {"text": "Pregnancy keeps the same first rung. MRI is added only if ultrasound is inconclusive (K56).", "claims": ["K56"]}
+      ],
+      "choices": [{"label": "Next", "next": "p7", "kind": "continue"}]
+    },
+    "p6_t9": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: CT is the most accurate test, so it feels like the safest choice for any patient with right iliac fossa pain.", "claims": []},
+        {"text": "But accuracy is not the first question. Children and pregnant women get ultrasound first; CT is the adult test (K98, K99).", "claims": ["K98", "K99"]},
+        {"text": "What is right: ultrasound first for both the boy and the pregnant woman (K98).", "claims": ["K98"]}
+      ],
+      "sure_note": {"text": "You were sure CT is right. Children and pregnant women start with ultrasound, whatever the accuracy (K98).", "claims": ["K98"]},
+      "choices": [
+        {"label": "Try again", "next": "p6", "kind": "retry"},
+        {"label": "Next", "next": "p7", "kind": "continue"}
+      ]
+    },
+    "p6_t10": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: MRI avoids radiation and is very accurate, so it feels like the best first test in pregnancy.", "claims": []},
+        {"text": "But MRI is the second rung, used when ultrasound is inconclusive, not the first (K56, K100).", "claims": ["K56", "K100"]},
+        {"text": "What is right: ultrasound first for the pregnant woman and for the boy; MRI only if ultrasound fails (K98, K100).", "claims": ["K98", "K100"]}
+      ],
+      "sure_note": {"text": "You were sure MRI comes first in pregnancy. The first rung is ultrasound; MRI follows an inconclusive scan (K100).", "claims": ["K100"]},
+      "choices": [
+        {"label": "Try again", "next": "p6", "kind": "retry"},
+        {"label": "Next", "next": "p7", "kind": "continue"}
+      ]
+    },
+    "p7": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 26-year-old woman has right iliac fossa pain and a late period. She reaches casualty.", "claims": []},
+        {"text": "What is your first step?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Contrast CT now; the pregnancy test can follow", "next": "p7_t12a", "kind": "trap", "trap": "TR12"},
+        {"label": "Serum or urine beta-hCG before any scan or theatre", "next": "p7_ok", "kind": "correct"},
+        {"label": "Diagnostic laparoscopy at once; it answers both questions", "next": "p7_t12b", "kind": "trap", "trap": "TR12"}
+      ]
+    },
+    "p7_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Every woman of reproductive age needs a beta-hCG, because ectopic pregnancy changes the imaging and the operation (K53, K59).", "claims": ["K53", "K59"]},
+        {"text": "The pregnancy test comes before the scan or theatre, not after the appendix looks normal (K53).", "claims": ["K53"]}
+      ],
+      "choices": [{"label": "Next", "next": "p8", "kind": "continue"}]
+    },
+    "p7_t12a": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the appendix is the likely cause, so imaging it now feels like the efficient step.", "claims": []},
+        {"text": "But a scan before beta-hCG can miss an ectopic pregnancy, which changes the whole plan (K53, K59).", "claims": ["K53", "K59"]},
+        {"text": "What is right: beta-hCG first, then imaging or surgery as the findings direct (K53).", "claims": ["K53"]}
+      ],
+      "sure_note": {"text": "You were sure imaging comes first. The pregnancy test changes everything, so it goes first (K53).", "claims": ["K53"]},
+      "choices": [
+        {"label": "Try again", "next": "p7", "kind": "retry"},
+        {"label": "Next", "next": "p8", "kind": "continue"}
+      ]
+    },
+    "p7_t12b": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: laparoscopy both looks and treats, so it feels like one efficient step that answers both questions.", "claims": []},
+        {"text": "But operating before excluding pregnancy risks a wrong operation for an ectopic pregnancy (K59, K53).", "claims": ["K59", "K53"]},
+        {"text": "What is right: beta-hCG first, then imaging or theatre, depending on the result (K53).", "claims": ["K53"]}
+      ],
+      "sure_note": {"text": "You were sure one operation answers everything. The pregnancy test comes first, every time (K53).", "claims": ["K53"]},
+      "choices": [
+        {"label": "Try again", "next": "p7", "kind": "retry"},
+        {"label": "Next", "next": "p8", "kind": "continue"}
+      ]
+    },
+    "p8": {
+      "role": "probe",
+      "objectives": ["O9"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Two adults have CT-proven appendicitis. Patient A has uncomplicated disease with no appendicolith. Patient B is the same but has an appendicolith.", "claims": []},
+        {"text": "Which patient is a candidate for antibiotics-first?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Patient B, since antibiotics-first now applies to every CT-proven case", "next": "p8_t23", "kind": "trap", "trap": "TR23"},
+        {"label": "Patient A, the one without an appendicolith", "next": "p8_ok", "kind": "correct"},
+        {"label": "Neither: appendicectomy is the only treatment for both", "next": "p8_t22", "kind": "trap", "trap": "TR22"}
+      ]
+    },
+    "p8_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Antibiotics-first is accepted for selected adults with CT-proven uncomplicated disease (K71).", "claims": ["K71"]},
+        {"text": "An appendicolith predicts failure and a higher perforation risk, so it moves the patient to surgery (K15, K71).", "claims": ["K15", "K71"]}
+      ],
+      "choices": [{"label": "Next", "next": "p9", "kind": "continue"}]
+    },
+    "p8_t23": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: CT has confirmed appendicitis, and antibiotics-first is now mentioned as an option, so the label feels like it fits.", "claims": []},
+        {"text": "But the appendicolith is an exclusion. It predicts antibiotic failure, so it takes the patient off the non-operative pathway (K71, K15).", "claims": ["K71", "K15"]},
+        {"text": "What is right: antibiotics-first suits uncomplicated disease without an appendicolith, which is Patient A (K12, K71).", "claims": ["K12", "K71"]}
+      ],
+      "sure_note": {"text": "You were sure Patient B qualifies. The appendicolith is the qualifier that excludes antibiotics-first (K71).", "claims": ["K71"]},
+      "choices": [
+        {"label": "Try again", "next": "p8", "kind": "retry"},
+        {"label": "Next", "next": "p9", "kind": "continue"}
+      ]
+    },
+    "p8_t22": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: appendicectomy is the treatment of choice in every past-paper answer, so 'only' feels fair.", "claims": []},
+        {"text": "But treatment of choice is not the only treatment. Current practice accepts antibiotics-first for selected CT-proven uncomplicated adults (K110, K9).", "claims": ["K110", "K9"]},
+        {"text": "What is right: appendicectomy stays the default; antibiotics-first is an option for selected patients (K9, K110).", "claims": ["K9", "K110"]}
+      ],
+      "sure_note": {"text": "You were sure appendicectomy is the only option. The old key said so, but current practice accepts antibiotics-first in selected patients (K110).", "claims": ["K110"]},
+      "choices": [
+        {"label": "Try again", "next": "p8", "kind": "retry"},
+        {"label": "Next", "next": "p9", "kind": "continue"}
+      ]
+    },
+    "p9": {
+      "role": "probe",
+      "objectives": ["O10"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Two patients. A has five days of right iliac fossa pain, a tender stable mass and low-grade fever. B has swinging fever and a drainable collection on CT.", "claims": []},
+        {"text": "Which pair of actions is right?", "claims": []}
+      ],
+      "choices": [
+        {"label": "A: immediate appendicectomy; B: image-guided drainage with antibiotics", "next": "p9_t25a", "kind": "trap", "trap": "TR25"},
+        {"label": "A: Ochsner-Sherren regimen; B: image-guided drainage with antibiotics", "next": "p9_ok", "kind": "correct"},
+        {"label": "A: Ochsner-Sherren regimen; B: laparotomy and open drainage", "next": "p9_t25b", "kind": "trap", "trap": "TR25"}
+      ]
+    },
+    "p9_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. A stable appendicular mass is treated by the Ochsner-Sherren regimen; a drainable abscess by image-guided drainage with antibiotics (K73, K76).", "claims": ["K73", "K76"]},
+        {"text": "The regimen is stopped and surgery done if pulse, pain or mass size worsens, or peritonitis spreads (K74).", "claims": ["K74"]}
+      ],
+      "choices": [{"label": "Next", "next": "p10", "kind": "continue"}]
+    },
+    "p9_t25a": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: a tender mass and five days of pain feel like a reason to remove the appendix at once.", "claims": []},
+        {"text": "But a stable appendicular mass is first treated conservatively. Early surgery is reserved for a regimen that fails (K73, K74).", "claims": ["K73", "K74"]},
+        {"text": "What is right: the regimen for the mass, and image-guided drainage for the drainable collection (K73, K103).", "claims": ["K73", "K103"]}
+      ],
+      "sure_note": {"text": "You were sure surgery is right for a mass. The regimen comes first, and surgery follows its failure (K74).", "claims": ["K74"]},
+      "choices": [
+        {"label": "Try again", "next": "p9", "kind": "retry"},
+        {"label": "Next", "next": "p10", "kind": "continue"}
+      ]
+    },
+    "p9_t25b": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: open drainage feels definitive when the collection is large, so laparotomy looks thorough.", "claims": []},
+        {"text": "But percutaneous image-guided drainage is first-line for a drainable abscess. Open drainage is the fallback when it fails or is unavailable (K76, K103).", "claims": ["K76", "K103"]},
+        {"text": "What is right: image-guided drainage with antibiotics for Patient B (K103).", "claims": ["K103"]}
+      ],
+      "sure_note": {"text": "You were sure open drainage is right. Image-guided drainage is first-line; open drainage is the fallback (K76).", "claims": ["K76"]},
+      "choices": [
+        {"label": "Try again", "next": "p9", "kind": "retry"},
+        {"label": "Next", "next": "p10", "kind": "continue"}
+      ]
+    },
+    "p10": {
+      "role": "probe",
+      "objectives": ["O10"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 58-year-old man's appendicular mass has resolved on the regimen.", "claims": []},
+        {"text": "What is your next step?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Routine interval appendicectomy at six to eight weeks, as the old key says", "next": "p10_t24", "kind": "trap", "trap": "TR24"},
+        {"label": "Colonoscopy or CT to exclude caecal carcinoma, then decide on surgery", "next": "p10_ok", "kind": "correct"},
+        {"label": "Immediate appendicectomy, since the mass proves the appendix is diseased", "next": "p10_t25", "kind": "trap", "trap": "TR25"}
+      ]
+    },
+    "p10_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Interval surgery is now selective, and an older patient needs colonoscopy or CT to exclude caecal carcinoma (K75).", "claims": ["K75"]},
+        {"text": "Decide on surgery after the work-up, not from the calendar (K75).", "claims": ["K75"]}
+      ],
+      "choices": [{"label": "Next", "next": "p11", "kind": "continue"}]
+    },
+    "p10_t24": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: interval appendicectomy at six to eight weeks is the classic answer, so it feels like the routine.", "claims": []},
+        {"text": "But that was the PYQ expectation. Current practice makes interval surgery selective and checks older patients first (K109, K75).", "claims": ["K109", "K75"]},
+        {"text": "What is right: for a 58-year-old, exclude caecal carcinoma first, then decide on surgery (K75).", "claims": ["K75"]}
+      ],
+      "sure_note": {"text": "You were sure the calendar decides. The routine is now selective, with work-up in older patients (K109).", "claims": ["K109"]},
+      "choices": [
+        {"label": "Try again", "next": "p10", "kind": "retry"},
+        {"label": "Next", "next": "p11", "kind": "continue"}
+      ]
+    },
+    "p10_t25": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the mass proves the appendix is diseased, so removing it now feels like the logical step.", "claims": []},
+        {"text": "But the mass has resolved on the regimen, so immediate surgery is not indicated. Surgery follows a failing regimen (K73, K74).", "claims": ["K73", "K74"]},
+        {"text": "What is right: work-up for caecal carcinoma first, then a selective decision on interval surgery (K75).", "claims": ["K75"]}
+      ],
+      "sure_note": {"text": "You were sure a mass means immediate surgery. A resolved mass is managed by work-up and selection (K75).", "claims": ["K75"]},
+      "choices": [
+        {"label": "Try again", "next": "p10", "kind": "retry"},
+        {"label": "Next", "next": "p11", "kind": "continue"}
+      ]
+    },
+    "p11": {
+      "role": "probe",
+      "objectives": ["O11"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Two patients. A is ten days after open appendicectomy, with faecal discharge from the wound and a slipped stump. B is two days into a stay, with perforation and peritonitis before theatre.", "claims": []},
+        {"text": "Which patient has a complication of the operation?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Patient B, as peritonitis is the complication of the surgical episode", "next": "p11_t16", "kind": "trap", "trap": "TR16"},
+        {"label": "Patient A, with a faecal fistula from the stump", "next": "p11_ok", "kind": "correct"}
+      ]
+    },
+    "p11_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. A faecal fistula can follow a slipped stump ligature, so it is a complication of the operation (K84).", "claims": ["K84"]},
+        {"text": "Perforation with peritonitis is a complication of the disease itself, before any operation (K78).", "claims": ["K78"]}
+      ],
+      "choices": [{"label": "Next", "next": "p12", "kind": "continue"}]
+    },
+    "p11_t16": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: peritonitis is the dramatic outcome of the whole episode, so it feels like a complication of the surgery too.", "claims": []},
+        {"text": "But perforation with generalised peritonitis comes from the disease, before theatre. Merging the two complication lists is the error (K78, K82).", "claims": ["K78", "K82"]},
+        {"text": "What is right: disease complications are perforation, mass, abscess and pylephlebitis; operative ones are wound infection, fistula and stump problems (K80, K84).", "claims": ["K80", "K84"]}
+      ],
+      "sure_note": {"text": "You were sure perforation is an operative complication. It is a disease complication, and it can happen before theatre (K78).", "claims": ["K78"]},
+      "choices": [
+        {"label": "Try again", "next": "p11", "kind": "retry"},
+        {"label": "Next", "next": "p12", "kind": "continue"}
+      ]
+    },
+    "p12": {
+      "role": "probe",
+      "objectives": ["O12"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A histology report after appendicectomy is read in the teaching round.", "claims": []},
+        {"text": "Which is the most common tumour of the appendix?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Mucocele", "next": "p12_t13a", "kind": "trap", "trap": "TR13"},
+        {"label": "Carcinoid, the neuroendocrine tumour", "next": "p12_ok", "kind": "correct"},
+        {"label": "Adenocarcinoma, since it is the most serious", "next": "p12_t13b", "kind": "trap", "trap": "TR13"}
+      ]
+    },
+    "p12_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Carcinoid, the neuroendocrine tumour, is the commonest appendix tumour and usually sits at the tip (K105, K89).", "claims": ["K105", "K89"]},
+        {"text": "PYQs expected under 2 cm at the tip to need appendicectomy alone, and over 2 cm to need right hemicolectomy (K111).", "claims": ["K111"]}
+      ],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    },
+    "p12_t13a": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: a mucocele is a familiar appendix lesion, and its name sounds like the answer for a frequent finding.", "claims": []},
+        {"text": "But a mucocele can rupture and cause pseudomyxoma peritonei. It is a complication to recognise, not the commonest tumour (K90).", "claims": ["K90"]},
+        {"text": "What is right: carcinoid is the commonest appendix tumour, usually at the tip (K105).", "claims": ["K105"]}
+      ],
+      "sure_note": {"text": "You were sure a mucocele is the commonest. The commonest is carcinoid; the mucocele is a risk of rupture (K90).", "claims": ["K90"]},
+      "choices": [
+        {"label": "Try again", "next": "p12", "kind": "retry"},
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    },
+    "p12_t13b": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting: the tumour that sounds most serious feels like the one an exam would call most common.", "claims": []},
+        {"text": "But severity and frequency are different questions. Carcinoid, not adenocarcinoma, is the commonest appendix tumour (K105).", "claims": ["K105"]},
+        {"text": "What is right: carcinoid, usually at the tip, is the commonest; the size rule then decides surgery (K105, K111).", "claims": ["K105", "K111"]}
+      ],
+      "sure_note": {"text": "You were sure the most serious-sounding tumour is the commonest. Frequency and severity are separate (K105).", "claims": ["K105"]},
+      "choices": [
+        {"label": "Try again", "next": "p12", "kind": "retry"},
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
