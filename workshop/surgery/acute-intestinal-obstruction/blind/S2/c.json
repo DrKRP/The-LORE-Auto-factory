@@ -1,0 +1,937 @@
+{
+  "segment": "S2",
+  "entry": "belief",
+  "nodes": {
+    "belief": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "A classmate says: 'Every intestinal obstruction gives the same features in the same order, so the level of the block changes nothing.' Many students hold this view.",
+          "claims": []
+        },
+        {
+          "text": "Do you agree with your classmate?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "The same features, in the same order, at any level",
+          "next": "belief_t17",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "The order shifts with where the block sits",
+          "next": "belief_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "belief_t17": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting, because the four cardinal features are the same for every block, so one timeline feels natural.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "But the timing follows the bowel on each side of the block. Above it the bowel dilates; below it the bowel empties and collapses.",
+          "claims": [
+            "K40"
+          ]
+        },
+        {
+          "text": "So the level changes the order of the features, not the list. Next you will test this on a case.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the level makes no difference. Keep this: the four features stay the same, but their order depends on the level.",
+        "claims": [
+          "K2",
+          "K40"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "level_mech",
+          "kind": "continue"
+        }
+      ]
+    },
+    "belief_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. The level sets the order. Above a block the bowel keeps filling; below it the bowel empties first.",
+          "claims": [
+            "K40"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "level_mech",
+          "kind": "continue"
+        }
+      ]
+    },
+    "level_mech": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "A high small bowel block vomits early and distends little (K51, K53).",
+          "claims": [
+            "K51",
+            "K53"
+          ]
+        },
+        {
+          "text": "A low small bowel or large bowel block vomits late and distends markedly, with the vomit turning faeculent later.",
+          "claims": [
+            "K51",
+            "K53"
+          ]
+        },
+        {
+          "text": "Constipation follows the bowel below the block. In a large bowel block absolute constipation comes early, because the distal bowel empties first (K54).",
+          "claims": [
+            "K54"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "level_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "level_probe": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now test the idea on a case. A large bowel obstruction, early in the course.",
+          "claims": []
+        },
+        {
+          "text": "Which feature set fits best?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Early profuse vomiting, minimal distension, late constipation",
+          "next": "level_h1",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Early absolute constipation, marked distension, late vomiting",
+          "next": "level_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Early vomiting, marked distension, early constipation",
+          "next": "level_h2",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "level_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "level_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which part of the bowel is still emptying, and how much of it sits below the block.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the choice",
+          "next": "level_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "level_h1": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "That set is the high small bowel pattern. It tempts because vomiting-first is the picture you learn first (K51).",
+          "claims": [
+            "K51"
+          ]
+        },
+        {
+          "text": "Hint: ask how much bowel lies below this block, and which part empties first.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "level_probe2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "level_h2": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Distension is tempting here because it is marked in a large block (K53). But the pairing feels right and one feature sits in the wrong place (K51).",
+          "claims": [
+            "K53",
+            "K51"
+          ]
+        },
+        {
+          "text": "Hint: check each feature against the bowel below the block. Which one needs that bowel to empty first?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "level_probe2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "level_probe2": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Same case, second look. Which set fits the large bowel block?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Early vomiting, marked distension, early constipation",
+          "next": "level_full2",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Early profuse vomiting, minimal distension, late constipation",
+          "next": "level_full1",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Early absolute constipation, marked distension, late vomiting",
+          "next": "level_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "level_full1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: profuse early vomiting with minimal distension is the high small bowel picture, and it may be the set you learnt first.",
+          "claims": [
+            "K51",
+            "K53"
+          ]
+        },
+        {
+          "text": "Here the block sits low, so vomiting comes late and distension is marked (K51, K53).",
+          "claims": [
+            "K51",
+            "K53"
+          ]
+        },
+        {
+          "text": "What is right: early absolute constipation, marked distension, late vomiting. The bowel below the block empties first, so constipation comes early (K54).",
+          "claims": [
+            "K54",
+            "K53",
+            "K51"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of the high small bowel set. Keep the rule: the level decides which feature comes first.",
+        "claims": [
+          "K51"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sound",
+          "kind": "continue"
+        }
+      ]
+    },
+    "level_full2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: marked distension and early constipation both fit a large block, so the mixed set looks plausible.",
+          "claims": [
+            "K53",
+            "K54"
+          ]
+        },
+        {
+          "text": "But vomiting is late in a large bowel block, not early (K51).",
+          "claims": [
+            "K51"
+          ]
+        },
+        {
+          "text": "What is right: early absolute constipation, marked distension, late vomiting.",
+          "claims": [
+            "K54",
+            "K53",
+            "K51"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of the mixed set. Vomiting is the feature that moves late in a low block; that is the detail to fix.",
+        "claims": [
+          "K51"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sound",
+          "kind": "continue"
+        }
+      ]
+    },
+    "level_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. The distal bowel empties first, so absolute constipation comes early, with marked distension and late vomiting (K54, K53, K51).",
+          "claims": [
+            "K54",
+            "K53",
+            "K51"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sound",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sound": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "A mechanical obstruction is a fixed block, and peristalsis keeps pushing against it (K12).",
+          "claims": [
+            "K12"
+          ]
+        },
+        {
+          "text": "What do you expect the bowel sounds to be on the stethoscope?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Absent, because the bowel has stopped moving",
+          "next": "sound_t18a",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Hyperactive, high-pitched and tinkling",
+          "next": "sound_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Hypoactive and low-pitched",
+          "next": "sound_t18b",
+          "kind": "trap",
+          "trap": "TR18"
+        }
+      ]
+    },
+    "sound_t18a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a blocked bowel feels dead, so silence seems to follow from a block.",
+          "claims": []
+        },
+        {
+          "text": "But in mechanical obstruction peristalsis works against the block, so the sounds are hyperactive (K12, K61).",
+          "claims": [
+            "K12",
+            "K61"
+          ]
+        },
+        {
+          "text": "Silence points to adynamic obstruction or late peritonitis (K13, K61). What is right here: hyperactive, high-pitched, tinkling sounds (K61).",
+          "claims": [
+            "K13",
+            "K61"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure silence means a blocked gut. Reverse it: a working gut against a block tinkles (K61).",
+        "claims": [
+          "K61"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sound_contrast",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sound_t18b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a distended, sluggish belly sounds like a gut that is failing, so the low pitch looks right.",
+          "claims": []
+        },
+        {
+          "text": "But the bowel is not failing in a mechanical block. Peristalsis is working against the block, so sounds are hyperactive (K12, K61).",
+          "claims": [
+            "K12",
+            "K61"
+          ]
+        },
+        {
+          "text": "What is right: hyperactive, high-pitched, tinkling sounds (K61).",
+          "claims": [
+            "K61"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the sounds would be low. Hold on to this: working bowel against a block is loud, not quiet (K61).",
+        "claims": [
+          "K61"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sound_contrast",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sound_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Peristalsis works against a fixed block, so the sounds are hyperactive and tinkling (K12, K61).",
+          "claims": [
+            "K12",
+            "K61"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sound_contrast",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sound_contrast": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "A different patient. After laparotomy, on opioids, with distension and vomiting. The belly is silent on auscultation.",
+          "claims": []
+        },
+        {
+          "text": "Most likely diagnosis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Adhesive small bowel obstruction",
+          "next": "contrast_t18a",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Paralytic ileus",
+          "next": "contrast_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Sigmoid volvulus",
+          "next": "contrast_t18b",
+          "kind": "trap",
+          "trap": "TR18"
+        }
+      ]
+    },
+    "contrast_t18a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a distended, vomiting belly after surgery looks like a mechanical block.",
+          "claims": []
+        },
+        {
+          "text": "But silence with distension and vomiting is the adynamic picture: peristalsis has failed (K13, K61).",
+          "claims": [
+            "K13",
+            "K61"
+          ]
+        },
+        {
+          "text": "What is right: paralytic ileus, with no peristalsis working against a block (K13).",
+          "claims": [
+            "K13"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure that silence means a block. Here silence means failed peristalsis (K13, K61).",
+        "claims": [
+          "K13",
+          "K61"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pain_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "contrast_t18b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a twisted loop is a real mechanical block, so a mechanical label feels safe.",
+          "claims": []
+        },
+        {
+          "text": "But the silent belly here means peristalsis has failed, not that it is working against a block (K61, K13).",
+          "claims": [
+            "K61",
+            "K13"
+          ]
+        },
+        {
+          "text": "What is right: paralytic ileus, the adynamic picture (K13).",
+          "claims": [
+            "K13"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of a mechanical cause. A silent belly after surgery points to failed peristalsis (K61).",
+        "claims": [
+          "K61"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pain_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "contrast_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. A silent belly with distension and vomiting after surgery means failed peristalsis, so this is paralytic ileus (K13, K61).",
+          "claims": [
+            "K13",
+            "K61"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pain_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pain_probe": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A classmate says: 'Colic always means a simple block, so the pain never changes the plan.'",
+          "claims": []
+        },
+        {
+          "text": "Known adhesive small bowel obstruction for two days. The colic has become constant and severe. Pulse 116, with tenderness over one loop. What does this suggest?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Simple obstruction, continue conservative care",
+          "next": "pain_h1",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Strangulation needing urgent surgery",
+          "next": "pain_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Resolving obstruction, the colic is settling",
+          "next": "pain_h2",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pain_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "pain_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Look at the word that changed in the pain, and at the pulse. What does that combination point to?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the choice",
+          "next": "pain_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pain_h1": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "That is the classic colic picture, and it tempts because colic is the first symptom you learn (K49).",
+          "claims": [
+            "K49"
+          ]
+        },
+        {
+          "text": "Hint: the word that changed matters more than the word colic. What does constant pain point to?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain_probe2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pain_h2": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Pain that settles would fit a resolving block, which is why this option tempts. But check whether this pain is settling or changing.",
+          "claims": []
+        },
+        {
+          "text": "Hint: count the systemic signs as well as the local ones.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain_probe2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pain_probe2": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Same patient, second look at the same findings. What does this suggest?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Resolving obstruction, the colic is settling",
+          "next": "pain_full2",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Strangulation needing urgent surgery",
+          "next": "pain_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Simple obstruction, continue conservative care",
+          "next": "pain_full1",
+          "kind": "trap",
+          "trap": "TR22"
+        }
+      ]
+    },
+    "pain_full1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: colic is the classic presentation, so a known adhesive block feels like a simple one (K49).",
+          "claims": [
+            "K49"
+          ]
+        },
+        {
+          "text": "But pain that becomes constant and severe suggests strangulation (K50), and tachycardia with localised tenderness adds to it (K62).",
+          "claims": [
+            "K50",
+            "K62"
+          ]
+        },
+        {
+          "text": "What is right: strangulation needing urgent surgery, because the blood supply of the loop is compromised (K15).",
+          "claims": [
+            "K15"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure a known block stays simple. Keep this rule: constant, severe pain changes the plan (K50).",
+        "claims": [
+          "K50"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "which",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pain_full2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a colic that eases looks like a block on its way out, so watching seems the next step.",
+          "claims": []
+        },
+        {
+          "text": "But this pain is constant and severe, not settling. Constant severe pain suggests strangulation (K50), and fever, tachycardia and localised tenderness support it (K62).",
+          "claims": [
+            "K50",
+            "K62"
+          ]
+        },
+        {
+          "text": "What is right: strangulation needing urgent surgery, because the blood supply is compromised (K15).",
+          "claims": [
+            "K15"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the pain was settling. Check the word: constant, not colicky (K50).",
+        "claims": [
+          "K50"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Next",
+          "next": "which",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pain_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Constant severe pain with tachycardia and localised tenderness suggests strangulation, and the blood supply is at risk (K50, K62, K15).",
+          "claims": [
+            "K50",
+            "K62",
+            "K15"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "which",
+          "kind": "continue"
+        }
+      ]
+    },
+    "which": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Final check on the signs. Which finding does NOT suggest strangulation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Constant severe pain with a normal pulse",
+          "next": "which_t22a",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Colicky central pain with normal tenderness",
+          "next": "which_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Pain that has settled into a steady ache",
+          "next": "which_t22b",
+          "kind": "trap",
+          "trap": "TR22"
+        }
+      ]
+    },
+    "which_t22a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: constant pain sounds like colic that has simply lasted longer.",
+          "claims": []
+        },
+        {
+          "text": "But constant, severe pain is itself a sign of strangulation (K50), and it sits with the other signs (K8).",
+          "claims": [
+            "K50",
+            "K8"
+          ]
+        },
+        {
+          "text": "What is right: colicky central pain with normal tenderness fits a simple block, and constant severe pain does not (K49, K50).",
+          "claims": [
+            "K49",
+            "K50"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "which_t22b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Tempting: a settled, steady ache looks like colic that is resolving, so it seems less urgent.",
+          "claims": []
+        },
+        {
+          "text": "But constant pain is the change that points to strangulation (K50), and the dangerous signs come with it (K8).",
+          "claims": [
+            "K50",
+            "K8"
+          ]
+        },
+        {
+          "text": "What is right: colicky central pain with normal tenderness fits a simple block (K49).",
+          "claims": [
+            "K49"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "which_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Colicky central pain with normal tenderness is the simple picture (K49). Strangulation comes with constant pain, fever, tachycardia, localised tenderness and a raised lactate (K8, K62, K67).",
+          "claims": [
+            "K49",
+            "K8",
+            "K62",
+            "K67"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
