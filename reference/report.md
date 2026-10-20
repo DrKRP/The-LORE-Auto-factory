@@ -72,3 +72,5 @@ A correction on "Try again" at the same probe does not count as recovery: only a
 The player can export the session: `{module, version, started, finished, path: [...], report: {computed statuses, levels and the selected texts}}`. That record is the raw material for later analytics: which traps learners fall into, which repairs work, which branches nobody takes.
 
 The `strong` headline is shown with zero or one shaky objective, so its text must not assume a shaky item exists.
+
+**Wording rules from sims (2026-10-20).** `help.hints_heavy` counts hint taps and "Show me why / Show me the answer" taps together, so its text says "you asked for hints or explanations", not "you opened hints". `pace.fast_lane` fires whenever a skip was taken, including by a guesser, so its text names the skip and points to the skipped lesson's cards; it never claims the skip was earned.
