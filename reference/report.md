@@ -68,3 +68,5 @@ Each step: `{node, choice, kind, trap, sure, objectives}`, in order. `kind` is t
 ## The session record (for the app owner)
 
 The player can export the session: `{module, version, started, finished, path: [...], report: {computed statuses, levels and the selected texts}}`. That record is the raw material for later analytics: which traps learners fall into, which repairs work, which branches nobody takes.
+
+The `strong` headline is shown with zero or one shaky objective, so its text must not assume a shaky item exists.
