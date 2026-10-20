@@ -1,0 +1,567 @@
+{
+  "segment": "S1",
+  "entry": "case",
+  "nodes": {
+    "case": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 46-year-old woman has had pain in her right upper quadrant for 26 hours. It began after a fatty dinner.",
+          "claims": []
+        },
+        {
+          "text": "Today she has a fever of 38.5 °C, a tender right upper quadrant and a positive Murphy's sign.",
+          "claims": []
+        },
+        {
+          "text": "What is your working diagnosis? Commit before you read on.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Acute cholecystitis",
+          "next": "case_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Biliary colic",
+          "next": "t4_colic",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Stone stuck in the bile duct",
+          "next": "stone_partial",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "case_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "case_help": {
+      "role": "hint",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Check two things: how long the pain has lasted, and whether there is fever or a tender gallbladder.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "case_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. **Acute cholecystitis** is the answer here: pain past about 6 hours, with fever and a tender gallbladder, points to an inflamed gallbladder wall.",
+          "claims": [
+            "K38",
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "boundary",
+          "kind": "continue"
+        }
+      ]
+    },
+    "boundary": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "**Biliary colic** is a stone briefly blocking the gallbladder outlet, with no inflammation of the wall.",
+          "claims": [
+            "K11"
+          ]
+        },
+        {
+          "text": "Its pain is steady and usually settles within a few hours, with no fever.",
+          "claims": [
+            "K37"
+          ]
+        },
+        {
+          "text": "**Acute cholecystitis** is inflammation of the gallbladder. Most cases (90–95%) are calculous: a stone impacted in the cystic duct or Hartmann's pouch.",
+          "claims": [
+            "K12",
+            "K101"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "scan",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t4_colic": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "That is not the right choice. **Biliary colic** is tempting because 'colic' sounds like cramping pain that comes and goes.",
+          "claims": [
+            "K118"
+          ]
+        },
+        {
+          "text": "But this pain has lasted 26 hours with fever. Colic settles within a few hours and has no inflamed wall.",
+          "claims": [
+            "K37",
+            "K11"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the course, not the name: duration, fever and the wall decide it.",
+        "claims": [
+          "K37"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "show_colic",
+          "kind": "agency"
+        }
+      ]
+    },
+    "show_colic": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "You picked biliary colic. That misses the course: colic is a stone blocking the outlet with no wall inflammation, and it passes within hours.",
+          "claims": [
+            "K11",
+            "K37"
+          ]
+        },
+        {
+          "text": "Pain past about 6 hours, with fever and a tender gallbladder, points to an inflamed wall, which is the picture in this case.",
+          "claims": [
+            "K38",
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "scan",
+          "kind": "continue"
+        }
+      ]
+    },
+    "stone_partial": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "That is not the right choice. A bile duct stone can cause pain, so it is tempting, but this woman's signs sit over the gallbladder.",
+          "claims": [
+            "K39"
+          ]
+        },
+        {
+          "text": "A tender right upper quadrant with a positive Murphy's sign, an inspiratory catch on deep palpation, points at the gallbladder.",
+          "claims": [
+            "K39",
+            "K5"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "show_stone",
+          "kind": "agency"
+        }
+      ]
+    },
+    "show_stone": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "You picked a stone in the bile duct. That explains pain, but not a tender, febrile gallbladder with a positive Murphy's sign.",
+          "claims": [
+            "K39"
+          ]
+        },
+        {
+          "text": "Acute cholecystitis is usually a stone impacted in the cystic duct or Hartmann's pouch, so the gallbladder itself is inflamed.",
+          "claims": [
+            "K101",
+            "K12"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "scan",
+          "kind": "continue"
+        }
+      ]
+    },
+    "scan": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same woman, back in clinic with the same signs.",
+          "claims": []
+        },
+        {
+          "text": "Which imaging test do you order first?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Ultrasonography of the abdomen",
+          "next": "scan_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "CT (computed tomography) of abdomen",
+          "next": "scan_t2",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "scan_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "scan_help": {
+      "role": "hint",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Think about the first test you would order, not the most accurate one.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "scan",
+          "kind": "retry"
+        }
+      ]
+    },
+    "scan_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Yes. **Ultrasonography** is the initial investigation of choice for gallstones and suspected acute cholecystitis.",
+          "claims": [
+            "K102"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ladder",
+          "kind": "continue"
+        }
+      ]
+    },
+    "scan_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "That is not the right choice. CT feels thorough, so it is tempting as the first look at a gallbladder.",
+          "claims": [
+            "K50"
+          ]
+        },
+        {
+          "text": "But CT is kept for complications and for other diagnoses. It is not the first test for stones or suspected cholecystitis.",
+          "claims": [
+            "K50",
+            "K102"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the word 'first': CT is a later rung on the ladder.",
+        "claims": [
+          "K50",
+          "K116"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "scan",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "ladder",
+          "kind": "agency"
+        }
+      ]
+    },
+    "ladder": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "The ladder runs in order. **Ultrasonography** comes first for gallstones and suspected cholecystitis.",
+          "claims": [
+            "K102"
+          ]
+        },
+        {
+          "text": "The test asked as most sensitive and specific is **HIDA** (cholescintigraphy). PYQs use it as the investigation of choice.",
+          "claims": [
+            "K103",
+            "K116"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "acc",
+          "kind": "continue"
+        }
+      ]
+    },
+    "acc": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same ward, a different question.",
+          "claims": []
+        },
+        {
+          "text": "Which test is the most sensitive and specific for acute cholecystitis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "HIDA scan (cholescintigraphy)",
+          "next": "acc_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Ultrasound of the gallbladder",
+          "next": "acc_t2",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "acc_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "acc_help": {
+      "role": "hint",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Think about the test that checks whether the gallbladder fills after a tracer is given.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "acc",
+          "kind": "retry"
+        }
+      ]
+    },
+    "acc_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Yes. In **HIDA**, non-filling of the gallbladder with tracer in the duodenum confirms cystic duct obstruction.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "recap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "acc_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "That is not the right choice. Ultrasound is tempting because you order it first, so it feels like the answer to every gallbladder question.",
+          "claims": [
+            "K102"
+          ]
+        },
+        {
+          "text": "But this question asks for the most sensitive and specific test, a different rung from the first test.",
+          "claims": [
+            "K116"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is the slip to watch: the first test and the most accurate test are not the same.",
+        "claims": [
+          "K116"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "acc",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "acc_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "acc_show": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "You picked ultrasound. It answers the first-test question, not the accuracy question.",
+          "claims": [
+            "K102"
+          ]
+        },
+        {
+          "text": "For accuracy, **HIDA** is the test: the tracer reaches the duodenum but the gallbladder does not fill when the cystic duct is blocked.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "recap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "recap": {
+      "role": "recap",
+      "objectives": [
+        "O1",
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "So colic is steady, short and without fever. Cholecystitis is the inflamed gallbladder: persistent pain, fever and a positive Murphy's sign.",
+          "claims": [
+            "K37",
+            "K39"
+          ]
+        },
+        {
+          "text": "On the ladder, ultrasonography is the first test, and HIDA is the most sensitive and specific one.",
+          "claims": [
+            "K102",
+            "K103"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
