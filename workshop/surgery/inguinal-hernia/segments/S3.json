@@ -1,0 +1,1426 @@
+{
+  "segment": "S3",
+  "entry": "predict",
+  "nodes": {
+    "predict": {
+      "role": "probe",
+      "objectives": [
+        "O1",
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now the bedside. You reduce an indirect hernia, press a finger over the deep ring and ask him to cough.",
+          "claims": [
+            "K43"
+          ]
+        },
+        {
+          "text": "Predict: does the swelling come back while your finger holds the ring shut?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "It comes back medial to your finger",
+          "next": "predict_t",
+          "kind": "trap",
+          "trap": "TR21"
+        },
+        {
+          "label": "It stays away while the ring is held shut",
+          "next": "predict_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "It bulges out lateral to your finger",
+          "next": "predict_t",
+          "kind": "trap",
+          "trap": "TR21"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "predict_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "predict_help": {
+      "role": "hint",
+      "objectives": [
+        "O1",
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Ask which door the finger shuts, and whether an indirect sac has to use it.",
+          "claims": [
+            "K43",
+            "K12"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "predict",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "predict_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "predict_t": {
+      "role": "feedback",
+      "objectives": [
+        "O1",
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "The finger shuts the deep ring, the only door an indirect sac uses, so it cannot come back past the finger.",
+          "claims": [
+            "K43",
+            "K12"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "predict",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "predict_ok",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Picture the finger pinching the neck: it stops an indirect sac, not one through the back wall.",
+        "claims": [
+          "K43"
+        ]
+      }
+    },
+    "predict_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1",
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "The finger closes the deep ring, so an indirect sac stays away. A direct sac comes through the posterior wall, medial to the finger, and still bulges.",
+          "claims": [
+            "K43",
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "start",
+          "kind": "continue"
+        }
+      ]
+    },
+    "start": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two swellings in the same right groin. A: pear-shaped, oblique, runs into the scrotum, reduces upwards, laterally and backwards.",
+          "claims": [
+            "K41"
+          ]
+        },
+        {
+          "text": "B: globular, near the pubic tubercle, reduces straight back, rarely reaches the scrotum. Which one is the direct hernia?",
+          "claims": [
+            "K42"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "A, the pear-shaped swelling that runs into the scrotum",
+          "next": "start_t",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "B, the globular swelling by the pubic tubercle",
+          "next": "start_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Both, since either can reach the scrotum",
+          "next": "start_t",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "start_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "start_help": {
+      "role": "hint",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Ask which sac follows the spermatic cord down the canal, and which one bulges straight forward at the pubic tubercle.",
+          "claims": [
+            "K12",
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "start_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "start_t": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "The scrotum marks the indirect sac, which follows the cord. A direct sac stays near the pubic tubercle and rarely reaches the scrotum.",
+          "claims": [
+            "K41",
+            "K42"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "start_ok",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Fix the sign: scrotal descent points to the indirect sac, not the direct one.",
+        "claims": [
+          "K41"
+        ]
+      }
+    },
+    "start_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "B is the direct hernia: globular, by the pubic tubercle, reducing straight back through the posterior wall. A is the indirect hernia following the cord into the scrotum.",
+          "claims": [
+            "K41",
+            "K42"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "explain_pair",
+          "kind": "continue"
+        },
+        {
+          "label": "I have it, skip the pattern lesson",
+          "next": "occl_v",
+          "kind": "skip"
+        }
+      ]
+    },
+    "explain_pair": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Sort two swellings by what they do. **Indirect**: oblique, pear-shaped, commonly into the scrotum; reduces upwards, laterally and backwards.",
+          "claims": [
+            "K41"
+          ]
+        },
+        {
+          "text": "**Direct**: globular near the pubic tubercle; reduces straight back; rarely into the scrotum, often both sides in older men.",
+          "claims": [
+            "K42"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "occl_v",
+          "kind": "continue"
+        }
+      ]
+    },
+    "occl_v": {
+      "role": "probe",
+      "objectives": [
+        "O1",
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A new patient. You reduce the lump and hold the deep ring shut. On coughing, a swelling still bulges medial to your finger.",
+          "claims": [
+            "K43"
+          ]
+        },
+        {
+          "text": "Which hernia is it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Femoral hernia, since it appears near the tubercle",
+          "next": "occl_t40",
+          "kind": "trap",
+          "trap": "TR40"
+        },
+        {
+          "label": "Indirect inguinal hernia, since the ring is the entry",
+          "next": "occl_t21",
+          "kind": "trap",
+          "trap": "TR21"
+        },
+        {
+          "label": "Direct inguinal hernia, through the posterior wall",
+          "next": "occl_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "occl_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "occl_help": {
+      "role": "hint",
+      "objectives": [
+        "O1",
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Ask whether a sac that still shows past a finger on the deep ring can have come through that ring.",
+          "claims": [
+            "K43",
+            "K12"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "occl_v",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "occl_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "occl_t21": {
+      "role": "feedback",
+      "objectives": [
+        "O1",
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "The finger blocks the deep ring, the indirect entry, so an indirect sac would stay away. A swelling still medial to the finger is direct.",
+          "claims": [
+            "K43",
+            "K12"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "occl_v",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "occl_ok",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Hold on to this: under the finger, the swelling that stays away is indirect; the one that bulges medial is direct.",
+        "claims": [
+          "K43"
+        ]
+      }
+    },
+    "occl_t40": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "A femoral hernia is placed by the pubic tubercle, below and lateral to it. The finger test on the deep ring does not define it.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "occl_v",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "occl_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "occl_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1",
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "A sac still bulging medial to the finger came through the posterior wall, so it is direct. The finger blocks the deep ring, where an indirect sac enters.",
+          "claims": [
+            "K43",
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "route",
+          "kind": "continue"
+        }
+      ]
+    },
+    "route": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Relative to the inferior epigastric vessels, which hernia enters the canal through the deep ring?",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Indirect inguinal hernia, lateral to the vessels",
+          "next": "route_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Direct inguinal hernia, medial to the vessels",
+          "next": "route_t",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "route_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "route_help": {
+      "role": "hint",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Ask which side of the vessels the deep ring lies on, and which sac comes through the back wall instead.",
+          "claims": [
+            "K3",
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "route",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "route_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "route_t": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "A direct sac bulges through Hesselbach's triangle, medial to the vessels. The deep-ring sac, lateral to them, is the indirect one.",
+          "claims": [
+            "K13",
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "route",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "route_ok",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. The names mislead, so trace each sac against the vessels: lateral is indirect, medial is direct.",
+        "claims": [
+          "K3",
+          "K13"
+        ]
+      }
+    },
+    "route_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The indirect sac enters at the deep ring, lateral to the inferior epigastric vessels. The direct sac comes through the posterior wall, medial to them.",
+          "claims": [
+            "K3",
+            "K12",
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "lap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "lap": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Laparoscopic view of an elderly man with a chronic cough. The sac bulges medial to the inferior epigastric vessels.",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "Which hernia is it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Indirect inguinal hernia, the commonest type",
+          "next": "lap_t",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Direct inguinal hernia, through Hesselbach's triangle",
+          "next": "lap_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "lap_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "lap_help": {
+      "role": "hint",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Ask which side of the vessels the sac lies on, and which entry that side leads to.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "lap",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "lap_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "lap_t": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Indirect is the commonest, but an indirect sac enters lateral to the vessels. This one is medial, so it comes through the posterior wall.",
+          "claims": [
+            "K2",
+            "K12",
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "lap",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "lap_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "lap_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "A sac medial to the vessels comes through Hesselbach's triangle, the posterior wall, so it is direct.",
+          "claims": [
+            "K13",
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "zieman",
+          "kind": "continue"
+        }
+      ]
+    },
+    "zieman": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Zieman's test lays three fingers over three openings in the groin.",
+          "claims": [
+            "K44"
+          ]
+        },
+        {
+          "text": "Which pairing of finger, opening and hernia is correct?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Index finger, deep ring: direct",
+          "next": "zieman_t",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Ring finger, saphenous opening: indirect",
+          "next": "zieman_t",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Middle finger, superficial ring: direct",
+          "next": "zieman_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "zieman_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "zieman_help": {
+      "role": "hint",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Name the opening each finger covers first: deep ring, superficial ring or saphenous opening. Then ask where the indirect entry is.",
+          "claims": [
+            "K44",
+            "K12"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "zieman",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "zieman_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "zieman_t": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Index covers the deep ring, the indirect entry. Ring finger covers the saphenous opening, which marks femoral. An impulse under the middle finger is direct.",
+          "claims": [
+            "K44",
+            "K12"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "zieman",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "zieman_ok",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Reset the finger map: index is deep ring, indirect; middle is superficial ring, direct; ring is saphenous, femoral.",
+        "claims": [
+          "K44"
+        ]
+      }
+    },
+    "zieman_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Middle finger covers the superficial ring, and an impulse there means direct. Index is the deep ring, where the indirect sac enters; ring finger is the saphenous opening.",
+          "claims": [
+            "K44"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "tr31",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tr31": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A: a 60-year-old man with a swelling medial to the epigastric vessels that appears on coughing.",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "B: a 6-month-old boy whose swelling comes up on crying and reaches the scrotum. Which one is the congenital hernia, from a patent processus vaginalis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A, the man whose swelling lies medial to the vessels",
+          "next": "tr31_t",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Both, since both sit in the groin",
+          "next": "tr31_t",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "B, the infant whose swelling reaches the scrotum",
+          "next": "tr31_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "tr31_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "tr31_help": {
+      "role": "hint",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Ask which sac comes through an opening that should have closed in childhood, and which through a wall that weakens over time.",
+          "claims": [
+            "K33",
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tr31",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "tr31_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tr31_t": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Position gives the route, not the cause. A medial sac in an older man is acquired from posterior wall weakness; the infant's sac is congenital, through a patent processus.",
+          "claims": [
+            "K26",
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tr31",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "tr31_ok",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Fix the pairing: indirect is congenital, direct is acquired.",
+        "claims": [
+          "K25",
+          "K26"
+        ]
+      }
+    },
+    "tr31_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "An indirect hernia is congenital: the processus vaginalis stays open and the sac comes through it. A direct hernia is acquired, from posterior wall weakness.",
+          "claims": [
+            "K25",
+            "K33",
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "contrast",
+          "kind": "continue"
+        }
+      ]
+    },
+    "contrast": {
+      "role": "probe",
+      "objectives": [
+        "O4",
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "An elderly man has a direct inguinal hernia. Which description fits it?",
+          "claims": [
+            "K42"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Pear-shaped, runs into the scrotum, reduces laterally",
+          "next": "contrast_t23",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Congenital, from a patent processus, reduces upwards",
+          "next": "contrast_t31",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Globular by the tubercle, impulse on the tip of the little finger",
+          "next": "contrast_t22",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Acquired, globular by the tubercle, impulse on the pulp",
+          "next": "contrast_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "contrast_t23": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Pear-shaped, oblique and into the scrotum is the indirect picture. A direct swelling is globular and rarely reaches the scrotum.",
+          "claims": [
+            "K41",
+            "K42"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "contrast",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "contrast_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "contrast_t31": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "A patent processus is the congenital, indirect cause. A direct hernia is acquired, from weakness of the posterior wall.",
+          "claims": [
+            "K25",
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "contrast",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "contrast_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "contrast_t22": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "In the invagination test a tip impulse means indirect and a pulp impulse means direct.",
+          "claims": [
+            "K45"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "contrast",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "contrast_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "contrast_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4",
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "A direct hernia is acquired and globular, sits by the pubic tubercle, reduces straight back, and gives a pulp impulse in the invagination test.",
+          "claims": [
+            "K42",
+            "K26",
+            "K45"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "tr40",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tr40": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two groin lumps, both at the pubic tubercle. Read where each neck sits against the tubercle.",
+          "claims": [
+            "K6"
+          ]
+        },
+        {
+          "text": "A: above and medial to the tubercle. B: below and lateral to it. Which is the **femoral** hernia?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A, above and medial to the tubercle",
+          "next": "tr40_t",
+          "kind": "trap",
+          "trap": "TR40"
+        },
+        {
+          "label": "Neither, since femoral lies above the tubercle",
+          "next": "tr40_t",
+          "kind": "trap",
+          "trap": "TR40"
+        },
+        {
+          "label": "B, below and lateral to the tubercle",
+          "next": "tr40_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "tr40_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "tr40_help": {
+      "role": "hint",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Find the pubic tubercle first. Then ask whether the lump sits above or below it, and on which side.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tr40",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "tr40_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tr40_t": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Above and medial is the inguinal position. Femoral is the opposite corner of the same landmark: below and lateral.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tr40",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "tr40_ok",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Use the tubercle as the anchor: above and medial is inguinal, below and lateral is femoral.",
+        "claims": [
+          "K6"
+        ]
+      }
+    },
+    "tr40_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "The femoral hernia lies below and lateral to the pubic tubercle; the inguinal neck lies above and medial to it. Same landmark, opposite corners.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wall",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wall": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Last anatomy check, on the wall of the canal. Which pairing of wall and reinforcement is correct?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Posterior wall, reinforced laterally by the internal oblique",
+          "next": "wall_t",
+          "kind": "trap",
+          "trap": "TR28"
+        },
+        {
+          "label": "Posterior wall, reinforced medially by the conjoint tendon",
+          "next": "wall_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Anterior wall, reinforced medially by the conjoint tendon",
+          "next": "wall_t",
+          "kind": "trap",
+          "trap": "TR28"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "wall_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "wall_help": {
+      "role": "hint",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Ask which wall the conjoint tendon lies behind, and which wall the internal oblique reinforces.",
+          "claims": [
+            "K18",
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wall",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "wall_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wall_t": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The anterior wall is external oblique aponeurosis, reinforced laterally by the internal oblique. The conjoint tendon reinforces the posterior wall medially.",
+          "claims": [
+            "K18",
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wall",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "wall_ok",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Keep the walls apart: anterior has the internal oblique laterally; posterior has the conjoint tendon medially.",
+        "claims": [
+          "K18",
+          "K19"
+        ]
+      }
+    },
+    "wall_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The posterior wall is transversalis fascia, reinforced medially by the conjoint tendon, which is where a direct sac pushes through.",
+          "claims": [
+            "K19",
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wall2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wall2": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "A direct sac pushes through the posterior wall of the canal. Which structure reinforces that wall medially?",
+          "claims": [
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Conjoint tendon",
+          "next": "wall2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Internal oblique",
+          "next": "wall2_t",
+          "kind": "trap",
+          "trap": "TR28"
+        },
+        {
+          "label": "External oblique aponeurosis",
+          "next": "wall2_t",
+          "kind": "trap",
+          "trap": "TR28"
+        }
+      ]
+    },
+    "wall2_t": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Both obliques make or reinforce the anterior wall. The medial reinforcement of the posterior wall is the conjoint tendon.",
+          "claims": [
+            "K18",
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wall2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "wall2_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wall2_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The conjoint tendon reinforces the posterior wall medially, where a direct sac pushes through.",
+          "claims": [
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "close_s3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "close_s3": {
+      "role": "recap",
+      "say": [
+        {
+          "text": "Three bedside checks: where the sac sits against the vessels, the shape and reduction pattern, and the finger test that matches it.",
+          "claims": [
+            "K13",
+            "K41",
+            "K43"
+          ]
+        },
+        {
+          "text": "Indirect comes down the canal from the deep ring; direct bulges at the posterior wall. Femoral sits below and lateral to the tubercle.",
+          "claims": [
+            "K12",
+            "K13",
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  },
+  "technique": "T7+T6+T3",
+  "decision": "merge"
+}
