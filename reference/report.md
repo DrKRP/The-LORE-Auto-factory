@@ -21,6 +21,8 @@ Each step: `{node, choice, kind, trap, sure, objectives}`, in order. `kind` is t
 | `fell_recovered` | chosen at least once, and the **last** encounter of a probe offering it was answered correctly |
 | `fell_open` | chosen, and not followed by a correct answer on a later probe offering it (fallen and not yet shown fixed) |
 
+A correction on "Try again" at the same probe does not count as recovery: only a later, different probe offering the trap shows the fix held. So `fell_open` texts must say the learner may have corrected it on the spot, and that the next step is to meet it again on a fresh question (the review card).
+
 **Objective mastery** for each objective, over first answers on probes tagged with it:
 
 | level | when |
