@@ -1,0 +1,1 @@
+- 2026-10-20 round 0 review 3.46. Refine round 1: patch per review and sims (hint dead-ends, repeats, duplicate cards, S2 show-why routing, S4/S6 form cues, report fast_lane/hints texts).
