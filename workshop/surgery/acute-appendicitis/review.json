@@ -1,80 +1,72 @@
 {
   "module": "surgery/acute-appendicitis",
-  "judge": "m1",
+  "round": 1,
   "mode": "module",
-  "lens": "all three in turn: learning-scientist, examiner, learner-advocate (averaged)",
+  "judge": "m2",
+  "lenses": ["learning-scientist", "examiner", "learner-advocate"],
+  "inputs_read": ["module.json", "trap-map.json", "blueprint.json", "reference/rubric.md", "reference/pedagogy.md", "sim/novice.md", "sim/misconceived.md", "sim/strong.md", "sim/guesser.md", "sim/*.report.json (4)"],
   "gates": {
-    "G3_broken_graph": "pass: all four sim walks (novice, misconceived, strong, guesser) reach END; no dead end seen on the nodes read",
-    "G4_buttons_only": "pass: every learner turn is a tap on a pre-written choice; no typed input; no run-time model"
+    "G3_broken_graph": "pass. Every next resolves to a node; the four sim walks reach END (novice 192 choices, misconceived 163 steps, strong 102, guesser 193).",
+    "G4_buttons_only": "pass. Every learner turn is a pre-written choice; no typed input or run-time model dependence."
   },
   "lens_scores": {
-    "learning-scientist": {
-      "scores": {"R1": 4, "R2": 4, "R3": 4, "R4": 4, "R5": 3, "R6": 4, "R7": 4, "R8": 4, "R9": 4},
-      "weighted": 3.89
-    },
-    "examiner": {
-      "scores": {"R1": 4, "R2": 3, "R3": 4, "R4": 4, "R5": 3, "R6": 4, "R7": 4, "R8": 4, "R9": 3},
-      "weighted": 3.61
-    },
-    "learner-advocate": {
-      "scores": {"R1": 4, "R2": 3, "R3": 4, "R4": 3, "R5": 4, "R6": 4, "R7": 4, "R8": 3, "R9": 3},
-      "weighted": 3.56
-    }
+    "learning-scientist": {"R1": 4, "R2": 3, "R3": 4, "R4": 3, "R5": 3, "R6": 4, "R7": 4, "R8": 4, "R9": 3},
+    "examiner": {"R1": 4, "R2": 4, "R3": 4, "R4": 3, "R5": 3, "R6": 5, "R7": 4, "R8": 3, "R9": 3},
+    "learner-advocate": {"R1": 4, "R2": 3, "R3": 4, "R4": 2, "R5": 3, "R6": 4, "R7": 4, "R8": 3, "R9": 2}
   },
-  "scores": {
-    "R1": 4.0,
-    "R2": 3.33,
-    "R3": 4.0,
-    "R4": 3.67,
-    "R5": 3.33,
-    "R6": 4.0,
-    "R7": 4.0,
-    "R8": 3.67,
-    "R9": 3.33
-  },
-  "weighted": 3.69,
-  "publish_threshold": 4.0,
-  "below_threshold": true,
+  "scores": {"R1": 4.0, "R2": 3.33, "R3": 4.0, "R4": 2.67, "R5": 3.0, "R6": 4.33, "R7": 4.0, "R8": 3.33, "R9": 2.67},
+  "score_method": "mean of the three lens scores per criterion, to two decimals",
+  "weighted": 3.48,
+  "weighted_method": "sum(score x weight) / 18, weights R1 3, R2 3, R3 2, R4 2, R5 2, R6 2, R7 1, R8 1, R9 2",
+
   "segments": [
-    {"id": "S1", "score": 4, "reason": "TR13 refuted with a frequency-versus-severity contrast in S1.open_x1 and S1.open_x3; S1.open_ok offers a fast lane; S1.age_a_x and S1.age_bx explain the age rule. Weak: S1.open_2 and S1.age_a2 re-ask the same stem with 'Same question, one more look'; S1.age_a_t and S1.age_bt only say 'Try once more'."},
-    {"id": "S2", "score": 3, "reason": "Good TR4 and TR5 work: S2.pain_a_t1 and S2.chain_probe_t2 tempt then refute, S2.teach_pain and S2.chain_why explain, S2.sym_probe_t2 names fever as the late sign. Weak: S2.age_probe and S2.adult_probe repeat the S1.age_a and S1.age_b lesson a third and fourth time; S2.pain_a_2, S2.chain_probe_2, S2.end_probe_2 and S2.sym_probe_2 re-ask identical stems at once."},
-    {"id": "S3", "score": 4, "reason": "Richest trap work: S3.case_t1 and S3.rov_t3 use Tempting then Nudge; S3.rov predicts the press site before the answer; S3.pos_t1 and S3.mech_t2 separate TR2 from TR1; S3.alv2_t9 rebuilds the Alvarado total from the table. Weak: the key is the longest option in S3.case and S3.mech (telegraph); S3.alv is asked cold before any score is taught; S3.cl re-asks items answered minutes earlier; S3.ttr_ok packs three look-alike lists into one message."},
-    {"id": "S4", "score": 3, "reason": "S4.c3_t10 and S4.c3_why10 teach the imaging ladder well ('a safe first rung, then a second one'), and S4.a3 offers three traps. Weak: S4.d1, S4.c2, S4.c2b, S4.c4, S4.a1, S4.a2, S4.a5 and S4.a6 have one trap plus a hint, so a guess is 50%; S4.a5 repeats the S3.alv2 items and answer nearly verbatim; S4.d1_t9 and S4.a1_t11 loop back to the identical probe with no new teaching."},
-    {"id": "S5", "score": 4, "reason": "Strong management branch: S5.p1 separates TR22 from TR23 by qualifiers; S5.p3_t0 and S5.p3_w0 explain mass versus abscess; S5.p5_t1 and S5.p5_w1 explain drainage order; S5.p6_h sorts disease from operation; S5.p9 contrasts the old key with current practice. Weak: S5.p9 key is by far the longest and most nuanced option (telegraph); S5.p4 key is the longest (78 characters); S5.p5_h nearly names the answer."},
-    {"id": "S6", "score": 3, "reason": "Cold final has new vignettes that work: S6.p3 (Alvarado 6), S6.p6 (negative ultrasound in an adult, no hint), S6.p8 (beta-hCG first), S6.p10 (mass versus abscess), S6.p11 (two complications). But S6.p1_t1, S6.p3_t1, S6.p4_t1, S6.p5_t1, S6.p6_t1, S6.p8_t1, S6.p10_t1 and S6.p11_t1 drop the Tempting and Nudge scaffold and use the same generic sure_note ('give it a second look before you move on'); S6.p5 option 'It is a hip movement, so pressing the abdomen is wrong' is dominated; S6.p1 to S6.p5 re-run S2 and S3 probes; S6.p12_ok gives the PYQ size rule in feedback only, never as a probe."}
+    {"id": "S1", "score": 3, "reason": "Strong hook: S1.open probe with sure_note and the S1.open_x1 'most common is frequency' repair; S1.age_a_t and S1.age_bt name the model. Weak: S1.open_2, S1.age_a2 and S1.age_b2 are the same stem re-asked with the wrong option greyed out (retry is elimination). The age-cause probe recurs four times (S1.age_a, S1.age_b, S1.age_b2, S2.age_probe). S1.age_hint is close to giving the answer."},
+    {"id": "S2", "score": 3, "reason": "Good mechanism: S2.chain_probe wrong options each name a model, S2.chain_why gives the three-step chain with a device, S2.sym_probe and S2.vig_probe use the order as a filter. Weak: S2.end_probe distractors 'as ischaemia leads' and 'as the artery leads' are garbled and read as non-plausible; S2.age_probe repeats S1.age_a; S2.vig_probe option 'diffuse pain rules out appendicitis' is mapped to TR4 but is a symptom-pattern error."},
+    {"id": "S3", "score": 3, "reason": "Best drill of the module for the three signs: S3.case_t1 and S3.obt_t1 name the tempting model and nudge, S3.rov and S3.pos_t1 match the trap map. Weak: S3.contrast packs three manoeuvres and positions into one node; S3.alv has no Alvarado table before the probe and S3.alv_hint says 'go through MANTRELS letter by letter' with no list shown; S3.ttr_ok carries three look-alike lists; S3 runs about 35 nodes."},
+    {"id": "S4", "score": 3, "reason": "The ladder logic is taught right (S4.c2 then S4.c2b for pregnancy test first; S4.c3 and S4.c4 for the pregnancy ladder). Weak: S4.a1 key is contestable. The trap map stem said 'in adults, most accurate'; the module stem drops both, and S4.a1_ok says 'Keep the old key too' with no exam rule. S4.a6 distractor 'unlikely band' is dominated. S4.c2 and S4.c2b teach the same rule back to back."},
+    {"id": "S4_fast_lanes", "score": null, "reason": "Fast lanes S1.open_ok, S2.pain_ok and S4.d1_ok are present and cover O1, O3 and O7 on skip. Included for completeness; not scored."},
+    {"id": "S5", "score": 4, "reason": "Clearest segment: four distinct management traps (TR22 to TR25), each with its own qualifier stem (S5.p2 appendicolith, S5.p3 mass, S5.p4 age, S5.p5 collection). Wrong feedback names the model and gives the repair (S5.p2_w1, S5.p3_w1, S5.p4_w2) with claims. Flaws: S5.p6 double-negative stem; S5.p9 key is the most complete option, so it can be picked on length; S5.p8 femoral option is weak."},
+    {"id": "S6", "score": 2, "reason": "The cold check is not cold. S6.p1_t1 to S6.p1, S6.p3_t1 to S6.p3 and S6.p8_t1 to S6.p8 let the learner retry the same stem at once, so recovery is credited on a second attempt. Most S6 probes re-ask S2 to S5 content in close form (sims novice, misconceived, strong). S6.p11 key shares 'from the disease' with one distractor and 'ilioinguinal' with the other, a test-wise cue. S6.p5 option 'pain on sudden release' is mapped to TR3 but is a rebound error. O12 is first met at S6.p12 with no teaching node before it."}
   ],
-  "weakest": ["S6", "S4", "S2"],
+  "weakest": ["S6", "S4", "S1", "S2", "S3"],
+  "weakest_note": "Worst first. S6 is lowest because its purpose (unaided check) is undermined by immediate retries and near-copies of earlier stems. S4 next because its exam key is ambiguous. S1, S2 and S3 tie at 3; ordered by repeated stems and garbled or dense nodes.",
+
   "best_parts": [
-    "S3.rov and S3.rov_t3: predict where the sign presses and where it hurts, then a Nudge that makes the learner predict the pain site from the press site. Keep this predict-then-show pattern.",
-    "S4.c3_t10 and S4.c3_why10: 'Ultrasound is first; MRI is the next step when ultrasound is inconclusive', framed as a ladder with a safe first rung. Best concept-level feedback on TR10.",
-    "S3.alv2_t9 and S3.alv2_why: the learner adds item by item from the table, and the explanation shows the sum to 7 with the 'likely, not confirmed' caveat.",
-    "S5.p3_t0 and S5.p3_w0 with the S5.p3_h hint ('think about what the omentum has done by day five'): the hint reasons from the mechanism, not the answer."
+    "S3.case_t1: names the tempting model ('internal rotation ... files easily next to this one'), nudges by movement, and sets a sure_note tied to the trap. The model for tempting-then-nudge feedback.",
+    "S5.p2_w1: contrast of the three antibiotics-first conditions with the appendicolith as the discriminator; claims K71 and K15 tie the repair to the note.",
+    "S2.chain_why: the lumen-to-gangrene chain in three steps, with the blocked-drain device placed after the claim, so the device is the memory aid and not the explanation."
   ],
+
   "flaws": [
-    "S3.case (key 'Extend the right hip with him on his left side'): the key is the longest of three options, so form gives it away (DP1). Also S3.mech key is longest and echoes the stem's 'rectal tenderness'.",
-    "S5.p9 (key 'Choice is appendicectomy; only is the old key; antibiotics-first suits selected adults'): the only nuanced option, the longest by about 15 characters. Shorten the key or lengthen the traps.",
-    "S6.p5 option 'It is a hip movement, so pressing the abdomen is wrong': dominated (DP2). A learner with any surface model of Rovsing rejects it at once.",
-    "S6.p1_t1, S6.p3_t1, S6.p4_t1, S6.p5_t1, S6.p6_t1, S6.p8_t1, S6.p10_t1, S6.p11_t1: the sure_note is the same boilerplate, names no wrong model, and no feedback in S6 says why the trap is tempting.",
-    "S2.age_probe and S2.adult_probe, and S4.a5: near-repeats of S1.age_a, S1.age_b and S3.alv2. Dead weight that a tired learner notices (both sim reports say so).",
-    "S2.pain_a_2, S2.chain_probe_2, S3.case_2, S4.d1 and most '_2' nodes: 'Same question, one more look' re-asks the same stem with reordered options, so the second tap is solvable by elimination. Delayed re-tests exist (S6.p1, S6.p4) but come far too late to count as recovery.",
-    "S4.d1, S4.c2, S4.c2b, S4.c4, S4.a1, S4.a2, S4.a5, S4.a6: two real options plus a hint. Add the dropped distractors from trap-map (low-dose CT for TR9, MRI for TR11 as partial, laparoscopy for TR12).",
-    "S6.p2 stem ('She vomited twice after the pain began') states the answer; the probe checks reading, not the trap.",
-    "S6.p12 'Mucocele' is mapped to TR13, which is a severity-for-frequency trap; the option is not that error. Size rule for O12 is taught but never probed."
+    "Retry design, across S1.open_2, S1.age_a2, S1.age_b2, S3.alv2, S4.d1, S6.p1, S6.p3 and S6.p8: 'Try again' returns to the identical stem with the wrong option greyed out. Sims note this is elimination, not reasoning. The S6 'cold' probes allow the same retry, so 'fixed' is reached too easily (misconceived sim caveat). Fix: a fresh surface stem for each retry, and recovery credited only on a later, different-form probe.",
+    "Report accuracy (R9), sim/novice.report.json and sim/guesser.report.json: every trap is fell_open although the paths show correct answers on later probes (S6.p4, S6.p6, S6.p7, S6.p8, S6.p10, S6.p11 for novice). Hint count is 14 in the novice report but 2 opened in the path; wrong-answer hint-role nodes are counted as hints. Misconceived report: headline 'mixed' with 'solid base' despite 20 confident errors and 29 sure-wrong answers, text 'at least two', and card order 0 to 10 although the text promises 'confident errors first'. Strong report: cold_total 10 against 11 cards.",
+    "Key ambiguity and mis-cues: S4.a1 key is contestable (see segment S4); S4.a6 option 'A score of 7 puts appendicitis in the unlikely band' is dominated; S2.end_probe 'as ischaemia leads' and 'as the artery leads' are garbled; S6.p11 key cue as above; S6.p5 rebound option mapped to TR3. Also: hint-role wrong-answer nodes (S4.d1_t9, S4.c2_t12, S5.p1_t0, S5.p2_t1, S5.p4_t1) say 'Tempting ... look again' but never say the choice is wrong, so a Sure learner reads them as nudges (misconceived and guesser sims)."
   ],
-  "dp2_dominated_options": ["S6.p5: 'It is a hip movement, so pressing the abdomen is wrong'"],
-  "dp1_telegraphed_keys": ["S3.case", "S3.mech", "S5.p2", "S5.p4", "S5.p9", "S6.p12"],
-  "sim_report_check": {
-    "novice": {"score": 3, "verdict": "Accurate on which models were held; the 'weak' headline and 'gap' on O3 to O11 come from first attempts only, so a learner who corrected each item on the next tap reads as having learned nothing. No 'corrected on retry' state."},
-    "misconceived": {"score": 2, "verdict": "Names the right beliefs and corrections, but miscounts: cold_right 21 of 22 contradicts 28 first-visit wrong answers, sure_wrong is understated, and every trap is 'fell_recovered' on an immediate same-stem retry, which overstates durable change. report_accurate false per the sim."},
-    "strong": {"score": 3, "verdict": "Headline and secure objectives are right, but it says 'at most one shaky area' when none is shaky, its fast-lane line gives nothing to check, and the cold count (10) does not match the 11 cards without explanation."},
-    "guesser": {"score": 3, "verdict": "Counts match the path, but the headline is harsh because it scores first attempts; it never says most misses were corrected on the next tap, and it never tells a fast clicker that 'Show me why' holds 15 percent of the content."}
+
+  "distractor_check": {
+    "method": "Each wrong option checked against trap-map.json: is it the trap it claims, and would someone holding that model pick it?",
+    "good": "Most probes map each distractor to a named trap with a plausible wrong model (S3.pos, S3.cl, S4.c3, S4.c4, S5.p1, S5.p2, S5.p4, S5.p9, S6.p3, S6.p7, S6.p9, S6.p13). Partial options (S1.age_a 'foreign body', S1.age_b 'caecal carcinoma', S4.d1 MRI) route to feedback but do not map to a trap, so the path does not record that belief.",
+    "mis_mapped_or_weak": ["S6.p5 'pain on sudden release' (TR3 is Rovsing reversal; this is rebound)", "S4.d1 and S4.a1 MRI options mapped to TR10 (first rung in pregnancy); defensible, but weaker than the trap map's 'partial'", "S4.a6 'unlikely band' (dominated)", "S2.end_probe garbled options (dominated)"],
+    "dominated": ["S4.a6 option 'A score of 7 puts appendicitis in the unlikely band'", "S2.end_probe option 'Pressure rises only after the artery fails, as the artery leads'"]
   },
-  "r9_report_score": 2.75,
+
+  "report_check": {
+    "novice": {"score": 2, "reason": "Headline 'weak' and all objectives 'gap' are partly right but not accurate. All 20 traps are fell_open, although the path reaches correct answers on later S6 probes for most of them (sim novice: FIXED for TR1 to TR12, TR14 to TR18, TR22, TR23, TR25). The hint count (14) counts wrong-answer nudge nodes, not hints opened (2). 'Confident errors first' does not apply (none). The advice to review cards and retake in a week is usable."},
+    "misconceived": {"score": 2, "reason": "The key belief, overconfidence on 20 traps (29 sure-wrong), is under-reported. Headline 'mixed' and 'solid base with some real gaps' understate it; the text says 'at least two'; the 'confident errors first' order is not implemented (card_order 0 to 10). Per-trap texts are fell_recovered, which the sim says a same-stem retry makes easy to reach. The Sure-versus-guess advice is right and actionable."},
+    "strong": {"score": 4, "reason": "Accurate: strong headline, all objectives secure, fast lane noted, Sure matched answers. Misses the S4.a1 key conflict and the repeated probes. Over-claims 'you chose the first test by patient' for O7, although S4.a1 was answered CT on an age-less stem. cold_total 10 against 11 cards is a count mismatch."},
+    "guesser": {"score": 3, "reason": "Accurate on guessing (guess_right 5, 'Guessing on three or more answers you got right') and on hints (none opened). Trap statuses and objective gaps are built from first attempts, so fell_open for TR1, TR3 and TR4 overstate what was left, since the learner corrected on Try again. The next steps (two or three cards a sitting, answer before reading, retake in a week) are actionable."},
+    "overall": "R9 is 2.67: the path diagnoses the belief well (the trap mapping works), but the report classifies recovery and calibration wrongly and in one case reverses the headline logic."
+  },
+
   "merge_ideas": [
-    "Carry S3's Tempting-then-Nudge feedback and trap-specific sure_notes (S3.case_t1, S3.rov_t3) into S6, replacing the generic 'give it a second look' in the cold segment.",
-    "Replace each immediate '_2' retry with a different-surface re-test a few nodes later (S3.case_2 to a vignette in S5), so recovery counts only when it is delayed and in a new form.",
-    "Use S5.p6_h's sorting frame ('from the inflamed appendix or from the operation') as the S6.p11 hint and S6.p11_t1 repair.",
-    "Give the 2-option probes in S4 the dropped distractors from trap-map (TR9 low-dose CT, TR11 MRI as partial, TR12 laparoscopy), and cut S4.a5 and S2.age_probe in favour of a new case each.",
-    "Balance key lengths in S3.case, S3.mech, S5.p4, S5.p9 and S6.p12 by lengthening the traps to match the key's detail."
-  ]
+    "Keep the 'Tempting: ... Nudge: ...' feedback (S3.case_t1 pattern), but open every wrong-answer hint-role node with a plain 'That is not right' (as S5.p2_w1 already implies), so a Sure learner knows a trap was hit.",
+    "Replace each same-stem retry (S1.open_2, S1.age_a2, S3.alv2, S6.p3, S6.p8) with a fresh stem that tests the same rule in a different surface form, as the trap map's 'retest' field asks.",
+    "Add a teach node showing the Alvarado items before S3.alv (novice sim), and a short carcinoid teach node before S6.p12 (O12 is otherwise met cold).",
+    "Rewrite the S4.a1 stem to 'in adults, most accurate' as in the trap map, so the CT key is forced; S4.a1_ok then gives the exam rule for the age-less stem.",
+    "Merge S4.c2 and S4.c2b into one probe and cut S2.age_probe, the fourth age probe; use S1.age_a2 as the only retry for the age rule.",
+    "S5 template (qualifier stem, tempting-then-nudge feedback, numbered repair with claims) for S2.end_probe and S6.p11: this removes the garbled options and the key cue.",
+    "Report: count a hint only when a hint option is chosen; classify fell_recovered when a later probe on that trap is correct; sort card_order by confident errors as the text promises; compute cold_total on the same card set."
+  ],
+
+  "notes": "Module mode, round 1. Overwrites round 0 review. Knowledge only: teaching quality, wording and traps are judged, not factual accuracy."
 }
