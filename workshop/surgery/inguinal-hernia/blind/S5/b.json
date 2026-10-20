@@ -1,0 +1,1791 @@
+{
+  "segment": "S5",
+  "entry": "p1",
+  "nodes": {
+    "p1": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "A 58-year-old man has a tense, tender groin lump that will not go back. He is vomiting and his pulse is fast.",
+          "claims": []
+        },
+        {
+          "text": "What is your first step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Resuscitate, then take him to emergency surgery",
+          "next": "p1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Attempt gentle, then firm, manual reduction",
+          "next": "p1_t1",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Ultrasound of the groin before deciding",
+          "next": "p1_t2",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p1_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what a tense, tender, irreducible swelling with vomiting means for the bowel inside it, not for the lump.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p1_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Reducing it feels like the reflex, since most groin lumps do go back. But tense, tender and irreducible with vomiting means strangulation until proven otherwise.",
+          "claims": [
+            "K47"
+          ]
+        },
+        {
+          "text": "Forceful taxis can push gangrenous bowel back, or reduce the sac and contents en masse with the constriction still there.",
+          "claims": [
+            "K64"
+          ]
+        },
+        {
+          "text": "So what must you learn about the bowel before you touch the lump?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "p1_ok",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the signs again: tense, tender, irreducible, vomiting. They mean the bowel is at risk before any reduction.",
+        "claims": [
+          "K47"
+        ]
+      }
+    },
+    "p1_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Imaging feels thorough, and ultrasound is the test people reach for in any groin problem.",
+          "claims": []
+        },
+        {
+          "text": "But a clinically evident hernia is a clinical diagnosis, and this emergency turns on the bowel's viability first.",
+          "claims": [
+            "K55",
+            "K63"
+          ]
+        },
+        {
+          "text": "What would a scan change in the next ten minutes?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "p1_ok",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. A scan delays the step that matters: possibly dead bowel needs resuscitation and surgery.",
+        "claims": [
+          "K63"
+        ]
+      }
+    },
+    "p1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Resuscitate, then emergency surgery. Strangulation means the bowel may be non-viable and need resection, so the bowel decides the next step.",
+          "claims": [
+            "K63"
+          ]
+        },
+        {
+          "text": "Manual reduction waits, because it can push dead bowel back into the abdomen.",
+          "claims": [
+            "K64"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p2": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "A 6-month-old boy has a reducible right groin swelling that appears on crying.",
+          "claims": []
+        },
+        {
+          "text": "Why does his hernia need no posterior wall repair?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Child's tissues are too fragile to hold sutures",
+          "next": "p2_t1",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "The defect is a patent processus over a normal wall",
+          "next": "p2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Mesh would restrict growth of the abdominal wall",
+          "next": "p2_t2",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p2_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about the defect, not the operation: what is the child's sac, and how strong is his posterior wall?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p2_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "This is the adult weak-wall model: a child's tissues look delicate, so repair seems unsafe.",
+          "claims": []
+        },
+        {
+          "text": "But a child's posterior wall is normal. The problem is an open processus vaginalis, which herniotomy closes.",
+          "claims": [
+            "K65"
+          ]
+        },
+        {
+          "text": "If the wall is normal, what does this child need repaired?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "p2_ok",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, but a child is not a small adult with a weak wall. The operation follows the defect.",
+        "claims": [
+          "K65"
+        ]
+      }
+    },
+    "p2_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Mesh feels like the careful option in a growing child, since it is a foreign body that must last a lifetime.",
+          "claims": []
+        },
+        {
+          "text": "Growth is not the reason. The child's operation is herniotomy alone, with no mesh and no posterior repair.",
+          "claims": [
+            "K103"
+          ]
+        },
+        {
+          "text": "What does a mesh add when the posterior wall needs no reinforcement?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "p2_ok",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. The child's operation is herniotomy alone.",
+        "claims": [
+          "K103"
+        ]
+      }
+    },
+    "p2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "In a child the defect is a patent processus vaginalis over a normal posterior wall, so removing the sac cures it.",
+          "claims": [
+            "K65"
+          ]
+        },
+        {
+          "text": "Herniotomy alone, with no posterior wall repair, is the operation of choice for a child.",
+          "claims": [
+            "K9"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p3": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "A 35-year-old man has a primary, reducible right inguinal hernia. His surgeon has no laparoscopic training.",
+          "claims": []
+        },
+        {
+          "text": "Which repair do you choose?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Laparoscopic TEP repair with mesh",
+          "next": "p3_t1",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "Open Bassini repair, the classic tissue repair",
+          "next": "p3_t2",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Open Lichtenstein tension-free mesh repair",
+          "next": "p3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p3_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p3_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Match the operation to the surgeon's training and to the hernia's qualifiers: primary, unilateral and reducible.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p3_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Laparoscopic repair feels like the modern default, so the newer technique seems right for any hernia.",
+          "claims": []
+        },
+        {
+          "text": "But its place depends on the qualifiers. It suits bilateral or recurrent hernias, and primary unilateral ones in experienced hands.",
+          "claims": [
+            "K79"
+          ]
+        },
+        {
+          "text": "Which detail in this stem bears on the surgeon's skill?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "p3_ok",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Laparoscopy is preferred for bilateral or recurrent hernias, not for every hernia.",
+        "claims": [
+          "K10"
+        ]
+      }
+    },
+    "p3_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Bassini is the name you remember for classic open repair, and older PYQs expected it.",
+          "claims": [
+            "K111"
+          ]
+        },
+        {
+          "text": "Current practice is Lichtenstein mesh repair for an adult. Bassini sutures the conjoint tendon under tension.",
+          "claims": [
+            "K8",
+            "K71"
+          ]
+        },
+        {
+          "text": "Does this stem ask for the older exam key or for current practice?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "p3_ok",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Older keys said Bassini; current practice is Lichtenstein.",
+        "claims": [
+          "K111"
+        ]
+      }
+    },
+    "p3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Lichtenstein tension-free mesh repair is the standard open repair for an adult.",
+          "claims": [
+            "K8",
+            "K101"
+          ]
+        },
+        {
+          "text": "A surgeon without laparoscopic training points to the open route. Laparoscopy suits experienced hands.",
+          "claims": [
+            "K79"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p4": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Laparoscopy has specific indications, not a general preference.",
+          "claims": []
+        },
+        {
+          "text": "Which of these patients clearly favours a laparoscopic approach?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A fit adult with bilateral hernias",
+          "next": "p4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Primary unilateral hernia, surgeon untrained in laparoscopy",
+          "next": "p4_t1",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "Elderly man unfit for general anaesthesia",
+          "next": "p4_t2",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p4_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p4_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Laparoscopy is chosen for particular qualifiers, not for the hernia type alone. Which option holds such a qualifier?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p4_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Laparoscopy feels like the modern choice, so a surgeon may reach for it for any hernia.",
+          "claims": []
+        },
+        {
+          "text": "A primary unilateral hernia does not favour it. The standard open repair is Lichtenstein, and laparoscopy suits experienced hands.",
+          "claims": [
+            "K8",
+            "K79"
+          ]
+        },
+        {
+          "text": "Which detail in this stem is about the surgeon rather than the hernia?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "p4_ok",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Laparoscopy is not the default; the qualifiers decide.",
+        "claims": [
+          "K10"
+        ]
+      }
+    },
+    "p4_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Laparoscopy looks gentler, so an elderly patient may seem a good candidate for it.",
+          "claims": []
+        },
+        {
+          "text": "But laparoscopic repair needs general anaesthesia and a learning curve, so an unfit patient is the wrong candidate.",
+          "claims": [
+            "K78"
+          ]
+        },
+        {
+          "text": "What does a laparoscopic repair ask of the patient, and does this man give it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "p4_ok",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. General anaesthesia is a cost of laparoscopy, not a reason to choose it.",
+        "claims": [
+          "K78"
+        ]
+      }
+    },
+    "p4_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Bilateral hernias favour laparoscopic repair, and so does recurrence after an open repair.",
+          "claims": [
+            "K10",
+            "K104"
+          ]
+        },
+        {
+          "text": "Laparoscopy needs general anaesthesia and a learning curve, so you choose it for these qualifiers, not for every hernia.",
+          "claims": [
+            "K78"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p5": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "You are counselling a patient before open and then laparoscopic repair. You must name the nerve most at risk in each.",
+          "claims": []
+        },
+        {
+          "text": "Which pairing is correct?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Ilioinguinal nerve in both approaches",
+          "next": "p5_t1",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Open ilioinguinal; laparoscopic lateral femoral cutaneous",
+          "next": "p5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Open lateral femoral cutaneous; laparoscopic ilioinguinal",
+          "next": "p5_t2",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p5_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p5_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask where each approach dissects: through the groin from the front, or from inside the abdomen. Which nerve sits there?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p5_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The ilioinguinal nerve is the famous groin nerve, so it feels like the answer for every repair.",
+          "claims": []
+        },
+        {
+          "text": "It is the nerve most injured in open repair, but laparoscopy puts the lateral femoral cutaneous nerve at risk.",
+          "claims": [
+            "K89",
+            "K90"
+          ]
+        },
+        {
+          "text": "Does the approach change where the dissection runs, and so the nerve?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p5",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "p5_ok",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. One nerve for every repair is the trap: the approach decides the nerve.",
+        "claims": [
+          "K99",
+          "K100"
+        ]
+      }
+    },
+    "p5_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Both nerves lie in the groin, so a swap looks like a simple slip of memory.",
+          "claims": []
+        },
+        {
+          "text": "Ilioinguinal is the open-repair nerve and lateral femoral cutaneous is the laparoscopic one.",
+          "claims": [
+            "K99",
+            "K100"
+          ]
+        },
+        {
+          "text": "Which approach works from the front of the groin?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p5",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "p5_ok",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Open repair injures the ilioinguinal nerve; laparoscopy the lateral femoral cutaneous.",
+        "claims": [
+          "K99",
+          "K100"
+        ]
+      }
+    },
+    "p5_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Open repair most often injures the ilioinguinal nerve, with numbness over the root of the penis, the anterior scrotum and the upper medial thigh.",
+          "claims": [
+            "K89"
+          ]
+        },
+        {
+          "text": "Laparoscopic repair most often injures the lateral femoral cutaneous nerve, causing meralgia paraesthetica.",
+          "claims": [
+            "K90",
+            "K100"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p6": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Three weeks after a TEP repair, a man has burning pain and tingling over the front and side of his thigh, with no weakness.",
+          "claims": []
+        },
+        {
+          "text": "Which nerve is injured?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Ilioinguinal nerve, the open-repair nerve",
+          "next": "p6_t1",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Femoral nerve, the main thigh nerve",
+          "next": "p6_t2",
+          "kind": "trap",
+          "trap": "TR25"
+        },
+        {
+          "label": "Lateral femoral cutaneous nerve of the thigh",
+          "next": "p6_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p6_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p6_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "The loss is in the skin over the thigh, with no weakness. Which nerve supplies that skin?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p6",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p6_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Ilioinguinal is the nerve you associate with groin repairs, so it feels like the nerve for any repair.",
+          "claims": []
+        },
+        {
+          "text": "Its injury causes numbness at the root of the penis, the scrotum and the upper medial thigh, not burning over the lateral thigh.",
+          "claims": [
+            "K89"
+          ]
+        },
+        {
+          "text": "Where does this man's sensation change?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p6",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "p6_ok",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Ilioinguinal injury lies in the groin and scrotum; this burning is over the thigh.",
+        "claims": [
+          "K89",
+          "K90"
+        ]
+      }
+    },
+    "p6_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The femoral nerve lies in the triangle of pain, so it seems the nerve of a thigh complaint after groin surgery.",
+          "claims": []
+        },
+        {
+          "text": "The triangle of pain holds it, but this loss is sensory skin over the thigh, which points to the lateral femoral cutaneous nerve.",
+          "claims": [
+            "K82",
+            "K90"
+          ]
+        },
+        {
+          "text": "Is this man's problem weakness, or burning skin?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p6",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "p6_ok",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. The triangle of pain holds this nerve, but the symptoms are sensory, not motor.",
+        "claims": [
+          "K82",
+          "K90"
+        ]
+      }
+    },
+    "p6_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Lateral femoral cutaneous nerve injury causes burning pain and numbness over the anterolateral thigh, called meralgia paraesthetica.",
+          "claims": [
+            "K90"
+          ]
+        },
+        {
+          "text": "It lies in the triangle of pain and is the nerve most at risk in laparoscopic repair.",
+          "claims": [
+            "K82",
+            "K100"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r1": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "A fit man has a visible, reducible groin swelling with an expansile cough impulse.",
+          "claims": []
+        },
+        {
+          "text": "What is your next step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Ultrasound of the groin before surgery",
+          "next": "r1_t1",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Plan elective repair without imaging",
+          "next": "r1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "CT of the abdomen and pelvis first",
+          "next": "r1_t2",
+          "kind": "trap",
+          "trap": "TR12"
+        }
+      ]
+    },
+    "r1_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "A groin scan feels responsible before any operation, and ultrasound is the test for an occult hernia.",
+          "claims": []
+        },
+        {
+          "text": "This hernia is clinically evident, and a clinically evident hernia does not need imaging.",
+          "claims": [
+            "K55"
+          ]
+        },
+        {
+          "text": "What would the scan add to a lump you can already see?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "r1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "r1_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "CT is the most advanced test on the list, so it looks like the thorough choice.",
+          "claims": []
+        },
+        {
+          "text": "CT is reserved for complicated or obscure presentations, such as suspected obstruction or strangulation in an obese patient.",
+          "claims": [
+            "K58"
+          ]
+        },
+        {
+          "text": "Is this man's hernia complicated?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "r1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "r1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "A clinically evident hernia is diagnosed on examination, so elective repair can be planned without imaging.",
+          "claims": [
+            "K55"
+          ]
+        },
+        {
+          "text": "Ultrasound is for an occult hernia, and MRI follows if it is inconclusive.",
+          "claims": [
+            "K56",
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r2": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "A surgeon excises the sac and darns the posterior wall with the patient's own tissue, with no mesh.",
+          "claims": []
+        },
+        {
+          "text": "What is this operation called?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Hernioplasty",
+          "next": "r2_t1",
+          "kind": "trap",
+          "trap": "TR39"
+        },
+        {
+          "label": "Herniotomy",
+          "next": "r2_t2",
+          "kind": "trap",
+          "trap": "TR39"
+        },
+        {
+          "label": "Herniorrhaphy",
+          "next": "r2_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "r2_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Hernioplasty sounds like the general word for any hernia repair, so it feels like the safe name.",
+          "claims": []
+        },
+        {
+          "text": "But hernioplasty means reinforcing the posterior wall with a prosthetic mesh. This operation uses the patient's own tissue.",
+          "claims": [
+            "K15"
+          ]
+        },
+        {
+          "text": "What is the wall repaired with in this stem?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "r2_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "r2_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Herniotomy is the operation children get, so the word feels like the one for any groin repair.",
+          "claims": []
+        },
+        {
+          "text": "Herniotomy is excision of the sac alone. Here the posterior wall is repaired too.",
+          "claims": [
+            "K15"
+          ]
+        },
+        {
+          "text": "Is anything done to the wall in this stem?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "r2_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "r2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Herniorrhaphy is herniotomy plus repair of the posterior wall with the patient's own tissue.",
+          "claims": [
+            "K15"
+          ]
+        },
+        {
+          "text": "Herniotomy is sac excision alone; hernioplasty adds a prosthetic mesh.",
+          "claims": [
+            "K15"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r3": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "What is the standard open repair for an adult with a primary inguinal hernia in current practice?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Lichtenstein tension-free mesh repair",
+          "next": "r3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Bassini repair",
+          "next": "r3_t1",
+          "kind": "trap",
+          "trap": "TR17"
+        }
+      ]
+    },
+    "r3_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Bassini is the name in older textbooks and PYQ keys, so it feels like the standard open repair.",
+          "claims": []
+        },
+        {
+          "text": "It is a tissue repair under tension, and current practice uses the Lichtenstein mesh repair.",
+          "claims": [
+            "K71",
+            "K101"
+          ]
+        },
+        {
+          "text": "Is the stem asking for the older exam key or for current practice?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "r3_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "r3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Lichtenstein tension-free mesh repair is the standard open repair for adults.",
+          "claims": [
+            "K8",
+            "K101"
+          ]
+        },
+        {
+          "text": "Older PYQs expected Bassini; current practice is Lichtenstein, with Shouldice as the best tissue repair.",
+          "claims": [
+            "K111",
+            "K102"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r4": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "A 9-month-old boy has a reducible right groin swelling that appears when he cries and vanishes at rest.",
+          "claims": []
+        },
+        {
+          "text": "Which operation is the choice?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Lichtenstein tension-free mesh repair",
+          "next": "r4_t1",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Herniotomy alone, high ligation of the sac",
+          "next": "r4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Herniorrhaphy with posterior wall repair",
+          "next": "r4_t2",
+          "kind": "trap",
+          "trap": "TR7"
+        }
+      ]
+    },
+    "r4_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Lichtenstein is the adult standard, so an adult operation feels safest for any groin hernia.",
+          "claims": []
+        },
+        {
+          "text": "A child's defect is a patent processus vaginalis over a normal posterior wall, so no mesh is needed.",
+          "claims": [
+            "K65",
+            "K103"
+          ]
+        },
+        {
+          "text": "What is the defect in a child, and is the posterior wall at fault?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "r4_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "r4_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Herniorrhaphy looks thorough: it removes the sac and repairs the wall, so it feels safer.",
+          "claims": []
+        },
+        {
+          "text": "The child's posterior wall is normal, so repairing it adds surgery with nothing to fix.",
+          "claims": [
+            "K9"
+          ]
+        },
+        {
+          "text": "If the wall is normal, what does the operation need to do?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "r4_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "r4_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Herniotomy alone is the operation of choice in a child.",
+          "claims": [
+            "K103"
+          ]
+        },
+        {
+          "text": "It removes the patent processus, and the posterior wall is normal, so no repair is needed.",
+          "claims": [
+            "K65"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r5": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "During a TAPP repair the surgeon must avoid the triangle of doom.",
+          "claims": []
+        },
+        {
+          "text": "Which structure lies inside it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Femoral nerve, the main thigh nerve",
+          "next": "r5_t1",
+          "kind": "trap",
+          "trap": "TR25"
+        },
+        {
+          "label": "External iliac vessels, which run on to the thigh",
+          "next": "r5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Lateral femoral cutaneous nerve of the thigh",
+          "next": "r5_t2",
+          "kind": "trap",
+          "trap": "TR25"
+        }
+      ]
+    },
+    "r5_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The femoral nerve is the big nerve of the groin and thigh, so it feels like the one in any dangerous triangle.",
+          "claims": []
+        },
+        {
+          "text": "The femoral nerve lies in the triangle of pain. The triangle of doom holds the vessels.",
+          "claims": [
+            "K81",
+            "K82"
+          ]
+        },
+        {
+          "text": "Which of the two triangles holds the vessels?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r5",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "r5_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "r5_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The lateral femoral cutaneous nerve is the nerve people remember for laparoscopy, so it seems to fit a dangerous groin.",
+          "claims": []
+        },
+        {
+          "text": "It belongs to the triangle of pain, not the vascular triangle of doom.",
+          "claims": [
+            "K81",
+            "K82"
+          ]
+        },
+        {
+          "text": "Which triangle contains the vessels, and which contains the nerves?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r5",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "r5_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "r5_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The triangle of doom is bounded by the vas deferens medially and the gonadal vessels laterally, and contains the external iliac vessels.",
+          "claims": [
+            "K81"
+          ]
+        },
+        {
+          "text": "The triangle of pain lies lateral to the gonadal vessels and holds the nerves, including the lateral femoral cutaneous and femoral nerves.",
+          "claims": [
+            "K82"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r6": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Why is forceful reduction avoided when strangulation is suspected?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "It converts the hernia into an irreducible one",
+          "next": "r6_t1",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "It is allowed once analgesia has been given",
+          "next": "r6_t2",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "It can push dead bowel back or cause reduction en masse",
+          "next": "r6_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "r6_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Taxis is meant to make the hernia go back, so the risk seems to be getting stuck afterwards.",
+          "claims": []
+        },
+        {
+          "text": "The real danger is the bowel. Forceful reduction can push gangrenous bowel back, or reduce sac and contents en masse.",
+          "claims": [
+            "K64"
+          ]
+        },
+        {
+          "text": "What is the danger if dead bowel goes back into the abdomen?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r6",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "r6_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "r6_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Analgesia feels like the sensible step before any manipulation, so it seems to make taxis acceptable.",
+          "claims": []
+        },
+        {
+          "text": "Pain relief does not show whether the bowel is alive, so the risk of pushing dead bowel back stays.",
+          "claims": [
+            "K64",
+            "K63"
+          ]
+        },
+        {
+          "text": "Does pain relief tell you whether the bowel is viable?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r6",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "r6_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "r6_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Forceful taxis can push gangrenous bowel back, or reduce sac and contents en masse, with the constriction still present.",
+          "claims": [
+            "K64"
+          ]
+        },
+        {
+          "text": "So strangulation is treated by resuscitation and emergency surgery, with resection of non-viable bowel.",
+          "claims": [
+            "K63"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "r7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "r7": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "A surgeon reinforces the posterior wall with a polypropylene mesh.",
+          "claims": []
+        },
+        {
+          "text": "What is the term for this repair?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Hernioplasty",
+          "next": "r7_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Herniorrhaphy",
+          "next": "r7_t1",
+          "kind": "trap",
+          "trap": "TR39"
+        },
+        {
+          "label": "Herniotomy",
+          "next": "r7_t2",
+          "kind": "trap",
+          "trap": "TR39"
+        }
+      ]
+    },
+    "r7_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Herniorrhaphy is the classic word for a posterior wall repair, so it feels like the term for any wall repair.",
+          "claims": []
+        },
+        {
+          "text": "Herniorrhaphy uses the patient's own tissue. Reinforcement with a prosthetic mesh is hernioplasty.",
+          "claims": [
+            "K15"
+          ]
+        },
+        {
+          "text": "What is the wall reinforced with in this stem?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r7",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "r7_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "r7_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Herniotomy is the word for the sac, and mesh is often placed in the same operation, so it seems to fit.",
+          "claims": []
+        },
+        {
+          "text": "Herniotomy is sac excision alone, without any wall reinforcement.",
+          "claims": [
+            "K15"
+          ]
+        },
+        {
+          "text": "Does this stem mention the sac, or the wall?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "r7",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the right answer",
+          "next": "r7_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "r7_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Hernioplasty is reinforcement of the posterior wall with a prosthetic mesh such as polypropylene.",
+          "claims": [
+            "K15",
+            "K106"
+          ]
+        },
+        {
+          "text": "Herniorrhaphy adds the patient's own tissue, and herniotomy is the sac alone.",
+          "claims": [
+            "K15"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sum",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sum": {
+      "role": "recap",
+      "say": [
+        {
+          "text": "Three questions settle this topic: is the bowel alive, who is the patient, and what do the qualifiers ask for?",
+          "claims": []
+        },
+        {
+          "text": "Child: herniotomy alone. Adult primary: Lichtenstein. Bilateral or recurrent: laparoscopic. Open nerve: ilioinguinal; laparoscopic nerve: lateral femoral cutaneous.",
+          "claims": [
+            "K9",
+            "K8",
+            "K10",
+            "K89",
+            "K90"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
