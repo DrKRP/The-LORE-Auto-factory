@@ -1,0 +1,949 @@
+{
+  "segment": "S2",
+  "entry": "route_predict",
+  "nodes": {
+    "route_predict": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Predict before we explain. Take a direct inguinal hernia and picture its sac.",
+          "claims": []
+        },
+        {
+          "text": "Where does it lie against the inferior epigastric vessels?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Lateral to the vessels, via the deep inguinal ring",
+          "next": "route_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Medial to the vessels, through the posterior wall",
+          "next": "route_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "I know this canal, skip to the final check",
+          "next": "final_probe",
+          "kind": "skip"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "route_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "route_help": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ignore the names for a moment. Ask which wall the sac pushes through, and whether the deep ring is involved at all.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "route_predict",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "observe_triangle",
+          "kind": "continue"
+        }
+      ]
+    },
+    "route_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A sac through the posterior wall bulges through Hesselbach's triangle, which lies medial to the vessels.",
+          "claims": [
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "observe_triangle",
+          "kind": "continue"
+        }
+      ]
+    },
+    "route_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Lateral to the vessels is the indirect route through the deep ring; a direct sac goes through the posterior wall, medial to them.",
+          "claims": [
+            "K12",
+            "K13"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so trust the wall, not the word: the posterior wall lies medial to the vessels.",
+        "claims": [
+          "K3"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "route_predict",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "observe_triangle",
+          "kind": "continue"
+        }
+      ]
+    },
+    "observe_triangle": {
+      "role": "explain",
+      "objectives": [
+        "O1",
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "A direct sac bulges through the posterior wall in Hesselbach's triangle, medial to the inferior epigastric vessels.",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "The triangle has three sides: the inferior epigastric artery laterally, the lateral border of the rectus sheath medially, and the inguinal ligament below.",
+          "claims": [
+            "K4"
+          ]
+        },
+        {
+          "text": "Device: an indirect sac travels with the cord; a direct sac just pushes through the floor.",
+          "claims": [
+            "K12",
+            "K13"
+          ],
+          "device": true
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "tri_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tri_probe": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which structure forms the inferior boundary of Hesselbach's triangle, as exam keys expect?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Deep inguinal ring",
+          "next": "tri_t2b",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Inguinal ligament",
+          "next": "tri_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Cooper's (pectineal) ligament",
+          "next": "tri_t2a",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "tri_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "tri_help": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Of these three, one is a ring you pass through and one is an old base from older texts. Which one is a ligament the exam still uses?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tri_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "tri_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tri_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The inferior boundary is the inguinal ligament, as exam keys expect. Older texts used Cooper's ligament as the base.",
+          "claims": [
+            "K4",
+            "K108"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "tri_probe2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tri_t2a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Cooper's ligament was the old base, but exam keys name the inguinal ligament.",
+          "claims": [
+            "K108"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note the key: exam answers name the inguinal ligament, not Cooper's.",
+        "claims": [
+          "K108"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tri_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "tri_probe2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tri_t2b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The deep ring is not the triangle's lower edge.",
+          "claims": [
+            "K12",
+            "K4"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the triangle has three sides only: the artery, the rectus edge and the inguinal ligament.",
+        "claims": [
+          "K4"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tri_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "tri_probe2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tri_probe2": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Second form. Which structure forms the medial border of the triangle?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Superficial inguinal ring of the aponeurosis",
+          "next": "tri_t2c",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Lateral border of the rectus sheath",
+          "next": "tri_ok2",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "tri_help2",
+          "kind": "help"
+        }
+      ]
+    },
+    "tri_help2": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Picture the triangle's medial side: it is the edge of a muscle sheath, not a hole in the aponeurosis.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tri_probe2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "tri_ok2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tri_ok2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The medial side is the lateral border of the rectus sheath, and the inferior epigastric artery forms the lateral side.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "conj_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tri_t2c": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The superficial ring is an opening in the anterior wall, not one of the triangle's three sides.",
+          "claims": [
+            "K4",
+            "K18"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the medial side of the triangle is the rectus sheath edge, not a ring.",
+        "claims": [
+          "K4"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tri_probe2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "conj_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "conj_probe": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "The conjoint tendon sits beside the internal oblique. Which wall does it belong to, and how does it reinforce it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Anterior wall, reinforcing it medially",
+          "next": "conj_t28a",
+          "kind": "trap",
+          "trap": "TR28"
+        },
+        {
+          "label": "Anterior wall, reinforcing it laterally",
+          "next": "conj_t28b",
+          "kind": "trap",
+          "trap": "TR28"
+        },
+        {
+          "label": "Posterior wall, reinforcing it medially",
+          "next": "conj_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "conj_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "conj_help": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Picture the cord and the floor of the canal. Ask which wall the conjoint tendon forms, not which muscle it lies next to.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "conj_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "conj_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "conj_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The conjoint tendon is part of the posterior wall, reinforcing it medially. The anterior wall is the external oblique, reinforced laterally by the internal oblique.",
+          "claims": [
+            "K19",
+            "K18"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cause_predict",
+          "kind": "continue"
+        }
+      ]
+    },
+    "conj_t28a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The conjoint tendon is not in the anterior wall.",
+          "claims": [
+            "K18",
+            "K19"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so fix the wall first, then the reinforcement: the conjoint tendon is posterior and medial.",
+        "claims": [
+          "K19"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "conj_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "cause_predict",
+          "kind": "continue"
+        }
+      ]
+    },
+    "conj_t28b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Lateral reinforcement of the anterior wall is the internal oblique, not the conjoint tendon.",
+          "claims": [
+            "K18",
+            "K19"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate the two reinforcements: internal oblique for the front, conjoint tendon for the back.",
+        "claims": [
+          "K18",
+          "K19"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "conj_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "cause_predict",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cause_predict": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 3-month-old boy has a right inguinal hernia. Predict the underlying defect.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Defect in the transversalis fascia at the triangle",
+          "next": "cause_t31b",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "A congenital patent processus vaginalis",
+          "next": "cause_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Weak posterior wall of the canal",
+          "next": "cause_t31a",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "cause_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "cause_help": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "A child's hernia is not wear and tear. Which opening is present from birth?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cause_predict",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "cause_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cause_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "A child's indirect sac arises in a patent processus vaginalis, which is congenital.",
+          "claims": [
+            "K25"
+          ]
+        },
+        {
+          "text": "A direct hernia is different: it is acquired, from weakness of the posterior wall.",
+          "claims": [
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pic_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cause_t31a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "A weak posterior wall causes a direct hernia, and that is acquired.",
+          "claims": [
+            "K26",
+            "K25"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so match the cause to the patient: a child's indirect sac is congenital, a direct one acquired.",
+        "claims": [
+          "K25",
+          "K26"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cause_predict",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pic_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cause_t31b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Hesselbach's triangle is where a direct sac bulges out, and that weakness is acquired.",
+          "claims": [
+            "K13",
+            "K26"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the processus is the congenital route; the triangle is the acquired one.",
+        "claims": [
+          "K25",
+          "K26"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cause_predict",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pic_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pic_probe": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which hernia commonly descends into the scrotum and reduces upwards, laterally and backwards?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Direct inguinal hernia",
+          "next": "pic_t23a",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "A direct hernia that often reaches the scrotum",
+          "next": "pic_t23b",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Indirect inguinal hernia",
+          "next": "pic_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pic_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "pic_help": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Follow the cord. Which hernia travels down the canal with it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pic_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "pic_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pic_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "An indirect sac follows the cord and often reaches the scrotum. It is pear-shaped, oblique, and reduces upwards, laterally and backwards.",
+          "claims": [
+            "K41"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "final_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pic_t23a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "A direct hernia does not descend into the scrotum.",
+          "claims": [
+            "K42"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pick the scrotum by the route: the indirect sac is the one that follows the cord down.",
+        "claims": [
+          "K41"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pic_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "final_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pic_t23b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "A direct hernia rarely descends into the scrotum, and it reduces straight backwards.",
+          "claims": [
+            "K42",
+            "K41"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the descent before the name: scrotal descent is the indirect pattern.",
+        "claims": [
+          "K41"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pic_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "final_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "final_probe": {
+      "role": "probe",
+      "objectives": [
+        "O1",
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Last, route first. A 60-year-old man's sac lies medial to the inferior epigastric vessels. Predict its type and the wall it passes through.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Femoral, below the inguinal ligament, lateral to the tubercle",
+          "next": "final_t40",
+          "kind": "trap",
+          "trap": "TR40"
+        },
+        {
+          "label": "Direct, through the posterior wall of the canal",
+          "next": "final_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Indirect, through the deep ring and along the cord",
+          "next": "final_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "final_help",
+          "kind": "help"
+        }
+      ]
+    },
+    "final_help": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Start with the route against the vessels, then ask what let the sac through that wall in an adult.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "final_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "final_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "final_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Medial to the vessels means the posterior wall in the triangle, so the sac is direct, from acquired weakness.",
+          "claims": [
+            "K13",
+            "K26"
+          ]
+        },
+        {
+          "text": "The route against the vessels sets the type, and the type points to the cause.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "final_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Indirect is the sac through the deep ring, lateral to the vessels.",
+          "claims": [
+            "K12",
+            "K13"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the route against the vessels decides the type, not the word you remember.",
+        "claims": [
+          "K3"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "final_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "final_ok",
+          "kind": "continue"
+        }
+      ]
+    },
+    "final_t40": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "A femoral hernia lies below and lateral to the pubic tubercle, so it is not a sac medial to the vessels in the inguinal region.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate the two sites: inguinal is above and medial, femoral is below and lateral.",
+        "claims": [
+          "K6"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "final_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "final_ok",
+          "kind": "continue"
+        }
+      ]
+    }
+  },
+  "technique": "T3+T5",
+  "decision": "merge"
+}
