@@ -1,0 +1,254 @@
+{
+  "segment": "S3",
+  "technique": "T6",
+  "entry": "shock",
+  "nodes": {
+    "shock": {
+      "role": "probe",
+      "objectives": ["O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 35-year-old has 30% scald burns. Six hours on, his pulse is 120 and his BP is 90/60. Urine output is low, and his haematocrit has risen from 42 to 52.", "claims": ["K18"]},
+        {"text": "What type of shock is this?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Septic: an infected burn driving the shock", "next": "shock_t31a", "kind": "trap", "trap": "TR31"},
+        {"label": "Hypovolaemic: plasma leaking out of the vessels", "next": "shock_ok", "kind": "correct"},
+        {"label": "Cardiogenic: the heart failing as a pump", "next": "shock_t31b", "kind": "trap", "trap": "TR31"},
+        {"label": "Not sure, give me a hint", "next": "shock_hint", "kind": "help"}
+      ]
+    },
+    "shock_hint": {
+      "role": "hint",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "Look at the haematocrit first. What would make it climb this early, before any infection has had time to act?", "claims": ["K18"]}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "shock", "kind": "retry"}
+      ]
+    },
+    "shock_t31a": {
+      "role": "feedback",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "Not septic. A haematocrit rising from 42 to 52 means plasma is leaving the vessels, which is the burn leak, not infection.", "claims": ["K18"]},
+        {"text": "It is tempting because burns do get infected, and he is tachycardic and hypotensive. But in the first hours the plasma leak comes first.", "claims": ["K19"]}
+      ],
+      "sure_note": {"text": "You were sure, so fix the model: burn shock is plasma loss first.", "claims": ["K19"]},
+      "choices": [
+        {"label": "Try again", "next": "shock", "kind": "retry"},
+        {"label": "Show me why", "next": "shock_why", "kind": "deeper"}
+      ]
+    },
+    "shock_t31b": {
+      "role": "feedback",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "Not cardiogenic. The clue is the haematocrit, which is climbing. That points to plasma loss, not a pump that has failed.", "claims": ["K18"]},
+        {"text": "It is tempting because burn shock does involve some myocardial depression. But that is the second contributor, not the main cause.", "claims": ["K19"]}
+      ],
+      "sure_note": {"text": "You were sure, so note it: the heart is a second contributor. The main problem is plasma loss.", "claims": ["K19"]},
+      "choices": [
+        {"label": "Try again", "next": "shock", "kind": "retry"},
+        {"label": "Show me why", "next": "shock_why", "kind": "deeper"}
+      ]
+    },
+    "shock_why": {
+      "role": "explain",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "Local burns release mediators that open capillaries. A large burn, above about 30%, leaks plasma even from uninjured skin. The heart is affected too, but the first loss is volume.", "claims": ["K17", "K18", "K19"]}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "shock", "kind": "retry"}
+      ]
+    },
+    "shock_ok": {
+      "role": "feedback",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "Yes. Burn shock is predominantly hypovolaemic, with some myocardial depression added by circulating mediators. The rising haematocrit is your clue to plasma loss.", "claims": ["K19", "K18"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "mech", "kind": "continue"}
+      ]
+    },
+    "mech": {
+      "role": "probe",
+      "objectives": ["O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "The heart is somewhat depressed too, so the pump can look like the problem.", "claims": ["K19"]},
+        {"text": "In the first 24 hours, what is the first-line treatment?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Titrated Ringer lactate, adjusted to the response", "next": "mech_ok", "kind": "correct"},
+        {"label": "Albumin infusion started at once, alongside crystalloid", "next": "mech_t8", "kind": "trap", "trap": "TR8"},
+        {"label": "Inotropes to support the heart's pumping strength", "next": "mech_t31", "kind": "trap", "trap": "TR31"},
+        {"label": "Not sure, give me a hint", "next": "mech_hint", "kind": "help"}
+      ]
+    },
+    "mech_hint": {
+      "role": "hint",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "Think about what the burn is losing, not what is struggling to pump. Which fluid replaces that loss first?", "claims": ["K19"]}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "mech", "kind": "retry"}
+      ]
+    },
+    "mech_t8": {
+      "role": "feedback",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "Not at once. Classic Parkland gives crystalloid alone in the first 24 hours, so albumin does not start now.", "claims": ["K46"]},
+        {"text": "It is tempting because colloid sits in the Evans and Brooke formulae. Colloid waits until the capillary leak settles, about 8 to 24 hours.", "claims": ["K46", "K50"]}
+      ],
+      "sure_note": {"text": "You were sure, so fix the rule: no colloid in the first 24 hours of classic Parkland.", "claims": ["K46"]},
+      "choices": [
+        {"label": "Try again", "next": "mech", "kind": "retry"}
+      ]
+    },
+    "mech_t31": {
+      "role": "feedback",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "Not inotropes. Pushing the heart harder does not replace the plasma that has leaked out.", "claims": ["K19"]},
+        {"text": "It is tempting because the myocardium is depressed. But that is the second contributor, so the first move is fluid.", "claims": ["K19"]}
+      ],
+      "sure_note": {"text": "You were sure, so fix the order: plasma first, then the heart.", "claims": ["K19"]},
+      "choices": [
+        {"label": "Try again", "next": "mech", "kind": "retry"}
+      ]
+    },
+    "mech_ok": {
+      "role": "feedback",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "Yes. Ringer lactate is the fluid of choice. In classic Parkland no colloid goes in during the first 24 hours.", "claims": ["K68", "K46"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "depth", "kind": "continue"}
+      ]
+    },
+    "depth": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A forearm scald looks mottled red and white. It hurts less than the skin around it, and the capillary refill is sluggish.", "claims": ["K25"]},
+        {"text": "What depth is this burn?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Deep partial thickness (deep second degree)", "next": "depth_ok", "kind": "correct"},
+        {"label": "Full thickness (third degree), since it hurts least", "next": "depth_t18", "kind": "trap", "trap": "TR18"},
+        {"label": "Not sure, give me a hint", "next": "depth_hint", "kind": "help"}
+      ]
+    },
+    "depth_hint": {
+      "role": "hint",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Less pain is not the same as no pain. Look at the colour of the burn and how fast the skin refills.", "claims": ["K25"]}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "depth", "kind": "retry"}
+      ]
+    },
+    "depth_t18": {
+      "role": "feedback",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Not full thickness. Full-thickness skin is painless and leathery, but this burn is only less painful, and it still refills slowly.", "claims": ["K26", "K25"]},
+        {"text": "It is tempting because pain seems to fall in a straight line with depth, so the least painful burn looks deepest. Less pain is a clue, not a grade.", "claims": ["K25"]}
+      ],
+      "sure_note": {"text": "You were sure, so re-read the signs: pain alone does not grade depth. Colour, blanching and refill do.", "claims": ["K25", "K26"]},
+      "choices": [
+        {"label": "Try again", "next": "depth", "kind": "retry"},
+        {"label": "Show me why", "next": "depth_why", "kind": "deeper"}
+      ]
+    },
+    "depth_why": {
+      "role": "explain",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Full thickness is painless, but a deep partial burn is only less painful. Pain sits on a spectrum, so it cannot grade depth on its own.", "claims": ["K26", "K25"]},
+        {"text": "Read colour, blanching and refill, and expect the true depth to show over 48 to 72 hours.", "claims": ["K28"]}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "depth", "kind": "retry"}
+      ]
+    },
+    "depth_ok": {
+      "role": "feedback",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Yes. Deep partial thickness is mottled, less painful and slow to refill. It can take more than 3 weeks to heal, with scarring, and often needs grafting.", "claims": ["K25"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "depth2", "kind": "continue"}
+      ]
+    },
+    "depth2": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Two burns look alike at first glance. Which feature separates full thickness from deep partial thickness?", "claims": ["K26"]}
+      ],
+      "choices": [
+        {"label": "Less painful than normal skin, with slow refill", "next": "depth2_t18a", "kind": "trap", "trap": "TR18"},
+        {"label": "Heals in over 3 weeks, leaving scarring", "next": "depth2_t18b", "kind": "trap", "trap": "TR18"},
+        {"label": "Dry, leathery, insensate, and does not blanch", "next": "depth2_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "depth2_hint", "kind": "help"}
+      ]
+    },
+    "depth2_hint": {
+      "role": "hint",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Ask what the skin is still doing. Does it still feel a pin, and does it still blanch?", "claims": ["K26"]}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "depth2", "kind": "retry"}
+      ]
+    },
+    "depth2_t18a": {
+      "role": "feedback",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Not this one. Less pain with slow refill is the deep partial picture, so it cannot separate the two.", "claims": ["K25"]},
+        {"text": "It is tempting because you have just used it to grade a burn. But full thickness is recognised by being insensate.", "claims": ["K26"]}
+      ],
+      "sure_note": {"text": "You were sure, so keep the rule: reduced pain belongs to deep partial. Full thickness is insensate.", "claims": ["K25", "K26"]},
+      "choices": [
+        {"label": "Try again", "next": "depth2", "kind": "retry"}
+      ]
+    },
+    "depth2_t18b": {
+      "role": "feedback",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Not this one. Healing over 3 weeks with scarring is a deep partial feature, and full thickness needs excision and grafting instead.", "claims": ["K25", "K26"]},
+        {"text": "It is tempting because scarring looks like a severe burn. But the test is how the skin looks and feels, not how long it takes to heal.", "claims": ["K26"]}
+      ],
+      "sure_note": {"text": "You were sure, so fix it: healing time belongs to deep partial. Full thickness is judged by look and feel.", "claims": ["K25", "K26"]},
+      "choices": [
+        {"label": "Try again", "next": "depth2", "kind": "retry"}
+      ]
+    },
+    "depth2_ok": {
+      "role": "feedback",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Yes. Full thickness is dry, leathery and insensate, and it does not blanch. Reduced pain alone never grades depth.", "claims": ["K26", "K25"]},
+        {"text": "One rule before the fluid sums: simple erythema is not counted in total body surface area (TBSA).", "claims": ["K8"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
