@@ -1419,6 +1419,47 @@
       ],
       "segment": "S2"
     },
+    "S2.pain_a_2": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "A 19-year-old with suspected appendicitis describes the course of his pain over 12 hours.",
+          "claims": []
+        },
+        {
+          "text": "Which course is typical?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Right lower belly from the start, then spreads to the navel",
+          "next": "S2.pain_a_t2x",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Right lower belly from the start, and it never moves",
+          "next": "S2.pain_a_t1x",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Starts at the navel, then moves to the right lower belly",
+          "next": "S2.pain_ok",
+          "kind": "correct"
+        }
+      ],
+      "segment": "S2"
+    },
     "S2.pain_a_t1": {
       "role": "feedback",
       "objectives": [
@@ -1443,13 +1484,41 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S2.pain_a",
+          "next": "S2.pain_a_2",
           "kind": "retry"
         },
         {
           "label": "Show me why",
           "next": "S2.teach_pain",
           "kind": "agency"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.pain_a_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Early appendiceal pain comes from visceral fibres at T10, so it sits round the navel and only settles in the right iliac fossa later.",
+          "claims": [
+            "K26",
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S2.teach_pain",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S2.chain_probe",
+          "kind": "continue"
         }
       ],
       "segment": "S2"
@@ -1479,13 +1548,40 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S2.pain_a",
+          "next": "S2.pain_a_2",
           "kind": "retry"
         },
         {
           "label": "Show me why",
           "next": "S2.teach_pain",
           "kind": "agency"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.pain_a_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "The course runs the other way: the navel comes first, and the pain moves down to the right iliac fossa.",
+          "claims": [
+            "K5"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S2.teach_pain",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S2.chain_probe",
+          "kind": "continue"
         }
       ],
       "segment": "S2"
@@ -1619,6 +1715,47 @@
       ],
       "segment": "S2"
     },
+    "S2.chain_probe_2": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "The pain localises to the right iliac fossa only after the early stage.",
+          "claims": []
+        },
+        {
+          "text": "What causes that localisation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Inflammation reaches the parietal peritoneum, giving somatic pain",
+          "next": "S2.chain_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Wall ischaemia starts before the lumen blocks, so pain turns local",
+          "next": "S2.chain_probe_t2x",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Rising lumen pressure stimulates the T10 visceral fibres more strongly",
+          "next": "S2.chain_probe_t1x",
+          "kind": "trap",
+          "trap": "TR4"
+        }
+      ],
+      "segment": "S2"
+    },
     "S2.chain_probe_t1": {
       "role": "feedback",
       "objectives": [
@@ -1643,13 +1780,42 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S2.chain_probe",
+          "next": "S2.chain_probe_2",
           "kind": "retry"
         },
         {
           "label": "Show me why",
           "next": "S2.chain_why",
           "kind": "agency"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.chain_probe_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Distension acts through the same T10 visceral fibres, which can only give periumbilical pain. Localisation needs the parietal peritoneum.",
+          "claims": [
+            "K24",
+            "K26",
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S2.chain_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S2.teach_end",
+          "kind": "continue"
         }
       ],
       "segment": "S2"
@@ -1679,13 +1845,41 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S2.chain_probe",
+          "next": "S2.chain_probe_2",
           "kind": "retry"
         },
         {
           "label": "Show me why",
           "next": "S2.chain_why",
           "kind": "agency"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.chain_probe_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "The blocked lumen raises pressure first, and the arterial compromise comes after. Ischaemia is late in the chain.",
+          "claims": [
+            "K24",
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S2.chain_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S2.teach_end",
+          "kind": "continue"
         }
       ],
       "segment": "S2"
@@ -1838,6 +2032,43 @@
       ],
       "segment": "S2"
     },
+    "S2.end_probe_2": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "The appendicular artery thromboses. Which outcome follows, and why so fast?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Pressure rises only after the artery fails, as the artery leads",
+          "next": "S2.end_probe_t2x",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Gangrene sets in first, then the lumen blocks, as ischaemia leads",
+          "next": "S2.end_probe_t1x",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Gangrene and perforation, as no other artery can take over",
+          "next": "S2.end_ok",
+          "kind": "correct"
+        }
+      ],
+      "segment": "S2"
+    },
     "S2.end_probe_t1": {
       "role": "feedback",
       "objectives": [
@@ -1862,13 +2093,41 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S2.end_probe",
+          "next": "S2.end_probe_2",
           "kind": "retry"
         },
         {
           "label": "Show me why",
           "next": "S2.teach_end",
           "kind": "agency"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.end_probe_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Gangrene is downstream: the lumen blocks, pressure rises, and only then does the artery fail.",
+          "claims": [
+            "K24",
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S2.teach_end",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S2.sym_probe",
+          "kind": "continue"
         }
       ],
       "segment": "S2"
@@ -1897,13 +2156,40 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S2.end_probe",
+          "next": "S2.end_probe_2",
           "kind": "retry"
         },
         {
           "label": "Show me why",
           "next": "S2.teach_end",
           "kind": "agency"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.end_probe_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Raised pressure is the first step: the obstructed lumen compromises the arterial supply, not the other way round.",
+          "claims": [
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S2.teach_end",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S2.sym_probe",
+          "kind": "continue"
         }
       ],
       "segment": "S2"
@@ -1993,6 +2279,49 @@
       ],
       "segment": "S2"
     },
+    "S2.sym_probe_2": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "Murphy's sequence describes the order of symptoms in typical appendicitis.",
+          "claims": [
+            "K6"
+          ]
+        },
+        {
+          "text": "Which order is it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Pain, then fever, then vomiting",
+          "next": "S2.sym_probe_t2x",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Pain, then vomiting, then fever",
+          "next": "S2.sym_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Vomiting, then pain, then fever",
+          "next": "S2.sym_probe_t1x",
+          "kind": "trap",
+          "trap": "TR5"
+        }
+      ],
+      "segment": "S2"
+    },
     "S2.sym_probe_t1": {
       "role": "feedback",
       "objectives": [
@@ -2015,13 +2344,42 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S2.sym_probe",
+          "next": "S2.sym_probe_2",
           "kind": "retry"
         },
         {
           "label": "Show me why",
           "next": "S2.teach_sym",
           "kind": "agency"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.sym_probe_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "In appendicitis vomiting follows the pain; it comes after the pain has started, and fever comes last.",
+          "claims": [
+            "K6",
+            "K31",
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S2.teach_sym",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S2.vig_probe",
+          "kind": "continue"
         }
       ],
       "segment": "S2"
@@ -2050,13 +2408,42 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S2.sym_probe",
+          "next": "S2.sym_probe_2",
           "kind": "retry"
         },
         {
           "label": "Show me why",
           "next": "S2.teach_sym",
           "kind": "agency"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.sym_probe_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Nausea and a few vomits follow the onset of pain, and fever comes last and is usually low-grade.",
+          "claims": [
+            "K31",
+            "K32",
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S2.teach_sym",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S2.vig_probe",
+          "kind": "continue"
         }
       ],
       "segment": "S2"
@@ -2180,6 +2567,47 @@
       ],
       "segment": "S2"
     },
+    "S2.vig_probe_2": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "A young adult vomited several times through the morning, then developed diffuse abdominal pain and loose stools.",
+          "claims": []
+        },
+        {
+          "text": "Which reading fits best?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Gastroenteritis likelier, since diffuse pain rules out appendicitis",
+          "next": "S2.vig_probe_t2x",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Gastroenteritis likelier, since vomiting came before the pain",
+          "next": "S2.vig_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Appendicitis likelier, since vomiting usually opens the illness",
+          "next": "S2.vig_probe_t1x",
+          "kind": "trap",
+          "trap": "TR5"
+        }
+      ],
+      "segment": "S2"
+    },
     "S2.vig_probe_t1": {
       "role": "feedback",
       "objectives": [
@@ -2204,13 +2632,41 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S2.vig_probe",
+          "next": "S2.vig_probe_2",
           "kind": "retry"
         },
         {
           "label": "Show me why",
           "next": "S2.teach_sym",
           "kind": "agency"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.vig_probe_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "In appendicitis the pain comes first and vomiting follows it. Vomiting before pain argues against this diagnosis.",
+          "claims": [
+            "K6",
+            "K31"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S2.teach_sym",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S2.age_probe",
+          "kind": "continue"
         }
       ],
       "segment": "S2"
@@ -2239,13 +2695,41 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S2.vig_probe",
+          "next": "S2.vig_probe_2",
           "kind": "retry"
         },
         {
           "label": "Show me why",
           "next": "S2.teach_sym",
           "kind": "agency"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.vig_probe_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Early appendiceal pain is diffuse and periumbilical, so diffuse pain does not rule it out. The deciding clue is that vomiting came before the pain.",
+          "claims": [
+            "K26",
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S2.teach_sym",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S2.age_probe",
+          "kind": "continue"
         }
       ],
       "segment": "S2"
@@ -2333,6 +2817,47 @@
       ],
       "segment": "S2"
     },
+    "S2.age_probe_2": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "A 9-year-old, recovering from a viral illness, develops right iliac fossa pain from a blocked appendix lumen.",
+          "claims": []
+        },
+        {
+          "text": "What is the likeliest cause of the block?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Either, since age does not change the cause",
+          "next": "S2.age_probe_t2x",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "A hard faecolith lodged in the lumen",
+          "next": "S2.age_probe_t1x",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Swollen lymphoid tissue in the wall",
+          "next": "S2.age_ok",
+          "kind": "correct"
+        }
+      ],
+      "segment": "S2"
+    },
     "S2.age_probe_t1": {
       "role": "feedback",
       "objectives": [
@@ -2357,13 +2882,41 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S2.age_probe",
+          "next": "S2.age_probe_2",
           "kind": "retry"
         },
         {
           "label": "Show me why",
           "next": "S2.age_x",
           "kind": "agency"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.age_probe_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "A faecolith is the adult cause. In a child, lymphoid tissue swells after a viral illness.",
+          "claims": [
+            "K15",
+            "K14"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S2.age_x",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S2.adult_probe",
+          "kind": "continue"
         }
       ],
       "segment": "S2"
@@ -2392,13 +2945,42 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S2.age_probe",
+          "next": "S2.age_probe_2",
           "kind": "retry"
         },
         {
           "label": "Show me why",
           "next": "S2.age_x",
           "kind": "agency"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.age_probe_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Age changes which block is common: lymphoid hyperplasia in children and young people, a faecolith in adults.",
+          "claims": [
+            "K2",
+            "K94",
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S2.age_x",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S2.adult_probe",
+          "kind": "continue"
         }
       ],
       "segment": "S2"
@@ -2426,7 +3008,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S3.case",
+          "next": "S2.adult_probe",
           "kind": "continue"
         }
       ],
@@ -2462,6 +3044,255 @@
       "choices": [
         {
           "label": "Next",
+          "next": "S2.adult_probe",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.adult_probe": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 45-year-old had a cold last week, and now has three days of right iliac fossa pain.",
+          "claims": []
+        },
+        {
+          "text": "What is the commonest cause of the luminal block at this age?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Swollen lymphoid tissue in the wall",
+          "next": "S2.adult_probe_t1",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "A faecolith lodged in the lumen",
+          "next": "S2.adult_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Either, since age does not change the cause",
+          "next": "S2.adult_probe_t2",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "S2.adult_probe_hint",
+          "kind": "help"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.adult_probe_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Go back to the age: the child's answer may not carry over. What hardens and collects in an older lumen?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "S2.adult_probe",
+          "kind": "retry"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.adult_probe_2": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "A 45-year-old had a cold last week, and now has three days of right iliac fossa pain.",
+          "claims": []
+        },
+        {
+          "text": "What is the commonest cause of the luminal block at this age?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Either, since age does not change the cause",
+          "next": "S2.adult_probe_t2x",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Swollen lymphoid tissue in the wall",
+          "next": "S2.adult_probe_t1x",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "A faecolith lodged in the lumen",
+          "next": "S2.adult_ok",
+          "kind": "correct"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.adult_probe_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "The recent cold pulls you toward the child's answer, because it fits so well.",
+          "claims": []
+        },
+        {
+          "text": "Check the age first. What has happened to the wall's lymphoid tissue by 45, and what usually collects in an adult lumen?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so let the age decide, not the history.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S2.adult_probe_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "S2.age_x",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.adult_probe_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "A faecolith is the commonest block in adults, and lymphoid hyperplasia belongs to children and young people. The cold does not change that.",
+          "claims": [
+            "K2",
+            "K15",
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S2.age_x",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.case",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.adult_probe_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Age changed the answer for the child, and it can change it again here.",
+          "claims": []
+        },
+        {
+          "text": "Which of the two causes belongs to adults?",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check which way the age points.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S2.adult_probe_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "S2.age_x",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.adult_probe_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "In adults the commonest block is a faecolith; age does decide the cause.",
+          "claims": [
+            "K2",
+            "K15",
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S2.age_x",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.case",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.adult_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. In adults a faecolith is the commonest block, whatever the recent history.",
+          "claims": [
+            "K15",
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
           "next": "S3.case",
           "kind": "continue"
         }
@@ -2486,19 +3317,19 @@
       ],
       "choices": [
         {
-          "label": "Internally rotate the flexed right hip, on his back",
+          "label": "Internally rotate the flexed right hip, supine",
           "next": "S3.case_t1",
           "kind": "trap",
           "trap": "TR1"
         },
         {
-          "label": "Press firmly over the left iliac fossa, on his back",
+          "label": "Press firmly over the left iliac fossa, supine",
           "next": "S3.case_t3",
           "kind": "trap",
           "trap": "TR3"
         },
         {
-          "label": "Extend the right hip, on his left side",
+          "label": "Extend the right hip with him on his left side",
           "next": "S3.case_ok",
           "kind": "correct"
         },
@@ -2506,6 +3337,47 @@
           "label": "Not sure, give me a hint",
           "next": "S3.case_hint",
           "kind": "help"
+        }
+      ],
+      "segment": "S3"
+    },
+    "S3.case_2": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "A 24-year-old man has had central pain for 18 hours. It has moved to the right iliac fossa (RIF), and he is tender there.",
+          "claims": []
+        },
+        {
+          "text": "You want his psoas sign. Which manoeuvre do you perform?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Extend the right hip with him on his left side",
+          "next": "S3.case_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Press firmly over the left iliac fossa, supine",
+          "next": "S3.case_t3x",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Internally rotate the flexed right hip, supine",
+          "next": "S3.case_t1x",
+          "kind": "trap",
+          "trap": "TR1"
         }
       ],
       "segment": "S3"
@@ -2575,7 +3447,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.case",
+          "next": "S3.case_2",
           "kind": "retry"
         },
         {
@@ -2590,6 +3462,39 @@
           "K38"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.case_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Internal rotation of the flexed hip is the obturator sign, for a pelvic appendix.",
+          "claims": [
+            "K39"
+          ]
+        },
+        {
+          "text": "The psoas sign is pain on extending the right hip.",
+          "claims": [
+            "K38"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.case_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.contrast",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.case_t3": {
@@ -2610,7 +3515,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.case",
+          "next": "S3.case_2",
           "kind": "retry"
         },
         {
@@ -2625,6 +3530,39 @@
           "K37"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.case_t3x": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Pressing the left iliac fossa is Rovsing's sign, with pain in the right fossa.",
+          "claims": [
+            "K37"
+          ]
+        },
+        {
+          "text": "The psoas sign is pain on extending the right hip.",
+          "claims": [
+            "K38"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.case_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.contrast",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.case_why": {
@@ -2650,7 +3588,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.case",
+          "next": "S3.case_2",
           "kind": "retry"
         },
         {
@@ -2733,6 +3671,47 @@
       ],
       "segment": "S3"
     },
+    "S3.rov_2": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "Predict first where Rovsing's sign presses and where it hurts.",
+          "claims": []
+        },
+        {
+          "text": "Which statement about Rovsing's sign is correct?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Pressing the right fossa while extending the hip causes right-sided pain",
+          "next": "S3.rov_t1x",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Pressure in the right iliac fossa causes pain in the left",
+          "next": "S3.rov_t3x",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Pressure in the left iliac fossa causes pain in the right",
+          "next": "S3.rov_ok",
+          "kind": "correct"
+        }
+      ],
+      "segment": "S3"
+    },
     "S3.rov_ok": {
       "role": "feedback",
       "objectives": [
@@ -2779,7 +3758,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.rov",
+          "next": "S3.rov_2",
           "kind": "retry"
         },
         {
@@ -2794,6 +3773,39 @@
           "K37"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.rov_t3x": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "The press goes on the left, and the pain is felt on the right.",
+          "claims": [
+            "K37"
+          ]
+        },
+        {
+          "text": "Pressing the right side does not test this sign.",
+          "claims": [
+            "K37"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.rov_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.obt",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.rov_t1": {
@@ -2814,7 +3826,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.rov",
+          "next": "S3.rov_2",
           "kind": "retry"
         },
         {
@@ -2829,6 +3841,39 @@
           "K38"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.rov_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Extension of the right hip is the psoas sign.",
+          "claims": [
+            "K38"
+          ]
+        },
+        {
+          "text": "Rovsing's is a left-sided press with pain on the right.",
+          "claims": [
+            "K37"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.rov_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.obt",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.rov_why": {
@@ -2853,7 +3898,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.rov",
+          "next": "S3.rov_2",
           "kind": "retry"
         },
         {
@@ -2902,6 +3947,47 @@
           "label": "Not sure, give me a hint",
           "next": "S3.obt_hint",
           "kind": "help"
+        }
+      ],
+      "segment": "S3"
+    },
+    "S3.obt_2": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "Next patient: the examiner flexes the right hip, rotates the leg inwards, and he winces with hypogastric pain.",
+          "claims": []
+        },
+        {
+          "text": "Name the sign.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Rovsing's sign",
+          "next": "S3.obt_t3x",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Obturator sign",
+          "next": "S3.obt_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Psoas sign",
+          "next": "S3.obt_t1x",
+          "kind": "trap",
+          "trap": "TR1"
         }
       ],
       "segment": "S3"
@@ -2971,7 +4057,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.obt",
+          "next": "S3.obt_2",
           "kind": "retry"
         },
         {
@@ -2986,6 +4072,34 @@
           "K39"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.obt_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "The psoas sign is extension of the hip. Rotation of the flexed hip is the obturator sign.",
+          "claims": [
+            "K38",
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.obt_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.pos",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.obt_t3": {
@@ -3006,7 +4120,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.obt",
+          "next": "S3.obt_2",
           "kind": "retry"
         },
         {
@@ -3021,6 +4135,39 @@
           "K37"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.obt_t3x": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Rovsing's needs pressure over the left fossa, with pain on the right.",
+          "claims": [
+            "K37"
+          ]
+        },
+        {
+          "text": "This hip movement is the obturator sign.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.obt_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.pos",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.obt_why": {
@@ -3046,7 +4193,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.obt",
+          "next": "S3.obt_2",
           "kind": "retry"
         },
         {
@@ -3097,6 +4244,49 @@
           "label": "Not sure, give me a hint",
           "next": "S3.pos_hint",
           "kind": "help"
+        }
+      ],
+      "segment": "S3"
+    },
+    "S3.pos_2": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "A young man has loin pain on hip extension and little anterior tenderness.",
+          "claims": [
+            "K33"
+          ]
+        },
+        {
+          "text": "Which pairing of sign and appendix position fits?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Psoas with retrocaecal; obturator with pelvic",
+          "next": "S3.pos_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Psoas with retrocaecal; rectal tenderness with retrocaecal",
+          "next": "S3.pos_t3x",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Psoas with pelvic; obturator with retrocaecal",
+          "next": "S3.pos_t1x",
+          "kind": "trap",
+          "trap": "TR2"
         }
       ],
       "segment": "S3"
@@ -3169,7 +4359,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.pos",
+          "next": "S3.pos_2",
           "kind": "retry"
         },
         {
@@ -3184,6 +4374,40 @@
           "K38"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.pos_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Psoas goes with a retrocaecal appendix, and obturator goes with a pelvic one.",
+          "claims": [
+            "K38",
+            "K39"
+          ]
+        },
+        {
+          "text": "Each sign follows the organ its position touches.",
+          "claims": [
+            "K106"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.pos_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.mech",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.pos_t3": {
@@ -3204,7 +4428,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.pos",
+          "next": "S3.pos_2",
           "kind": "retry"
         },
         {
@@ -3219,6 +4443,39 @@
           "K42"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.pos_t3x": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Right-sided rectal tenderness suggests a pelvic appendix touching the rectum.",
+          "claims": [
+            "K42"
+          ]
+        },
+        {
+          "text": "Loin pain with little anterior tenderness fits a retrocaecal one.",
+          "claims": [
+            "K33"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.pos_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.mech",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.pos_why": {
@@ -3245,7 +4502,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.pos",
+          "next": "S3.pos_2",
           "kind": "retry"
         },
         {
@@ -3270,13 +4527,13 @@
       ],
       "choices": [
         {
-          "label": "It lies on the psoas muscle and stretches it",
+          "label": "It lies on the psoas muscle, stretching it",
           "next": "S3.mech_t1",
           "kind": "trap",
           "trap": "TR2"
         },
         {
-          "label": "It abuts the rectum and bladder, irritating both",
+          "label": "It lies against the rectum and bladder, irritating them",
           "next": "S3.mech_ok",
           "kind": "correct"
         },
@@ -3285,6 +4542,43 @@
           "next": "S3.mech_t2",
           "kind": "trap",
           "trap": "TR2"
+        }
+      ],
+      "segment": "S3"
+    },
+    "S3.mech_2": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "Why does a pelvic appendix cause diarrhoea, urinary frequency and right-sided rectal tenderness?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "It lies behind the caecum, irritating the ureter",
+          "next": "S3.mech_t2x",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "It lies on the psoas muscle, stretching it",
+          "next": "S3.mech_t1x",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "It lies against the rectum and bladder, irritating them",
+          "next": "S3.mech_ok",
+          "kind": "correct"
         }
       ],
       "segment": "S3"
@@ -3335,7 +4629,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.mech",
+          "next": "S3.mech_2",
           "kind": "retry"
         },
         {
@@ -3350,6 +4644,39 @@
           "K34"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.mech_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Stretching the psoas gives pain on hip extension, not bowel symptoms.",
+          "claims": [
+            "K38"
+          ]
+        },
+        {
+          "text": "A pelvic appendix touches the rectum and bladder.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.mech_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.alv",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.mech_t2": {
@@ -3370,7 +4697,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.mech",
+          "next": "S3.mech_2",
           "kind": "retry"
         },
         {
@@ -3385,6 +4712,39 @@
           "K33"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.mech_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "An appendix behind the caecum is retrocaecal, which gives loin pain with little anterior tenderness.",
+          "claims": [
+            "K33"
+          ]
+        },
+        {
+          "text": "Pelvic symptoms come from the rectum and bladder.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.mech_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.alv",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.mech_why": {
@@ -3404,7 +4764,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.mech",
+          "next": "S3.mech_2",
           "kind": "retry"
         },
         {
@@ -3455,6 +4815,49 @@
           "label": "Not sure, give me a hint",
           "next": "S3.alv_hint",
           "kind": "help"
+        }
+      ],
+      "segment": "S3"
+    },
+    "S3.alv_2": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "The Alvarado (MANTRELS) score is out of 10, and its items do not all carry the same weight.",
+          "claims": [
+            "K46"
+          ]
+        },
+        {
+          "text": "Which two items score 2 points each?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Tenderness in the right iliac fossa and leucocytosis",
+          "next": "S3.alv_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Migration of pain to the right fossa and rebound tenderness",
+          "next": "S3.alv_t1x",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "Tenderness in the right iliac fossa and rebound tenderness",
+          "next": "S3.alv_t2x",
+          "kind": "trap",
+          "trap": "TR6"
         }
       ],
       "segment": "S3"
@@ -3525,7 +4928,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.alv",
+          "next": "S3.alv_2",
           "kind": "retry"
         },
         {
@@ -3540,6 +4943,34 @@
           "K7"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.alv_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Only tenderness in the right iliac fossa and leucocytosis score 2. Migration and rebound each score 1.",
+          "claims": [
+            "K107",
+            "K7"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.alv_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.alv2",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.alv_t2": {
@@ -3560,7 +4991,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.alv",
+          "next": "S3.alv_2",
           "kind": "retry"
         },
         {
@@ -3575,6 +5006,34 @@
           "K107"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.alv_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Rebound scores 1. The second 2-point item is leucocytosis, a blood result.",
+          "claims": [
+            "K107",
+            "K7"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.alv_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.alv2",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.alv_why": {
@@ -3600,7 +5059,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.alv",
+          "next": "S3.alv_2",
           "kind": "retry"
         },
         {
@@ -3649,6 +5108,47 @@
           "label": "Not sure, give me a hint",
           "next": "S3.alv2_hint",
           "kind": "help"
+        }
+      ],
+      "segment": "S3"
+    },
+    "S3.alv2_2": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "She has migration of pain, nausea, RIF tenderness, rebound tenderness and a raised total count. She is afebrile, has no anorexia, and the differential is not back yet.",
+          "claims": []
+        },
+        {
+          "text": "What is her Alvarado total?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "7 points",
+          "next": "S3.alv2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "6 points",
+          "next": "S3.alv2_t6x",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "9 points",
+          "next": "S3.alv2_t9x",
+          "kind": "trap",
+          "trap": "TR6"
         }
       ],
       "segment": "S3"
@@ -3719,7 +5219,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.alv2",
+          "next": "S3.alv2_2",
           "kind": "retry"
         },
         {
@@ -3734,6 +5234,34 @@
           "K107"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.alv2_t9x": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Only RIF tenderness and leucocytosis score 2. Scoring migration and rebound at 2 gives 9, not the true total.",
+          "claims": [
+            "K107",
+            "K7"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.alv2_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.ttr",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.alv2_t6": {
@@ -3754,7 +5282,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.alv2",
+          "next": "S3.alv2_2",
           "kind": "retry"
         },
         {
@@ -3769,6 +5297,34 @@
           "K107"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.alv2_t6x": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Leucocytosis is a 2-point item. Scoring it at 1 gives 6, not the true total.",
+          "claims": [
+            "K107",
+            "K7"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.alv2_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.ttr",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.alv2_why": {
@@ -3794,7 +5350,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.alv2",
+          "next": "S3.alv2_2",
           "kind": "retry"
         },
         {
@@ -3842,6 +5398,46 @@
           "label": "Not sure, give me a hint",
           "next": "S3.ttr_hint",
           "kind": "help"
+        }
+      ],
+      "segment": "S3"
+    },
+    "S3.ttr_2": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "A young woman has sudden mid-cycle RIF pain. There is no migration, she is afebrile and her count is normal. The pain settles over a few hours.",
+          "claims": []
+        },
+        {
+          "text": "Most likely diagnosis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Pelvic inflammatory disease",
+          "next": "S3.ttr_pidx",
+          "kind": "partial"
+        },
+        {
+          "label": "Mittelschmerz",
+          "next": "S3.ttr_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Acute appendicitis",
+          "next": "S3.ttr_t14x",
+          "kind": "trap",
+          "trap": "TR14"
         }
       ],
       "segment": "S3"
@@ -3917,7 +5513,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.ttr",
+          "next": "S3.ttr_2",
           "kind": "retry"
         },
         {
@@ -3932,6 +5528,39 @@
           "K59"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.ttr_t14x": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Mid-cycle RIF pain from a ruptured Graafian follicle is mittelschmerz, which mimics appendicitis in a young woman.",
+          "claims": [
+            "K59"
+          ]
+        },
+        {
+          "text": "RIF pain alone never means appendicitis.",
+          "claims": [
+            "K60"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.ttr_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.cl",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.ttr_pid": {
@@ -3954,7 +5583,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.ttr",
+          "next": "S3.ttr_2",
           "kind": "retry"
         },
         {
@@ -3969,6 +5598,39 @@
           "K59"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.ttr_pidx": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "This story has no fever, a normal count and pain that settles in hours, which fits a ruptured follicle better.",
+          "claims": [
+            "K59"
+          ]
+        },
+        {
+          "text": "The answer is mittelschmerz.",
+          "claims": [
+            "K59"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.ttr_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S3.cl",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.ttr_why": {
@@ -3995,7 +5657,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.ttr",
+          "next": "S3.ttr_2",
           "kind": "retry"
         },
         {
@@ -4035,6 +5697,43 @@
           "next": "S3.cl_t1",
           "kind": "trap",
           "trap": "TR1"
+        }
+      ],
+      "segment": "S3"
+    },
+    "S3.cl_2": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "Last check for this segment. Which finding does NOT point to a pelvic appendix?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Pain on extension of the right hip",
+          "next": "S3.cl_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Pain on internal rotation of the flexed right hip",
+          "next": "S3.cl_t1x",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Right-sided tenderness on rectal examination",
+          "next": "S3.cl_t2x",
+          "kind": "trap",
+          "trap": "TR2"
         }
       ],
       "segment": "S3"
@@ -4080,7 +5779,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.cl",
+          "next": "S3.cl_2",
           "kind": "retry"
         },
         {
@@ -4095,6 +5794,39 @@
           "K39"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.cl_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Internal rotation of the flexed hip is the obturator sign, which fits a pelvic appendix.",
+          "claims": [
+            "K39"
+          ]
+        },
+        {
+          "text": "The psoas sign is extension, which suggests retrocaecal.",
+          "claims": [
+            "K38"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.cl_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S4.d1",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.cl_t2": {
@@ -4115,7 +5847,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.cl",
+          "next": "S3.cl_2",
           "kind": "retry"
         },
         {
@@ -4130,6 +5862,39 @@
           "K42"
         ]
       },
+      "segment": "S3"
+    },
+    "S3.cl_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Right-sided rectal tenderness suggests a pelvic appendix touching the rectum.",
+          "claims": [
+            "K42"
+          ]
+        },
+        {
+          "text": "Retrocaecal gives loin pain with little anterior tenderness.",
+          "claims": [
+            "K33"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "S3.cl_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "S4.d1",
+          "kind": "continue"
+        }
+      ],
       "segment": "S3"
     },
     "S3.cl_why": {
@@ -4150,7 +5915,7 @@
       "choices": [
         {
           "label": "Try again",
-          "next": "S3.cl",
+          "next": "S3.cl_2",
           "kind": "retry"
         },
         {
@@ -4178,12 +5943,6 @@
           "label": "Graded-compression ultrasound",
           "next": "S4.d1_ok",
           "kind": "correct"
-        },
-        {
-          "label": "MRI abdomen without gadolinium",
-          "next": "S4.d1_t10",
-          "kind": "trap",
-          "trap": "TR10"
         },
         {
           "label": "Contrast-enhanced CT abdomen",
@@ -4347,12 +6106,6 @@
           "trap": "TR12"
         },
         {
-          "label": "Contrast-enhanced CT of the abdomen and pelvis",
-          "next": "S4.c2_t12b",
-          "kind": "trap",
-          "trap": "TR12"
-        },
-        {
           "label": "Not sure, give me a hint",
           "next": "S4.c2_h",
           "kind": "help"
@@ -4474,12 +6227,6 @@
         {
           "label": "Imaging first, then surgery, then beta-hCG if normal",
           "next": "S4.c2b_t12",
-          "kind": "trap",
-          "trap": "TR12"
-        },
-        {
-          "label": "Imaging, then beta-hCG, then surgery",
-          "next": "S4.c2b_t12b",
           "kind": "trap",
           "trap": "TR12"
         },
@@ -4792,12 +6539,6 @@
           "kind": "correct"
         },
         {
-          "label": "Contrast-enhanced CT, then ultrasound if inconclusive, then surgery",
-          "next": "S4.c4_t9",
-          "kind": "trap",
-          "trap": "TR9"
-        },
-        {
           "label": "MRI first, then ultrasound if inconclusive, then surgery",
           "next": "S4.c4_t10",
           "kind": "trap",
@@ -4921,12 +6662,6 @@
           "kind": "help"
         },
         {
-          "label": "MRI abdomen without gadolinium",
-          "next": "S4.a1_t10",
-          "kind": "trap",
-          "trap": "TR10"
-        },
-        {
           "label": "Contrast-enhanced CT of the abdomen",
           "next": "S4.a1_ok",
           "kind": "correct"
@@ -5048,12 +6783,6 @@
           "next": "S4.a2_t8",
           "kind": "trap",
           "trap": "TR8"
-        },
-        {
-          "label": "Repeat the ultrasound and discharge if still negative",
-          "next": "S4.a2_t11",
-          "kind": "trap",
-          "trap": "TR11"
         },
         {
           "label": "Contrast-enhanced CT of the abdomen",
@@ -5228,7 +6957,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S4.a6",
+          "next": "S4.a5",
           "kind": "continue"
         }
       ],
@@ -5281,7 +7010,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S4.a6",
+          "next": "S4.a5",
           "kind": "continue"
         }
       ],
@@ -5334,6 +7063,134 @@
       "choices": [
         {
           "label": "Next",
+          "next": "S4.a5",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S4"
+    },
+    "S4.a5": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A patient has migration of pain, nausea, right iliac fossa tenderness, rebound and leucocytosis. There is no anorexia, no fever and no left shift on the count. What is the Alvarado total?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "9",
+          "next": "S4.a5_t6",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "S4.a5_h",
+          "kind": "help"
+        },
+        {
+          "label": "7",
+          "next": "S4.a5_ok",
+          "kind": "correct"
+        }
+      ],
+      "segment": "S4"
+    },
+    "S4.a5_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Score each item as the table gives it, then add. Count the items that are present, not the ones that feel most specific.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S4.a5",
+          "kind": "retry"
+        }
+      ],
+      "segment": "S4"
+    },
+    "S4.a5_t6": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Tempting: migration and rebound feel like the strongest signs, so scoring them 2 each seems right. Add the total again using the table weights.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so rebuild the score item by item from the table, not from memory.",
+        "claims": [
+          "K7"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S4.a5",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "S4.a5_why",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S4"
+    },
+    "S4.a5_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Migration and rebound each score 1, not 2. Scoring both as 2 gives 9, which overshoots by 2.",
+          "claims": [
+            "K7"
+          ]
+        },
+        {
+          "text": "Migration 1, nausea 1, right iliac fossa tenderness 2, rebound 1 and leucocytosis 2 give 7.",
+          "claims": [
+            "K7"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S4.a6",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S4"
+    },
+    "S4.a5_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Right iliac fossa tenderness and leucocytosis carry 2 each, and every other item scores 1 when present.",
+          "claims": [
+            "K7",
+            "K107"
+          ]
+        },
+        {
+          "text": "Migration 1, nausea 1, tenderness 2, rebound 1 and leucocytosis 2 total 7.",
+          "claims": [
+            "K7"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
           "next": "S4.a6",
           "kind": "continue"
         }
@@ -5357,12 +7214,6 @@
           "label": "Appendicitis is likely; the score estimates risk",
           "next": "S4.a6_ok",
           "kind": "correct"
-        },
-        {
-          "label": "A score of 7 puts appendicitis in the unlikely band",
-          "next": "S4.a6_t6b",
-          "kind": "trap",
-          "trap": "TR6"
         },
         {
           "label": "The score is diagnostic, so imaging adds little",
@@ -5475,188 +7326,6 @@
           "label": "Next",
           "next": "S5.p1",
           "kind": "continue"
-        }
-      ],
-      "segment": "S4"
-    },
-    "S4.d1_t10": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: MRI avoids radiation and is very accurate, so it feels like the safe choice for a child. Ask which test is the first rung and which is the second.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so separate accuracy from order: the child's first test is the first rung.",
-        "claims": []
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S4.d1",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S4.d1_why",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S4"
-    },
-    "S4.c2_t12b": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: CT is the most accurate test, so it seems the quickest route to an answer. Ask what must be excluded in this woman before any scan is chosen.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so hold the order: pregnancy is checked before any imaging.",
-        "claims": []
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S4.c2",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S4.c2_why",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S4"
-    },
-    "S4.c2b_t12b": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: the scan feels like the real work, with the pregnancy test as a formality afterwards. Ask what the pregnancy result changes before you choose the scan.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so hold the order: beta-hCG is the first step in this group.",
-        "claims": []
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S4.c2b",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S4.c2b_why",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S4"
-    },
-    "S4.a1_t10": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: MRI is accurate and avoids radiation, so it sounds like a modern first choice. Does this stem name a group in which MRI is the second rung? Without one, which test is most accurate?",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so read what the stem names: with no group, the answer is the most accurate test in an adult.",
-        "claims": []
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S4.a1",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S4.a1_why",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S4"
-    },
-    "S4.a2_t11": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: ultrasound was the first test, so repeating it feels consistent. Ask which test is the most accurate next step in an adult.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so check the adult ladder: a second look with the same test is not the next rung.",
-        "claims": []
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S4.a2",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S4.a2_why",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S4"
-    },
-    "S4.c4_t9": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: CT is the most accurate test, so it seems the strongest first rung. Ask whether the first rung stays the same in pregnancy.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so check the patient group before the test: pregnancy changes the first rung.",
-        "claims": []
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S4.c4",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S4.c4_why",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S4"
-    },
-    "S4.a6_t6b": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Tempting: a score out of 10 feels like a pass mark, so 7 reads as middling. Recall which total makes the disease likely and which makes it unlikely.",
-          "claims": []
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so recall the bands: a score of 7 or more is likely, 4 or less unlikely.",
-        "claims": []
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S4.a6",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S4.a6_why",
-          "kind": "agency"
         }
       ],
       "segment": "S4"
@@ -6236,7 +7905,7 @@
       ],
       "choices": [
         {
-          "label": "Colonoscopy or CT to exclude carcinoma, then selective surgery",
+          "label": "Colonoscopy or CT to exclude caecal carcinoma, then selective interval surgery",
           "next": "S5.p4_ok",
           "kind": "correct"
         },
@@ -6247,7 +7916,7 @@
           "trap": "TR24"
         },
         {
-          "label": "Discharge now, with review only if the symptoms come back later",
+          "label": "Discharge now, with review only if symptoms come back",
           "next": "S5.p4_t2",
           "kind": "trap",
           "trap": "TR24"
@@ -7111,18 +8780,18 @@
       ],
       "choices": [
         {
-          "label": "Choice is appendicectomy; 'only' is the old key; antibiotics suit some adults",
+          "label": "Choice is appendicectomy; 'only' is the old key; antibiotics-first suits selected adults",
           "next": "S5.p9_ok",
           "kind": "correct"
         },
         {
-          "label": "Appendicectomy for both, since antibiotics have no accepted role in appendicitis",
+          "label": "Appendicectomy for both, since antibiotics have no accepted role",
           "next": "S5.p9_t1",
           "kind": "trap",
           "trap": "TR22"
         },
         {
-          "label": "Antibiotics for both, since they have now replaced appendicectomy as treatment",
+          "label": "Antibiotics for both, since they have replaced appendicectomy as treatment of choice",
           "next": "S5.p9_t2",
           "kind": "trap",
           "trap": "TR23"
@@ -7361,10 +9030,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: ischaemia is the dangerous event, so it feels as if it should come early.",
-          "claims": []
-        },
-        {
           "text": "The artery fails only after pressure has risen and the veins are congested.",
           "claims": [
             "K24",
@@ -7373,7 +9038,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you ran the chain backwards from gangrene; run it forward from the blocked lumen.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -7397,10 +9062,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: pressure is the feature you remember, so it feels like the starting point.",
-          "claims": []
-        },
-        {
           "text": "Pressure cannot rise until something has blocked the lumen first.",
           "claims": [
             "K24"
@@ -7408,7 +9069,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you began the chain at pressure; the lumen must block before pressure can build.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -7539,10 +9200,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: vomiting is the symptom patients mention first, so it feels like the opener.",
-          "claims": []
-        },
-        {
           "text": "In appendicitis vomiting follows the pain, so her order is the usual one.",
           "claims": [
             "K6"
@@ -7550,7 +9207,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you used a gastroenteritis model with vomiting first; in appendicitis pain opens and vomiting follows.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -7574,10 +9231,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: symptoms overlap with many illnesses, so their order seems too soft to count.",
-          "claims": []
-        },
-        {
           "text": "The order is itself diagnostic: pain, then vomiting, then fever.",
           "claims": [
             "K6"
@@ -7585,7 +9238,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you treated the order as noise; Murphy's sequence is a filter against other stories.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -7717,10 +9370,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: migration and rebound feel like the strongest signs, so scoring one of them 2 seems fair.",
-          "claims": []
-        },
-        {
           "text": "Only right fossa tenderness and leucocytosis score 2. Migration and rebound score 1.",
           "claims": [
             "K7",
@@ -7729,7 +9378,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you weighted items by feel; only right fossa tenderness and leucocytosis carry 2.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -7753,10 +9402,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: a normal total count makes the picture look milder, so an item gets dropped.",
-          "claims": []
-        },
-        {
           "text": "Fever and left shift each score 1, so leaving one out understates the total.",
           "claims": [
             "K7"
@@ -7764,7 +9409,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you left out an item by feel; add every item that is present before you total.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -7896,10 +9541,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: both signs are hip movements, so the registrar's name sounds as good as any.",
-          "claims": []
-        },
-        {
           "text": "Obturator is pain on internal rotation of the flexed hip. Extension is the psoas test.",
           "claims": [
             "K38",
@@ -7908,7 +9549,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you swapped the two names; match each sign to its movement before its position.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -7932,10 +9573,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: you corrected the name, then carried the pelvic position over from the obturator sign.",
-          "claims": []
-        },
-        {
           "text": "The psoas lies behind the caecum, so its sign points to a retrocaecal appendix.",
           "claims": [
             "K38"
@@ -7943,7 +9580,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you attached the obturator position to the psoas sign; psoas goes with the retrocaecal appendix.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -8013,10 +9650,10 @@
           "kind": "correct"
         },
         {
-          "label": "The sign is pain on sudden release of the pressed fossa",
+          "label": "It is a hip movement, so pressing the abdomen is wrong",
           "next": "S6.p5_t2",
           "kind": "trap",
-          "trap": "TR3"
+          "trap": "TR1"
         },
         {
           "label": "Not sure, give me a hint",
@@ -8075,10 +9712,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: pain where you press feels like a positive result for any sign.",
-          "claims": []
-        },
-        {
           "text": "Pain where you press is local tenderness. Rovsing's sign is pain on the right when the left is pressed.",
           "claims": [
             "K37"
@@ -8086,7 +9719,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you used a local-tenderness model; Rovsing's sign needs pressure on the opposite side.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -8110,18 +9743,15 @@
       ],
       "say": [
         {
-          "text": "Tempting: sudden release is a familiar abdominal sign, so it feels like Rovsing's.",
-          "claims": []
-        },
-        {
-          "text": "Pain on sudden release is rebound tenderness. Rovsing's sign is pain felt on the right when the left iliac fossa is pressed.",
+          "text": "Rovsing's sign is abdominal pressure. The hip movements belong to the psoas and obturator signs.",
           "claims": [
-            "K37"
+            "K37",
+            "K106"
           ]
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you merged rebound tenderness with Rovsing's; Rovsing's pain is referred from the left-sided press.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -8228,10 +9858,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: a normal ultrasound report feels like an all-clear.",
-          "claims": []
-        },
-        {
           "text": "A negative ultrasound does not exclude appendicitis in an adult.",
           "claims": [
             "K55"
@@ -8239,7 +9865,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you read not seen as excluded; in adults a non-diagnostic ultrasound leaves the question open.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -8263,10 +9889,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: the old key named ultrasound, so repeating it feels like following the key.",
-          "claims": []
-        },
-        {
           "text": "The old key named ultrasound. In adults the most accurate test is contrast CT.",
           "claims": [
             "K108",
@@ -8275,7 +9897,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you used the old key; in an adult the next, most accurate rung is contrast CT.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -8383,10 +10005,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: CT is the most accurate test, so it feels right for every patient.",
-          "claims": []
-        },
-        {
           "text": "Accuracy is not the first question. Children and pregnant women start with ultrasound.",
           "claims": [
             "K8",
@@ -8395,7 +10013,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you let accuracy set the order; children and pregnancy start with ultrasound.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -8419,10 +10037,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: avoiding radiation sounds careful, so MRI first feels like good practice.",
-          "claims": []
-        },
-        {
           "text": "MRI without gadolinium is the second rung in pregnancy, after an inconclusive ultrasound.",
           "claims": [
             "K56",
@@ -8431,7 +10045,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you put MRI on the first rung; ultrasound is first and MRI the second rung.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -8540,10 +10154,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: the appendix is the working diagnosis, and CT is the strongest scan for it.",
-          "claims": []
-        },
-        {
           "text": "A scan before beta-hCG can miss an ectopic pregnancy, which changes the plan.",
           "claims": [
             "K53",
@@ -8552,7 +10162,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you followed the working diagnosis; every woman of reproductive age needs beta-hCG before imaging.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -8576,10 +10186,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: pain, nausea and right fossa tenderness look like the classic textbook case.",
-          "claims": []
-        },
-        {
           "text": "Right iliac fossa pain in a woman has other causes, including ectopic pregnancy and ovarian cyst.",
           "claims": [
             "K59"
@@ -8587,7 +10193,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you used the textbook picture alone; in a woman the differential includes ectopic pregnancy.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -8693,10 +10299,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: antibiotics-first is the newer idea, so it feels as if it should apply to everyone.",
-          "claims": []
-        },
-        {
           "text": "An appendicolith predicts antibiotic failure, so it counts against the non-operative route.",
           "claims": [
             "K71"
@@ -8704,7 +10306,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you read the option as a replacement; an appendicolith predicts antibiotic failure.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -8728,10 +10330,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: 'treatment of choice' sounds the same as 'only treatment'.",
-          "claims": []
-        },
-        {
           "text": "Treatment of choice is not the only treatment. Selected adults may try antibiotics first.",
           "claims": [
             "K110",
@@ -8740,7 +10338,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you used the old absolute; current practice accepts antibiotics-first for selected adults.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -8848,10 +10446,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: appendicitis usually means operate, so surgery seems right for both problems.",
-          "claims": []
-        },
-        {
           "text": "A mass settles on the conservative regimen first, and an abscess is drained percutaneously.",
           "claims": [
             "K102",
@@ -8860,7 +10454,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you used an operate-at-once model; a mass settles on the regimen first and an abscess is drained percutaneously.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -8884,10 +10478,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: routine interval appendicectomy was the keyed answer in many past papers.",
-          "claims": []
-        },
-        {
           "text": "Routine interval surgery was the old key. It is now selective.",
           "claims": [
             "K109"
@@ -8895,7 +10485,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you used the old key; interval surgery is now selective, with a work-up first in older patients.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -9005,10 +10595,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: the femoral nerve is the groin nerve most people name first.",
-          "claims": []
-        },
-        {
           "text": "A gridiron incision endangers the ilioinguinal nerve, not the femoral nerve.",
           "claims": [
             "K85"
@@ -9016,7 +10602,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you picked the wrong neighbour; the gridiron incision endangers the ilioinguinal nerve.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -9040,10 +10626,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: pylephlebitis sounds like sepsis after an operation.",
-          "claims": []
-        },
-        {
           "text": "Pylephlebitis is portal pyaemia from the diseased appendix, not a result of surgery.",
           "claims": [
             "K80"
@@ -9051,7 +10633,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you gave a disease complication to surgery; pylephlebitis comes from the diseased appendix.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -9112,7 +10694,7 @@
       ],
       "choices": [
         {
-          "label": "Carcinoid, a neuroendocrine tumour, usually at the tip",
+          "label": "Carcinoid, a neuroendocrine tumour usually found at the tip",
           "next": "S6.p12_ok",
           "kind": "correct"
         },
@@ -9123,7 +10705,7 @@
           "trap": "TR13"
         },
         {
-          "label": "Adenocarcinoma, the most serious tumour of the appendix itself",
+          "label": "Adenocarcinoma, the most serious tumour of the appendix",
           "next": "S6.p12_t2",
           "kind": "trap",
           "trap": "TR13"
@@ -9150,7 +10732,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S6.p13",
+          "next": "END",
           "kind": "continue"
         }
       ],
@@ -9164,10 +10746,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: mucocele and pseudomyxoma are dramatic, so they feel common.",
-          "claims": []
-        },
-        {
           "text": "A mucocele may rupture into pseudomyxoma peritonei, but it is not the commonest tumour.",
           "claims": [
             "K90",
@@ -9176,7 +10754,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you equated dramatic with common; carcinoid is the commonest appendix tumour.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -9201,10 +10779,6 @@
       ],
       "say": [
         {
-          "text": "Tempting: adenocarcinoma is the cancer you think of first.",
-          "claims": []
-        },
-        {
           "text": "Severity is not frequency. Carcinoid is the commonest appendix tumour.",
           "claims": [
             "K105"
@@ -9212,7 +10786,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, but you equated serious with common; most common means most frequent, not most dangerous.",
+        "text": "You were sure, so give it a second look before you move on.",
         "claims": []
       },
       "choices": [
@@ -9243,187 +10817,6 @@
             "K89",
             "K111",
             "K1"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.p13",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.p13": {
-      "role": "probe",
-      "objectives": [
-        "O12"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "An appendiceal carcinoid measuring 2.5 cm is found at the tip.",
-          "claims": []
-        },
-        {
-          "text": "What does the PYQ size rule advise?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Appendicectomy alone, as tip tumours are cured by it",
-          "next": "S6.p13_p1",
-          "kind": "partial"
-        },
-        {
-          "label": "Right hemicolectomy, as the tumour is over 2 cm",
-          "next": "S6.p13_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Right hemicolectomy, as adenocarcinoma is the commonest tumour",
-          "next": "S6.p13_p2",
-          "kind": "trap",
-          "trap": "TR13"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "S6.p13_h",
-          "kind": "help"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.p13_h": {
-      "role": "hint",
-      "objectives": [
-        "O12"
-      ],
-      "say": [
-        {
-          "text": "The rule turns on 2 cm. Which side of it does 2.5 cm fall, and which operation goes with each side?",
-          "claims": [
-            "K111"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Back to the question",
-          "next": "S6.p13",
-          "kind": "retry"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.p13_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O12"
-      ],
-      "say": [
-        {
-          "text": "Yes. The PYQ key gives right hemicolectomy for a carcinoid over 2 cm, and appendicectomy alone for under 2 cm at the tip.",
-          "claims": [
-            "K111",
-            "K89"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "END",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.p13_p1": {
-      "role": "feedback",
-      "objectives": [
-        "O12"
-      ],
-      "say": [
-        {
-          "text": "Tempting: appendicectomy alone is the answer for small tip tumours, so it feels familiar.",
-          "claims": []
-        },
-        {
-          "text": "That holds under 2 cm. This tumour is larger, and larger ones need right hemicolectomy.",
-          "claims": [
-            "K111",
-            "K89"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, but you applied the small-tumour rule; check which side of 2 cm the size falls.",
-        "claims": []
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.p13",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.p13_w",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.p13_p2": {
-      "role": "feedback",
-      "objectives": [
-        "O12"
-      ],
-      "say": [
-        {
-          "text": "Tempting: the operation matches, so the reason attached to it goes unchecked. But the reason is wrong.",
-          "claims": []
-        },
-        {
-          "text": "The commonest appendix tumour is carcinoid, and its size over 2 cm is what points to right hemicolectomy.",
-          "claims": [
-            "K89",
-            "K111"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, but you took the most serious tumour for the commonest; frequency, not severity, names carcinoid.",
-        "claims": []
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S6.p13",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S6.p13_w",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S6"
-    },
-    "S6.p13_w": {
-      "role": "feedback",
-      "objectives": [
-        "O12"
-      ],
-      "say": [
-        {
-          "text": "Carcinoid under 2 cm at the tip is cured by appendicectomy alone. Over 2 cm, or with base involvement, it needs right hemicolectomy.",
-          "claims": [
-            "K89",
-            "K111"
           ]
         }
       ],
@@ -10570,7 +11963,7 @@
           ]
         },
         "fell_open": {
-          "text": "You swapped the psoas and obturator manoeuvres. You may have corrected this on the spot, but a retry at the same question does not show it has held. Psoas is pain on hip extension; obturator is pain on internal rotation of the flexed hip. Say the movement first, then the name. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You treated psoas and obturator as one 'right hip' idea and assigned the names by feel. Psoas is pain on hip extension; obturator is pain on internal rotation of the flexed hip. Revisit the side-by-side contrast card and recite each by its movement, not its name.",
           "claims": [
             "K38",
             "K39",
@@ -10600,7 +11993,7 @@
           ]
         },
         "fell_open": {
-          "text": "You tied a sign to the wrong appendix position. You may have corrected this on the spot, but a retry at the same question does not show it has held. Psoas goes with a retrocaecal appendix on the muscle; obturator and right rectal tenderness go with a pelvic appendix. Ask which organ the appendix touches. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You memorised sign and position as pairs without asking what the appendix touches, so the pairs landed on the wrong position. Retrocaecal lies on the psoas; pelvic lies against rectum, bladder and obturator internus. Redraw the appendix behind and below the caecum, then do the position card again.",
           "claims": [
             "K38",
             "K39",
@@ -10626,7 +12019,7 @@
           ]
         },
         "fell_open": {
-          "text": "You ran Rovsing's sign backwards. You may have corrected this on the spot, but a retry at the same question does not show it has held. Rovsing's sign is pressure in the left iliac fossa causing pain in the right. Say it as 'press here, hurts there'. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You ran Rovsing's sign backwards, putting the pressure where the pain is. The sign is pressure in the left iliac fossa causing right iliac fossa pain. Narrate it aloud as 'press here, hurts there', then revisit the sign contrast card.",
           "claims": [
             "K37",
             "K106"
@@ -10655,7 +12048,7 @@
           ]
         },
         "fell_open": {
-          "text": "You reversed the pain pathway or the causal chain. You may have corrected this on the spot, but a retry at the same question does not show it has held. The chain starts with obstruction and rising pressure; early pain is periumbilical and shifts when the parietal peritoneum is inflamed. Say the steps in order. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You read the disease backwards from its end-point, putting localised right iliac fossa pain or ischaemia first. The true chain starts with obstruction and pressure; early visceral T10 pain is periumbilical and only shifts when the parietal peritoneum is inflamed. Re-do the mechanism segment, saying each step aloud in order.",
           "claims": [
             "K5",
             "K26",
@@ -10681,7 +12074,7 @@
           ]
         },
         "fell_open": {
-          "text": "You put vomiting ahead of pain. You may have corrected this on the spot, but a retry at the same question does not show it has held. In appendicitis pain comes first, then vomiting, then fever; vomiting first argues against it. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You stored the symptoms as an unordered list, so vomiting felt like an opening symptom. In appendicitis pain comes first, then vomiting, then fever; vomiting before pain argues against it. Review the order card and use pain-first to screen vignettes for gastroenteritis.",
           "claims": [
             "K6",
             "K31"
@@ -10706,7 +12099,7 @@
           ]
         },
         "fell_open": {
-          "text": "You misweighted the Alvarado score or read it as a diagnosis. You may have corrected this on the spot, but a retry at the same question does not show it has held. Only right iliac fossa tenderness and leucocytosis score 2, out of 10; 7 or more makes appendicitis likely, not certain. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You weighted Alvarado items by how specific they feel, not by the table, or read the score as a test result. Only RIF tenderness and leucocytosis score 2; every other item scores 1, total 10, and 7 or more means likely. Rebuild the score from the table and redo the arithmetic card.",
           "claims": [
             "K7",
             "K107",
@@ -10732,7 +12125,7 @@
           ]
         },
         "fell_open": {
-          "text": "You treated a negative ultrasound as excluding appendicitis in an adult. You may have corrected this on the spot, but a retry at the same question does not show it has held. An unhelpful scan does not end the work-up; contrast-enhanced CT is the most accurate test in adults. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You treated the first-line test as the final word, so a negative or inconclusive ultrasound ended your work-up. In adults, contrast-enhanced CT is the most accurate test and follows an unhelpful scan. Add CECT to your adult imaging ladder and revisit the imaging card.",
           "claims": [
             "K55",
             "K54",
@@ -10758,7 +12151,7 @@
           ]
         },
         "fell_open": {
-          "text": "You chose CT first for a child or pregnant patient. You may have corrected this on the spot, but a retry at the same question does not show it has held. Ultrasound is first in children and pregnancy; contrast CT is the most accurate test in adults. Check who the patient is. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You applied the adult CT answer to every patient and dropped the age and pregnancy qualifier. Ultrasound is first in children and pregnant women; contrast CT is the most accurate test in adults. Ask 'who is the patient?' first and review the three-group imaging contrast card.",
           "claims": [
             "K8",
             "K98",
@@ -10784,7 +12177,7 @@
           ]
         },
         "fell_open": {
-          "text": "You put MRI first in pregnancy. You may have corrected this on the spot, but a retry at the same question does not show it has held. Graded-compression ultrasound is the first rung; MRI without gadolinium is the second, when ultrasound is inconclusive. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You ranked tests by accuracy alone and put MRI first in pregnancy. The first rung is the cheap, safe, available test, graded-compression ultrasound; MRI without gadolinium is the second rung. Redo the pregnancy pathway ordering and keep 'USG, then MRI' as one phrase.",
           "claims": [
             "K98",
             "K100",
@@ -10810,7 +12203,7 @@
           ]
         },
         "fell_open": {
-          "text": "You answered from the old ultrasound key for an adult. You may have corrected this on the spot, but a retry at the same question does not show it has held. Current practice is ultrasound first in children and pregnancy, and contrast-enhanced CT as the most accurate test in adults. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You treated a remembered past-paper key as the current standard and defaulted to ultrasound for adults. Older keys expected ultrasound; current practice uses CECT as the most accurate test in adults. Learn the pair 'USG first, CECT most accurate' and revisit the exam-traps card on it.",
           "claims": [
             "K108",
             "K99",
@@ -10834,7 +12227,7 @@
           ]
         },
         "fell_open": {
-          "text": "You skipped or delayed the pregnancy test. You may have corrected this on the spot, but a retry at the same question does not show it has held. In any woman of reproductive age, beta-hCG comes before imaging or theatre, because ectopic pregnancy changes the plan. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You followed the working diagnosis and treated the pregnancy test as an afterthought. In any woman of reproductive age, beta-hCG comes before imaging or theatre, because ectopic pregnancy changes the plan. Re-do the women's step-order card and say 'test pregnancy first'.",
           "claims": [
             "K53",
             "K59"
@@ -10859,7 +12252,7 @@
           ]
         },
         "fell_open": {
-          "text": "You picked a more dramatic condition as the most common. You may have corrected this on the spot, but a retry at the same question does not show it has held. Most common means most frequent: appendicitis is the commonest abdominal surgical emergency, and carcinoid the commonest appendix tumour. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You read 'most common' as 'most dangerous' or 'most tested' and picked another emergency. Perforated ulcer or cholecystitis may be graver, but appendicitis is the commonest abdominal surgical emergency, in pregnancy too. Underline the qualifier word and review the opening card.",
           "claims": [
             "K1",
             "K91",
@@ -10885,7 +12278,7 @@
           ]
         },
         "fell_open": {
-          "text": "You assumed right iliac fossa pain always means appendicitis. You may have corrected this on the spot, but a retry at the same question does not show it has held. Each group has look-alikes, such as mesenteric lymphadenitis in children, mittelschmerz and PID in women, and caecal carcinoma in older patients. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You treated the classic pattern as the only pattern, so RIF pain meant appendicitis. Each group has its mimics: mesenteric lymphadenitis in children, mittelschmerz and PID in women, caecal carcinoma in the elderly. Make a three-look-alikes list per group and revisit the differential card.",
           "claims": [
             "K58",
             "K59",
@@ -10913,7 +12306,7 @@
           ]
         },
         "fell_open": {
-          "text": "You ignored the age when naming the cause of the block. You may have corrected this on the spot, but a retry at the same question does not show it has held. Lymphoid hyperplasia predominates in children and young people; a faecolith in adults, as lymphoid tissue atrophies with age. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You ignored the age in the stem and picked the more familiar cause. Lymphoid hyperplasia is commonest in children, faecolith in adults, because lymphoid tissue is maximal when young and atrophies later. Revisit the child-versus-adult contrast card and read the age first.",
           "claims": [
             "K14",
             "K15",
@@ -10942,7 +12335,7 @@
           ]
         },
         "fell_open": {
-          "text": "You merged complications of the disease with those of the operation. You may have corrected this on the spot, but a retry at the same question does not show it has held. Pylephlebitis, mass and abscess come from the disease; wound infection, faecal fistula and stump appendicitis follow surgery. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You merged the two complication lists from the same chapter and never asked whether each arises from the disease or the operation. Pylephlebitis, mass and abscess are disease; wound infection, faecal fistula and stump appendicitis follow surgery. Rebuild both lists on paper and redo the which-is-not card.",
           "claims": [
             "K78",
             "K80",
@@ -10967,7 +12360,7 @@
           ]
         },
         "fell_open": {
-          "text": "You named a neighbouring nerve instead of the one a gridiron incision endangers. You may have corrected this on the spot, but a retry at the same question does not show it has held. The ilioinguinal nerve is the one at risk, leading to a right inguinal hernia. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You learned the iliac-region nerves as a bundle and picked a neighbour of the nerve at risk. The gridiron incision endangers the ilioinguinal nerve, causing a right inguinal hernia. Sketch the three neighbouring nerves across the gridiron site and review the nerve card.",
           "claims": [
             "K85",
             "K65"
@@ -10992,7 +12385,7 @@
           ]
         },
         "fell_open": {
-          "text": "You took 'treatment of choice' to mean the only treatment. You may have corrected this on the spot, but a retry at the same question does not show it has held. Appendicectomy is the treatment of choice, but antibiotics-first is accepted for selected CT-proven uncomplicated adults. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You took 'treatment of choice' as 'only treatment', an absolute older keys used. Appendicectomy remains the treatment of choice, but current practice accepts antibiotics-first for selected CT-confirmed uncomplicated adults. Add that to your notes and revisit the treatment contrast card.",
           "claims": [
             "K110",
             "K71",
@@ -11018,7 +12411,7 @@
           ]
         },
         "fell_open": {
-          "text": "You offered antibiotics-first without its conditions. You may have corrected this on the spot, but a retry at the same question does not show it has held. It suits selected adults with CT-proven uncomplicated disease and no appendicolith; an appendicolith predicts failure. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You kept 'antibiotics-first is acceptable' and dropped its conditions. It applies to selected adults with CT-proven uncomplicated disease; an appendicolith or complicated disease points to surgery. Review the three qualifiers on the management card, then redo the patient-comparison question.",
           "claims": [
             "K71",
             "K15",
@@ -11042,7 +12435,7 @@
           ]
         },
         "fell_open": {
-          "text": "You applied interval appendicectomy routinely after a mass. You may have corrected this on the spot, but a retry at the same question does not show it has held. It is now selective, and patients over about 40 need colonoscopy or CT to exclude caecal carcinoma. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You treated the old key as fixed policy and applied interval appendicectomy routinely, skipping the malignancy check. Now it is selective, and patients over about 40 need colonoscopy or CT for caecal carcinoma. Revisit the interval-surgery card and add the older-patient work-up.",
           "claims": [
             "K109",
             "K75"
@@ -11071,7 +12464,7 @@
           ]
         },
         "fell_open": {
-          "text": "You went straight to surgery or open drainage. You may have corrected this on the spot, but a retry at the same question does not show it has held. A stable mass gets the Ochsner-Sherren regimen; a drainable abscess gets image-guided percutaneous drainage with antibiotics. Next, meet it again on a fresh question: do the review card for this trap.",
+          "text": "You read 'appendicitis means operate now' and skipped the first step. A stable mass is managed conservatively by the Ochsner-Sherren regimen, stopped if the pulse, pain or mass worsens; an abscess is drained percutaneously. Re-learn the step order on the management card.",
           "claims": [
             "K73",
             "K74",

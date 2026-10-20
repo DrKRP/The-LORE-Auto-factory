@@ -1,1 +1,2 @@
 - 2026-10-20 round 0 composite (see scorecard), review 3.69. Refine round 1: patch S2–S6 per review and sims; rewrite fell_open report texts.
+- 2026-10-20 round 1 composite 3.616 (review 3.48) vs round 0 3.695: round 1 regressed; max_rounds reached; published round 0 per rule (below threshold 4.0). Open issues: same-stem retries, S6 replays earlier content, S4.a1 ambiguous key.

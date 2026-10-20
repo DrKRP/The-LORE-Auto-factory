@@ -1,1084 +1,1889 @@
 {
- "segment": "S2",
- "entry": "pain_a",
- "cards": [],
- "technique": "T7+T4",
- "decision": "merge",
- "nodes": {
-  "pain_a": {
-   "role": "probe",
-   "objectives": [
-    "O3"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A 19-year-old with suspected appendicitis describes the course of his pain over 12 hours.",
-     "claims": []
+  "segment": "S2",
+  "entry": "pain_a",
+  "cards": [],
+  "technique": "T7+T4",
+  "decision": "merge",
+  "nodes": {
+    "pain_a": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 19-year-old with suspected appendicitis describes the course of his pain over 12 hours.",
+          "claims": []
+        },
+        {
+          "text": "Which course is typical?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Right lower belly from the start, and it never moves",
+          "next": "pain_a_t1",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Starts at the navel, then moves to the right lower belly",
+          "next": "pain_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Right lower belly from the start, then spreads to the navel",
+          "next": "pain_a_t2",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pain_a_hint",
+          "kind": "help"
+        }
+      ]
     },
-    {
-     "text": "Which course is typical?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Right lower belly from the start, and it never moves",
-     "next": "pain_a_t1",
-     "kind": "trap",
-     "trap": "TR4"
+    "pain_a_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Early gut-wall pain travels by visceral fibres entering at T10. Which is vague and central, and which is pinpoint? Which comes first?",
+          "claims": [
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the patient's course",
+          "next": "pain_a",
+          "kind": "retry"
+        }
+      ]
     },
-    {
-     "label": "Starts at the navel, then moves to the right lower belly",
-     "next": "pain_ok",
-     "kind": "correct"
+    "pain_a_2": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "A 19-year-old with suspected appendicitis describes the course of his pain over 12 hours.",
+          "claims": []
+        },
+        {
+          "text": "Which course is typical?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Right lower belly from the start, then spreads to the navel",
+          "next": "pain_a_t2x",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Right lower belly from the start, and it never moves",
+          "next": "pain_a_t1x",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Starts at the navel, then moves to the right lower belly",
+          "next": "pain_ok",
+          "kind": "correct"
+        }
+      ]
     },
-    {
-     "label": "Right lower belly from the start, then spreads to the navel",
-     "next": "pain_a_t2",
-     "kind": "trap",
-     "trap": "TR4"
+    "pain_a_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Constant right-sided pain is the picture most people remember from the clinic.",
+          "claims": []
+        },
+        {
+          "text": "Think about the gut wall's own nerve supply, which reaches the cord at T10. Where would pain carried that way be felt, and could it be pinpoint?",
+          "claims": [
+            "K26"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so trace the course from the first hour, not from the clinic picture.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain_a_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "teach_pain",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "pain_a_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "pain_a_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Early gut-wall pain travels by visceral fibres entering at T10. Which is vague and central, and which is pinpoint? Which comes first?",
-     "claims": [
-      "K26"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Back to the patient's course",
-     "next": "pain_a",
-     "kind": "retry"
-    }
-   ]
-  },
-  "pain_a_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Constant right-sided pain is the picture most people remember from the clinic.",
-     "claims": []
+    "pain_a_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Early appendiceal pain comes from visceral fibres at T10, so it sits round the navel and only settles in the right iliac fossa later.",
+          "claims": [
+            "K26",
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "teach_pain",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "chain_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "text": "Think about the gut wall's own nerve supply, which reaches the cord at T10. Where would pain carried that way be felt, and could it be pinpoint?",
-     "claims": [
-      "K26"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so trace the course from the first hour, not from the clinic picture.",
-    "claims": []
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "pain_a",
-     "kind": "retry"
+    "pain_a_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Pain that starts on the right and climbs is tempting, because right-sided pain is the one you remember.",
+          "claims": []
+        },
+        {
+          "text": "Ask which pain the gut wall's visceral fibres carry first, and which pain needs the peritoneum to be inflamed.",
+          "claims": [
+            "K26",
+            "K27"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so work out which nerves fire first before you choose a direction.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain_a_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "teach_pain",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "label": "Show me why",
-     "next": "teach_pain",
-     "kind": "agency"
-    }
-   ]
-  },
-  "pain_a_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Pain that starts on the right and climbs is tempting, because right-sided pain is the one you remember.",
-     "claims": []
+    "pain_a_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "The course runs the other way: the navel comes first, and the pain moves down to the right iliac fossa.",
+          "claims": [
+            "K5"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "teach_pain",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "chain_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "text": "Ask which pain the gut wall's visceral fibres carry first, and which pain needs the peritoneum to be inflamed.",
-     "claims": [
-      "K26",
-      "K27"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so work out which nerves fire first before you choose a direction.",
-    "claims": []
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "pain_a",
-     "kind": "retry"
+    "pain_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. The pain starts periumbilical, from visceral afferents at T10.",
+          "claims": [
+            "K26"
+          ]
+        },
+        {
+          "text": "It shifts to the right iliac fossa when the parietal peritoneum is involved.",
+          "claims": [
+            "K5",
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "teach_pain",
+          "kind": "continue"
+        },
+        {
+          "label": "Skip the teaching, go to the blockage",
+          "next": "chain_probe",
+          "kind": "skip"
+        }
+      ]
     },
-    {
-     "label": "Show me why",
-     "next": "teach_pain",
-     "kind": "agency"
-    }
-   ]
-  },
-  "pain_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Yes. The pain starts periumbilical, from visceral afferents at T10.",
-     "claims": [
-      "K26"
-     ]
+    "teach_pain": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Two regions, two nerve supplies. Visceral pain comes from the gut wall, enters at T10 and sits round the navel.",
+          "claims": [
+            "K26"
+          ]
+        },
+        {
+          "text": "Somatic pain comes from the parietal peritoneum and is localised to the right iliac fossa.",
+          "claims": [
+            "K27"
+          ]
+        },
+        {
+          "text": "Pain moves when the inflammation moves from the gut wall out to the peritoneum.",
+          "claims": [
+            "K5"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "chain_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "text": "It shifts to the right iliac fossa when the parietal peritoneum is involved.",
-     "claims": [
-      "K5",
-      "K27"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "teach_pain",
-     "kind": "continue"
+    "chain_probe": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "The pain localises to the right iliac fossa only after the early stage.",
+          "claims": []
+        },
+        {
+          "text": "What causes that localisation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Rising lumen pressure stimulates the T10 visceral fibres more strongly",
+          "next": "chain_probe_t1",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Wall ischaemia starts before the lumen blocks, so pain turns local",
+          "next": "chain_probe_t2",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Inflammation reaches the parietal peritoneum, giving somatic pain",
+          "next": "chain_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "chain_probe_hint",
+          "kind": "help"
+        }
+      ]
     },
-    {
-     "label": "Skip the teaching, go to the blockage",
-     "next": "chain_probe",
-     "kind": "skip"
-    }
-   ]
-  },
-  "teach_pain": {
-   "role": "explain",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Two regions, two nerve supplies. Visceral pain comes from the gut wall, enters at T10 and sits round the navel.",
-     "claims": [
-      "K26"
-     ]
+    "chain_probe_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Visceral fibres cannot pinpoint a spot. Which layer has to be inflamed before pain can point to one place?",
+          "claims": [
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "chain_probe",
+          "kind": "retry"
+        }
+      ]
     },
-    {
-     "text": "Somatic pain comes from the parietal peritoneum and is localised to the right iliac fossa.",
-     "claims": [
-      "K27"
-     ]
+    "chain_probe_2": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "The pain localises to the right iliac fossa only after the early stage.",
+          "claims": []
+        },
+        {
+          "text": "What causes that localisation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Inflammation reaches the parietal peritoneum, giving somatic pain",
+          "next": "chain_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Wall ischaemia starts before the lumen blocks, so pain turns local",
+          "next": "chain_probe_t2x",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Rising lumen pressure stimulates the T10 visceral fibres more strongly",
+          "next": "chain_probe_t1x",
+          "kind": "trap",
+          "trap": "TR4"
+        }
+      ]
     },
-    {
-     "text": "Pain moves when the inflammation moves from the gut wall out to the peritoneum.",
-     "claims": [
-      "K5"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "chain_probe",
-     "kind": "continue"
-    }
-   ]
-  },
-  "chain_probe": {
-   "role": "probe",
-   "objectives": [
-    "O3"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "The pain localises to the right iliac fossa only after the early stage.",
-     "claims": []
+    "chain_probe_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Pressure is the first real change inside the lumen, so it feels like the cause of where the pain sits.",
+          "claims": []
+        },
+        {
+          "text": "Pressure acts on the same nerves as the early pain. Can fibres that enter at T10 ever point to one spot?",
+          "claims": [
+            "K26"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask which structure can localise, not which event comes first.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "chain_probe_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "chain_why",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "text": "What causes that localisation?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Rising lumen pressure stimulates the T10 visceral fibres more strongly",
-     "next": "chain_probe_t1",
-     "kind": "trap",
-     "trap": "TR4"
+    "chain_probe_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Distension acts through the same T10 visceral fibres, which can only give periumbilical pain. Localisation needs the parietal peritoneum.",
+          "claims": [
+            "K24",
+            "K26",
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "chain_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "teach_end",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "label": "Wall ischaemia starts before the lumen blocks, so pain turns local",
-     "next": "chain_probe_t2",
-     "kind": "trap",
-     "trap": "TR4"
+    "chain_probe_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Ischaemia is the dangerous event you remember, so it feels like it could come first.",
+          "claims": []
+        },
+        {
+          "text": "Place it in the chain. Does the wall's blood supply fail before or after the lumen is blocked and the pressure builds?",
+          "claims": [
+            "K24",
+            "K25"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so trace the chain from the lumen outward, not back from the gangrene.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "chain_probe_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "chain_why",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "label": "Inflammation reaches the parietal peritoneum, giving somatic pain",
-     "next": "chain_ok",
-     "kind": "correct"
+    "chain_probe_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "The blocked lumen raises pressure first, and the arterial compromise comes after. Ischaemia is late in the chain.",
+          "claims": [
+            "K24",
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "chain_why",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "teach_end",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "chain_probe_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "chain_probe_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Visceral fibres cannot pinpoint a spot. Which layer has to be inflamed before pain can point to one place?",
-     "claims": [
-      "K26"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Back to the question",
-     "next": "chain_probe",
-     "kind": "retry"
-    }
-   ]
-  },
-  "chain_probe_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Pressure is the first real change inside the lumen, so it feels like the cause of where the pain sits.",
-     "claims": []
+    "chain_why": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Follow the chain from the lumen: obstruction, continued mucus, rising pressure, venous congestion. Only then does the arterial supply fail.",
+          "claims": [
+            "K24",
+            "K25"
+          ]
+        },
+        {
+          "text": "The pain localises when inflammation reaches the peritoneum, not when the lumen first blocks.",
+          "claims": [
+            "K27"
+          ]
+        },
+        {
+          "text": "Think of a blocked drain: the water backs up first, and the pipe gives way at its weakest point.",
+          "claims": [],
+          "device": true
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "teach_end",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "text": "Pressure acts on the same nerves as the early pain. Can fibres that enter at T10 ever point to one spot?",
-     "claims": [
-      "K26"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so ask which structure can localise, not which event comes first.",
-    "claims": []
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "chain_probe",
-     "kind": "retry"
+    "chain_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. Inflammation reaching the parietal peritoneum makes the pain somatic and localised to the right iliac fossa.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "teach_end",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "label": "Show me why",
-     "next": "chain_why",
-     "kind": "agency"
-    }
-   ]
-  },
-  "chain_probe_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Ischaemia is the dangerous event you remember, so it feels like it could come first.",
-     "claims": []
+    "teach_end": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "The appendicular artery is a branch of the ileocolic artery, and it runs in the mesoappendix.",
+          "claims": [
+            "K22"
+          ]
+        },
+        {
+          "text": "It is an end artery: once it thromboses, gangrene follows, usually first at the antimesenteric border.",
+          "claims": [
+            "K4",
+            "K25"
+          ]
+        },
+        {
+          "text": "So thrombosis of this one artery leads straight to gangrene and perforation.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "end_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "text": "Place it in the chain. Does the wall's blood supply fail before or after the lumen is blocked and the pressure builds?",
-     "claims": [
-      "K24",
-      "K25"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so trace the chain from the lumen outward, not back from the gangrene.",
-    "claims": []
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "chain_probe",
-     "kind": "retry"
+    "end_probe": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "The appendicular artery thromboses. Which outcome follows, and why so fast?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Gangrene and perforation, as no other artery can take over",
+          "next": "end_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Gangrene sets in first, then the lumen blocks, as ischaemia leads",
+          "next": "end_probe_t1",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Pressure rises only after the artery fails, as the artery leads",
+          "next": "end_probe_t2",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "end_probe_hint",
+          "kind": "help"
+        }
+      ]
     },
-    {
-     "label": "Show me why",
-     "next": "chain_why",
-     "kind": "agency"
-    }
-   ]
-  },
-  "chain_why": {
-   "role": "explain",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Follow the chain from the lumen: obstruction, continued mucus, rising pressure, venous congestion. Only then does the arterial supply fail.",
-     "claims": [
-      "K24",
-      "K25"
-     ]
+    "end_probe_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "When this one artery clots, ask whether any other vessel can take over its supply, and what that means for how fast the wall dies.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "end_probe",
+          "kind": "retry"
+        }
+      ]
     },
-    {
-     "text": "The pain localises when inflammation reaches the peritoneum, not when the lumen first blocks.",
-     "claims": [
-      "K27"
-     ]
+    "end_probe_2": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "The appendicular artery thromboses. Which outcome follows, and why so fast?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Pressure rises only after the artery fails, as the artery leads",
+          "next": "end_probe_t2x",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Gangrene sets in first, then the lumen blocks, as ischaemia leads",
+          "next": "end_probe_t1x",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Gangrene and perforation, as no other artery can take over",
+          "next": "end_ok",
+          "kind": "correct"
+        }
+      ]
     },
-    {
-     "text": "Think of a blocked drain: the water backs up first, and the pipe gives way at its weakest point.",
-     "claims": [],
-     "device": true
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "teach_end",
-     "kind": "continue"
-    }
-   ]
-  },
-  "chain_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Yes. Inflammation reaching the parietal peritoneum makes the pain somatic and localised to the right iliac fossa.",
-     "claims": [
-      "K27"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "teach_end",
-     "kind": "continue"
-    }
-   ]
-  },
-  "teach_end": {
-   "role": "explain",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "The appendicular artery is a branch of the ileocolic artery, and it runs in the mesoappendix.",
-     "claims": [
-      "K22"
-     ]
+    "end_probe_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Gangrene is the outcome you remember most, so it can feel like the opening act.",
+          "claims": []
+        },
+        {
+          "text": "Gangrene is the end point of the story. Which event in the lumen sets the whole chain going?",
+          "claims": [
+            "K24"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so trace the chain from the lumen, not from the end picture.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "end_probe_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "teach_end",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "text": "It is an end artery: once it thromboses, gangrene follows, usually first at the antimesenteric border.",
-     "claims": [
-      "K4",
-      "K25"
-     ]
+    "end_probe_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Gangrene is downstream: the lumen blocks, pressure rises, and only then does the artery fail.",
+          "claims": [
+            "K24",
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "teach_end",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "sym_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "text": "So thrombosis of this one artery leads straight to gangrene and perforation.",
-     "claims": [
-      "K4"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "end_probe",
-     "kind": "continue"
-    }
-   ]
-  },
-  "end_probe": {
-   "role": "probe",
-   "objectives": [
-    "O3"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "The appendicular artery thromboses. Which outcome follows, and why so fast?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Gangrene and perforation, as no other artery can take over",
-     "next": "end_ok",
-     "kind": "correct"
+    "end_probe_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "The artery is what a surgeon worries about, so its failure can feel like the first event.",
+          "claims": []
+        },
+        {
+          "text": "Think about which way the arrow runs: does the blocked lumen affect the artery, or the artery the lumen?",
+          "claims": [
+            "K25"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the direction of the arrow before you choose.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "end_probe_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "teach_end",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "label": "Gangrene sets in first, then the lumen blocks, as ischaemia leads",
-     "next": "end_probe_t1",
-     "kind": "trap",
-     "trap": "TR4"
+    "end_probe_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Raised pressure is the first step: the obstructed lumen compromises the arterial supply, not the other way round.",
+          "claims": [
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "teach_end",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "sym_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "label": "Pressure rises only after the artery fails, as the artery leads",
-     "next": "end_probe_t2",
-     "kind": "trap",
-     "trap": "TR4"
+    "end_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. Because the appendicular artery is an end artery, its thrombosis gives gangrene and perforation with no backup.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sym_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "end_probe_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "end_probe_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "When this one artery clots, ask whether any other vessel can take over its supply, and what that means for how fast the wall dies.",
-     "claims": [
-      "K4"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Back to the question",
-     "next": "end_probe",
-     "kind": "retry"
-    }
-   ]
-  },
-  "end_probe_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Gangrene is the outcome you remember most, so it can feel like the opening act.",
-     "claims": []
+    "sym_probe": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Murphy's sequence describes the order of symptoms in typical appendicitis.",
+          "claims": [
+            "K6"
+          ]
+        },
+        {
+          "text": "Which order is it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Vomiting, then pain, then fever",
+          "next": "sym_probe_t1",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Pain, then vomiting, then fever",
+          "next": "sym_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Pain, then fever, then vomiting",
+          "next": "sym_probe_t2",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "sym_probe_hint",
+          "kind": "help"
+        }
+      ]
     },
-    {
-     "text": "Gangrene is the end point of the story. Which event in the lumen sets the whole chain going?",
-     "claims": [
-      "K24"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so trace the chain from the lumen, not from the end picture.",
-    "claims": []
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "end_probe",
-     "kind": "retry"
+    "sym_probe_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Start with the first symptom the patient notices, then ask what the gut does after that, and what the body does last.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the order",
+          "next": "sym_probe",
+          "kind": "retry"
+        }
+      ]
     },
-    {
-     "label": "Show me why",
-     "next": "teach_end",
-     "kind": "agency"
-    }
-   ]
-  },
-  "end_probe_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "The artery is what a surgeon worries about, so its failure can feel like the first event.",
-     "claims": []
+    "sym_probe_2": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "Murphy's sequence describes the order of symptoms in typical appendicitis.",
+          "claims": [
+            "K6"
+          ]
+        },
+        {
+          "text": "Which order is it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Pain, then fever, then vomiting",
+          "next": "sym_probe_t2x",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Pain, then vomiting, then fever",
+          "next": "sym_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Vomiting, then pain, then fever",
+          "next": "sym_probe_t1x",
+          "kind": "trap",
+          "trap": "TR5"
+        }
+      ]
     },
-    {
-     "text": "Think about which way the arrow runs: does the blocked lumen affect the artery, or the artery the lumen?",
-     "claims": [
-      "K25"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so check the direction of the arrow before you choose.",
-    "claims": []
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "end_probe",
-     "kind": "retry"
+    "sym_probe_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Vomiting is the symptom many patients mention first, so it feels like the opening act.",
+          "claims": []
+        },
+        {
+          "text": "Ask which symptom the patient notices before the gut reacts at all.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so use the order as the clue, not the list.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "sym_probe_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "teach_sym",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "label": "Show me why",
-     "next": "teach_end",
-     "kind": "agency"
-    }
-   ]
-  },
-  "end_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Yes. Because the appendicular artery is an end artery, its thrombosis gives gangrene and perforation with no backup.",
-     "claims": [
-      "K4"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "sym_probe",
-     "kind": "continue"
-    }
-   ]
-  },
-  "sym_probe": {
-   "role": "probe",
-   "objectives": [
-    "O4"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "Murphy's sequence describes the order of symptoms in typical appendicitis.",
-     "claims": [
-      "K6"
-     ]
+    "sym_probe_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "In appendicitis vomiting follows the pain; it comes after the pain has started, and fever comes last.",
+          "claims": [
+            "K6",
+            "K31",
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "teach_sym",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "vig_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "text": "Which order is it?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Vomiting, then pain, then fever",
-     "next": "sym_probe_t1",
-     "kind": "trap",
-     "trap": "TR5"
+    "sym_probe_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Fever feels like the sign of infection, so it seems it should arrive early.",
+          "claims": []
+        },
+        {
+          "text": "Think about how high the temperature usually runs, and whether it appears before or after the gut reacts with nausea.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so remember fever is the late sign.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "sym_probe_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "teach_sym",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "label": "Pain, then vomiting, then fever",
-     "next": "sym_ok",
-     "kind": "correct"
+    "sym_probe_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Nausea and a few vomits follow the onset of pain, and fever comes last and is usually low-grade.",
+          "claims": [
+            "K31",
+            "K32",
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "teach_sym",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "vig_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "label": "Pain, then fever, then vomiting",
-     "next": "sym_probe_t2",
-     "kind": "trap",
-     "trap": "TR5"
+    "sym_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Yes. Pain first, then vomiting, then a low-grade fever.",
+          "claims": [
+            "K6",
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "teach_sym",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "sym_probe_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "sym_probe_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Start with the first symptom the patient notices, then ask what the gut does after that, and what the body does last.",
-     "claims": [
-      "K6"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Back to the order",
-     "next": "sym_probe",
-     "kind": "retry"
-    }
-   ]
-  },
-  "sym_probe_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O4"
-   ],
-   "say": [
-    {
-     "text": "Vomiting is the symptom many patients mention first, so it feels like the opening act.",
-     "claims": []
+    "teach_sym": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Pain comes first, from the gut wall stretching. Anorexia is almost constant, and nausea with a few vomits follows the onset of pain.",
+          "claims": [
+            "K31"
+          ]
+        },
+        {
+          "text": "Fever comes last and is usually low-grade.",
+          "claims": [
+            "K32"
+          ]
+        },
+        {
+          "text": "So a story where vomiting came first argues against appendicitis, and a high fever points to perforation.",
+          "claims": [
+            "K6",
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "vig_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "text": "Ask which symptom the patient notices before the gut reacts at all.",
-     "claims": []
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so use the order as the clue, not the list.",
-    "claims": []
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "sym_probe",
-     "kind": "retry"
+    "vig_probe": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A young adult vomited several times through the morning, then developed diffuse abdominal pain and loose stools.",
+          "claims": []
+        },
+        {
+          "text": "Which reading fits best?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Appendicitis likelier, since vomiting usually opens the illness",
+          "next": "vig_probe_t1",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Gastroenteritis likelier, since diffuse pain rules out appendicitis",
+          "next": "vig_probe_t2",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Gastroenteritis likelier, since vomiting came before the pain",
+          "next": "vig_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "vig_probe_hint",
+          "kind": "help"
+        }
+      ]
     },
-    {
-     "label": "Show me why",
-     "next": "teach_sym",
-     "kind": "agency"
-    }
-   ]
-  },
-  "sym_probe_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O4"
-   ],
-   "say": [
-    {
-     "text": "Fever feels like the sign of infection, so it seems it should arrive early.",
-     "claims": []
+    "vig_probe_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Find which symptom the story gives first, then ask which picture that order favours.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the story",
+          "next": "vig_probe",
+          "kind": "retry"
+        }
+      ]
     },
-    {
-     "text": "Think about how high the temperature usually runs, and whether it appears before or after the gut reacts with nausea.",
-     "claims": [
-      "K32"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so remember fever is the late sign.",
-    "claims": []
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "sym_probe",
-     "kind": "retry"
+    "vig_probe_2": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "A young adult vomited several times through the morning, then developed diffuse abdominal pain and loose stools.",
+          "claims": []
+        },
+        {
+          "text": "Which reading fits best?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Gastroenteritis likelier, since diffuse pain rules out appendicitis",
+          "next": "vig_probe_t2x",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Gastroenteritis likelier, since vomiting came before the pain",
+          "next": "vig_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Appendicitis likelier, since vomiting usually opens the illness",
+          "next": "vig_probe_t1x",
+          "kind": "trap",
+          "trap": "TR5"
+        }
+      ]
     },
-    {
-     "label": "Show me why",
-     "next": "teach_sym",
-     "kind": "agency"
-    }
-   ]
-  },
-  "sym_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O4"
-   ],
-   "say": [
-    {
-     "text": "Yes. Pain first, then vomiting, then a low-grade fever.",
-     "claims": [
-      "K6",
-      "K32"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "teach_sym",
-     "kind": "continue"
-    }
-   ]
-  },
-  "teach_sym": {
-   "role": "explain",
-   "objectives": [
-    "O4"
-   ],
-   "say": [
-    {
-     "text": "Pain comes first, from the gut wall stretching. Anorexia is almost constant, and nausea with a few vomits follows the onset of pain.",
-     "claims": [
-      "K31"
-     ]
+    "vig_probe_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Vomiting is often the first symptom patients mention, so it feels like the opening act.",
+          "claims": []
+        },
+        {
+          "text": "Compare the order in this story with the order of symptoms in appendicitis. What comes first in each?",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so use the order as a filter.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "vig_probe_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "teach_sym",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "text": "Fever comes last and is usually low-grade.",
-     "claims": [
-      "K32"
-     ]
+    "vig_probe_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "In appendicitis the pain comes first and vomiting follows it. Vomiting before pain argues against this diagnosis.",
+          "claims": [
+            "K6",
+            "K31"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "teach_sym",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "age_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "text": "So a story where vomiting came first argues against appendicitis, and a high fever points to perforation.",
-     "claims": [
-      "K6",
-      "K32"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "vig_probe",
-     "kind": "continue"
-    }
-   ]
-  },
-  "vig_probe": {
-   "role": "probe",
-   "objectives": [
-    "O4"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A young adult vomited several times through the morning, then developed diffuse abdominal pain and loose stools.",
-     "claims": []
+    "vig_probe_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Vague, widespread pain sounds like a gut infection rather than a surgical problem.",
+          "claims": []
+        },
+        {
+          "text": "Recall where early appendicitis pain is felt and which nerves carry it. Does vague, central pain rule it out?",
+          "claims": [
+            "K26"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask what each clue really rules out.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "vig_probe_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "teach_sym",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "text": "Which reading fits best?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Appendicitis likelier, since vomiting usually opens the illness",
-     "next": "vig_probe_t1",
-     "kind": "trap",
-     "trap": "TR5"
+    "vig_probe_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Early appendiceal pain is diffuse and periumbilical, so diffuse pain does not rule it out. The deciding clue is that vomiting came before the pain.",
+          "claims": [
+            "K26",
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "teach_sym",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "age_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "label": "Gastroenteritis likelier, since diffuse pain rules out appendicitis",
-     "next": "vig_probe_t2",
-     "kind": "trap",
-     "trap": "TR4"
+    "vig_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Yes. Vomiting before pain points away from appendicitis, where the pain comes first.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "age_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "label": "Gastroenteritis likelier, since vomiting came before the pain",
-     "next": "vig_ok",
-     "kind": "correct"
+    "age_probe": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 9-year-old, recovering from a viral illness, develops right iliac fossa pain from a blocked appendix lumen.",
+          "claims": []
+        },
+        {
+          "text": "What is the likeliest cause of the block?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Swollen lymphoid tissue in the wall",
+          "next": "age_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "A hard faecolith lodged in the lumen",
+          "next": "age_probe_t1",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Either, since age does not change the cause",
+          "next": "age_probe_t2",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "age_probe_hint",
+          "kind": "help"
+        }
+      ]
     },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "vig_probe_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "vig_probe_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Find which symptom the story gives first, then ask which picture that order favours.",
-     "claims": [
-      "K6"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Back to the story",
-     "next": "vig_probe",
-     "kind": "retry"
-    }
-   ]
-  },
-  "vig_probe_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O4"
-   ],
-   "say": [
-    {
-     "text": "Vomiting is often the first symptom patients mention, so it feels like the opening act.",
-     "claims": []
+    "age_probe_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "How does the amount of lymphoid tissue in the appendix wall change from childhood to later life, and what does a viral illness do to it?",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the child",
+          "next": "age_probe",
+          "kind": "retry"
+        }
+      ]
     },
-    {
-     "text": "Compare the order in this story with the order of symptoms in appendicitis. What comes first in each?",
-     "claims": [
-      "K6"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so use the order as a filter.",
-    "claims": []
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "vig_probe",
-     "kind": "retry"
+    "age_probe_2": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "A 9-year-old, recovering from a viral illness, develops right iliac fossa pain from a blocked appendix lumen.",
+          "claims": []
+        },
+        {
+          "text": "What is the likeliest cause of the block?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Either, since age does not change the cause",
+          "next": "age_probe_t2x",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "A hard faecolith lodged in the lumen",
+          "next": "age_probe_t1x",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Swollen lymphoid tissue in the wall",
+          "next": "age_ok",
+          "kind": "correct"
+        }
+      ]
     },
-    {
-     "label": "Show me why",
-     "next": "teach_sym",
-     "kind": "agency"
-    }
-   ]
-  },
-  "vig_probe_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O4"
-   ],
-   "say": [
-    {
-     "text": "Vague, widespread pain sounds like a gut infection rather than a surgical problem.",
-     "claims": []
+    "age_probe_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "A faecolith is the textbook block, so it is tempting whenever obstruction comes up.",
+          "claims": []
+        },
+        {
+          "text": "Check the age and the recent illness. Which tissue in the wall is plentiful at that age, and what does a viral infection do to it?",
+          "claims": [
+            "K14"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so read the age and the history in the stem before you pick a cause.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "age_probe_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "age_x",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "text": "Recall where early appendicitis pain is felt and which nerves carry it. Does vague, central pain rule it out?",
-     "claims": [
-      "K26"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so ask what each clue really rules out.",
-    "claims": []
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "vig_probe",
-     "kind": "retry"
+    "age_probe_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "A faecolith is the adult cause. In a child, lymphoid tissue swells after a viral illness.",
+          "claims": [
+            "K15",
+            "K14"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "age_x",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "adult_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "label": "Show me why",
-     "next": "teach_sym",
-     "kind": "agency"
-    }
-   ]
-  },
-  "vig_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O4"
-   ],
-   "say": [
-    {
-     "text": "Yes. Vomiting before pain points away from appendicitis, where the pain comes first.",
-     "claims": [
-      "K6"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "age_probe",
-     "kind": "continue"
-    }
-   ]
-  },
-  "age_probe": {
-   "role": "probe",
-   "objectives": [
-    "O2"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A 9-year-old, recovering from a viral illness, develops right iliac fossa pain from a blocked appendix lumen.",
-     "claims": []
+    "age_probe_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Both can block a lumen, so calling them equal feels fair.",
+          "claims": []
+        },
+        {
+          "text": "Look at what the stem tells you about the patient. Does the commonest cause stay the same from childhood to adulthood?",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so age is the cue before the cause.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "age_probe_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "age_x",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "text": "What is the likeliest cause of the block?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Swollen lymphoid tissue in the wall",
-     "next": "age_ok",
-     "kind": "correct"
+    "age_probe_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Age changes which block is common: lymphoid hyperplasia in children and young people, a faecolith in adults.",
+          "claims": [
+            "K2",
+            "K94",
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "age_x",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "adult_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "label": "A hard faecolith lodged in the lumen",
-     "next": "age_probe_t1",
-     "kind": "trap",
-     "trap": "TR15"
+    "age_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. A swollen lymphoid wall is the child's block, after viral infection.",
+          "claims": [
+            "K14",
+            "K94"
+          ]
+        },
+        {
+          "text": "The age in the stem decides the cause, so check it first.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "adult_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "label": "Either, since age does not change the cause",
-     "next": "age_probe_t2",
-     "kind": "trap",
-     "trap": "TR15"
+    "age_x": {
+      "role": "explain",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "In children the lymphoid tissue is maximal and swells after viral infection, so lymphoid hyperplasia blocks the lumen.",
+          "claims": [
+            "K23",
+            "K14"
+          ]
+        },
+        {
+          "text": "In adults the lymphoid tissue has atrophied, and a faecolith is the commonest block.",
+          "claims": [
+            "K23",
+            "K15"
+          ]
+        },
+        {
+          "text": "The age in the stem decides which block you are looking for.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "adult_probe",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "age_probe_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "age_probe_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "How does the amount of lymphoid tissue in the appendix wall change from childhood to later life, and what does a viral illness do to it?",
-     "claims": [
-      "K2"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Back to the child",
-     "next": "age_probe",
-     "kind": "retry"
-    }
-   ]
-  },
-  "age_probe_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "A faecolith is the textbook block, so it is tempting whenever obstruction comes up.",
-     "claims": []
+    "adult_probe": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 45-year-old had a cold last week, and now has three days of right iliac fossa pain.",
+          "claims": []
+        },
+        {
+          "text": "What is the commonest cause of the luminal block at this age?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Swollen lymphoid tissue in the wall",
+          "next": "adult_probe_t1",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "A faecolith lodged in the lumen",
+          "next": "adult_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Either, since age does not change the cause",
+          "next": "adult_probe_t2",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "adult_probe_hint",
+          "kind": "help"
+        }
+      ]
     },
-    {
-     "text": "Check the age and the recent illness. Which tissue in the wall is plentiful at that age, and what does a viral infection do to it?",
-     "claims": [
-      "K14"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so read the age and the history in the stem before you pick a cause.",
-    "claims": []
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "age_probe",
-     "kind": "retry"
+    "adult_probe_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Go back to the age: the child's answer may not carry over. What hardens and collects in an older lumen?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "adult_probe",
+          "kind": "retry"
+        }
+      ]
     },
-    {
-     "label": "Show me why",
-     "next": "age_x",
-     "kind": "agency"
-    }
-   ]
-  },
-  "age_probe_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "Both can block a lumen, so calling them equal feels fair.",
-     "claims": []
+    "adult_probe_2": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, one more look.",
+          "claims": []
+        },
+        {
+          "text": "A 45-year-old had a cold last week, and now has three days of right iliac fossa pain.",
+          "claims": []
+        },
+        {
+          "text": "What is the commonest cause of the luminal block at this age?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Either, since age does not change the cause",
+          "next": "adult_probe_t2x",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Swollen lymphoid tissue in the wall",
+          "next": "adult_probe_t1x",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "A faecolith lodged in the lumen",
+          "next": "adult_ok",
+          "kind": "correct"
+        }
+      ]
     },
-    {
-     "text": "Look at what the stem tells you about the patient. Does the commonest cause stay the same from childhood to adulthood?",
-     "claims": [
-      "K2"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so age is the cue before the cause.",
-    "claims": []
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "age_probe",
-     "kind": "retry"
+    "adult_probe_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "The recent cold pulls you toward the child's answer, because it fits so well.",
+          "claims": []
+        },
+        {
+          "text": "Check the age first. What has happened to the wall's lymphoid tissue by 45, and what usually collects in an adult lumen?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so let the age decide, not the history.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "adult_probe_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "age_x",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "label": "Show me why",
-     "next": "age_x",
-     "kind": "agency"
-    }
-   ]
-  },
-  "age_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "Yes. A swollen lymphoid wall is the child's block, after viral infection.",
-     "claims": [
-      "K14",
-      "K94"
-     ]
+    "adult_probe_t1x": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "A faecolith is the commonest block in adults, and lymphoid hyperplasia belongs to children and young people. The cold does not change that.",
+          "claims": [
+            "K2",
+            "K15",
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "age_x",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "text": "The age in the stem decides the cause, so check it first.",
-     "claims": [
-      "K2"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "@next",
-     "kind": "continue"
-    }
-   ]
-  },
-  "age_x": {
-   "role": "explain",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "In children the lymphoid tissue is maximal and swells after viral infection, so lymphoid hyperplasia blocks the lumen.",
-     "claims": [
-      "K23",
-      "K14"
-     ]
+    "adult_probe_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Age changed the answer for the child, and it can change it again here.",
+          "claims": []
+        },
+        {
+          "text": "Which of the two causes belongs to adults?",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check which way the age points.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "adult_probe_2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "age_x",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "text": "In adults the lymphoid tissue has atrophied, and a faecolith is the commonest block.",
-     "claims": [
-      "K23",
-      "K15"
-     ]
+    "adult_probe_t2x": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "In adults the commonest block is a faecolith; age does decide the cause.",
+          "claims": [
+            "K2",
+            "K15",
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "age_x",
+          "kind": "agency"
+        },
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
     },
-    {
-     "text": "The age in the stem decides which block you are looking for.",
-     "claims": [
-      "K2"
-     ]
+    "adult_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. In adults a faecolith is the commonest block, whatever the recent history.",
+          "claims": [
+            "K15",
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
     }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "@next",
-     "kind": "continue"
-    }
-   ]
   }
- }
 }
