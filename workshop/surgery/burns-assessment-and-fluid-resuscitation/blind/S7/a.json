@@ -1,0 +1,976 @@
+{
+  "segment": "S7",
+  "entry": "fluid_c",
+  "nodes": {
+    "fluid_c": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Your classmate Ravi is revising burn fluids. His note says: “Burns need 4 mL × kg × %TBSA, every time. The formula is the answer.”",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "The stem you are revising says “as per current practice”. What do you tell Ravi?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Keep 4 mL: it is the rule for every burn fluid question",
+          "next": "fluid_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "4 mL is the exam key; current practice starts lower, then titrates",
+          "next": "fluid_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Keep 4 mL, then hold the same rate after 8 hours",
+          "next": "fluid_t16",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fluid_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fluid_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Look at one word in the stem: “current”. Ask what that word changes about the starting figure, then what the rate depends on after that.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fluid_c",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fluid_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because 4 mL is the figure PYQs have printed, so it feels like the only formula you need.",
+          "claims": [
+            "K82"
+          ]
+        },
+        {
+          "text": "The stem’s qualifier decides which practice the question means, and a formula is only a starting point. Try again.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this one matters: a memorised formula is the belief most likely to stick. Read the qualifier before you trust the number.",
+        "claims": [
+          "K82"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fluid_c",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "fluid_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fluid_t16": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because a fixed start looks like a complete order, and the formula does give you a start.",
+          "claims": []
+        },
+        {
+          "text": "But the rate is changed hour by hour to urine output, not held after the first 8 hours. Try again.",
+          "claims": [
+            "K45"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the rate itself: a fixed rate is the habit to unlearn.",
+        "claims": [
+          "K45"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fluid_c",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "fluid_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fluid_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Here is the reason, with the claims behind it.",
+          "claims": []
+        },
+        {
+          "text": "PYQs have expected 4 mL per kg per %TBSA. The word “current” asks for the practice that starts lower, about 2 mL in adults, and then titrates to urine output.",
+          "claims": [
+            "K82",
+            "K45"
+          ]
+        },
+        {
+          "text": "So the formula is a start, and the qualifier tells you which start to use.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "colloid_c",
+          "kind": "continue"
+        }
+      ]
+    },
+    "colloid_c": {
+      "role": "probe",
+      "objectives": [
+        "O4",
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Ravi again: “Burns leak protein, so give albumin from the first hour, whichever formula you use.”",
+          "claims": []
+        },
+        {
+          "text": "Which line do you give him for classic Parkland in the first 24 hours?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Parkland and Evans differ only in how much albumin they add",
+          "next": "colloid_t8a",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Albumin from the first hour, because burns leak protein out",
+          "next": "colloid_t8b",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Parkland uses Ringer lactate alone for the first 24 hours",
+          "next": "colloid_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "colloid_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "colloid_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Name the formula first. Ask which of the named formulae adds colloid, and whether classic Parkland is one of them.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "colloid_c",
+          "kind": "retry"
+        }
+      ]
+    },
+    "colloid_t8a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because Evans and Brooke look like Parkland with albumin added, so the names blur together.",
+          "claims": []
+        },
+        {
+          "text": "Each formula has its own fluid mix, and Evans is not a version of Parkland. Try again.",
+          "claims": [
+            "K50"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this blur is the one to fix: the formulae are separate recipes, not variants of one.",
+        "claims": [
+          "K50"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "colloid_c",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "colloid_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "colloid_t8b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because burns do leak protein, so albumin feels like the right fluid from hour one.",
+          "claims": []
+        },
+        {
+          "text": "Albumin is not part of classic Parkland’s first 24 hours; colloid is considered later, if at all. Try again.",
+          "claims": [
+            "K46"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the timing: colloid is not part of classic Parkland’s first day.",
+        "claims": [
+          "K46",
+          "K87"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "colloid_c",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "colloid_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "colloid_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Here is the reason, with the claims behind it.",
+          "claims": []
+        },
+        {
+          "text": "Classic Parkland gives crystalloid alone in the first 24 hours, Ringer lactate. Colloid is considered later, if the capillary leak persists or needs are very high.",
+          "claims": [
+            "K46"
+          ]
+        },
+        {
+          "text": "Evans and Brooke are the formulae that add colloid, so keep them apart from Parkland.",
+          "claims": [
+            "K50",
+            "K87"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "antidote_c",
+          "kind": "continue"
+        }
+      ]
+    },
+    "antidote_c": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Ravi’s rule for every smoke victim: “Give 100% oxygen and the smoke poisons are covered.”",
+          "claims": []
+        },
+        {
+          "text": "What is the correct pairing you give him instead?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Cyanide needs 100% oxygen, and CO needs hydroxocobalamin",
+          "next": "antidote_t27a",
+          "kind": "trap",
+          "trap": "TR27"
+        },
+        {
+          "label": "Calcium gluconate for cyanide, as for other chemical burns",
+          "next": "antidote_t27b",
+          "kind": "trap",
+          "trap": "TR27"
+        },
+        {
+          "label": "CO needs 100% oxygen, and cyanide needs hydroxocobalamin",
+          "next": "antidote_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "antidote_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "antidote_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what each poison does in the body, then match its own antidote. A shared word like “smoke” should not decide the pairing.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "antidote_c",
+          "kind": "retry"
+        }
+      ]
+    },
+    "antidote_t27a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because both poisons come from the same fire, so one gas feels as if it needs one treatment.",
+          "claims": []
+        },
+        {
+          "text": "Each poison has its own antidote, and swapping the two is the usual slip. Try again.",
+          "claims": [
+            "K73",
+            "K74"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is the swap to watch: the two poisons are the ones people pair the wrong way round.",
+        "claims": [
+          "K73",
+          "K74"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "antidote_c",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "antidote_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "antidote_t27b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because both are poisonings or chemical injuries, so calcium feels like a general antidote.",
+          "claims": []
+        },
+        {
+          "text": "Calcium gluconate belongs to a different poison, the hydrofluoric acid burn. Try again.",
+          "claims": [
+            "K81"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pin each antidote to its own poison: calcium gluconate is not a smoke antidote.",
+        "claims": [
+          "K81"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "antidote_c",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "antidote_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "antidote_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Here is the reason, with the claims behind it.",
+          "claims": []
+        },
+        {
+          "text": "Carbon monoxide is treated with 100% oxygen, and hyperbaric oxygen is kept for selected cases. Cyanide from smoke is treated with hydroxocobalamin.",
+          "claims": [
+            "K73",
+            "K40",
+            "K74",
+            "K41"
+          ]
+        },
+        {
+          "text": "One shared fire does not mean one antidote. Pair each poison with its own.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "topical_c",
+          "kind": "continue"
+        }
+      ]
+    },
+    "topical_c": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Ravi: “For an ear burn, use silver sulfadiazine, since it goes deepest into the eschar.”",
+          "claims": []
+        },
+        {
+          "text": "What do you correct, and which agent goes with the ear?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Mafenide penetrates eschar best, so it suits ear cartilage",
+          "next": "topical_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Silver sulfadiazine penetrates eschar best, so it suits ears",
+          "next": "topical_t25a",
+          "kind": "trap",
+          "trap": "TR25"
+        },
+        {
+          "label": "Silver nitrate penetrates eschar, and it suits the ear",
+          "next": "topical_t25b",
+          "kind": "trap",
+          "trap": "TR25"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "topical_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "topical_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which agent is known for going through eschar, and which one is the painless broad cover. Then match each to its property.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "topical_c",
+          "kind": "retry"
+        }
+      ]
+    },
+    "topical_t25a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because silver sulfadiazine is the agent most often used, so it feels like the default for everything.",
+          "claims": []
+        },
+        {
+          "text": "Its strengths are broad cover and little pain, with leucopenia as its side effect; deep penetration belongs to another agent. Try again.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is a pairing slip: the default agent is not the eschar-penetrating one.",
+        "claims": [
+          "K57"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "topical_c",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "topical_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "topical_t25b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because silver nitrate is a familiar silver agent, and students blur the silver names together.",
+          "claims": []
+        },
+        {
+          "text": "Silver nitrate is known for the black stain and for hyponatraemia, not for going through eschar. Try again.",
+          "claims": [
+            "K57",
+            "K78"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-pair each agent with its own side effect; the eschar property belongs to one agent.",
+        "claims": [
+          "K75"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "topical_c",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "topical_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "topical_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Here is the reason, with the claims behind it.",
+          "claims": []
+        },
+        {
+          "text": "Mafenide penetrates eschar, which is why it suits ear cartilage. Its side effect is metabolic acidosis.",
+          "claims": [
+            "K75",
+            "K76"
+          ]
+        },
+        {
+          "text": "Silver sulfadiazine is the broad, painless default, and its side effect is leucopenia.",
+          "claims": [
+            "K57",
+            "K77"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ulcer_c",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ulcer_c": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Ravi’s note: “Curling’s ulcer is the cancer that grows in an old scar, and Marjolin’s is the stress ulcer in the stomach.”",
+          "claims": []
+        },
+        {
+          "text": "What do you tell him about the two ulcers?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "They are one ulcer seen at two times, so the names overlap",
+          "next": "ulcer_t14b",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Curling’s is the early gut ulcer; Marjolin’s is the late scar cancer",
+          "next": "ulcer_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Curling’s is the late scar cancer; Marjolin’s the early gut ulcer",
+          "next": "ulcer_t14a",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "ulcer_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "ulcer_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Sort each name by two things: the organ it sits in, and how long after the burn it appears.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ulcer_c",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ulcer_t14a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because both names mention a burn, so the early and late labels feel swappable.",
+          "claims": []
+        },
+        {
+          "text": "Marjolin’s is not the stress ulcer: it is a cancer that arises late in a chronic scar. Try again.",
+          "claims": [
+            "K67",
+            "K80"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the swap is the risk: sort the names by site and timing, not by the shared word burn.",
+        "claims": [
+          "K60",
+          "K67"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ulcer_c",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "ulcer_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "ulcer_t14b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because both ulcers follow burns, so people link them as one complication.",
+          "claims": []
+        },
+        {
+          "text": "They are separate entities: one is an acute gut ulcer, and the other is a late cancer in a scar. Try again.",
+          "claims": [
+            "K65",
+            "K80"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep them apart: one belongs to the gut and the early weeks, the other to a scar and the late course.",
+        "claims": [
+          "K65",
+          "K80"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ulcer_c",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "ulcer_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "ulcer_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Here is the reason, with the claims behind it.",
+          "claims": []
+        },
+        {
+          "text": "Curling’s ulcer is an acute stress ulcer of the stomach or duodenum after major burns, so it is an early complication.",
+          "claims": [
+            "K60",
+            "K80"
+          ]
+        },
+        {
+          "text": "Marjolin’s ulcer is squamous cell carcinoma arising in a chronic burn scar, so it belongs to the late course.",
+          "claims": [
+            "K67",
+            "K65"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "escharo_c",
+          "kind": "continue"
+        }
+      ]
+    },
+    "escharo_c": {
+      "role": "probe",
+      "objectives": [
+        "O11"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Ravi: “Any deep burn wrapped around a limb needs an escharotomy at once.”",
+          "claims": []
+        },
+        {
+          "text": "What is your correction?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Any deep partial-thickness burn, since eschar forms in every deep burn",
+          "next": "escharo_t23a",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Only full-thickness circumferential burns that compromise limb or chest",
+          "next": "escharo_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Any circumferential burn, since the ring itself is the problem",
+          "next": "escharo_t23b",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "escharo_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "escharo_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Two things decide it: how deep the burn is, and whether the ring of eschar is actually cutting off circulation or ventilation.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "escharo_c",
+          "kind": "retry"
+        }
+      ]
+    },
+    "escharo_t23a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because eschar does form in deep burns, so depth feels like the whole reason.",
+          "claims": []
+        },
+        {
+          "text": "Escharotomy is aimed at full-thickness burns, where the eschar cannot stretch; partial thickness is not the target. Try again.",
+          "claims": [
+            "K10"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pin the depth qualifier: deep alone is not enough.",
+        "claims": [
+          "K10"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "escharo_c",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "escharo_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "escharo_t23b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because a ring of burn looks dangerous whatever its depth.",
+          "claims": []
+        },
+        {
+          "text": "A ring alone is not enough: release is needed when it is full thickness and the eschar constricts. Try again.",
+          "claims": [
+            "K56"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check both qualifiers together: depth, and whether the eschar is constricting.",
+        "claims": [
+          "K56"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "escharo_c",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "escharo_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "escharo_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Here is the reason, with the claims behind it.",
+          "claims": []
+        },
+        {
+          "text": "Full-thickness skin does not stretch. As oedema builds, a circumferential eschar on a limb or chest constricts and cuts off circulation or ventilation.",
+          "claims": [
+            "K10"
+          ]
+        },
+        {
+          "text": "Release is made through the eschar only, along the midlateral and midaxial lines, and it can often be done at the bedside.",
+          "claims": [
+            "K56"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
