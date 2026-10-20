@@ -1,0 +1,318 @@
+{
+  "segment": "S6",
+  "technique": "T4",
+  "entry": "rate_now",
+  "nodes": {
+    "rate_now": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Hour 3. A 70 kg adult with a 40% burn is on the formula rate of 700 mL/h.", "claims": ["K44"]},
+        {"text": "Urine has run at 15 mL/h for the last hour. What do you do?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Carry on at 700 mL/h, exactly as calculated", "next": "rate_t16", "kind": "trap", "trap": "TR16"},
+        {"label": "Raise the rate about 20–25% and recheck urine hourly", "next": "rate_explain", "kind": "correct"},
+        {"label": "Cut the rate by 20–25% to protect the kidneys", "next": "rate_t17", "kind": "trap", "trap": "TR17"},
+        {"label": "Not sure, give me a hint", "next": "rate_hint", "kind": "help"}
+      ]
+    },
+    "rate_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask what the urine is telling you about how well the tissues are being filled.", "claims": ["K31"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "rate_now", "kind": "retry"}
+      ]
+    },
+    "rate_t16": {
+      "role": "feedback",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Keeping the formula rate feels safe, since the number is already worked out. But the formula is only a starting estimate, and the hourly urine is the feedback that changes it.", "claims": ["K45"]}
+      ],
+      "sure_note": {"text": "You were sure, and this is the commonest management error. Treat the formula as a start and let the urine speak every hour.", "claims": ["K45"]},
+      "choices": [
+        {"label": "Try again", "next": "rate_now", "kind": "retry"},
+        {"label": "Show me the rule", "next": "rate_explain", "kind": "continue"}
+      ]
+    },
+    "rate_t17": {
+      "role": "feedback",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Cutting feels like protecting the kidneys from overload. But low output points to under-filling, and cutting the rate starves the tissues further.", "claims": ["K51"]}
+      ],
+      "sure_note": {"text": "You were sure, so this one is worth a second look at what low urine output signals about the tissues.", "claims": ["K51"]},
+      "choices": [
+        {"label": "Try again", "next": "rate_now", "kind": "retry"},
+        {"label": "Show me the rule", "next": "rate_explain", "kind": "continue"}
+      ]
+    },
+    "rate_explain": {
+      "role": "explain",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "The formula sets a starting rate, not a final one. The urine shows whether the tissues are filled.", "claims": ["K45"]},
+        {"text": "The adult target is about 0.5 mL/kg/h, which is 30–50 mL/h for 70 kg. Below it, add fluid by about 20–25% and recheck. Above it, reduce.", "claims": ["K7", "K51"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "rate_p2", "kind": "continue"}
+      ]
+    },
+    "rate_p2": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Hour 6. Same patient, still on the formula rate, now passing 90 mL/h of urine.", "claims": []},
+        {"text": "What is your next step?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Lower the rate and recheck the urine next hour", "next": "rate_p2_show", "kind": "correct"},
+        {"label": "Raise the rate 25% to keep pace with the output", "next": "rate_p2_t17", "kind": "trap", "trap": "TR17"},
+        {"label": "Keep the calculated rate; nothing has changed", "next": "rate_p2_t16", "kind": "trap", "trap": "TR16"},
+        {"label": "Not sure, give me a hint", "next": "rate_p2_hint", "kind": "help"}
+      ]
+    },
+    "rate_p2_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask whether a patient passing 90 mL/h of urine is short of fluid.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "rate_p2", "kind": "retry"}
+      ]
+    },
+    "rate_p2_t17": {
+      "role": "feedback",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Rising output can look like demand, so more fluid seems logical. But good output means the tissues are full, and extra fluid risks pulmonary oedema and compartment syndromes.", "claims": ["K52"]}
+      ],
+      "sure_note": {"text": "You were sure, so trace where extra fluid goes once the tissues are already full.", "claims": ["K52"]},
+      "choices": [
+        {"label": "Try again", "next": "rate_p2", "kind": "retry"},
+        {"label": "Show me the trace", "next": "rate_p2_show", "kind": "continue"}
+      ]
+    },
+    "rate_p2_t16": {
+      "role": "feedback",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Nothing on the chart has changed, so the calculated rate feels right. But the urine has moved, and the rate is meant to follow it.", "claims": ["K45"]}
+      ],
+      "sure_note": {"text": "You were sure, so remember the rate is reset by the urine each hour, not fixed at the start.", "claims": ["K45"]},
+      "choices": [
+        {"label": "Try again", "next": "rate_p2", "kind": "retry"},
+        {"label": "Show me the trace", "next": "rate_p2_show", "kind": "continue"}
+      ]
+    },
+    "rate_p2_show": {
+      "role": "explain",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "Trace it. Urine at 90 mL/h means the tissues are well filled, so the rate comes down.", "claims": ["K51"]},
+        {"text": "Excess fluid is what causes pulmonary oedema and compartment syndromes, so check the urine again at the next hour.", "claims": ["K52"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "fluid_p", "kind": "continue"}
+      ]
+    },
+    "fluid_p": {
+      "role": "probe",
+      "objectives": ["O7"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Your patient arrives with a drip already running. The time of burn and the TBSA are confirmed.", "claims": []},
+        {"text": "Which step comes next?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Start the full formula rate on top of the running drip", "next": "fluid_t4", "kind": "trap", "trap": "TR4"},
+        {"label": "Stop the drip and restart the formula from zero", "next": "fluid_t4", "kind": "trap", "trap": "TR4"},
+        {"label": "Subtract fluid already given from the first-8-hour volume", "next": "fluid_show", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "fluid_hint", "kind": "help"}
+      ]
+    },
+    "fluid_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask what the patient has already received, and whether the formula should count it.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "fluid_p", "kind": "retry"}
+      ]
+    },
+    "fluid_t4": {
+      "role": "feedback",
+      "objectives": ["O7"],
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "It is tempting, because the formula is the number you learned, so it feels like the whole order. But the first-half target already allows for what has been given, so the drip counts toward it.", "claims": ["K45"]}
+      ],
+      "sure_note": {"text": "You were sure, so check what the first-half figure is meant to cover.", "claims": ["K45"]},
+      "choices": [
+        {"label": "Try again", "next": "fluid_p", "kind": "retry"},
+        {"label": "Show me the steps", "next": "fluid_show", "kind": "continue"}
+      ]
+    },
+    "fluid_show": {
+      "role": "explain",
+      "objectives": ["O7"],
+      "say": [
+        {"text": "Count the 8 hours from the time of burn, not from arrival at hospital. The first-half target is the total for those hours.", "claims": ["K83", "K43"]},
+        {"text": "Subtract what has already been given, then spread the rest over the hours left.", "claims": ["K45"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "child_p", "kind": "continue"}
+      ]
+    },
+    "child_p": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "An 18 kg child has a 25% scald. What hourly urine target do you set?", "claims": []}
+      ],
+      "choices": [
+        {"label": "10 mL/h, about 0.5 mL per kg per hour", "next": "child_t19", "kind": "trap", "trap": "TR19"},
+        {"label": "18 mL/h, about 1 mL per kg per hour", "next": "child_show", "kind": "correct"},
+        {"label": "30–50 mL/h, the routine adult range", "next": "child_t19", "kind": "trap", "trap": "TR19"}
+      ]
+    },
+    "child_t19": {
+      "role": "feedback",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Tempting, because one adult number is the one you learned first. But a child's target is judged per kilogram, so an adult-based figure, halved or left whole, misses it.", "claims": ["K7", "K71"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "child_p", "kind": "retry"},
+        {"label": "Show me the rule", "next": "child_show", "kind": "continue"}
+      ]
+    },
+    "child_show": {
+      "role": "explain",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "A child's target is set per kilogram, about 1 mL/kg/h. That is higher than the adult 0.5 mL/kg/h, because a child's kidneys are smaller and the metabolic rate is higher.", "claims": ["K71", "K7"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "elec_p", "kind": "continue"}
+      ]
+    },
+    "elec_p": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "A 70 kg adult has an electrical burn, and the urine shows pigment from muscle breakdown.", "claims": ["K53"]},
+        {"text": "What hourly urine target do you set?", "claims": []}
+      ],
+      "choices": [
+        {"label": "30–50 mL/h, the routine adult target", "next": "elec_t19", "kind": "trap", "trap": "TR19"},
+        {"label": "20 mL/h, the same figure used for a child", "next": "elec_t19", "kind": "trap", "trap": "TR19"},
+        {"label": "About 75–100 mL/h, a higher target to flush pigment", "next": "elec_show", "kind": "correct"}
+      ]
+    },
+    "elec_t19": {
+      "role": "feedback",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Tempting, because a familiar number feels safe. But the injury sets the target: pigment threatens the tubules, so a routine target is too low here.", "claims": ["K53"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "elec_p", "kind": "retry"},
+        {"label": "Show me the rule", "next": "elec_show", "kind": "continue"}
+      ]
+    },
+    "elec_show": {
+      "role": "explain",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "Electrical burns and rhabdomyolysis need more flow to keep the kidneys clear: about 1–1.5 mL/kg/h, so about 75–100 mL/h in a 70 kg adult.", "claims": ["K53"]},
+        {"text": "Alkalinising the urine is not routinely needed if the output is adequate.", "claims": ["K53"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "ch_size", "kind": "continue"}
+      ]
+    },
+    "ch_size": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "say": [
+        {"text": "A 2-year-old was sized with the adult chart and came out at 40%.", "claims": []},
+        {"text": "Before you set the first-8-hour volume, what changes?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Re-size with a Lund and Browder chart, then calculate", "next": "ch_show", "kind": "correct"},
+        {"label": "Keep 40%; the adult chart is close enough in a child", "next": "ch_t6", "kind": "trap", "trap": "TR6"},
+        {"label": "Keep 40%, but reduce only the legs for a child", "next": "ch_t6", "kind": "trap", "trap": "TR6"}
+      ]
+    },
+    "ch_t6": {
+      "role": "feedback",
+      "objectives": ["O6"],
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Tempting, because the adult chart is quick and the child's error looks small. But in a child the head is a bigger share and the legs a smaller one, so every adult figure misstates the size and the volume built on it.", "claims": ["K5", "K85"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "ch_size", "kind": "retry"},
+        {"label": "Show me the rule", "next": "ch_show", "kind": "continue"}
+      ]
+    },
+    "ch_show": {
+      "role": "explain",
+      "objectives": ["O6"],
+      "say": [
+        {"text": "The Lund and Browder chart corrects for age. The adult rule of nines overestimates a child's legs and underestimates the head.", "claims": ["K5"]},
+        {"text": "Count only partial-thickness and full-thickness areas, then calculate the volume from the corrected size.", "claims": ["K36"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "esc_p", "kind": "continue"}
+      ]
+    },
+    "esc_p": {
+      "role": "probe",
+      "objectives": ["O11"],
+      "say": [
+        {"text": "Which of these burns needs an escharotomy?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Circumferential deep partial-thickness forearm burn with blisters", "next": "esc_t23", "kind": "trap", "trap": "TR23"},
+        {"label": "Circumferential full-thickness forearm burn with falling distal pulses", "next": "esc_show", "kind": "correct"},
+        {"label": "Superficial burn over the whole chest with normal ventilation", "next": "esc_t23", "kind": "trap", "trap": "TR23"}
+      ]
+    },
+    "esc_t23": {
+      "role": "feedback",
+      "objectives": ["O11"],
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Each of these keeps a feature that sounds serious and drops the qualifier that makes the eschar dangerous: a full-thickness burn, or a constricting ring with falling pulses or restricted ventilation.", "claims": ["K10"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "esc_p", "kind": "retry"},
+        {"label": "Show me the rule", "next": "esc_show", "kind": "continue"}
+      ]
+    },
+    "esc_show": {
+      "role": "explain",
+      "objectives": ["O11"],
+      "say": [
+        {"text": "Escharotomy is for circumferential full-thickness burns of a limb or chest, where inelastic eschar constricts as the swelling builds.", "claims": ["K10", "K56"]},
+        {"text": "Incisions go through eschar only, along the midlateral and midaxial lines, and can be made at the bedside without anaesthesia because full-thickness skin is insensate.", "claims": ["K56"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
