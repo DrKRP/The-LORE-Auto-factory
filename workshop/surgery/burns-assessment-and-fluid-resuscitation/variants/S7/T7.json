@@ -1,0 +1,1499 @@
+{
+ "segment": "S7",
+ "technique": "T7",
+ "entry": "q1",
+ "nodes": {
+  "q1": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Two questions side by side. Case A is worded the way a paper words it: \"Parkland volume for a 60 kg adult with 20% burns, as the formula says.\"",
+     "claims": []
+    },
+    {
+     "text": "Case B is worded the way a ward would ask: \"Starting rate for the same adult, to be titrated to urine output.\"",
+     "claims": []
+    },
+    {
+     "text": "What separates the two answers you would give?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A asks the exam key figure; B asks current practice, titrated",
+     "next": "q1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Both want the same figure, since the formula never changes",
+     "next": "q1_t1",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Both want 4 mL, but B adds titration to urine output",
+     "next": "q1_t2",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "q1_hint",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true
+  },
+  "q1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Read each wording and find the qualifier. Which case has the word that changes the figure the question expects?",
+     "claims": [
+      "K82"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The paper expects the 4 mL key, while current practice starts near 2 mL per kg per %TBSA and titrates to urine output.",
+     "claims": [
+      "K82"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q1_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because one formula sits behind both questions, so the answers look identical. But the qualifier in each wording changes which figure is expected.",
+     "claims": [
+      "K82"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q1",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q1_show",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so reread the qualifiers: the two cases are not asking the same question.",
+    "claims": [
+     "K82"
+    ]
+   }
+  },
+  "q1_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because titration is the idea you already hold, so 4 mL looks like a start for both. But case B asks for the current starting figure, which is the lower one.",
+     "claims": [
+      "K82"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q1",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q1_show",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. Titration is right, but check which starting figure the wording asks for.",
+    "claims": [
+     "K82"
+    ]
+   }
+  },
+  "q1_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "PYQs have expected 4 mL per kg per %TBSA with Ringer lactate; current ATLS-style practice starts near 2 mL and titrates to urine output.",
+     "claims": [
+      "K82"
+     ]
+    },
+    {
+     "text": "Unless the question says modified or current, the 4 mL key is the one the paper wants.",
+     "claims": [
+      "K82"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q2": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Two first-day plans side by side. Plan X: crystalloid plus colloid per kg per %TBSA, with dextrose in water.",
+     "claims": []
+    },
+    {
+     "text": "Plan Y: crystalloid alone, with no colloid on day one.",
+     "claims": []
+    },
+    {
+     "text": "Which plan is the classic Parkland?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Plan Y: crystalloid alone, with no colloid on day one",
+     "next": "q2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Plan X: the colloid plan, with dextrose in water",
+     "next": "q2_t1",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Both, since Parkland also has a colloid version",
+     "next": "q2_t2",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "q2_hint",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O4",
+    "O7"
+   ],
+   "ask_confidence": true
+  },
+  "q2_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Find the one ingredient that separates the plans: is colloid present on the first day? Then ask which formula the classic one is.",
+     "claims": [
+      "K46"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Parkland uses crystalloid alone in its first 24 hours; the colloid plan belongs to Evans and Brooke.",
+     "claims": [
+      "K46",
+      "K50"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q2_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because plan X looks complete, with fluid, colloid and dextrose, like a textbook recipe. But that recipe belongs to Evans, which includes colloid, and the question asks about Parkland.",
+     "claims": [
+      "K50"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q2",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q2_show",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. The plan with colloid belongs to another formula, so check which one the question names.",
+    "claims": [
+     "K50"
+    ]
+   }
+  },
+  "q2_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because Parkland is taught in many versions, so a colloid version feels like a real variant. But the two plans differ on the one ingredient that defines Parkland, so they cannot both be it.",
+     "claims": [
+      "K46"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q2",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q2_show",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. Two plans that differ on colloid cannot both be Parkland; check which one fits.",
+    "claims": [
+     "K46"
+    ]
+   }
+  },
+  "q2_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Parkland gives crystalloid alone in its first 24 hours; colloid is added later, once the capillary leak settles, about 8 to 24 hours.",
+     "claims": [
+      "K46"
+     ]
+    },
+    {
+     "text": "Evans and Brooke carry colloid in their recipes, so plan X is their pattern, and the two plans differ on colloid.",
+     "claims": [
+      "K50",
+      "K87"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q3": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Brooke, side by side with Evans. Brooke: 1.5 mL crystalloid and 0.5 mL colloid per kg per %TBSA, plus dextrose in water.",
+     "claims": []
+    },
+    {
+     "text": "Evans: 1 mL crystalloid and 1 mL colloid per kg per %TBSA, plus dextrose in water.",
+     "claims": []
+    },
+    {
+     "text": "Both carry colloid. What separates them?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Evans carries twice Brooke's colloid per kg per %TBSA",
+     "next": "q3_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Only the dextrose differs; the colloid is the same in both",
+     "next": "q3_t1",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Brooke is the Parkland recipe with colloid added from hour one",
+     "next": "q3_t2",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "q3_hint",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O4"
+   ]
+  },
+  "q3_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Compare the colloid figure in each recipe, not just whether each recipe contains colloid.",
+     "claims": [
+      "K50"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q3_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Both carry colloid, but Evans gives a full mL per kg per %TBSA against Brooke's half a mL.",
+     "claims": [
+      "K50"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q3_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because both recipes end in dextrose in water, so the dextrose looks like the only difference. But the colloid amounts differ too, and the recipes are built around those amounts.",
+     "claims": [
+      "K50"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q3",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q3_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "q3_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because Brooke and Parkland both start from a crystalloid base, so Brooke looks like Parkland with colloid added. But Brooke is its own recipe with its own colloid figure, not Parkland with a top-up.",
+     "claims": [
+      "K50",
+      "K46"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q3",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q3_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "q3_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Brooke: 1.5 mL crystalloid and 0.5 mL colloid per kg per %TBSA, plus dextrose in water.",
+     "claims": [
+      "K50"
+     ]
+    },
+    {
+     "text": "Evans: 1 mL crystalloid and 1 mL colloid per kg per %TBSA, plus dextrose in water, so its colloid is twice Brooke's.",
+     "claims": [
+      "K50"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q4": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Patient A has burned ear cartilage. Patient B has a broad scald across the trunk and thighs, with no cartilage involved.",
+     "claims": []
+    },
+    {
+     "text": "Which agent fits A and which fits B?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A: mafenide; B: silver sulfadiazine",
+     "next": "q4_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A: silver sulfadiazine; B: mafenide",
+     "next": "q4_t1",
+     "kind": "trap",
+     "trap": "TR25"
+    },
+    {
+     "label": "A: silver nitrate; B: silver sulfadiazine",
+     "next": "q4_t2",
+     "kind": "trap",
+     "trap": "TR25"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "q4_hint",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O9"
+   ],
+   "ask_confidence": true
+  },
+  "q4_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which agent goes into eschar and cartilage, and which is the broad, painless default for a large area.",
+     "claims": [
+      "K57",
+      "K75"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q4",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q4_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Mafenide penetrates eschar, so it suits ear cartilage; silver sulfadiazine is the broad, painless default for a large area.",
+     "claims": [
+      "K75",
+      "K57"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q4_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because silver sulfadiazine is the agent most people reach for first, so it feels right for any burn. But the broad default is not the agent that penetrates eschar, and the ear needs penetration.",
+     "claims": [
+      "K57",
+      "K75"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q4",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q4_show",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. The default agent is the one most people choose for everything; check what the ear needs.",
+    "claims": [
+     "K75"
+    ]
+   }
+  },
+  "q4_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because silver nitrate shares the silver name and a side effect you remember. But its signature is sodium loss and staining, not the eschar-penetrating role the ear needs.",
+     "claims": [
+      "K78",
+      "K75"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q4",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q4_show",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so match the agent to the job, not to a side effect you remember.",
+    "claims": [
+     "K78"
+    ]
+   }
+  },
+  "q4_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Mafenide penetrates eschar and suits ear cartilage, but it causes metabolic acidosis.",
+     "claims": [
+      "K75",
+      "K76"
+     ]
+    },
+    {
+     "text": "Silver sulfadiazine is broad and painless, with transient leucopenia; silver nitrate stains black and causes hyponatraemia.",
+     "claims": [
+      "K57",
+      "K77",
+      "K78"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q5": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Two agents side by side. Agent X penetrates eschar, and its signature side effect is metabolic acidosis.",
+     "claims": []
+    },
+    {
+     "text": "Agent Y stains the dressing black, and its signature side effect is hyponatraemia.",
+     "claims": []
+    },
+    {
+     "text": "Which names match X and Y?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "X is mafenide; Y is silver nitrate",
+     "next": "q5_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "X is silver nitrate; Y is mafenide",
+     "next": "q5_t1",
+     "kind": "trap",
+     "trap": "TR25"
+    },
+    {
+     "label": "X is silver sulfadiazine; Y is silver nitrate",
+     "next": "q5_t2",
+     "kind": "trap",
+     "trap": "TR25"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "q5_hint",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O9"
+   ]
+  },
+  "q5_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Match the eschar feature first, since it names one agent outright. Then take the other from the remaining side effect.",
+     "claims": [
+      "K75"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q5",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q5_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Mafenide penetrates eschar and causes acidosis; silver nitrate stains black and lowers sodium.",
+     "claims": [
+      "K75",
+      "K76",
+      "K78"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q6",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q5_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because each agent has a side effect the other is often blamed for, so the two get swapped. But check which side effect belongs to which agent before you match the names.",
+     "claims": [
+      "K76",
+      "K78"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q5",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q5_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "q5_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because silver sulfadiazine is the agent used most, so it is the first name that comes to mind. But its signature is leucopenia, not acidosis, so it cannot be X.",
+     "claims": [
+      "K77",
+      "K76"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q5",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q5_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "q5_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Mafenide penetrates eschar and causes metabolic acidosis.",
+     "claims": [
+      "K75",
+      "K76"
+     ]
+    },
+    {
+     "text": "Silver nitrate stains black and causes hyponatraemia, so X and Y are two different agents with two different problems.",
+     "claims": [
+      "K78"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q6",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q6": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Patient A had a major scald, and endoscopy now shows an acute ulcer of the stomach.",
+     "claims": []
+    },
+    {
+     "text": "Patient B has an old forearm burn scar that has become a non-healing ulcer with raised, everted edges.",
+     "claims": []
+    },
+    {
+     "text": "Which ulcer is A and which is B?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A is Curling's; B is Marjolin's",
+     "next": "q6_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A is Marjolin's; B is Curling's",
+     "next": "q6_t1",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Both are Curling's, since both follow a burn",
+     "next": "q6_t2",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "q6_hint",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O10"
+   ]
+  },
+  "q6_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Look at where each ulcer sits: the gut for one, and the skin of an old scar for the other. Which is which?",
+     "claims": [
+      "K60",
+      "K67"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q6",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q6_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Curling's is the acute gut ulcer after major burns; Marjolin's is the squamous cell carcinoma that arises in a chronic scar.",
+     "claims": [
+      "K60",
+      "K67"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q7",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q6_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because both names come from burns, so the two are easy to swap. But check each patient's site: the gut and the scar are the two places these names are tied to.",
+     "claims": [
+      "K60",
+      "K67"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q6",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q6_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "q6_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because both ulcers follow a burn, so one burn ulcer name seems enough. But the two differ in site and in what they become: an acute gut ulcer, and a cancer in a chronic scar.",
+     "claims": [
+      "K60",
+      "K67"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q6",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q6_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "q6_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Curling's ulcer is an acute stress ulcer of the stomach and duodenum after major burns, prevented with stress ulcer prophylaxis.",
+     "claims": [
+      "K60",
+      "K80"
+     ]
+    },
+    {
+     "text": "Marjolin's ulcer is a squamous cell carcinoma arising in a chronic burn scar.",
+     "claims": [
+      "K67"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q7",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q7": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Limb A: a circumferential full-thickness forearm burn; the fingers are now pale and the distal pulses are falling.",
+     "claims": []
+    },
+    {
+     "text": "Limb B: a circumferential deep partial-thickness forearm burn; it is blistered, and the pulses are full.",
+     "claims": []
+    },
+    {
+     "text": "Which limb needs an escharotomy now?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Limb A only, with the pulses falling",
+     "next": "q7_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Limb B, since deep burns form the eschar",
+     "next": "q7_t1",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "Both, since any circumferential burn is cut",
+     "next": "q7_t2",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "q7_hint",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O11"
+   ]
+  },
+  "q7_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what separates the limbs: depth, the circumference, and whether anything below the burn is losing its blood supply.",
+     "claims": [
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q7",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q7_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. A circumferential full-thickness burn with falling distal pulses is the indication for release.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q8",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q7_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because deep burns look the most severe, so the word deep sounds like a reason to cut. But depth alone does not decide it: the burn must be full thickness and must compromise the limb.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q7",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q7_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "q7_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because a ring of burn looks dangerous at any depth. But the circumferential qualifier is only part of it; the full-thickness qualifier and the falling pulses are what the cut treats.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q7",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q7_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "q7_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Escharotomy is for circumferential full-thickness limb burns with distal ischaemia, cut through the eschar only.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    },
+    {
+     "text": "The incisions run along the midlateral and midaxial lines; limb B has the depth but not the compromise.",
+     "claims": [
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q8",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q8": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Chest A: a full-thickness circumferential chest burn; the chest wall does not expand and the breathing is shallow.",
+     "claims": []
+    },
+    {
+     "text": "Chest B: a superficial partial-thickness burn over the front of the chest; the breathing is normal.",
+     "claims": []
+    },
+    {
+     "text": "Which chest needs an escharotomy?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Chest A only, where breathing is restricted",
+     "next": "q8_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Chest B, since a whole-chest burn is always cut",
+     "next": "q8_t1",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "Both, since any chest burn restricts breathing",
+     "next": "q8_t2",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "q8_hint",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O11"
+   ]
+  },
+  "q8_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which chest has both qualifiers: full thickness, and a restriction that is happening now.",
+     "claims": [
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q8",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q8_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. A circumferential full-thickness chest burn that restricts ventilation is the chest indication.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q9",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q8_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because a whole-chest burn sounds serious, so it seems to need the cut. But size does not make the indication; the depth and the restriction decide it.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q8",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q8_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "q8_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because the chest is a closed ring, so any burn there feels like a restriction. But only a full-thickness circumferential burn that restricts breathing is cut; a superficial one does not qualify.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q8",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q8_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "q8_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "The chest indication is a circumferential full-thickness burn that restricts ventilation.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    },
+    {
+     "text": "Chest B is superficial partial-thickness with normal breathing, so it does not qualify.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "q9",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q9": {
+   "role": "probe",
+   "say": [
+    {
+     "text": "Case A: hydrofluoric acid splashed on the hand while cleaning a tank.",
+     "claims": []
+    },
+    {
+     "text": "Case B: a fire victim with carbon monoxide poisoning, confirmed on the blood test.",
+     "claims": []
+    },
+    {
+     "text": "Which antidote goes to A, and which to B?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A: calcium gluconate; B: 100% oxygen",
+     "next": "q9_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A: 100% oxygen; B: calcium gluconate",
+     "next": "q9_t1",
+     "kind": "trap",
+     "trap": "TR27"
+    },
+    {
+     "label": "A: hydroxocobalamin; B: 100% oxygen",
+     "next": "q9_t2",
+     "kind": "trap",
+     "trap": "TR27"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "q9_hint",
+     "kind": "help"
+    }
+   ],
+   "objectives": [
+    "O3"
+   ]
+  },
+  "q9_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which case is an acid and which is a gas. Then match each antidote to its own poison.",
+     "claims": [
+      "K81",
+      "K73"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q9",
+     "kind": "retry"
+    }
+   ]
+  },
+  "q9_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Hydrofluoric acid burns get calcium gluconate, and carbon monoxide gets 100% oxygen.",
+     "claims": [
+      "K81",
+      "K73"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "q9_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because both patients come from the same fire room, so their treatments feel interchangeable. But each antidote belongs to its own poison, and an acid splash is not treated like a gas.",
+     "claims": [
+      "K81",
+      "K73"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q9",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q9_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "q9_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because hydroxocobalamin is the antidote you learned for smoke, so it feels like the answer for case A. But it treats cyanide, a different poison, so it does not match a hand splash.",
+     "claims": [
+      "K74",
+      "K81"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "q9",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "q9_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "q9_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Hydrofluoric acid burns are treated with calcium gluconate.",
+     "claims": [
+      "K81"
+     ]
+    },
+    {
+     "text": "Carbon monoxide poisoning is treated with 100% oxygen, and cyanide with hydroxocobalamin: each poison has its own antidote.",
+     "claims": [
+      "K73",
+      "K74"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}
