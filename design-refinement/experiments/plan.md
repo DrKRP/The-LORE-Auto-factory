@@ -482,3 +482,7 @@ Total if all run: about 840 agent runs. Running EXP-001 to EXP-004 first (about 
 **Cost.** About 70 runs (one module, three segments authored twice over, full sims and module-mode judging).
 
 **Real-learner check.** Share choosing each track, and completion and recovery by track. If nearly everyone picks one track, the fork is dead weight.
+
+## Backlog from sims (2026-10-20)
+- Report: when a fast lane is taken, name the skipped lessons and flag their cards (strong sim, hernia and appendicitis).
+- Report: separate "corrected on Try again" from "never corrected" in trap status texts (all novice/guesser sims).
