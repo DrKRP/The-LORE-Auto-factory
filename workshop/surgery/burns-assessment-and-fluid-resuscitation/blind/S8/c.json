@@ -1,0 +1,1208 @@
+{
+  "segment": "S8",
+  "entry": "q1",
+  "nodes": {
+    "q1_tr29_0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The chart feels like the burn's own job, so it pulls the eye first. It sits in the secondary survey, which comes after the primary survey has checked the airway.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q1",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Check the order: the primary survey, airway first, comes before any burn-specific work.",
+        "claims": [
+          "K32"
+        ]
+      }
+    },
+    "q1_tr30_1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Talking now feels safe, but swelling builds over the next hours and fluids add to it. A calm voice today does not guarantee the airway later.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which threat could end this patient in minutes, and which task can wait a few minutes of the workup.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "q1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q1": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "A burn patient is on the trolley: soot on the lips, voice hoarse, talking in full sentences. The nurse already has the fluid chart open.",
+          "claims": []
+        },
+        {
+          "text": "Which reasoning puts the airway first?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Airway can close within hours; the fluid plan can wait minutes",
+          "next": "q1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "The burn-specific chart is the real first priority",
+          "next": "q1_tr29_0",
+          "kind": "trap",
+          "trap": "TR29"
+        },
+        {
+          "label": "A talking patient has a safe airway, so the check can wait",
+          "next": "q1_tr30_1",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "q1_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "q1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The primary survey checks the airway first, because it can close within hours. The burn chart is secondary and waits its turn.",
+          "claims": [
+            "K32",
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q2_tr30_0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Stridor is a late sign. By the time it shows, the swelling is already narrowing the airway, so waiting for it means waiting too long.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q2_tr30_1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A patient who speaks well today can still lose the airway as swelling grows. Speech tells you about this minute, not the next several hours.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about how this airway will look in six hours, and what fluid does to swollen tissue.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "q2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q2": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "A 40% scald patient is talking normally, with no stridor. Fluids have just started, and the swelling round the face is growing.",
+          "claims": []
+        },
+        {
+          "text": "Why should you secure the airway now, rather than watch it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Swelling grows over hours with fluid, so a tube is easier now",
+          "next": "q2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Stridor is the signal, so a patient without it can wait",
+          "next": "q2_tr30_0",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Full sentences prove the airway is protected for now",
+          "next": "q2_tr30_1",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "q2_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "q2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Oedema builds over hours and resuscitation adds fluid, so the window for an easy tube closes. Act while the window is open.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q3_tr12_0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A chest film feels like the first and safest test. It is often normal early, so a clear film cannot settle the airway question.",
+          "claims": [
+            "K35"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q3_tr12_1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A blood gas samples oxygen and carbon dioxide in the blood. It feels like it should reveal lung injury, but it measures gas exchange, not the airway lining.",
+          "claims": [
+            "K33"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q3",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Ask what the test sees: the inside of the tube, not the chest picture or the blood.",
+        "claims": [
+          "K34"
+        ]
+      }
+    },
+    "q3_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which test looks at the airway itself, rather than at the lungs or the blood.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "q3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q3": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "A man was found in a barn fire. He has soot on his lips and a hoarse voice. His chest film at arrival is clear.",
+          "claims": []
+        },
+        {
+          "text": "Which test would settle whether the airway lining has been hurt?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Fibreoptic bronchoscopy, looking straight at the airway",
+          "next": "q3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Repeat the chest X-ray in six hours",
+          "next": "q3_tr12_0",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Arterial blood gas on arrival",
+          "next": "q3_tr12_1",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "q3_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "q3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Bronchoscopy looks directly at the airway and shows soot, swelling or redness below the cords, which is what confirms the injury.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q4_tr13_0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Dissolved oxygen is a small amount. It does not make up for blood that cannot carry oxygen, so the reading stays falsely normal in this poisoning.",
+          "claims": [
+            "K30"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q4_tr13_1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A normal number feels reassuring, but it measures what the probe sees. In carbon monoxide poisoning that number is falsely normal.",
+          "claims": [
+            "K86"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q4",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. A confident normal number is how carbon monoxide gets missed. Ask which gas the reading can see.",
+        "claims": [
+          "K86"
+        ]
+      }
+    },
+    "q4_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what the device's light can separate in the blood, and what it cannot.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "q4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q4": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "A woman is found after a gas heater leaks in a closed room. She has a headache, and her oximeter reads 100%.",
+          "claims": []
+        },
+        {
+          "text": "Why does this normal reading fail to rule out carbon monoxide?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "It counts oxygen-bound haemoglobin alone, so carbon monoxide hides",
+          "next": "q4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Her blood holds dissolved oxygen, so carrying capacity is still normal",
+          "next": "q4_tr13_0",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "A normal saturation proves oxygen is reaching her tissues",
+          "next": "q4_tr13_1",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "q4_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "q4_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Carboxyhaemoglobin is a separate share that the oximeter cannot tell apart from oxyhaemoglobin, so a measured level is needed.",
+          "claims": [
+            "K30",
+            "K33"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q5_tr18_0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A straight scale feels tidy, but pain does not climb in step with depth. A partly injured nerve supply can hurt less than an intact one.",
+          "claims": [
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q5_tr18_1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Nerves are not gone in every deep burn. Reduced pain points to partial nerve injury, and full thickness is the dry, painless, leathery burn.",
+          "claims": [
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q5",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Reduced pain is one clue among several, not the grading scale.",
+        "claims": [
+          "K25",
+          "K26"
+        ]
+      }
+    },
+    "q5_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what nerve endings do when they are only partly damaged, rather than on a scale from mild to severe.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "q5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q5": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "A forearm burn hurts less than the skin around it, and it refills slowly when you press.",
+          "claims": []
+        },
+        {
+          "text": "Why does lower pain not, on its own, make this the deepest burn?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Pain needs surviving nerve endings, so partial damage can hurt less",
+          "next": "q5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Pain tracks depth in a line, so less pain means deeper",
+          "next": "q5_tr18_0",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Less pain means nerves are gone, so it is full thickness",
+          "next": "q5_tr18_1",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "q5_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "q5_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Deep partial injury leaves some nerve endings working, so pain falls without the burn becoming full thickness.",
+          "claims": [
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q6_tr22_0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Arms look like large areas, so they seem to deserve a leg figure. Each arm carries the smaller adult value on the chart.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q6",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q6_tr22_1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The back of the trunk is one of the big regions. Counting it as a small figure drops almost half the area, so check each region against the chart.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q6",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q6": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "An adult has burns over the whole back of the trunk and both arms. The front of the body is untouched.",
+          "claims": []
+        },
+        {
+          "text": "Using the adult rule of nines, what is the total body surface area burnt?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "36%",
+          "next": "q6_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "54%",
+          "next": "q6_tr22_0",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "27%",
+          "next": "q6_tr22_1",
+          "kind": "trap",
+          "trap": "TR22"
+        }
+      ]
+    },
+    "q6_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The posterior trunk is 18%, and each arm is 9%, so 18 plus 9 plus 9 gives 36%.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q7_tr3_0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The whole 24-hour total is not run in the first window. Only half of it goes into the first 8 hours, so divide half, not the whole.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q7",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q7_tr3_1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Halving is right, but the half here is spread over 24 hours. The first half belongs to the first 8 hours, so the window is shorter.",
+          "claims": [
+            "K43"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q7",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Halving the total and dividing by the window are two separate steps. Check each one.",
+        "claims": [
+          "K2"
+        ]
+      }
+    },
+    "q7": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "A 90 kg adult has a 30% burn. You are using the Parkland key of 4 mL per kilogram per percent, and the first window runs from the time of burn.",
+          "claims": []
+        },
+        {
+          "text": "What is the hourly rate for the first 8 hours?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "675 mL/h",
+          "next": "q7_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "1,350 mL/h",
+          "next": "q7_tr3_0",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "225 mL/h",
+          "next": "q7_tr3_1",
+          "kind": "trap",
+          "trap": "TR3"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "q7_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Total 4 x 90 x 30 is 10,800 mL. Half is 5,400 mL, and over 8 hours that is 675 mL/h.",
+          "claims": [
+            "K2",
+            "K44"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q8",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q8_tr17_0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Output looks like fluid loss, so more output seems to call for more fluid. But high output means the kidneys are well perfused, and extra fluid risks swelling.",
+          "claims": [
+            "K51",
+            "K52"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q8",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q8_tr16_1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The formula is a sum of weight and burn size. It cannot know about depth, delay or inhalation, so output tells you whether the sum fits this patient.",
+          "claims": [
+            "K45"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q8",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. A formula gives a starting rate, and the patient's output is the check on it.",
+        "claims": [
+          "K45"
+        ]
+      }
+    },
+    "q8": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "A 60 kg adult is on the formula rate. At six hours, urine is 60 mL/h, and blood pressure is steady.",
+          "claims": []
+        },
+        {
+          "text": "Why should the rate change, rather than stay on the formula?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Hourly output is the live check on whether the starting estimate fits",
+          "next": "q8_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "High output means fluid is leaving, so more fluid should replace it",
+          "next": "q8_tr17_0",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "The formula is exact, so output only records the result",
+          "next": "q8_tr16_1",
+          "kind": "trap",
+          "trap": "TR16"
+        }
+      ]
+    },
+    "q8_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The formula is a starting estimate. Hourly output above the 30 to 50 mL/h adult band means the rate is more than needed, so reduce and recheck.",
+          "claims": [
+            "K7",
+            "K51"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q9",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q9_tr25_0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Silver sulfadiazine is the broad, painless cream most wards reach for, so it feels like the match. Its known problem is leucopenia, not black staining or low sodium.",
+          "claims": [
+            "K57",
+            "K77"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q9",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q9_tr25_1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Mafenide penetrates eschar and suits the ear, so it feels like the stronger choice. Its signature problem is acidosis, which this picture does not describe.",
+          "claims": [
+            "K57",
+            "K75"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q9",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q9": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "A silver-treated burn dressing has turned black, and the serum sodium is low.",
+          "claims": []
+        },
+        {
+          "text": "Which topical agent fits this picture?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Silver nitrate",
+          "next": "q9_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Silver sulfadiazine",
+          "next": "q9_tr25_0",
+          "kind": "trap",
+          "trap": "TR25"
+        },
+        {
+          "label": "Mafenide acetate",
+          "next": "q9_tr25_1",
+          "kind": "trap",
+          "trap": "TR25"
+        }
+      ]
+    },
+    "q9_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Silver nitrate stains black and can cause hyponatraemia, so the sodium needs watching with its dressings.",
+          "claims": [
+            "K57",
+            "K78"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q10",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q10_tr19_0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Half a mL per kilogram is the adult figure. A child's kidneys and higher metabolic load call for a larger figure per kilogram.",
+          "claims": [
+            "K7",
+            "K71"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q10",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q10_tr19_1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A fixed adult band ignores body weight. A child's target is worked per kilogram, so the figure must scale to this child.",
+          "claims": [
+            "K7",
+            "K71"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q10",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q10": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "A 14 kg three-year-old has a 20% scald and is on crystalloid.",
+          "claims": []
+        },
+        {
+          "text": "What hourly urine output is the target?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "14 mL/h, about 1 mL per kilogram per hour",
+          "next": "q10_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "7 mL/h, half a mL per kilogram per hour",
+          "next": "q10_tr19_0",
+          "kind": "trap",
+          "trap": "TR19"
+        },
+        {
+          "label": "30 to 50 mL/h, the adult band",
+          "next": "q10_tr19_1",
+          "kind": "trap",
+          "trap": "TR19"
+        }
+      ]
+    },
+    "q10_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Children aim at 1 mL per kilogram per hour, so 14 kg gives 14 mL/h. That is the end of the quiz.",
+          "claims": [
+            "K71"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "done",
+          "kind": "continue"
+        }
+      ]
+    },
+    "done": {
+      "role": "end",
+      "end": true,
+      "say": [
+        {
+          "text": "Airway first, size the burn honestly, start with the formula, then let the urine decide.",
+          "claims": []
+        }
+      ],
+      "choices": []
+    }
+  },
+  "cards": [
+    {
+      "q": "Which comes first in a burn patient with soot and a hoarse voice?",
+      "a": "The airway, in the primary survey, because it can close within hours.",
+      "claims": [
+        "K32",
+        "K39"
+      ],
+      "objective": "O1"
+    },
+    {
+      "q": "Which test confirms inhalation injury?",
+      "a": "Fibreoptic bronchoscopy. A clear chest film often misses it early.",
+      "claims": [
+        "K34",
+        "K35"
+      ],
+      "objective": "O2"
+    },
+    {
+      "q": "Why is a painless, dry, white burn full thickness?",
+      "a": "Nerve endings are destroyed, and the skin is dry, leathery and does not blanch.",
+      "claims": [
+        "K26"
+      ],
+      "objective": "O5"
+    },
+    {
+      "q": "Adult rule of nines: posterior trunk and each arm?",
+      "a": "Posterior trunk 18%, each arm 9%.",
+      "claims": [
+        "K4"
+      ],
+      "objective": "O6"
+    },
+    {
+      "q": "How much of the Parkland total goes in the first 8 hours?",
+      "a": "Half of the 24-hour total, run over 8 hours from the time of burn.",
+      "claims": [
+        "K2",
+        "K43"
+      ],
+      "objective": "O7"
+    },
+    {
+      "q": "What urine output target do adults and children aim for?",
+      "a": "Adult 0.5 mL/kg/h (30 to 50 mL/h); child 1 mL/kg/h, with the rate titrated to it.",
+      "claims": [
+        "K7",
+        "K51",
+        "K71"
+      ],
+      "objective": "O8"
+    },
+    {
+      "q": "Which topical agent stains black and can lower sodium?",
+      "a": "Silver nitrate; mafenide is the one that causes acidosis.",
+      "claims": [
+        "K57",
+        "K78"
+      ],
+      "objective": "O9"
+    }
+  ]
+}
