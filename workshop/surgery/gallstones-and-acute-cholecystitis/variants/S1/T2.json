@@ -1,0 +1,270 @@
+{
+  "segment": "S1",
+  "technique": "T2",
+  "entry": "case",
+  "nodes": {
+    "case": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 42-year-old woman, a little overweight, got severe pain under her right ribs 26 hours ago, after a fatty dinner. It runs to her right shoulder. Today she has a temperature of 38.6 °C, a tender right upper abdomen and a positive Murphy's sign.", "claims": []},
+        {"text": "What is your working diagnosis?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Biliary colic", "next": "case_t4", "kind": "trap", "trap": "TR4"},
+        {"label": "Acute cholecystitis", "next": "case_ok", "kind": "correct"},
+        {"label": "Choledocholithiasis", "next": "case_tp", "kind": "partial"},
+        {"label": "Not sure, give me a hint", "next": "case_hint", "kind": "help"}
+      ]
+    },
+    "case_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Pain lasting beyond about 6 hours, with fever and local tenderness, points to **acute cholecystitis**.", "claims": ["K38", "K39"]},
+        {"text": "It is acute inflammation of the gallbladder, calculous in 90–95% of cases, usually from a stone in the cystic duct or Hartmann's pouch.", "claims": ["K12", "K1"]}
+      ],
+      "choices": [{"label": "Next", "next": "contrast", "kind": "continue"}]
+    },
+    "case_t4": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice. Biliary colic is tempting: the fatty meal, the shoulder pain and the gallstone all fit it.", "claims": ["K37"]},
+        {"text": "But colic is a stone briefly blocking the outlet, with no wall inflammation, and its pain settles within hours. This pain has run for 26 hours with fever.", "claims": ["K11", "K38"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the clock: colic settles within hours. Count the hours before you name the disease.", "claims": ["K37"]},
+      "choices": [
+        {"label": "Try again", "next": "case", "kind": "retry"},
+        {"label": "Show me why", "next": "case_why", "kind": "agency"}
+      ]
+    },
+    "case_tp": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice. A duct stone is tempting: a stone plus fever feels like a bile-duct problem.", "claims": []},
+        {"text": "But the inflammation here is in the gallbladder itself, from a stone in the cystic duct or Hartmann's pouch.", "claims": ["K1"]}
+      ],
+      "sure_note": {"text": "You were sure, so look at where the inflammation sits. A stone nearby does not move the disease to the duct.", "claims": ["K1"]},
+      "choices": [
+        {"label": "Try again", "next": "case", "kind": "retry"},
+        {"label": "Show me why", "next": "case_why", "kind": "agency"}
+      ]
+    },
+    "case_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Two clues decide it: how many hours the pain has lasted, and whether the gallbladder wall is inflamed. Check the fever and the tenderness, then choose again.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "case", "kind": "retry"}]
+    },
+    "case_why": {
+      "role": "explain",
+      "say": [
+        {"text": "Acute cholecystitis: a stone blocks the cystic duct or Hartmann's pouch, the gallbladder wall inflames, and the pain persists past about 6 hours.", "claims": ["K1", "K38"]},
+        {"text": "Fever, a tender right upper abdomen and a positive Murphy's sign mark that inflamed wall.", "claims": ["K39", "K5"]}
+      ],
+      "choices": [{"label": "Next", "next": "contrast", "kind": "continue"}]
+    },
+    "contrast": {
+      "role": "explain",
+      "objectives": ["O1"],
+      "say": [
+        {"text": "Same stone, two outcomes. In **biliary colic** the stone blocks the outlet only briefly, and the wall is not inflamed.", "claims": ["K11"]},
+        {"text": "In **acute cholecystitis** the blockage persists, the wall inflames, and fever and tenderness follow.", "claims": ["K38", "K39"]}
+      ],
+      "choices": [{"label": "Next", "next": "pain", "kind": "continue"}]
+    },
+    "pain": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Which description fits the pain of biliary colic?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Waves of pain that come every few minutes", "next": "pain_t4", "kind": "trap", "trap": "TR4"},
+        {"label": "Pain only after meals, never radiating", "next": "pain_tp", "kind": "partial"},
+        {"label": "Steady pain that settles within a few hours", "next": "pain_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "pain_hint", "kind": "help"}
+      ]
+    },
+    "pain_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Colic pain is steady rather than wave-like, and it settles within a few hours.", "claims": ["K37"]},
+        {"text": "The stone blocks the outlet only briefly, so the pain eases once the obstruction clears.", "claims": ["K11"]}
+      ],
+      "choices": [{"label": "Next", "next": "first_test", "kind": "continue"}]
+    },
+    "pain_t4": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice. The word colic makes wave-like pain sound right, so this option is tempting.", "claims": []},
+        {"text": "But the pain of colic is not colicky: it is steady, and it settles within a few hours.", "claims": ["K118", "K37"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the word. Colic names the stone, not the pattern of the pain.", "claims": ["K118"]},
+      "choices": [
+        {"label": "Try again", "next": "pain", "kind": "retry"},
+        {"label": "Show me why", "next": "pain_why", "kind": "agency"}
+      ]
+    },
+    "pain_tp": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice. Meals do bring colic on, so the meal clue is tempting.", "claims": ["K37"]},
+        {"text": "But radiation to the right shoulder is typical of colic, so 'never radiating' is wrong.", "claims": ["K37"]}
+      ],
+      "sure_note": {"text": "You were sure, so do not let one clue decide it. Colic is judged on its whole pattern.", "claims": ["K37"]},
+      "choices": [
+        {"label": "Try again", "next": "pain", "kind": "retry"},
+        {"label": "Show me why", "next": "pain_why", "kind": "agency"}
+      ]
+    },
+    "pain_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask how the pain moves over the hours: does it come in waves, or hold and then ease off? Then choose again.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "pain", "kind": "retry"}]
+    },
+    "pain_why": {
+      "role": "explain",
+      "say": [
+        {"text": "Colic: the stone blocks the outlet only briefly, so the pain is steady and eases within a few hours.", "claims": ["K11", "K37"]},
+        {"text": "Waves every few minutes are not the colic pattern, and radiation to the shoulder is typical.", "claims": ["K37"]}
+      ],
+      "choices": [{"label": "Next", "next": "first_test", "kind": "continue"}]
+    },
+    "first_test": {
+      "role": "probe",
+      "objectives": ["O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 50-year-old man has fever, RUQ pain and a positive Murphy's sign. Which test do you order first?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Plain X-ray abdomen", "next": "first_tp", "kind": "partial"},
+        {"label": "CT abdomen", "next": "first_t2", "kind": "trap", "trap": "TR2"},
+        {"label": "Ultrasonography", "next": "first_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "first_hint", "kind": "help"}
+      ]
+    },
+    "first_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Ultrasonography is the first investigation for gallstones and suspected cholecystitis.", "claims": ["K2"]},
+        {"text": "It shows stones as echogenic foci with shadowing, a thickened wall and pericholecystic fluid.", "claims": ["K46", "K47"]}
+      ],
+      "choices": [{"label": "Next", "next": "sens", "kind": "continue"}]
+    },
+    "first_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice. CT feels thorough, so it is tempting as the first look in a sick patient.", "claims": []},
+        {"text": "But CT is kept for complications, and it misses many gallstones. Ask what the first test is for.", "claims": ["K50", "K2"]}
+      ],
+      "sure_note": {"text": "You were sure, so separate the first test from the most detailed one. They are different questions.", "claims": ["K2"]},
+      "choices": [
+        {"label": "Try again", "next": "first_test", "kind": "retry"},
+        {"label": "Show me why", "next": "first_why", "kind": "agency"}
+      ]
+    },
+    "first_tp": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice. Stones look white on an X-ray, so a plain film feels like the quick answer.", "claims": []},
+        {"text": "But only about 10–15% of gallstones are radio-opaque, so a normal film proves nothing.", "claims": ["K4"]}
+      ],
+      "sure_note": {"text": "You were sure, so remember that most gallstones are invisible on a plain film.", "claims": ["K4"]},
+      "choices": [
+        {"label": "Try again", "next": "first_test", "kind": "retry"},
+        {"label": "Show me why", "next": "first_why", "kind": "agency"}
+      ]
+    },
+    "first_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask which test is the quick first look at the gallbladder, and which one is kept for complications. Then choose again.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "first_test", "kind": "retry"}]
+    },
+    "first_why": {
+      "role": "explain",
+      "say": [
+        {"text": "The first test for gallstones and suspected cholecystitis is **ultrasonography**: quick, and it shows the stone, the thick wall and the fluid.", "claims": ["K2", "K47"]},
+        {"text": "CT and plain films come later, for complications or for other questions.", "claims": []}
+      ],
+      "choices": [{"label": "Next", "next": "sens", "kind": "continue"}]
+    },
+    "sens": {
+      "role": "probe",
+      "objectives": ["O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Same patient. The question now asks for the most sensitive and specific test for acute cholecystitis. Which one?", "claims": []}
+      ],
+      "choices": [
+        {"label": "HIDA scan", "next": "sens_ok", "kind": "correct"},
+        {"label": "Ultrasonography", "next": "sens_t2", "kind": "trap", "trap": "TR2"},
+        {"label": "CT abdomen", "next": "sens_tp", "kind": "partial"},
+        {"label": "Not sure, give me a hint", "next": "sens_hint", "kind": "help"}
+      ]
+    },
+    "sens_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. The **HIDA scan** is the most sensitive and specific test for acute cholecystitis.", "claims": ["K3"]},
+        {"text": "A gallbladder that does not fill, while tracer reaches the duodenum, shows cystic duct obstruction.", "claims": ["K49"]}
+      ],
+      "choices": [{"label": "Next", "next": "ladder", "kind": "continue"}]
+    },
+    "sens_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice. Ultrasound is tempting: it is the test you order first, so it feels like the answer to everything.", "claims": ["K102"]},
+        {"text": "But this question asks for most sensitive and specific, not first. Read the wording word for word.", "claims": ["K116"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the wording: first and most accurate are different questions.", "claims": ["K116"]},
+      "choices": [
+        {"label": "Try again", "next": "sens", "kind": "retry"},
+        {"label": "Show me why", "next": "sens_why", "kind": "agency"}
+      ]
+    },
+    "sens_tp": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice. CT looks like the most detailed test, so it feels like the most accurate one.", "claims": []},
+        {"text": "But CT is for complications such as perforation and abscess, and it misses many gallstones.", "claims": ["K50"]}
+      ],
+      "sure_note": {"text": "You were sure, so detail is not the same as sensitivity and specificity for this disease.", "claims": ["K50"]},
+      "choices": [
+        {"label": "Try again", "next": "sens", "kind": "retry"},
+        {"label": "Show me why", "next": "sens_why", "kind": "agency"}
+      ]
+    },
+    "sens_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Look at the wording: is it asking what you order first, or which test is most sensitive and specific? Then choose again.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "sens", "kind": "retry"}]
+    },
+    "sens_why": {
+      "role": "explain",
+      "say": [
+        {"text": "The **HIDA scan** is the most sensitive and specific test for acute cholecystitis.", "claims": ["K3"]},
+        {"text": "The tracer fills the bile ducts and the duodenum, but the gallbladder stays dark when the cystic duct is blocked.", "claims": ["K49"]}
+      ],
+      "choices": [{"label": "Next", "next": "ladder", "kind": "continue"}]
+    },
+    "ladder": {
+      "role": "explain",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "So the gallbladder ladder has two rungs. **Ultrasonography** is the first test; the **HIDA scan** is the most sensitive and specific for acute cholecystitis.", "claims": ["K102", "K3"]},
+        {"text": "PYQs often ask 'investigation of choice' with HIDA as the key. Read the word: first, or most accurate. CT and MRCP come later, each for its own job.", "claims": ["K116"]}
+      ],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    }
+  }
+}
