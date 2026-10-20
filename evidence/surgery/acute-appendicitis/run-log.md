@@ -1,0 +1,1 @@
+- 2026-10-20 round 0 composite (see scorecard), review 3.69. Refine round 1: patch S2–S6 per review and sims; rewrite fell_open report texts.
