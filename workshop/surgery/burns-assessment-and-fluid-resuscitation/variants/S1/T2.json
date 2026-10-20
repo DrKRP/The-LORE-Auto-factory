@@ -1,0 +1,480 @@
+{
+  "segment": "S1",
+  "technique": "T2",
+  "entry": "start",
+  "nodes": {
+    "start": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 35-year-old man is pulled out of a house fire. His voice is hoarse, there is soot in his mouth, and he has 30% burns. He is sitting up and talking in full sentences.",
+          "claims": []
+        },
+        {
+          "text": "What is your first priority?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Secure the airway now with early intubation",
+          "next": "ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Calculate the Parkland volume and start fluids",
+          "next": "t29",
+          "kind": "trap",
+          "trap": "TR29"
+        },
+        {
+          "label": "Watch the airway; intubate only if stridor appears",
+          "next": "t30",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which problem gets worse hour by hour, and which one can close the airway. Then choose.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. The **primary survey** (ABCDE) comes first, and the airway is part of it. Burn assessment belongs to the secondary survey.",
+          "claims": [
+            "K32"
+          ]
+        },
+        {
+          "text": "Hoarseness and soot in the mouth are on the list for **early intubation**, before oedema builds.",
+          "claims": [
+            "K39",
+            "K29"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p2",
+          "kind": "continue"
+        },
+        {
+          "label": "I am sure, skip the check",
+          "next": "@next",
+          "kind": "skip"
+        }
+      ]
+    },
+    "t29": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Tempting, because the burn numbers feel like the burn-specific job and seem urgent.",
+          "claims": []
+        },
+        {
+          "text": "Not yet: the primary survey comes first, and the airway can close before the drip is even running.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so fix the order: burn numbers belong to the secondary survey.",
+        "claims": [
+          "K32"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start",
+          "kind": "retry"
+        },
+        {
+          "label": "Why does the airway come first?",
+          "next": "why_order",
+          "kind": "agency"
+        }
+      ]
+    },
+    "t30": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Tempting, because he is talking and looks safe for now.",
+          "claims": []
+        },
+        {
+          "text": "Not yet: hoarseness and soot already call for **early intubation**, before the swelling closes the airway.",
+          "claims": [
+            "K39",
+            "K29"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the airway could wait. Stridor is one trigger on the list, not the start of the window.",
+        "claims": [
+          "K39"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start",
+          "kind": "retry"
+        },
+        {
+          "label": "Why not wait for stridor?",
+          "next": "why_early",
+          "kind": "agency"
+        }
+      ]
+    },
+    "why_order": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The **primary survey** (ABCDE) runs first. Burn assessment and the fluid sum are done in the secondary survey.",
+          "claims": [
+            "K32"
+          ]
+        },
+        {
+          "text": "An airway can swell shut as oedema builds, and it is easiest to secure before that. A fluid sum can wait a few minutes.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start",
+          "kind": "retry"
+        }
+      ]
+    },
+    "why_early": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "**Early intubation** is indicated before oedema develops, for stridor, hoarseness, deep facial burns or soot in the mouth.",
+          "claims": [
+            "K39"
+          ]
+        },
+        {
+          "text": "Hoarseness and soot are features of inhalation injury. Waiting for stridor means waiting until the window has narrowed.",
+          "claims": [
+            "K29"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p2": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Two jobs in the first minutes: checking the airway, and estimating the burn's total body surface area. Which goes first, and why?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "The airway, because swelling can close it while numbers wait",
+          "next": "p2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Total body surface area first, since burn numbers set the fluids",
+          "next": "t29b",
+          "kind": "trap",
+          "trap": "TR29"
+        },
+        {
+          "label": "Fluid volume first, so the drip starts on time",
+          "next": "t29c",
+          "kind": "trap",
+          "trap": "TR29"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "hint2",
+          "kind": "help"
+        }
+      ]
+    },
+    "hint2": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which job can end a patient within minutes if it is left, not which one needs more arithmetic.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t29b": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Tempting, because the surface area sets the whole fluid plan, so it feels like the first thing to fix.",
+          "claims": []
+        },
+        {
+          "text": "Not yet: burn assessment belongs to the secondary survey, after the airway is safe.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t29c": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Tempting, because a running drip looks like good resuscitation.",
+          "claims": []
+        },
+        {
+          "text": "Not yet: the fluid volume is worked out after the primary survey, so the airway is checked first.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p2_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. Swelling works on the airway now, while the surface area estimate is a secondary-survey task that can wait.",
+          "claims": [
+            "K32",
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p3": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Why intubate now, in a patient who is speaking comfortably?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Swelling builds over hours and can close the airway later",
+          "next": "p3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Airway swelling matters only once stridor or desaturation appears",
+          "next": "t30b",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Hoarseness proves lung injury, so a tube is needed now",
+          "next": "p3_part",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "hint3",
+          "kind": "help"
+        }
+      ]
+    },
+    "hint3": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the airway will do over the next several hours, not what it does right now.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p3_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. Oedema builds over hours, so the window to pass a tube is widest now.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p3_part": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Partly right: hoarseness is a feature of inhalation injury, but it does not prove lung injury on its own.",
+          "claims": [
+            "K29"
+          ]
+        },
+        {
+          "text": "The reason to act now is the swelling that is still to come.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t30b": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Tempting, because stridor is the sign everyone is taught to watch for.",
+          "claims": []
+        },
+        {
+          "text": "Not yet: soot and hoarseness already call for **early intubation**, before stridor appears.",
+          "claims": [
+            "K39",
+            "K29"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-read the trigger list: stridor is one trigger, not the start of the window.",
+        "claims": [
+          "K39"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p3",
+          "kind": "retry"
+        }
+      ]
+    }
+  }
+}
