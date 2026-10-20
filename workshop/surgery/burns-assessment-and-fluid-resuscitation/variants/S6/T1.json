@@ -1,0 +1,1455 @@
+{
+ "segment": "S6",
+ "technique": "T1",
+ "entry": "start",
+ "nodes": {
+  "start": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "say": [
+    {
+     "text": "A 70 kg adult with 40% burns is on a crystalloid drip set at 700 mL/h, the formula's starting rate.",
+     "claims": [
+      "K44"
+     ]
+    },
+    {
+     "text": "Three hours in, urine is 15 mL/h. What do you do with the rate?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Keep 700 mL/h, since the formula has set it",
+     "next": "start_t16",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Raise the rate by about a fifth, then recheck hourly",
+     "next": "start_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Cut the rate by a fifth to protect the kidneys",
+     "next": "start_t17",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "start_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "start_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Low urine means the tissues are under-filled, so the rate goes up.",
+     "claims": [
+      "K51"
+     ]
+    },
+    {
+     "text": "The formula gave a starting point. The urine tells you each hour whether to keep going.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Sure of this? Skip the why",
+     "next": "child_urine",
+     "kind": "skip"
+    },
+    {
+     "label": "Next",
+     "next": "why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "start_t16": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Once the sum is worked, the rate feels settled, so leaving it alone looks sensible.",
+     "claims": []
+    },
+    {
+     "text": "The formula is an estimate to check against urine output, and this patient's urine is 15 mL/h. Look at that number before you decide.",
+     "claims": [
+      "K3",
+      "K51"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "start_reveal",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure of this one. A formula gives a starting rate; it does not replace reading the patient. Check the urine each hour.",
+    "claims": [
+     "K3"
+    ]
+   }
+  },
+  "start_t17": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Cutting fluid when output falls looks careful, as if the kidneys were being protected.",
+     "claims": []
+    },
+    {
+     "text": "Low output means the tissues are short of perfusion, so the volume is too low, not too high. Work out what low output says about the fluid already in.",
+     "claims": [
+      "K51",
+      "K31"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "start_reveal",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the direction. Low urine signals under-perfusion, which reverses the sign of the adjustment.",
+    "claims": [
+     "K51"
+    ]
+   }
+  },
+  "start_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Read the urine as a gauge of perfusion, not of how much the patient is losing.",
+     "claims": []
+    },
+    {
+     "text": "What does a low reading tell you the tissues are short of?",
+     "claims": [
+      "K31"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "start",
+     "kind": "retry"
+    }
+   ]
+  },
+  "start_reveal": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Low urine means under-perfusion, so the rate goes up by about a fifth. Recheck the urine each hour and move the rate with it.",
+     "claims": [
+      "K51"
+     ]
+    },
+    {
+     "text": "The formula is a starting estimate, not a prescription to hold.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "why": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "say": [
+    {
+     "text": "The Parkland formula gives a number from weight and burn size.",
+     "claims": [
+      "K2"
+     ]
+    },
+    {
+     "text": "Why is that result only a starting estimate?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Needs vary with depth, delay and inhalation, so urine guides them",
+     "next": "why_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "The formula is exact, so only a miscalculated sum needs correcting",
+     "next": "why_t16a",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "It covers 8 hours only; the rest follows a protocol rate",
+     "next": "why_t16b",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "why_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "why_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The sum is set by weight and burn size, but real need moves with depth, delay and the airway.",
+     "claims": [
+      "K1"
+     ]
+    },
+    {
+     "text": "Hourly urine output tracks that movement, so it is what you titrate to.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "child_urine",
+     "kind": "continue"
+    }
+   ]
+  },
+  "why_t16a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Once the sum is done, it feels like a prescription to deliver, which makes the formula look exact.",
+     "claims": []
+    },
+    {
+     "text": "Depth, delay and inhalation injury change how much fluid the patient needs, and the sum leaves all three out.",
+     "claims": [
+      "K1"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "why",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "why_reveal",
+     "kind": "agency"
+    }
+   ]
+  },
+  "why_t16b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A protocol rate for the rest of the day sounds tidy, so the formula seems to run on its own.",
+     "claims": []
+    },
+    {
+     "text": "The rate is re-set every hour from the urine, through all 24 hours, not fixed at a protocol figure.",
+     "claims": [
+      "K45"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "why",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "why_reveal",
+     "kind": "agency"
+    }
+   ]
+  },
+  "why_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "What else about the patient, apart from the size of the burn, changes how much fluid they need?",
+     "claims": [
+      "K1"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "why_reveal": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Fluid need varies with burn depth, delay before resuscitation and inhalation injury. The sum is a start.",
+     "claims": [
+      "K1",
+      "K3"
+     ]
+    },
+    {
+     "text": "Hourly urine output guides the rate.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "child_urine",
+     "kind": "continue"
+    }
+   ]
+  },
+  "child_urine": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "say": [
+    {
+     "text": "A 20 kg child has a 25% scald.",
+     "claims": []
+    },
+    {
+     "text": "What hourly urine output do you aim for?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "10 mL/h, half a mL per kilogram per hour",
+     "next": "child_t10",
+     "kind": "trap",
+     "trap": "TR19"
+    },
+    {
+     "label": "30 to 50 mL/h, the usual adult range",
+     "next": "child_t30",
+     "kind": "trap",
+     "trap": "TR19"
+    },
+    {
+     "label": "20 mL/h, about 1 mL per kilogram per hour",
+     "next": "child_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "child_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "child_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. In a child the target is per kilogram, and it is higher than the adult figure.",
+     "claims": [
+      "K71",
+      "K7"
+     ]
+    },
+    {
+     "text": "Twenty kilograms at about 1 mL/kg/h gives about 20 mL/h.",
+     "claims": [
+      "K71"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "electrical",
+     "kind": "continue"
+    }
+   ]
+  },
+  "child_t10": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The adult target is half a mL per kilogram, so halving it for a child feels like the standard rule.",
+     "claims": []
+    },
+    {
+     "text": "Children have smaller kidneys and a higher metabolic rate, which pushes the per-kilogram target up, not down. Work from the child's weight.",
+     "claims": [
+      "K71",
+      "K7"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "child_urine",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "child_reveal",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the direction for a child. The per-kilogram target is higher than the adult one.",
+    "claims": [
+     "K71"
+    ]
+   }
+  },
+  "child_t30": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The adult range is the number most people remember, so it feels like a safe default.",
+     "claims": []
+    },
+    {
+     "text": "The adult figure is for an adult's body and kidneys. A child's target is set by the child's kilograms.",
+     "claims": [
+      "K7",
+      "K70"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "child_urine",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "child_reveal",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the age qualifier: the adult range does not transfer to a child.",
+    "claims": [
+     "K7"
+    ]
+   }
+  },
+  "child_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Two things change for a child: body weight and the kidneys. Which of these should set the number?",
+     "claims": [
+      "K71"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "child_urine",
+     "kind": "retry"
+    }
+   ]
+  },
+  "child_reveal": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "A child's target is about 1 mL/kg/h. At 20 kg that is about 20 mL/h.",
+     "claims": [
+      "K71",
+      "K7"
+     ]
+    },
+    {
+     "text": "The adult 0.5 mL/kg/h and the 30 to 50 mL/h range do not transfer to a child.",
+     "claims": [
+      "K7"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "electrical",
+     "kind": "continue"
+    }
+   ]
+  },
+  "electrical": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "say": [
+    {
+     "text": "A 70 kg adult has an electrical burn and dark, pigmented urine. Rhabdomyolysis, muscle breakdown, is suspected.",
+     "claims": []
+    },
+    {
+     "text": "What hourly urine output do you aim for?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "30 to 50 mL/h, the routine adult target here",
+     "next": "elec_t_adult",
+     "kind": "trap",
+     "trap": "TR19"
+    },
+    {
+     "label": "75 to 100 mL/h, a higher target to flush pigment",
+     "next": "elec_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "20 mL/h, the usual figure for a child",
+     "next": "elec_t_child",
+     "kind": "trap",
+     "trap": "TR19"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "elec_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "elec_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The aim is a higher urine flow to clear myoglobin, which overrides the routine adult figure.",
+     "claims": [
+      "K53"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "child_tbsa",
+     "kind": "continue"
+    }
+   ]
+  },
+  "elec_t_adult": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The routine target is the number you already know, so it is the easy default when a burn is in front of you.",
+     "claims": []
+    },
+    {
+     "text": "Electrical injury with rhabdomyolysis needs more urine flow to clear myoglobin from the kidneys. The routine target does not cover that.",
+     "claims": [
+      "K53"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "electrical",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "elec_reveal",
+     "kind": "agency"
+    }
+   ]
+  },
+  "elec_t_child": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The child figure was the last rule you used, so it feels like a pattern to repeat.",
+     "claims": []
+    },
+    {
+     "text": "This is a 70 kg adult. The weight rule for children does not decide the target here; the reason for the infusion does.",
+     "claims": [
+      "K7",
+      "K53"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "electrical",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "elec_reveal",
+     "kind": "agency"
+    }
+   ]
+  },
+  "elec_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what the target is for here: matching a routine, or clearing pigment from the kidneys?",
+     "claims": [
+      "K53"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "electrical",
+     "kind": "retry"
+    }
+   ]
+  },
+  "elec_reveal": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Electrical injury with myoglobinuria needs about 1 to 1.5 mL/kg/h, around 75 to 100 mL/h in an adult, to flush out pigment.",
+     "claims": [
+      "K53"
+     ]
+    },
+    {
+     "text": "Alkalinising the urine is not routinely needed if the output is adequate.",
+     "claims": [
+      "K53"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "child_tbsa",
+     "kind": "continue"
+    }
+   ]
+  },
+  "child_tbsa": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "A junior charted a 3-year-old's total body surface area (TBSA) as 30% by the adult rule of nines.",
+     "claims": [
+      "K4"
+     ]
+    },
+    {
+     "text": "What is wrong with that figure?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "The adult chart is the standard, so 30% stands at any age",
+     "next": "tb_t_std",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Children are small adults, so the same proportions hold",
+     "next": "tb_t_small",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "A child's head and legs carry different shares of the total",
+     "next": "tb_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "tb_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "tb_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. A child's head and legs carry different shares, so adult sums mis-state a child's burn.",
+     "claims": [
+      "K5",
+      "K85"
+     ]
+    },
+    {
+     "text": "Re-estimate the burn before you calculate any fluid.",
+     "claims": [
+      "K36"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "ambulance",
+     "kind": "continue"
+    }
+   ]
+  },
+  "tb_t_std": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The adult chart is the one everyone learns first, so it feels like the default for any patient.",
+     "claims": []
+    },
+    {
+     "text": "Adult values are fixed for an adult body. A child's proportions differ, so the same chart gives the wrong share.",
+     "claims": [
+      "K5",
+      "K85"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "child_tbsa",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "tb_reveal",
+     "kind": "agency"
+    }
+   ]
+  },
+  "tb_t_small": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A child looks like a small adult, so the same proportions feel close enough.",
+     "claims": []
+    },
+    {
+     "text": "Proportions change with age. Ask which body parts change most between a child and an adult.",
+     "claims": [
+      "K5"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "child_tbsa",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "tb_reveal",
+     "kind": "agency"
+    }
+   ]
+  },
+  "tb_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Which parts of the body are proportionally larger or smaller in a 3-year-old than in an adult?",
+     "claims": [
+      "K5"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "child_tbsa",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tb_reveal": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "A child's head is larger, about 18%, and each leg smaller, about 14%, than the adult figures.",
+     "claims": [
+      "K5"
+     ]
+    },
+    {
+     "text": "The adult chart overstates the legs and understates the head. Re-estimate with a Lund and Browder chart before you set the fluid.",
+     "claims": [
+      "K5",
+      "K85",
+      "K36"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "ambulance",
+     "kind": "continue"
+    }
+   ]
+  },
+  "ambulance": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "say": [
+    {
+     "text": "A 50 kg adult has a 40% burn and reaches you two hours after the burn. The ambulance has run 1,000 mL of Ringer lactate.",
+     "claims": [
+      "K68"
+     ]
+    },
+    {
+     "text": "What rate do you set for the rest of the first 8 hours?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "500 mL/h, the 3,000 mL left over six hours",
+     "next": "am_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "670 mL/h, the full 4,000 mL over six hours",
+     "next": "am_t4",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "am_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "am_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Half the 24-hour total is due in the first 8 hours from the burn, and fluid already given counts toward it.",
+     "claims": [
+      "K43",
+      "K45"
+     ]
+    },
+    {
+     "text": "Run only what remains.",
+     "claims": [
+      "K45"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "contrast",
+     "kind": "continue"
+    }
+   ]
+  },
+  "am_t4": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The full first-8-hour total is the number you just worked out, so it feels like the figure to run now.",
+     "claims": []
+    },
+    {
+     "text": "The 1,000 mL already in counts toward that total. Ask how much is still owed before you set the rate.",
+     "claims": [
+      "K45",
+      "K43"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ambulance",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "am_reveal",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the subtraction: fluid given before arrival is part of the first-8-hour volume.",
+    "claims": [
+     "K45"
+    ]
+   }
+  },
+  "am_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Start from the first-8-hour total, then ask how much of it the patient has already had.",
+     "claims": [
+      "K43"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "ambulance",
+     "kind": "retry"
+    }
+   ]
+  },
+  "am_reveal": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Half of 4 × 50 × 40 is 4,000 mL due in the first 8 hours from the burn. Deduct the 1,000 mL given.",
+     "claims": [
+      "K2",
+      "K43"
+     ]
+    },
+    {
+     "text": "That leaves 3,000 mL over the six hours left, about 500 mL/h.",
+     "claims": [
+      "K45"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "contrast",
+     "kind": "continue"
+    }
+   ]
+  },
+  "contrast": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "say": [
+    {
+     "text": "Two adults, both with 40% burns, start on the same rate. Patient A passes 12 mL/h of urine. Patient B passes 90 mL/h.",
+     "claims": []
+    },
+    {
+     "text": "What does each need?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Leave both at the formula rate",
+     "next": "co_t16",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Raise B's rate and lower A's",
+     "next": "co_t17",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Raise A's rate and lower B's",
+     "next": "co_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "co_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "co_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Low urine means more fluid; high urine means less.",
+     "claims": [
+      "K51",
+      "K52"
+     ]
+    },
+    {
+     "text": "The same starting rate was split by what each patient's urine showed.",
+     "claims": [
+      "K51"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "escharotomy",
+     "kind": "continue"
+    }
+   ]
+  },
+  "co_t16": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. When the numbers look ordinary, holding the starting rate is the easy default.",
+     "claims": []
+    },
+    {
+     "text": "A starting rate is not a prescription. Two patients with opposite urine need opposite moves, so the rates must differ.",
+     "claims": [
+      "K3",
+      "K51"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "contrast",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "co_reveal",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so recheck the starting rate: it is an estimate to be adjusted from urine output.",
+    "claims": [
+     "K3"
+    ]
+   }
+  },
+  "co_t17": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. More urine can look like more fluid going in, so high output seems to need more.",
+     "claims": []
+    },
+    {
+     "text": "Urine is a gauge of perfusion, not of demand. Read each patient's number on its own and ask whether the tissues are full or short.",
+     "claims": [
+      "K51",
+      "K52"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "contrast",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "co_reveal",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the direction: high output is a reason to reduce, because overload causes harm.",
+    "claims": [
+     "K52"
+    ]
+   }
+  },
+  "co_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Read each patient's urine against the target. Which one shows tissues that are short of fluid?",
+     "claims": [
+      "K51"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "contrast",
+     "kind": "retry"
+    }
+   ]
+  },
+  "co_reveal": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Patient A's low output means under-perfusion, so A's rate rises.",
+     "claims": [
+      "K51"
+     ]
+    },
+    {
+     "text": "Patient B's high output means B's rate comes down, to avoid overload.",
+     "claims": [
+      "K52"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "escharotomy",
+     "kind": "continue"
+    }
+   ]
+  },
+  "escharotomy": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "say": [
+    {
+     "text": "A man's forearm is burned all the way round. Which description needs an escharotomy now?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Full-thickness, all the way round, with the fingers going pale",
+     "next": "esc_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Deep partial-thickness, all the way round, with blisters",
+     "next": "es_t_partial",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "Superficial red burn over the whole chest, breathing normally",
+     "next": "es_t_sup",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "esc_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "esc_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The full-thickness ring is what compromises the limb, and pale fingers signal it.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    },
+    {
+     "text": "Release the eschar now.",
+     "claims": [
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "mechanism",
+     "kind": "continue"
+    }
+   ]
+  },
+  "es_t_partial": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A deep burn that blisters looks severe, so depth seems to be the reason to cut.",
+     "claims": []
+    },
+    {
+     "text": "Escharotomy is for full-thickness burns that encircle a limb and compromise its circulation. Check the depth qualifier first.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "escharotomy",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "esc_reveal",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the depth qualifier: escharotomy is for full thickness, not deep partial.",
+    "claims": [
+     "K10"
+    ]
+   }
+  },
+  "es_t_sup": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A burn covering a whole chest feels like a crisis, so the size seems to demand a cut.",
+     "claims": []
+    },
+    {
+     "text": "Size alone does not decide it. A superficial burn does not restrict the chest, so check the depth and the ventilation.",
+     "claims": [
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "escharotomy",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "esc_reveal",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check both qualifiers: depth and whether breathing is restricted.",
+    "claims": [
+     "K56"
+    ]
+   }
+  },
+  "esc_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Escharotomy releases a tight, unyielding crust. What must the crust be like, and what must it be doing to the limb?",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "escharotomy",
+     "kind": "retry"
+    }
+   ]
+  },
+  "esc_reveal": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Escharotomy is for circumferential full-thickness limb burns with distal ischaemia or falling pulses, and for chest burns that restrict breathing.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    },
+    {
+     "text": "Incisions go through eschar only, along the midlateral and midaxial lines.",
+     "claims": [
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "mechanism",
+     "kind": "continue"
+    }
+   ]
+  },
+  "mechanism": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "say": [
+    {
+     "text": "Why does a full-thickness ring of burn threaten the limb?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Any deep burn forms eschar, so release it at once",
+     "next": "me_t",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "Inelastic eschar constricts as swelling builds, compressing vessels",
+     "next": "me_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "me_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "me_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The eschar cannot stretch, so swelling compresses the vessels. That is why the cut releases the pressure.",
+     "claims": [
+      "K56",
+      "K10"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "me_t": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Depth feels like the cause, because deep burns look like the dangerous ones.",
+     "claims": []
+    },
+    {
+     "text": "A tight, inelastic eschar is what squeezes the vessels as oedema builds, not depth on its own. Ask what squeezes the limb.",
+     "claims": [
+      "K56",
+      "K10"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "mechanism",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me the answer",
+     "next": "me_reveal",
+     "kind": "agency"
+    }
+   ]
+  },
+  "me_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Picture a tight, unyielding ring around a limb that is swelling inside it.",
+     "claims": [
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "mechanism",
+     "kind": "retry"
+    }
+   ]
+  },
+  "me_reveal": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "A full-thickness eschar does not stretch. As oedema builds under it, the eschar constricts the vessels and the distal limb is starved.",
+     "claims": [
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}
