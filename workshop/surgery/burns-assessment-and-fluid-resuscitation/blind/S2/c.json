@@ -1,0 +1,993 @@
+{
+  "segment": "S2",
+  "entry": "p4",
+  "nodes": {
+    "p4": {
+      "role": "probe",
+      "objectives": [
+        "O2",
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A fire victim comes in after a fire in a closed room. Headache and confusion for two hours.",
+          "claims": []
+        },
+        {
+          "text": "The pulse oximeter reads 98%. What is your next step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Reassure, since the saturation is normal",
+          "next": "p4_t13",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Send carboxyhaemoglobin by co-oximetry",
+          "next": "p4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Send serum lactate to look for cyanide",
+          "next": "p4_t27",
+          "kind": "trap",
+          "trap": "TR27"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p4_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "p4_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. Co-oximetry measures carboxyhaemoglobin directly, so it gives the CO load that a normal saturation hides.",
+          "claims": [
+            "K33",
+            "K30"
+          ]
+        },
+        {
+          "text": "Pulse oximetry reads falsely normal in CO poisoning, so the number cannot settle the question.",
+          "claims": [
+            "K30",
+            "K86"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p4_t13": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Tempting: a comfortable patient with a 98% reading looks well oxygenated.",
+          "claims": []
+        },
+        {
+          "text": "But the oximeter cannot tell carboxyhaemoglobin from oxyhaemoglobin, so a normal number does not exclude CO.",
+          "claims": [
+            "K30",
+            "K86"
+          ]
+        },
+        {
+          "text": "Send co-oximetry for the carboxyhaemoglobin level, which measures the CO load directly.",
+          "claims": [
+            "K33"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the number settled it. That is the favoured exam trap: a falsely normal oximeter in CO poisoning.",
+        "claims": [
+          "K86"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p4_t27": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Tempting: smoke sends you to cyanide, and lactate is the marker people reach for.",
+          "claims": []
+        },
+        {
+          "text": "But lactate is a cyanide clue, raised with unexplained lactic acidosis or shock, and it does not measure carboxyhaemoglobin.",
+          "claims": [
+            "K41",
+            "K33"
+          ]
+        },
+        {
+          "text": "With headache and confusion, the CO question comes first: send carboxyhaemoglobin by co-oximetry.",
+          "claims": [
+            "K30",
+            "K33"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the smoke meant cyanide. Keep the split: CO comes first with headache and confusion, and cyanide needs its own clue.",
+        "claims": [
+          "K30",
+          "K41"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p4_hint": {
+      "role": "hint",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Ask which result measures the poison itself, rather than a reading that can look normal.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p5": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "The oximeter reads 98% in a smoke victim whose carboxyhaemoglobin is high.",
+          "claims": []
+        },
+        {
+          "text": "What is the probe actually doing?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Saturation is truly normal, so delivery is too",
+          "next": "p5_t13a",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "It cannot tell carboxyhaemoglobin from oxyhaemoglobin",
+          "next": "p5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Dissolved oxygen makes up the lost capacity",
+          "next": "p5_t13b",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p5_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "p5_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. It cannot separate the two haemoglobins, so a normal reading says nothing about the CO load.",
+          "claims": [
+            "K30"
+          ]
+        },
+        {
+          "text": "Co-oximetry measures the carboxyhaemoglobin directly, so it is the test that shows the real figure.",
+          "claims": [
+            "K33"
+          ]
+        },
+        {
+          "text": "Think of the oximeter as a judge that sees red but not which red.",
+          "claims": [
+            "K30"
+          ],
+          "device": true
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p5_t13a": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Tempting: a normal number feels like proof that the blood is carrying enough oxygen.",
+          "claims": []
+        },
+        {
+          "text": "But the probe cannot tell carboxyhaemoglobin apart, so the reading can look normal while the blood carries little oxygen.",
+          "claims": [
+            "K30",
+            "K86"
+          ]
+        },
+        {
+          "text": "Co-oximetry gives the carboxyhaemoglobin level, which is the number that matters here.",
+          "claims": [
+            "K33"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the reading meant normal delivery. Hold on to it: a falsely normal oximeter in CO is a favoured trap.",
+        "claims": [
+          "K86"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p5_t13b": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Tempting: plasma oxygen sounds like a backup when haemoglobin falls short.",
+          "claims": []
+        },
+        {
+          "text": "But that is not why the probe misreads: it cannot tell carboxyhaemoglobin from oxyhaemoglobin.",
+          "claims": [
+            "K30"
+          ]
+        },
+        {
+          "text": "Co-oximetry shows the carboxyhaemoglobin level, so you can see the lost capacity directly.",
+          "claims": [
+            "K33"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of the plasma backup. The error sits in the probe's number, not in the plasma.",
+        "claims": [
+          "K30",
+          "K86"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p5_hint": {
+      "role": "hint",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Ask whether the probe can tell the two kinds of haemoglobin apart, and what the blood is really carrying.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p6": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A man is burned in a room fire. Soot is in his mouth, his nasal hair is singed and his voice is hoarse.",
+          "claims": []
+        },
+        {
+          "text": "Which test confirms inhalation injury?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Chest X-ray at arrival",
+          "next": "p6_t12a",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Fibreoptic bronchoscopy of the airway",
+          "next": "p6_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Arterial blood gas at arrival",
+          "next": "p6_t12b",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p6_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "p6_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. Bronchoscopy looks straight at the airway below the cords and shows soot, oedema or erythema.",
+          "claims": [
+            "K34"
+          ]
+        },
+        {
+          "text": "Those findings are the injury itself, so direct vision is the confirming test.",
+          "claims": [
+            "K29",
+            "K34"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p6_t12a": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Tempting: a chest film is the routine first image on a burns ward, so it feels like the check.",
+          "claims": []
+        },
+        {
+          "text": "But the X-ray is often normal early, so a clear film cannot rule out airway injury.",
+          "claims": [
+            "K35"
+          ]
+        },
+        {
+          "text": "Bronchoscopy looks at the airway itself, which is the test that confirms the injury.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure a film would settle it. A normal early X-ray is the trap: it reassures and misleads.",
+        "claims": [
+          "K35"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p6",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p6_t12b": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Tempting: a blood gas measures oxygenation, so it feels like a test of lung injury.",
+          "claims": []
+        },
+        {
+          "text": "But an arterial gas reads gas exchange and carboxyhaemoglobin, not the airway itself.",
+          "claims": [
+            "K33"
+          ]
+        },
+        {
+          "text": "Bronchoscopy shows the soot, oedema or erythema below the cords, which the gas cannot show.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure a gas would show the injury. The gas measures the blood; the injury sits in the airway.",
+        "claims": [
+          "K33",
+          "K34"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p6",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p6_hint": {
+      "role": "hint",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Ask which test looks at the airway itself, rather than at the blood or the chest outline.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p6",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p7": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A fire victim with soot in the mouth has a normal chest X-ray on arrival, and is hoarse.",
+          "claims": []
+        },
+        {
+          "text": "What does the film tell you?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Clear film excludes it, so no airway concern follows",
+          "next": "p7_t12a",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "A normal film does not exclude it; bronchoscope the airway",
+          "next": "p7_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Repeat the film at six hours before any airway decision",
+          "next": "p7_t12b",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p7_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "p7_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. An early film is often normal, so a clear one cannot rule out airway injury.",
+          "claims": [
+            "K35"
+          ]
+        },
+        {
+          "text": "Bronchoscopy looks at the airway directly, which is why it is the test that confirms the injury.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p8",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p7_t12a": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Tempting: a clear film feels like clearance, and the patient looks settled.",
+          "claims": []
+        },
+        {
+          "text": "But the film is often normal early, so it cannot exclude airway injury.",
+          "claims": [
+            "K35"
+          ]
+        },
+        {
+          "text": "Bronchoscopy shows soot, oedema or erythema directly, so that is the test to order.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the film cleared the airway. It is the same error as the first X-ray, in a new form.",
+        "claims": [
+          "K35"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p7",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p7_t12b": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Tempting: repeating a film sounds careful and cautious.",
+          "claims": []
+        },
+        {
+          "text": "But a repeat film is still a chest film, and it does not look at the airway.",
+          "claims": [
+            "K35"
+          ]
+        },
+        {
+          "text": "Bronchoscopy answers the question now, rather than after another film.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure waiting was careful. Waiting on a film delays the test that answers the question.",
+        "claims": [
+          "K34"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p7",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p7_hint": {
+      "role": "hint",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Ask how much of the airway a chest film can show, and which test looks inside it.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p7",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p8": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Smoke from burning plastics. The patient is in shock, with lactic acidosis that nothing else explains.",
+          "claims": []
+        },
+        {
+          "text": "Which antidote do you give?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "100% oxygen alone",
+          "next": "p8_t27",
+          "kind": "trap",
+          "trap": "TR27"
+        },
+        {
+          "label": "Hydroxocobalamin",
+          "next": "p8_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Hyperbaric oxygen first",
+          "next": "p8_partial",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p8_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "p8_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. Burning plastics with unexplained lactic acidosis or shock points to cyanide.",
+          "claims": [
+            "K41"
+          ]
+        },
+        {
+          "text": "Hydroxocobalamin is the cyanide antidote, so it is the treatment here.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p9",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p8_t27": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Tempting: one fire gives both poisons, so one oxygen treatment looks like it covers the smoke.",
+          "claims": []
+        },
+        {
+          "text": "But 100% oxygen treats CO, and this picture is lactic acidosis, which is the cyanide clue.",
+          "claims": [
+            "K73",
+            "K41"
+          ]
+        },
+        {
+          "text": "Give hydroxocobalamin for cyanide. Oxygen belongs to the CO question.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure one oxygen treatment covered both. CO and cyanide get different antidotes.",
+        "claims": [
+          "K73",
+          "K74"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p8",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p8_partial": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Partly right: hyperbaric oxygen is used for CO, but in selected cases, so it is not the first measure here.",
+          "claims": [
+            "K40"
+          ]
+        },
+        {
+          "text": "This picture points to cyanide, and the cyanide antidote is hydroxocobalamin.",
+          "claims": [
+            "K41",
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p8",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p8_hint": {
+      "role": "hint",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Ask which poison the lactic acidosis points to, then which antidote belongs to that poison.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p8",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p9": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Match each poison to its treatment in smoke inhalation.",
+          "claims": []
+        },
+        {
+          "text": "Which pairing is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Both: 100% oxygen, the same antidote",
+          "next": "p9_t27b",
+          "kind": "trap",
+          "trap": "TR27"
+        },
+        {
+          "label": "CO: hydroxocobalamin; cyanide: 100% oxygen",
+          "next": "p9_t27a",
+          "kind": "trap",
+          "trap": "TR27"
+        },
+        {
+          "label": "CO: 100% oxygen; cyanide: hydroxocobalamin",
+          "next": "p9_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p9_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "p9_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. 100% oxygen treats carbon monoxide, and hydroxocobalamin treats cyanide.",
+          "claims": [
+            "K73",
+            "K74"
+          ]
+        },
+        {
+          "text": "Hydrofluoric acid is a different poison again, and its antidote is calcium gluconate.",
+          "claims": [
+            "K81",
+            "K62"
+          ]
+        },
+        {
+          "text": "Use the clue to pick the poison first, then the antidote that belongs to it.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p9_t27a": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Tempting: the same smoke makes the two poisons look interchangeable, so the labels seem to swap.",
+          "claims": []
+        },
+        {
+          "text": "But the antidotes are swapped: oxygen goes with CO, and hydroxocobalamin with cyanide.",
+          "claims": [
+            "K73",
+            "K74"
+          ]
+        },
+        {
+          "text": "Use the clue first: lactic acidosis points to cyanide, while headache and confusion point to CO.",
+          "claims": [
+            "K41",
+            "K30"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the labels could swap. Pairing each poison with its antidote is the recall point.",
+        "claims": [
+          "K41",
+          "K73"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p9",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p9_t27b": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Tempting: one oxygen treatment for everything sounds simple after a fire.",
+          "claims": []
+        },
+        {
+          "text": "But 100% oxygen is for CO, and cyanide needs hydroxocobalamin, not oxygen.",
+          "claims": [
+            "K73",
+            "K74"
+          ]
+        },
+        {
+          "text": "Cyanide suspicion comes from lactic acidosis or shock, so it gets its own antidote.",
+          "claims": [
+            "K41"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure one treatment covered both poisons. It does not; each poison has its own antidote.",
+        "claims": [
+          "K73",
+          "K74"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p9",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p9_hint": {
+      "role": "hint",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Start with the clue for each poison, then pick the antidote that matches that clue.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p9",
+          "kind": "retry"
+        }
+      ]
+    }
+  }
+}

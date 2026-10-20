@@ -1,0 +1,786 @@
+{
+  "segment": "S2",
+  "entry": "why",
+  "nodes": {
+    "why": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A fire victim has a headache and is confused. The pulse oximeter reads 98%, and the chest film is clear.",
+          "claims": [
+            "K30"
+          ]
+        },
+        {
+          "text": "Why can that normal reading still mislead you?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A normal saturation means oxygen content is normal",
+          "next": "why_t13",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "It cannot tell carboxyhaemoglobin from oxyhaemoglobin",
+          "next": "why_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "why_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "why_hint": {
+      "role": "hint",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Ask what the probe actually measures: light absorbed at two wavelengths, and which haemoglobin forms that light can tell apart.",
+          "claims": [
+            "K30"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "why",
+          "kind": "retry"
+        }
+      ]
+    },
+    "why_t13": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "The tempting model: a number on the screen feels like proof of the oxygen in the blood. The probe reads only two light wavelengths, so a normal number says little in smoke.",
+          "claims": [
+            "K86"
+          ]
+        },
+        {
+          "text": "Not this one. Carboxyhaemoglobin can be high while the reading looks normal, so only a blood level answers the question.",
+          "claims": [
+            "K30",
+            "K33"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is the trap to fear most: a normal saturation does not exclude carbon monoxide.",
+        "claims": [
+          "K86"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why",
+          "kind": "retry"
+        }
+      ]
+    },
+    "why_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. The probe cannot separate carboxyhaemoglobin from oxyhaemoglobin, so a normal reading never excludes carbon monoxide.",
+          "claims": [
+            "K30",
+            "K86"
+          ]
+        },
+        {
+          "text": "Send a carboxyhaemoglobin level by co-oximetry instead.",
+          "claims": [
+            "K33"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "caseA_1",
+          "kind": "continue"
+        },
+        {
+          "label": "I know this ladder, skip the worked case",
+          "next": "fadeB",
+          "kind": "skip"
+        }
+      ]
+    },
+    "caseA_1": {
+      "role": "case",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Worked case A. A man from a closed-room fire has a headache, is confused, and his oximeter reads normal. Carbon monoxide is the first suspicion, so the reading gets no weight.",
+          "claims": [
+            "K29",
+            "K30",
+            "K86"
+          ]
+        },
+        {
+          "text": "The investigation that measures the carbon monoxide load is a carboxyhaemoglobin level by co-oximetry.",
+          "claims": [
+            "K33"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "caseA_2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "caseA_2": {
+      "role": "case",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Same man, second question: soot round the mouth and a hoarse voice mean the airway may be injured.",
+          "claims": [
+            "K29"
+          ]
+        },
+        {
+          "text": "A chest film is often normal early, so it cannot settle the question. Fibreoptic bronchoscopy looks at the airway directly.",
+          "claims": [
+            "K35",
+            "K34"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fadeB",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fadeB": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Case B: a second fire victim, confused with a headache, with soot near the nose. The oximeter reads 98%.",
+          "claims": []
+        },
+        {
+          "text": "What is your next step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Reassure: a normal SpO2 excludes carbon monoxide",
+          "next": "fadeB_t13",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Send carboxyhaemoglobin by co-oximetry",
+          "next": "fadeB_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fadeB_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fadeB_hint": {
+      "role": "hint",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Ask what a screen reading can and cannot show, and which test measures the carbon monoxide itself.",
+          "claims": [
+            "K33"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "fadeB",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fadeB_t13": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "The tempting model: a normal screen reading feels like reassurance, because it looks like a measured oxygen level.",
+          "claims": [
+            "K86"
+          ]
+        },
+        {
+          "text": "Not this one. Carboxyhaemoglobin can be high while the saturation reads normal, so the blood level is the test to send.",
+          "claims": [
+            "K30",
+            "K33"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pause here: a normal SpO2 never excludes carbon monoxide poisoning.",
+        "claims": [
+          "K86"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fadeB",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fadeB_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. Carboxyhaemoglobin by co-oximetry measures the carbon monoxide load directly, which the oximeter cannot see.",
+          "claims": [
+            "K33",
+            "K30"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fadeAir",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fadeAir": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Case C: soot in the mouth, a hoarse voice, and a chest film on arrival that is normal.",
+          "claims": [
+            "K29",
+            "K35"
+          ]
+        },
+        {
+          "text": "What does that normal film tell you?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "It rules out airway injury, so no further airway test is needed",
+          "next": "fadeAir_t12",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "It does not exclude airway injury; bronchoscopy is still needed",
+          "next": "fadeAir_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fadeAir_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fadeAir_hint": {
+      "role": "hint",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Ask whether a film can show the inside of the airway, or only the lungs beyond it.",
+          "claims": [
+            "K35"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "fadeAir",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fadeAir_t12": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "The tempting model: a clear film means a clear airway, so the work-up can stop at a normal X-ray.",
+          "claims": [
+            "K35"
+          ]
+        },
+        {
+          "text": "Not this one. An early film is often normal even when the airway is injured, so direct inspection is still needed.",
+          "claims": [
+            "K34",
+            "K35"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the film again: on its own it never excludes airway injury.",
+        "claims": [
+          "K35"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fadeAir",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fadeAir_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. A normal early film does not rule out soot injury, and bronchoscopy shows soot, oedema and erythema below the cords.",
+          "claims": [
+            "K35",
+            "K34"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fadeC",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fadeC": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Case D: smoke from burning plastics, shock, and lactic acidosis that carbon monoxide does not explain.",
+          "claims": [
+            "K41"
+          ]
+        },
+        {
+          "text": "Which antidote do you give?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "100% oxygen, the usual antidote for smoke victims",
+          "next": "fadeC_t27",
+          "kind": "trap",
+          "trap": "TR27"
+        },
+        {
+          "label": "Hydroxocobalamin, for suspected cyanide poisoning",
+          "next": "fadeC_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fadeC_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fadeC_hint": {
+      "role": "hint",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Ask which poison fits unexplained lactic acidosis and shock when carbon monoxide does not account for them.",
+          "claims": [
+            "K41"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "fadeC",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fadeC_t27": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "The tempting model: every smoke victim gets 100% oxygen, so oxygen seems to be the antidote for smoke.",
+          "claims": [
+            "K73"
+          ]
+        },
+        {
+          "text": "Not this one. 100% oxygen is the carbon monoxide treatment, and this patient needs the cyanide antidote.",
+          "claims": [
+            "K73",
+            "K41"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pair each poison with its own antidote before you give oxygen.",
+        "claims": [
+          "K74"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fadeC",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fadeC_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. Unexplained lactic acidosis with shock in smoke points to cyanide, which is treated with hydroxocobalamin.",
+          "claims": [
+            "K41",
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "contrast",
+          "kind": "continue"
+        }
+      ]
+    },
+    "contrast": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Both poisons came from the same fire.",
+          "claims": []
+        },
+        {
+          "text": "Which pairing of poison and treatment is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "CO: hydroxocobalamin; cyanide: 100% oxygen",
+          "next": "contrast_t27",
+          "kind": "trap",
+          "trap": "TR27"
+        },
+        {
+          "label": "CO: 100% oxygen; cyanide: hydroxocobalamin",
+          "next": "contrast_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "contrast_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "contrast_hint": {
+      "role": "hint",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "One poison binds haemoglobin and gives headache and cherry-red colour. The other blocks cells and gives unexplained lactic acidosis.",
+          "claims": [
+            "K30",
+            "K41"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "contrast_t27": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "The tempting model: both poisons come from one fire, so one oxygen-type antidote seems to fit both.",
+          "claims": []
+        },
+        {
+          "text": "Not this one. Carbon monoxide is reversed with 100% oxygen, while cyanide is treated with hydroxocobalamin.",
+          "claims": [
+            "K73",
+            "K74"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate the two poisons by their clue before you match the antidote.",
+        "claims": [
+          "K30",
+          "K41"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "contrast_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. CO is treated with 100% oxygen, with hyperbaric oxygen kept for selected cases. Cyanide is treated with hydroxocobalamin.",
+          "claims": [
+            "K40",
+            "K73",
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "recog",
+          "kind": "continue"
+        }
+      ]
+    },
+    "recog": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Your team needs one test to confirm inhalation injury.",
+          "claims": []
+        },
+        {
+          "text": "Which one?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Chest X-ray at arrival",
+          "next": "recog_t12",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Fibreoptic bronchoscopy",
+          "next": "recog_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "recog_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "recog_hint": {
+      "role": "hint",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Think about the test that looks straight at the airway lining, below the cords.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "recog",
+          "kind": "retry"
+        }
+      ]
+    },
+    "recog_t12": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "The tempting model: the routine first image feels like the definitive test on a burns ward.",
+          "claims": [
+            "K35"
+          ]
+        },
+        {
+          "text": "Not this one. A chest film is often normal early and shows the lungs, not the airway lining.",
+          "claims": [
+            "K35",
+            "K34"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so remember the film is a first look, not the confirming test.",
+        "claims": [
+          "K35"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "recog",
+          "kind": "retry"
+        }
+      ]
+    },
+    "recog_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. Bronchoscopy confirms inhalation injury directly, and it is the investigation of choice.",
+          "claims": [
+            "K34",
+            "K72"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "recap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "recap": {
+      "role": "recap",
+      "objectives": [
+        "O2",
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Three rules from this part: a normal oximeter does not exclude carbon monoxide, a clear chest film does not exclude airway injury, and bronchoscopy settles the airway.",
+          "claims": [
+            "K86",
+            "K35",
+            "K34"
+          ]
+        },
+        {
+          "text": "Carbon monoxide is treated with 100% oxygen; cyanide with hydroxocobalamin.",
+          "claims": [
+            "K73",
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  },
+  "cards": []
+}
