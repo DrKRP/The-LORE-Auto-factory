@@ -1,0 +1,1021 @@
+{
+ "segment": "S6",
+ "technique": "T8",
+ "entry": "p1",
+ "nodes": {
+  "p1": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Hour 3 of a 70 kg adult's burn resuscitation, running at 700 mL/h. Urine output has been 15 mL/h for the last hour.",
+     "claims": []
+    },
+    {
+     "text": "Which explanation fits this reading?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Low output means enough fluid is in, so cut the rate",
+     "next": "p1_t17",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Low output means under-perfusion, so more fluid, then reassess hourly",
+     "next": "p1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "The formula rate is right, so hold it until 8 h",
+     "next": "p1_t16",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p1_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p1_t17": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because low urine can look like a sign of too much fluid. But low output means the kidneys are under-perfused, so the rate should not come down.",
+     "claims": [
+      "K31",
+      "K51"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the direction: low output is a sign of inadequate resuscitation, not of enough fluid.",
+    "claims": [
+     "K31"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p1",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p1_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p1_t16": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because the arithmetic was right and the formula is a standard rule. But the formula is only a starting estimate, and hourly urine output tells you whether it is enough.",
+     "claims": [
+      "K3",
+      "K45"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure the formula should hold. A starting estimate is adjusted, so check the hourly output before the 8-hour mark.",
+    "claims": [
+     "K3",
+     "K45"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p1",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p1_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what the kidney is short of, not what it is holding back.",
+     "claims": [
+      "K31"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The right reason: low urine means the kidneys are short of perfusion, so the patient needs more fluid. Reassess the hourly output after each change.",
+     "claims": [
+      "K31",
+      "K51"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p2": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Two patients start on the same 700 mL/h formula rate. Patient A's urine is 15 mL/h. Patient B's urine is 100 mL/h.",
+     "claims": []
+    },
+    {
+     "text": "Which explanation fits both readings?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Same formula, so both stay put and are rechecked at 8 h",
+     "next": "p2_t16",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "A is short of flow, B has enough, so rates diverge",
+     "next": "p2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "B's high output shows room for more, so both rates go up",
+     "next": "p2_t17",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p2_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p2_t16": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because both patients received the same correct arithmetic. But identical starting rates do not mean identical needs, and the formula cannot see the urine.",
+     "claims": [
+      "K3",
+      "K45"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure both can stay on the formula. The formula cannot see the hourly output, so check it.",
+    "claims": [
+     "K3"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p2",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p2_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p2_t17": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because high output looks like a kidney that can take more. But high output means the patient is already perfused, and more fluid risks pulmonary oedema.",
+     "claims": [
+      "K51",
+      "K52"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure more output means more fluid. Check what high output says about perfusion before you retry.",
+    "claims": [
+     "K51"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p2",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p2_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p2_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The start rate is the same for both. What differs between the two patients is the gauge.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The right reason: urine output is the gauge. A's low output shows under-perfusion and needs more fluid. B's high output shows enough, so B needs less, to avoid over-resuscitation.",
+     "claims": [
+      "K31",
+      "K51",
+      "K52"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p3": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 20 kg child has a 25% scald and is on the formula. You are choosing the hourly urine target.",
+     "claims": []
+    },
+    {
+     "text": "Which explanation fits that target?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Adult 0.5 mL/kg/h is the rule for everyone, so 10 mL/h",
+     "next": "p3_t19a",
+     "kind": "trap",
+     "trap": "TR19"
+    },
+    {
+     "label": "Child target is 1 mL/kg/h per kilogram, so about 20 mL/h",
+     "next": "p3_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Children are small adults, so the 30 to 50 mL/h range applies",
+     "next": "p3_t19b",
+     "kind": "trap",
+     "trap": "TR19"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p3_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p3_t19a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because 0.5 mL/kg/h is the first figure most people memorise. But that is the adult target, and the figure is set by age group, so one number cannot cover every patient.",
+     "claims": [
+      "K7",
+      "K70"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure the adult figure applies to everyone. Check whether the target depends on age before you retry.",
+    "claims": [
+     "K7"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p3_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p3_t19b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because a child is smaller, so an adult range feels close enough. But the target is per kilogram and differs by age, so the adult range overshoots a 20 kg child.",
+     "claims": [
+      "K7",
+      "K71"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure the adult range fits a child. The urine target depends on age, so check it again.",
+    "claims": [
+     "K71"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p3_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p3_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Work per kilogram first. Then ask which age group the figure belongs to.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p3_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The right reason: the urine target is set per kilogram, and for a child it is 1 mL/kg/h. For 20 kg that is about 20 mL/h, titrated hourly.",
+     "claims": [
+      "K7",
+      "K71"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p4": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 70 kg adult after an electrical burn has dark, cola-coloured urine. You are choosing the hourly urine target.",
+     "claims": []
+    },
+    {
+     "text": "Which explanation fits that target?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Electrical burns are treated like any burn, so 30 to 50 mL/h",
+     "next": "p4_t19a",
+     "kind": "trap",
+     "trap": "TR19"
+    },
+    {
+     "label": "Only children need a higher target, so the adult 0.5 stands",
+     "next": "p4_t19b",
+     "kind": "trap",
+     "trap": "TR19"
+    },
+    {
+     "label": "More urine flushes muscle pigment, so about 75 to 100 mL/h",
+     "next": "p4_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p4_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p4_t19a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because the routine adult figure is the one you already use. But that target does not cover the kidney risk from muscle pigment, so it is the wrong yardstick here.",
+     "claims": [
+      "K53",
+      "K7"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure the routine figure covers this. Check what the injury does to the kidneys first.",
+    "claims": [
+     "K53"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p4",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p4_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p4_t19b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because children do get a higher per-kilogram target. But the higher flow here comes from the injury, not from age, so the adult patient needs it too.",
+     "claims": [
+      "K53",
+      "K71"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure age is the only reason for a higher target. Check what the injury adds.",
+    "claims": [
+     "K53"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p4",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p4_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p4_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what is leaving the damaged muscle, and what the kidney has to clear.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p4",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p4_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The right reason: pigment from damaged muscle can injure the kidneys, so you push more urine through, about 1 to 1.5 mL/kg/h. For 70 kg that is about 75 to 100 mL/h.",
+     "claims": [
+      "K53"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p5": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 2-year-old has burns over the head and both legs. You must estimate the total body surface area (TBSA) to feed the formula.",
+     "claims": []
+    },
+    {
+     "text": "Which explanation fits the right way to estimate it?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Head is 9% at every age, so the adult chart will do",
+     "next": "p5_t6a",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Head is a bigger share, legs smaller, so use an age chart",
+     "next": "p5_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Legs are 18% each in children too, so the adult legs stand",
+     "next": "p5_t6b",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p5_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p5_t6a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because 9% is the head figure most people recall. But that is the adult share; a child's head is a much larger part of the body, so the adult figure underestimates it.",
+     "claims": [
+      "K4",
+      "K5"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure the adult head share holds at every age. Check it against the age of the patient.",
+    "claims": [
+     "K5"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p5",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p5_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p5_t6b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because the leg figure is one of the few numbers people memorise. But child legs are smaller shares, so the adult 18% overstates them.",
+     "claims": [
+      "K5",
+      "K85"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure the legs carry over unchanged. Check the child figures before you retry.",
+    "claims": [
+     "K85"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p5",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p5_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p5_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Whose body does the chart describe? Check that before you read a figure off it.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p5",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p5_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The right reason: an infant head is about 18% and each leg about 14%, so the adult chart overstates the legs and understates the head. Age-based charts correct for this.",
+     "claims": [
+      "K5",
+      "K85"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p6",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p6": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 70 kg adult with a 40% burn reaches hospital 3 hours after the burn. The ambulance gave 1.5 L of Ringer lactate. The first-8-hour target is 5,600 mL.",
+     "claims": [
+      "K44"
+     ]
+    },
+    {
+     "text": "What does the 1.5 L do to the plan?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Pre-hospital litres sit outside, so the full 5,600 mL goes in",
+     "next": "p6_t4a",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Formula is fixed, so stop the drip and restart at full rate",
+     "next": "p6_t4b",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "It counts toward the first-8-hour total, so only the remainder goes in",
+     "next": "p6_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p6_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p6_t4a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because the ambulance fluid feels like a bonus given before the clock started. But the first 8 hours is a total for that period, so fluid already given counts toward it.",
+     "claims": [
+      "K45",
+      "K43"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure the earlier fluid sits outside the total. Check what the first-8-hour volume is a total of.",
+    "claims": [
+     "K45"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p6",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p6_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p6_t4b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because a fixed formula looks like an order to restart. But the formula is a target to reach, and the plan is adjusted from what is already given, not restarted from zero.",
+     "claims": [
+      "K45",
+      "K44"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure the plan restarts from zero. Check whether the formula is adjusted or reset.",
+    "claims": [
+     "K45"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p6",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p6_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p6_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Count what the patient already received. Does it fall inside the same 8 hours?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p6",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p6_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The right reason: the 1.5 L already counts toward the first 8 hours. About 4,100 mL remains, to be given over the 5 hours left, then titrated to urine output.",
+     "claims": [
+      "K45",
+      "K43",
+      "K44"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p7",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p7": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 40-year-old has a full-thickness burn running all the way round the forearm. The fingers are cold and the distal pulses are falling.",
+     "claims": []
+    },
+    {
+     "text": "Which explanation justifies escharotomy here?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Every deep burn forms tight eschar, so depth alone calls for release",
+     "next": "p7_t23a",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "Inelastic eschar constricts as oedema builds, cutting off distal flow",
+     "next": "p7_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Any circumferential burn needs release, whatever its thickness or pulses",
+     "next": "p7_t23b",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p7_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p7_t23a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because deep burns are the ones that scar and need surgery. But depth alone does not constrict a limb; the eschar must be full thickness and circle it.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure depth decides it. Check the thickness and whether the burn circles the limb.",
+    "claims": [
+     "K10"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p7",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p7_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p7_t23b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because a burn that circles the limb sounds dangerous on its own. But a partial-thickness circumferential burn is elastic and can stretch, so the qualifiers matter.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure any circling burn needs release. Check the skin's thickness and the pulses.",
+    "claims": [
+     "K56"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p7",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p7_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p7_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Which skin stretches as the limb swells, and which does not?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p7",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p7_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "The right reason: full-thickness skin does not stretch, so as oedema builds the eschar compresses distal vessels. Release only through eschar, along the midlateral lines.",
+     "claims": [
+      "K10",
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}
