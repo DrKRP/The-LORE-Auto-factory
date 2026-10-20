@@ -1,0 +1,495 @@
+{
+  "segment": "S1",
+  "entry": "gate",
+  "nodes": {
+    "gate": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 40-year-old is pulled from a house fire. Flame burns cover his face and neck. His voice is hoarse, and there is soot around his mouth.",
+          "claims": [
+            "K29"
+          ]
+        },
+        {
+          "text": "You have just taken over his care. What do you do first?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Work out the Parkland volume from the burn size",
+          "next": "gate_t29",
+          "kind": "trap",
+          "trap": "TR29"
+        },
+        {
+          "label": "Secure the airway now and give 100% oxygen",
+          "next": "gate_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Watch the airway; intubate only if it fails",
+          "next": "gate_t30",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "gate_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "gate_hint": {
+      "role": "hint",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Think about which part of the primary survey these burns put at risk, and what the burn sum can safely wait for.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "gate",
+          "kind": "retry"
+        }
+      ]
+    },
+    "gate_t29": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "You picked the fluid sum. A burn this size feels like a fluid problem, so the Parkland sum comes to mind first.",
+          "claims": []
+        },
+        {
+          "text": "It misses the airway. Early intubation is decided before oedema develops, so the airway takes priority over the numbers.",
+          "claims": [
+            "K39",
+            "K32"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so fix this one properly: the sum is never the first move. Check the airway, then size the burn.",
+        "claims": [
+          "K32"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "gate",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "gate_why",
+          "kind": "deeper"
+        }
+      ]
+    },
+    "gate_t30": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "You picked watch and wait. He is talking and his airway sounds fine right now, so waiting looks safe.",
+          "claims": []
+        },
+        {
+          "text": "Waiting for stridor or failing oxygen waits for the late signs. Hoarseness, soot and facial burns already call for a tube, while the airway is still easy.",
+          "claims": [
+            "K39",
+            "K29"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check this one: waiting for the airway to fail is the trap. Act on the warning signs.",
+        "claims": [
+          "K39"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "gate",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "gate_why",
+          "kind": "deeper"
+        }
+      ]
+    },
+    "gate_why": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The airway can close as the swelling builds, while the fluid sum can wait until the airway is safe.",
+          "claims": [
+            "K39",
+            "K32"
+          ]
+        },
+        {
+          "text": "So the order is airway, then the burn size, then the fluid. The first two can be done in minutes; the airway cannot wait.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "teach",
+          "kind": "continue"
+        }
+      ]
+    },
+    "gate_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. Airway first, because it is the part that can close while you work on the numbers. Intubate while the tube is still easy to pass.",
+          "claims": [
+            "K32",
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "teach",
+          "kind": "continue"
+        }
+      ]
+    },
+    "teach": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The primary survey (ABCDE) comes first. Burns to the face, neck or mouth put the airway at risk, so high-flow 100% oxygen starts at once.",
+          "claims": [
+            "K32",
+            "K29",
+            "K38"
+          ]
+        },
+        {
+          "text": "Intubate early, before oedema develops: hoarseness, stridor, deep facial or neck burns, soot in the mouth, or a falling level of consciousness.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "early",
+          "kind": "continue"
+        }
+      ]
+    },
+    "early": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "He is talking comfortably now. The burn looks deep but the face is not yet swollen.",
+          "claims": []
+        },
+        {
+          "text": "Why intubate early anyway?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Swelling builds over hours, so a tube is easier now",
+          "next": "early_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Swelling matters when stridor or desaturation appears",
+          "next": "early_t30",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "early_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "early_hint": {
+      "role": "hint",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Think about what the airway will look like in a few hours, not how he sounds today.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "early",
+          "kind": "retry"
+        }
+      ]
+    },
+    "early_t30": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "You picked the sign-based model. He looks safe now, so you wait for the airway to show it is failing.",
+          "claims": []
+        },
+        {
+          "text": "Stridor is a late sign. Hoarseness and soot already call for a tube, and oedema may be too far along to pass one once stridor shows.",
+          "claims": [
+            "K39",
+            "K29"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look again: the airway is judged by where the swelling is going, not by how he sounds today.",
+        "claims": [
+          "K39"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "early",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "early_why",
+          "kind": "deeper"
+        }
+      ]
+    },
+    "early_why": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Early intubation is done before oedema develops, so a tube placed then is far easier than one placed after the swelling sets in.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "contrast",
+          "kind": "continue"
+        }
+      ]
+    },
+    "early_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. The swelling is still building when he looks calm, so the tube goes in while the airway is easy.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "contrast",
+          "kind": "continue"
+        }
+      ]
+    },
+    "contrast": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Once the airway and breathing are safe, which task belongs to the secondary survey?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Estimating the TBSA and depth of the burn",
+          "next": "contrast_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Working out the first eight hours of fluid",
+          "next": "contrast_t29",
+          "kind": "trap",
+          "trap": "TR29"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "contrast_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "contrast_hint": {
+      "role": "hint",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Ask which of these is part of the first look at life threats, and which one only starts after that look is done.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "contrast_t29": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "You picked the fluid volume. It is the burn's own job, so it feels like the first thing a burn team should do.",
+          "claims": []
+        },
+        {
+          "text": "Burn assessment, including TBSA and depth, belongs to the secondary survey, after ABCDE. The fluid sum is worked out after that.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so fix this now: the fluid sum comes after the primary survey, not before it.",
+        "claims": [
+          "K32"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "contrast",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "end_recap",
+          "kind": "deeper"
+        }
+      ]
+    },
+    "contrast_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. TBSA and depth are secondary-survey tasks, done once the airway and breathing are secured.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "end_recap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "end_recap": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The order for a burn: airway first, with early intubation while the tube is still easy. Then breathing, circulation and the secondary survey.",
+          "claims": [
+            "K32",
+            "K39"
+          ]
+        },
+        {
+          "text": "Burn size and depth come next. The fluid sum is the last step of the plan, not the first.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
