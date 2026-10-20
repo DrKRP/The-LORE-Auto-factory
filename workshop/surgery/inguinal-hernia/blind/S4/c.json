@@ -1,0 +1,1484 @@
+{
+  "segment": "S4",
+  "entry": "groin_probe",
+  "nodes": {
+    "groin_probe": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two stems look alike. Here is the first: which groin hernia is most likely to strangulate?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Direct inguinal hernia, medial to the vessels",
+          "next": "groin_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Femoral hernia, below the inguinal ligament",
+          "next": "groin_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Indirect inguinal hernia, lateral to the vessels",
+          "next": "groin_t9",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "groin_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "groin_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "'Groin' is a wider word than 'inguinal'. Count every groin type, then ask which one has the narrowest neck.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "groin_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "groin_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Among groin hernias, femoral carries the highest risk of strangulation.",
+          "claims": [
+            "K87"
+          ]
+        },
+        {
+          "text": "'Groin' takes in femoral, so the groin ranking differs from the inguinal one.",
+          "claims": [
+            "K97"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "groin_contrast",
+          "kind": "continue"
+        }
+      ]
+    },
+    "groin_t8": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. A direct sac is tempting because it bulges broadly and looks dangerous.",
+          "claims": []
+        },
+        {
+          "text": "But a direct hernia has a wide neck and is the classic answer for one that rarely strangulates. Femoral is the riskiest groin type.",
+          "claims": [
+            "K34",
+            "K110",
+            "K87"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the rule: risk follows the neck, not the bulk.",
+        "claims": [
+          "K35"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "groin_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "groin_t9": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Indirect is tempting: it is the commonest inguinal type, and 'groin' sounds like the canal.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "But the question says groin, which adds femoral. Femoral has the highest strangulation risk of the groin hernias.",
+          "claims": [
+            "K87",
+            "K97"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-read the scope word every time. Groin is wider than inguinal.",
+        "claims": [
+          "K97"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "groin_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "groin_contrast": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same question, narrower stem, with femoral left out: which inguinal hernia is most likely to strangulate?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Direct inguinal hernia, with a wide neck",
+          "next": "gc_t_direct",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Indirect inguinal hernia, through the deep ring",
+          "next": "gc_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Pantaloon hernia, which looks bulkier",
+          "next": "gc_t_pan",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "gc_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "gc_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Bulk is not the test here. Ask which inguinal sac has the narrower neck at its entrance.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "groin_contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "gc_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Indirect has a narrow neck at the deep ring, so its contents can be gripped and strangulated.",
+          "claims": [
+            "K35"
+          ]
+        },
+        {
+          "text": "Between the two inguinal types, it is the one more liable to strangulate.",
+          "claims": [
+            "K86"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "neck_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "gc_t_direct": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Direct looks the riskier sac because it bulges broadly.",
+          "claims": []
+        },
+        {
+          "text": "But its neck is wide, and it is the classic answer for the hernia that rarely strangulates.",
+          "claims": [
+            "K34",
+            "K110"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Wide and bulky feels dangerous, but the test is the neck.",
+        "claims": [
+          "K35"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "groin_contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "gc_t_pan": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Pantaloon looks bulkier, so it feels riskier, and bulk is what tempts you here.",
+          "claims": []
+        },
+        {
+          "text": "Risk follows the neck, not the total bulk. The indirect neck is the narrow one that grips.",
+          "claims": [
+            "K35"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Bulk tempts; the neck decides.",
+        "claims": [
+          "K35"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "groin_contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "neck_probe": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Why is the indirect hernia more liable to strangulate than the direct one?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A wide neck lets more bowel slide into the sac each time",
+          "next": "neck_t_wide",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "A narrow neck at the deep ring constricts the bowel loop",
+          "next": "neck_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Its larger bulge pushes on the vessels, cutting supply",
+          "next": "neck_t_bulk",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "neck_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "neck_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Strangulation is a supply problem. Ask what happens to the blood when a loop is squeezed at the entrance.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "neck_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "neck_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A narrow neck grips the contents. Venous return is obstructed first, then arterial supply fails.",
+          "claims": [
+            "K35",
+            "K36"
+          ]
+        },
+        {
+          "text": "Gangrene follows that sequence, so the sequence, not the size of the swelling, sets the urgency.",
+          "claims": [
+            "K36"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "g_vig",
+          "kind": "continue"
+        }
+      ]
+    },
+    "neck_t_wide": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. A wide-necked sac seems to hold more bowel, so it feels more dangerous.",
+          "claims": []
+        },
+        {
+          "text": "The neck sets the grip, and a wide neck grips least. The direct hernia has that wide neck and rarely strangulates.",
+          "claims": [
+            "K34",
+            "K110"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Hold the picture: wide neck, weak grip; narrow neck, strong grip.",
+        "claims": [
+          "K35"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "neck_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "neck_t_bulk": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. A bigger bulge seems to squeeze the vessels, so bulk looks like the danger.",
+          "claims": []
+        },
+        {
+          "text": "The danger sits at the neck. The constriction, not the bulge, cuts the supply.",
+          "claims": [
+            "K35",
+            "K36"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Bulk does not predict strangulation; the neck does.",
+        "claims": [
+          "K35"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "neck_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "g_vig": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An elderly woman has a tender, irreducible lump below and lateral to the pubic tubercle, with vomiting. Most likely diagnosis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Strangulated indirect inguinal hernia, through the deep ring",
+          "next": "gv_t9",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "Strangulated femoral hernia, through the femoral canal",
+          "next": "gv_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Strangulated direct inguinal hernia, through Hesselbach's triangle",
+          "next": "gv_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "gv_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "gv_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Start with where the lump sits relative to the pubic tubercle, then ask which groin type sits there.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g_vig",
+          "kind": "retry"
+        }
+      ]
+    },
+    "gv_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. An inguinal hernia emerges above and medial to the pubic tubercle; femoral lies below and lateral.",
+          "claims": [
+            "K6"
+          ]
+        },
+        {
+          "text": "Femoral is also the groin type with the highest strangulation risk.",
+          "claims": [
+            "K87"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "f_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "gv_t9": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Indirect is tempting because it is the commonest groin type and the one you picture first.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "But this lump lies below and lateral to the tubercle, which is femoral territory, and femoral strangulates most.",
+          "claims": [
+            "K6",
+            "K87"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Position decides the type before commonness does.",
+        "claims": [
+          "K6"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g_vig",
+          "kind": "retry"
+        }
+      ]
+    },
+    "gv_t8": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. A direct sac is tempting because its bulge sits in the same groin area.",
+          "claims": []
+        },
+        {
+          "text": "But direct lies above and medial to the tubercle, through Hesselbach's triangle. This lump is below and lateral.",
+          "claims": [
+            "K6",
+            "K13"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Check position against the tubercle before you pick the type.",
+        "claims": [
+          "K6"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g_vig",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f_probe": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which hernia is the most common in women?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Femoral hernia, relatively commoner in women",
+          "next": "f_t5",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Indirect inguinal hernia, from the deep ring",
+          "next": "f_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "f_hint",
+          "kind": "help"
+        },
+        {
+          "label": "I know this, skip ahead",
+          "next": "f_contrast",
+          "kind": "skip"
+        }
+      ]
+    },
+    "f_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Read the question's words. Does 'most common' rank types within women, or compare women with men?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Indirect inguinal is the most common hernia in women, and in both sexes overall.",
+          "claims": [
+            "K96",
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "f_contrast",
+          "kind": "continue"
+        }
+      ]
+    },
+    "f_t5": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Femoral is tempting because it is relatively more common in women than in men.",
+          "claims": []
+        },
+        {
+          "text": "That is a comparison across the sexes. Within women, indirect still leads.",
+          "claims": [
+            "K109"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Relatively more is not most common; keep the qualifier.",
+        "claims": [
+          "K109"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f_contrast": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Pick the true statement about sex and hernia type.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Femoral outnumbers the inguinal types among women",
+          "next": "fc_t_a",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Inguinal hernia is much commoner in women than in men",
+          "next": "fc_t_b",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Femoral is relatively commoner in women, yet indirect leads",
+          "next": "fc_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "fc_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Femoral is relatively commoner in women, but indirect is still the most common in women.",
+          "claims": [
+            "K109"
+          ]
+        },
+        {
+          "text": "'Relatively' compares the sexes, and 'most common' ranks the types.",
+          "claims": [
+            "K96"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "e_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fc_t_a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Femoral is the sex-skew hernia, so it looks like the female leader.",
+          "claims": []
+        },
+        {
+          "text": "It does not outnumber all the inguinal types. Indirect is still the commonest in women.",
+          "claims": [
+            "K109"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Read 'relatively' as a comparison, not a rank.",
+        "claims": [
+          "K109"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f_contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fc_t_b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. The sex skew tempts you to flip the sexes, so inguinal seems commoner in women.",
+          "claims": []
+        },
+        {
+          "text": "Inguinal hernia is far more common in males. Its commonest type in women is still indirect.",
+          "claims": [
+            "K27",
+            "K96"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. The sex gap for inguinal hernia runs the other way.",
+        "claims": [
+          "K27"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f_contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "e_probe": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A tense, tender, irreducible groin swelling with no cough impulse, vomiting, and a toxic patient. Your first step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Attempt gentle, then firm, manual reduction",
+          "next": "e_t11",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Resuscitate and take to emergency surgery",
+          "next": "e_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Request an ultrasound of the groin first",
+          "next": "e_t12",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "e_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "e_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Before any reduction, decide one thing about the bowel: is it still alive?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "e_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A strangulated hernia needs emergency surgery, with resection of any non-viable bowel.",
+          "claims": [
+            "K63"
+          ]
+        },
+        {
+          "text": "Its picture is tense, tender and irreducible, with no cough impulse.",
+          "claims": [
+            "K47"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "e_mech",
+          "kind": "continue"
+        }
+      ]
+    },
+    "e_t11": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Reducing first is the reducible-hernia habit, and it feels like the quick, kind move.",
+          "claims": []
+        },
+        {
+          "text": "With strangulation, forceful taxis can push dead bowel back or reduce it en masse. Viability is decided first.",
+          "claims": [
+            "K64",
+            "K63"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so treat strangulation signs as the signal to stop reducing.",
+        "claims": [
+          "K64"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "e_t12": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. A scan feels thorough, so an investigation seems the sensible first move.",
+          "claims": []
+        },
+        {
+          "text": "Ultrasound is for an occult or uncertain swelling. A strangulated hernia needs theatre, not a scan.",
+          "claims": [
+            "K56",
+            "K63"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Match the test to the question; here the question is an emergency.",
+        "claims": [
+          "K63"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "e_mech": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Why is forceful reduction avoided when strangulation is suspected?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "It turns the hernia into an irreducible, fixed swelling",
+          "next": "em_t_fixed",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "It can push dead bowel back or cause en masse reduction",
+          "next": "em_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "It is allowed once analgesia has been given in full",
+          "next": "em_t_analg",
+          "kind": "trap",
+          "trap": "TR11"
+        }
+      ]
+    },
+    "em_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Taxis can push gangrenous bowel back, or reduce sac and contents together.",
+          "claims": [
+            "K64"
+          ]
+        },
+        {
+          "text": "In reduction en masse the constriction persists under the skin, so the bowel stays at risk.",
+          "claims": [
+            "K64"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "e_contrast",
+          "kind": "continue"
+        }
+      ]
+    },
+    "em_t_fixed": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. The fear is that reduction makes the hernia stuck, so it sounds like the reason to avoid it.",
+          "claims": []
+        },
+        {
+          "text": "The real hazard is the bowel: gangrenous loops are pushed back, or the constriction persists.",
+          "claims": [
+            "K64"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Taxis is avoided for the bowel's state, not the hernia's.",
+        "claims": [
+          "K64"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e_mech",
+          "kind": "retry"
+        }
+      ]
+    },
+    "em_t_analg": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Analgesia makes the patient comfortable, so it can seem to make reduction safe.",
+          "claims": []
+        },
+        {
+          "text": "Comfort does not change the bowel. Forceful reduction is avoided in strangulation regardless of pain relief.",
+          "claims": [
+            "K64"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Pain relief is not the test; viability is.",
+        "claims": [
+          "K63"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e_mech",
+          "kind": "retry"
+        }
+      ]
+    },
+    "e_contrast": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now a visible, reducible groin swelling with an expansile cough impulse, in a fit man. Your next step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Ultrasound of the groin before any surgery",
+          "next": "ec_t_us",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Plan elective repair; imaging is not needed",
+          "next": "ec_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "CT of the abdomen and pelvis before surgery",
+          "next": "ec_t_ct",
+          "kind": "trap",
+          "trap": "TR12"
+        }
+      ]
+    },
+    "ec_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A clinically evident hernia is a clinical diagnosis, so imaging adds nothing to the decision.",
+          "claims": [
+            "K55"
+          ]
+        },
+        {
+          "text": "Scans are kept for an occult hernia or a complicated presentation.",
+          "claims": [
+            "K56",
+            "K58"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "occ_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ec_t_us": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Ultrasound feels safe before an operation, so it seems a sensible check.",
+          "claims": []
+        },
+        {
+          "text": "It is for an uncertain or occult lump. This swelling is visible, so the scan adds delay, not a decision.",
+          "claims": [
+            "K56",
+            "K55"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Match the test to whether the hernia is visible.",
+        "claims": [
+          "K55"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e_contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ec_t_ct": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. CT looks thorough, so the most advanced test seems the safest choice.",
+          "claims": []
+        },
+        {
+          "text": "CT is kept for complicated or obscure presentations, not a visible, reducible lump.",
+          "claims": [
+            "K58"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Most advanced is not most useful; it is the question that decides.",
+        "claims": [
+          "K58"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e_contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "occ_probe": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "What is the investigation of choice for an occult groin hernia?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Computed tomography of the pelvis",
+          "next": "occ_t_ct",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Ultrasonography of the groin",
+          "next": "occ_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Herniography of the inguinal canal",
+          "next": "occ_t_herni",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "occ_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "occ_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "'Occult' means hidden on examination. Which test is the first look for a hidden hernia, before anything more advanced?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "occ_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "occ_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Ultrasonography is the first imaging test for an occult hernia.",
+          "claims": [
+            "K105",
+            "K56"
+          ]
+        },
+        {
+          "text": "If ultrasound is inconclusive, MRI is the more sensitive next step.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ep_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "occ_t_ct": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. CT looks like the most complete test, so it feels right for a hidden lump.",
+          "claims": []
+        },
+        {
+          "text": "CT is kept for complicated or obscure presentations. For an occult hernia, ultrasound comes first.",
+          "claims": [
+            "K58",
+            "K56"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Most complete is not most useful first; ultrasound is.",
+        "claims": [
+          "K105"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "occ_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "occ_t_herni": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Herniography is a hernia test by name, so it sounds like the specific answer.",
+          "claims": []
+        },
+        {
+          "text": "It is historical and has been largely replaced by cross-sectional imaging.",
+          "claims": [
+            "K59"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. A test named after the hernia is not automatically the right one.",
+        "claims": [
+          "K59"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "occ_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ep_probe": {
+      "role": "probe",
+      "objectives": [
+        "O11"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An appendix lies inside a femoral hernia sac. Which eponym?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Amyand's hernia",
+          "next": "ep_t_amy",
+          "kind": "trap",
+          "trap": "TR34"
+        },
+        {
+          "label": "De Garengeot hernia",
+          "next": "ep_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "ep_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "ep_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Both eponyms hold an appendix. What separates them is the site, and this stem names the site.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ep_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ep_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. De Garengeot hernia is the appendix within a femoral sac.",
+          "claims": [
+            "K51"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ep2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ep_t_amy": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Amyand's is the better-known appendix hernia, so it comes to mind first.",
+          "claims": []
+        },
+        {
+          "text": "But Amyand's is the inguinal one: the appendix within an inguinal sac. The femoral sac is de Garengeot's.",
+          "claims": [
+            "K50",
+            "K51"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Anchor each eponym to its site, not only to the organ.",
+        "claims": [
+          "K50",
+          "K51"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ep_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ep2": {
+      "role": "probe",
+      "objectives": [
+        "O11"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "At surgery for an inguinal hernia, the surgeon finds an inflamed appendix in the sac. Which eponym?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "De Garengeot hernia",
+          "next": "ep2_t_de",
+          "kind": "trap",
+          "trap": "TR34"
+        },
+        {
+          "label": "Amyand's hernia",
+          "next": "ep2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "ep2_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "ep2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Same organ, different site. Which eponym is tied to the inguinal sac?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ep2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ep2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Amyand's is the appendix within an inguinal sac.",
+          "claims": [
+            "K50"
+          ]
+        },
+        {
+          "text": "The matching set also includes Littre's, Richter's and Maydl's, so learn each with its site or content.",
+          "claims": [
+            "K112"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "recap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ep2_t_de": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. De Garengeot is also an appendix hernia, which is why it tempts you.",
+          "claims": []
+        },
+        {
+          "text": "But it is the femoral sac. This sac is inguinal, so the answer is Amyand's.",
+          "claims": [
+            "K51",
+            "K50"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Same organ, different site: the site picks the eponym.",
+        "claims": [
+          "K50",
+          "K51"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ep2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "recap": {
+      "role": "recap",
+      "say": [
+        {
+          "text": "Three words to carry: neck, scope, site.",
+          "device": true,
+          "claims": []
+        },
+        {
+          "text": "Neck: a narrow neck at the deep ring grips the bowel, so the indirect type strangulates more.",
+          "claims": [
+            "K35"
+          ]
+        },
+        {
+          "text": "Scope: groin takes in femoral, which carries the highest strangulation risk of the groin types.",
+          "claims": [
+            "K97"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
