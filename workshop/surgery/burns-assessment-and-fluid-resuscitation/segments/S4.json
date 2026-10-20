@@ -1,0 +1,825 @@
+{
+  "segment": "S4",
+  "technique": "T7+T6+T2",
+  "decision": "merge",
+  "entry": "case",
+  "nodes": {
+    "case": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 34-year-old man is brought in after a kitchen fire. He has burns over the head and neck, the whole front of the trunk and the perineum.",
+          "claims": []
+        },
+        {
+          "text": "Roughly what total body surface area is burnt, by the adult rule of nines?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "37%",
+          "next": "case_t37",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "28%",
+          "next": "case_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "27%",
+          "next": "case_t27",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "case_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "case_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Go region by region and give each one its own figure. Which regions carry the 9s, and which the 18s?",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "case_t37": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. The head looks like the biggest part of this burn, so it is tempting to give it the larger figure.",
+          "claims": [
+            "K4"
+          ]
+        },
+        {
+          "text": "In an adult the head and neck is no bigger a share than one arm. Recheck it against the arms, then add again.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the full chart",
+          "next": "adult_chart",
+          "kind": "deeper"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is the belief to replace: the adult head is not the big block of the chart. The legs and trunk are.",
+        "claims": [
+          "K4"
+        ]
+      }
+    },
+    "case_t27": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. It looks as if one region was left out: the perineum is tiny, so it is easy to drop.",
+          "claims": [
+            "K4"
+          ]
+        },
+        {
+          "text": "It still has its own figure on the adult chart, the smallest of all. Count it in, then add again.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the full chart",
+          "next": "adult_chart",
+          "kind": "deeper"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the small regions: a tiny region still counts, and the chart reserves a figure for it.",
+        "claims": [
+          "K4"
+        ]
+      }
+    },
+    "case_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Head and neck 9, anterior trunk 18 and perineum 1 gives 28%. Each arm is 9 and each leg 18, and the whole adult chart adds to 100.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "child_q",
+          "kind": "continue"
+        },
+        {
+          "label": "I know both charts: skip to the final check",
+          "next": "close",
+          "kind": "skip"
+        }
+      ]
+    },
+    "adult_chart": {
+      "role": "explain",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "The adult rule of nines: head and neck 9, each arm 9, front of trunk 18, back of trunk 18, each leg 18, perineum 1. That adds to 100.",
+          "claims": [
+            "K4"
+          ]
+        },
+        {
+          "text": "Use one rule for every region: nines for the head and arms, eighteens for the trunk sides and legs, and a single percent for the perineum.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "figures",
+          "kind": "continue"
+        }
+      ]
+    },
+    "figures": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "No chart this time. In the adult rule of nines, how much does the perineum count?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "About 18% of TBSA",
+          "next": "figures_t18",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "About 1% of TBSA",
+          "next": "figures_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "About 9% of TBSA",
+          "next": "figures_t9",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "figures_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "figures_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think of the perineum as a small patch between the thighs, not a whole side of the body. Which figure fits a small patch?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "figures",
+          "kind": "retry"
+        }
+      ]
+    },
+    "figures_t18": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. The perineum sits between the body sides, so the 18s feel close by.",
+          "claims": [
+            "K4"
+          ]
+        },
+        {
+          "text": "Each 18 is a leg or one side of the trunk. The perineum is far smaller than either.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "figures",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the pattern: the big figures belong to big regions, and the perineum is the smallest region.",
+        "claims": [
+          "K4"
+        ]
+      }
+    },
+    "figures_t9": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. Nine is the figure you remember most, so a small area attracts it.",
+          "claims": [
+            "K4"
+          ]
+        },
+        {
+          "text": "Nine belongs to the head and neck and to each arm. The perineum is smaller than any of those.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "figures",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the pattern: the 9s are for the head and arms only.",
+        "claims": [
+          "K4"
+        ]
+      }
+    },
+    "figures_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The perineum is 1%, the smallest figure on the chart. You rebuilt it without the chart, which is the real test.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "child_q",
+          "kind": "continue"
+        }
+      ]
+    },
+    "child_q": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now a 2-year-old with scalds over the whole head and both legs.",
+          "claims": []
+        },
+        {
+          "text": "Which method should you use to estimate the TBSA?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Wallace rule of nines, adult values",
+          "next": "child_t_adult",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "Palm method, one palm per percent",
+          "next": "child_palm",
+          "kind": "partial"
+        },
+        {
+          "label": "Lund and Browder chart, scaled by age",
+          "next": "child_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "child_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "child_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Picture a toddler's body. Its head is proportionally bigger and its legs smaller than an adult's. Which chart accounts for that?",
+          "claims": [
+            "K5"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "child_q",
+          "kind": "retry"
+        }
+      ]
+    },
+    "child_t_adult": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. The adult chart is the one most people learn first, so it feels safe for any scald.",
+          "claims": [
+            "K5"
+          ]
+        },
+        {
+          "text": "The rule of nines is built for adults. A child's proportions differ, so age has to come first.",
+          "claims": [
+            "K5",
+            "K85"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "child_q",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the age-based figures",
+          "next": "child_chart",
+          "kind": "deeper"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the adult chart fits any burn. It does not: age changes the proportions before anything else.",
+        "claims": [
+          "K5"
+        ]
+      }
+    },
+    "child_palm": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. The palm method is for small or patchy burns, a few spots at most.",
+          "claims": [
+            "K6"
+          ]
+        },
+        {
+          "text": "A scald over the whole head and both legs is extensive, so it needs a chart that also corrects for age.",
+          "claims": [
+            "K5",
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "child_q",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the age-based figures",
+          "next": "child_chart",
+          "kind": "deeper"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the palm would do. It suits small patches, not whole regions of a child.",
+        "claims": [
+          "K6"
+        ]
+      }
+    },
+    "child_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Lund and Browder corrects each region for age. In a child the head is about 18% and each leg about 14%.",
+          "claims": [
+            "K5",
+            "K85"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "child_num",
+          "kind": "continue"
+        }
+      ]
+    },
+    "child_chart": {
+      "role": "explain",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "The adult rule of nines overestimates a child's legs and underestimates the head. Lund and Browder corrects for age.",
+          "claims": [
+            "K5"
+          ]
+        },
+        {
+          "text": "In a child the head is about 18% and each leg about 14%. Use the age-based chart for every region, not only the head and legs.",
+          "claims": [
+            "K5",
+            "K85"
+          ]
+        },
+        {
+          "text": "Toddler: big head, short legs. Adult: small head, long legs. The same burn adds up differently.",
+          "claims": [
+            "K5"
+          ],
+          "device": true
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "child_num",
+          "kind": "continue"
+        }
+      ]
+    },
+    "child_num": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same 2-year-old: the whole head and both whole legs are burnt.",
+          "claims": []
+        },
+        {
+          "text": "Total TBSA on the child chart?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "46%",
+          "next": "child_num_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "45%",
+          "next": "child_num_t45",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "54%",
+          "next": "child_num_t54",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "child_num_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "child_num_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Do the head first, then one leg, then double the leg. Use the child figures for each, not the adult ones.",
+          "claims": [
+            "K5"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "child_num",
+          "kind": "retry"
+        }
+      ]
+    },
+    "child_num_t45": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. Those are adult figures for both regions: the head as an adult's and the legs as adults'.",
+          "claims": [
+            "K4",
+            "K5"
+          ]
+        },
+        {
+          "text": "A toddler's head is a bigger share and each leg a smaller share. Redo both regions on the child chart.",
+          "claims": [
+            "K5"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "child_num",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the age-based figures",
+          "next": "child_chart",
+          "kind": "deeper"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is the belief to replace: the adult chart is not the default once the stem gives a child's age.",
+        "claims": [
+          "K85"
+        ]
+      }
+    },
+    "child_num_t54": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. The head looks correct, and then the leg feels right too, so the adult leg figure slipped in.",
+          "claims": [
+            "K5"
+          ]
+        },
+        {
+          "text": "That mixes two models. Once the head follows the child chart, use the child rule for every region, legs included.",
+          "claims": [
+            "K5",
+            "K85"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "child_num",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the age-based figures",
+          "next": "child_chart",
+          "kind": "deeper"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the mix: one age rule applies to every region, not a child head with adult legs.",
+        "claims": [
+          "K85"
+        ]
+      }
+    },
+    "child_num_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Head about 18% plus two legs at about 14% each gives 46%. The adult chart would have given a different answer.",
+          "claims": [
+            "K5",
+            "K85"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "counts",
+          "kind": "continue"
+        }
+      ]
+    },
+    "counts": {
+      "role": "explain",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Count only partial-thickness and full-thickness areas toward TBSA. Simple erythema is not counted.",
+          "claims": [
+            "K36",
+            "K8"
+          ]
+        },
+        {
+          "text": "For small, patchy burns the palm with fingers is about 1%.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "close",
+          "kind": "continue"
+        }
+      ]
+    },
+    "close": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Final check. Which set of adult values adds up to 100%?",
+          "claims": []
+        },
+        {
+          "text": "Total each pair: arms, legs, and the trunk front plus back.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Head 9, arms 18, trunk 36, legs 36, perineum 9",
+          "next": "close_t9",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Head 18, arms 18, trunk 36, legs 36, perineum 1",
+          "next": "close_t18",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Head 9, arms 18, trunk 36, legs 36, perineum 1",
+          "next": "close_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "close_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "close_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Add each set up, starting with the head and the perineum. Which set makes exactly 100?",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "close",
+          "kind": "retry"
+        }
+      ]
+    },
+    "close_t18": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. The head is a big region, so 18 feels like a head figure.",
+          "claims": [
+            "K4"
+          ]
+        },
+        {
+          "text": "Check the sum: with the head at 18 the set reaches 109, so one region is too large.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "close",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the head: in an adult it is not an 18.",
+        "claims": [
+          "K4"
+        ]
+      }
+    },
+    "close_t9": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. The perineum is small, and nine is the figure you remember most.",
+          "claims": [
+            "K4"
+          ]
+        },
+        {
+          "text": "Check the sum: with the perineum at 9 the set reaches 108, so one region is too large.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "close",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the smallest region: it takes the smallest figure on the chart.",
+        "claims": [
+          "K4"
+        ]
+      }
+    },
+    "close_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Head 9, arms 18, trunk 36, legs 36, perineum 1 makes 100%. Run that sum check every time you estimate.",
+          "claims": [
+            "K4"
+          ]
+        },
+        {
+          "text": "For a child, switch to the Lund and Browder chart before you add anything up.",
+          "claims": [
+            "K5"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
