@@ -1,0 +1,464 @@
+{
+  "segment": "S8",
+  "technique": "T10",
+  "entry": "q1",
+  "nodes": {
+    "q1": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 60-year-old man has a deep scald across the front of his neck and chest from a boiling urn. His voice is normal, he is calm, and he is speaking in full sentences.", "claims": []},
+        {"text": "What is your first move?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Check the airway now and plan early intubation", "next": "q1_ok", "kind": "correct"},
+        {"label": "Work out the Parkland volume and start the drip", "next": "q1_t29", "kind": "trap", "trap": "TR29"},
+        {"label": "Watch the neck and intubate only if he struggles", "next": "q1_t30", "kind": "trap", "trap": "TR30"},
+        {"label": "Not sure, give me a hint", "next": "q1_h", "kind": "help"}
+      ]
+    },
+    "q1_h": {
+      "role": "hint",
+      "say": [{"text": "Ask which threat can close the airway within hours, and which task can wait a few minutes of charting.", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "q1", "kind": "retry"}]
+    },
+    "q1_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. A deep neck burn is a named reason to intubate early, while the airway is still easy to secure, before oedema builds.", "claims": ["K39"]},
+        {"text": "The airway is part of the primary survey, so it comes before any burn arithmetic.", "claims": ["K32"]}
+      ],
+      "choices": [{"label": "Next", "next": "q2", "kind": "continue"}]
+    },
+    "q1_t29": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Burn arithmetic belongs to the secondary survey. The airway belongs to the primary survey and can close within hours, so it cannot wait for the sums.", "claims": ["K32", "K39"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the order: the primary survey comes before any burn sum.", "claims": ["K32"]},
+      "choices": [{"label": "Try again", "next": "q1", "kind": "retry"}]
+    },
+    "q1_t30": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Waiting for stridor is tempting, because the patient looks fine now. But oedema builds over the first hours, so the window can shut before the signs appear.", "claims": ["K39"]}
+      ],
+      "sure_note": {"text": "You were sure, so look again: the plan is to secure the airway before oedema develops, not after stridor starts.", "claims": ["K39"]},
+      "choices": [{"label": "Try again", "next": "q1", "kind": "retry"}]
+    },
+    "q2": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "You are grading a burn on a patient's back before you count it toward the total.", "claims": []},
+        {"text": "Which description is a full-thickness burn?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Dry white or leathery patch, painless to a pin, not blanching", "next": "q2_ok", "kind": "correct"},
+        {"label": "Mottled patch, less painful than the skin, with slow refill", "next": "q2_t18", "kind": "trap", "trap": "TR18"},
+        {"label": "Wet pink blistered patch that is very painful to touch", "next": "q2_p", "kind": "partial"},
+        {"label": "Not sure, give me a hint", "next": "q2_h", "kind": "help"}
+      ]
+    },
+    "q2_h": {
+      "role": "hint",
+      "say": [{"text": "Pain is the first clue most people reach for, but it is only one clue. What does the skin look like, and how does it refill?", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "q2", "kind": "retry"}]
+    },
+    "q2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. Full thickness is dry, white or leathery, insensate, and does not blanch.", "claims": ["K26"]},
+        {"text": "That is why it needs excision and grafting later, so the depth call matters for the plan.", "claims": ["K26"]}
+      ],
+      "choices": [{"label": "Next", "next": "q3", "kind": "continue"}]
+    },
+    "q2_t18": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Less pain feels like deeper injury, but pain falls only partly with depth. A mottled burn with slow refill is deep partial, not full thickness.", "claims": ["K25", "K26"]}
+      ],
+      "sure_note": {"text": "You were sure, so look at refill and colour before pain: slow refill points to a deep partial burn.", "claims": ["K25"]},
+      "choices": [{"label": "Try again", "next": "q2", "kind": "retry"}]
+    },
+    "q2_p": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not quite right.", "claims": []},
+        {"text": "A wet, blistered, very painful patch is superficial partial thickness. It blanches and heals in about 2 to 3 weeks.", "claims": ["K24"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the blister base: a wet pink base is a superficial, not a full-thickness, picture.", "claims": ["K24"]},
+      "choices": [{"label": "Try again", "next": "q2", "kind": "retry"}]
+    },
+    "q3": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 45-year-old man has burns over the whole front of his trunk and both arms, with nothing on the legs or back.", "claims": []},
+        {"text": "Using the adult rule of nines, what total body surface area is burnt?", "claims": []}
+      ],
+      "choices": [
+        {"label": "54%", "next": "q3_t22a", "kind": "trap", "trap": "TR22"},
+        {"label": "36%", "next": "q3_ok", "kind": "correct"},
+        {"label": "27%", "next": "q3_t22b", "kind": "trap", "trap": "TR22"},
+        {"label": "Not sure, give me a hint", "next": "q3_h", "kind": "help"}
+      ]
+    },
+    "q3_h": {
+      "role": "hint",
+      "say": [{"text": "Work out the front of the trunk on its own first. Then ask what each arm carries on the adult chart.", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "q3", "kind": "retry"}]
+    },
+    "q3_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. The front of the trunk is 18%, and each arm is 9%, which gives 36%.", "claims": ["K4"]},
+        {"text": "The adult chart is built from these blocks, and the total feeds the Parkland sum later.", "claims": ["K4", "K36", "K2"]}
+      ],
+      "choices": [{"label": "Next", "next": "q4", "kind": "continue"}]
+    },
+    "q3_t22a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Giving each arm the leg value is the swap. An arm is 9%, and a leg is 18%.", "claims": ["K4"]}
+      ],
+      "sure_note": {"text": "You were sure, so relearn the blocks: 9 for the head and each arm, 18 for each leg and each side of the trunk.", "claims": ["K4"]},
+      "choices": [{"label": "Try again", "next": "q3", "kind": "retry"}]
+    },
+    "q3_t22b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "The front of the trunk is an 18% block. The head's 9% has been put on the trunk.", "claims": ["K4"]}
+      ],
+      "sure_note": {"text": "You were sure, so check each block against its place: the front of the trunk is not the head.", "claims": ["K4"]},
+      "choices": [{"label": "Try again", "next": "q3", "kind": "retry"}]
+    },
+    "q4": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A cyclist is pulled from a garage fire. His pulse oximeter reads 100%, and a junior has written 'carbon monoxide excluded' in the notes.", "claims": []},
+        {"text": "What is the right correction?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Nothing to correct: 100% means the blood carries enough oxygen", "next": "q4_t13a", "kind": "trap", "trap": "TR13"},
+        {"label": "Not excluded: measure carboxyhaemoglobin rather than trust saturation", "next": "q4_ok", "kind": "correct"},
+        {"label": "Accept the note, and recheck the oximeter in an hour", "next": "q4_t13b", "kind": "trap", "trap": "TR13"},
+        {"label": "Not sure, give me a hint", "next": "q4_h", "kind": "help"}
+      ]
+    },
+    "q4_h": {
+      "role": "hint",
+      "say": [{"text": "A clean number on a monitor feels like a verdict. Ask what that number can and cannot tell apart.", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "q4", "kind": "retry"}]
+    },
+    "q4_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. A pulse oximeter cannot separate carboxyhaemoglobin from oxyhaemoglobin, so a normal reading proves nothing.", "claims": ["K30"]},
+        {"text": "Carboxyhaemoglobin on co-oximetry measures the poison itself, so that is the number to trust.", "claims": ["K33"]}
+      ],
+      "choices": [{"label": "Next", "next": "q5", "kind": "continue"}]
+    },
+    "q4_t13a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "A saturation of 100% comes from light that cannot tell carboxyhaemoglobin from oxyhaemoglobin, so the reading gives no reassurance.", "claims": ["K30"]}
+      ],
+      "sure_note": {"text": "You were sure, so look again: a normal saturation says nothing about carbon monoxide.", "claims": ["K30"]},
+      "choices": [{"label": "Try again", "next": "q4", "kind": "retry"}]
+    },
+    "q4_t13b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Repeating the same reading adds nothing. However often the oximeter is checked, it cannot see carboxyhaemoglobin.", "claims": ["K30"]}
+      ],
+      "sure_note": {"text": "You were sure, so look again: repeated readings from this probe carry the same blind spot.", "claims": ["K30"]},
+      "choices": [{"label": "Try again", "next": "q4", "kind": "retry"}]
+    },
+    "q5": {
+      "role": "probe",
+      "objectives": ["O9"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 40-year-old woman has a deep burn over the cartilage of her ear. The team wants a topical agent that gets into dead eschar.", "claims": []},
+        {"text": "Which agent fits, and what must you watch for?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Mafenide, and watch for metabolic acidosis", "next": "q5_ok", "kind": "correct"},
+        {"label": "Silver sulfadiazine, and watch for leucopenia", "next": "q5_t25a", "kind": "trap", "trap": "TR25"},
+        {"label": "Silver nitrate, and watch for hyponatraemia", "next": "q5_t25b", "kind": "trap", "trap": "TR25"},
+        {"label": "Not sure, give me a hint", "next": "q5_h", "kind": "help"}
+      ]
+    },
+    "q5_h": {
+      "role": "hint",
+      "say": [{"text": "Two things sit in one stem: which agent gets through the eschar, and what it does to the blood. Take them one at a time.", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "q5", "kind": "retry"}]
+    },
+    "q5_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. Mafenide penetrates eschar, which suits cartilage, and it can cause metabolic acidosis.", "claims": ["K75", "K76"]},
+        {"text": "It is painful on application, so plan analgesia with it.", "claims": ["K57"]}
+      ],
+      "choices": [{"label": "Next", "next": "q6", "kind": "continue"}]
+    },
+    "q5_t25a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Silver sulfadiazine is broad and painless, but it does not get into eschar, and eschar is the property this ear needs.", "claims": ["K57"]}
+      ],
+      "sure_note": {"text": "You were sure, so separate the two: an agent's property and its side effect are different facts.", "claims": ["K57", "K77"]},
+      "choices": [{"label": "Try again", "next": "q5", "kind": "retry"}]
+    },
+    "q5_t25b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Silver nitrate stains black and can cause hyponatraemia, but it stays on the surface and does not penetrate eschar.", "claims": ["K57", "K78"]}
+      ],
+      "sure_note": {"text": "You were sure, so look again: pick the agent for what it does to the eschar, then check its side effect.", "claims": ["K57"]},
+      "choices": [{"label": "Try again", "next": "q5", "kind": "retry"}]
+    },
+    "q6": {
+      "role": "probe",
+      "objectives": ["O7"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "No hints from here on. Five cold questions, and Try again still works.", "claims": []},
+        {"text": "A 60 kg adult has a 30% scald, burned 2 hours ago, with no fluid given yet. Using 4 mL/kg/%TBSA, what hourly rate covers the rest of the first half?", "claims": []}
+      ],
+      "choices": [
+        {"label": "1,200 mL/h", "next": "q6_t3a", "kind": "trap", "trap": "TR3"},
+        {"label": "600 mL/h", "next": "q6_ok", "kind": "correct"},
+        {"label": "150 mL/h", "next": "q6_t3b", "kind": "trap", "trap": "TR3"},
+        {"label": "450 mL/h", "next": "q6_p", "kind": "partial"}
+      ]
+    },
+    "q6_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. The whole formula is 7,200 mL, so the first half is 3,600 mL, timed from the burn.", "claims": ["K2", "K43"]},
+        {"text": "Two hours have gone, so 3,600 mL over the remaining six hours is 600 mL/h.", "claims": ["K44"]},
+        {"text": "⚠ Exam note: PYQ keys still use 4 mL/kg/%TBSA, while current practice starts lower and titrates. Do the sum as asked, then check the question's wording.", "claims": ["K82"]}
+      ],
+      "choices": [{"label": "Next", "next": "q7", "kind": "continue"}]
+    },
+    "q6_t3a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "That runs the whole 24-hour total into the first window. Only the half belongs there, over 8 hours from the burn.", "claims": ["K2"]}
+      ],
+      "sure_note": {"text": "You were sure, so re-check which total goes into the 8-hour window.", "claims": ["K44"]},
+      "choices": [{"label": "Try again", "next": "q6", "kind": "retry"}]
+    },
+    "q6_t3b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "That spreads the half over the full day. The first half is timed to the 8-hour window, not to 24 hours.", "claims": ["K2", "K44"]}
+      ],
+      "sure_note": {"text": "You were sure, so look at the clock: the first half is a short window, not a day.", "claims": ["K44"]},
+      "choices": [{"label": "Try again", "next": "q6", "kind": "retry"}]
+    },
+    "q6_p": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not quite right.", "claims": []},
+        {"text": "That spreads the first half over all 8 hours. The clock started at the burn, so count the time already gone.", "claims": ["K43"]}
+      ],
+      "sure_note": {"text": "You were sure, so count from the burn, not from the moment you are working.", "claims": ["K43"]},
+      "choices": [{"label": "Try again", "next": "q6", "kind": "retry"}]
+    },
+    "q7": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 28-year-old is seen 2 hours after a cellar fire, with soot on his lips and a hoarse voice.", "claims": []},
+        {"text": "Which order of tests makes most sense?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Co-oximetry now, bronchoscopy for the airway, film as baseline", "next": "q7_ok", "kind": "correct"},
+        {"label": "Chest X-ray first; bronchoscopy only if the film is abnormal", "next": "q7_t12a", "kind": "trap", "trap": "TR12"},
+        {"label": "Arterial blood gas alone, since it answers every question", "next": "q7_t12b", "kind": "trap", "trap": "TR12"}
+      ]
+    },
+    "q7_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. Co-oximetry measures carboxyhaemoglobin, and bronchoscopy looks at the airway directly.", "claims": ["K33", "K34"]},
+        {"text": "A chest film is often normal early, so it serves as a baseline rather than the gate.", "claims": ["K35"]}
+      ],
+      "choices": [{"label": "Next", "next": "q8", "kind": "continue"}]
+    },
+    "q7_t12a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "A chest film is often normal early, so a clear film does not clear the airway, and it cannot gate the bronchoscopy.", "claims": ["K35"]}
+      ],
+      "sure_note": {"text": "You were sure, so look again at what an early film can and cannot show.", "claims": ["K35"]},
+      "choices": [{"label": "Try again", "next": "q7", "kind": "retry"}]
+    },
+    "q7_t12b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "A blood gas reports gas exchange and, with co-oximetry, carboxyhaemoglobin. It cannot see soot or oedema in the airway.", "claims": ["K33", "K34"]}
+      ],
+      "sure_note": {"text": "You were sure, so note it: the airway is seen with a bronchoscope, not read from a gas.", "claims": ["K34"]},
+      "choices": [{"label": "Try again", "next": "q7", "kind": "retry"}]
+    },
+    "q8": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 60 kg adult is on the formula rate. At hour 4, urine is 110 mL/h, and blood pressure is steady.", "claims": []},
+        {"text": "What do you do with the rate?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Keep the formula rate; the calculated number is the plan", "next": "q8_t16", "kind": "trap", "trap": "TR16"},
+        {"label": "Raise the rate by a fifth to match the output", "next": "q8_t17", "kind": "trap", "trap": "TR17"},
+        {"label": "Reduce the rate and recheck urine output hourly", "next": "q8_ok", "kind": "correct"}
+      ]
+    },
+    "q8_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. Output this high means fluid is ahead of need, so the rate comes down and hourly urine guides the next step.", "claims": ["K51"]},
+        {"text": "The formula sets the start, and urine output steers from there.", "claims": ["K1"]}
+      ],
+      "choices": [{"label": "Next", "next": "q9", "kind": "continue"}]
+    },
+    "q8_t16": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "The formula gives a starting rate. A fixed rate ignores the urine, which is the signal that should change it.", "claims": ["K45", "K51"]}
+      ],
+      "sure_note": {"text": "You were sure, so look again: the formula sets the start, and urine sets the rest.", "claims": ["K1", "K45"]},
+      "choices": [{"label": "Try again", "next": "q8", "kind": "retry"}]
+    },
+    "q8_t17": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Raising the rate when output is already high pushes more fluid into a patient who is passing plenty. Over-resuscitation causes oedema and compartment syndromes.", "claims": ["K52"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the direction: high output asks for less fluid, not more.", "claims": ["K51"]},
+      "choices": [{"label": "Try again", "next": "q8", "kind": "retry"}]
+    },
+    "q9": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 15 kg child with a burn is 2 hours in. Urine has been 9 mL/h.", "claims": []},
+        {"text": "Is that enough?", "claims": []}
+      ],
+      "choices": [
+        {"label": "No: under target, so raise fluid toward about 15 mL/h", "next": "q9_ok", "kind": "correct"},
+        {"label": "No: far below the 30 to 50 mL/h adult range", "next": "q9_t19a", "kind": "trap", "trap": "TR19"},
+        {"label": "Yes: above the adult 0.5 mL/kg/h target", "next": "q9_t19b", "kind": "trap", "trap": "TR19"}
+      ]
+    },
+    "q9_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. A child's target is 1 mL/kg/h, so 15 kg gives about 15 mL/h, and 9 mL/h is under it.", "claims": ["K71"]},
+        {"text": "Raise the fluid, then recheck the output hourly, as in an adult.", "claims": ["K51"]}
+      ],
+      "choices": [{"label": "Next", "next": "q10", "kind": "continue"}]
+    },
+    "q9_t19a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "The conclusion points the right way, but the yardstick is wrong. 30 to 50 mL/h is an adult figure, and a child's target scales with weight.", "claims": ["K70", "K71"]}
+      ],
+      "sure_note": {"text": "You were sure, so re-check the yardstick: a child's target is set per kilogram.", "claims": ["K71"]},
+      "choices": [{"label": "Try again", "next": "q9", "kind": "retry"}]
+    },
+    "q9_t19b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "0.5 mL/kg/h is the adult target, half the child's figure. Using it makes 9 mL/h look adequate when it is low.", "claims": ["K7", "K71"]}
+      ],
+      "sure_note": {"text": "You were sure, so note it: the adult figure per kilogram is half the child's.", "claims": ["K7", "K71"]},
+      "choices": [{"label": "Try again", "next": "q9", "kind": "retry"}]
+    },
+    "q10": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Last question, cold. A patient with burns has just arrived.", "claims": []},
+        {"text": "Which step has to come before any burn numbers are worked out?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Primary survey: airway, breathing and circulation first", "next": "q10_ok", "kind": "correct"},
+        {"label": "Estimating the TBSA on the rule of nines chart", "next": "q10_t29a", "kind": "trap", "trap": "TR29"},
+        {"label": "Writing the Parkland sum on the fluid chart", "next": "q10_t29b", "kind": "trap", "trap": "TR29"}
+      ]
+    },
+    "q10_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Right. Airway, breathing and circulation come first in the primary survey.", "claims": ["K32"]},
+        {"text": "TBSA and the fluid sum are secondary-survey work, so they come after the airway is secured.", "claims": ["K32", "K36"]}
+      ],
+      "choices": [{"label": "Next", "next": "close", "kind": "continue"}]
+    },
+    "q10_t29a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Estimating TBSA matters, but it is secondary-survey work. It cannot be the first step.", "claims": ["K32", "K36"]}
+      ],
+      "sure_note": {"text": "You were sure, so look at the order: the burn chart comes after the primary survey.", "claims": ["K32"]},
+      "choices": [{"label": "Try again", "next": "q10", "kind": "retry"}]
+    },
+    "q10_t29b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "The Parkland sum is burn arithmetic. It comes after the primary survey, while the airway can still close.", "claims": ["K32", "K39"]}
+      ],
+      "sure_note": {"text": "You were sure, so re-check the order: breathing and circulation are the first checks.", "claims": ["K32"]},
+      "choices": [{"label": "Try again", "next": "q10", "kind": "retry"}]
+    },
+    "close": {
+      "role": "recap",
+      "say": [
+        {"text": "Airway first, then size the burn honestly, start with the formula, and let urine output steer the fluid.", "claims": ["K32", "K28", "K2", "K51"]}
+      ],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    }
+  },
+  "cards": [
+    {"q": "In a burn with a deep neck scald, what comes first?", "a": "Check the airway now and plan early intubation, before oedema builds.", "claims": ["K39"], "objective": "O1"},
+    {"q": "Which test confirms inhalation injury, and why is a normal chest film not enough?", "a": "Fibreoptic bronchoscopy shows the airway directly; an early chest film is often normal.", "claims": ["K34", "K35"], "objective": "O2"},
+    {"q": "Which burn is full thickness?", "a": "Dry, white or leathery, painless to a pin, does not blanch. Pain alone does not grade depth.", "claims": ["K26", "K25"], "objective": "O5"},
+    {"q": "Adult rule of nines: what does the head carry, and what does the front of the trunk carry?", "a": "9% for the head and each arm; 18% for the front of the trunk.", "claims": ["K4"], "objective": "O6"},
+    {"q": "How is the first 8-hour half of the Parkland volume timed?", "a": "Half the volume, counted from the time of burn, not arrival; fluid already given is deducted.", "claims": ["K2", "K43", "K45"], "objective": "O7"},
+    {"q": "What hourly urine output do you aim for in an adult and in a child?", "a": "Adult 0.5 mL/kg/h (30 to 50 mL/h); child 1 mL/kg/h. High output means reduce the fluid rate.", "claims": ["K7", "K71", "K51"], "objective": "O8"},
+    {"q": "Which topical agent penetrates eschar, and what does it cause?", "a": "Mafenide penetrates eschar and can cause metabolic acidosis; silver sulfadiazine causes leucopenia and silver nitrate causes hyponatraemia.", "claims": ["K75", "K76", "K77", "K78"], "objective": "O9"}
+  ]
+}
