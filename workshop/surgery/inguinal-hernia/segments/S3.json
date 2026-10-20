@@ -947,7 +947,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "close_s3",
+          "next": "wall2",
           "kind": "continue"
         }
       ]
@@ -979,6 +979,90 @@
           "kind": "continue"
         }
       ]
+    },
+    "wall2": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "A direct sac pushes through the posterior wall of the canal. Which structure reinforces that wall medially?",
+          "claims": [
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Conjoint tendon",
+          "next": "wall2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Internal oblique",
+          "next": "wall2_t",
+          "kind": "trap",
+          "trap": "TR28"
+        },
+        {
+          "label": "External oblique aponeurosis",
+          "next": "wall2_t",
+          "kind": "trap",
+          "trap": "TR28"
+        }
+      ],
+      "segment": "S3"
+    },
+    "wall2_t": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Not quite. Both obliques make or reinforce the anterior wall. The medial reinforcement of the posterior wall is the conjoint tendon.",
+          "claims": [
+            "K18",
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wall2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "wall2_ok",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S3"
+    },
+    "wall2_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The conjoint tendon reinforces the posterior wall medially, where a direct sac pushes through.",
+          "claims": [
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "close_s3",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S3"
     }
   },
   "technique": "T7+T6+T3",

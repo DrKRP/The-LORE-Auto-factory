@@ -12,7 +12,7 @@
       "ask_confidence": true,
       "say": [
         {
-          "text": "Final check. These are fresh stems on earlier ideas, and the last three give no hints.",
+          "text": "Final check. These are fresh stems on earlier ideas, and hints stop partway through.",
           "claims": []
         },
         {
@@ -898,18 +898,18 @@
       ],
       "choices": [
         {
-          "label": "A man with bilateral hernias, surgeon trained in laparoscopy",
+          "label": "A man with bilateral hernias, surgeon laparoscopy-trained",
           "next": "p7t0",
           "kind": "trap",
           "trap": "TR16"
         },
         {
-          "label": "A man with a primary unilateral hernia, surgeon trained only in open repair",
+          "label": "A man with a primary unilateral hernia, surgeon open-trained only",
           "next": "p7ok",
           "kind": "correct"
         },
         {
-          "label": "A man with recurrence after open repair, surgeon trained in laparoscopy",
+          "label": "A man with recurrence after open repair, surgeon laparoscopy-trained",
           "next": "p7t1",
           "kind": "trap",
           "trap": "TR16"
@@ -1081,7 +1081,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "p12",
+          "next": "p9",
           "kind": "continue"
         }
       ]
@@ -1106,7 +1106,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "p12",
+          "next": "p9",
           "kind": "continue"
         }
       ]
@@ -1253,6 +1253,373 @@
           "kind": "continue"
         }
       ]
+    },
+    "p9": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A theatre list says 'herniorrhaphy' for a man's inguinal hernia.",
+          "claims": []
+        },
+        {
+          "text": "Which finding in the operation note fits that term?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Mesh laid over the posterior wall",
+          "next": "p9t0",
+          "kind": "trap",
+          "trap": "TR39"
+        },
+        {
+          "label": "Sac excised, wall repaired with own sutures",
+          "next": "p9ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Sac excised, wall left alone",
+          "next": "p9t1",
+          "kind": "trap",
+          "trap": "TR39"
+        }
+      ],
+      "segment": "S6"
+    },
+    "p9t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. Mesh reinforcing the wall is hernioplasty, not herniorrhaphy.",
+          "claims": [
+            "K15"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so recheck: mesh makes it hernioplasty; own tissue is herniorrhaphy.",
+        "claims": [
+          "K15"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p9",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p9ok",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S6"
+    },
+    "p9t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not correct. Sac excision with no wall repair is herniotomy, not herniorrhaphy.",
+          "claims": [
+            "K15"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so recheck: herniorrhaphy also repairs the wall.",
+        "claims": [
+          "K15"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p9",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p9ok",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S6"
+    },
+    "p9ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Herniorrhaphy is herniotomy plus repair of the posterior wall with the patient's own tissue.",
+          "claims": [
+            "K15"
+          ]
+        },
+        {
+          "text": "Herniotomy stops at the sac, and hernioplasty adds mesh.",
+          "claims": [
+            "K15"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p10",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "p10": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "After an open mesh repair, a man has numbness over the root of the penis and the anterior scrotum.",
+          "claims": [
+            "K89"
+          ]
+        },
+        {
+          "text": "Which nerve is most likely injured?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Lateral femoral cutaneous nerve",
+          "next": "p10t0",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Femoral nerve",
+          "next": "p10t1",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Ilioinguinal nerve",
+          "next": "p10ok",
+          "kind": "correct"
+        }
+      ],
+      "segment": "S6"
+    },
+    "p10t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. That nerve is the one most often injured in laparoscopic repair, not open repair.",
+          "claims": [
+            "K100"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so recheck: match the nerve to the approach.",
+        "claims": [
+          "K99",
+          "K100"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p10",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p10ok",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S6"
+    },
+    "p10t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. The femoral nerve lies in the triangle of pain and is not the nerve most often injured in open repair.",
+          "claims": [
+            "K82",
+            "K99"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so recheck: open repair most often injures the ilioinguinal nerve.",
+        "claims": [
+          "K99"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p10",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p10ok",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S6"
+    },
+    "p10ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The ilioinguinal nerve is the one most commonly injured in open repair.",
+          "claims": [
+            "K99",
+            "K89"
+          ]
+        },
+        {
+          "text": "Laparoscopic repair injures the lateral femoral cutaneous nerve instead.",
+          "claims": [
+            "K100"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p11",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "p11": {
+      "role": "probe",
+      "objectives": [
+        "O11"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A surgeon is taught never to tack in the triangle of doom. What is he protecting?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Nerves such as the lateral femoral cutaneous nerve",
+          "next": "p11t0",
+          "kind": "trap",
+          "trap": "TR25"
+        },
+        {
+          "label": "The external iliac vessels",
+          "next": "p11ok",
+          "kind": "correct"
+        },
+        {
+          "label": "The femoral nerve alone",
+          "next": "p11t2",
+          "kind": "trap",
+          "trap": "TR25"
+        }
+      ],
+      "segment": "S6"
+    },
+    "p11t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not correct. Those nerves lie in the triangle of pain, lateral to the gonadal vessels.",
+          "claims": [
+            "K82"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so recheck: doom holds vessels, pain holds nerves.",
+        "claims": [
+          "K81"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p11",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p11ok",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S6"
+    },
+    "p11ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The triangle of doom lies between the vas medially and the gonadal vessels laterally, and holds the external iliac vessels.",
+          "claims": [
+            "K81"
+          ]
+        },
+        {
+          "text": "The triangle of pain lies lateral to the gonadal vessels, below the iliopubic tract, and holds nerves.",
+          "claims": [
+            "K82"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p12",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "p11t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. The femoral nerve lies in the triangle of pain, not in doom.",
+          "claims": [
+            "K82"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so recheck: doom holds vessels, pain holds nerves.",
+        "claims": [
+          "K81"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p11",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p11ok",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S6"
     }
   },
   "cards": [

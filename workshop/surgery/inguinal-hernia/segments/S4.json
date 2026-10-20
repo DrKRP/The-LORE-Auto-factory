@@ -529,7 +529,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "d3_probe",
+          "next": "d1_probe",
           "kind": "continue"
         }
       ]
@@ -975,6 +975,157 @@
           "kind": "continue"
         }
       ]
+    },
+    "d1_probe": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now an emergency. A tense, tender, irreducible groin swelling, with vomiting, in a patient who looks toxic.",
+          "claims": []
+        },
+        {
+          "text": "What is your first action?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Gentle, then firm manual reduction",
+          "next": "d1_t11",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Resuscitate, then emergency surgery",
+          "next": "d1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Groin ultrasound before anything else",
+          "next": "d1_t12",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "d1_hint",
+          "kind": "help"
+        }
+      ],
+      "segment": "S4"
+    },
+    "d1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Before any test or any push, ask whether the bowel is still alive.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "d1_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "d1_ok",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S4"
+    },
+    "d1_t11": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. This swelling will not go back, and the bowel may be dead. Pushing can drive gangrenous bowel back or reduce it en masse.",
+          "claims": [
+            "K64"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Reduction is for a hernia whose bowel is still alive; check viability first.",
+        "claims": [
+          "K63"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "d1_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "d1_ok",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S4"
+    },
+    "d1_t12": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. A clinically evident hernia needs no imaging, and this one needs emergency surgery first.",
+          "claims": [
+            "K55",
+            "K63"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Imaging is for the occult or unclear groin lump, not for a strangulated one.",
+        "claims": [
+          "K55",
+          "K56"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "d1_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "d1_ok",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S4"
+    },
+    "d1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Resuscitate and operate: strangulation is a surgical emergency, with resection of any non-viable bowel.",
+          "claims": [
+            "K63"
+          ]
+        },
+        {
+          "text": "Taxis is avoided because it can push gangrenous bowel back.",
+          "claims": [
+            "K64"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "d3_probe",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S4"
     }
   },
   "technique": "T2",
