@@ -1,0 +1,303 @@
+{
+  "segment": "S5",
+  "technique": "T1",
+  "entry": "r1",
+  "nodes": {
+    "r1": {
+      "role": "probe",
+      "objectives": ["O7"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 45-year-old woman has an operable 2.5 cm carcinoma of the breast. Her axilla feels clinically normal.", "claims": []},
+        {"text": "Which is the current standard operation for her?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Halsted radical mastectomy with full axillary clearance", "next": "r1_t", "kind": "trap", "trap": "TR3"},
+        {"label": "Breast-conserving surgery with whole-breast radiotherapy", "next": "r1_ok", "kind": "correct"},
+        {"label": "Simple mastectomy with no axillary staging at all", "next": "r1_p", "kind": "partial"},
+        {"label": "Not sure, give me a hint", "next": "r1_h", "kind": "help"}
+      ]
+    },
+    "r1_h": {
+      "role": "hint",
+      "say": [
+        {"text": "Compare what each option removes. Then ask what the patient still needs after the operation to make the treatment complete.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "r1", "kind": "retry"}
+      ]
+    },
+    "r1_ok": {
+      "role": "feedback",
+      "objectives": ["O7"],
+      "say": [
+        {"text": "Right. Breast conservation with whole-breast radiotherapy gives survival equivalent to mastectomy in suitable early cancers.", "claims": ["K77"]},
+        {"text": "Whole-breast radiotherapy is mandatory after conservation. When conservation is not suitable, modified radical mastectomy is the alternative.", "claims": ["K93", "K86"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "r2", "kind": "continue"}
+      ]
+    },
+    "r1_t": {
+      "role": "feedback",
+      "objectives": ["O7"],
+      "say": [
+        {"text": "Not the right choice.", "claims": []},
+        {"text": "Halsted looks like the most thorough operation, and older keys did expect it.", "claims": []},
+        {"text": "But it removes pectoralis major and minor and clears all three axillary levels, and it is now rarely done.", "claims": ["K85", "K139"]}
+      ],
+      "sure_note": {"text": "You were sure of Halsted. It is the old PYQ key, and that is the habit this module breaks.", "claims": ["K139"]},
+      "choices": [
+        {"label": "Try again", "next": "r1", "kind": "retry"},
+        {"label": "Show me why", "next": "r1_e", "kind": "agency"}
+      ]
+    },
+    "r1_p": {
+      "role": "feedback",
+      "objectives": ["O7"],
+      "say": [
+        {"text": "Not the right choice.", "claims": []},
+        {"text": "Removing the breast alone looks like a clean, simple plan, and it tempts when you want to skip the axilla decision.", "claims": []},
+        {"text": "But early cancer needs surgery to both the breast and the axilla, and the axilla still needs staging.", "claims": ["K76", "K89"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "r1", "kind": "retry"},
+        {"label": "Show me why", "next": "r1_e", "kind": "agency"}
+      ]
+    },
+    "r1_e": {
+      "role": "explain",
+      "objectives": ["O7"],
+      "say": [
+        {"text": "Breast-conserving surgery with whole-breast radiotherapy is the current standard when the tumour can be cleared with clear margins and the breast suits conservation.", "claims": ["K77", "K78"]},
+        {"text": "Halsted, which removes pectoralis major and minor, is no longer the standard.", "claims": ["K85"]},
+        {"text": "MRM keeps pectoralis major and is used when conservation is unsuitable, for example with multicentric disease.", "claims": ["K86", "K79"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "r2", "kind": "continue"}
+      ]
+    },
+    "r2": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 42-year-old is being considered for breast-conserving surgery.", "claims": []},
+        {"text": "Which of these rules it out?", "claims": []}
+      ],
+      "choices": [
+        {"label": "A tumour larger than 5 cm in size", "next": "r2_t", "kind": "trap", "trap": "TR14"},
+        {"label": "Positive lymph nodes in the axilla", "next": "r2_p", "kind": "partial"},
+        {"label": "Multicentric disease, with tumours in separate quadrants", "next": "r2_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "r2_h", "kind": "help"}
+      ]
+    },
+    "r2_h": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask what conservation needs: clear margins from one excision, and a breast that can take whole-breast radiotherapy. Which option threatens that?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "r2", "kind": "retry"}
+      ]
+    },
+    "r2_ok": {
+      "role": "feedback",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "Right. Disease in separate quadrants cannot be cleared through one excision, so conservation is ruled out.", "claims": ["K79"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "r3", "kind": "continue"}
+      ]
+    },
+    "r2_t": {
+      "role": "feedback",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "Not the right choice.", "claims": []},
+        {"text": "Size looks like a hard limit, and a 5 cm line is easy to carry over from staging.", "claims": []},
+        {"text": "But size matters only relative to the breast, as a cosmetic problem, not as an absolute bar.", "claims": ["K84"]}
+      ],
+      "sure_note": {"text": "You were sure size rules out conservation. Size matters only against the breast.", "claims": ["K84"]},
+      "choices": [
+        {"label": "Try again", "next": "r2", "kind": "retry"},
+        {"label": "Show me why", "next": "r2_e", "kind": "agency"}
+      ]
+    },
+    "r2_p": {
+      "role": "feedback",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "Not the right choice.", "claims": []},
+        {"text": "Positive nodes feel like a bad sign, so they seem to close the breast option too.", "claims": []},
+        {"text": "But node status governs the axilla, not whether the breast can be kept.", "claims": ["K90"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "r2", "kind": "retry"},
+        {"label": "Show me why", "next": "r2_e", "kind": "agency"}
+      ]
+    },
+    "r2_e": {
+      "role": "explain",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "Multicentric disease, or diffuse malignant-appearing microcalcifications, is a contraindication to conservation.", "claims": ["K79"]},
+        {"text": "So are previous breast or chest-wall radiotherapy, pregnancy needing radiotherapy, persistently positive margins and inflammatory carcinoma.", "claims": ["K80", "K81", "K82", "K83"]},
+        {"text": "A large tumour is only a relative issue, for cosmesis, and connective tissue disease raises radiation toxicity.", "claims": ["K84"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "r3", "kind": "continue"}
+      ]
+    },
+    "r3": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 50-year-old has a 2 cm invasive ductal carcinoma. Her axilla is clinically node-negative.", "claims": []},
+        {"text": "What is the first axillary procedure?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Level I and II axillary dissection to clear the axilla", "next": "r3_t", "kind": "trap", "trap": "TR27"},
+        {"label": "No axillary procedure, since she is node-negative", "next": "r3_p", "kind": "partial"},
+        {"label": "Sentinel lymph node biopsy to stage the axilla", "next": "r3_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "r3_h", "kind": "help"}
+      ]
+    },
+    "r3_h": {
+      "role": "hint",
+      "say": [
+        {"text": "Think about what the surgeon needs to learn from the axilla first, and what a full clearance is for in a patient whose nodes feel normal.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "r3", "kind": "retry"}
+      ]
+    },
+    "r3_ok": {
+      "role": "feedback",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "Right. Sentinel lymph node biopsy is the standard axillary staging for clinically node-negative invasive cancer.", "claims": ["K89"]},
+        {"text": "Dissection is for a positive axilla, and after one or two positive sentinel nodes it can be omitted when the breast is conserved and radiotherapy is given.", "claims": ["K90", "K91"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "r4", "kind": "continue"}
+      ]
+    },
+    "r3_t": {
+      "role": "feedback",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "Not the right choice.", "claims": []},
+        {"text": "Clearing the axilla feels thorough, and it was how older practice handled the armpit first.", "claims": []},
+        {"text": "But routine dissection carries morbidity such as lymphoedema and shoulder stiffness, so it is reserved for a node-positive axilla.", "claims": ["K90", "K112"]}
+      ],
+      "sure_note": {"text": "You were sure dissection comes first. That is the old order, so check it before you operate.", "claims": ["K90"]},
+      "choices": [
+        {"label": "Try again", "next": "r3", "kind": "retry"},
+        {"label": "Show me why", "next": "r3_e", "kind": "agency"}
+      ]
+    },
+    "r3_p": {
+      "role": "feedback",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "Not the right choice.", "claims": []},
+        {"text": "Node-negative can sound like no test is needed, so skipping the axilla looks reasonable.", "claims": []},
+        {"text": "But the axilla still has to be staged before the plan is final, because nodal status changes the treatment.", "claims": ["K89"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "r3", "kind": "retry"},
+        {"label": "Show me why", "next": "r3_e", "kind": "agency"}
+      ]
+    },
+    "r3_e": {
+      "role": "explain",
+      "objectives": ["O8"],
+      "say": [
+        {"text": "Clinically node-negative invasive cancer is staged by sentinel lymph node biopsy, using radioisotope and/or blue dye.", "claims": ["K89"]},
+        {"text": "Dissection is not the first step. It is for a node-positive axilla, where sentinel biopsy is not the staging route.", "claims": ["K90"]},
+        {"text": "Since the Z0011 trial, one or two positive sentinel nodes treated with conservation and whole-breast radiotherapy allow ALND to be omitted.", "claims": ["K91"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "r4", "kind": "continue"}
+      ]
+    },
+    "r4": {
+      "role": "probe",
+      "objectives": ["O12"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A patient has an axillary clearance for node-positive disease.", "claims": []},
+        {"text": "Which nerve is most often injured in this dissection?", "claims": []}
+      ],
+      "choices": [
+        {"label": "The intercostobrachial nerve in the axilla", "next": "r4_ok", "kind": "correct"},
+        {"label": "The thoracodorsal nerve to latissimus dorsi", "next": "r4_p", "kind": "partial"},
+        {"label": "The long thoracic nerve to serratus anterior", "next": "r4_t", "kind": "trap", "trap": "TR15"},
+        {"label": "Not sure, give me a hint", "next": "r4_h", "kind": "help"}
+      ]
+    },
+    "r4_h": {
+      "role": "hint",
+      "say": [
+        {"text": "Separate the nerve that is injured most often from the one that causes the most striking deficit. Which deficit does a patient report most after clearance?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "r4", "kind": "retry"}
+      ]
+    },
+    "r4_ok": {
+      "role": "feedback",
+      "objectives": ["O12"],
+      "say": [
+        {"text": "Right. Intercostobrachial nerve injury is the commonest, giving numbness of the medial upper arm and axilla.", "claims": ["K12", "K113"]},
+        {"text": "Winging of the scapula comes from the long thoracic nerve, which is the more dramatic but less common deficit.", "claims": ["K114", "K12"]},
+        {"text": "Together: conserve when suitable, use MRM when not, stage a node-negative axilla with SLNB, and match each nerve to its deficit.", "claims": ["K77", "K86", "K89"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    },
+    "r4_t": {
+      "role": "feedback",
+      "objectives": ["O12"],
+      "say": [
+        {"text": "Not the right choice.", "claims": []},
+        {"text": "Winging of the scapula is the deficit most people remember, so it is tempting to count the nerve that causes it.", "claims": []},
+        {"text": "But dramatic is not the same as frequent. Winging comes from the long thoracic nerve, a less common injury.", "claims": ["K114", "K12"]}
+      ],
+      "sure_note": {"text": "You were sure of the winging nerve. Its deficit is memorable, but frequency is a separate question.", "claims": ["K12"]},
+      "choices": [
+        {"label": "Try again", "next": "r4", "kind": "retry"},
+        {"label": "Show me why", "next": "r4_e", "kind": "agency"}
+      ]
+    },
+    "r4_p": {
+      "role": "feedback",
+      "objectives": ["O12"],
+      "say": [
+        {"text": "Not the right choice.", "claims": []},
+        {"text": "Thoracodorsal injury is a real deficit of axillary surgery, and it is easy to recall from the anatomy.", "claims": []},
+        {"text": "But it only weakens latissimus dorsi, a power problem in the arm, and it is not the commonest axillary nerve injury.", "claims": ["K115", "K12"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "r4", "kind": "retry"},
+        {"label": "Show me why", "next": "r4_e", "kind": "agency"}
+      ]
+    },
+    "r4_e": {
+      "role": "explain",
+      "objectives": ["O12"],
+      "say": [
+        {"text": "The intercostobrachial nerve is the commonest injury, and its loss gives numbness of the medial upper arm.", "claims": ["K12", "K113"]},
+        {"text": "Long thoracic injury paralyses serratus anterior and causes winging of the scapula.", "claims": ["K114"]},
+        {"text": "Thoracodorsal injury weakens latissimus dorsi.", "claims": ["K115"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
