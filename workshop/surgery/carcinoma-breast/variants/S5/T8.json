@@ -1,0 +1,296 @@
+{
+  "segment": "S5",
+  "technique": "T8",
+  "entry": "p1",
+  "nodes": {
+    "p1": {
+      "role": "probe",
+      "objectives": ["O7"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 48-year-old has a single 3 cm invasive ductal cancer in a large breast. No distant spread.", "claims": []},
+        {"text": "Which operation do you plan for the breast?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Halsted radical mastectomy, the most complete clearance", "next": "p1_t3", "kind": "trap", "trap": "TR3"},
+        {"label": "Breast-conserving surgery with whole-breast radiotherapy", "next": "p1_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "p1_hint", "kind": "help"}
+      ]
+    },
+    "p1_hint": {
+      "role": "hint",
+      "say": [{"text": "Think about what each operation removes, and what survival data show for keeping the breast.", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "p1", "kind": "retry"}]
+    },
+    "p1_t3": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Halsted looks thorough and was the textbook operation, but it removes both pectoral muscles and the whole axilla, and it is now rarely done.", "claims": ["K85", "K139"]}
+      ],
+      "sure_note": {"text": "You were sure. Old keys still teach Halsted as the standard, so check what current practice uses before you trust that memory.", "claims": ["K139"]},
+      "choices": [{"label": "Try again", "next": "p1", "kind": "retry"}]
+    },
+    "p1_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. In a suitable early cancer, breast conservation with whole-breast radiotherapy gives survival equal to mastectomy.", "claims": ["K77"]},
+        {"text": "If conservation is not suitable, the modern option is modified radical mastectomy, which keeps pectoralis major.", "claims": ["K86"]}
+      ],
+      "choices": [{"label": "Next", "next": "p2", "kind": "continue"}]
+    },
+    "p2": {
+      "role": "probe",
+      "objectives": ["O7"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Suppose a mastectomy is needed, and the surgeon picks modified radical over Halsted. Why?", "claims": []}
+      ],
+      "choices": [
+        {"label": "It keeps pectoralis major and still clears the axilla", "next": "p2_ok", "kind": "correct"},
+        {"label": "Removing both pectoral muscles makes the cure complete", "next": "p2_t3", "kind": "trap", "trap": "TR3"},
+        {"label": "It clears the axilla first, so staging is not needed", "next": "p2_t27", "kind": "trap", "trap": "TR27"},
+        {"label": "Not sure, give me a hint", "next": "p2_hint", "kind": "help"}
+      ]
+    },
+    "p2_hint": {
+      "role": "hint",
+      "say": [{"text": "Ask what each operation takes away from the chest wall, and which of those losses the patient does not need.", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "p2", "kind": "retry"}]
+    },
+    "p2_t3": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "More muscle removal feels like extra safety, but Halsted takes pectoralis major and minor and all three axillary levels, and that extra loss is not what makes a mastectomy curative.", "claims": ["K85"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the logic: more removal is not the same as more cure. Re-read what Halsted removes.", "claims": ["K85"]},
+      "choices": [{"label": "Try again", "next": "p2", "kind": "retry"}]
+    },
+    "p2_t27": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Clearing nodes is part of a mastectomy, but dissection does not replace staging, and the axilla is staged by its own test first.", "claims": ["K89"]}
+      ],
+      "sure_note": {"text": "You were sure, so separate the two decisions: which operation, and how the axilla is staged.", "claims": ["K89"]},
+      "choices": [{"label": "Try again", "next": "p2", "kind": "retry"}]
+    },
+    "p2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Modified radical mastectomy removes the breast and the axillary nodes, but keeps pectoralis major, so the chest wall loses less.", "claims": ["K86"]}
+      ],
+      "choices": [{"label": "Next", "next": "q1", "kind": "continue"}]
+    },
+    "q1": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Which of these is a true contraindication to breast-conserving surgery?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Multicentric disease in separate quadrants", "next": "q1_ok", "kind": "correct"},
+        {"label": "A tumour larger than 5 cm", "next": "q1_t14", "kind": "trap", "trap": "TR14"},
+        {"label": "Not sure, give me a hint", "next": "q1_hint", "kind": "help"}
+      ]
+    },
+    "q1_hint": {
+      "role": "hint",
+      "say": [{"text": "A contraindication stops clear margins or safe radiotherapy. Which option does that?", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "q1", "kind": "retry"}]
+    },
+    "q1_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Tumour in separate quadrants, or diffuse suspicious calcification, cannot be cleared through one conserved breast.", "claims": ["K79"]}
+      ],
+      "choices": [{"label": "Next", "next": "q2", "kind": "continue"}]
+    },
+    "q1_t14": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Five centimetres is a number people remember, so size feels like a cut-off; but size matters only relative to the breast and to cosmesis.", "claims": ["K84"]}
+      ],
+      "sure_note": {"text": "You were sure. The list is built from what stops clear margins or safe radiotherapy, not from one size number.", "claims": ["K79", "K84"]},
+      "choices": [{"label": "Try again", "next": "q1", "kind": "retry"}]
+    },
+    "q2": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 6 cm tumour in a moderate breast shrinks to 2 cm after neoadjuvant chemotherapy.", "claims": []},
+        {"text": "Can breast conservation still be offered?", "claims": []}
+      ],
+      "choices": [
+        {"label": "No, a tumour above 5 cm forbids it", "next": "q2_t14", "kind": "trap", "trap": "TR14"},
+        {"label": "Yes, with whole-breast radiotherapy after surgery", "next": "q2_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "q2_hint", "kind": "help"}
+      ]
+    },
+    "q2_hint": {
+      "role": "hint",
+      "say": [{"text": "Check the size after treatment, not before, and ask whether the breast can still give clear margins.", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "q2", "kind": "retry"}]
+    },
+    "q2_t14": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "The 5 cm figure tempts as a fixed rule, but the question is whether the tumour can be cleared, and shrinkage after treatment changes that.", "claims": ["K84"]}
+      ],
+      "sure_note": {"text": "You were sure. A fixed number carried over from the staging list is the mistake; check the size now, against the breast.", "claims": ["K84"]},
+      "choices": [{"label": "Try again", "next": "q2", "kind": "retry"}]
+    },
+    "q2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Downstaging does not block conservation, provided clear margins can be achieved. Whole-breast radiotherapy is still given after the operation.", "claims": ["K93"]}
+      ],
+      "choices": [{"label": "Next", "next": "r1", "kind": "continue"}]
+    },
+    "r1": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 50-year-old has a 2 cm invasive ductal cancer and a clinically node-negative axilla.", "claims": []},
+        {"text": "What is the first axillary procedure?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Sentinel lymph node biopsy to stage the axilla", "next": "r1_ok", "kind": "correct"},
+        {"label": "Level I and II axillary dissection, done first", "next": "r1_t27", "kind": "trap", "trap": "TR27"},
+        {"label": "Not sure, give me a hint", "next": "r1_hint", "kind": "help"}
+      ]
+    },
+    "r1_hint": {
+      "role": "hint",
+      "say": [{"text": "Ask what the axilla needs first: a test to stage it, or a clearance before anyone knows its status.", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "r1", "kind": "retry"}]
+    },
+    "r1_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. For a clinically node-negative invasive cancer, sentinel node biopsy is the standard staging, using radioisotope and/or blue dye.", "claims": ["K89"]}
+      ],
+      "choices": [{"label": "Next", "next": "r2", "kind": "continue"}]
+    },
+    "r1_t27": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Clearance looks thorough, so it seems to come first; but it removes levels I and II before anyone has tested the nodes.", "claims": ["K89", "K92"]}
+      ],
+      "sure_note": {"text": "You were sure, so recheck the order: what the axilla needs first, and what a positive test would change.", "claims": ["K89", "K90"]},
+      "choices": [{"label": "Try again", "next": "r1", "kind": "retry"}]
+    },
+    "r2": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Patient A is node-negative on examination. Patient B has a biopsy-proven node-positive axilla.", "claims": []},
+        {"text": "What is the plan for each?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Both go straight to ALND", "next": "r2_t27", "kind": "trap", "trap": "TR27"},
+        {"label": "A gets SLNB; B goes to ALND", "next": "r2_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "r2_hint", "kind": "help"}
+      ]
+    },
+    "r2_hint": {
+      "role": "hint",
+      "say": [{"text": "Ask what each axilla still needs: a test to stage it, or a clearance because nodes are already involved.", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "r2", "kind": "retry"}]
+    },
+    "r2_t27": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Full dissection feels thorough for both, but for a clinically negative axilla it adds arm morbidity that a sentinel biopsy avoids.", "claims": ["K112", "K89"]}
+      ],
+      "sure_note": {"text": "You were sure, so separate the two patients: node status alone decides the axillary plan.", "claims": ["K89", "K90"]},
+      "choices": [{"label": "Try again", "next": "r2", "kind": "retry"}]
+    },
+    "r2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. A node-negative axilla is staged by sentinel node biopsy. A biopsy-proven positive axilla goes to dissection, and sentinel biopsy is not used there.", "claims": ["K89", "K90"]}
+      ],
+      "choices": [{"label": "Next", "next": "n1", "kind": "continue"}]
+    },
+    "n1": {
+      "role": "probe",
+      "objectives": ["O12"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Which nerve is most commonly injured in axillary lymph node dissection?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Long thoracic nerve, the one that causes winging", "next": "n1_t15", "kind": "trap", "trap": "TR15"},
+        {"label": "Intercostobrachial nerve, the one that is often sacrificed", "next": "n1_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "n1_hint", "kind": "help"}
+      ]
+    },
+    "n1_hint": {
+      "role": "hint",
+      "say": [{"text": "Think about which nerve runs through the axilla, and which deficit is most common after a clearance.", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "n1", "kind": "retry"}]
+    },
+    "n1_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. The intercostobrachial nerve is the one most often sacrificed, and its loss numbs the medial upper arm.", "claims": ["K134", "K113"]}
+      ],
+      "choices": [{"label": "Next", "next": "n2", "kind": "continue"}]
+    },
+    "n1_t15": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Winging is the dramatic deficit, so it feels like the common one; but long thoracic injury paralyses serratus anterior and is not the nerve most often hit.", "claims": ["K114", "K12"]}
+      ],
+      "sure_note": {"text": "You were sure, so separate frequency from drama: the nerve that causes winging is not the one most often injured.", "claims": ["K12", "K114"]},
+      "choices": [{"label": "Try again", "next": "n1", "kind": "retry"}]
+    },
+    "n2": {
+      "role": "probe",
+      "objectives": ["O12"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "After axillary dissection, a patient has numbness of the medial upper arm and no winging of the scapula.", "claims": []},
+        {"text": "What explains this?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Long thoracic nerve injured, the commonest nerve injury", "next": "n2_t15", "kind": "trap", "trap": "TR15"},
+        {"label": "Intercostobrachial nerve sacrificed, the commonest nerve injury", "next": "n2_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "n2_hint", "kind": "help"}
+      ]
+    },
+    "n2_hint": {
+      "role": "hint",
+      "say": [{"text": "Match the two symptoms to the two nerves, then ask which of those nerves is also the most often injured.", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "n2", "kind": "retry"}]
+    },
+    "n2_t15": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "A dramatic deficit feels frequent, but winging is the long thoracic pattern, and this patient has no winging.", "claims": ["K114"]}
+      ],
+      "sure_note": {"text": "You were sure, so pin the deficit to its nerve first, then ask which injury is commonest.", "claims": ["K113", "K114"]},
+      "choices": [{"label": "Try again", "next": "n2", "kind": "retry"}]
+    },
+    "n2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Numbness of the medial upper arm points to the intercostobrachial nerve, and that is also the commonest nerve injury.", "claims": ["K113", "K134"]},
+        {"text": "Winging would have pointed to the long thoracic nerve, which supplies serratus anterior.", "claims": ["K114"]}
+      ],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    }
+  }
+}
