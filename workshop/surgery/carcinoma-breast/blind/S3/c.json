@@ -1,0 +1,925 @@
+{
+  "segment": "S3",
+  "entry": "nipple",
+  "nodes": {
+    "nipple": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 35-year-old woman comes to you with bloody discharge from one duct of the breast. Nothing is palpable.",
+          "claims": []
+        },
+        {
+          "text": "Predict first: what is the most common cause?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Intraductal papilloma",
+          "next": "nipple_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Carcinoma breast",
+          "next": "nipple_t20",
+          "kind": "trap",
+          "trap": "TR20"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "nipple_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "nipple_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Intraductal papilloma is the commonest cause of bloody discharge from a single duct.",
+          "claims": [
+            "K144"
+          ]
+        },
+        {
+          "text": "Carcinoma still has to be excluded. Retraction, bloody discharge and eczema-like change are the nipple signs that need a work-up.",
+          "claims": [
+            "K45"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "skin",
+          "kind": "continue"
+        }
+      ]
+    },
+    "nipple_t20": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice: bloody discharge is the alarming sign, so carcinoma feels like the commonest cause.",
+          "claims": [
+            "K45"
+          ]
+        },
+        {
+          "text": "Frequency and danger are different questions, and this stem asks for the commonest cause.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so read the qualifier in the stem: 'most common' asks how often, not how worrying.",
+        "claims": [
+          "K144"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "nipple",
+          "kind": "retry"
+        },
+        {
+          "label": "Give me a hint",
+          "next": "nipple_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "nipple_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask two questions separately: which cause occurs most often at 35, and which cause you must still rule out.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "nipple",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "nipple_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "nipple_why": {
+      "role": "explain",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Bloody discharge from one duct is most often an intraductal papilloma. Carcinoma is the cause you must exclude, not the one that occurs most.",
+          "claims": [
+            "K144"
+          ]
+        },
+        {
+          "text": "Eczema-like change that starts at the nipple and spreads to the areola is Paget's disease, which is one of the nipple signs to work up.",
+          "claims": [
+            "K46"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "skin",
+          "kind": "continue"
+        }
+      ]
+    },
+    "skin": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 50-year-old woman has a 3 cm tumour in the breast. Peau d'orange lies over it, with no redness or warmth.",
+          "claims": []
+        },
+        {
+          "text": "Which T category does this give?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "T4d, inflammatory breast cancer",
+          "next": "skin_t12",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "T4b, skin involvement",
+          "next": "skin_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "skin_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "skin_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Peau d'orange comes from blocked skin lymphatics with oedema, and that places the tumour in T4b.",
+          "claims": [
+            "K7"
+          ]
+        },
+        {
+          "text": "The size of the lump does not change this T4 category.",
+          "claims": [
+            "K7"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "imaging",
+          "kind": "continue"
+        }
+      ]
+    },
+    "skin_t12": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice: the orange-peel skin sign looks dramatic, so it feels like the whole inflammatory picture.",
+          "claims": [
+            "K7"
+          ]
+        },
+        {
+          "text": "One skin sign is not the same as the clinical picture of the disease. Look at the whole breast before you name the category.",
+          "claims": [
+            "K48"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so recheck whether the whole breast is red, warm and swollen before naming inflammatory disease.",
+        "claims": [
+          "K48"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "skin",
+          "kind": "retry"
+        },
+        {
+          "label": "Give me a hint",
+          "next": "skin_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "skin_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether the whole breast looks inflamed, or whether one patch of skin over the tumour is involved.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "skin",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "skin_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "skin_why": {
+      "role": "explain",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Peau d'orange alone is skin involvement, so the tumour is T4b, whatever its size.",
+          "claims": [
+            "K7"
+          ]
+        },
+        {
+          "text": "T4d needs the whole picture: a red, warm, swollen breast with peau d'orange over at least one-third of it, often with no discrete lump.",
+          "claims": [
+            "K48"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "imaging",
+          "kind": "continue"
+        }
+      ]
+    },
+    "imaging": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two women each have a new breast lump. One is 28 and one is 52.",
+          "claims": []
+        },
+        {
+          "text": "Which imaging suits each of them?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Ultrasound for the 28-year-old, mammography for the 52-year-old",
+          "next": "imaging_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Mammography for both women, the screening test",
+          "next": "imaging_t17",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "imaging_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "imaging_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Under about 35 the breast is dense, and ultrasound is preferred there. It also separates solid from cystic lesions.",
+          "claims": [
+            "K51"
+          ]
+        },
+        {
+          "text": "Mammography is the screening tool of choice over about 35 to 40.",
+          "claims": [
+            "K49"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "mri",
+          "kind": "continue"
+        }
+      ]
+    },
+    "imaging_t17": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice: mammography is the test everyone knows, so it feels right for any breast lump.",
+          "claims": [
+            "K49"
+          ]
+        },
+        {
+          "text": "Screening tests carry an age range, and each woman's age decides the first imaging.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the age first, before the test you know best.",
+        "claims": [
+          "K49"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "imaging",
+          "kind": "retry"
+        },
+        {
+          "label": "Give me a hint",
+          "next": "imaging_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "imaging_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Take each woman's age separately. What does her breast tissue look like at that age?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "imaging",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "imaging_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "imaging_why": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Ultrasound is preferred in women under 35 and in dense breasts, and it distinguishes solid from cystic lesions.",
+          "claims": [
+            "K51"
+          ]
+        },
+        {
+          "text": "Mammography is the screening tool of choice and the main imaging test in women over about 35 to 40.",
+          "claims": [
+            "K49"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "mri",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tissue": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A team plans neoadjuvant chemotherapy for a breast mass. They need invasive or in-situ status, plus ER, PR and HER2 status.",
+          "claims": []
+        },
+        {
+          "text": "Which sample do you send?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Fine needle aspiration cytology of the mass",
+          "next": "tissue_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Core needle biopsy of the mass",
+          "next": "tissue_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "tissue_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "tissue_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A core needle sample gives histology, so invasive and in-situ disease can be told apart.",
+          "claims": [
+            "K54"
+          ]
+        },
+        {
+          "text": "The same sample also reports grade and ER, PR and HER2 status.",
+          "claims": [
+            "K54"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "staging",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tissue_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice: cytology of a breast lump is the test older papers expect, so it feels safe.",
+          "claims": [
+            "K54"
+          ]
+        },
+        {
+          "text": "Loose cells on a slide do not show the tissue architecture the team is asking about.",
+          "claims": [
+            "K54"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask what the pathologist must report before you name the sample.",
+        "claims": [
+          "K54"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tissue",
+          "kind": "retry"
+        },
+        {
+          "label": "Give me a hint",
+          "next": "tissue_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "tissue_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "List what the team must get back from the pathologist: invasion, grade and receptors, or only whether cells are present.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tissue",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "tissue_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "tissue_why": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Older papers expected FNAC for a breast lump. Current practice is core needle biopsy, which gives histology and receptor status.",
+          "claims": [
+            "K137"
+          ]
+        },
+        {
+          "text": "FNAC is kept mainly for axillary nodes and cysts.",
+          "claims": [
+            "K56"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "staging",
+          "kind": "continue"
+        }
+      ]
+    },
+    "staging": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 38-year-old has a 1.5 cm invasive ductal carcinoma on core biopsy. Her nodes are clinically negative and she has no symptoms.",
+          "claims": []
+        },
+        {
+          "text": "What do you order next for distant spread?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "No routine distant-spread scan; plan local treatment",
+          "next": "staging_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Whole-body bone scan to exclude spread first",
+          "next": "staging_t5",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "staging_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "staging_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Routine distant-spread imaging is not needed in early, asymptomatic disease.",
+          "claims": [
+            "K57"
+          ]
+        },
+        {
+          "text": "It is done for locally advanced disease or symptoms. Early disease goes to local treatment first.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "closing",
+          "kind": "continue"
+        }
+      ]
+    },
+    "staging_t5": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice: bone is the commonest site of spread, so a bone scan feels like routine work-up.",
+          "claims": [
+            "K57"
+          ]
+        },
+        {
+          "text": "Where metastases usually go does not tell you who needs a scan. Stage and symptoms do.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the stage and symptoms before ordering any distant-spread test.",
+        "claims": [
+          "K57"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "staging",
+          "kind": "retry"
+        },
+        {
+          "label": "Give me a hint",
+          "next": "staging_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "staging_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what this patient's stage and symptoms would make you look for, not what a scan could find.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "staging",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "staging_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "staging_why": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "CT chest and abdomen, bone scan or PET-CT are done for locally advanced disease or symptoms.",
+          "claims": [
+            "K57"
+          ]
+        },
+        {
+          "text": "CA 15-3 and CEA monitor known metastatic disease. They do not screen or stage.",
+          "claims": [
+            "K58"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "closing",
+          "kind": "continue"
+        }
+      ]
+    },
+    "closing": {
+      "role": "probe",
+      "objectives": [
+        "O3",
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Last check on this breast work-up, across the lump, the imaging and the spread scans.",
+          "claims": []
+        },
+        {
+          "text": "Which three arms make up triple assessment?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Clinical examination, imaging and fine needle aspiration",
+          "next": "closing_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Clinical examination, imaging and tissue diagnosis",
+          "next": "closing_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Clinical examination, mammography and bone scan",
+          "next": "closing_t5",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "closing_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "closing_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Triple assessment is clinical examination, imaging and tissue diagnosis.",
+          "claims": [
+            "K5"
+          ]
+        },
+        {
+          "text": "Most breast cancers present as a painless, hard, irregular lump with ill-defined margins.",
+          "claims": [
+            "K43"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "closing_t5": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice: a bone scan feels like part of the work-up, because spread is the feared outcome.",
+          "claims": [
+            "K57"
+          ]
+        },
+        {
+          "text": "Triple assessment is about the breast itself. Distant spread is staged only when stage or symptoms call for it.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check whether the spread scan belongs to the breast arms or to staging.",
+        "claims": [
+          "K57"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "closing",
+          "kind": "retry"
+        },
+        {
+          "label": "Give me a hint",
+          "next": "closing_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "closing_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice: imaging and a needle sample feel like a complete breast work-up.",
+          "claims": [
+            "K54"
+          ]
+        },
+        {
+          "text": "A needle that gives loose cells does not replace a tissue diagnosis when the team needs histology and receptors.",
+          "claims": [
+            "K54"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask which arm gives histology before you accept the needle.",
+        "claims": [
+          "K54"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "closing",
+          "kind": "retry"
+        },
+        {
+          "label": "Give me a hint",
+          "next": "closing_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "closing_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Name the three arms by what each one does: examine, image, and take tissue for histology.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "closing",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "closing_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "closing_why": {
+      "role": "explain",
+      "objectives": [
+        "O3",
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Triple assessment is clinical examination, imaging and tissue diagnosis, and core needle biopsy is the tissue test.",
+          "claims": [
+            "K5",
+            "K54"
+          ]
+        },
+        {
+          "text": "Bone scans belong to staging for locally advanced disease or symptoms, not to the breast arms.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "mri": {
+      "role": "explain",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "MRI is the most sensitive imaging test. It is used to judge the extent of invasive lobular carcinoma.",
+          "claims": [
+            "K52"
+          ]
+        },
+        {
+          "text": "Invasive lobular carcinoma is the type most often bilateral or multicentric, so its extent matters before surgery.",
+          "claims": [
+            "K122"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "tissue",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}

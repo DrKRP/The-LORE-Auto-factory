@@ -1,0 +1,876 @@
+{
+  "segment": "S3",
+  "entry": "case",
+  "nodes": {
+    "case": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 45-year-old woman has a painless, hard, irregular lump in her right breast.",
+          "claims": [
+            "K43"
+          ]
+        },
+        {
+          "text": "Her surgeon wants a tissue diagnosis before planning treatment. Which test do you order?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Fine needle aspiration cytology",
+          "next": "case_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Core needle (trucut) biopsy",
+          "next": "case_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "case_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "case_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Core needle biopsy gives the histology, grade and receptor status the team needs before treatment.",
+          "claims": [
+            "K54"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "triple",
+          "kind": "continue"
+        }
+      ]
+    },
+    "case_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "FNAC is the old exam key and feels safe, but a cell smear cannot show invasion or receptor status.",
+          "claims": [
+            "K137"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, and FNAC is the key exams keep repeating. Recheck what the pathologist must report.",
+        "claims": [
+          "K137"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "case_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "case_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Core needle biopsy is the tissue test to order. PYQs expected FNAC; current practice is core, because it gives histology and ER, PR and HER2 status.",
+          "claims": [
+            "K137",
+            "K54"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "triple",
+          "kind": "continue"
+        }
+      ]
+    },
+    "case_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the pathologist must report before surgery: whether the cells invade, and what their receptor status is.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "triple": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "This is triple assessment: clinical examination, imaging, and tissue diagnosis. Every lump gets all three.",
+          "claims": [
+            "K5"
+          ]
+        },
+        {
+          "text": "Imaging comes second, and the woman's age decides which test leads.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "case_imaging",
+          "kind": "continue"
+        }
+      ]
+    },
+    "case_imaging": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 27-year-old woman has a breast lump. Which imaging test leads?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Mammography",
+          "next": "img_t17",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Mammography first, ultrasound only if dense",
+          "next": "img_t17",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Ultrasound",
+          "next": "img_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "img_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "img_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Under 35 the breast is dense, so ultrasound leads, and it separates solid from cystic lesions.",
+          "claims": [
+            "K51"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "nipple",
+          "kind": "continue"
+        }
+      ]
+    },
+    "img_t17": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Mammography is the screening test of choice from about 35 to 40, so the habit carries over, but age decides the first test here.",
+          "claims": [
+            "K49"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, and mammography is the habit exams drill for every breast. Check the age first.",
+        "claims": [
+          "K49"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case_imaging",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "img_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "img_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Age sets the first test: ultrasound under 35 and in dense breasts, mammography from about 35 to 40 onward.",
+          "claims": [
+            "K51",
+            "K49"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "nipple",
+          "kind": "continue"
+        }
+      ]
+    },
+    "img_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Check the age in the stem before you pick a screening test.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case_imaging",
+          "kind": "retry"
+        }
+      ]
+    },
+    "nipple": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 35-year-old woman has bloody discharge from a single duct. There is no palpable lump.",
+          "claims": [
+            "K45"
+          ]
+        },
+        {
+          "text": "What is the most common cause?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Carcinoma breast",
+          "next": "nipple_t20",
+          "kind": "trap",
+          "trap": "TR20"
+        },
+        {
+          "label": "Intraductal papilloma",
+          "next": "nipple_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Ductal carcinoma in situ",
+          "next": "nipple_t20",
+          "kind": "trap",
+          "trap": "TR20"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "nipple_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "nipple_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Intraductal papilloma is the most common cause of bloody nipple discharge, not carcinoma.",
+          "claims": [
+            "K144"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "skin",
+          "kind": "continue"
+        }
+      ]
+    },
+    "nipple_t20": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Bloody discharge is a red flag, so carcinoma feels like the answer, but a red flag does not decide how common a cause is.",
+          "claims": [
+            "K144",
+            "K45"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Red flags are for exclusion, not for frequency: keep 'most common' apart from 'must not miss'.",
+        "claims": [
+          "K144"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "nipple",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "nipple_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "nipple_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Intraductal papilloma is the most common cause. Carcinoma still has to be excluded, because recent retraction, bloody discharge and eczema-like change are red flags.",
+          "claims": [
+            "K144",
+            "K45"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "skin",
+          "kind": "continue"
+        }
+      ]
+    },
+    "nipple_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Read the question's word: it asks for the most common cause, not the most worrying one.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "nipple",
+          "kind": "retry"
+        }
+      ]
+    },
+    "skin": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 3 cm tumour has peau d'orange over it, and the skin is not red or warm.",
+          "claims": [
+            "K7"
+          ]
+        },
+        {
+          "text": "What T category is it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "T4b",
+          "next": "skin_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "T4d",
+          "next": "skin_t12",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "skin_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "skin_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Peau d'orange is skin involvement, which makes the tumour T4b whatever its size.",
+          "claims": [
+            "K140",
+            "K65"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "workup",
+          "kind": "continue"
+        }
+      ]
+    },
+    "skin_t12": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Peau d'orange looks like inflammatory carcinoma, so T4d is tempting, but T4d needs the whole red, warm, swollen picture.",
+          "claims": [
+            "K48",
+            "K140"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, and peau d'orange on its own is a classic trap. Ask whether the whole inflammatory picture is present.",
+        "claims": [
+          "K48"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "skin",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "skin_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "skin_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Peau d'orange blocks the subdermal lymphatics and makes the tumour T4b. T4d needs a red, warm, swollen breast with peau d'orange over at least one-third of it.",
+          "claims": [
+            "K7",
+            "K140",
+            "K48"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "workup",
+          "kind": "continue"
+        }
+      ]
+    },
+    "skin_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether the breast is red, warm and swollen, or whether the skin change is the only finding.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "skin",
+          "kind": "retry"
+        }
+      ]
+    },
+    "workup": {
+      "role": "probe",
+      "objectives": [
+        "O3",
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 38-year-old woman has a 1.5 cm core-proven invasive ductal carcinoma. The axilla is clinically node-negative and she has no symptoms.",
+          "claims": [
+            "K26"
+          ]
+        },
+        {
+          "text": "What do you order next?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Chest and abdomen CT before surgery",
+          "next": "workup_t5",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Whole-body bone scan",
+          "next": "workup_t5",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "No metastatic imaging; plan local treatment",
+          "next": "workup_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "workup_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "workup_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Early asymptomatic disease needs no routine metastatic scans; they are for locally advanced disease or symptoms.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "lobular",
+          "kind": "continue"
+        }
+      ]
+    },
+    "workup_t5": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Bone is the commonest site of spread, so a bone scan feels thorough, but scans follow the stage and symptoms, not the site of spread.",
+          "claims": [
+            "K42",
+            "K57"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Where cancer spreads is not the same as whom to scan; match the scan to stage and symptoms.",
+        "claims": [
+          "K57"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "workup",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "workup_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "workup_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Routine metastatic scans are not for early, asymptomatic cancer. Bone is the commonest site of distant spread, so scans are for locally advanced disease or symptoms.",
+          "claims": [
+            "K57",
+            "K42"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "lobular",
+          "kind": "continue"
+        }
+      ]
+    },
+    "workup_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the stage is, and whether she has symptoms, before you order any scan.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "workup",
+          "kind": "retry"
+        }
+      ]
+    },
+    "lobular": {
+      "role": "explain",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Invasive lobular carcinoma is more often bilateral and multicentric than ductal carcinoma.",
+          "claims": [
+            "K122"
+          ]
+        },
+        {
+          "text": "MRI is the most sensitive test: it judges lobular extent and screens high-risk women such as BRCA carriers.",
+          "claims": [
+            "K52",
+            "K128"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "final",
+          "kind": "continue"
+        }
+      ]
+    },
+    "final": {
+      "role": "probe",
+      "objectives": [
+        "O3",
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 58-year-old woman has a 2 cm lump and bloody discharge from one duct. Planning needs invasion and receptor status.",
+          "claims": [
+            "K45"
+          ]
+        },
+        {
+          "text": "What is the first step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Core needle biopsy of the lump",
+          "next": "final_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Fine needle aspiration of the lump",
+          "next": "final_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Whole-body bone scan first",
+          "next": "final_t5",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "final_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "final_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Core needle biopsy gives the invasion and receptor status the team needs, before any spread test.",
+          "claims": [
+            "K54",
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "final_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "FNAC is the old key and quick to do, but a cell sample cannot give invasion or receptor status before treatment.",
+          "claims": [
+            "K137"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, and FNAC is the key exams keep repeating. Recheck what the pathologist must report.",
+        "claims": [
+          "K137"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "final",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "final_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "final_t5": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "A bone scan looks thorough, but it is for staging once disease is locally advanced or symptomatic, not the first step for a lump.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Spread tests follow the stage, and the tissue test comes first.",
+        "claims": [
+          "K57"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "final",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "final_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "final_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O3",
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Core needle biopsy is the first step: it gives histology and receptor status. PYQs expected FNAC; a bone scan waits for stage and symptoms.",
+          "claims": [
+            "K54",
+            "K137",
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "final_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the pathologist must report before treatment, and whether a spread test should come before tissue.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "final",
+          "kind": "retry"
+        }
+      ]
+    }
+  }
+}
