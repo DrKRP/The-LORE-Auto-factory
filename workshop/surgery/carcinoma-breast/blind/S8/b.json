@@ -1,0 +1,1376 @@
+{
+  "segment": "S8",
+  "entry": "p1",
+  "nodes": {
+    "p1": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Booking clerk: a 23-year-old has found a new breast lump and wants the first scan booked.",
+          "claims": []
+        },
+        {
+          "text": "Which imaging do you book first?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Mammography",
+          "next": "p1_t",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Breast ultrasound",
+          "next": "p1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "MRI of both breasts",
+          "next": "p1_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "p1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Under 35 the breast is dense, so ultrasound is the preferred first imaging.",
+          "claims": [
+            "K51",
+            "K127"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p1_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. Mammography is the usual first test over about 35 to 40, so it feels like the default.",
+          "claims": [
+            "K49"
+          ]
+        },
+        {
+          "text": "Under 35 the breast is dense, and ultrasound is the preferred first imaging there.",
+          "claims": [
+            "K51"
+          ]
+        },
+        {
+          "text": "Right: breast ultrasound, which also separates solid from cystic lesions.",
+          "claims": [
+            "K51"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p1_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. MRI sounds thorough, and it has a role in extent and high-risk women.",
+          "claims": []
+        },
+        {
+          "text": "It is not the first test for a lump in a 23-year-old. Ultrasound is.",
+          "claims": [
+            "K51"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Check her age first. Think about which test suits older women, and which works in a young, dense breast.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p2": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "A 50-year-old has a 2 cm hard breast lump. Before surgery the team needs to know if it is invasive, and its ER, PR and HER2 status.",
+          "claims": []
+        },
+        {
+          "text": "Which sample do you send?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Fine needle aspiration cytology",
+          "next": "p2_t",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Excision of the whole lump",
+          "next": "p2_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Core needle biopsy",
+          "next": "p2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p2_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Core needle biopsy gives invasive or in situ status, grade, and ER, PR and HER2 status.",
+          "claims": [
+            "K54",
+            "K129"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p2_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. FNAC is the test older papers expected, so it feels like the classic answer.",
+          "claims": [
+            "K137"
+          ]
+        },
+        {
+          "text": "FNAC gives cells, not tissue, so it cannot show invasion or give ER, PR and HER2 status.",
+          "claims": [
+            "K54"
+          ]
+        },
+        {
+          "text": "Right: core needle biopsy. FNAC is kept for axillary nodes and cysts.",
+          "claims": [
+            "K54",
+            "K56"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p3",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": [
+        {
+          "text": "You were sure, so this one is worth a second look: FNAC is still printed in old keys. Current practice is core biopsy.",
+          "claims": [
+            "K137"
+          ]
+        }
+      ]
+    },
+    "p2_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Excision removes the lump as surgery, before anyone knows the tumour type.",
+          "claims": [
+            "K54"
+          ]
+        },
+        {
+          "text": "A core needle biopsy gives the invasive status and receptors before any operation.",
+          "claims": [
+            "K54"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what the pathologist must report: whether the tumour invades, and its receptor status. Which sample keeps the tissue?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p3": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "A 44-year-old has a 1.8 cm node-negative invasive carcinoma. No bone pain, normal liver tests, no symptoms.",
+          "claims": []
+        },
+        {
+          "text": "Which distant staging do you order?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "No routine metastatic imaging",
+          "next": "p3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Whole-body bone scan now",
+          "next": "p3_t",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "PET-CT for every early cancer",
+          "next": "p3_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p3_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "p3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Early, asymptomatic disease needs no routine metastatic work-up.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p3_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. Bone is the commonest site of spread, so a bone scan feels like routine staging.",
+          "claims": [
+            "K42"
+          ]
+        },
+        {
+          "text": "Routine imaging is not needed in early asymptomatic disease. Scans are for locally advanced disease or symptoms.",
+          "claims": [
+            "K57"
+          ]
+        },
+        {
+          "text": "Right: no routine metastatic work-up here, so plan local treatment.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p3",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p3_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. PET-CT feels thorough, but routine metastatic imaging is not needed in early asymptomatic disease.",
+          "claims": [
+            "K57"
+          ]
+        },
+        {
+          "text": "Reserve staging scans for locally advanced disease or symptoms.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p3",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p3_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what a distant scan would change. Would it alter the plan for an early patient with no symptoms?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p4": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Tumour board: a 7 cm breast cancer with bulky axillary nodes and no distant spread.",
+          "claims": []
+        },
+        {
+          "text": "Which treatment comes first?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Modified radical mastectomy now",
+          "next": "p4_t",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "Neoadjuvant chemotherapy first",
+          "next": "p4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Radiotherapy to the breast alone",
+          "next": "p4_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p4_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "p4_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Neoadjuvant chemotherapy shrinks the tumour and is the first step for locally advanced disease.",
+          "claims": [
+            "K95",
+            "K75"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p4_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. Starting with the mastectomy feels natural, since it removes the disease.",
+          "claims": []
+        },
+        {
+          "text": "In locally advanced disease, chemotherapy comes first to shrink the tumour before the operation.",
+          "claims": [
+            "K95"
+          ]
+        },
+        {
+          "text": "Right: for inflammatory or locally advanced cancer the order is chemotherapy, then MRM, then radiotherapy.",
+          "claims": [
+            "K106",
+            "K8"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p4",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p4_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Radiotherapy is part of the plan, but not as the first step for a bulky tumour.",
+          "claims": [
+            "K106"
+          ]
+        },
+        {
+          "text": "The trimodality pathway puts radiotherapy after the mastectomy.",
+          "claims": [
+            "K106"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p4",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p4_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what this tumour needs before any operation. Would surgery first control it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p5": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "A woman has a 1.6 cm invasive cancer. The axilla is clinically node-negative.",
+          "claims": []
+        },
+        {
+          "text": "Which rule do you apply to the axilla?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Dissect first; sentinel node only if that fails",
+          "next": "p5_t",
+          "kind": "trap",
+          "trap": "TR27"
+        },
+        {
+          "label": "Radiotherapy to the axilla with no sampling",
+          "next": "p5_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Sentinel node biopsy; dissect only if positive",
+          "next": "p5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p5_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p5_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Sentinel node biopsy stages a clinically node-negative axilla; dissection follows only if it is positive.",
+          "claims": [
+            "K89",
+            "K130"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p5_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. Clearing the armpit first feels like the thorough, classic step, so it is tempting.",
+          "claims": []
+        },
+        {
+          "text": "In a clinically node-negative axilla, sentinel node biopsy stages the nodes. Full dissection is for a positive node.",
+          "claims": [
+            "K89",
+            "K130"
+          ]
+        },
+        {
+          "text": "Right: sentinel node biopsy first, and dissect only if the node is positive.",
+          "claims": [
+            "K89",
+            "K90"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p5",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p6",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": [
+        {
+          "text": "You were sure, so this one is worth a second look: dissecting first is the old order, and older papers still print it.",
+          "claims": [
+            "K130"
+          ]
+        }
+      ]
+    },
+    "p5_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Radiotherapy does not stage the axilla, so you lose the nodal result a biopsy gives.",
+          "claims": [
+            "K130"
+          ]
+        },
+        {
+          "text": "Sentinel node biopsy comes first, and dissection follows only if it is positive.",
+          "claims": [
+            "K89",
+            "K90"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p5",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p5_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether the axilla must be cleared to be staged, or whether one node can answer the question.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p6": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "A 45-year-old on tamoxifen for 3 years has abnormal uterine bleeding.",
+          "claims": []
+        },
+        {
+          "text": "Your first move?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Reassure her; tamoxifen protects the endometrium",
+          "next": "p6_t",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Urgent endometrial assessment before anything else",
+          "next": "p6_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Switch to an aromatase inhibitor without examining the uterus",
+          "next": "p6_p",
+          "kind": "partial"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p6_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Tamoxifen can cause endometrial carcinoma, so bleeding needs endometrial assessment first.",
+          "claims": [
+            "K99",
+            "K143"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p6_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. Tamoxifen acts as an antagonist in the breast, so it seems protective everywhere. That is the tempting leap.",
+          "claims": []
+        },
+        {
+          "text": "In the endometrium it acts as an oestrogen agonist and raises the risk of endometrial carcinoma.",
+          "claims": [
+            "K99",
+            "K143"
+          ]
+        },
+        {
+          "text": "Right: assess the endometrium urgently, because bleeding on tamoxifen can be cancer.",
+          "claims": [
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p6",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p7",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": [
+        {
+          "text": "You were sure, so this one is worth a second look: tamoxifen does not protect the uterus, whatever it does in the breast.",
+          "claims": [
+            "K143"
+          ]
+        }
+      ]
+    },
+    "p6_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Switching drugs is a later decision, and it is tempting as the tamoxifen fix.",
+          "claims": [
+            "K98"
+          ]
+        },
+        {
+          "text": "First exclude endometrial carcinoma, which tamoxifen can cause. The uterus comes before the drug change.",
+          "claims": [
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p6",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p7": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "The team says a 6 cm tumour rules out breast conservation on size alone.",
+          "claims": []
+        },
+        {
+          "text": "Your reply?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Right: a tumour above 5 cm is a contraindication to BCS",
+          "next": "p7_t",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Judged against breast size, BCS may still be possible",
+          "next": "p7_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Shrinkage after chemotherapy makes margins unreliable",
+          "next": "p7_p",
+          "kind": "partial"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p7_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Size is judged against the breast, and BCS may still be possible if margins and radiotherapy can be achieved.",
+          "claims": [
+            "K84",
+            "K78"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p8",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p7_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. A 5 cm cut-off is easy to remember, so size looks like a hard rule.",
+          "claims": []
+        },
+        {
+          "text": "Size is a relative factor, judged against the breast. Poor cosmesis is a relative reason, not an absolute bar.",
+          "claims": [
+            "K84"
+          ]
+        },
+        {
+          "text": "Right: BCS can be offered when clear margins and whole-breast radiotherapy are feasible.",
+          "claims": [
+            "K78",
+            "K93"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p7",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p8",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": [
+        {
+          "text": "You were sure, so this one is worth a second look: size is a relative factor, and the absolute reasons are about margins and radiotherapy.",
+          "claims": [
+            "K84",
+            "K79"
+          ]
+        }
+      ]
+    },
+    "p7_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Chemotherapy shrinkage is a reason to consider conservation, not a reason to refuse it.",
+          "claims": [
+            "K95"
+          ]
+        },
+        {
+          "text": "Downstaging an operable tumour is done to allow BCS.",
+          "claims": [
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p7",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p8",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p8": {
+      "role": "probe",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Which statement about nerve injury after axillary clearance is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Long thoracic nerve injury is the commonest, causing winging",
+          "next": "p8_t",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Intercostobrachial injury is commonest, causing medial arm numbness",
+          "next": "p8_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Thoracodorsal injury weakens the latissimus dorsi",
+          "next": "p8_p",
+          "kind": "partial"
+        }
+      ]
+    },
+    "p8_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Intercostobrachial injury is the commonest, giving numbness of the medial upper arm.",
+          "claims": [
+            "K134",
+            "K113"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p9",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p8_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. Winging is the most dramatic deficit, so it feels like the commonest one.",
+          "claims": []
+        },
+        {
+          "text": "Long thoracic nerve injury does cause winging, but it is not the commonest injury in axillary clearance.",
+          "claims": [
+            "K114",
+            "K12"
+          ]
+        },
+        {
+          "text": "The commonest is the intercostobrachial nerve, giving numbness of the medial upper arm.",
+          "claims": [
+            "K134",
+            "K113"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p8",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p9",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p8_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Thoracodorsal injury is real, and it weakens latissimus dorsi.",
+          "claims": [
+            "K115"
+          ]
+        },
+        {
+          "text": "But it is not the commonest injury. That is the intercostobrachial nerve.",
+          "claims": [
+            "K134"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p8",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p9",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p9": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "A man with breast cancer has a germline change found on genetic testing.",
+          "claims": []
+        },
+        {
+          "text": "Which gene is most likely?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "BRCA1",
+          "next": "p9_t",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "BRCA2",
+          "next": "p9_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "PTEN",
+          "next": "p9_p",
+          "kind": "partial"
+        }
+      ]
+    },
+    "p9_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. BRCA2 is the gene most associated with male breast cancer, alongside Klinefelter syndrome.",
+          "claims": [
+            "K4",
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p10",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p9_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. BRCA1 is the famous breast cancer gene, so it feels like the answer for everyone.",
+          "claims": []
+        },
+        {
+          "text": "BRCA1 is linked to triple-negative cancers in women. In men the link is to BRCA2.",
+          "claims": [
+            "K17",
+            "K4"
+          ]
+        },
+        {
+          "text": "Right: BRCA2 is the gene more associated with male breast cancer.",
+          "claims": [
+            "K4",
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p9",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p10",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p9_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. PTEN belongs to a different syndrome, not to male breast cancer.",
+          "claims": []
+        },
+        {
+          "text": "The gene linked to male breast cancer is BRCA2.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p9",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "p10",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p10": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "An operable cancer is not suited to breast conservation. The plan should name:",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Halsted radical mastectomy",
+          "next": "p10_t",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Simple mastectomy with no axillary surgery",
+          "next": "p10_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Modified radical mastectomy",
+          "next": "p10_ok",
+          "kind": "correct"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p10_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. MRM removes the breast and axillary nodes and keeps pectoralis major, unlike Halsted.",
+          "claims": [
+            "K86",
+            "K85"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p10_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. Halsted is the classic, most radical option, so it feels like the safe standard.",
+          "claims": []
+        },
+        {
+          "text": "Halsted removes pectoralis major and minor and all axillary levels. It is now rarely done.",
+          "claims": [
+            "K85"
+          ]
+        },
+        {
+          "text": "Right: modified radical mastectomy, which keeps pectoralis major. Older keys gave Halsted as standard.",
+          "claims": [
+            "K86",
+            "K139"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p10",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ],
+      "sure_note": [
+        {
+          "text": "You were sure, so this one is worth a second look: the old key named Halsted, and current practice names MRM or BCS.",
+          "claims": [
+            "K139"
+          ]
+        }
+      ]
+    },
+    "p10_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not quite. Simple mastectomy leaves the axilla unplanned, and that is not the standard for an operable cancer.",
+          "claims": [
+            "K76"
+          ]
+        },
+        {
+          "text": "Early breast cancer needs surgery to the breast and the axilla, with radiotherapy and systemic therapy as indicated.",
+          "claims": [
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p10",
+          "kind": "retry"
+        },
+        {
+          "label": "Move on",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  },
+  "cards": [
+    {
+      "q": "Which tissue test does a breast lump need, and why?",
+      "a": "Core needle biopsy, because it shows invasion and ER, PR and HER2 status. FNAC is kept for nodes and cysts.",
+      "claims": [
+        "K54",
+        "K56"
+      ],
+      "objective": "O3"
+    },
+    {
+      "q": "Does early, asymptomatic breast cancer need routine metastatic imaging?",
+      "a": "No. Metastatic imaging is for locally advanced disease or symptoms.",
+      "claims": [
+        "K57"
+      ],
+      "objective": "O4"
+    },
+    {
+      "q": "Which operation is the current standard for an operable cancer not suited to BCS?",
+      "a": "Modified radical mastectomy, which keeps pectoralis major. Halsted is rarely done now.",
+      "claims": [
+        "K86",
+        "K85"
+      ],
+      "objective": "O7"
+    },
+    {
+      "q": "What is the axillary plan for a clinically node-negative invasive cancer?",
+      "a": "Sentinel node biopsy first, and dissection only if the sentinel node is positive.",
+      "claims": [
+        "K89",
+        "K130"
+      ],
+      "objective": "O8"
+    },
+    {
+      "q": "What is the order of treatment for inflammatory carcinoma?",
+      "a": "Neoadjuvant chemotherapy, then MRM, then post-mastectomy radiotherapy.",
+      "claims": [
+        "K106",
+        "K8"
+      ],
+      "objective": "O9"
+    },
+    {
+      "q": "Why does a woman on tamoxifen with bleeding need an endometrial check?",
+      "a": "Tamoxifen can cause endometrial carcinoma. Raloxifene does not raise endometrial cancer risk.",
+      "claims": [
+        "K99",
+        "K143"
+      ],
+      "objective": "O10"
+    },
+    {
+      "q": "Which nerve is most often injured in axillary dissection, and what does it cause?",
+      "a": "The intercostobrachial nerve, causing numbness of the medial upper arm.",
+      "claims": [
+        "K134",
+        "K113"
+      ],
+      "objective": "O12"
+    }
+  ]
+}

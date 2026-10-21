@@ -1,0 +1,1067 @@
+{
+  "segment": "S8",
+  "entry": "tis",
+  "nodes": {
+    "tis": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 62-year-old has a firm, painless lump in one breast. Her team plans chemotherapy before any operation, so they need a tissue sample the pathologist can report on. Which sample do you send?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Fine needle aspiration cytology of the lump",
+          "next": "tis_t",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Core needle biopsy of the lump, read by histology",
+          "next": "tis_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Excision of the whole lump, sent for histology",
+          "next": "tis_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "tis_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "tis_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Core needle biopsy is the investigation of choice for tissue diagnosis, and it is the sample to send before treatment starts.",
+          "claims": [
+            "K129",
+            "K5"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "reg",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tis_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Fine needle aspiration is the old exam key for breast lumps and it is quick. Core biopsy is the preferred tissue test, because it gives a histology sample rather than loose cells.",
+          "claims": [
+            "K5",
+            "K129"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so slow down: check what the pathologist must be able to report before you pick the method.",
+        "claims": [
+          "K5"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tis",
+          "kind": "retry"
+        }
+      ]
+    },
+    "tis_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Excision is a surgical step. Tissue for the decision has to come first, before any operation is planned.",
+          "claims": [
+            "K129"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tis",
+          "kind": "retry"
+        }
+      ]
+    },
+    "tis_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which test gives the pathologist a tissue sample to report on, without cutting the whole lump out first.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "tis",
+          "kind": "retry"
+        }
+      ]
+    },
+    "reg": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Your registrar says, 'Every new lump gets a mammogram first, it is the screening test.' A 29-year-old has a new breast lump. What is the right first imaging?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Breast ultrasound, the first test for her lump",
+          "next": "reg_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "MRI of both breasts, to see the whole picture",
+          "next": "reg_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Mammogram, as the registrar says, for her lump",
+          "next": "reg_t",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "reg_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "reg_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Under 35, ultrasound is the imaging of choice for a breast lump.",
+          "claims": [
+            "K127",
+            "K51"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "bone",
+          "kind": "continue"
+        }
+      ]
+    },
+    "reg_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "MRI is used to define extent or solve a problem, not as the first test for a lump in a young woman.",
+          "claims": [
+            "K127"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "reg",
+          "kind": "retry"
+        }
+      ]
+    },
+    "reg_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The registrar's rule ignores age. Under 35 the imaging of choice differs, so age is the qualifier to check first.",
+          "claims": [
+            "K127",
+            "K51"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the age qualifier in the stem before you accept any blanket rule.",
+        "claims": [
+          "K127"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "reg",
+          "kind": "retry"
+        }
+      ]
+    },
+    "reg_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Look at the age in the stem. Does the registrar's rule account for it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "reg",
+          "kind": "retry"
+        }
+      ]
+    },
+    "bone": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A classmate writes: 'Bone is the commonest site of spread, so every new breast cancer gets a bone scan.' Which correction is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Agree: scan every case, since bone is where spread goes",
+          "next": "bone_t",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Agree, but scan after surgery rather than before",
+          "next": "bone_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Scans are for advanced disease or symptoms; early cancer skips them",
+          "next": "bone_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "bone_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "bone_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Bone is the commonest site of distant spread, but scans are for locally advanced disease or symptoms, not every case.",
+          "claims": [
+            "K57",
+            "K123"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cut",
+          "kind": "continue"
+        }
+      ]
+    },
+    "bone_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The classmate has moved from where spread lands to who gets tested. Bone being the commonest site does not make a scan routine for every patient.",
+          "claims": [
+            "K123",
+            "K57"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so test the step from 'where spread goes' to 'who needs a scan'.",
+        "claims": [
+          "K123"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "bone",
+          "kind": "retry"
+        }
+      ]
+    },
+    "bone_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A scan after surgery still does not answer whether she needs imaging at all. The indication depends on stage and symptoms.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "bone",
+          "kind": "retry"
+        }
+      ]
+    },
+    "bone_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what a scan is for. In which patients does it find something that changes the plan?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "bone",
+          "kind": "retry"
+        }
+      ]
+    },
+    "cut": {
+      "role": "probe",
+      "objectives": [
+        "O7",
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which of these is a relative factor that weighs against breast conservation, rather than a fixed rule?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Multicentric disease in two separate quadrants of one breast",
+          "next": "cut_p",
+          "kind": "partial"
+        },
+        {
+          "label": "A tumour large for its breast, leaving poor cosmesis",
+          "next": "cut_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Any tumour above 5 cm, whatever the size of the breast",
+          "next": "cut_t",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "cut_h",
+          "kind": "help"
+        }
+      ]
+    },
+    "cut_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Size is judged against the breast, and a large tumour in a small breast leaves poor cosmesis, so it weighs against conservation.",
+          "claims": [
+            "K84"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "axil",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cut_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Multicentric disease is a fixed bar to conservation, not a relative factor, so it does not fit what the question asks.",
+          "claims": [
+            "K79",
+            "K84"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cut",
+          "kind": "retry"
+        }
+      ]
+    },
+    "cut_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A fixed 5 cm cut-off looks like a rule, but conservation depends on tumour size against breast size, so a number alone does not settle it.",
+          "claims": [
+            "K84"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask whether the factor is fixed or depends on the breast it sits in.",
+        "claims": [
+          "K84"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cut",
+          "kind": "retry"
+        }
+      ]
+    },
+    "cut_h": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether the factor is a fixed rule, or whether it depends on how big the tumour is for the breast.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "cut",
+          "kind": "retry"
+        }
+      ]
+    },
+    "axil": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 46-year-old has a 1.6 cm invasive cancer. Her axilla feels normal on examination. Which order of axillary steps is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Sentinel node biopsy first, then clearance if that node is positive",
+          "next": "axil_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Clear levels I and II first; sentinel biopsy if clearance fails",
+          "next": "axil_t",
+          "kind": "trap",
+          "trap": "TR27"
+        },
+        {
+          "label": "Axillary radiotherapy alone, with no sampling first",
+          "next": "axil_p",
+          "kind": "partial"
+        }
+      ]
+    },
+    "axil_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. The sentinel node tells you whether the axilla needs clearing, so clearance follows only when that node is positive.",
+          "claims": [
+            "K89",
+            "K130"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "numb",
+          "kind": "continue"
+        }
+      ]
+    },
+    "axil_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Clearing the axilla first was the classical order, and it still tempts. But it dissects an axilla that only needed staging.",
+          "claims": [
+            "K89",
+            "K130"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check what the axilla needs to know before you choose an operation.",
+        "claims": [
+          "K89"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "axil",
+          "kind": "retry"
+        }
+      ]
+    },
+    "axil_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Radiotherapy does not stage the axilla. A sample is needed to decide what the axilla needs next.",
+          "claims": [
+            "K89"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "axil",
+          "kind": "retry"
+        }
+      ]
+    },
+    "numb": {
+      "role": "probe",
+      "objectives": [
+        "O12"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which statement about nerve injury after axillary clearance is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Numbness is the usual deficit, from the intercostobrachial nerve",
+          "next": "numb_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Winging is the usual deficit, from the long thoracic nerve",
+          "next": "numb_t",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Weak abduction is the usual deficit, from the thoracodorsal nerve",
+          "next": "numb_p",
+          "kind": "partial"
+        }
+      ]
+    },
+    "numb_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. The intercostobrachial nerve is the one most often sacrificed, and its injury gives numbness of the medial arm.",
+          "claims": [
+            "K134",
+            "K113",
+            "K12"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "tam",
+          "kind": "continue"
+        }
+      ]
+    },
+    "numb_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Winging is the dramatic deficit, so it feels like the common one. It comes from the long thoracic nerve, which is injured less often than the intercostobrachial.",
+          "claims": [
+            "K114",
+            "K12"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate how dramatic a deficit is from how often it occurs.",
+        "claims": [
+          "K114"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "numb",
+          "kind": "retry"
+        }
+      ]
+    },
+    "numb_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Thoracodorsal injury weakens latissimus dorsi. It is a real deficit, but not the one clearance most often causes.",
+          "claims": [
+            "K12"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "numb",
+          "kind": "retry"
+        }
+      ]
+    },
+    "tam": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A classmate says: 'Tamoxifen is an anti-oestrogen, so it thins the endometrium and protects the uterus.' Which correction is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Agree: it protects the uterus, so no endometrial checks are needed",
+          "next": "tam_t",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Tamoxifen can raise endometrial cancer risk, so bleeding needs checking",
+          "next": "tam_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "The real danger is thrombosis, not uterine cancer",
+          "next": "tam_p",
+          "kind": "partial"
+        }
+      ]
+    },
+    "tam_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Tamoxifen raises endometrial cancer risk, and thromboembolism is another serious effect. Raloxifene does not carry the endometrial risk.",
+          "claims": [
+            "K99",
+            "K143"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "labc",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tam_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Blocking oestrogen in breast tissue does not carry over to the uterus, where tamoxifen can raise endometrial cancer risk.",
+          "claims": [
+            "K143",
+            "K99"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check whether the breast effect is the same as the uterine effect.",
+        "claims": [
+          "K143"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tam",
+          "kind": "retry"
+        }
+      ]
+    },
+    "tam_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Thrombosis is a real side effect, but the uterine risk is the one this correction has to keep.",
+          "claims": [
+            "K99"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tam",
+          "kind": "retry"
+        }
+      ]
+    },
+    "labc": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "You are writing the one-line take-home for stage III breast cancer with fixed axillary nodes and no distant spread. Which line is the best summary?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Radiotherapy first to shrink the tumour, then surgery",
+          "next": "labc_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Chemotherapy first to downstage, then surgery, then radiotherapy",
+          "next": "labc_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Operate first to remove the bulk, then chemotherapy and radiotherapy",
+          "next": "labc_t",
+          "kind": "trap",
+          "trap": "TR16"
+        }
+      ]
+    },
+    "labc_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. In locally advanced disease, neoadjuvant chemotherapy comes first to downstage it, then surgery, then radiotherapy.",
+          "claims": [
+            "K95",
+            "K75"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "male",
+          "kind": "continue"
+        }
+      ]
+    },
+    "labc_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Radiotherapy is a local treatment. It does not downstage fixed nodes or treat spread, so it cannot lead the plan.",
+          "claims": [
+            "K95"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "labc",
+          "kind": "retry"
+        }
+      ]
+    },
+    "labc_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Removing the bulk feels like the curative step, but fixed nodes mean spread may already exist beyond the breast, and surgery cannot reach it.",
+          "claims": [
+            "K75",
+            "K95"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask what the first treatment must reach before the operation.",
+        "claims": [
+          "K75"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "labc",
+          "kind": "retry"
+        }
+      ]
+    },
+    "male": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which of these is a recognised risk factor for breast cancer in men?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Early menarche, a long reproductive lifespan",
+          "next": "male_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Klinefelter syndrome, a chromosomal condition in men",
+          "next": "male_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "BRCA1 mutation, the gene most linked to men",
+          "next": "male_t",
+          "kind": "trap",
+          "trap": "TR9"
+        }
+      ]
+    },
+    "male_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Klinefelter syndrome is a male risk factor, and BRCA2 is the gene more associated with male breast cancer.",
+          "claims": [
+            "K22",
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "male_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Early menarche is a risk factor for women through longer oestrogen exposure. It is not a recognised factor for men.",
+          "claims": [
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "male",
+          "kind": "retry"
+        }
+      ]
+    },
+    "male_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "BRCA1 is the best-known breast gene, so it feels right for every hereditary question. The male-linked factor is a different one, so check which phenotype the stem describes.",
+          "claims": [
+            "K4",
+            "K22"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check which risk factor the stem's phenotype points to, not the best-known gene.",
+        "claims": [
+          "K4"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "male",
+          "kind": "retry"
+        }
+      ]
+    }
+  },
+  "cards": [
+    {
+      "q": "Which tissue test for a breast lump, and why not FNAC?",
+      "a": "Core needle biopsy, the investigation of choice; FNAC is the old key. Under 35, ultrasound is the imaging.",
+      "claims": [
+        "K5",
+        "K129",
+        "K127"
+      ],
+      "objective": "O3"
+    },
+    {
+      "q": "When are distant-spread scans done in breast cancer?",
+      "a": "For locally advanced disease or symptoms, not routinely in early asymptomatic cancer. Bone is the commonest distant site.",
+      "claims": [
+        "K57",
+        "K123"
+      ],
+      "objective": "O4"
+    },
+    {
+      "q": "Which operation for operable breast cancer, and how do Halsted and MRM differ?",
+      "a": "Breast conservation with radiotherapy when suitable, or MRM. Halsted removes pectoralis major and minor; MRM keeps pectoralis major.",
+      "claims": [
+        "K139",
+        "K85"
+      ],
+      "objective": "O7"
+    },
+    {
+      "q": "First axillary step for a clinically node-negative patient?",
+      "a": "Sentinel lymph node biopsy; clear the axilla if the sentinel node is positive.",
+      "claims": [
+        "K89",
+        "K130"
+      ],
+      "objective": "O8"
+    },
+    {
+      "q": "First treatment for stage III or inflammatory breast cancer?",
+      "a": "Neoadjuvant chemotherapy to downstage, then surgery, then radiotherapy.",
+      "claims": [
+        "K95",
+        "K106"
+      ],
+      "objective": "O9"
+    },
+    {
+      "q": "Hormone drug by menopausal status, and tamoxifen's endometrial effect?",
+      "a": "Tamoxifen premenopausal; aromatase inhibitor postmenopausal. Tamoxifen raises endometrial cancer risk.",
+      "claims": [
+        "K97",
+        "K98",
+        "K143"
+      ],
+      "objective": "O10"
+    },
+    {
+      "q": "Which nerve is most often injured in axillary clearance, and what does long thoracic injury cause?",
+      "a": "Intercostobrachial, giving numbness of the medial arm; long thoracic injury gives winging of the scapula.",
+      "claims": [
+        "K134",
+        "K114"
+      ],
+      "objective": "O12"
+    }
+  ]
+}
