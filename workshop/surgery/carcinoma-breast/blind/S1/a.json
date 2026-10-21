@@ -1,0 +1,561 @@
+{
+  "segment": "S1",
+  "entry": "hook",
+  "nodes": {
+    "hook": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An exam paper asks: 'Most common cancer in women in India?' You have one second.",
+          "claims": []
+        },
+        {
+          "text": "Tap the answer you would write.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Carcinoma ovary",
+          "next": "hook_ovary",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Carcinoma breast",
+          "next": "hook_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Carcinoma cervix",
+          "next": "hook_cervix",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "hook_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "hook_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Set aside the answer your old paper printed. Think about current figures for India and the world.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "hook",
+          "kind": "retry"
+        }
+      ]
+    },
+    "hook_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Breast cancer is the most common cancer in women, in India and worldwide.",
+          "claims": [
+            "K1",
+            "K118"
+          ]
+        },
+        {
+          "text": "Older papers printed cervix. Keep that old key in mind, but answer with current figures.",
+          "claims": [
+            "K136"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "lump_q",
+          "kind": "continue"
+        }
+      ]
+    },
+    "hook_ovary": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "You picked ovary. It is a common gynaecological cancer, so it feels close, but it misses the current figures.",
+          "claims": [
+            "K1"
+          ]
+        },
+        {
+          "text": "Check the stem against current data, then try again.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of ovary. A confident miss is worth a second look: the current figure is what the paper wants.",
+        "claims": [
+          "K1"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "hook",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "hook_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "hook_cervix": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "You picked cervix. It is the answer older papers expected, which is why it feels safe, but it has since been overtaken.",
+          "claims": [
+            "K136"
+          ]
+        },
+        {
+          "text": "Look at the stem again with today's data in mind.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of cervix. That is the old key, and exams keep repeating it, so re-check it every time.",
+        "claims": [
+          "K136"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "hook",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "hook_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "hook_why": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Breast cancer is now the most common cancer in women in India and worldwide.",
+          "claims": [
+            "K1",
+            "K118"
+          ]
+        },
+        {
+          "text": "PYQs expected cervix. Current practice puts breast first, so answer with the current figure and remember the old key.",
+          "claims": [
+            "K136"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "lump_q",
+          "kind": "continue"
+        }
+      ]
+    },
+    "lump_q": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 45-year-old woman has a firm lump in her breast. The team needs a tissue diagnosis.",
+          "claims": []
+        },
+        {
+          "text": "Which test do you order for the tissue diagnosis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Excision biopsy of the whole lump",
+          "next": "lump_excision",
+          "kind": "partial"
+        },
+        {
+          "label": "Fine needle aspiration cytology",
+          "next": "lump_fnac",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Core needle biopsy of the lump",
+          "next": "lump_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "lump_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "lump_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the pathologist must report: invasive or in situ, and what receptor status the sample shows.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "lump_q",
+          "kind": "retry"
+        }
+      ]
+    },
+    "lump_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Core needle biopsy gives the tissue diagnosis and tells invasive from in situ cancer.",
+          "claims": [
+            "K129",
+            "K54"
+          ]
+        },
+        {
+          "text": "It also gives grade and ER, PR and HER2 status, which the team needs before treatment.",
+          "claims": [
+            "K54"
+          ]
+        },
+        {
+          "text": "Older papers expected FNAC for a lump. FNAC is kept for nodes and cysts.",
+          "claims": [
+            "K137",
+            "K56"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "imaging_q",
+          "kind": "continue"
+        }
+      ]
+    },
+    "lump_fnac": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "You picked FNAC. It is the old exam key, so it feels safe, but a cell sample cannot show invasion or receptor status.",
+          "claims": [
+            "K137",
+            "K54"
+          ]
+        },
+        {
+          "text": "Think about what the team must know before treatment, then try again.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of FNAC. The old key is strong, so ask each time what the sample must show.",
+        "claims": [
+          "K137"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "lump_q",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "lump_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "lump_excision": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "You picked excision. Removing the whole lump feels thorough, but it is surgery before a diagnosis, and the tissue test should come first.",
+          "claims": [
+            "K129"
+          ]
+        },
+        {
+          "text": "Think about the least invasive sample that still gives the full answer, then try again.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of excision. Surgery-first feels decisive, so check whether the test comes before the operation.",
+        "claims": [
+          "K129"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "lump_q",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "lump_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "lump_why": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "The investigation of choice for a breast lump is core needle biopsy, because it gives histology and receptor status.",
+          "claims": [
+            "K129",
+            "K137"
+          ]
+        },
+        {
+          "text": "PYQs expected FNAC. FNAC still serves the axillary nodes and cysts.",
+          "claims": [
+            "K137",
+            "K56"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "imaging_q",
+          "kind": "continue"
+        }
+      ]
+    },
+    "imaging_q": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 27-year-old woman presents with a breast lump. Which imaging do you order first?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Ultrasound of the breast",
+          "next": "imaging_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Mammography of the breast",
+          "next": "imaging_mammo",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "MRI of the breast",
+          "next": "imaging_mri",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "imaging_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "imaging_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Check the patient's age first, then ask which test is the screening tool at that age.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "imaging_q",
+          "kind": "retry"
+        }
+      ]
+    },
+    "imaging_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Ultrasound is the imaging of choice under 35, and it separates solid from cystic lesions.",
+          "claims": [
+            "K127",
+            "K51"
+          ]
+        },
+        {
+          "text": "It is also preferred in dense breasts, where it is the better first test.",
+          "claims": [
+            "K51"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "imaging_mammo": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "You picked mammography. It is the screening test in older women, so it feels like the default, but age is the qualifier here.",
+          "claims": [
+            "K49"
+          ]
+        },
+        {
+          "text": "Read the age in the stem, then try again.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of mammography. Screening habits are strong, so check the age in every stem.",
+        "claims": [
+          "K49"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "imaging_q",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "imaging_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "imaging_mri": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "You picked MRI. It has a role later, but it is not the first imaging for a young woman's lump.",
+          "claims": [
+            "K127"
+          ]
+        },
+        {
+          "text": "Think about which imaging comes first for a lump at this age, then try again.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of MRI. Advanced tests feel reassuring, so ask which test comes first.",
+        "claims": [
+          "K127"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "imaging_q",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "imaging_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "imaging_why": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Under 35, ultrasound is the imaging of choice. It is also preferred in dense breasts and separates solid from cystic lumps.",
+          "claims": [
+            "K127",
+            "K51"
+          ]
+        },
+        {
+          "text": "Mammography is the main imaging test over about 35 to 40 years.",
+          "claims": [
+            "K49"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
