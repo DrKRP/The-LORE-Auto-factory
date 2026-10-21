@@ -1,0 +1,374 @@
+{
+  "segment": "S1",
+  "entry": "case",
+  "nodes": {
+    "case": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 45-year-old man with years of dyspepsia gets sudden, severe epigastric pain. Think perforation.",
+          "claims": []
+        },
+        {
+          "text": "Which site is the **commonest** place for this perforation to occur?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Anterior wall, first part of duodenum",
+          "next": "case_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Posterior wall, first part of duodenum",
+          "next": "case_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Lesser curvature of the stomach",
+          "next": "case_t1b",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "case_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "case_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The **anterior wall of the first part of the duodenum** is the commonest perforation site.",
+          "claims": [
+            "K1"
+          ]
+        },
+        {
+          "text": "The posterior wall is where ulcers bleed, because they erode the gastroduodenal artery.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "gas",
+          "kind": "continue"
+        }
+      ]
+    },
+    "case_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what lies behind each wall. One wall faces the open peritoneal cavity once it gives way.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "The other wall sits against a major artery. Which wall lets gas and stomach contents into the belly?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "case_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. The posterior wall feels like the dangerous side, because the gastroduodenal artery lies behind it.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "That artery erodes in a posterior ulcer, so the result is bleeding. The commonest perforation site is the anterior wall of the first part of the duodenum.",
+          "claims": [
+            "K1",
+            "K2"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check what lies behind each wall: the artery on one side, the open cavity on the other.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "case_t1b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. The lesser curvature feels right, because it is a familiar stomach site and gastric ulcers can perforate.",
+          "claims": [
+            "K1"
+          ]
+        },
+        {
+          "text": "But the commonest perforation site is the anterior wall of the first part of the duodenum.",
+          "claims": [
+            "K1"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Duodenal ulcers are the commonest source of perforation, so check the duodenum first.",
+        "claims": [
+          "K1"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "gas": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An erect chest X-ray shows gas under the diaphragm. Gas that escapes through a perforation rises to lie there.",
+          "claims": [
+            "K23"
+          ]
+        },
+        {
+          "text": "Which statement about this free gas is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A perforated peptic ulcer is the most common cause of free gas",
+          "next": "gas_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Free gas always means a perforated peptic ulcer, so theatre",
+          "next": "gas_t3",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "gas_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "gas_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Perforated peptic ulcer is the most common cause of pneumoperitoneum, which is a frequency statement.",
+          "claims": [
+            "K3",
+            "K66"
+          ]
+        },
+        {
+          "text": "Other causes exist, so the film has to be read with the clinical picture.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "retest",
+          "kind": "continue"
+        }
+      ]
+    },
+    "gas_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Look at how often the statement says the ulcer causes free gas. Does it say the ulcer is the only cause?",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "gas",
+          "kind": "retry"
+        }
+      ]
+    },
+    "gas_t3": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. The ulcer is a classic cause, and the one you must act on fast, so 'always' feels safe.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "But perforated peptic ulcer is the most common cause of pneumoperitoneum, not the only one.",
+          "claims": [
+            "K3",
+            "K66"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure that free gas means ulcer. Check the phrase 'most common' in the statement.",
+        "claims": [
+          "K3"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "gas",
+          "kind": "retry"
+        }
+      ]
+    },
+    "retest": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 60-year-old man had a laparoscopy two days ago. His erect film shows free gas under the right diaphragm.",
+          "claims": []
+        },
+        {
+          "text": "Which reading fits best?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Possible residual gas, so read it with the history",
+          "next": "retest_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Perforated peptic ulcer, so take him to theatre now",
+          "next": "retest_t3",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "retest_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "retest_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Free gas has other causes, and a recent procedure is one of them, so the history changes the reading.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "The ulcer is still the most common cause, so the film alone does not decide the management.",
+          "claims": [
+            "K3",
+            "K66"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "retest_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the recent history can explain before you reach for the most common cause.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "retest",
+          "kind": "retry"
+        }
+      ]
+    },
+    "retest_t3": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. The ulcer is the most common cause of free gas, so 'gas means ulcer' is tempting.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "But 'most common' is not 'always', and a recent procedure is a known other cause. Read the gas with the history before you act on the film.",
+          "claims": [
+            "K3",
+            "K66"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Free gas after a recent procedure should send you back to the history before theatre.",
+        "claims": [
+          "K3"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "retest",
+          "kind": "retry"
+        }
+      ]
+    }
+  }
+}

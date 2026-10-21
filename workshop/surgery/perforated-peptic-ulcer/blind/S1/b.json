@@ -1,0 +1,533 @@
+{
+  "segment": "S1",
+  "entry": "gate",
+  "nodes": {
+    "gate": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Before any teaching, show me what you already hold.",
+          "claims": []
+        },
+        {
+          "text": "A man has sudden epigastric pain and board-like rigidity from a perforating peptic ulcer. Which site is the commonest?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Posterior wall, first part of duodenum",
+          "next": "gate_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Anterior wall, first part of duodenum",
+          "next": "gate_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Lesser curvature of the stomach",
+          "next": "gate_t2",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "gate_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "gate_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which wall of the first part of the duodenum faces the free peritoneal cavity, and which wall sits over a large artery.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try the question again",
+          "next": "gate",
+          "kind": "retry"
+        }
+      ]
+    },
+    "gate_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The posterior wall feels right, because posterior ulcers are the ones that bleed and erode an artery.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "That is not right. The commonest perforation site is the anterior wall, which faces the free peritoneal cavity. The posterior wall bleeds instead.",
+          "claims": [
+            "K1",
+            "K2"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check which wall faces the free belly before you commit.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "gate",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "teach_site",
+          "kind": "agency"
+        }
+      ]
+    },
+    "gate_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The lesser curvature feels right, because gastric ulcers are the first ulcers most people picture.",
+          "claims": []
+        },
+        {
+          "text": "That is not right. The commonest site is the anterior wall of the first part of the duodenum, not the lesser curvature.",
+          "claims": [
+            "K1"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so recall the duodenum first, not the stomach.",
+        "claims": [
+          "K1"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "gate",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "teach_site",
+          "kind": "agency"
+        }
+      ]
+    },
+    "gate_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. The anterior wall of the first part of the duodenum is the commonest perforation site.",
+          "claims": [
+            "K1"
+          ]
+        },
+        {
+          "text": "Anterior ulcers spill into the free belly; posterior ulcers erode the gastroduodenal artery and bleed.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pair",
+          "kind": "continue"
+        },
+        {
+          "label": "Skip the teaching, I know the site",
+          "next": "pn",
+          "kind": "skip"
+        }
+      ]
+    },
+    "teach_site": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The anterior wall faces the free peritoneal cavity, so an ulcer that erodes full thickness spills there.",
+          "claims": [
+            "K10"
+          ]
+        },
+        {
+          "text": "The posterior wall lies over the gastroduodenal artery, so an ulcer there erodes that artery and bleeds.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "Picture a window: the front wall opens onto the free belly, the back wall opens onto a major artery.",
+          "claims": [],
+          "device": true
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pair",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pair": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two duodenal ulcers. One presents with haematemesis and melaena; the other with sudden peritonitis.",
+          "claims": []
+        },
+        {
+          "text": "Which pairing of wall, outcome and artery is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Anterior ulcer bleeds from the gastroduodenal artery; posterior ulcer perforates",
+          "next": "pair_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Posterior ulcer bleeds from the left gastric artery; anterior ulcer perforates",
+          "next": "pair_t2",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Posterior ulcer bleeds from the gastroduodenal artery; anterior ulcer perforates",
+          "next": "pair_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pair_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "pair_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what lies behind each wall: one wall faces the free belly, the other faces a major artery. Which outcome goes with which?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try the question again",
+          "next": "pair",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pair_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The posterior wall feels like the deep, dangerous site, so it seems like the one that must perforate.",
+          "claims": []
+        },
+        {
+          "text": "That is not right. The anterior wall faces the free peritoneal cavity and perforates; the posterior wall erodes the gastroduodenal artery and bleeds.",
+          "claims": [
+            "K2",
+            "K67"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask what lies behind each wall before you pair the outcome.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pair",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "pn",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pair_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The left gastric artery feels right, because it is a large named artery of the stomach and sounds like a bleeder.",
+          "claims": []
+        },
+        {
+          "text": "That is not right. The bleeding posterior duodenal ulcer erodes the gastroduodenal artery, and the perforating ulcer is anterior.",
+          "claims": [
+            "K2",
+            "K67"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so name the artery that sits behind the first part of the duodenum.",
+        "claims": [
+          "K67"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pair",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "pn",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pair_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. The anterior wall faces the free belly and perforates; the posterior wall erodes the gastroduodenal artery and bleeds.",
+          "claims": [
+            "K2",
+            "K67"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pn",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pn": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A registrar says: 'Free gas on the film means a perforated ulcer, because that is the most common cause of pneumoperitoneum.'",
+          "claims": []
+        },
+        {
+          "text": "What does that actually let you conclude?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Ulcer is the likeliest cause; the picture still decides",
+          "next": "pn_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Free gas always means ulcer, so straight to theatre",
+          "next": "pn_t1",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "An ulcer is the one cause, so no other check is needed",
+          "next": "pn_t2",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pn_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "pn_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Read the qualifier. 'Most common' ranks causes by how often they occur. What does a frequency ranking tell you about one film?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try the question again",
+          "next": "pn",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pn_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Going straight to theatre feels right, because free gas and perforated ulcer are the classic exam pairing.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "That is not right. 'Most common' is a frequency word: free gas makes an ulcer the likeliest cause, not a certain one.",
+          "claims": [
+            "K3",
+            "K66"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so read 'most common' as a frequency before you commit to a cause.",
+        "claims": [
+          "K3"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pn",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "close",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pn_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "The one-cause reading feels right, because the ulcer is the top name on the list.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "That is not right. 'Most common' ranks causes; other causes exist, so the film and the patient still need checking.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so a top-ranked cause is still one cause among several.",
+        "claims": [
+          "K3"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pn",
+          "kind": "retry"
+        },
+        {
+          "label": "Next",
+          "next": "close",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pn_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. Perforated peptic ulcer is the most common cause of pneumoperitoneum, so it is the likeliest reading of free gas.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "close",
+          "kind": "continue"
+        }
+      ]
+    },
+    "close": {
+      "role": "recap",
+      "objectives": [
+        "O1",
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Keep two anchors: the commonest perforation site is the anterior first part of the duodenum, and free gas makes an ulcer the likeliest cause, not a certain one.",
+          "claims": [
+            "K1",
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}

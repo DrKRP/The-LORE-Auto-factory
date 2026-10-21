@@ -1,0 +1,466 @@
+{
+  "segment": "S1",
+  "entry": "open",
+  "nodes": {
+    "open": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 45-year-old man has had years of indigestion and now sudden, severe upper abdominal pain.",
+          "claims": []
+        },
+        {
+          "text": "Before I teach this, try the problem. Which site do peptic ulcers most often perforate through?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Posterior wall of the first part of the duodenum",
+          "next": "open_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Anterior wall of the first part of the duodenum",
+          "next": "open_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Lesser curvature of the stomach",
+          "next": "open_t2",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "open_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "open_hint": {
+      "role": "hint",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Ask what lies behind each wall. One wall has a major artery behind it.",
+          "claims": []
+        },
+        {
+          "text": "What happens to a thin wall when an ulcer eats through it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try the question again",
+          "next": "open",
+          "kind": "retry"
+        }
+      ]
+    },
+    "open_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. The commonest perforation site is the anterior wall of the first part of the duodenum.",
+          "claims": [
+            "K1"
+          ]
+        },
+        {
+          "text": "Perforation is a full-thickness hole into the free peritoneal cavity, and the anterior wall is where it most often happens.",
+          "claims": [
+            "K10",
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "contrast",
+          "kind": "continue"
+        }
+      ]
+    },
+    "open_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "That is not right. The posterior wall feels like the dangerous one, because it is the wall that bleeds.",
+          "claims": []
+        },
+        {
+          "text": "Bleeding and perforation are different outcomes. Posterior ulcers erode the gastroduodenal artery and bleed; anterior ulcers are the ones that perforate.",
+          "claims": [
+            "K2",
+            "K67"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the outcome before you pick the wall: bleeding and perforation are not the same event.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "open",
+          "kind": "retry"
+        }
+      ]
+    },
+    "open_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "That is not right. Lesser curvature ulcers are the ones most students picture first, so the site feels familiar.",
+          "claims": []
+        },
+        {
+          "text": "But the question asks which site perforates most often. That is the anterior wall of the first part of the duodenum.",
+          "claims": [
+            "K1",
+            "K65"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-read the question: it asks for the most frequent site, not the most familiar ulcer.",
+        "claims": [
+          "K1"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "open",
+          "kind": "retry"
+        }
+      ]
+    },
+    "contrast": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two ulcers in the first part of the duodenum. One presents with haematemesis and melaena; the other with sudden peritonitis.",
+          "claims": []
+        },
+        {
+          "text": "Which pairing of wall and outcome is right, and which artery is eroded in the bleeder?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Anterior ulcer bleeds from gastroduodenal artery erosion; posterior ulcer perforates",
+          "next": "contrast_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Posterior ulcer bleeds from left gastric artery erosion; anterior ulcer perforates",
+          "next": "contrast_t2",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Posterior ulcer bleeds from gastroduodenal artery erosion; anterior ulcer perforates",
+          "next": "contrast_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "contrast_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "contrast_hint": {
+      "role": "hint",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Start with the bleeder. Which artery runs behind the first part of the duodenum, and what does eroding it cause?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try the question again",
+          "next": "contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "contrast_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "That is not right. The deep posterior wall feels like the dangerous one, so it seems the one that would perforate.",
+          "claims": []
+        },
+        {
+          "text": "But what lies behind each wall decides the outcome. Posterior ulcers erode the gastroduodenal artery and bleed; anterior ulcers perforate into the peritoneal cavity.",
+          "claims": [
+            "K2",
+            "K67"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pick the outcome first: a bleed and a perforation come from different walls.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "contrast_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "That is not right. The lesser curvature and its left gastric artery sit close to the stomach, so that artery seems to fit.",
+          "claims": []
+        },
+        {
+          "text": "The bleeding duodenal ulcer erodes the gastroduodenal artery, not the left gastric artery. The anterior wall is the one that perforates.",
+          "claims": [
+            "K67",
+            "K2"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so name the artery behind the wall before you accept a neighbouring one.",
+        "claims": [
+          "K67"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "contrast_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. The posterior ulcer bleeds because it erodes the gastroduodenal artery.",
+          "claims": [
+            "K67",
+            "K2"
+          ]
+        },
+        {
+          "text": "The anterior ulcer perforates into the abdomen. The wall tells you the outcome, and the artery behind it tells you the bleed.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "gas",
+          "kind": "continue"
+        }
+      ]
+    },
+    "gas": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 55-year-old man has sudden abdominal pain. His erect chest X-ray shows free gas under the diaphragm.",
+          "claims": []
+        },
+        {
+          "text": "What does this picture most often mean?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Perforated peptic ulcer is the commonest cause, though others exist",
+          "next": "gas_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Free gas always means a perforated peptic ulcer, with no other cause",
+          "next": "gas_t1",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Free gas points to a perforated ulcer until proven otherwise",
+          "next": "gas_t2",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "gas_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "gas_hint": {
+      "role": "hint",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Look at the qualifier in the question. Is it asking what is always true, or what is most often true?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try the question again",
+          "next": "gas",
+          "kind": "retry"
+        }
+      ]
+    },
+    "gas_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "That is not right. Free gas feels like a sure sign of an ulcer, because perforation is the classic reason for air under the diaphragm.",
+          "claims": []
+        },
+        {
+          "text": "A perforated peptic ulcer is the most common cause of free intraperitoneal gas. That is a frequency, not a rule, so other causes still exist.",
+          "claims": [
+            "K3",
+            "K66"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so notice the word 'most' in a frequency statement before you turn it into a rule.",
+        "claims": [
+          "K3"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "gas",
+          "kind": "retry"
+        }
+      ]
+    },
+    "gas_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "That is not right. An ulcer is the cause everyone learns first, so it feels like the default reading of free gas.",
+          "claims": []
+        },
+        {
+          "text": "Perforation is the commonest cause of pneumoperitoneum, a frequency. 'Until proven otherwise' turns that frequency into a rule the claim does not support.",
+          "claims": [
+            "K3",
+            "K66"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate how often a cause occurs from whether it is the only cause.",
+        "claims": [
+          "K3"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "gas",
+          "kind": "retry"
+        }
+      ]
+    },
+    "gas_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. Perforated peptic ulcer is the commonest cause of pneumoperitoneum, so it is the first cause to exclude.",
+          "claims": [
+            "K3",
+            "K66"
+          ]
+        },
+        {
+          "text": "Because it is a frequency, other causes still exist, and the clinical picture decides which one this is.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
