@@ -1,0 +1,1305 @@
+{
+ "segment": "S7",
+ "technique": "T10",
+ "entry": "key",
+ "nodes": {
+  "key": {
+   "role": "probe",
+   "objectives": [
+    "O1",
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A question bank from an old year gives three lines. Which one still holds for a 2026 paper?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Carcinoma cervix is the commonest cancer in Indian women",
+     "next": "key_TR4",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Carcinoma breast is the commonest cancer in Indian women",
+     "next": "key_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "FNAC is the investigation of choice for a breast lump",
+     "next": "key_TR1",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "key_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "key_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Breast cancer has overtaken cervix as the most common cancer in women in India and worldwide.",
+     "claims": [
+      "K1",
+      "K118",
+      "K136"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next question",
+     "next": "core",
+     "kind": "continue"
+    }
+   ]
+  },
+  "key_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which of the three answers newer evidence and newer guidelines have overtaken, and which one they have not.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "key",
+     "kind": "retry"
+    }
+   ]
+  },
+  "key_TR4": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Cervix was the textbook answer for years, so it feels like a safe fact to copy.",
+     "claims": [
+      "K136"
+     ]
+    },
+    {
+     "text": "Ask whether the epidemiology has moved since that key was written.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "key",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the key first: old papers expected cervix, and current teaching has moved on.",
+    "claims": [
+     "K136"
+    ]
+   }
+  },
+  "key_TR1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Many old papers did expect FNAC for a lump, so the line feels familiar.",
+     "claims": [
+      "K137"
+     ]
+    },
+    {
+     "text": "Ask what the sample must report before the team can plan treatment.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "key",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the key: old papers asked for FNAC, but current practice asks which sample gives receptor status.",
+    "claims": [
+     "K137"
+    ]
+   }
+  },
+  "core": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 50-year-old has a palpable breast mass. Before neoadjuvant chemotherapy starts, the team needs the tumour type and receptor status. Which sample do you request?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Fine needle aspiration of the breast mass",
+     "next": "core_TR1",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Core needle biopsy of the breast mass",
+     "next": "core_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "core_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "core_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. A core sample shows invasion and grade, and it gives ER, PR and HER2 status, which the plan needs.",
+     "claims": [
+      "K54",
+      "K129"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next question",
+     "next": "peau",
+     "kind": "continue"
+    }
+   ]
+  },
+  "core_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask whether a few stray cells can tell the team the tumour's type and its receptor status.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "core",
+     "kind": "retry"
+    }
+   ]
+  },
+  "core_TR1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Fine needle aspiration is quick and cheap, and old keys taught it as the breast test.",
+     "claims": [
+      "K137"
+     ]
+    },
+    {
+     "text": "Ask whether cells alone can report invasion and receptor status, or whether a piece of tissue is needed.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "core",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the reason: invasion and receptor status come from tissue, not from cells alone.",
+    "claims": [
+     "K54"
+    ]
+   }
+  },
+  "peau": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 2.5 cm tumour has orange-peel skin over it and a small ulcer nearby. There is no redness or warmth. What is the T category?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "T4d, for inflammatory carcinoma of the breast",
+     "next": "peau_TR12",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "T4b, for skin ulceration and peau d'orange",
+     "next": "peau_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "peau_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "peau_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Ulceration and orange-peel skin are skin involvement, so T4b; T4d needs the red, warm, swollen breast.",
+     "claims": [
+      "K65",
+      "K48"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next question",
+     "next": "super",
+     "kind": "continue"
+    }
+   ]
+  },
+  "peau_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which T4 category needs the whole inflammatory picture, with redness and warmth, and which needs only a skin finding.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "peau",
+     "kind": "retry"
+    }
+   ]
+  },
+  "peau_TR12": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Orange-peel skin is the sign people tie to inflammatory cancer, so T4d comes to mind first.",
+     "claims": [
+      "K67"
+     ]
+    },
+    {
+     "text": "Ask whether the breast is red, warm and swollen, or whether the skin shows a single sign.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "peau",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the sign: a skin change is not the whole inflammatory picture.",
+    "claims": [
+     "K140"
+    ]
+   }
+  },
+  "super": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A woman has a 2 cm invasive cancer and a hard node above the collarbone on the same side. Chest X-ray and bone scan are clear. What is her M category?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "M1; a node beyond the axilla is distant",
+     "next": "super_TR2",
+     "kind": "trap",
+     "trap": "TR2"
+    },
+    {
+     "label": "M0; the same-side node is nodal, N3c",
+     "next": "super_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "super_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "super_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Same-side supraclavicular nodes are N3c on the nodal ladder, and M1 needs distant organ spread.",
+     "claims": [
+      "K9",
+      "K74"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next question",
+     "next": "halsted",
+     "kind": "continue"
+    }
+   ]
+  },
+  "super_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask whether a node on the same side is a distant site, or a further station on the nodal ladder.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "super",
+     "kind": "retry"
+    }
+   ]
+  },
+  "super_TR2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A node above the clavicle looks far from the breast, so it feels like spread beyond it.",
+     "claims": [
+      "K138"
+     ]
+    },
+    {
+     "text": "Ask which letter of the staging system a node belongs to, and which letter is for distant sites.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "super",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the classification: older keys counted these nodes differently from current staging.",
+    "claims": [
+     "K138"
+    ]
+   }
+  },
+  "halsted": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A classmate writes: 'Halsted radical mastectomy is the standard operation for operable carcinoma breast.' Which correction do you write?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Halsted stays standard, as the most definitive operation",
+     "next": "halsted_TR3",
+     "kind": "trap",
+     "trap": "TR3"
+    },
+    {
+     "label": "Conservation with radiotherapy, or MRM, by suitability",
+     "next": "halsted_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "halsted_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "halsted_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Operable cancer is now treated with breast conservation and radiotherapy, or MRM; Halsted is rarely done.",
+     "claims": [
+      "K139",
+      "K85"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next question",
+     "next": "pect",
+     "kind": "continue"
+    }
+   ]
+  },
+  "halsted_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what the newer operations keep, and whether the most extensive operation is still chosen by default.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "halsted",
+     "kind": "retry"
+    }
+   ]
+  },
+  "halsted_TR3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Halsted is the textbook definitive operation, so the classmate's line sounds familiar.",
+     "claims": [
+      "K139"
+     ]
+    },
+    {
+     "text": "Ask whether removing more muscle is what decides the operation now, or whether suitability does.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "halsted",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the key: old papers expected Halsted; check what current practice has moved to.",
+    "claims": [
+     "K139"
+    ]
+   }
+  },
+  "pect": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A classmate marks a tumour T4a because it is fixed to pectoralis major. Ribs, intercostals and serratus are free. What is the correction?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Not T4a; pectoralis fixity alone is not chest wall",
+     "next": "pect_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "T4a stands; fixity to pectoralis is chest-wall disease",
+     "next": "pect_TR13",
+     "kind": "trap",
+     "trap": "TR13"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "pect_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "pect_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. T4a chest-wall invasion means ribs, intercostals or serratus anterior; the pectoralis major is not on that list.",
+     "claims": [
+      "K64",
+      "K141"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next question",
+     "next": "her",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pect_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which structures the T4a list names, and whether the pectoralis is one of them.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pect",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pect_TR13": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Muscle fixity feels like deep invasion, so the pectoralis gets counted as chest wall.",
+     "claims": [
+      "K47"
+     ]
+    },
+    {
+     "text": "Ask which tissues the T4a chest-wall list names.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pect",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the list: the fixity test is a test of fixity, and the T4a list names other tissues.",
+    "claims": [
+     "K47",
+     "K141"
+    ]
+   }
+  },
+  "her": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Your patient on trastuzumab has a falling ejection fraction. What do you expect when the drug is held?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Permanent damage that grows with dose, like doxorubicin",
+     "next": "her_TR6",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Often recovers after the drug is held",
+     "next": "her_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "her_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "her_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Trastuzumab cardiotoxicity is usually reversible and not dose-related, unlike the anthracycline pattern.",
+     "claims": [
+      "K101",
+      "K142"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next question",
+     "next": "drug",
+     "kind": "continue"
+    }
+   ]
+  },
+  "her_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask whether a HER2 antibody injures the heart the same way an anthracycline does.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "her",
+     "kind": "retry"
+    }
+   ]
+  },
+  "her_TR6": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Doxorubicin is the cardiotoxic drug most students remember, so its pattern gets carried across.",
+     "claims": []
+    },
+    {
+     "text": "Ask which drug the cumulative-dose pattern belongs to, and whether a HER2 antibody follows it.",
+     "claims": [
+      "K142"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "her",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the drug class: the cumulative, largely irreversible pattern belongs to anthracyclines.",
+    "claims": [
+     "K142"
+    ]
+   }
+  },
+  "drug": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 36-year-old woman has an ER-positive early cancer and has not reached menopause. Which hormonal drug fits her?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Anastrozole, since her tumour is ER-positive",
+     "next": "drug_TR7",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Tamoxifen, for a premenopausal woman",
+     "next": "drug_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "drug_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "drug_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Before menopause the ovaries supply most oestrogen, so tamoxifen blocks the receptor; aromatase inhibitors suit postmenopausal women.",
+     "claims": [
+      "K97",
+      "K98",
+      "K131"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next question",
+     "next": "tam",
+     "kind": "continue"
+    }
+   ]
+  },
+  "drug_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask where this woman's oestrogen comes from, and whether her ovaries still make it.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "drug",
+     "kind": "retry"
+    }
+   ]
+  },
+  "drug_TR7": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. ER positivity is the cue most people act on, so the drug follows the receptor alone.",
+     "claims": [
+      "K10"
+     ]
+    },
+    {
+     "text": "Ask whether menopausal status changes where the oestrogen comes from.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "drug",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check her status: aromatase inhibitors act on oestrogen made by peripheral aromatisation after menopause.",
+    "claims": [
+     "K98"
+    ]
+   }
+  },
+  "tam": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Your patient on tamoxifen asks what it does to her womb. Which answer is right?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Endometrial atrophy, which protects against cancer",
+     "next": "tam_TR22",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "Endometrial carcinoma is a recognised risk",
+     "next": "tam_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "tam_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "tam_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Tamoxifen acts differently in the endometrium, so it raises endometrial cancer risk, and it also carries thromboembolism risk.",
+     "claims": [
+      "K99",
+      "K143"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next question",
+     "next": "lcis",
+     "kind": "continue"
+    }
+   ]
+  },
+  "tam_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask whether a drug that blocks oestrogen in the breast blocks it in every tissue.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tam",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tam_TR22": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Tamoxifen's anti-oestrogen effect in the breast is the part most learners remember, so the uterus gets assumed protected too.",
+     "claims": []
+    },
+    {
+     "text": "Ask whether the same drug behaves the same way in every tissue.",
+     "claims": [
+      "K143"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tam",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the tissue: tamoxifen is not a pure blocker in the uterus, and its uterine effect is a known adverse effect.",
+    "claims": [
+     "K99"
+    ]
+   }
+  },
+  "lcis": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A core biopsy of a mammographic area shows classic LCIS, with no invasive cancer. What is the plan?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Mastectomy on that side, to remove the lesion",
+     "next": "lcis_TR25",
+     "kind": "trap",
+     "trap": "TR25"
+    },
+    {
+     "label": "Surveillance, and chemoprevention may be considered",
+     "next": "lcis_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "lcis_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "lcis_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Classic LCIS marks a raised risk of invasive cancer in either breast, so it is watched, and chemoprevention is considered.",
+     "claims": [
+      "K104",
+      "K25"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next question",
+     "next": "ilc",
+     "kind": "continue"
+    }
+   ]
+  },
+  "lcis_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask whether classic LCIS is a cancer to be removed, or a marker of future risk.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "lcis",
+     "kind": "retry"
+    }
+   ]
+  },
+  "lcis_TR25": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Carcinoma in situ sounds like cancer to be cut out, so surgery feels like the default.",
+     "claims": [
+      "K104"
+     ]
+    },
+    {
+     "text": "Ask what this lesion predicts, not only what it looks like on the biopsy.",
+     "claims": [
+      "K25"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "lcis",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the lesion: classic LCIS is a risk marker, not an invasive cancer.",
+    "claims": [
+     "K25"
+    ]
+   }
+  },
+  "ilc": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "An MRI shows multicentric disease in both breasts. Which type of breast carcinoma is most often bilateral and multicentric?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Invasive ductal carcinoma, the commonest type",
+     "next": "ilc_TR10",
+     "kind": "trap",
+     "trap": "TR10"
+    },
+    {
+     "label": "Invasive lobular carcinoma, the typical bilateral type",
+     "next": "ilc_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "ilc_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "ilc_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Lobular carcinoma loses E-cadherin, so cells grow in single file and it is more often bilateral and multicentric.",
+     "claims": [
+      "K27",
+      "K122"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next question",
+     "next": "gene",
+     "kind": "continue"
+    }
+   ]
+  },
+  "ilc_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which type the question's bilateral cue points to, not which type is most frequent.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ilc",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ilc_TR10": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Ductal carcinoma is the commonest type, so it feels like the answer to any type question.",
+     "claims": [
+      "K26"
+     ]
+    },
+    {
+     "text": "Ask which histology the bilateral and multicentric pattern points to, not which is most frequent.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ilc",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the pattern: frequency and bilateral spread are different questions.",
+    "claims": [
+     "K122"
+    ]
+   }
+  },
+  "gene": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Which pairing of gene, chromosome arm and male breast cancer is right?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "BRCA2 on 17q, linked to male breast cancer",
+     "next": "gene_TR8",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "BRCA1 on 17q, linked to male breast cancer",
+     "next": "gene_TR9",
+     "kind": "trap",
+     "trap": "TR9"
+    },
+    {
+     "label": "BRCA2 on 13q, linked to male breast cancer",
+     "next": "gene_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "gene_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "gene_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. BRCA2 lies on 13q and is the gene more linked to male breast cancer; BRCA1, on 17q, tends to give triple-negative tumours.",
+     "claims": [
+      "K4",
+      "K22",
+      "K17"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next question",
+     "next": "nipple",
+     "kind": "continue"
+    }
+   ]
+  },
+  "gene_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which gene is linked to male breast cancer first, then the arm that gene sits on.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "gene",
+     "kind": "retry"
+    }
+   ]
+  },
+  "gene_TR8": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The numbers 13 and 17 are easy to swap, so the arm slips onto the wrong gene.",
+     "claims": [
+      "K4"
+     ]
+    },
+    {
+     "text": "Ask which arm BRCA1 sits on, then which arm is left for BRCA2.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "gene",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the arms: the two numbers belong to different genes.",
+    "claims": [
+     "K4"
+    ]
+   }
+  },
+  "gene_TR9": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. BRCA1 is the best-known breast cancer gene, so it gets attached to every phenotype.",
+     "claims": [
+      "K4"
+     ]
+    },
+    {
+     "text": "Ask which gene the male phenotype belongs to, before you name the arm.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "gene",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the phenotype: the male-linked gene is the one the question names, and it is not BRCA1.",
+    "claims": [
+     "K22"
+    ]
+   }
+  },
+  "nipple": {
+   "role": "probe",
+   "objectives": [
+    "O5",
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Your classmate writes 'carcinoma is the most common cause of bloody nipple discharge'. What do you write for the most common cause?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Intraductal papilloma, a benign duct lesion",
+     "next": "nipple_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Carcinoma breast, the most worrying cause",
+     "next": "nipple_TR20",
+     "kind": "trap",
+     "trap": "TR20"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "nipple_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "nipple_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Intraductal papilloma is the most common cause; carcinoma must still be excluded when the discharge is bloody.",
+     "claims": [
+      "K144",
+      "K45"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next question",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "nipple_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which question is being answered: the most common cause, or the cause that must be excluded.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "nipple",
+     "kind": "retry"
+    }
+   ]
+  },
+  "nipple_TR20": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Blood in the discharge is the alarm sign, so danger seems to decide the frequency too.",
+     "claims": [
+      "K45"
+     ]
+    },
+    {
+     "text": "Ask which question the classmate answered: the most common cause, or the cause to rule out.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "nipple",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so separate the two questions: frequency and alarm are different.",
+    "claims": [
+     "K144"
+    ]
+   }
+  }
+ }
+}
