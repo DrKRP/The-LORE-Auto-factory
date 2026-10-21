@@ -1,0 +1,917 @@
+{
+  "segment": "S2",
+  "technique": "T3",
+  "entry": "pyq",
+  "nodes": {
+    "pyq": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Start with the exam. A stem asks for the **most common** gallstone type, as the previous-year (PYQ) key expects. Predict the key's answer.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Mixed stones",
+          "next": "pyq_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Pure cholesterol stones",
+          "next": "pyq_t_chol",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Black pigment stones",
+          "next": "pyq_t_black",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pyq_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "pyq_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which source the question follows: the old exam key, or the current textbook grouping.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pyq",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pyq_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. The exam key gives mixed stones as the most common type.",
+          "claims": [
+            "K15"
+          ]
+        },
+        {
+          "text": "Texts group cholesterol and mixed stones together as the majority, about 80 per cent. Know both: the key for the exam, the grouping for practice.",
+          "claims": [
+            "K14",
+            "K114"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "black_p",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pyq_t_chol": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts you because Western texts rank cholesterol stones highest, but this stem asks for the exam key's answer.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check which source the question follows. The key and the text do not always agree here.",
+        "claims": [
+          "K114"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pyq",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pyq_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "pyq_t_black": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts you because haemolysis is common in India, but this question asks for the commonest type, not the stone linked to a cause.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate the stone's colour from the question's ask: most common type, as the key counts it.",
+        "claims": [
+          "K114"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pyq",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pyq_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "pyq_why": {
+      "role": "explain",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "The exam key counts mixed stones as the most common type.",
+          "claims": [
+            "K15"
+          ]
+        },
+        {
+          "text": "Current texts put cholesterol and mixed stones together as the large majority, so both answers are defensible in practice.",
+          "claims": [
+            "K14",
+            "K114"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "black_p",
+          "kind": "continue"
+        }
+      ]
+    },
+    "black_p": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A boy with hereditary spherocytosis has chronic haemolysis for years. Predict his gallstone: which type, and where does it form?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Black pigment stones, in the gallbladder",
+          "next": "black_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Brown pigment stones, in the bile ducts",
+          "next": "black_t_brown",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Black pigment stones, in the bile ducts",
+          "next": "black_t_site",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "black_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "black_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Follow the bilirubin. What does constant red cell breakdown push into the bile?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "black_p",
+          "kind": "retry"
+        }
+      ]
+    },
+    "black_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. Chronic haemolysis gives black pigment stones, which form in the gallbladder.",
+          "claims": [
+            "K17"
+          ]
+        },
+        {
+          "text": "They are small, multiple and hard, and they go with cirrhosis too.",
+          "claims": [
+            "K17"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "brown_p",
+          "kind": "continue"
+        }
+      ]
+    },
+    "black_t_brown": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts you because it names the bile ducts, but you have tied the site to infection rather than to the cause in this boy.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pair each colour with its cause first, then with its site.",
+        "claims": [
+          "K17",
+          "K18"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "black_p",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "black_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "black_t_site": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts you because the colour fits haemolysis, but you have placed the stone in the wrong part of the biliary tree for this cause.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the site against the cause, not against the colour alone.",
+        "claims": [
+          "K17"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "black_p",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "black_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "black_why": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Haemolysis gives black pigment stones: small, multiple and hard, formed in the gallbladder, and linked with cirrhosis.",
+          "claims": [
+            "K17"
+          ]
+        },
+        {
+          "text": "Brown pigment stones are different: soft and earthy, in the bile ducts, with infection and stasis.",
+          "claims": [
+            "K18"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "brown_p",
+          "kind": "continue"
+        }
+      ]
+    },
+    "brown_p": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A man with recurrent cholangitis and an Ascaris infestation has soft, earthy stones in his bile ducts. Predict the stone type and what drives it.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Brown pigment stones, from bacterial infection in the ducts",
+          "next": "brown_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Black pigment stones, from haemolysis in the gallbladder",
+          "next": "brown_t_gb",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Black pigment stones, from haemolysis in the bile ducts",
+          "next": "brown_t_ducts",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "brown_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "brown_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the bacteria in infected bile do to bilirubin, and where the stone then forms.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "brown_p",
+          "kind": "retry"
+        }
+      ]
+    },
+    "brown_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. Infected bile carries bacterial β-glucuronidase, which frees bilirubin to form soft brown stones in the ducts.",
+          "claims": [
+            "K19",
+            "K18"
+          ]
+        },
+        {
+          "text": "Ascaris and Clonorchis are the parasites linked to them.",
+          "claims": [
+            "K18"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "chol_fact",
+          "kind": "continue"
+        }
+      ]
+    },
+    "brown_t_gb": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts you because haemolysis is in the picture, but this stone is a duct problem driven by infection, not by red cell breakdown.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask what the stem gives as the cause before you pick the colour.",
+        "claims": [
+          "K18"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "brown_p",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "brown_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "brown_t_ducts": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts you because the site fits, but you have tied the colour to haemolysis when the cause is infection.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pair the colour with the cause the stem names, not with the site alone.",
+        "claims": [
+          "K18",
+          "K19"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "brown_p",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "brown_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "brown_why": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Biliary infection brings bacterial β-glucuronidase, which frees bilirubin from its conjugates.",
+          "claims": [
+            "K19"
+          ]
+        },
+        {
+          "text": "The free bilirubin forms soft, earthy brown stones in the bile ducts, linked with parasites such as Ascaris and Clonorchis.",
+          "claims": [
+            "K18"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "chol_fact",
+          "kind": "continue"
+        }
+      ]
+    },
+    "chol_fact": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Female, fat, fertile, forty: the mnemonic for cholesterol stones.",
+          "device": true,
+          "claims": [
+            "K21"
+          ]
+        },
+        {
+          "text": "Oestrogen raises biliary cholesterol and progesterone slows the gallbladder, so pregnancy and the pill both raise risk. Rapid weight loss, including after bariatric surgery, does too.",
+          "claims": [
+            "K22",
+            "K23"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "acal_p",
+          "kind": "continue"
+        }
+      ]
+    },
+    "acal_p": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Compare acalculous with calculous cholecystitis. Predict how acalculous disease behaves.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Has more gangrene and perforation, and higher mortality",
+          "next": "acal_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Runs a milder course, since no stone blocks the duct",
+          "next": "acal_t_mild",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Has lower mortality, since patients are younger",
+          "next": "acal_t_young",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "acal_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "acal_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what drives the inflammation when no stone is present, and in whom it occurs.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "acal_p",
+          "kind": "retry"
+        }
+      ]
+    },
+    "acal_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. Without a stone, the gallbladder is inflamed by stasis and ischaemia, so gangrene and perforation are more frequent.",
+          "claims": [
+            "K34",
+            "K35"
+          ]
+        },
+        {
+          "text": "Its mortality is higher as well.",
+          "claims": [
+            "K35"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "acal_v",
+          "kind": "continue"
+        }
+      ]
+    },
+    "acal_t_mild": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts you because no stone means nothing blocks the duct, so the course looks gentler. The question is what drives the inflammation.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure that no stone means milder. Check what drives inflammation in acalculous disease.",
+        "claims": [
+          "K34"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "acal_p",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "acal_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "acal_t_young": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts you because the group sounds benign, but severity follows the illness the patient is in, not the patient's age.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so link the severity to the setting in which acalculous disease arises.",
+        "claims": [
+          "K34"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "acal_p",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "acal_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "acal_why": {
+      "role": "explain",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Acalculous cholecystitis is inflammation with no stone, in about 5 to 10 per cent of cases.",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "It arises from stasis and ischaemia in critically ill patients after surgery, trauma, burns, sepsis or prolonged fasting. It carries more gangrene, perforation and higher mortality.",
+          "claims": [
+            "K34",
+            "K35"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "acal_v",
+          "kind": "continue"
+        }
+      ]
+    },
+    "acal_v": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A patient with extensive burns on day 6 in the ICU develops fever and right upper quadrant tenderness. No stone is seen. What is the main risk to plan around?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "High risk of gangrene and perforation in this patient",
+          "next": "v_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Mild disease that can be watched without imaging",
+          "next": "v_t_watch",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Settles with analgesia, as in biliary colic",
+          "next": "v_t_colic",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "v_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "v_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what is happening to the gallbladder wall in a sick patient, not whether a stone is there.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "acal_v",
+          "kind": "retry"
+        }
+      ]
+    },
+    "v_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. Stasis and ischaemia in a critically ill patient drive gangrene and perforation, so the risk is high.",
+          "claims": [
+            "K34",
+            "K35"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "v_t_watch": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts you because nothing is blocking the duct, but this gallbladder is failing from stasis and ischaemia.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask what is injuring the wall before you judge how mild it is.",
+        "claims": [
+          "K34",
+          "K35"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "acal_v",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "v_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "v_t_colic": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts you because pain that settles is the colic pattern, but fever and tenderness point to inflammation of the gallbladder.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check whether the stem describes a passing colic or an inflamed gallbladder.",
+        "claims": [
+          "K34"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "acal_v",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "v_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "v_why": {
+      "role": "explain",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Fever and tenderness in this burns patient mean inflammation of the gallbladder, with no stone to explain it.",
+          "claims": [
+            "K13"
+          ]
+        },
+        {
+          "text": "Stasis and ischaemia in critical illness progress to gangrene and perforation, so the risk is high and mortality is higher.",
+          "claims": [
+            "K34",
+            "K35"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
