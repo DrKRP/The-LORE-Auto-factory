@@ -120,7 +120,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, so check this one: the everyday oxygen and acidosis numbers are the swap to avoid, because TG18 has its own organ thresholds.",
+        "text": "You were sure, so notice the swap: a raw PaO2 is the general-medicine cut-off, whereas TG18 uses the PaO2/FiO2 ratio.",
         "claims": [
           "K62"
         ]
@@ -153,9 +153,10 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, so check this one: the everyday oxygen and acidosis numbers are the swap to avoid, because TG18 has its own organ thresholds.",
+        "text": "You were sure, so notice the swap: pH and lactate describe critical illness in general, but TG18 grades the lungs by the PaO2/FiO2 ratio.",
         "claims": [
-          "K59"
+          "K59",
+          "K62"
         ]
       }
     },
@@ -519,7 +520,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "p5",
+          "next": "p6",
           "kind": "continue"
         }
       ]
@@ -539,7 +540,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "p5",
+          "next": "p6",
           "kind": "continue"
         }
       ]
@@ -572,7 +573,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, so check this one: the older key and current practice differ here, and the key is what the PYQ expects.",
+        "text": "You were sure, so hold both columns: the older PYQ key says interval surgery at 6-8 weeks, current practice says early surgery in the index admission.",
         "claims": [
           "K75",
           "K115"
@@ -607,157 +608,12 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, so check this one: the older key and current practice differ here, and the key is what the PYQ expects.",
+        "text": "You were sure, so ask what waiting for recurrence leaves behind: the diseased gallbladder stays, and current practice removes it early in the same admission.",
         "claims": [
           "K73",
-          "K75"
+          "K74"
         ]
       }
-    },
-    "p5": {
-      "role": "probe",
-      "objectives": [
-        "O8"
-      ],
-      "say": [
-        {
-          "text": "Which patient needs organ support and gallbladder drainage before any operation?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "A fit woman with Grade I disease and no organ failure",
-          "next": "p5_t0",
-          "kind": "trap",
-          "trap": "TR10"
-        },
-        {
-          "label": "A fit man with Grade II disease in an experienced centre",
-          "next": "p5_t1",
-          "kind": "trap",
-          "trap": "TR10"
-        },
-        {
-          "label": "A man with Grade III disease on noradrenaline",
-          "next": "p5_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "p5_hint",
-          "kind": "help"
-        }
-      ]
-    },
-    "p5_hint": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Each grade has its own first step. Ask which patient has organ failure.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Back to the question",
-          "next": "p5",
-          "kind": "retry"
-        }
-      ]
-    },
-    "p5_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. Grade III means organ dysfunction, so organ support and gallbladder drainage come first, and surgery follows later.",
-          "claims": [
-            "K76",
-            "K59",
-            "K111"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "p6",
-          "kind": "continue"
-        }
-      ]
-    },
-    "p5_show": {
-      "role": "explain",
-      "say": [
-        {
-          "text": "The answer is the Grade III patient. Grade I, and a fit Grade II, go to early laparoscopic surgery; Grade III is supported and drained first.",
-          "claims": [
-            "K76",
-            "K59"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "p6",
-          "kind": "continue"
-        }
-      ]
-    },
-    "p5_t0": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right.",
-          "claims": []
-        },
-        {
-          "text": "She can go to early laparoscopic surgery, so she is not the one who needs support and drainage first.",
-          "claims": [
-            "K76"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "p5",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me the answer",
-          "next": "p5_show",
-          "kind": "agency"
-        }
-      ]
-    },
-    "p5_t1": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right.",
-          "claims": []
-        },
-        {
-          "text": "A fit Grade II patient can also go to early surgery, so drainage is not the first step for him.",
-          "claims": [
-            "K76"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "p5",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me the answer",
-          "next": "p5_show",
-          "kind": "agency"
-        }
-      ]
     },
     "p6": {
       "role": "probe",
@@ -787,6 +643,11 @@
           "next": "p6_t2",
           "kind": "trap",
           "trap": "TR12"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p6_hint",
+          "kind": "help"
         }
       ],
       "ask_confidence": true
@@ -857,9 +718,10 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, so check this one: a silent stone is not treated by default, and tablets need specific stone qualifiers.",
+        "text": "You were sure, so check the stone type: tablets work only for small radiolucent cholesterol stones in a working gallbladder, and a silent stone needs no treatment.",
         "claims": [
-          "K72"
+          "K72",
+          "K68"
         ]
       }
     },
@@ -891,133 +753,12 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, so check this one: a silent stone is not treated by default, and tablets need specific stone qualifiers.",
+        "text": "You were sure, so weigh the numbers: about 1-2% a year develop symptoms, so most silent stones are watched and surgery is kept for selected high-risk cases.",
         "claims": [
           "K36",
-          "K68"
+          "K69"
         ]
       }
-    },
-    "p7": {
-      "role": "probe",
-      "objectives": [
-        "O10"
-      ],
-      "say": [
-        {
-          "text": "Which of these is NOT part of Reynolds' pentad in acute cholangitis?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Hypotension",
-          "next": "p7_t0",
-          "kind": "trap",
-          "trap": "TR17"
-        },
-        {
-          "label": "Vomiting",
-          "next": "p7_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Confusion",
-          "next": "p7_t2",
-          "kind": "trap",
-          "trap": "TR17"
-        }
-      ]
-    },
-    "p7_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. Charcot's triad is fever with rigors, jaundice and RUQ pain; hypotension and confusion make the pentad. Vomiting is in neither set.",
-          "claims": [
-            "K89"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "p8",
-          "kind": "continue"
-        }
-      ]
-    },
-    "p7_show": {
-      "role": "explain",
-      "say": [
-        {
-          "text": "The answer is vomiting. Charcot's triad plus hypotension and confusion makes Reynolds' pentad, and vomiting is in neither set.",
-          "claims": [
-            "K89"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "p8",
-          "kind": "continue"
-        }
-      ]
-    },
-    "p7_t0": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right.",
-          "claims": []
-        },
-        {
-          "text": "Hypotension is one of the two extra signs that make up the pentad, so it cannot be the odd one out.",
-          "claims": [
-            "K89"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "p7",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me the answer",
-          "next": "p7_show",
-          "kind": "agency"
-        }
-      ]
-    },
-    "p7_t2": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right.",
-          "claims": []
-        },
-        {
-          "text": "Confusion is the second extra sign in the pentad, so it cannot be the odd one out.",
-          "claims": [
-            "K89"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "p7",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me the answer",
-          "next": "p7_show",
-          "kind": "agency"
-        }
-      ]
     },
     "p8": {
       "role": "probe",
@@ -1241,7 +982,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, so check this one: the most feared event is not the commonest cause of a duct injury.",
+        "text": "You were sure, so remember that the dramatic complication is not the commonest: duct injury mostly follows misidentification of the duct.",
         "claims": [
           "K81"
         ]
@@ -1274,7 +1015,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, so check this one: the most feared event is not the commonest cause of a duct injury.",
+        "text": "You were sure, so separate the vessel from the duct: the artery sits nearby, but the usual major duct injury is the duct mistaken for the cystic duct.",
         "claims": [
           "K81"
         ]
@@ -1428,7 +1169,7 @@
           "label": "Open cholecystectomy today, to be safe",
           "next": "p11_t2",
           "kind": "trap",
-          "trap": "TR24"
+          "trap": "TR10"
         }
       ]
     },
@@ -1534,27 +1275,27 @@
       ],
       "say": [
         {
-          "text": "A trainee writes, 'Gallstone ileus is the outlet block at the duodenum, and Bouveret's is the terminal ileum.' Which correction is right?",
+          "text": "A trainee writes, 'Mirizzi syndrome is a stone inside the bile duct, and gallstone ileus is the outlet block at the duodenum.' Which correction is right?",
           "claims": []
         }
       ],
       "choices": [
         {
-          "label": "No change; both statements are correct",
-          "next": "p12_t0",
-          "kind": "trap",
-          "trap": "TR16"
+          "label": "Mirizzi is external compression; the outlet block is Bouveret's",
+          "next": "p12_ok",
+          "kind": "correct"
         },
         {
-          "label": "Mirizzi is the outlet block, a stone in the bile duct lumen",
+          "label": "Mirizzi is right; only the outlet block needs renaming Bouveret's",
           "next": "p12_t1",
           "kind": "trap",
           "trap": "TR22"
         },
         {
-          "label": "Swap them; Bouveret's is the duodenum or pylorus",
-          "next": "p12_ok",
-          "kind": "correct"
+          "label": "Mirizzi is wrong, but gallstone ileus is the duodenal outlet block",
+          "next": "p12_t0",
+          "kind": "trap",
+          "trap": "TR16"
         }
       ]
     },
@@ -1562,8 +1303,9 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Yes. Bouveret's is gastric outlet obstruction from a stone in the duodenum or pylorus; gallstone ileus lodges in the terminal ileum.",
+          "text": "Yes. Mirizzi is a stone in Hartmann's pouch compressing the hepatic duct from outside. Bouveret's is the outlet obstruction at the duodenum or pylorus, and gallstone ileus lodges in the terminal ileum.",
           "claims": [
+            "K88",
             "K98",
             "K96",
             "K107"
@@ -1582,12 +1324,12 @@
       "role": "explain",
       "say": [
         {
-          "text": "The answer is to swap them. Bouveret's has the stone in the duodenum or pylorus; gallstone ileus obstructs the terminal ileum; Mirizzi compresses the hepatic duct from outside.",
+          "text": "Mirizzi: a stone in Hartmann's pouch compresses the hepatic duct from outside. Bouveret's: stone in the duodenum or pylorus, a gastric outlet block. Gallstone ileus: small-bowel obstruction, usually at the terminal ileum.",
           "claims": [
+            "K88",
             "K98",
             "K96",
-            "K107",
-            "K88"
+            "K107"
           ]
         }
       ],
@@ -1607,10 +1349,11 @@
           "claims": []
         },
         {
-          "text": "The two sites are swapped here: gallstone ileus lodges in the terminal ileum, and Bouveret's is the outlet block.",
+          "text": "Fixing Mirizzi is right, but ileus is not the duodenal outlet block. A stone at the duodenum or pylorus is Bouveret's, while gallstone ileus lodges in the terminal ileum.",
           "claims": [
+            "K98",
             "K96",
-            "K98"
+            "K107"
           ]
         }
       ],
@@ -1625,7 +1368,14 @@
           "next": "p12_show",
           "kind": "agency"
         }
-      ]
+      ],
+      "sure_note": {
+        "text": "You were sure, so tie each name to its site: duodenum or pylorus is Bouveret's, terminal ileum is gallstone ileus.",
+        "claims": [
+          "K98",
+          "K107"
+        ]
+      }
     },
     "p12_t1": {
       "role": "feedback",
@@ -1635,9 +1385,10 @@
           "claims": []
         },
         {
-          "text": "Mirizzi is a stone in Hartmann's pouch pressing on the hepatic duct from outside, not an outlet block.",
+          "text": "Correcting one half is tempting, but the Mirizzi half is also wrong: the stone sits in Hartmann's pouch and presses on the hepatic duct from outside, not inside the duct lumen.",
           "claims": [
-            "K88"
+            "K88",
+            "K10"
           ]
         }
       ],
@@ -1652,7 +1403,170 @@
           "next": "p12_show",
           "kind": "agency"
         }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask where the stone sits: inside the duct is choledocholithiasis, whereas Mirizzi compresses the duct from outside.",
+        "claims": [
+          "K10",
+          "K88"
+        ]
+      }
+    },
+    "p6_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask two things: does he have symptoms, and does a stone alone make surgery or tablets necessary?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "p6",
+          "kind": "retry"
+        }
+      ],
+      "objectives": [
+        "O9"
       ]
+    },
+    "p7": {
+      "role": "probe",
+      "say": [
+        {
+          "text": "Which of these is NOT part of Reynolds' pentad in acute cholangitis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Hypotension",
+          "next": "p7_t0",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Vomiting",
+          "next": "p7_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Confusion",
+          "next": "p7_t2",
+          "kind": "trap",
+          "trap": "TR17"
+        }
+      ],
+      "objectives": [
+        "O10"
+      ],
+      "ask_confidence": true
+    },
+    "p7_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Charcot's triad is fever with rigors, jaundice and RUQ pain; hypotension and confusion make the pentad. Vomiting is in neither set.",
+          "claims": [
+            "K89"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p8",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p7_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The answer is vomiting. Charcot's triad plus hypotension and confusion makes Reynolds' pentad, and vomiting is in neither set.",
+          "claims": [
+            "K89"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p8",
+          "kind": "continue"
+        }
+      ],
+      "objectives": [
+        "O10"
+      ]
+    },
+    "p7_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Hypotension is one of the two extra signs that make up the pentad, so it cannot be the odd one out.",
+          "claims": [
+            "K89"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p7",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p7_show",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so recall the build: the triad plus hypotension and confusion is the pentad, so low blood pressure is inside it.",
+        "claims": [
+          "K89"
+        ]
+      }
+    },
+    "p7_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Confusion is the second extra sign in the pentad, so it cannot be the odd one out.",
+          "claims": [
+            "K89"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p7",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p7_show",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so recall the build: the triad plus hypotension and confusion is the pentad, so a clouded mind is inside it.",
+        "claims": [
+          "K89"
+        ]
+      }
     }
   },
   "cards": [
@@ -1719,6 +1633,55 @@
         "K80"
       ],
       "objective": "O12"
+    },
+    {
+      "q": "Biliary colic or acute cholecystitis: how long does the pain last, and what is added?",
+      "a": "Colic is steady pain settling within a few hours (usually under 6). Pain beyond about 6 hours with fever and local tenderness suggests acute cholecystitis.",
+      "claims": [
+        "K37",
+        "K38",
+        "K118"
+      ],
+      "objective": "O1"
+    },
+    {
+      "q": "Most common gallstone type: what does the PYQ key expect, and what do texts say?",
+      "a": "The PYQ key expects mixed stones. Texts group cholesterol and mixed stones together as the large majority.",
+      "claims": [
+        "K15",
+        "K114",
+        "K14"
+      ],
+      "objective": "O2"
+    },
+    {
+      "q": "Black versus brown pigment stones: site and association?",
+      "a": "Black: gallbladder, small and hard, with chronic haemolysis and cirrhosis. Brown: bile ducts, soft and earthy, with infection and stasis.",
+      "claims": [
+        "K17",
+        "K18"
+      ],
+      "objective": "O3"
+    },
+    {
+      "q": "TG18 suspected versus definite diagnosis?",
+      "a": "Suspected is one A item (local signs) plus one B item (systemic signs). Definite is A plus B plus C (imaging).",
+      "claims": [
+        "K58",
+        "K55",
+        "K56",
+        "K57"
+      ],
+      "objective": "O6"
+    },
+    {
+      "q": "When does Courvoisier's law apply?",
+      "a": "In a jaundiced patient with a palpable, non-tender gallbladder, which suggests malignant distal obstruction rather than stones.",
+      "claims": [
+        "K9",
+        "K119"
+      ],
+      "objective": "O11"
     }
   ],
   "technique": "T9+T8+T10",

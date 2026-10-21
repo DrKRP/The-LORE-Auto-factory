@@ -1,0 +1,181 @@
+{
+  "segment": "S2",
+  "technique": "T7",
+  "entry": "cases",
+  "nodes": {
+    "cases": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Two patients, each with a first-part duodenal ulcer. Patient A has sudden epigastric pain, rigidity and free gas. Patient B has haematemesis and melaena, with no peritonitis.", "claims": []},
+        {"text": "Which is the posterior-wall ulcer, and what does it erode?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Patient A, because the deeper wall perforates", "next": "cases_t1", "kind": "trap", "trap": "TR1"},
+        {"label": "Not sure, give me a hint", "next": "cases_hint", "kind": "help"},
+        {"label": "Patient B, eroding the gastroduodenal artery", "next": "cases_ok", "kind": "correct"},
+        {"label": "Patient B, eroding the splenic artery", "next": "cases_t2", "kind": "trap", "trap": "TR1"}
+      ]
+    },
+    "cases_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask what each ulcer's picture tells you it has opened into: the free belly, or a vessel.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try the question again", "next": "cases", "kind": "retry"}
+      ]
+    },
+    "cases_ok": {
+      "role": "feedback",
+      "objectives": ["O1"],
+      "say": [
+        {"text": "Yes. The posterior ulcer erodes the gastroduodenal artery and bleeds. The anterior ulcer breaks through into the free peritoneal cavity and causes peritonitis.", "claims": ["K67", "K10"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "stages", "kind": "continue"}
+      ]
+    },
+    "cases_t1": {
+      "role": "feedback",
+      "objectives": ["O1"],
+      "say": [
+        {"text": "Naming the back wall as the deeper, more dangerous site feels right, because depth sounds like danger.", "claims": []},
+        {"text": "That is not right. Posterior ulcers bleed by eroding the gastroduodenal artery. It is the anterior ulcer that breaks through into the free peritoneal cavity.", "claims": ["K2", "K10"]}
+      ],
+      "sure_note": {"text": "You were sure, so check which ulcer opens into the belly before you commit.", "claims": ["K2"]},
+      "choices": [
+        {"label": "Try again", "next": "cases", "kind": "retry"}
+      ]
+    },
+    "cases_t2": {
+      "role": "feedback",
+      "objectives": ["O1"],
+      "say": [
+        {"text": "A big upper-abdominal artery feels right, because the bleeder is near the stomach and the splenic artery is a familiar name.", "claims": []},
+        {"text": "That is not right. The posterior ulcer erodes the gastroduodenal artery, so the vessel is named by its duodenal position, not the spleen.", "claims": ["K2", "K67"]}
+      ],
+      "sure_note": {"text": "You were sure, so name the artery that sits beside the first part of the duodenum.", "claims": ["K2"]},
+      "choices": [
+        {"label": "Try again", "next": "cases", "kind": "retry"}
+      ]
+    },
+    "stages": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A duodenal ulcer perforates and spills its contents into the belly. The abdomen then changes over the next hours.", "claims": []},
+        {"text": "Which order do the stages follow?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Bacterial peritonitis, then reaction, then chemical peritonitis", "next": "stages_t1", "kind": "trap", "trap": "TR17"},
+        {"label": "Chemical peritonitis, then reaction, then bacterial peritonitis", "next": "stages_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "stages_hint", "kind": "help"},
+        {"label": "Chemical peritonitis, then bacterial peritonitis, then reaction", "next": "stages_t2", "kind": "trap", "trap": "TR17"}
+      ]
+    },
+    "stages_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Think about what the acid does in the first minutes, and what bacteria need hours to do.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try the question again", "next": "stages", "kind": "retry"}
+      ]
+    },
+    "stages_ok": {
+      "role": "feedback",
+      "objectives": ["O3"],
+      "say": [
+        {"text": "Yes. Acid, bile and enzymes cause chemical peritonitis first. Dilution then makes the patient look better, and bacteria take over as diffuse peritonitis.", "claims": ["K18", "K19", "K20", "K21"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "tissue", "kind": "continue"}
+      ]
+    },
+    "stages_t1": {
+      "role": "feedback",
+      "objectives": ["O3"],
+      "say": [
+        {"text": "Bacteria first feels right, because infection is what most people picture when a gut leaks.", "claims": []},
+        {"text": "That is not right. Acid, bile and enzymes spill first and cause chemical peritonitis. Bacteria arrive over hours.", "claims": ["K18", "K19"]}
+      ],
+      "sure_note": {"text": "You were sure, so trace what leaks first, then what follows over hours.", "claims": ["K19"]},
+      "choices": [
+        {"label": "Try again", "next": "stages", "kind": "retry"}
+      ]
+    },
+    "stages_t2": {
+      "role": "feedback",
+      "objectives": ["O3"],
+      "say": [
+        {"text": "Putting reaction last feels right, because the calm stage looks like the end of the illness.", "claims": []},
+        {"text": "That is not right. Reaction comes second. The exudate dilutes the irritant and the patient looks better, a lull before bacterial peritonitis.", "claims": ["K20", "K21"]}
+      ],
+      "sure_note": {"text": "You were sure, so ask whether the calm stage is recovery or a lull.", "claims": ["K21"]},
+      "choices": [
+        {"label": "Try again", "next": "stages", "kind": "retry"}
+      ]
+    },
+    "tissue": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A patient with colic writhes on the bed. A patient with a perforated ulcer lies almost still.", "claims": []},
+        {"text": "Why does the perforated patient keep still?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Movement relieves peritoneal pain, so the rolling patient has peritonitis", "next": "tissue_t1", "kind": "trap", "trap": "TR18"},
+        {"label": "Movement jars the inflamed peritoneum and worsens the pain", "next": "tissue_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "tissue_hint", "kind": "help"},
+        {"label": "Severe pain drives movement, so the still patient must have colic", "next": "tissue_t2", "kind": "trap", "trap": "TR18"}
+      ]
+    },
+    "tissue_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask what movement does to an inflamed peritoneum, and what it does to a spasming gut.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try the question again", "next": "tissue", "kind": "retry"}
+      ]
+    },
+    "tissue_ok": {
+      "role": "feedback",
+      "objectives": ["O3"],
+      "say": [
+        {"text": "Yes. Inflamed peritoneum makes every movement jar, so the patient keeps still. The restless patient of colic is the reverse picture.", "claims": ["K27"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    },
+    "tissue_t1": {
+      "role": "feedback",
+      "objectives": ["O3"],
+      "say": [
+        {"text": "Movement easing pain feels right, because colic is the picture most people link with restlessness.", "claims": []},
+        {"text": "That is not right. Movement worsens peritoneal pain, so the perforated patient keeps still. The colic patient is the restless one.", "claims": ["K27"]}
+      ],
+      "sure_note": {"text": "You were sure, so check what movement does to an inflamed peritoneum.", "claims": ["K27"]},
+      "choices": [
+        {"label": "Try again", "next": "tissue", "kind": "retry"}
+      ]
+    },
+    "tissue_t2": {
+      "role": "feedback",
+      "objectives": ["O3"],
+      "say": [
+        {"text": "More pain driving more movement feels right, because the most restless patient looks the sickest.", "claims": []},
+        {"text": "That is not right. Movement jars the inflamed peritoneum, so a still, rigid patient has peritonitis whatever the pain level.", "claims": ["K27"]}
+      ],
+      "sure_note": {"text": "You were sure, so ask what movement does to inflamed peritoneum, not how bad the pain looks.", "claims": ["K27"]},
+      "choices": [
+        {"label": "Try again", "next": "tissue", "kind": "retry"}
+      ]
+    }
+  }
+}
