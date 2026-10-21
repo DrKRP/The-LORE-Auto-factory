@@ -1,0 +1,1739 @@
+{
+  "segment": "S6",
+  "entry": "gate",
+  "technique": "T4+T1+T8",
+  "decision": "merge",
+  "nodes": {
+    "gate": {
+      "role": "bridge",
+      "say": [
+        {
+          "text": "This part is about who needs an operation, when, and how to keep the bile duct safe. Do you already know the qualifiers?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Yes, take me to the fast check",
+          "next": "fast",
+          "kind": "skip"
+        },
+        {
+          "label": "No, let me work the cases",
+          "next": "asym",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fast": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Which statement about acalculous cholecystitis is correct?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "It runs milder, since no stone blocks the duct",
+          "next": "fast_t0",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Stasis and ischaemia in a critically ill patient cause it",
+          "next": "fast_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "It is managed like calculous disease, by immediate cholecystectomy",
+          "next": "fast_t2",
+          "kind": "trap",
+          "trap": "TR24"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fast_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "fast_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Acalculous cholecystitis comes from stasis and ischaemia after major surgery, trauma, burns, sepsis or long fasting. It is more often gangrenous and perforated than calculous disease.",
+          "claims": [
+            "K34",
+            "K35"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "h",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fast_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Without a stone the wall still suffers stasis and ischaemia, and gangrene and perforation are commoner than in calculous disease.",
+          "claims": [
+            "K34",
+            "K35"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. No stone does not mean a gentler disease, so the confident idea needs a second look.",
+        "claims": [
+          "K34",
+          "K35"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fast",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fast_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fast_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The patients who get it are critically ill, so they are usually drained first and not rushed to an operation.",
+          "claims": [
+            "K77",
+            "K111"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. In the critically ill, setting and fitness decide the first step, not the diagnosis name.",
+        "claims": [
+          "K77",
+          "K111"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fast",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fast_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fast_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what injures the gallbladder wall when there is no stone, and how sick these patients are.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fast_why": {
+      "role": "explain",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Think of the wall, not the duct. In a very sick patient the gallbladder empties poorly and its blood supply falls, so it can die without any stone. That is why it is the more dangerous form.",
+          "claims": [
+            "K34",
+            "K35"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fast",
+          "kind": "retry"
+        },
+        {
+          "label": "Carry on",
+          "next": "h",
+          "kind": "continue"
+        }
+      ]
+    },
+    "asym": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "A 46-year-old man has a health check for fatty liver. Ultrasound shows gallstones. He has never had pain, fever or jaundice.",
+          "claims": []
+        },
+        {
+          "text": "Make your call before I explain it. What do you do for these stones?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Laparoscopic cholecystectomy this week, electively",
+          "next": "asym_t0",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Expectant management, with clinic review later",
+          "next": "asym_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Ursodeoxycholic acid tablets to dissolve them",
+          "next": "asym_t2",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "asym_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "asym_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. About 80% of gallstones never cause symptoms, and the yearly risk of trouble is only about 1 to 2%. He needs no treatment, and he comes back if symptoms begin.",
+          "claims": [
+            "K36",
+            "K68"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "asym_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Most silent stones stay silent, so an operation adds surgical risk for little gain.",
+          "claims": [
+            "K36",
+            "K68"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the habit. A confident operation for a silent stone is the error to unlearn.",
+        "claims": [
+          "K36",
+          "K68"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "asym",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "asym_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "asym_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The drug dissolves only small cholesterol stones in a working gallbladder, and a silent stone needs no treatment at all.",
+          "claims": [
+            "K72",
+            "K68"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Dissolution is a narrow indication, so check stone type, size and gallbladder function before any tablet.",
+        "claims": [
+          "K72",
+          "K68"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "asym",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "asym_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "asym_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether these stones are doing anything to this man right now.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "asym",
+          "kind": "retry"
+        }
+      ]
+    },
+    "asym_why": {
+      "role": "explain",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Picture a hundred people with silent stones. Only one or two a year start to have trouble, so the other ninety-odd would have had an operation for nothing. You act on symptoms, not on the stone.",
+          "claims": [
+            "K36",
+            "K68"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "asym",
+          "kind": "retry"
+        },
+        {
+          "label": "Carry on",
+          "next": "b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Which asymptomatic patient is a genuine case for prophylactic cholecystectomy, removing a stone before it causes trouble?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A patient with a porcelain gallbladder on scan",
+          "next": "b_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "A 30-year-old woman with a single 2 cm stone",
+          "next": "b_t1",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "An obese man with several small stones on scan",
+          "next": "b_t2",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "b_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "b_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. A porcelain gallbladder carries a raised risk of cancer, and it is one of the selected high-risk features. Ordinary silent stones are not an indication on their own.",
+          "claims": [
+            "K69"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A silent 2 cm stone carries a low yearly risk, and size counts only above 3 cm.",
+          "claims": [
+            "K36",
+            "K69"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look again at size. A 2 cm silent stone does not reach the threshold.",
+        "claims": [
+          "K36",
+          "K69"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "b_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "b_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Several small silent stones carry the same low yearly risk as one, so the count is not the test.",
+          "claims": [
+            "K36",
+            "K69"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. The number of stones is not the test, so look for a named high-risk feature.",
+        "claims": [
+          "K36",
+          "K69"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "b_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "b_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about the one feature that makes a silent gallbladder dangerous, not the size or number of the stones.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "b_why": {
+      "role": "explain",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "The test is a named high-risk feature, not the stone. Porcelain wall, stones over 3 cm, a polyp over 1 cm and sickle cell disease qualify. A 2 cm stone or a handful of small ones meet none of these.",
+          "claims": [
+            "K69"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b",
+          "kind": "retry"
+        },
+        {
+          "label": "Carry on",
+          "next": "c",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Which patient's stones are most likely to dissolve on ursodeoxycholic acid?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A large calcified stone in a healthy gallbladder",
+          "next": "c_t0",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Black pigment stones seen in chronic haemolysis",
+          "next": "c_t1",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Small cholesterol stones in a working gallbladder",
+          "next": "c_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "c_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Dissolution works only on small, radiolucent cholesterol stones, and only when the gallbladder still fills and empties. Stones often return once the drug is stopped.",
+          "claims": [
+            "K72"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "e",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Dissolution works on small radiolucent cholesterol stones, so a large calcified stone is outside the rule.",
+          "claims": [
+            "K72"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Calcified stones are outside what the drug can dissolve, so the confident pick needs revising.",
+        "claims": [
+          "K72"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "c_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Pigment stones are not the cholesterol type, so the drug does not touch them.",
+          "claims": [
+            "K72"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Pigment stones are the type dissolution does not touch, a common misconception.",
+        "claims": [
+          "K72"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "c_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the drug is made to dissolve: which stone type, which size, and what the gallbladder must still do.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c_why": {
+      "role": "explain",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Three questions before any tablet. What is the stone made of, how big is it, and does the gallbladder still empty? Only a small cholesterol stone in a working gallbladder passes all three.",
+          "claims": [
+            "K72"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c",
+          "kind": "retry"
+        },
+        {
+          "label": "Carry on",
+          "next": "e",
+          "kind": "continue"
+        }
+      ]
+    },
+    "e": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "A 58-year-old man is ventilated in the intensive care unit after a long laparotomy for trauma. He has fever and right upper quadrant tenderness. Ultrasound shows a distended gallbladder with no stone.",
+          "claims": []
+        },
+        {
+          "text": "He is too unwell for a long operation. What is the first step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Early laparoscopic cholecystectomy this admission",
+          "next": "e_t0",
+          "kind": "trap",
+          "trap": "TR24"
+        },
+        {
+          "label": "Percutaneous gallbladder drainage, under imaging",
+          "next": "e_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Immediate open cholecystectomy to remove the source",
+          "next": "e_t2",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "e_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "e_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. A critically ill patient with no stone is the setting for acalculous disease, which comes from stasis and ischaemia. Drainage is the safe first step while he is too sick for an operation.",
+          "claims": [
+            "K34",
+            "K77",
+            "K111"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "f",
+          "kind": "continue"
+        }
+      ]
+    },
+    "e_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "In critically ill patients without stones the disease comes from stasis and ischaemia, and he cannot safely tolerate a long operation now.",
+          "claims": [
+            "K34",
+            "K111"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. The sure operation is the trap here, because the setting and his fitness decide the first step.",
+        "claims": [
+          "K34",
+          "K111"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "e_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "e_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "An unfit ventilated patient cannot safely have a major operation now, open or laparoscopic, so first make him safe.",
+          "claims": [
+            "K76",
+            "K111"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Operating first is the habit to unlearn in a patient too unwell for surgery.",
+        "claims": [
+          "K76",
+          "K111"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "e_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "e_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Start with how sick he is and whether a stone is present, then ask what he can tolerate right now.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e",
+          "kind": "retry"
+        }
+      ]
+    },
+    "e_why": {
+      "role": "explain",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Two facts decide it. He has no stone, so the cause is stasis and ischaemia. He is ventilated, so he is too ill for theatre. Drainage treats the gallbladder without that operative stress.",
+          "claims": [
+            "K34",
+            "K77",
+            "K111"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e",
+          "kind": "retry"
+        },
+        {
+          "label": "Carry on",
+          "next": "f",
+          "kind": "continue"
+        }
+      ]
+    },
+    "f": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "A 66-year-old woman is three weeks into parenteral nutrition after a bowel resection. She has fever and right upper pain. Ultrasound shows a thick-walled gallbladder and no stone.",
+          "claims": []
+        },
+        {
+          "text": "Her team plans to leave it for several days. What is the main risk to plan around?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Early cholecystectomy today, to remove the source of risk",
+          "next": "f_t0",
+          "kind": "trap",
+          "trap": "TR24"
+        },
+        {
+          "label": "A mild course, because no stone blocks the duct",
+          "next": "f_t1",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Gangrene and perforation, from stasis and ischaemia",
+          "next": "f_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "f_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "f_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Long parenteral nutrition is a classic setting for stasis and ischaemia. Acalculous disease is more often gangrenous and perforated than calculous disease, and its mortality is higher.",
+          "claims": [
+            "K34",
+            "K35"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "h",
+          "kind": "continue"
+        }
+      ]
+    },
+    "f_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A woman this unwell is not ready for an operation today, so the safe plan is drainage first, with surgery later.",
+          "claims": [
+            "K77",
+            "K111"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Check fitness before you choose the operation.",
+        "claims": [
+          "K77",
+          "K111"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "f_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "f_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Acalculous disease has no stone to blame, yet it is the more dangerous form, not the milder one.",
+          "claims": [
+            "K35"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. No stone means no obstruction, but stasis still injures the wall.",
+        "claims": [
+          "K35"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "f_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "f_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what happens to a gallbladder wall when its blood supply is poor and it is not drained.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f_why": {
+      "role": "explain",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Follow the wall. Without feeding the gallbladder stops emptying, and a sick patient's blood supply to it falls. A stagnant, underperfused wall can die, so waiting is the risk.",
+          "claims": [
+            "K34",
+            "K35"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f",
+          "kind": "retry"
+        },
+        {
+          "label": "Carry on",
+          "next": "h",
+          "kind": "continue"
+        }
+      ]
+    },
+    "h": {
+      "role": "probe",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Two structures are now seen entering the gallbladder. What else must be true before you clip, for a safe critical view?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Cystic duct dissected alone down to the bile duct",
+          "next": "h_t0",
+          "kind": "trap",
+          "trap": "TR19"
+        },
+        {
+          "label": "Nothing more; the two-structure count completes the view",
+          "next": "h_t1",
+          "kind": "trap",
+          "trap": "TR19"
+        },
+        {
+          "label": "Triangle cleared; lower gallbladder off the liver bed",
+          "next": "h_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "h_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "h_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. The critical view needs three things: the triangle cleared of fat and fibrous tissue, the lower gallbladder separated from the cystic plate, and two structures seen entering. Two structures alone are not enough.",
+          "claims": [
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "i",
+          "kind": "continue"
+        }
+      ]
+    },
+    "h_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Working down the duct before the triangle is clear removes the margin that makes the view safe.",
+          "claims": [
+            "K80"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Working down the duct early removes the margin the view depends on.",
+        "claims": [
+          "K80"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "h",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "h_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "h_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Two structures can be seen while the triangle is still full of fat, so the count alone does not prove a safe view.",
+          "claims": [
+            "K80"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. The count is the last check, not the whole test.",
+        "claims": [
+          "K80"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "h",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "h_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "h_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "The memorable count is the last of three requirements. Ask what must be cleared before anything can be counted.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "h",
+          "kind": "retry"
+        }
+      ]
+    },
+    "h_why": {
+      "role": "explain",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Think of a checklist with three ticks. Clear triangle, lower gallbladder off the plate, then the two-structure count. The count is the last tick, and it means little if the first two are blank.",
+          "claims": [
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "h",
+          "kind": "retry"
+        },
+        {
+          "label": "Carry on",
+          "next": "i",
+          "kind": "continue"
+        }
+      ]
+    },
+    "i": {
+      "role": "probe",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Which order is safe for the steps before clipping in laparoscopic cholecystectomy?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Confirm two structures first, then clear the triangle, clip",
+          "next": "i_t0",
+          "kind": "trap",
+          "trap": "TR19"
+        },
+        {
+          "label": "Divide the first tubular structure seen, then confirm",
+          "next": "i_t1",
+          "kind": "trap",
+          "trap": "TR20"
+        },
+        {
+          "label": "Clear the triangle, separate the gallbladder, confirm, clip",
+          "next": "i_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "i_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "i_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Clear the triangle first, separate the lower gallbladder from the plate, confirm the two structures, and only then clip. The order is what makes the count meaningful.",
+          "claims": [
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "bail",
+          "kind": "continue"
+        }
+      ]
+    },
+    "i_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The count means little until the triangle is cleared, so the check comes last.",
+          "claims": [
+            "K80"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. The count comes last, because it means little until the area is clear.",
+        "claims": [
+          "K80"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "i",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "i_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "i_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The first tube seen may be the bile duct, so you confirm before dividing anything.",
+          "claims": [
+            "K81",
+            "K80"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Dividing the first tube seen is the habit that causes duct injury.",
+        "claims": [
+          "K81",
+          "K80"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "i",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "i_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "i_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which step makes the next one trustworthy: a structure can only be counted once the area around it is clear.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "i",
+          "kind": "retry"
+        }
+      ]
+    },
+    "i_why": {
+      "role": "explain",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Each step makes the next one trustworthy. You cannot count structures in a crowded triangle, and you cannot trust a clip until the count is honest. So the order runs clear, separate, confirm, clip.",
+          "claims": [
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "i",
+          "kind": "retry"
+        },
+        {
+          "label": "Carry on",
+          "next": "bail",
+          "kind": "continue"
+        }
+      ]
+    },
+    "bail": {
+      "role": "probe",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "At laparoscopy, dense inflammation fuses the hepatocystic triangle and you cannot clear it.",
+          "claims": []
+        },
+        {
+          "text": "What is the safe move?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Clip the two structures you can see, then carry on",
+          "next": "bail_t0",
+          "kind": "trap",
+          "trap": "TR19"
+        },
+        {
+          "label": "Divide the first tube you find, to gain control",
+          "next": "bail_t1",
+          "kind": "trap",
+          "trap": "TR20"
+        },
+        {
+          "label": "Bail out by subtotal cholecystectomy or conversion",
+          "next": "bail_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "bail_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "bail_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. When the triangle cannot be dissected safely, subtotal cholecystectomy or conversion to open surgery is the safe bail-out. You do not clip structures you cannot identify.",
+          "claims": [
+            "K78",
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "j",
+          "kind": "continue"
+        }
+      ]
+    },
+    "bail_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Two visible structures do not prove the view when the triangle cannot be cleared, so clipping on a count is unsafe.",
+          "claims": [
+            "K80"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. A count does not replace a cleared triangle, even when time is passing.",
+        "claims": [
+          "K80"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "bail",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "bail_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "bail_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The first tube found may be the bile duct, and dividing it is the commonest route to major duct injury.",
+          "claims": [
+            "K81"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Taking the first tube for the cystic duct is the mistake behind most duct injuries.",
+        "claims": [
+          "K81"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "bail",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "bail_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "bail_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what you may not do when the view cannot be reached, and which operations avoid the triangle.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "bail",
+          "kind": "retry"
+        }
+      ]
+    },
+    "bail_why": {
+      "role": "explain",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Safety here is not finishing the planned operation but avoiding the duct. If the triangle will not clear, the view cannot be reached, so you change the operation: remove the gallbladder in part, or convert.",
+          "claims": [
+            "K78",
+            "K80",
+            "K81"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "bail",
+          "kind": "retry"
+        },
+        {
+          "label": "Carry on",
+          "next": "j",
+          "kind": "continue"
+        }
+      ]
+    },
+    "j": {
+      "role": "probe",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "What is the commonest cause of a major bile duct injury during cholecystectomy?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Bleeding from the cystic artery during dissection",
+          "next": "j_t0",
+          "kind": "trap",
+          "trap": "TR20"
+        },
+        {
+          "label": "Injury to the right hepatic artery in the triangle",
+          "next": "j_t1",
+          "kind": "trap",
+          "trap": "TR20"
+        },
+        {
+          "label": "Misidentifying the bile duct as the cystic duct",
+          "next": "j_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "j_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "j_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Most major duct injuries come from misidentification, when the bile duct is taken for the cystic duct and divided. That is why the critical view comes before clipping.",
+          "claims": [
+            "K81",
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "close",
+          "kind": "continue"
+        }
+      ]
+    },
+    "j_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Bleeding is a different problem, and the commonest duct injury comes from mistaken anatomy, not from a vessel.",
+          "claims": [
+            "K81"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Bleeding is the dramatic complication, but the commonest duct injury is a mistaken identity.",
+        "claims": [
+          "K81"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "j",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "j_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "j_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The cystic artery is usually its branch, but the commonest duct injury is misidentification, not an arterial injury.",
+          "claims": [
+            "K83",
+            "K81"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. The right hepatic artery is close to the duct, but misidentification is the commonest cause.",
+        "claims": [
+          "K83",
+          "K81"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "j",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "j_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "j_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about the most common error in identifying anatomy, not the most dramatic complication.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "j",
+          "kind": "retry"
+        }
+      ]
+    },
+    "j_why": {
+      "role": "explain",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Think of the tube that looks right but is wrong. The common bile duct can be pulled into the field and mistaken for the cystic duct. Divide it, and you have a major injury. The view exists to prevent that.",
+          "claims": [
+            "K81",
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "j",
+          "kind": "retry"
+        },
+        {
+          "label": "Carry on",
+          "next": "close",
+          "kind": "continue"
+        }
+      ]
+    },
+    "close": {
+      "role": "recap",
+      "say": [
+        {
+          "text": "The rule: most stones are silent and need no treatment. Grade, fitness and the setting decide the operation, and an unfit or acalculous patient is drained first.",
+          "claims": [
+            "K68",
+            "K76",
+            "K111"
+          ]
+        },
+        {
+          "text": "The duct is protected by the view, not by a count of structures.",
+          "claims": [
+            "K80",
+            "K81"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}

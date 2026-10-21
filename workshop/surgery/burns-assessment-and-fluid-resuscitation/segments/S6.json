@@ -12,7 +12,7 @@
       "ask_confidence": true,
       "say": [
         {
-          "text": "A 70 kg adult with 40% burns is on a crystalloid drip set at 700 mL/h, the formula's starting rate.",
+          "text": "A 70 kg adult with 40% burns is on a crystalloid drip at 700 mL/h, the starting rate from the exam-key Parkland sum (4 mL).",
           "claims": [
             "K44"
           ]
@@ -66,7 +66,7 @@
       "choices": [
         {
           "label": "Sure of this? Skip the why",
-          "next": "child_urine",
+          "next": "targets",
           "kind": "skip"
         },
         {
@@ -251,7 +251,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "child_urine",
+          "next": "targets",
           "kind": "continue"
         }
       ]
@@ -363,7 +363,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "child_urine",
+          "next": "targets",
           "kind": "continue"
         }
       ]
@@ -966,7 +966,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "drip",
+          "next": "contrast",
           "kind": "continue"
         }
       ]
@@ -1082,177 +1082,6 @@
       "choices": [
         {
           "label": "Next",
-          "next": "drip",
-          "kind": "continue"
-        }
-      ]
-    },
-    "drip": {
-      "role": "probe",
-      "objectives": [
-        "O7"
-      ],
-      "say": [
-        {
-          "text": "A patient arrives with an ambulance drip still running. Burn time and TBSA are confirmed.",
-          "claims": []
-        },
-        {
-          "text": "What is the next step in the fluid plan?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Start the full formula rate on top of the running drip",
-          "next": "drip_t4a",
-          "kind": "trap",
-          "trap": "TR4"
-        },
-        {
-          "label": "Work out the first-8-hour volume and subtract what has run in",
-          "next": "drip_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Stop the drip and restart the formula from zero",
-          "next": "drip_t4b",
-          "kind": "trap",
-          "trap": "TR4"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "drip_hint",
-          "kind": "help"
-        }
-      ]
-    },
-    "drip_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. Fluid given before arrival is deducted from the first-8-hour volume, and the rate is then titrated hourly.",
-          "claims": [
-            "K45"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "contrast",
-          "kind": "continue"
-        }
-      ]
-    },
-    "drip_t4a": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right. Starting the formula as if nothing had been given adds a second dose to the first.",
-          "claims": [
-            "K45"
-          ]
-        },
-        {
-          "text": "Ask what the patient has already received.",
-          "claims": [
-            "K45"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure the formula rate goes on top. Check what the running drip has already delivered.",
-        "claims": [
-          "K45"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "drip",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me the answer",
-          "next": "drip_reveal",
-          "kind": "agency"
-        }
-      ]
-    },
-    "drip_t4b": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right. Restarting wipes out fluid the patient has already had, so the sum starts from the wrong place.",
-          "claims": [
-            "K45"
-          ]
-        },
-        {
-          "text": "Ask whether earlier fluid still counts.",
-          "claims": [
-            "K45"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure the plan restarts. Check whether earlier fluid counts toward the total.",
-        "claims": [
-          "K45"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "drip",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me the answer",
-          "next": "drip_reveal",
-          "kind": "agency"
-        }
-      ]
-    },
-    "drip_hint": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Before any rate is set, ask what the patient has already had and what the formula says is owed.",
-          "claims": [
-            "K45"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Back to the question",
-          "next": "drip",
-          "kind": "retry"
-        }
-      ]
-    },
-    "drip_reveal": {
-      "role": "explain",
-      "say": [
-        {
-          "text": "Work out the first-8-hour volume from the burn time, then deduct what the ambulance has given.",
-          "claims": [
-            "K43",
-            "K45"
-          ]
-        },
-        {
-          "text": "Run the remainder and titrate hourly to urine output.",
-          "claims": [
-            "K45"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
           "next": "contrast",
           "kind": "continue"
         }
@@ -1319,7 +1148,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "tb_vig",
+          "next": "escharotomy",
           "kind": "continue"
         }
       ]
@@ -1433,179 +1262,6 @@
       "choices": [
         {
           "label": "Next",
-          "next": "tb_vig",
-          "kind": "continue"
-        }
-      ]
-    },
-    "tb_vig": {
-      "role": "probe",
-      "objectives": [
-        "O6"
-      ],
-      "say": [
-        {
-          "text": "A 2-year-old arrives with a scald over the head and both legs.",
-          "claims": []
-        },
-        {
-          "text": "How do you estimate the burn's TBSA?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Lund and Browder chart, which adjusts for age",
-          "next": "tb_vig_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Wallace rule of nines, as for an adult",
-          "next": "tb_vig_t1",
-          "kind": "trap",
-          "trap": "TR6"
-        },
-        {
-          "label": "Rule of nines, with the legs counted double",
-          "next": "tb_vig_t2",
-          "kind": "trap",
-          "trap": "TR6"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "tb_vig_hint",
-          "kind": "help"
-        }
-      ]
-    },
-    "tb_vig_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. Head and legs are what differ most, so an age-adjusted chart is the right tool for this child.",
-          "claims": [
-            "K5",
-            "K85"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "escharotomy",
-          "kind": "continue"
-        }
-      ]
-    },
-    "tb_vig_t1": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right. The rule of nines is the method you know best, but its shares are set for adults.",
-          "claims": [
-            "K5",
-            "K85"
-          ]
-        },
-        {
-          "text": "Ask what the stem tells you about the patient.",
-          "claims": [
-            "K5"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure of the adult rule. Check the patient's age before choosing a chart.",
-        "claims": [
-          "K5"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "tb_vig",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me the answer",
-          "next": "tb_vig_reveal",
-          "kind": "agency"
-        }
-      ]
-    },
-    "tb_vig_t2": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right. Changing one figure shows you noticed legs differ, but it still uses the adult scheme and the adult leg share.",
-          "claims": [
-            "K5"
-          ]
-        },
-        {
-          "text": "Ask which way each leg's share moves in a child.",
-          "claims": [
-            "K5"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure of a doubled-leg adjustment. Check the leg and head shares for a young child.",
-        "claims": [
-          "K5"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "tb_vig",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me the answer",
-          "next": "tb_vig_reveal",
-          "kind": "agency"
-        }
-      ]
-    },
-    "tb_vig_hint": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Burns on the head and both legs are where a child's body differs most from an adult's. Which method accounts for age?",
-          "claims": [
-            "K5"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Back to the question",
-          "next": "tb_vig",
-          "kind": "retry"
-        }
-      ]
-    },
-    "tb_vig_reveal": {
-      "role": "explain",
-      "say": [
-        {
-          "text": "Use a Lund and Browder chart. A young child's head is about 18% and each leg about 14%.",
-          "claims": [
-            "K5",
-            "K85"
-          ]
-        },
-        {
-          "text": "The adult rule of nines overestimates the legs and underestimates the head in children.",
-          "claims": [
-            "K5"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
           "next": "escharotomy",
           "kind": "continue"
         }
@@ -1663,7 +1319,7 @@
           ]
         },
         {
-          "text": "Release the eschar now.",
+          "text": "Eschar cannot stretch, so swelling compresses the vessels under it. Release the eschar now.",
           "claims": [
             "K56"
           ]
@@ -1672,7 +1328,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "mechanism",
+          "next": "@next",
           "kind": "continue"
         }
       ]
@@ -1788,162 +1444,34 @@
       "choices": [
         {
           "label": "Next",
-          "next": "mechanism",
-          "kind": "continue"
-        }
-      ]
-    },
-    "mechanism": {
-      "role": "probe",
-      "objectives": [
-        "O11"
-      ],
-      "say": [
-        {
-          "text": "Why does a full-thickness ring of burn threaten the limb?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Any deep burn forms eschar, so release it at once",
-          "next": "me_t",
-          "kind": "trap",
-          "trap": "TR23"
-        },
-        {
-          "label": "Heat destroys the main artery, so the limb dies at once",
-          "next": "me_partial",
-          "kind": "partial"
-        },
-        {
-          "label": "Inelastic eschar constricts as swelling builds, squeezing vessels",
-          "next": "me_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "me_hint",
-          "kind": "help"
-        }
-      ]
-    },
-    "me_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. The eschar cannot stretch, so swelling compresses the vessels. That is why the cut releases the pressure.",
-          "claims": [
-            "K56",
-            "K10"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
           "next": "@next",
           "kind": "continue"
         }
       ]
     },
-    "me_t": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right. Depth feels like the cause, because deep burns look the most dangerous.",
-          "claims": [
-            "K56",
-            "K10"
-          ]
-        },
-        {
-          "text": "Ask what squeezes the limb as swelling builds.",
-          "claims": [
-            "K56"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure depth was the cause. Think about what happens to a ring that cannot stretch.",
-        "claims": [
-          "K56"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "mechanism",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me the answer",
-          "next": "me_reveal",
-          "kind": "agency"
-        }
-      ]
-    },
-    "me_partial": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right. Heat injury to the skin does not by itself cut off the main artery.",
-          "claims": [
-            "K56"
-          ]
-        },
-        {
-          "text": "Ask what changes over the hours after the burn and what it presses on.",
-          "claims": [
-            "K56"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "mechanism",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me the answer",
-          "next": "me_reveal",
-          "kind": "agency"
-        }
-      ]
-    },
-    "me_hint": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Picture a tight, unyielding ring around a limb that is swelling inside it.",
-          "claims": [
-            "K56"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Back to the question",
-          "next": "mechanism",
-          "kind": "retry"
-        }
-      ]
-    },
-    "me_reveal": {
+    "targets": {
       "role": "explain",
+      "objectives": [
+        "O8"
+      ],
       "say": [
         {
-          "text": "A full-thickness eschar does not stretch. As oedema builds under it, the eschar constricts the vessels and the distal limb is starved.",
+          "text": "The urine targets. Adult: 0.5 mL/kg/h, about 30 to 50 mL/h. Child: 1 mL/kg/h.",
           "claims": [
-            "K56"
+            "K7"
+          ]
+        },
+        {
+          "text": "Electrical injury with dark, pigmented urine needs more, about 1 to 1.5 mL/kg/h, around 75 to 100 mL/h in an adult, to flush out myoglobin.",
+          "claims": [
+            "K53"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "@next",
+          "next": "child_urine",
           "kind": "continue"
         }
       ]
@@ -1989,7 +1517,7 @@
     },
     {
       "q": "When is escharotomy indicated?",
-      "a": "Circumferential full-thickness limb burns with distal ischaemia, and chest burns restricting ventilation; inelastic eschar constricts as oedema builds.",
+      "a": "Circumferential full-thickness burns with distal ischaemia of a limb or restricted ventilation of the chest; inelastic eschar constricts as oedema builds. Incise through the eschar only.",
       "claims": [
         "K10",
         "K56"
