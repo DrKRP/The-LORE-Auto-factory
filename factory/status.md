@@ -1,6 +1,6 @@
 # Factory status
 
-Updated 2026-10-21T14:18:54. Written by `scripts/factory.py status`; do not edit.
+Updated 2026-10-21T14:35:46. Written by `scripts/factory.py status`; do not edit.
 
 ## Modules
 
@@ -11,7 +11,7 @@ Updated 2026-10-21T14:18:54. Written by `scripts/factory.py status`; do not edit
 | surgery/acute-intestinal-obstruction | done | 1 | 3.701 | published |
 | surgery/burns-assessment-and-fluid-resuscitation | done | 1 | 3.635 | published |
 | surgery/carcinoma-breast | author | 0 |  | in progress |
-| surgery/gallstones-and-acute-cholecystitis | evaluate | 0 |  | in progress |
+| surgery/gallstones-and-acute-cholecystitis | evaluate | 0 | 3.477 | in progress |
 | surgery/inguinal-hernia | done | 1 | 3.693 | published |
 | surgery/perforated-peptic-ulcer | author | 0 |  | in progress |
 | surgery/thyroid-nodule-and-differentiated-thyroid-cancer | author | 0 |  | in progress |
@@ -33,28 +33,28 @@ Updated 2026-10-21T14:18:54. Written by `scripts/factory.py status`; do not edit
 | hook | T9 Retrieval gate | 7 | 0.86 | 3.94 |
 | hook | T2 Case-first vignette | 7 | 0.50 | 3.41 |
 | hook | T4 Productive failure | 7 | 0.43 | 3.65 |
-| mechanism | T1 Socratic ladder | 1 | 1.00 | 3.86 |
-| mechanism | T7 Contrasting cases | 2 | 1.00 | 4.00 |
+| mechanism | T7 Contrasting cases | 3 | 1.00 | 3.98 |
+| mechanism | T1 Socratic ladder | 2 | 0.75 | 3.68 |
 | mechanism | T3 Predict–observe–explain | 2 | 0.75 | 3.75 |
 | mechanism | T8 Self-explanation pick | 1 | 0.50 | 3.14 |
-| mechanism | T4 Productive failure | 1 | 0.50 | 3.39 |
+| mechanism | T4 Productive failure | 2 | 0.50 | 3.61 |
 | mechanism | T5 Worked example, then fade | 3 | 0.33 | 3.63 |
 | mechanism | T6 Refutation (misconception-first) | 2 | 0.25 | 2.46 |
-| clinical | T2 Case-first vignette | 5 | 0.80 | 3.89 |
-| clinical | T3 Predict–observe–explain | 4 | 0.62 | 2.96 |
+| clinical | T2 Case-first vignette | 6 | 0.75 | 3.88 |
+| clinical | T3 Predict–observe–explain | 5 | 0.70 | 3.17 |
 | clinical | T7 Contrasting cases | 6 | 0.58 | 3.83 |
-| clinical | T6 Refutation (misconception-first) | 6 | 0.25 | 3.78 |
+| clinical | T6 Refutation (misconception-first) | 7 | 0.21 | 3.74 |
 | diagnosis | T2 Case-first vignette | 4 | 0.75 | 4.04 |
-| diagnosis | T5 Worked example, then fade | 3 | 0.67 | 3.69 |
+| diagnosis | T5 Worked example, then fade | 4 | 0.50 | 3.71 |
 | diagnosis | T3 Predict–observe–explain | 3 | 0.50 | 3.84 |
-| diagnosis | T1 Socratic ladder | 1 | 0.50 | 1.92 |
-| diagnosis | T7 Contrasting cases | 3 | 0.33 | 3.91 |
+| diagnosis | T7 Contrasting cases | 4 | 0.50 | 4.03 |
+| diagnosis | T1 Socratic ladder | 2 | 0.25 | 2.87 |
 | diagnosis | T11 Erroneous example (spot the mistake) | 4 | 0.25 | 3.79 |
-| management | T5 Worked example, then fade | 3 | 0.83 | 3.24 |
+| management | T5 Worked example, then fade | 4 | 0.88 | 3.39 |
 | management | T4 Productive failure | 6 | 0.75 | 3.60 |
-| management | T1 Socratic ladder | 6 | 0.75 | 3.95 |
-| management | T8 Self-explanation pick | 6 | 0.50 | 3.37 |
-| management | T11 Erroneous example (spot the mistake) | 4 | 0.25 | 3.02 |
+| management | T1 Socratic ladder | 8 | 0.75 | 3.91 |
+| management | T8 Self-explanation pick | 8 | 0.44 | 3.43 |
+| management | T11 Erroneous example (spot the mistake) | 5 | 0.30 | 3.17 |
 | management | T2 Case-first vignette | 2 | 0.00 | 0.93 |
 | traps | T2 Case-first vignette | 2 | 1.00 | 3.77 |
 | traps | T7 Contrasting cases | 4 | 0.62 | 3.71 |
