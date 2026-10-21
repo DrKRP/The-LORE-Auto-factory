@@ -1,0 +1,243 @@
+{
+  "segment": "S3",
+  "technique": "T7",
+  "entry": "open",
+  "nodes": {
+    "open": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Two patients came to your clinic on the same morning.", "claims": []},
+        {"text": "**Patient A** has had right upper pain for 3 hours, after a fatty dinner. It eased by bedtime. She is afebrile and her abdomen is soft.", "claims": []},
+        {"text": "**Patient B** has had right upper pain for 30 hours, cramping and coming in waves. Temperature is 38.7 °C, the right upper quadrant is tender and Murphy's sign is positive. What is Patient B's diagnosis?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Biliary colic, since the pain comes in waves", "next": "open_waves", "kind": "trap", "trap": "TR4"},
+        {"label": "Acute cholecystitis, the wall is inflamed by the stone", "next": "open_ok", "kind": "correct"},
+        {"label": "Biliary colic, a stone that is only passing", "next": "open_passing", "kind": "trap", "trap": "TR4"},
+        {"label": "Not sure, give me a hint", "next": "open_hint", "kind": "help"}
+      ]
+    },
+    "open_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask two questions. How long has the pain lasted, and is there fever or a tender right upper quadrant?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "open", "kind": "retry"}
+      ]
+    },
+    "open_waves": {
+      "role": "feedback",
+      "say": [
+        {"text": "Not the right choice. Waves of pain sound like colic, which is why this is tempting.", "claims": []},
+        {"text": "But colic is usually constant rather than wavelike, and it settles within a few hours. Pain still going after that, with fever, points to an inflamed wall.", "claims": ["K37", "K38"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the clock: after about 6 hours, colic stops being the working diagnosis.", "claims": ["K38"]},
+      "choices": [
+        {"label": "Try again", "next": "open", "kind": "retry"}
+      ]
+    },
+    "open_passing": {
+      "role": "feedback",
+      "say": [
+        {"text": "Not the right choice. A stone that is only passing fits the picture of colic, so it is tempting.", "claims": []},
+        {"text": "But colic is a transient outlet block without inflammation of the wall. Patient B has fever and a positive Murphy's sign, so the wall is inflamed.", "claims": ["K11", "K39"]}
+      ],
+      "sure_note": {"text": "You were sure. A passing stone explains pain but not fever, so look for wall inflammation first.", "claims": ["K11"]},
+      "choices": [
+        {"label": "Try again", "next": "open", "kind": "retry"}
+      ]
+    },
+    "open_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Pain beyond about 6 hours, with fever, a tender right upper quadrant and a positive Murphy's sign, means acute cholecystitis.", "claims": ["K38", "K39"]},
+        {"text": "A stone causes the colic; the inflamed wall is what makes it cholecystitis.", "claims": ["K11", "K12"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "contrast", "kind": "continue"}
+      ]
+    },
+    "contrast": {
+      "role": "explain",
+      "objectives": ["O1"],
+      "say": [
+        {"text": "Put the two side by side. **Biliary colic**: a stone blocks the outlet for a time, the pain is steady, it eases within a few hours, and the wall is not inflamed.", "claims": ["K11", "K37"]},
+        {"text": "**Acute cholecystitis**: pain persists beyond about 6 hours, with fever, a tender right upper quadrant and a positive Murphy's sign. Duration and fever decide it, not the word colic.", "claims": ["K38", "K39"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "tg_a", "kind": "continue"}
+      ]
+    },
+    "tg_a": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Next, the Tokyo Guidelines 2018 (TG18) criteria. Start from what you can find at the bedside.", "claims": []},
+        {"text": "What is the minimum needed for a suspected diagnosis of acute cholecystitis?", "claims": []}
+      ],
+      "choices": [
+        {"label": "One local sign, one systemic sign and imaging", "next": "tg_a_t1", "kind": "trap", "trap": "TR7"},
+        {"label": "One local sign and one systemic sign", "next": "tg_a_ok", "kind": "correct"},
+        {"label": "Two systemic signs with no local sign at all", "next": "tg_a_t3", "kind": "trap", "trap": "TR7"},
+        {"label": "Not sure, give me a hint", "next": "tg_a_hint", "kind": "help"}
+      ]
+    },
+    "tg_a_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Sort the findings into two groups: what you feel on the abdomen, and what the temperature or blood tests show.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "tg_a", "kind": "retry"}
+      ]
+    },
+    "tg_a_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Not the right choice. Adding imaging feels thorough, which is why it tempts you.", "claims": []},
+        {"text": "But imaging is what upgrades a diagnosis to definite. A suspected diagnosis is reached from the clinical signs alone.", "claims": ["K57", "K58"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the levels: imaging moves a diagnosis up one level, it does not start one.", "claims": ["K57", "K58"]},
+      "choices": [
+        {"label": "Try again", "next": "tg_a", "kind": "retry"}
+      ]
+    },
+    "tg_a_t3": {
+      "role": "feedback",
+      "say": [
+        {"text": "Not the right choice. Two abnormal blood results feel like strong evidence, so this is tempting.", "claims": []},
+        {"text": "But the suspected set needs a local sign, such as Murphy's sign or a tender mass. Systemic signs alone do not reach it.", "claims": ["K55", "K56", "K58"]}
+      ],
+      "sure_note": {"text": "You were sure. Check which letter is missing: the local sign, A.", "claims": ["K55"]},
+      "choices": [
+        {"label": "Try again", "next": "tg_a", "kind": "retry"}
+      ]
+    },
+    "tg_a_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. TG18 suspected needs one local sign (A) plus one systemic sign (B), for example Murphy's sign with fever.", "claims": ["K55", "K56", "K58"]},
+        {"text": "Imaging (C) is added only to make the diagnosis definite.", "claims": ["K57", "K58"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "tg_b", "kind": "continue"}
+      ]
+    },
+    "tg_b": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 52-year-old woman has fever and a positive Murphy's sign. No ultrasound has been done yet.", "claims": []},
+        {"text": "Which TG18 level has she reached right now?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Not diagnosable until imaging is done", "next": "tg_b_t2", "kind": "trap", "trap": "TR7"},
+        {"label": "Suspected, since local and systemic signs are present", "next": "tg_b_ok", "kind": "correct"},
+        {"label": "Definite, since the signs look convincing", "next": "tg_b_t1", "kind": "trap", "trap": "TR7"},
+        {"label": "Not sure, give me a hint", "next": "tg_b_hint", "kind": "help"}
+      ]
+    },
+    "tg_b_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Name each finding first: which one is local, which one is systemic, and has any imaging been done?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "tg_b", "kind": "retry"}
+      ]
+    },
+    "tg_b_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Not the right choice. Two convincing findings make a definite diagnosis feel close.", "claims": []},
+        {"text": "But definite needs the imaging item (C) as well. Without imaging, the signs stop at suspected.", "claims": ["K57", "K58"]}
+      ],
+      "sure_note": {"text": "You were sure, so count the letters: definite is A plus B plus C, and C has not been done.", "claims": ["K58"]},
+      "choices": [
+        {"label": "Try again", "next": "tg_b", "kind": "retry"}
+      ]
+    },
+    "tg_b_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "Not the right choice. Imaging is the test everyone wants, so waiting for it feels safe.", "claims": []},
+        {"text": "But clinical signs alone reach suspected: one local plus one systemic. Imaging later upgrades that level.", "claims": ["K55", "K56", "K58"]}
+      ],
+      "sure_note": {"text": "You were sure. A suspected diagnosis does not wait for the scan.", "claims": ["K58"]},
+      "choices": [
+        {"label": "Try again", "next": "tg_b", "kind": "retry"}
+      ]
+    },
+    "tg_b_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Murphy's sign is a local sign (A) and fever is a systemic sign (B), so she is suspected.", "claims": ["K55", "K56", "K58"]},
+        {"text": "Imaging is what would take her to definite, and it has not been done.", "claims": ["K57", "K58"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "cv", "kind": "continue"}
+      ]
+    },
+    "cv": {
+      "role": "probe",
+      "objectives": ["O11"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 58-year-old man has fever and a tender lump under the right ribs. He is not jaundiced, and his bilirubin is normal.", "claims": []},
+        {"text": "A junior doctor says Courvoisier's law means the lump is cancer. Which reply is right?", "claims": []}
+      ],
+      "choices": [
+        {"label": "The law rules out stones, since a lump has been felt", "next": "cv_t2", "kind": "trap", "trap": "TR5"},
+        {"label": "The law needs jaundice; a tender lump with fever suggests empyema", "next": "cv_ok", "kind": "correct"},
+        {"label": "The law applies to any palpable gallbladder, so suspect cancer", "next": "cv_t1", "kind": "trap", "trap": "TR5"},
+        {"label": "Not sure, give me a hint", "next": "cv_hint", "kind": "help"}
+      ]
+    },
+    "cv_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Before you apply any rule, check two things: is the patient jaundiced, and is the gallbladder tender?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "cv", "kind": "retry"}
+      ]
+    },
+    "cv_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Not the right choice. The rule's words, a palpable gallbladder suggesting cancer, make it tempting.", "claims": []},
+        {"text": "But the law has two conditions: jaundice and a non-tender gallbladder. This patient has neither, so the law cannot point to cancer here.", "claims": ["K9", "K119"]}
+      ],
+      "sure_note": {"text": "You were sure, so re-read the conditions: jaundice and a non-tender gallbladder are both needed.", "claims": ["K9"]},
+      "choices": [
+        {"label": "Try again", "next": "cv", "kind": "retry"}
+      ]
+    },
+    "cv_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "Not the right choice. Excluding stones sounds like a safe rule, which is why this is tempting.", "claims": []},
+        {"text": "But the law says nothing about stones in a tender, febrile lump. Acute cholecystitis, often caused by a stone, can present exactly like this.", "claims": ["K42", "K119"]}
+      ],
+      "sure_note": {"text": "You were sure. A tender lump with fever is not the situation the law describes.", "claims": ["K119"]},
+      "choices": [
+        {"label": "Try again", "next": "cv", "kind": "retry"}
+      ]
+    },
+    "cv_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Courvoisier's law is about jaundice: a jaundiced patient with a palpable, non-tender gallbladder is unlikely to have stones and suggests malignant obstruction.", "claims": ["K9"]},
+        {"text": "Without jaundice and with a tender, febrile lump, the law does not apply; empyema or mucocele fits.", "claims": ["K119", "K42"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
