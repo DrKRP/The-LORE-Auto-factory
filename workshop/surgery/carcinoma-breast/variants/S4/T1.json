@@ -1,0 +1,224 @@
+{
+  "segment": "S4",
+  "technique": "T1",
+  "entry": "r1",
+  "nodes": {
+    "r1": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Step one: what does the tumour touch? A 3 cm lump has **peau d'orange** (orange-peel skin) over it, with no redness or warmth.", "claims": []},
+        {"text": "Which T category is it?", "claims": []}
+      ],
+      "choices": [
+        {"label": "T3", "next": "r1_p", "kind": "partial"},
+        {"label": "T4b", "next": "r1_ok", "kind": "correct"},
+        {"label": "T4d", "next": "r1_t4d", "kind": "trap", "trap": "TR12"},
+        {"label": "Not sure, give me a hint", "next": "r1_hint", "kind": "help"}
+      ]
+    },
+    "r1_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Peau d'orange is skin involvement, so it is T4b, and a skin sign outranks size.", "claims": ["K65", "K140"]},
+        {"text": "Size bands run T1 up to 2 cm, T2 over 2 to 5 cm, T3 over 5 cm; skin or chest-wall spread moves the case to T4.", "claims": ["K61", "K62", "K63"]}
+      ],
+      "choices": [{"label": "Next", "next": "r2", "kind": "continue"}]
+    },
+    "r1_t4d": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Peau d'orange is the sign people link with inflammatory cancer, but the sign alone is skin involvement, not the whole picture of T4d.", "claims": ["K48", "K140"]}
+      ],
+      "sure_note": {"text": "You were sure, so fix the belief: a sign is not the syndrome. Look at the whole breast before you name T4d.", "claims": ["K48"]},
+      "choices": [
+        {"label": "Try again", "next": "r1", "kind": "retry"},
+        {"label": "Give me a hint", "next": "r1_hint", "kind": "help"}
+      ]
+    },
+    "r1_p": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Size is the first thing people check, but a skin sign is decided before size, so the 3 cm alone does not settle it.", "claims": ["K62", "K65"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "r1", "kind": "retry"},
+        {"label": "Give me a hint", "next": "r1_hint", "kind": "help"}
+      ]
+    },
+    "r1_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask two things: what does the lump touch, and what does the skin show? Then ask whether the whole breast is red, warm and swollen.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "r1", "kind": "retry"}]
+    },
+    "r2": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Step two: the chest wall. Which finding makes the tumour chest-wall disease, T4a?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Tumour invading serratus anterior", "next": "r2_ok", "kind": "correct"},
+        {"label": "Tumour fixed to pectoralis major alone", "next": "r2_t13", "kind": "trap", "trap": "TR13"},
+        {"label": "Satellite skin nodules over the breast", "next": "r2_p", "kind": "partial"},
+        {"label": "Not sure, give me a hint", "next": "r2_hint", "kind": "help"}
+      ]
+    },
+    "r2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. T4a is chest-wall extension into ribs, intercostal muscles or serratus anterior, not the pectoralis major.", "claims": ["K64", "K141"]},
+        {"text": "Fixity to the pectoralis is tested with the muscle contracted; fixity alone does not make T4a.", "claims": ["K47", "K141"]}
+      ],
+      "choices": [{"label": "Next", "next": "r3", "kind": "continue"}]
+    },
+    "r2_t13": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "The pectoralis is the muscle the tumour touches first, so fixity feels like chest-wall spread, but it is not in the T4a set.", "claims": ["K141", "K64"]}
+      ],
+      "sure_note": {"text": "You were sure, so fix the belief: a muscle the tumour touches is not the same as the chest wall it invades.", "claims": ["K64"]},
+      "choices": [
+        {"label": "Try again", "next": "r2", "kind": "retry"},
+        {"label": "Give me a hint", "next": "r2_hint", "kind": "help"}
+      ]
+    },
+    "r2_p": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Satellite nodules are real T4 criteria, so they tempt, but skin findings belong to T4b, not to the chest wall.", "claims": ["K65"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "r2", "kind": "retry"},
+        {"label": "Give me a hint", "next": "r2_hint", "kind": "help"}
+      ]
+    },
+    "r2_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Think about the structures under the breast, not the skin on top. Which of them could the tumour grow into?", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "r2", "kind": "retry"}]
+    },
+    "r3": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Step three: the nodes. Ipsilateral nodes lie above the collarbone and nothing else is distant. Which category?", "claims": []}
+      ],
+      "choices": [
+        {"label": "M1", "next": "r3_t2", "kind": "trap", "trap": "TR2"},
+        {"label": "N3a", "next": "r3_p", "kind": "partial"},
+        {"label": "N3c", "next": "r3_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "r3_hint", "kind": "help"}
+      ]
+    },
+    "r3_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Ipsilateral supraclavicular nodes are N3c, regional disease, and M0 if nothing else is distant.", "claims": ["K73", "K74"]},
+        {"text": "The ladder: N1 mobile axillary, N2a fixed axillary, N2b internal mammary, N3a infraclavicular, N3c supraclavicular.", "claims": ["K68", "K69", "K70", "K71", "K73"]}
+      ],
+      "choices": [{"label": "Next", "next": "r4", "kind": "continue"}]
+    },
+    "r3_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Nodes above the collarbone feel far from the breast, and old exam keys counted them as distant disease, but they are still regional nodes.", "claims": ["K138", "K73"]}
+      ],
+      "sure_note": {"text": "You were sure, so replace the old key: current staging keeps these nodes regional, and M1 needs disease beyond them.", "claims": ["K138", "K74"]},
+      "choices": [
+        {"label": "Try again", "next": "r3", "kind": "retry"},
+        {"label": "Give me a hint", "next": "r3_hint", "kind": "help"}
+      ]
+    },
+    "r3_p": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Infraclavicular nodes are a real station, but they sit below the collarbone, and this node sits above it.", "claims": ["K71", "K73"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "r3", "kind": "retry"},
+        {"label": "Give me a hint", "next": "r3_hint", "kind": "help"}
+      ]
+    },
+    "r3_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Find where the node sits against the collarbone, then match that position to a level on the ladder.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "r3", "kind": "retry"}]
+    },
+    "r4": {
+      "role": "probe",
+      "objectives": ["O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Step four: the work-up. A 38-year-old has a 1.5 cm core-proven invasive ductal carcinoma. The axilla is clinically node-negative and she has no symptoms. What next?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Skip metastatic imaging; plan local treatment", "next": "r4_ok", "kind": "correct"},
+        {"label": "Order a whole-body bone scan first", "next": "r4_t5", "kind": "trap", "trap": "TR5"},
+        {"label": "Start serum CA 15-3 as a staging test", "next": "r4_p", "kind": "partial"},
+        {"label": "Not sure, give me a hint", "next": "r4_hint", "kind": "help"}
+      ]
+    },
+    "r4_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Routine metastatic imaging is not needed in early asymptomatic disease; it is for locally advanced disease or symptoms.", "claims": ["K57"]}
+      ],
+      "choices": [{"label": "Next", "next": "r5", "kind": "continue"}]
+    },
+    "r4_t5": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "Bone is the commonest site of spread, which makes a bone scan feel thorough, but where cancer usually spreads is not a reason to scan every patient.", "claims": ["K42", "K123"]}
+      ],
+      "sure_note": {"text": "You were sure, so check your reason: a common site of spread does not trigger imaging; the stage and the symptoms do.", "claims": ["K57"]},
+      "choices": [
+        {"label": "Try again", "next": "r4", "kind": "retry"},
+        {"label": "Give me a hint", "next": "r4_hint", "kind": "help"}
+      ]
+    },
+    "r4_p": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right.", "claims": []},
+        {"text": "CA 15-3 is a tumour marker that follows metastatic disease once it is known; it does not screen or stage an early cancer.", "claims": ["K58"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "r4", "kind": "retry"},
+        {"label": "Give me a hint", "next": "r4_hint", "kind": "help"}
+      ]
+    },
+    "r4_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask what the stage and the symptoms are before you think of any scan, then pick the step this case actually calls for.", "claims": []}
+      ],
+      "choices": [{"label": "Try again", "next": "r4", "kind": "retry"}]
+    },
+    "r5": {
+      "role": "explain",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "Bone is the commonest site of distant spread, mostly **osteolytic**; lung, liver and brain follow.", "claims": ["K42", "K123"]},
+        {"text": "The most important prognostic factor is **axillary lymph node status**.", "claims": ["K6", "K124"]}
+      ],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    }
+  }
+}
