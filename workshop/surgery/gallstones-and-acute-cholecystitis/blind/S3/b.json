@@ -1,0 +1,1107 @@
+{
+  "segment": "S3",
+  "entry": "pain_case",
+  "nodes": {
+    "pain_case": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 46-year-old woman has had steady pain in the right upper abdomen since last night, now about 14 hours.",
+          "claims": []
+        },
+        {
+          "text": "Temperature 38.5 °C, tender right upper abdomen, Murphy's sign positive. What is your best reading?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Biliary colic, since colic is a stone pain of any length",
+          "next": "pain_t4a",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Acute cholecystitis, given pain past six hours with fever",
+          "next": "pain_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Biliary colic, since the pain comes in intermittent waves",
+          "next": "pain_t4b",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pain_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "pain_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Pain past about six hours with fever and a tender gallbladder means the wall is inflamed, not just a stone blocking the outlet.",
+          "claims": [
+            "K38",
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pain_explain",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pain_explain": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Most acute cholecystitis is calculous: a stone in the cystic duct or Hartmann's pouch starts a chemical inflammation, and bacteria follow.",
+          "claims": [
+            "K1",
+            "K12",
+            "K32"
+          ]
+        },
+        {
+          "text": "Biliary colic has the same stone but only a transient block, with no inflammation of the wall.",
+          "claims": [
+            "K11"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "set_case",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pain_t4a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "Colic sounds like any stone pain, but biliary colic is steady, settles within a few hours, and has no fever.",
+          "claims": [
+            "K37",
+            "K11",
+            "K38"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the clock before the name: duration and fever decide it.",
+        "claims": [
+          "K38"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain_case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pain_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "pain_t4b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "Waves sound like the textbook colic picture, but biliary colic is steady, and waves do not decide it.",
+          "claims": [
+            "K118",
+            "K37"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so remember that colic is steady, not wavelike, at the bedside.",
+        "claims": [
+          "K118"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain_case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pain_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "pain_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Count the hours first, then check for fever and a tender gallbladder.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pain_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Here is the answer: acute cholecystitis, since pain past about six hours with fever means the wall is inflamed.",
+          "claims": [
+            "K38",
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pain_explain",
+          "kind": "continue"
+        }
+      ]
+    },
+    "set_case": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Next, the Tokyo Guidelines 2018 (TG18) diagnosis of acute cholecystitis.",
+          "claims": []
+        },
+        {
+          "text": "For a suspected acute cholecystitis, which combination of findings do you need?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "One local sign, one systemic sign and imaging",
+          "next": "set_t7a",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "One local sign plus one systemic sign",
+          "next": "set_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Gallstones on ultrasound with one local sign",
+          "next": "set_t7b",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "set_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "set_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Suspected needs one A item plus one B item; imaging, the C item, is what makes it definite.",
+          "claims": [
+            "K58"
+          ]
+        },
+        {
+          "text": "A is local: Murphy's sign, or an RUQ mass, pain or tenderness. B is systemic: fever, raised CRP or a raised white cell count.",
+          "claims": [
+            "K55",
+            "K56"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cv_case",
+          "kind": "continue"
+        }
+      ]
+    },
+    "set_t7a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "Imaging feels like the strongest proof, so it seems to belong in the first set, but in TG18 it is the third group.",
+          "claims": [
+            "K57",
+            "K58"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so rebuild the rule as a sequence: clinical groups first, imaging last.",
+        "claims": [
+          "K58"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "set_case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "set_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "set_t7b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "Stones on a scan feel like the diagnosis, but TG18 counts signs of inflammation, and gallstones alone are not one of them.",
+          "claims": [
+            "K57",
+            "K1"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check each item: is it a sign of inflammation, or only a stone?",
+        "claims": [
+          "K57"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "set_case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "set_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "set_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Build it in steps: which two groups come before any imaging?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "set_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "set_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Suspected is one local sign plus one systemic sign. Imaging is the third group and makes the diagnosis definite.",
+          "claims": [
+            "K55",
+            "K56",
+            "K57",
+            "K58"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cv_case",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cv_case": {
+      "role": "probe",
+      "objectives": [
+        "O11"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 58-year-old woman has fever and a tender mass in the right upper abdomen. She is not jaundiced.",
+          "claims": []
+        },
+        {
+          "text": "Does Courvoisier's law apply here, and what would it suggest?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "It applies, so the mass points to malignant obstruction",
+          "next": "cv_t5a",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "It applies to any palpable gallbladder, so suspect carcinoma",
+          "next": "cv_t5b",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "It does not apply, since there is no jaundice",
+          "next": "cv_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "cv_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "cv_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Courvoisier's law needs jaundice and a non-tender palpable gallbladder before it points to a malignant cause.",
+          "claims": [
+            "K9",
+            "K119"
+          ]
+        },
+        {
+          "text": "A tender mass with fever fits an inflamed gallbladder wrapped in omentum, or an empyema.",
+          "claims": [
+            "K42",
+            "K119"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cv_recog",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cv_t5a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "A palpable mass in an older patient feels like a tumour, but the law needs jaundice, not just a lump.",
+          "claims": [
+            "K9"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check for jaundice before you check for a lump.",
+        "claims": [
+          "K9"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cv_case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "cv_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "cv_t5b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "The law is not about every palpable gallbladder; it is a clue in jaundice, with a non-tender gallbladder.",
+          "claims": [
+            "K9",
+            "K119"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-read the conditions: jaundice first, then a non-tender gallbladder.",
+        "claims": [
+          "K9"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cv_case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "cv_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "cv_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Before the law applies, which finding must the patient have?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cv_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "cv_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Courvoisier's law applies only with jaundice and a non-tender palpable gallbladder, which then suggests distal malignant obstruction.",
+          "claims": [
+            "K9"
+          ]
+        },
+        {
+          "text": "Here there is no jaundice and a tender mass, so empyema or a mucocele fits instead.",
+          "claims": [
+            "K119",
+            "K42"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cv_recog",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cv_recog": {
+      "role": "probe",
+      "objectives": [
+        "O11"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now the same law, stated as a single rule.",
+          "claims": []
+        },
+        {
+          "text": "Which statement is Courvoisier's law?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "In jaundice, a non-tender palpable gallbladder is unlikely to be stones",
+          "next": "cv2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "A palpable gallbladder, with or without jaundice, means malignancy",
+          "next": "cv2_t5a",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "A palpable gallbladder excludes gallstone disease in every patient",
+          "next": "cv2_t5b",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "cv2_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "cv2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The law is conditional: jaundice comes first, and then a non-tender gallbladder is the sign to read.",
+          "claims": [
+            "K9"
+          ]
+        },
+        {
+          "text": "Stones are unlikely in that setting, which points the search toward the distal duct and the head of the pancreas.",
+          "claims": [
+            "K9"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "tg_case",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cv2_t5a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "Carcinoma feels like the warning, but the law is a conditional rule: without jaundice, the palpable gallbladder is not the warning.",
+          "claims": [
+            "K9",
+            "K119"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so read the whole rule: jaundice sits in the first clause.",
+        "claims": [
+          "K9"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cv_recog",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "cv2_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "cv2_t5b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "A palpable gallbladder does not exclude stones; the law only makes stones unlikely in a jaundiced patient with a non-tender gallbladder.",
+          "claims": [
+            "K9"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so remember the law makes stones unlikely in one setting only.",
+        "claims": [
+          "K9"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cv_recog",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "cv2_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "cv2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Read the rule's first clause: what condition must the patient have?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cv_recog",
+          "kind": "retry"
+        }
+      ]
+    },
+    "cv2_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Courvoisier's law: in jaundice, a palpable non-tender gallbladder is unlikely to be stones and suggests distal malignant obstruction.",
+          "claims": [
+            "K9"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "tg_case",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tg_case": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 40-year-old man has Murphy's sign and a temperature of 38.2 °C. No ultrasound has been done yet.",
+          "claims": []
+        },
+        {
+          "text": "At what TG18 level is the diagnosis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Definite, since two findings are already present",
+          "next": "tg_t7a",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Suspected, since a local and a systemic sign are present",
+          "next": "tg_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not diagnosable at all until the imaging is done",
+          "next": "tg_t7b",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "tg_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "tg_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Murphy's sign is an A item and fever is a B item, so the diagnosis is suspected.",
+          "claims": [
+            "K55",
+            "K56",
+            "K58"
+          ]
+        },
+        {
+          "text": "Definite would also need the C item, imaging, and that has not been done.",
+          "claims": [
+            "K57",
+            "K58"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sign_explain",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tg_t7a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "Two findings feel like proof, but definite needs imaging as well, so two clinical signs cannot make it definite on their own.",
+          "claims": [
+            "K58"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check which group each sign belongs to, and what imaging adds.",
+        "claims": [
+          "K58"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tg_case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "tg_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "tg_t7b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "Imaging feels necessary, but it is the third group and upgrades a diagnosis; it does not create the first one.",
+          "claims": [
+            "K57",
+            "K58"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so remember a suspected diagnosis does not wait for the scan.",
+        "claims": [
+          "K58"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tg_case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "tg_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "tg_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Sort each sign into a group: which group is local, and which is systemic?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tg_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "tg_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Suspected is one local sign plus one systemic sign. Imaging is the third group and makes the diagnosis definite.",
+          "claims": [
+            "K55",
+            "K56",
+            "K57",
+            "K58"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sign_explain",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sign_explain": {
+      "role": "explain",
+      "objectives": [
+        "O1",
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Murphy's sign can be absent in the elderly and in diabetics, who may have gangrene with few signs.",
+          "claims": [
+            "K44"
+          ]
+        },
+        {
+          "text": "Other clues: pain to the right shoulder tip from diaphragm irritation, Boas' sign, and a raised white count with raised CRP.",
+          "claims": [
+            "K40",
+            "K41",
+            "K45"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pain2_case",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pain2_case": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Put it together. Which feature most separates biliary colic from acute cholecystitis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "How colicky the pain is, in waves every few minutes",
+          "next": "pain2_t4a",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Stone pain lasting all day, which is still colic",
+          "next": "pain2_t4c",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Pain past about six hours, with fever",
+          "next": "pain2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pain2_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "pain2_t4a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "Waves sound like the textbook colic, but biliary colic is steady and settles within a few hours, so the rhythm does not separate the two.",
+          "claims": [
+            "K37",
+            "K118"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so use the clock and the wall, not the rhythm of the pain.",
+        "claims": [
+          "K37"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain2_case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pain2_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "pain2_t4c": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "Both start with a stone, so long stone pain looks like colic, but colic is a short attack and the wall is spared.",
+          "claims": [
+            "K11",
+            "K37"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so count the hours, then ask whether the wall is involved.",
+        "claims": [
+          "K38"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain2_case",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pain2_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "pain2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about the clock and the wall: which feature shows whether the gallbladder is inflamed?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pain2_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pain2_why": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Pain past about six hours with fever and tenderness shows the wall is inflamed, which is acute cholecystitis.",
+          "claims": [
+            "K38",
+            "K39"
+          ]
+        },
+        {
+          "text": "Biliary colic is a transient block with no wall inflammation, and it settles within a few hours.",
+          "claims": [
+            "K11",
+            "K37"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wrap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pain2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The clock and the wall decide it: past about six hours with fever and tenderness, the gallbladder wall is inflamed.",
+          "claims": [
+            "K38",
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wrap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wrap": {
+      "role": "recap",
+      "say": [
+        {
+          "text": "Three checks before you name it: how long the pain has lasted, whether there is fever, and whether the TG18 groups fit.",
+          "claims": [
+            "K38",
+            "K55",
+            "K56",
+            "K57"
+          ]
+        },
+        {
+          "text": "Courvoisier's law counts only with jaundice; without it, a palpable gallbladder is not a cancer sign on its own.",
+          "claims": [
+            "K9",
+            "K119"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
