@@ -1,0 +1,796 @@
+{
+  "segment": "S4",
+  "entry": "wx_case",
+  "nodes": {
+    "wx_case": {
+      "role": "case",
+      "objectives": [
+        "O5",
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Worked case first. A 48-year-old woman has a 3 cm firm lump, mobile nodes in the armpit, normal skin and no fixity.",
+          "claims": []
+        },
+        {
+          "text": "Step one, size: 3 cm is over 2 cm and up to 5 cm, so the tumour is **T2**.",
+          "claims": [
+            "K62"
+          ]
+        },
+        {
+          "text": "Step two, skin and chest wall: no skin change and nothing fixed to the chest wall, so no T4 label applies. Mobile level I and II nodes are **N1**.",
+          "claims": [
+            "K64",
+            "K65",
+            "K68"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wx_scan",
+          "kind": "continue"
+        },
+        {
+          "label": "I know T and N, skip the walk-through",
+          "next": "fade1",
+          "kind": "skip"
+        }
+      ]
+    },
+    "wx_scan": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Step three, the metastatic work-up. Locally advanced (stage III) disease means a tumour over 5 cm with nodes, a T4 tumour, or N2 or N3 nodes.",
+          "claims": [
+            "K75"
+          ]
+        },
+        {
+          "text": "This patient has none of those and no symptoms, so a bone scan, CT or PET is not routine. Imaging is for locally advanced disease or symptoms.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade1": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Case B, same method. The skin step is yours this time.",
+          "claims": []
+        },
+        {
+          "text": "A 3 cm tumour with peau d'orange over it, no redness or warmth. What is the T category?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "T4d",
+          "next": "fade1_t12",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "T4a",
+          "next": "fade1_t4a",
+          "kind": "partial"
+        },
+        {
+          "label": "T4b",
+          "next": "fade1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade1_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Yes. Peau d'orange is skin involvement from blocked skin lymphatics, which puts the tumour in **T4b** whatever its size.",
+          "claims": [
+            "K7",
+            "K65"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade1_t12": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Not right.",
+          "claims": []
+        },
+        {
+          "text": "Peau d'orange sounds like inflammatory cancer, so T4d comes to mind first, but one skin sign does not make the whole syndrome.",
+          "claims": [
+            "K67",
+            "K7"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is the sign-for-syndrome habit: name the whole picture before the category.",
+        "claims": [
+          "K48"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade1_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade1_t4a": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Not right.",
+          "claims": []
+        },
+        {
+          "text": "Tethering to the chest wall would make it T4a, but nothing here says the ribs or chest wall are involved.",
+          "claims": [
+            "K64"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Look at the skin over the tumour first. Then ask whether the whole breast looks red, warm and swollen, or only the skin over the lump.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade1_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Peau d'orange means tumour has blocked the skin's lymphatics, so the skin is involved. That is **T4b**.",
+          "claims": [
+            "K7",
+            "K65"
+          ]
+        },
+        {
+          "text": "T4d needs the whole picture: a red, warm, swollen breast with the skin change over a third of it, often without a lump.",
+          "claims": [
+            "K48",
+            "K67"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade2": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Case C. The tumour is T2, and the nodes sit on the same side, above the collarbone.",
+          "claims": []
+        },
+        {
+          "text": "In current AJCC staging, ipsilateral supraclavicular node involvement is classed as?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "M1",
+          "next": "fade2_t2",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "N3c",
+          "next": "fade2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "N3a",
+          "next": "fade2_p1",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade2_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade2_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Yes. Ipsilateral supraclavicular nodes are **N3c**, a nodal category on the ladder.",
+          "claims": [
+            "K73",
+            "K9"
+          ]
+        },
+        {
+          "text": "M1 covers contralateral supraclavicular nodes and other distant disease. Same side stays regional.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade2_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Not right.",
+          "claims": []
+        },
+        {
+          "text": "Older keys filed any node above the clavicle as distant spread, so M1 feels familiar, but these stay on the nodal ladder.",
+          "claims": [
+            "K138"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, which is the old key talking. Check which side the nodes are on before you call them distant.",
+        "claims": [
+          "K138",
+          "K74"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade2_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade2_p1": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Not right.",
+          "claims": []
+        },
+        {
+          "text": "Infraclavicular nodes are N3 too, but these sit above the clavicle, a different station.",
+          "claims": [
+            "K71",
+            "K73"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Picture the nodal ladder from the armpit upwards. Which rung is the one above the collarbone, and what category does that rung carry?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade2_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Older keys counted supraclavicular nodes as M1. Current AJCC staging places ipsilateral ones at **N3c**.",
+          "claims": [
+            "K138",
+            "K73"
+          ]
+        },
+        {
+          "text": "M1 includes contralateral supraclavicular nodes. Same side is regional; opposite side is distant.",
+          "claims": [
+            "K74",
+            "K9"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade3": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Case D. A 38-year-old has a 1.5 cm invasive ductal carcinoma on core biopsy. The axilla is clinically node-negative and she has no symptoms.",
+          "claims": []
+        },
+        {
+          "text": "What is the next step in her staging?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "No routine metastatic scan; plan local treatment first",
+          "next": "fade3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Whole-body bone scan to look for distant spread",
+          "next": "fade3_t5",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "MRI of the breast to map full local extent",
+          "next": "fade3_p1",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade3_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade3_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Yes. Routine metastatic imaging is for locally advanced disease or symptoms. She has neither, so she goes to local treatment planning.",
+          "claims": [
+            "K57"
+          ]
+        },
+        {
+          "text": "Bone is the commonest site of spread, but where spread lands does not decide who gets scanned.",
+          "claims": [
+            "K42"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade3_t5": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Not right.",
+          "claims": []
+        },
+        {
+          "text": "Bone is the commonest site of distant spread, so a bone scan feels like routine staging, but scans follow stage and symptoms.",
+          "claims": [
+            "K42",
+            "K57"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, which is the routine-test reflex. Ask what this patient's stage and symptoms call for.",
+        "claims": [
+          "K57"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade3_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade3_p1": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Not right.",
+          "claims": []
+        },
+        {
+          "text": "MRI maps the breast itself, which is local extent, but this question is about distant disease.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade3_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what this patient's stage and symptoms say, before you ask where breast cancer usually spreads.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade3_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Distant-spread scans (CT chest and abdomen, bone scan, PET-CT) are for locally advanced disease or symptoms. Early, asymptomatic cancer like this skips them.",
+          "claims": [
+            "K57",
+            "K75"
+          ]
+        },
+        {
+          "text": "So the next step is local treatment planning. With bone pain or stage III disease, the answer changes.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade4": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Case E. A 4 cm tumour is fixed when the pectoralis is contracted. The ribs and intercostal spaces are free.",
+          "claims": []
+        },
+        {
+          "text": "What is the T category?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "T4a",
+          "next": "fade4_t13",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "T3",
+          "next": "fade4_p1",
+          "kind": "partial"
+        },
+        {
+          "label": "T2",
+          "next": "fade4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade4_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade4_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Yes. Fixity to the pectoralis alone is not chest-wall invasion, so size decides: 4 cm is **T2**.",
+          "claims": [
+            "K141",
+            "K62"
+          ]
+        },
+        {
+          "text": "T4a needs the ribs, intercostal muscles or serratus anterior involved.",
+          "claims": [
+            "K64"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "recap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade4_t13": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Not right.",
+          "claims": []
+        },
+        {
+          "text": "Fixity to the pectoralis is the test you do, so it feels like chest wall, but the pectoralis is not on the T4a list.",
+          "claims": [
+            "K47",
+            "K141"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the list, not the test: T4a is about the chest wall itself.",
+        "claims": [
+          "K64"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade4_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade4_p1": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Not right.",
+          "claims": []
+        },
+        {
+          "text": "T3 needs a tumour over 5 cm, and this one is 4 cm.",
+          "claims": [
+            "K63"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade4_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Read the stem again: which structures are described as free? Then ask whether anything other than size is involved.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade4_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "The T4a list is chest wall: ribs, intercostal muscles and serratus anterior. The pectoralis is not on it.",
+          "claims": [
+            "K64"
+          ]
+        },
+        {
+          "text": "Fixity to the pectoralis is a test you perform, not chest-wall invasion. With no chest-wall or skin finding, size gives **T2**.",
+          "claims": [
+            "K47",
+            "K141",
+            "K62"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "recap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "recap": {
+      "role": "recap",
+      "objectives": [
+        "O4",
+        "O5",
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Two anchors: bone is the commonest site of distant spread, and axillary node status is the most important prognostic factor.",
+          "claims": [
+            "K42",
+            "K6"
+          ]
+        },
+        {
+          "text": "Peau d'orange is T4b, not T4d, and ipsilateral supraclavicular nodes are N3c, not M1.",
+          "claims": [
+            "K7",
+            "K9"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
