@@ -1,0 +1,959 @@
+{
+  "segment": "S4",
+  "entry": "ladder_case",
+  "nodes": {
+    "ladder_case": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 46-year-old woman attends the outpatient clinic with two days of right upper abdominal pain, a fever of 38.4 °C and a positive Murphy's sign.",
+          "claims": []
+        },
+        {
+          "text": "Her bloods are pending. Which imaging test do you order first?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "HIDA scan of the gallbladder",
+          "next": "ladder_t_hida_first",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Ultrasound of the upper abdomen",
+          "next": "ladder_case_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "CT scan of the upper abdomen",
+          "next": "ladder_t_ct_first",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "ladder_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "ladder_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Read the question's key word. Is it asking for the test that comes first at the bedside, or the most accurate test once the picture is clear?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ladder_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ladder_case_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Ultrasound is the initial test for gallstones and suspected acute cholecystitis: quick, bedside and highly sensitive for stones.",
+          "claims": [
+            "K2",
+            "K48"
+          ]
+        },
+        {
+          "text": "It shows wall thickening, pericholecystic fluid and a sonographic Murphy's sign, which help confirm the picture.",
+          "claims": [
+            "K47"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ladder_hida",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ladder_t_hida_first": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "HIDA is tempting: it is the most accurate test for acute cholecystitis.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "This question asks for the first test, and accuracy answers a different question.",
+          "claims": [
+            "K116"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so split the two words: 'first' asks for the initial test, 'most accurate' asks for the confirming test.",
+        "claims": [
+          "K116"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ladder_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ladder_t_ct_first": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "CT feels thorough, so it is tempting as the first look at a sick gallbladder.",
+          "claims": []
+        },
+        {
+          "text": "But CT misses many gallstones and is kept for complications such as perforation or abscess.",
+          "claims": [
+            "K50"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: CT answers the complications question, not the first gallbladder test.",
+        "claims": [
+          "K50"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ladder_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ladder_hida": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Ultrasound is equivocal in a septic post-operative patient. You need a test that confirms cystic duct obstruction.",
+          "claims": []
+        },
+        {
+          "text": "Which finding, on which test, makes the diagnosis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Wall thickening and fluid around the gallbladder on repeat CT",
+          "next": "ladder_hida_t_ct",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Gallbladder not filling while tracer reaches the duodenum on HIDA",
+          "next": "ladder_hida_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Dilated bile duct with a stone seen on MRCP",
+          "next": "ladder_hida_t_mrcp",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "ladder_hida_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "ladder_hida_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think of a radionuclide test that follows bile from the liver into the gut. Ask whether the gallbladder fills on the way.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ladder_hida",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ladder_hida_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. HIDA is the most sensitive and specific test. Gallbladder non-filling, with tracer in the duodenum, confirms cystic duct obstruction.",
+          "claims": [
+            "K3",
+            "K49"
+          ]
+        },
+        {
+          "text": "The gallbladder ladder is now clear: ultrasound first, HIDA when the picture stays unclear, and CT for complications.",
+          "claims": [
+            "K2",
+            "K3",
+            "K50"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ladder_duct",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ladder_hida_t_ct": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Repeat CT is tempting, because it does show the inflamed wall, though it is not the test of choice here.",
+          "claims": [
+            "K50"
+          ]
+        },
+        {
+          "text": "This question asks which test shows the cystic duct is blocked. That is a tracer finding, not a wall finding.",
+          "claims": [
+            "K49"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: a picture of inflammation is not proof that the cystic duct is blocked.",
+        "claims": [
+          "K49"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ladder_hida",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ladder_hida_t_mrcp": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "A dilated duct with a stone looks decisive, and MRCP is a real test for duct stones.",
+          "claims": [
+            "K51"
+          ]
+        },
+        {
+          "text": "But this question is about the cystic duct at the gallbladder neck, which shows on the gallbladder's own tracer study.",
+          "claims": [
+            "K49"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: a bile-duct picture answers a bile-duct question, not this one.",
+        "claims": [
+          "K51"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ladder_hida",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ladder_duct": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 61-year-old man is jaundiced. Ultrasound shows gallstones and a dilated common bile duct.",
+          "claims": []
+        },
+        {
+          "text": "You want to confirm a duct stone without a procedure. What do you order next?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Repeat ultrasound of the abdomen",
+          "next": "ladder_duct_t_us",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Diagnostic ERCP as the first step",
+          "next": "ladder_duct_t_ercp",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "MRCP of the bile ducts",
+          "next": "ladder_duct_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "ladder_duct_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "ladder_duct_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Focus on the phrase 'without a procedure'. Which test images the bile ducts from outside the body?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ladder_duct",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ladder_duct_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. MRCP is the non-invasive investigation of choice for common bile duct stones.",
+          "claims": [
+            "K51"
+          ]
+        },
+        {
+          "text": "Ultrasound and HIDA look at the gallbladder, so they cannot settle the duct question. Duct questions climb to the duct tests.",
+          "claims": [
+            "K2",
+            "K49"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ladder_nonin",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ladder_duct_t_us": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Repeat ultrasound is tempting, because it found the gallstones and feels like the test for the whole tree.",
+          "claims": [
+            "K46"
+          ]
+        },
+        {
+          "text": "But ultrasound is the gallbladder test. The duct question needs a duct test such as MRCP.",
+          "claims": [
+            "K51"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: the test that found gallbladder stones is not automatically the duct test.",
+        "claims": [
+          "K46"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ladder_duct",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ladder_duct_t_ercp": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Diagnostic ERCP is tempting: it sees the duct directly, and it can also treat what it finds.",
+          "claims": [
+            "K52"
+          ]
+        },
+        {
+          "text": "But a non-invasive test answers the question first. ERCP is kept for a stone already found and due for removal.",
+          "claims": [
+            "K51",
+            "K52"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: ERCP is diagnostic and therapeutic, so it belongs after a duct stone is found.",
+        "claims": [
+          "K52"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ladder_duct",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ladder_nonin": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which is the non-invasive investigation of choice for common bile duct stones?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "CT scan of the upper abdomen",
+          "next": "nonin_t_ct",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Ultrasonography of the upper abdomen",
+          "next": "nonin_t_us",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "MRCP of the biliary tree",
+          "next": "nonin_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "ERCP, the endoscopic duct test",
+          "next": "nonin_t_ercp",
+          "kind": "trap",
+          "trap": "TR3"
+        }
+      ]
+    },
+    "nonin_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. MRCP is non-invasive and detects common bile duct stones well.",
+          "claims": [
+            "K51",
+            "K104"
+          ]
+        },
+        {
+          "text": "ERCP answers the same duct question with an endoscope, so it is kept for treatment once a stone is found. EUS helps with small stones.",
+          "claims": [
+            "K52",
+            "K53"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "tg_recog",
+          "kind": "continue"
+        }
+      ]
+    },
+    "nonin_t_ct": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "CT is tempting: it images the whole abdomen and sometimes shows a dilated duct.",
+          "claims": []
+        },
+        {
+          "text": "But CT misses many gallstones and is kept for complications.",
+          "claims": [
+            "K50"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: CT is the complications test, not the duct test.",
+        "claims": [
+          "K50"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ladder_nonin",
+          "kind": "retry"
+        }
+      ]
+    },
+    "nonin_t_us": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Ultrasonography is tempting: it is the first test in every gallstone work-up.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "But the question asks about the duct, and ultrasound is the gallbladder test.",
+          "claims": [
+            "K2",
+            "K51"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: the first gallbladder test is not the duct test.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ladder_nonin",
+          "kind": "retry"
+        }
+      ]
+    },
+    "nonin_t_ercp": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "ERCP is tempting: it is the duct test with the most power, because it can also treat.",
+          "claims": []
+        },
+        {
+          "text": "But the question asks for the non-invasive test, and ERCP passes an endoscope into the duct.",
+          "claims": [
+            "K52"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: ERCP is the treatment step, so it follows the non-invasive test.",
+        "claims": [
+          "K52"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ladder_nonin",
+          "kind": "retry"
+        }
+      ]
+    },
+    "tg_recog": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now the TG18 criteria. Which combination makes a suspected diagnosis of acute cholecystitis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "One local sign, one systemic sign and imaging",
+          "next": "tg_t_abc",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Stones on ultrasound plus one local sign",
+          "next": "tg_t_ac",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Two systemic signs, such as fever and high CRP",
+          "next": "tg_t_bb",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "One local sign plus one systemic sign",
+          "next": "tg_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "tg_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Suspected needs one local sign (A) and one systemic sign (B).",
+          "claims": [
+            "K55",
+            "K56",
+            "K58"
+          ]
+        },
+        {
+          "text": "Imaging (C) is added only to reach a definite diagnosis: A plus B plus C.",
+          "claims": [
+            "K57",
+            "K58"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "tg_vig",
+          "kind": "continue"
+        }
+      ]
+    },
+    "tg_t_abc": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Imaging feels necessary, since pictures are the most objective part of the work-up.",
+          "claims": [
+            "K57"
+          ]
+        },
+        {
+          "text": "But imaging is the third item and upgrades a suspected case to definite. It is not part of suspected.",
+          "claims": [
+            "K58"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: imaging belongs to the definite set, not the suspected one.",
+        "claims": [
+          "K58"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tg_recog",
+          "kind": "retry"
+        }
+      ]
+    },
+    "tg_t_ac": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Stones on ultrasound feel like proof, so one local sign plus the picture seems enough.",
+          "claims": [
+            "K57"
+          ]
+        },
+        {
+          "text": "But suspected needs a systemic sign as well. The picture only counts once the clinical pair is present.",
+          "claims": [
+            "K56",
+            "K58"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: a stone on the scan is the third item, which needs the clinical pair before it counts.",
+        "claims": [
+          "K58"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tg_recog",
+          "kind": "retry"
+        }
+      ]
+    },
+    "tg_t_bb": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Fever and a raised CRP are real inflammation, so two systemic signs feel convincing.",
+          "claims": [
+            "K56"
+          ]
+        },
+        {
+          "text": "But the set must include a local sign (A). Two systemic signs without one do not make suspected.",
+          "claims": [
+            "K55",
+            "K58"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: systemic signs are the B item, and the set always needs an A item too.",
+        "claims": [
+          "K55"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tg_recog",
+          "kind": "retry"
+        }
+      ]
+    },
+    "tg_vig": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 55-year-old man has fever and a positive Murphy's sign. No imaging has been done yet.",
+          "claims": []
+        },
+        {
+          "text": "At which TG18 level does he sit now?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Definite, since the signs look strong",
+          "next": "tg_v_def",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Not diagnosable until imaging is done",
+          "next": "tg_v_img",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Not yet suspected, needs a second local sign",
+          "next": "tg_v_second",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Suspected, with the signs he has so far",
+          "next": "tg_v_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "tg_v_def": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Definite feels right because the signs look serious.",
+          "claims": []
+        },
+        {
+          "text": "But definite needs the imaging item as well, and he has none yet.",
+          "claims": [
+            "K58"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: definite is A plus B plus C, so it waits for the picture.",
+        "claims": [
+          "K58"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tg_vig",
+          "kind": "retry"
+        }
+      ]
+    },
+    "tg_v_img": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Waiting for imaging feels careful, since the diagnosis is confirmed by pictures.",
+          "claims": [
+            "K57"
+          ]
+        },
+        {
+          "text": "But imaging is needed only to reach definite. The clinical items already set the first level.",
+          "claims": [
+            "K58"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: the clinical items come first, and the picture only upgrades them.",
+        "claims": [
+          "K58"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tg_vig",
+          "kind": "retry"
+        }
+      ]
+    },
+    "tg_v_second": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "A strict rule feels safer, since the local sign is the core of the disease.",
+          "claims": [
+            "K55"
+          ]
+        },
+        {
+          "text": "But TG18 pairs one local sign with one systemic sign. A second local sign is not part of the rule.",
+          "claims": [
+            "K55",
+            "K56"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: the rule is one A item and one B item, not two A items.",
+        "claims": [
+          "K55",
+          "K56"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "tg_vig",
+          "kind": "retry"
+        }
+      ]
+    },
+    "tg_v_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. One local sign and one systemic sign make a suspected diagnosis. Imaging upgrades it to definite.",
+          "claims": [
+            "K55",
+            "K56",
+            "K58"
+          ]
+        },
+        {
+          "text": "Read the TG18 set as a sequence: local and systemic signs first, then the picture to confirm.",
+          "claims": [
+            "K58"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
