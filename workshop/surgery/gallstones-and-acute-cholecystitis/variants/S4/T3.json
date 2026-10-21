@@ -1,0 +1,256 @@
+{
+  "segment": "S4",
+  "technique": "T3",
+  "entry": "gb_predict",
+  "nodes": {
+    "gb_predict": {
+      "role": "probe",
+      "objectives": ["O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 60-year-old diabetic woman has fever and right upper abdominal pain. Her ultrasonography is equivocal: the gallbladder wall is hard to judge.", "claims": []},
+        {"text": "You need to know whether the cystic duct is blocked. Which test do you order next?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Repeat CT of the abdomen", "next": "gb_t2", "kind": "trap", "trap": "TR2"},
+        {"label": "HIDA (cholescintigraphy) scan", "next": "gb_ok", "kind": "correct"},
+        {"label": "MRCP of the bile ducts", "next": "gb_t3", "kind": "trap", "trap": "TR3"},
+        {"label": "Not sure, give me a hint", "next": "gb_hint", "kind": "help"}
+      ]
+    },
+    "gb_ok": {
+      "role": "feedback",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "Yes. Ultrasonography is the first look at the gallbladder, but the HIDA scan is the most sensitive and specific test for acute cholecystitis.", "claims": ["K2", "K3"]},
+        {"text": "Tracer reaches the duodenum while the gallbladder stays dark. That pattern means the cystic duct is obstructed.", "claims": ["K49"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "gb_explain", "kind": "continue"},
+        {"label": "I am sure, skip the lesson", "next": "duct_predict", "kind": "skip"}
+      ]
+    },
+    "gb_explain": {
+      "role": "explain",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "So the gallbladder ladder has two rungs with different jobs. Ultrasonography is the first look: it shows stones, a thick wall and fluid.", "claims": ["K2", "K46", "K47"]},
+        {"text": "When that picture stays unclear, the HIDA scan asks the sharper question: is the cystic duct blocked?", "claims": ["K3"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "duct_predict", "kind": "continue"}
+      ]
+    },
+    "gb_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Computed tomography (CT) feels thorough after an unclear scan, so it tempts you to treat it as the sharper gallbladder test. But CT is kept for complications, and it misses many gallstones.", "claims": ["K50"]},
+        {"text": "Ask what the test shows: the gallbladder's own filling, or whether the cystic duct is blocked.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the question. Detail on a scan is not the same as showing that the cystic duct is blocked.", "claims": ["K50"]},
+      "choices": [
+        {"label": "Try again", "next": "gb_predict", "kind": "retry"}
+      ]
+    },
+    "gb_t3": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "MRCP is tempting because the stone you are chasing sits in the biliary tree, and MRCP is the test for stones in the bile duct. This question is about the cystic duct, the gallbladder's outlet.", "claims": ["K51"]},
+        {"text": "Ask which duct the question names: the one leading from the gallbladder, or the common bile duct.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so separate the two ducts. MRCP answers the common bile duct question, and this one is about the cystic duct.", "claims": ["K51"]},
+      "choices": [
+        {"label": "Try again", "next": "gb_predict", "kind": "retry"}
+      ]
+    },
+    "gb_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask which question each test answers: is the gallbladder itself inflamed, or is its outlet blocked? Check each test against that question, then choose again.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "gb_predict", "kind": "retry"}
+      ]
+    },
+    "duct_predict": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 45-year-old man is jaundiced. His bilirubin is raised, and the ultrasonography shows gallstones in the gallbladder.", "claims": []},
+        {"text": "You suspect a stone in the common bile duct (CBD) and want to confirm it without a procedure. Which test next?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Diagnostic ERCP first", "next": "duct_t3a", "kind": "trap", "trap": "TR3"},
+        {"label": "Repeat ultrasonography of the abdomen", "next": "duct_t3b", "kind": "trap", "trap": "TR3"},
+        {"label": "MRCP of the bile ducts", "next": "duct_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "duct_hint", "kind": "help"}
+      ]
+    },
+    "duct_ok": {
+      "role": "feedback",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Yes. Magnetic resonance cholangiopancreatography (MRCP) is the non-invasive investigation of choice for CBD stones.", "claims": ["K51"]},
+        {"text": "Endoscopic retrograde cholangiopancreatography (ERCP) is both diagnostic and therapeutic: it clears a stone by sphincterotomy and extraction, so it is an intervention rather than a first look.", "claims": ["K52"]},
+        {"text": "For a very small stone, endoscopic ultrasound (EUS) is highly accurate.", "claims": ["K53"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "ct_predict", "kind": "continue"}
+      ]
+    },
+    "duct_t3a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "ERCP is tempting: it is the duct test you know best, and it can even remove a stone. But it is an intervention that also treats, so it is not the test to run to confirm a suspicion without one.", "claims": ["K52"]},
+        {"text": "Ask which test answers the duct question without putting an instrument into the duct.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so remember that ERCP treats as well as tests. That makes it a procedure, not a non-invasive check.", "claims": ["K52"]},
+      "choices": [
+        {"label": "Try again", "next": "duct_predict", "kind": "retry"}
+      ]
+    },
+    "duct_t3b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Repeat ultrasonography is tempting: it found the stones, and it is the first look you already used. But ultrasonography is the first look at the gallbladder (K2), and this question is about the bile duct.", "claims": ["K2", "K51"]},
+        {"text": "Ask which organ the question is about, and whether that scan is designed to image it.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the organ. The gallbladder scan has already shown the gallbladder side of the picture.", "claims": ["K2"]},
+      "choices": [
+        {"label": "Try again", "next": "duct_predict", "kind": "retry"}
+      ]
+    },
+    "duct_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask which test images the bile duct itself, without putting an instrument into it. Check each option against that, then choose again.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "duct_predict", "kind": "retry"}
+      ]
+    },
+    "ct_predict": {
+      "role": "probe",
+      "objectives": ["O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 70-year-old man is septic. You suspect the gallbladder has perforated, with a collection of pus beside it.", "claims": []},
+        {"text": "Which test best shows this complication?", "claims": []}
+      ],
+      "choices": [
+        {"label": "CT of the abdomen", "next": "ct_ok", "kind": "correct"},
+        {"label": "Ultrasonography", "next": "ct_t2", "kind": "trap", "trap": "TR2"},
+        {"label": "MRCP of the bile ducts", "next": "ct_t3", "kind": "trap", "trap": "TR3"},
+        {"label": "Not sure, give me a hint", "next": "ct_hint", "kind": "help"}
+      ]
+    },
+    "ct_ok": {
+      "role": "feedback",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "Yes. Computed tomography (CT) is the test for complications such as perforation, abscess and gas in the gallbladder wall.", "claims": ["K50"]},
+        {"text": "It misses many gallstones, so it does not replace ultrasonography as the first look at the gallbladder.", "claims": ["K2", "K50"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "tg_predict", "kind": "continue"}
+      ]
+    },
+    "ct_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Ultrasonography is tempting: it is the first look at the gallbladder, quick and available at the bedside (K2). But this question is about a complication, and the first look is not the test built for that.", "claims": ["K2"]},
+        {"text": "Ask whether the question is about the first look, or about a complication of the gallbladder.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so separate a first look from a complication check. The question changed, so the test should change too.", "claims": ["K50"]},
+      "choices": [
+        {"label": "Try again", "next": "ct_predict", "kind": "retry"}
+      ]
+    },
+    "ct_t3": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "MRCP is tempting: it is the non-invasive imaging you have just met, and it shows the biliary tree. But it is the test for stones in the bile duct, and this question is about the gallbladder wall and a collection beside it.", "claims": ["K51"]},
+        {"text": "Ask which organ the question is about, and which test is designed to image it.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the organ. MRCP images the bile ducts, not the gallbladder wall.", "claims": ["K51"]},
+      "choices": [
+        {"label": "Try again", "next": "ct_predict", "kind": "retry"}
+      ]
+    },
+    "ct_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask which test is best for complications that spread beyond the gallbladder wall, such as a collection or a perforation. Then choose again.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "ct_predict", "kind": "retry"}
+      ]
+    },
+    "tg_predict": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 52-year-old woman has fever and a positive Murphy's sign. Her ultrasonography now shows gallbladder wall thickening and pericholecystic fluid.", "claims": []},
+        {"text": "By the Tokyo Guidelines 2018 (TG18), what is the diagnostic level now?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Suspected, since two signs already complete the rule", "next": "tg_t7", "kind": "trap", "trap": "TR7"},
+        {"label": "Definite, since the imaging findings complete the rule", "next": "tg_ok", "kind": "correct"},
+        {"label": "Definite only once a HIDA scan confirms it", "next": "tg_t2", "kind": "trap", "trap": "TR2"},
+        {"label": "Not sure, give me a hint", "next": "tg_hint", "kind": "help"}
+      ]
+    },
+    "tg_ok": {
+      "role": "feedback",
+      "objectives": ["O6"],
+      "say": [
+        {"text": "Yes. Suspected needs one local sign (A) and one systemic sign (B). Definite adds a characteristic imaging finding (C).", "claims": ["K55", "K56", "K57", "K58"]},
+        {"text": "Wall thickening and pericholecystic fluid are imaging features of acute cholecystitis, so the third item is present.", "claims": ["K47"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    },
+    "tg_t7": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "Suspected is tempting, because two signs feel like the whole diagnosis. But the suspected level is one local and one systemic sign only, and imaging is a separate third item.", "claims": ["K58"]},
+        {"text": "Ask what the scan has added to the two signs, and whether it counts as that third item.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so count the items. Suspected is A plus B; a third item changes the level.", "claims": ["K58"]},
+      "choices": [
+        {"label": "Try again", "next": "tg_predict", "kind": "retry"}
+      ]
+    },
+    "tg_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "A HIDA scan is tempting: it is the most sensitive and specific test for acute cholecystitis (K3), so it feels like proof. But TG18 levels are built from signs and characteristic imaging findings (K57), and test accuracy is a separate question.", "claims": ["K3", "K57"]},
+        {"text": "Ask whether the question is about the TG18 level, or about which test is most accurate.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so keep two questions apart: the TG18 level, and which test is most accurate.", "claims": ["K3"]},
+      "choices": [
+        {"label": "Try again", "next": "tg_predict", "kind": "retry"}
+      ]
+    },
+    "tg_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "List what is present now: one local sign, one systemic sign, and what the ultrasonography now shows. Which level does that list reach?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "tg_predict", "kind": "retry"}
+      ]
+    }
+  }
+}
