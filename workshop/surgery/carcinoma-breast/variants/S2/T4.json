@@ -1,0 +1,265 @@
+{
+  "segment": "S2",
+  "technique": "T4",
+  "entry": "a_probe",
+  "nodes": {
+    "a_probe": {
+      "role": "probe",
+      "objectives": ["O1", "O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 58-year-old woman has a thickened area in one breast that does not feel like a clear lump. Her biopsy shows small, uniform cells lined up one behind another, in single file. No mass is seen on mammography.", "claims": []},
+        {"text": "Which histological type is this?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Invasive ductal carcinoma, no special type", "next": "a_t10", "kind": "trap", "trap": "TR10"},
+        {"label": "Invasive lobular carcinoma", "next": "a_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "a_hint", "kind": "help"}
+      ]
+    },
+    "a_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Set aside how common each type is. Ask how the cells sit: do they form glands and a firm mass, or do they line up one behind another?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "a_probe", "kind": "retry"}
+      ]
+    },
+    "a_t10": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "It is tempting because this is the commonest breast cancer, so it feels like the default answer to any type question.", "claims": []},
+        {"text": "But this type usually forms a hard, gritty mass, and the pattern here is cells in single file with no clear mass. Commonest is not the same as fits this picture.", "claims": ["K26", "K3"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the pattern before the frequency: the common type makes a mass, and this biopsy shows a line of cells.", "claims": ["K3"]},
+      "choices": [
+        {"label": "Try again", "next": "a_probe", "kind": "retry"}
+      ]
+    },
+    "a_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Cells in single file, from loss of cell-to-cell adhesion, mark invasive lobular carcinoma.", "claims": ["K27"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "a_explain", "kind": "continue"},
+        {"label": "I know this, skip ahead", "next": "b_probe", "kind": "skip"}
+      ]
+    },
+    "a_explain": {
+      "role": "explain",
+      "say": [
+        {"text": "You picked the pattern, not the frequency. Here is what the commonest type misses: it forms a firm, stellate mass, and lobular carcinoma often does not.", "claims": ["K26", "K27"]},
+        {"text": "Lobular carcinoma is more often bilateral and multicentric, and it spreads unusually to the peritoneum, GI tract, ovaries and meninges.", "claims": ["K27", "K122"]},
+        {"text": "ER or PR positive, HER2 negative, with low Ki-67, is Luminal A, the most common subtype.", "claims": ["K32", "K125"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "b_probe", "kind": "continue"}
+      ]
+    },
+    "b_probe": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A family with breast and ovarian cancers is being counselled. Before going further, you need the chromosome for each BRCA gene.", "claims": []},
+        {"text": "Which pair is correct?", "claims": []}
+      ],
+      "choices": [
+        {"label": "BRCA1 on 13q and BRCA2 on 17q", "next": "b_t8", "kind": "trap", "trap": "TR8"},
+        {"label": "BRCA1 on 11q and BRCA2 on 17q", "next": "b_t8b", "kind": "trap", "trap": "TR8"},
+        {"label": "BRCA1 on 17q and BRCA2 on 13q", "next": "b_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "b_hint", "kind": "help"}
+      ]
+    },
+    "b_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Match each gene to its own number first, then check the pair as a whole. A pair of numbers you remember can still have its owners swapped.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "b_probe", "kind": "retry"}
+      ]
+    },
+    "b_t8": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "It is tempting because you memorised 13 and 17 as one pair, so the two owners get swapped without you noticing.", "claims": []},
+        {"text": "Each gene has its own chromosome. The check is which gene owns which number, and the pair alone does not settle it.", "claims": ["K4"]}
+      ],
+      "sure_note": {"text": "You were sure, so note the trap: the numbers are the same, but the owners are not.", "claims": ["K4"]},
+      "choices": [
+        {"label": "Try again", "next": "b_probe", "kind": "retry"}
+      ]
+    },
+    "b_t8b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "It is tempting because 11 looks like one more number from the same memorised list, so it feels plausible.", "claims": []},
+        {"text": "Check each gene's chromosome against the claim, not against a number that merely looks familiar.", "claims": ["K4"]}
+      ],
+      "sure_note": {"text": "You were sure, so test the number itself: a familiar-looking locus is not a remembered locus.", "claims": ["K4"]},
+      "choices": [
+        {"label": "Try again", "next": "b_probe", "kind": "retry"}
+      ]
+    },
+    "b_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. BRCA1 lies on 17q and BRCA2 on 13q.", "claims": ["K4"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "b_explain", "kind": "continue"},
+        {"label": "I know this, skip ahead", "next": "b2_probe", "kind": "skip"}
+      ]
+    },
+    "b_explain": {
+      "role": "explain",
+      "say": [
+        {"text": "You matched each gene to its own chromosome. Now the phenotype: BRCA1 is typically linked to triple-negative, basal-like tumours.", "claims": ["K17"]},
+        {"text": "BRCA2 is the one more linked with male breast cancer, along with Klinefelter syndrome. Male breast cancer is about 1% of all breast cancers.", "claims": ["K4", "K22"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "b2_probe", "kind": "continue"}
+      ]
+    },
+    "b2_probe": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A man presents with a breast lump, and his family history includes breast cancer.", "claims": []},
+        {"text": "Which gene is most linked to breast cancer in men?", "claims": []}
+      ],
+      "choices": [
+        {"label": "BRCA1", "next": "b2_t9", "kind": "trap", "trap": "TR9"},
+        {"label": "BRCA2", "next": "b2_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "b2_hint", "kind": "help"}
+      ]
+    },
+    "b2_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask which gene is tied to the male form, not which gene is best known to the public.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "b2_probe", "kind": "retry"}
+      ]
+    },
+    "b2_t9": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "It is tempting because BRCA1 is the best-known breast cancer gene, so it feels like the answer to any hereditary question.", "claims": []},
+        {"text": "BRCA1 is tied to triple-negative tumours in women. Match the phenotype in the stem to the gene, not the gene you know best.", "claims": ["K17", "K22"]}
+      ],
+      "sure_note": {"text": "You were sure, so this is the famous-gene reflex: the stem names a phenotype, and the phenotype picks the gene.", "claims": ["K22"]},
+      "choices": [
+        {"label": "Try again", "next": "b2_probe", "kind": "retry"}
+      ]
+    },
+    "b2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. BRCA2 carries the male breast cancer link, and Klinefelter syndrome is a second risk factor.", "claims": ["K22", "K4"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "c_probe", "kind": "continue"}
+      ]
+    },
+    "c_probe": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 3 cm tumour lies under skin that looks like orange peel. The breast is not red or warm, and the whole breast is not swollen.", "claims": []},
+        {"text": "What causes the skin change?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Tumour emboli in dermal lymphatics, as in inflammatory cancer", "next": "c_t12", "kind": "trap", "trap": "TR12"},
+        {"label": "Blocked lymphatics under the skin, with oedema", "next": "c_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "c_hint", "kind": "help"}
+      ]
+    },
+    "c_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Think about the lymph channels just under the skin, and what the skin does when fluid collects in it.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "c_probe", "kind": "retry"}
+      ]
+    },
+    "c_t12": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "It is tempting because the inflammatory picture also involves dermal lymphatics, so the two feel like one mechanism.", "claims": []},
+        {"text": "The orange-peel sign alone does not need the inflammatory picture. Emboli in dermal lymphatics define inflammatory cancer, and that needs the red, warm breast.", "claims": ["K7", "K8", "K48"]}
+      ],
+      "sure_note": {"text": "You were sure, so separate a sign from the syndrome it sometimes belongs to.", "claims": ["K48"]},
+      "choices": [
+        {"label": "Try again", "next": "c_probe", "kind": "retry"}
+      ]
+    },
+    "c_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Blocked subdermal lymphatics cause skin oedema, which pulls the skin pores down and makes the orange-peel look.", "claims": ["K7"]},
+        {"text": "Skin involvement alone does not make inflammatory cancer. The inflammatory picture is a whole-breast syndrome.", "claims": ["K65", "K48"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "d_probe", "kind": "continue"}
+      ]
+    },
+    "d_probe": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A red, warm, swollen breast, with orange-peel skin over a third of it and no discrete lump.", "claims": []},
+        {"text": "What is the T category?", "claims": []}
+      ],
+      "choices": [
+        {"label": "T4b", "next": "d_t12", "kind": "trap", "trap": "TR12"},
+        {"label": "T4d", "next": "d_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "d_hint", "kind": "help"}
+      ]
+    },
+    "d_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Check the whole breast, not just the skin: how much of it is red, warm and swollen, and whether a lump is there to find.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "d_probe", "kind": "retry"}
+      ]
+    },
+    "d_t12": {
+      "role": "feedback",
+      "say": [
+        {"text": "That is not the right choice.", "claims": []},
+        {"text": "It is tempting because peau d'orange puts a tumour in T4b, so the skin sign feels like the whole answer.", "claims": []},
+        {"text": "Skin involvement is one route to T4. Here the whole breast is red, warm and swollen, so the clinical picture decides the category.", "claims": ["K140", "K48"]}
+      ],
+      "sure_note": {"text": "You were sure, so separate the skin sign from the clinical picture that decides the T category.", "claims": ["K140"]},
+      "choices": [
+        {"label": "Try again", "next": "d_probe", "kind": "retry"}
+      ]
+    },
+    "d_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Inflammatory carcinoma is T4d: red, warm and swollen, with peau d'orange over at least a third of the breast.", "claims": ["K67", "K48"]},
+        {"text": "Skin alone is not enough for T4d; the whole picture is.", "claims": ["K140"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
