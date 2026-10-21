@@ -1,0 +1,222 @@
+{
+  "segment": "S1",
+  "technique": "T9",
+  "entry": "gate",
+  "nodes": {
+    "gate": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Before I teach anything, tell me what you already remember.", "claims": []},
+        {"text": "A current paper asks: which cancer is the most common in women in India? Answer the way you would write it in the exam.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Carcinoma cervix", "next": "gate_t4", "kind": "trap", "trap": "TR4"},
+        {"label": "Carcinoma breast", "next": "gate_ok", "kind": "correct"},
+        {"label": "Carcinoma ovary", "next": "gate_partial", "kind": "partial"},
+        {"label": "Not sure, give me a hint", "next": "gate_hint", "kind": "help"}
+      ]
+    },
+    "gate_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Think about which cancer the newest Indian registry figures put first for women, not which one your older notes list first.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "gate", "kind": "retry"}
+      ]
+    },
+    "gate_t4": {
+      "role": "feedback",
+      "say": [
+        {"text": "Not right. Cervix is the answer older PYQ keys gave, so it feels safe.", "claims": ["K136"]},
+        {"text": "It is the old key. Check which cancer leads in today's figures, not which one you memorised.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, and that is the risky case: a confident old key is what repeats in exams. Look again at today's answer.", "claims": ["K136"]},
+      "choices": [
+        {"label": "Try again", "next": "gate", "kind": "retry"},
+        {"label": "Show me why", "next": "gate_reveal", "kind": "agency"}
+      ]
+    },
+    "gate_partial": {
+      "role": "feedback",
+      "say": [
+        {"text": "Not right. Ovary is a common female cancer, but it does not lead the list for women.", "claims": ["K1"]},
+        {"text": "Ask which single cancer tops women's cases in current teaching, not which one is familiar.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "gate", "kind": "retry"},
+        {"label": "Show me why", "next": "gate_reveal", "kind": "agency"}
+      ]
+    },
+    "gate_reveal": {
+      "role": "explain",
+      "say": [
+        {"text": "The answer is carcinoma breast. It is now the most common cancer in women in India and worldwide.", "claims": ["K1", "K118"]},
+        {"text": "Carcinoma cervix was the old PYQ key, because PYQs expected it. Breast has since overtaken it.", "claims": ["K136"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "gate", "kind": "retry"},
+        {"label": "Next", "next": "tissue", "kind": "continue"}
+      ]
+    },
+    "gate_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Breast cancer is the most common cancer in women in India and worldwide.", "claims": ["K1", "K118"]},
+        {"text": "Cervix was the old key; breast has since overtaken it, so answer with the current figure.", "claims": ["K136"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "tissue", "kind": "continue"}
+      ]
+    },
+    "tissue": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 45-year-old woman has a palpable lump in the breast. Which test gives the tissue diagnosis?", "claims": []},
+        {"text": "Pick the one you would send to the pathologist first.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Fine needle aspiration cytology", "next": "tissue_t1", "kind": "trap", "trap": "TR1"},
+        {"label": "Incision biopsy of the lump", "next": "tissue_partial", "kind": "partial"},
+        {"label": "Core needle (trucut) biopsy", "next": "tissue_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "tissue_hint", "kind": "help"}
+      ]
+    },
+    "tissue_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask what the pathologist must report: is the cancer invasive or in situ, and what are its ER, PR and HER2 levels?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "tissue", "kind": "retry"}
+      ]
+    },
+    "tissue_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "Not right. FNAC is the answer older PYQ keys gave for a lump, so it feels safe.", "claims": ["K137"]},
+        {"text": "It gives cells, not the invasion and receptor status the team needs, so it cannot stand in for a tissue core.", "claims": ["K54"]}
+      ],
+      "sure_note": {"text": "You were sure, so this is the belief to fix: a confident old key is wrong here. Check what the report must show.", "claims": ["K137"]},
+      "choices": [
+        {"label": "Try again", "next": "tissue", "kind": "retry"},
+        {"label": "Show me why", "next": "tissue_reveal", "kind": "agency"}
+      ]
+    },
+    "tissue_partial": {
+      "role": "feedback",
+      "say": [
+        {"text": "Not right. An incision biopsy does give tissue, but it is not the preferred test for a lump.", "claims": ["K54"]},
+        {"text": "Think about what the pathologist must report, and which sample gives it.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "tissue", "kind": "retry"},
+        {"label": "Show me why", "next": "tissue_reveal", "kind": "agency"}
+      ]
+    },
+    "tissue_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Core needle biopsy is the preferred tissue test: it shows invasion and gives ER, PR and HER2 status.", "claims": ["K54", "K129"]},
+        {"text": "Older PYQs expected FNAC for a lump; current practice is core.", "claims": ["K137"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "vig", "kind": "continue"}
+      ]
+    },
+    "tissue_reveal": {
+      "role": "explain",
+      "say": [
+        {"text": "Core needle biopsy is the answer. It gives histology, so invasive or in situ status is known, and receptor status comes with it.", "claims": ["K129", "K54"]},
+        {"text": "FNAC is kept for axillary nodes and cysts, not for the breast mass.", "claims": ["K56"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "tissue", "kind": "retry"},
+        {"label": "Next", "next": "vig", "kind": "continue"}
+      ]
+    },
+    "vig": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 27-year-old woman has a breast lump on examination.", "claims": []},
+        {"text": "Which imaging should you order first?", "claims": []}
+      ],
+      "choices": [
+        {"label": "MRI of the breast", "next": "vig_partial", "kind": "partial"},
+        {"label": "Mammography of the breast", "next": "vig_t17", "kind": "trap", "trap": "TR17"},
+        {"label": "Breast ultrasound", "next": "vig_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "vig_hint", "kind": "help"}
+      ]
+    },
+    "vig_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Look at the age in the stem first. Which first imaging is used for a lump in a woman of that age, and why?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "vig", "kind": "retry"}
+      ]
+    },
+    "vig_t17": {
+      "role": "feedback",
+      "say": [
+        {"text": "Not right. Mammography is the test most people remember for a lump, so it feels safe at any age.", "claims": ["K51"]},
+        {"text": "Under 35 the dense breast tissue limits mammography, so the age in the stem decides the first test.", "claims": ["K51"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the age before the modality: the age in the stem decides the first test.", "claims": ["K51"]},
+      "choices": [
+        {"label": "Try again", "next": "vig", "kind": "retry"},
+        {"label": "Show me why", "next": "vig_reveal", "kind": "agency"}
+      ]
+    },
+    "vig_partial": {
+      "role": "feedback",
+      "say": [
+        {"text": "Not right. MRI is not the first test for a lump in a woman this age.", "claims": ["K51"]},
+        {"text": "Read the age in the stem before you choose the modality.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "vig", "kind": "retry"},
+        {"label": "Show me why", "next": "vig_reveal", "kind": "agency"}
+      ]
+    },
+    "vig_reveal": {
+      "role": "explain",
+      "say": [
+        {"text": "Under 35, ultrasound is the imaging of choice. It separates solid from cystic lesions, and dense breast tissue limits mammography.", "claims": ["K51", "K127"]},
+        {"text": "Exam stems test this with the age in the stem, so read it first.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "vig", "kind": "retry"},
+        {"label": "Next", "next": "triple", "kind": "continue"}
+      ]
+    },
+    "vig_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Under 35 the first imaging is ultrasound, because dense breast tissue limits mammography.", "claims": ["K51", "K127"]},
+        {"text": "The age in the stem is the qualifier that changes the answer.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Next", "next": "triple", "kind": "continue"}
+      ]
+    },
+    "triple": {
+      "role": "recap",
+      "objectives": ["O3"],
+      "say": [
+        {"text": "Triple assessment has three parts: clinical examination, imaging, and tissue diagnosis.", "claims": ["K5"]},
+        {"text": "For tissue, core needle biopsy is preferred over FNAC, which is kept for nodes and cysts.", "claims": ["K5", "K56"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
