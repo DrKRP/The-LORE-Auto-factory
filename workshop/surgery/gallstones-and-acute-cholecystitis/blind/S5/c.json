@@ -1,0 +1,893 @@
+{
+  "segment": "S5",
+  "entry": "open",
+  "nodes": {
+    "open": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "On the ward, a consultant asks for the one numeric cut-off that makes acute cholecystitis TG18 Grade II (moderate).",
+          "claims": []
+        },
+        {
+          "text": "Which do you pick?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "WBC above 10,000/mm³",
+          "next": "open_t_wbc",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "WBC above 18,000/mm³",
+          "next": "open_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Complaints for more than 24 hours",
+          "next": "open_t_24h",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "open_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "open_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Grade II means inflammation that has already turned moderate, so the white count has to clear well above the everyday infection flag. Which number did TG18 set?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "open",
+          "kind": "retry"
+        }
+      ]
+    },
+    "open_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Yes. TG18 Grade II is any one of: WBC above 18,000/mm³, a tender palpable RUQ mass, complaints over 72 hours, or marked local inflammation.",
+          "claims": [
+            "K66"
+          ]
+        },
+        {
+          "text": "The cut-offs are set for this grading, not for routine sepsis flags, so the everyday numbers do not grade the disease.",
+          "claims": [
+            "K66"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "g3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "open_t_wbc": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts because a white count of 10,000 is the familiar infection flag you meet everywhere.",
+          "claims": []
+        },
+        {
+          "text": "TG18 sets its own white-count threshold for Grade II, so the everyday flag does not decide the grade. Try again.",
+          "claims": [
+            "K66"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so fix this one first: the everyday flag is the reflex that grades the disease wrongly.",
+        "claims": [
+          "K66"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "open",
+          "kind": "retry"
+        }
+      ]
+    },
+    "open_t_24h": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts because a day of pain sounds like a long, worrying course, and 24 hours is a figure you carry around.",
+          "claims": []
+        },
+        {
+          "text": "Grade II uses duration too, but on a much longer scale than a day. Look at what the grade actually counts. Try again.",
+          "claims": [
+            "K66"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "open",
+          "kind": "retry"
+        }
+      ]
+    },
+    "g3": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now Grade III, severe. One failing organ system is enough, so which single cut-off is a TG18 criterion?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Serum creatinine above 1.5 mg/dL",
+          "next": "g3_t_cr15",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Prothrombin INR above 1.2",
+          "next": "g3_t_inr",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Serum creatinine above 2.0 mg/dL",
+          "next": "g3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "g3_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "g3_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Grade III is about failing organs, not borderline lab values. Ask which single organ number is clearly abnormal, well past the routine flag.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "g3_t_cr15": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts because a creatinine of 1.5 is the value that prompts a repeat test, so it feels severe.",
+          "claims": []
+        },
+        {
+          "text": "The TG18 renal criterion needs a clear fall in function, not a borderline rise, so a mild rise does not qualify. Try again.",
+          "claims": [
+            "K63"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Renal numbers decide Grade III, so recheck the threshold before you grade a patient.",
+        "claims": [
+          "K63"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "g3_t_inr": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts because the INR is the number you use for warfarin, so a slightly raised value feels like organ failure.",
+          "claims": []
+        },
+        {
+          "text": "The TG18 liver criterion is a clearly raised INR, not a mild elevation, so a value this close to normal does not grade the disease. Try again.",
+          "claims": [
+            "K64"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "g3_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Yes. Grade III is organ dysfunction in any one system, and the renal line you picked is one of them.",
+          "claims": [
+            "K59",
+            "K63"
+          ]
+        },
+        {
+          "text": "The other systems: dopamine at 5 µg/kg/min or any noradrenaline; reduced consciousness; PaO2/FiO2 below 300; PT-INR above 1.5; platelets below 100,000/mm³.",
+          "claims": [
+            "K60",
+            "K61",
+            "K62",
+            "K64",
+            "K65"
+          ]
+        },
+        {
+          "text": "Think one organ is enough: a single failing system makes the whole episode Grade III.",
+          "device": true,
+          "claims": [
+            "K59"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "vig",
+          "kind": "continue"
+        }
+      ]
+    },
+    "vig": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 68-year-old man with acute cholecystitis is on noradrenaline for low blood pressure. His creatinine is 3.1 mg/dL.",
+          "claims": []
+        },
+        {
+          "text": "Your first move?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Early laparoscopic cholecystectomy",
+          "next": "vig_t_lap",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Organ support, then gallbladder drainage",
+          "next": "vig_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Immediate open cholecystectomy",
+          "next": "vig_t_open",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "vig_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "vig_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Start with how many organs are failing. That answer decides whether the operation can come first at all.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "vig",
+          "kind": "retry"
+        }
+      ]
+    },
+    "vig_t_lap": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts because early keyhole surgery is the standard for the fit patient you usually see, so it comes to mind by reflex.",
+          "claims": []
+        },
+        {
+          "text": "This man has failing organs, and organ failure sets the order. Operating before the organs are supported adds risk. Try again.",
+          "claims": [
+            "K59",
+            "K60"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. This reflex is the one that most often goes wrong in a sick patient, so check the organs first.",
+        "claims": [
+          "K59"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "vig",
+          "kind": "retry"
+        }
+      ]
+    },
+    "vig_t_open": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts because a very sick-looking patient seems to need the whole gallbladder out at once.",
+          "claims": []
+        },
+        {
+          "text": "The operation type is not the question; the organ state decides whether surgery is safe at all. Try again.",
+          "claims": [
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "vig",
+          "kind": "retry"
+        }
+      ]
+    },
+    "vig_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. In Grade III, organ support comes first, and in most patients gallbladder drainage comes before any surgery.",
+          "claims": [
+            "K76"
+          ]
+        },
+        {
+          "text": "Drainage is done by percutaneous cholecystostomy in patients too ill for surgery, and early surgery is kept for selected fit patients.",
+          "claims": [
+            "K77",
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "why",
+          "kind": "continue"
+        }
+      ]
+    },
+    "why": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "You have just seen that in Grade III the gallbladder is drained before any operation. Which explanation fits?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "The 72 hour window has already closed",
+          "next": "why_t_window",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Drainage cures the disease, so no operation is needed",
+          "next": "why_t_drain",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Surgery is unsafe while organs fail; support and drain first",
+          "next": "why_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "why_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "why_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what a failing organ does to the safety of an operation, then ask what that means for the order of steps.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why",
+          "kind": "retry"
+        }
+      ]
+    },
+    "why_t_window": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts because the 72-hour mark is the ideal window for early surgery, so a missed window sounds like a closed door.",
+          "claims": []
+        },
+        {
+          "text": "The 72-hour mark is the best time for early surgery, not a deadline that bars it, and it does not explain the drain-first order. Try again.",
+          "claims": [
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why",
+          "kind": "retry"
+        }
+      ]
+    },
+    "why_t_drain": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts because pus draining from the gallbladder looks like the infection being removed.",
+          "claims": []
+        },
+        {
+          "text": "Drainage is a bridge for patients too ill for surgery; it relieves the sepsis but does not settle the gallbladder for good. Try again.",
+          "claims": [
+            "K77"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why",
+          "kind": "retry"
+        }
+      ]
+    },
+    "why_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. Surgery in a patient with failing organs carries too much risk, so support and gallbladder drainage come first.",
+          "claims": [
+            "K76"
+          ]
+        },
+        {
+          "text": "Early surgery is kept for the selected fit patients, treated at advanced centres.",
+          "claims": [
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "key",
+          "kind": "continue"
+        }
+      ]
+    },
+    "key": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Exam question: the treatment of choice for acute calculous cholecystitis in a fit patient, by current standards?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Conservative treatment, then interval cholecystectomy at 6-8 weeks",
+          "next": "key_t_conserv",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Early laparoscopic cholecystectomy, same admission",
+          "next": "key_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Percutaneous cholecystostomy",
+          "next": "key_t_perc",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "key_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "key_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the current evidence says about hospital stay and complications for a fit patient, and what the older books were built around.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "key",
+          "kind": "retry"
+        }
+      ]
+    },
+    "key_t_conserv": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is not right for current practice.",
+          "claims": []
+        },
+        {
+          "text": "It tempts because the settle-first, operate-at-six-to-eight-weeks plan is the one most older exam keys have printed.",
+          "claims": []
+        },
+        {
+          "text": "Teach both: that was the expected answer in older question papers, but it is no longer the standard for a fit patient. Try again.",
+          "claims": [
+            "K115",
+            "K75"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Many revision books still print the older key, so recheck it against the current standard.",
+        "claims": [
+          "K115"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "key",
+          "kind": "retry"
+        }
+      ]
+    },
+    "key_t_perc": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts because drainage is the step you have just seen, so it feels like the first move for any sick gallbladder.",
+          "claims": []
+        },
+        {
+          "text": "Drainage is kept for patients too ill for surgery. This question is about a fit patient in the index admission. Try again.",
+          "claims": [
+            "K77",
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "key",
+          "kind": "retry"
+        }
+      ]
+    },
+    "key_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. For a fit patient the current choice is early laparoscopic cholecystectomy in the same admission, ideally within 72 hours.",
+          "claims": [
+            "K6",
+            "K110"
+          ]
+        },
+        {
+          "text": "Older PYQs expected the interval route, but early surgery shortens total stay without more complications or conversion.",
+          "claims": [
+            "K74",
+            "K115"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wait",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wait": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A fit patient with mild disease, 48 hours of symptoms, is admitted. What is your plan?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Discharge on antibiotics, operate after 6-8 weeks",
+          "next": "wait_t_dis",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Laparoscopic cholecystectomy during this admission",
+          "next": "wait_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Wait for the pain to settle before booking surgery",
+          "next": "wait_t_settle",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "wait_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "wait_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether this fit patient needs anything before the operation, and whether waiting is what current practice asks for.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wait",
+          "kind": "retry"
+        }
+      ]
+    },
+    "wait_t_dis": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts because discharge on antibiotics with a later operation is the plan many textbooks still describe.",
+          "claims": []
+        },
+        {
+          "text": "That is the traditional alternative, which current practice has moved away from for a fit patient. Try again.",
+          "claims": [
+            "K75",
+            "K74"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Check whether your plan leaves this fit patient in hospital longer than it needs to be.",
+        "claims": [
+          "K74"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wait",
+          "kind": "retry"
+        }
+      ]
+    },
+    "wait_t_settle": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is not right.",
+          "claims": []
+        },
+        {
+          "text": "It tempts because inflamed tissue sounds as if it must cool before anyone operates on it.",
+          "claims": []
+        },
+        {
+          "text": "Cooling first is the old reason for interval surgery, a reason current practice has set aside for a fit patient. Try again.",
+          "claims": [
+            "K75",
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wait",
+          "kind": "retry"
+        }
+      ]
+    },
+    "wait_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. A fit patient with mild disease gets early laparoscopic cholecystectomy in the same admission, which shortens stay without more complications.",
+          "claims": [
+            "K74",
+            "K6"
+          ]
+        },
+        {
+          "text": "The rule to keep: grade and fitness set the timing and the route, and the stone alone does not force a wait.",
+          "claims": [
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}

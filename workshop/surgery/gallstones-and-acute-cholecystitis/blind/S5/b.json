@@ -1,0 +1,1212 @@
+{
+  "segment": "S5",
+  "entry": "enter",
+  "nodes": {
+    "enter": {
+      "role": "bridge",
+      "objectives": [
+        "O7",
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Grade comes first, then the operation. Do you already know the TG18 cut-offs?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Yes, test me on the cut-offs",
+          "next": "g3",
+          "kind": "skip"
+        },
+        {
+          "label": "Not sure yet, I will try first",
+          "next": "g1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "g1": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Acute cholecystitis is graded by TG18. Which single finding makes it Grade II, moderate?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "WBC above 10,000/mm3",
+          "next": "g1_t1",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "WBC above 18,000/mm3",
+          "next": "g1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Complaints lasting over 24 hours",
+          "next": "g1_t2",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "g1_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "g1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Grade II marks inflammation that shows real severity, not the everyday lab line. Think of a much higher count than routine sepsis screens use.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "g1_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "10,000/mm3 is the everyday leucocytosis line on routine labs, so it feels like a severity mark, but TG18 sets a higher count for Grade II.",
+          "claims": [
+            "K66"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "g1_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the TG18 list again: Grade II uses its own markers, not the routine lab line.",
+        "claims": [
+          "K66"
+        ]
+      }
+    },
+    "g1_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A day of symptoms sounds prolonged, so duration feels like severity, but the TG18 time criterion for Grade II is set at a longer threshold than a day.",
+          "claims": [
+            "K66"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "g1_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look at the Grade II time criterion: it is set longer than the one-day figure.",
+        "claims": [
+          "K66"
+        ]
+      }
+    },
+    "g1_why": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "TG18 Grade II is any one of four markers: WBC above 18,000/mm3, a palpable tender RUQ mass, complaints over 72 hours, or marked local inflammation.",
+          "claims": [
+            "K66"
+          ]
+        },
+        {
+          "text": "Routine thresholds such as 10,000/mm3 do not define the grade.",
+          "claims": [
+            "K66"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "g2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "g1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A WBC above 18,000/mm3 is one of the four Grade II markers, and any one of them is enough.",
+          "claims": [
+            "K66"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "g2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "g2": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Now the severe end. Which one finding is enough for TG18 Grade III?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Serum creatinine above 2.0 mg/dL",
+          "next": "g2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Serum creatinine above 1.5 mg/dL",
+          "next": "g2_t1",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Platelet count below 150,000/mm3",
+          "next": "g2_t2",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "g2_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "g2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Grade III means an organ is failing, not just abnormal. Ask which value is clearly past the line that marks failure, not the one doctors flag on routine reports.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "g2_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "1.5 mg/dL is the familiar kidney warning line from everyday medicine, so it feels like failure, but TG18 counts renal failure only at a higher creatinine.",
+          "claims": [
+            "K63"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "g2_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate the familiar kidney warning line from the Grade III renal criterion.",
+        "claims": [
+          "K63"
+        ]
+      }
+    },
+    "g2_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "150,000/mm3 is the routine lower limit on a blood count, so a low platelet feels severe, but TG18 uses a much lower platelet count for Grade III.",
+          "claims": [
+            "K65"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "g2_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note that a routine platelet limit is not the Grade III platelet criterion.",
+        "claims": [
+          "K65"
+        ]
+      }
+    },
+    "g2_why": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Grade III needs organ dysfunction in any one system. Renal dysfunction is creatinine above 2.0 mg/dL or oliguria.",
+          "claims": [
+            "K59",
+            "K63"
+          ]
+        },
+        {
+          "text": "For platelets the line is below 100,000/mm3, far under a routine report.",
+          "claims": [
+            "K65"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "g3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "g2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Creatinine above 2.0 mg/dL is renal dysfunction, and one failing system is enough for Grade III.",
+          "claims": [
+            "K59",
+            "K63"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "g3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "g3": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "58-year-old man, pain for 30 hours with fever. WBC 13,000/mm3, creatinine 1.8 mg/dL, normal blood pressure and consciousness, no abscess.",
+          "claims": []
+        },
+        {
+          "text": "What TG18 grade is this?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Grade II, since WBC is above 10,000/mm3",
+          "next": "g3_t1",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Grade III, since creatinine is above 1.5 mg/dL",
+          "next": "g3_t2",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Grade I, since it meets neither II nor III",
+          "next": "g3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "g3_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "g3_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Check in order. Is any organ failing for Grade III? Then does any Grade II marker reach its TG18 line? Compare the numbers with the TG18 lines, not the routine ones.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "g3_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A raised count feels like a second grade, since 10,000/mm3 is the everyday leucocytosis line, but the Grade II count is set higher, and this one does not reach it.",
+          "claims": [
+            "K66"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "g3_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so grade each level against its own list, not against the everyday lab line.",
+        "claims": [
+          "K66"
+        ]
+      }
+    },
+    "g3_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A creatinine of 1.5 mg/dL is the familiar kidney warning line, which makes it feel like organ failure, but Grade III renal failure needs a higher value than that.",
+          "claims": [
+            "K63"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "g3_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the creatinine against the Grade III line, which sits above the familiar 1.5.",
+        "claims": [
+          "K63"
+        ]
+      }
+    },
+    "g3_why": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Grade I is acute cholecystitis that meets neither the Grade II nor the Grade III criteria.",
+          "claims": [
+            "K67"
+          ]
+        },
+        {
+          "text": "Here WBC is under the 18,000/mm3 line, symptoms are under 72 hours, and creatinine is under 2.0 mg/dL, with no organ failing.",
+          "claims": [
+            "K63",
+            "K66"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t11a",
+          "kind": "continue"
+        }
+      ]
+    },
+    "g3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Neither the Grade II nor the Grade III criteria are met, so this is Grade I, mild.",
+          "claims": [
+            "K67"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t11a",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t11a": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Grade is set. Now the operation: what is the treatment of choice for acute calculous cholecystitis in a fit patient?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Conservative treatment, then interval surgery at 6-8 weeks",
+          "next": "t11a_t1",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Antibiotics alone, surgery only if symptoms recur",
+          "next": "t11a_t2",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Early laparoscopic cholecystectomy in the index admission",
+          "next": "t11a_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "t11a_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "t11a_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what a fit patient gains from operating in the same admission, and what the older books suggest as the cautious route.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t11a",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t11a_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Letting the inflammation settle before surgery is the old textbook plan, so it feels cautious, but it is no longer the plan for a fit patient.",
+          "claims": [
+            "K75"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t11a",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t11_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the older key is the habit to fix: the exam may still expect it, but current practice differs.",
+        "claims": [
+          "K115"
+        ]
+      }
+    },
+    "t11a_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Antibiotics are the first step, so stopping there feels safe, but this option leaves a fit patient's gallbladder in place with no operation planned.",
+          "claims": [
+            "K73"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t11a",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t11_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check what antibiotics do: they are the first step, not the plan.",
+        "claims": [
+          "K73",
+          "K74"
+        ]
+      }
+    },
+    "t11_why": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "PYQs have expected conservative treatment, then interval cholecystectomy at 6 to 8 weeks.",
+          "claims": [
+            "K115"
+          ]
+        },
+        {
+          "text": "Current practice is early laparoscopic cholecystectomy in the index admission, which shortens stay without more complications.",
+          "claims": [
+            "K74",
+            "K115"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t11b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t11a_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. In a fit patient, surgery in the index admission, ideally within 72 hours of onset, is the choice.",
+          "claims": [
+            "K6",
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t11b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t11b": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "A fit 45-year-old with acute cholecystitis, 48 hours of symptoms and mild disease, is admitted.",
+          "claims": []
+        },
+        {
+          "text": "What is the plan?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Discharge on antibiotics, operate after 6-8 weeks",
+          "next": "t11b_t1",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Laparoscopic cholecystectomy during this admission",
+          "next": "t11b_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Wait for the pain to settle before booking surgery",
+          "next": "t11b_t2",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "t11b_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "t11b_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what a fit patient with mild disease can have today, and whether waiting is needed at all.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t11b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t11b_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Discharge with antibiotics and a surgery date six weeks away is the old interval plan, which feels tidy but delays an operation this patient can have now.",
+          "claims": [
+            "K75"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t11b",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t11_case",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so a six-week date is the old interval plan, not the current one for a fit patient.",
+        "claims": [
+          "K74",
+          "K75"
+        ]
+      }
+    },
+    "t11b_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Waiting for the pain to settle feels gentle, but it postpones surgery that a fit patient can have in this admission.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t11b",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t11b_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so notice that waiting postpones surgery a fit patient can have now.",
+        "claims": [
+          "K74"
+        ]
+      }
+    },
+    "t11b_why": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Current practice is operating in the index admission, which shortens stay without more complications.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "PYQs kept the older wait, which is why the same stem can carry two keys.",
+          "claims": [
+            "K115"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t10a",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t11_case": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Patient A has the operation in this admission and goes home at the end of the stay. Patient B goes home on antibiotics with a surgery date six to eight weeks away.",
+          "claims": [
+            "K75"
+          ]
+        },
+        {
+          "text": "Early surgery shortened the stay without more complications, so Patient A is the current plan.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t10a",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t11b_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A fit patient with mild disease is operated on in this admission, ideally within 72 hours of onset.",
+          "claims": [
+            "K6",
+            "K110"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t10a",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t10a": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "A 68-year-old man with acute cholecystitis: hypotension needing noradrenaline, creatinine 2.4 mg/dL.",
+          "claims": []
+        },
+        {
+          "text": "What is the first step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Organ support first, then gallbladder drainage",
+          "next": "t10a_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Early laparoscopic cholecystectomy during this admission",
+          "next": "t10a_t1",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Conservative care, then interval cholecystectomy at 6-8 weeks",
+          "next": "t10a_t2",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "t10a_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "t10a_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Hypotension on noradrenaline and a creatinine above 2.0 are organ failure. Ask what the failing organs need first.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t10a",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t10a_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Operating during this admission is the answer for a fit patient, so it feels decisive here, but this patient has organ failure and surgery is not the first step.",
+          "claims": [
+            "K76",
+            "K60"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t10a",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t10_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so grade the patient first: organ failure changes the first step.",
+        "claims": [
+          "K76"
+        ]
+      }
+    },
+    "t10a_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Waiting six to eight weeks is the older plan for stable patients, so it looks cautious, but a patient in organ failure cannot simply wait that long.",
+          "claims": [
+            "K75",
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t10a",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t10_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so a six-to-eight-week wait suits stable patients, and this one is in organ failure.",
+        "claims": [
+          "K75",
+          "K76"
+        ]
+      }
+    },
+    "t10_why": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Grade III is organ dysfunction in any one system. Organs are supported first, and in most the gallbladder is drained.",
+          "claims": [
+            "K76",
+            "K111"
+          ]
+        },
+        {
+          "text": "Early surgery is kept for selected fit patients at advanced centres.",
+          "claims": [
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t10b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t10a_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Grade III means organ support first, and drainage of the gallbladder in most, before any operation.",
+          "claims": [
+            "K76",
+            "K111"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t10b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t10b": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Grade II acute cholecystitis in a patient unfit for surgery. What is the plan?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Cholecystectomy at once in the index admission",
+          "next": "t10b_t1",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Cholecystectomy only after 6-8 weeks in every patient",
+          "next": "t10b_t2",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Initial medical treatment or drainage, surgery deferred",
+          "next": "t10b_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "t10b_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "t10b_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Fitness is the question before the operation. Ask what an unfit patient can safely have now, and when surgery can be reconsidered.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t10b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t10b_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Operating at once is the rule for a fit patient, so it looks right for any Grade II patient, but fitness decides, and an unfit patient is not operated on in the index admission.",
+          "claims": [
+            "K76",
+            "K111"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t10b",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t10_contrast",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so remember that fitness, not the calendar, decides the Grade II plan.",
+        "claims": [
+          "K76",
+          "K110"
+        ]
+      }
+    },
+    "t10b_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The six-to-eight-week wait is a real older plan, so every patient feels like a safe rule, but the plan depends on grade and fitness, not on a fixed interval.",
+          "claims": [
+            "K75",
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t10b",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t10_contrast",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so remember that the Grade II plan depends on fitness, not on a fixed interval.",
+        "claims": [
+          "K76"
+        ]
+      }
+    },
+    "t10_contrast": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Take two Grade II patients. The fit one has surgery in the index admission.",
+          "claims": [
+            "K76",
+            "K110"
+          ]
+        },
+        {
+          "text": "The unfit one gets medical treatment or drainage, and surgery is deferred until fitness allows.",
+          "claims": [
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t10b_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. For Grade II, fitness decides: a fit patient goes to early surgery, an unfit one gets medical treatment or drainage first.",
+          "claims": [
+            "K76",
+            "K110"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
