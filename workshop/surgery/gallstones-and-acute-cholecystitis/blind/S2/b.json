@@ -1,0 +1,681 @@
+{
+  "segment": "S2",
+  "entry": "start",
+  "nodes": {
+    "start": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Worked case first. A 40-year-old man has chronic haemolysis from hereditary spherocytosis, and gallstones. Which stone is he most likely to have?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Brown pigment stones, forming in the bile ducts",
+          "next": "start_t15",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Pure cholesterol stones, the commonest type in texts",
+          "next": "start_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Black pigment stones, forming in the gallbladder",
+          "next": "start_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "start_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "start_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. Chronic haemolysis is the clue: black pigment stones are small, multiple and hard, form in the gallbladder, and go with cirrhosis.",
+          "claims": [
+            "K17"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "show_start": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Worked through, step by step. Step one: the cause in the stem is chronic haemolysis. Step two: the stone that goes with it is black, formed in the gallbladder. Step three: it goes with cirrhosis, so check the liver.",
+          "claims": [
+            "K17"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "start_t15": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "That is not the right choice. Brown stones tempt you because they are the other pigment type, and they sit in the ducts.",
+          "claims": []
+        },
+        {
+          "text": "But brown stones are soft and earthy, and go with biliary infection and parasites, not with chronic haemolysis.",
+          "claims": [
+            "K18"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this needs a second look: brown stones go with infected bile, not with haemolysis.",
+        "claims": [
+          "K18"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "show_start",
+          "kind": "agency"
+        }
+      ]
+    },
+    "start_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O2",
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "That is not the right choice. The textbook answer tempts, since many Western texts call cholesterol the commonest type.",
+          "claims": [
+            "K114"
+          ]
+        },
+        {
+          "text": "But the stem gives a haemolytic cause, and pure cholesterol stones are large, solitary and pale, with no link to haemolysis.",
+          "claims": [
+            "K16",
+            "K17"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the exam key against the texts: they do not give the same answer for 'most common'.",
+        "claims": [
+          "K114"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "show_start",
+          "kind": "agency"
+        }
+      ]
+    },
+    "start_hint": {
+      "role": "hint",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Start with the cause in the stem. Then ask which stone type goes with that cause, and where it forms.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "start",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c2": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Case two, with the first step done for you: the bile is infected and the stone is in the duct. Which stone fits?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Brown pigment stones, from bile infection",
+          "next": "c2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Black pigment stones, from bile infection",
+          "next": "c2_t15a",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Brown pigment stones, from chronic haemolysis",
+          "next": "c2_t15b",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c2_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "c2_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. Soft, earthy stones in the ducts go with biliary infection, and bacterial β-glucuronidase helps them form.",
+          "claims": [
+            "K18",
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c2_t15a": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "That is not the right choice. Black stones tempt, since infection and pigment stones are often remembered together.",
+          "claims": []
+        },
+        {
+          "text": "But black stones are small and hard, form in the gallbladder, and go with chronic haemolysis, not with infected bile.",
+          "claims": [
+            "K17"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look again: black stones and infected bile belong to different causes.",
+        "claims": [
+          "K17"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "c2_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c2_t15b": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "That is not the right choice. Brown stones tempt, since they are the stones of the ducts, and haemolysis sounds like a pigment cause.",
+          "claims": []
+        },
+        {
+          "text": "But chronic haemolysis is the cause tied to black stones, which form in the gallbladder.",
+          "claims": [
+            "K17"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look again at which cause goes with which stone.",
+        "claims": [
+          "K17"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "c2_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c2_hint": {
+      "role": "hint",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Ask what infects the bile, and where the stone sits. Then match the stone to its cause.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c2_show": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "The answer is brown pigment stones. They are soft and earthy, form in the bile ducts, and go with infection and stasis.",
+          "claims": [
+            "K18",
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c3": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Exam question: which is the most common gallstone type? Your answer is scored against the PYQ key.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Pure cholesterol stones, as texts say",
+          "next": "c3_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Mixed stones, as the PYQ key expects",
+          "next": "c3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c3_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "c3_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2",
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. PYQs have expected mixed stones, while texts group cholesterol and mixed together as the majority.",
+          "claims": [
+            "K15",
+            "K14",
+            "K114"
+          ]
+        },
+        {
+          "text": "Cholesterol stones are large and solitary, with risk from female sex, oestrogens, obesity and rapid weight loss.",
+          "claims": [
+            "K16",
+            "K22",
+            "K23"
+          ]
+        },
+        {
+          "text": "Cue: female, fat, fertile, forty.",
+          "claims": [
+            "K21"
+          ],
+          "device": true
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c3_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "That is not the right choice. The textbook answer tempts, since Western texts call cholesterol the commonest type.",
+          "claims": [
+            "K114"
+          ]
+        },
+        {
+          "text": "But the exam key follows the PYQ convention, and the texts group cholesterol with mixed stones.",
+          "claims": [
+            "K14",
+            "K15"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the exam key first: here the PYQ key and the textbook answer differ.",
+        "claims": [
+          "K15"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "c3_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c3_hint": {
+      "role": "hint",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Separate what the examiner scores from what current texts say. Here the PYQ key and the texts may not match.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c3_show": {
+      "role": "explain",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "The answer is mixed stones, as PYQs expect. Texts group cholesterol and mixed stones together as the majority, about 80%.",
+          "claims": [
+            "K15",
+            "K14",
+            "K114"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c4": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A burns patient in the ICU has a sick gallbladder, and imaging finds no stone. Compared with stone-related cholecystitis, is this milder or worse?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Milder, since no stone blocks the duct",
+          "next": "c4_t23a",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Worse, with more gangrene and perforation",
+          "next": "c4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Milder, since the wall is rarely inflamed",
+          "next": "c4_t23b",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c4_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "c4_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. Acalculous disease runs on stasis and ischaemia in sick patients, and it has more gangrene, perforation and deaths.",
+          "claims": [
+            "K34",
+            "K35"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c4_t23a": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is not the right choice. Stone-free disease tempts, since a stone is the usual cause of the trouble.",
+          "claims": []
+        },
+        {
+          "text": "But acalculous cholecystitis is driven by stasis and ischaemia, not by a blocked duct, so no stone does not mean mild.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look at what drives the inflammation: stasis and ischaemia, not a stone.",
+        "claims": [
+          "K34"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "c4_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c4_t23b": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "That is not the right choice. Calm-looking disease tempts, since a gallbladder with no stone seems less inflamed.",
+          "claims": []
+        },
+        {
+          "text": "But stasis and ischaemia injure the wall in sick patients, and that injury is what goes on to gangrene.",
+          "claims": [
+            "K34",
+            "K35"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look again at the wall: in these patients it is injured, not spared.",
+        "claims": [
+          "K35"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "c4_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c4_hint": {
+      "role": "hint",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Ask what drives the inflammation when no stone blocks the duct, and who gets this disease.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c4_show": {
+      "role": "explain",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "The answer is worse. Acalculous cholecystitis comes from stasis and ischaemia after surgery, trauma, burns or sepsis.",
+          "claims": [
+            "K34"
+          ]
+        },
+        {
+          "text": "It has more gangrene and perforation than calculous disease, and a higher mortality.",
+          "claims": [
+            "K35"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
