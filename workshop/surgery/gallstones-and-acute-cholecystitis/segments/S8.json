@@ -1,0 +1,1726 @@
+{
+  "segment": "S8",
+  "entry": "p1",
+  "nodes": {
+    "p1": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "A ventilated patient with acute cholecystitis needs a TG18 organ check. Which single blood gas result meets a Grade III respiratory criterion?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "PaO2 below 60 mmHg on room air",
+          "next": "p1_t0",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "PaO2/FiO2 ratio below 300",
+          "next": "p1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Arterial pH below 7.30 with a raised lactate",
+          "next": "p1_t2",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p1_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "TG18 does not score the lungs on a raw oxygen level. It uses a ratio that takes into account how much oxygen the patient is being given.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "p1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. TG18 scores the lungs on the PaO2/FiO2 ratio, and a value below 300 is a Grade III organ criterion.",
+          "claims": [
+            "K62",
+            "K59"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p1_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The answer is the PaO2/FiO2 ratio below 300. TG18 grades the lungs by this ratio, and any one organ failure makes the grade III.",
+          "claims": [
+            "K62",
+            "K59"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p1_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A PaO2 of 60 is the everyday cut-off for respiratory failure in general medicine; TG18 scores the lungs on its own measure.",
+          "claims": [
+            "K62"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p1_show",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check this one: the everyday oxygen and acidosis numbers are the swap to avoid, because TG18 has its own organ thresholds.",
+        "claims": [
+          "K62"
+        ]
+      }
+    },
+    "p1_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A pH of 7.30 is an acidosis threshold from critical-care practice, and TG18 does not grade the lungs by pH.",
+          "claims": [
+            "K59"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p1_show",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check this one: the everyday oxygen and acidosis numbers are the swap to avoid, because TG18 has its own organ thresholds.",
+        "claims": [
+          "K59"
+        ]
+      }
+    },
+    "p2": {
+      "role": "probe",
+      "objectives": [
+        "O5",
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Before planning any procedure, a surgeon asks for the bile ducts to be imaged, with nothing passed into the duct yet. Which test fits?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "MRCP, an MR scan of the bile ducts",
+          "next": "p2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Diagnostic ERCP, with an endoscope and contrast",
+          "next": "p2_t1",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Contrast CT of the abdomen, portal venous phase",
+          "next": "p2_t2",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p2_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "p2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which option passes no instrument into the duct at all.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "p2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. MRCP is the non-invasive investigation of choice for bile duct stones, with no instrument passed.",
+          "claims": [
+            "K104",
+            "K51"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p2_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The answer is MRCP. It is the non-invasive test for CBD stones, while ERCP is both diagnostic and therapeutic and is kept for when a stone is likely.",
+          "claims": [
+            "K104",
+            "K51",
+            "K52"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p2_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "ERCP is a good duct test, but it is invasive, and it is the treatment route once a stone is likely to need removing.",
+          "claims": [
+            "K52",
+            "K51"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p2_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p2_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "CT is used for complications and other diagnoses, and it misses many gallstones in the duct.",
+          "claims": [
+            "K50"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p2_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p3": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "A patient with acute cholecystitis is getting worse on treatment. You want to look for perforation, abscess or gas in the wall. Which test is used for complications?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "HIDA scan, a tracer uptake study of the gallbladder",
+          "next": "p3_t0",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Ultrasonography, a bedside study of the gallbladder",
+          "next": "p3_t1",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Contrast CT of the abdomen",
+          "next": "p3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p3_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "p3_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which test shows the whole abdomen and its complications, not just whether the cystic duct is blocked.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "p3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. CT is used for complications such as perforation, abscess and emphysematous cholecystitis, and to exclude other diagnoses.",
+          "claims": [
+            "K50"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p3_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The answer is CT. Ultrasound is the first test and HIDA is the most sensitive and specific for the diagnosis, but CT is used for complications.",
+          "claims": [
+            "K50",
+            "K2",
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p3_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "HIDA confirms cystic duct obstruction, but it is not the test used to look for complications such as perforation.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p3_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p3_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Ultrasound is the initial test for gallstones, but looking for complications is the job of another test.",
+          "claims": [
+            "K2",
+            "K50"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p3_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p4": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Which statement about timing of surgery for a fit patient with acute calculous cholecystitis is correct?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Conservative care first, then interval surgery at 6 to 8 weeks",
+          "next": "p4_t0",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Early laparoscopic cholecystectomy in the index admission",
+          "next": "p4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Antibiotics alone, with surgery only if symptoms recur",
+          "next": "p4_t2",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p4_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p4_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "The question asks for current practice, not the PYQ key. Ask what a fit patient gets during the index admission.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "p4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p4_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Early laparoscopic cholecystectomy in the index admission, ideally within 72 hours, is current practice; the PYQ key expected interval surgery.",
+          "claims": [
+            "K6",
+            "K110",
+            "K115"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p4_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The answer is early laparoscopic cholecystectomy in the same admission, ideally within 72 hours of onset. The PYQ key expected conservative care then interval surgery.",
+          "claims": [
+            "K6",
+            "K110",
+            "K115"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p4_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The 6 to 8 week plan is the older PYQ key, built on letting inflammation settle first, and it is not the current plan.",
+          "claims": [
+            "K75",
+            "K115"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p4_show",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check this one: the older key and current practice differ here, and the key is what the PYQ expects.",
+        "claims": [
+          "K75",
+          "K115"
+        ]
+      }
+    },
+    "p4_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Antibiotics alone leave the diseased gallbladder in place, and waiting for recurrence was the older key's habit.",
+          "claims": [
+            "K73",
+            "K75"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p4_show",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check this one: the older key and current practice differ here, and the key is what the PYQ expects.",
+        "claims": [
+          "K73",
+          "K75"
+        ]
+      }
+    },
+    "p5": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Which patient needs organ support and gallbladder drainage before any operation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A fit woman with Grade I disease and no organ failure",
+          "next": "p5_t0",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "A fit man with Grade II disease in an experienced centre",
+          "next": "p5_t1",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "A man with Grade III disease on noradrenaline",
+          "next": "p5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p5_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "p5_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Each grade has its own first step. Ask which patient has organ failure.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "p5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p5_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Grade III means organ dysfunction, so organ support and gallbladder drainage come first, and surgery follows later.",
+          "claims": [
+            "K76",
+            "K59",
+            "K111"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p5_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The answer is the Grade III patient. Grade I, and a fit Grade II, go to early laparoscopic surgery; Grade III is supported and drained first.",
+          "claims": [
+            "K76",
+            "K59"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p5_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "She can go to early laparoscopic surgery, so she is not the one who needs support and drainage first.",
+          "claims": [
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p5",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p5_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p5_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A fit Grade II patient can also go to early surgery, so drainage is not the first step for him.",
+          "claims": [
+            "K76"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p5",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p5_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p6": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "say": [
+        {
+          "text": "Which statement about gallstones that cause no symptoms is correct?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Most stay silent, and no routine treatment is needed",
+          "next": "p6_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Ursodeoxycholic acid is first line to dissolve any silent stone",
+          "next": "p6_t1",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Every silent stone should be removed, as stones raise cancer risk",
+          "next": "p6_t2",
+          "kind": "trap",
+          "trap": "TR12"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p6_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Most gallstones are silent, and symptoms develop at roughly 1 to 2 per cent a year, so expectant management is right.",
+          "claims": [
+            "K36",
+            "K68"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p6_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The answer is that most silent stones need no treatment. Prophylactic surgery is kept for selected high-risk cases, such as a porcelain gallbladder.",
+          "claims": [
+            "K36",
+            "K68",
+            "K69"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p6_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Dissolution works only for small radiolucent cholesterol stones in a working gallbladder, so the stone type comes first.",
+          "claims": [
+            "K72"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p6",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p6_show",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check this one: a silent stone is not treated by default, and tablets need specific stone qualifiers.",
+        "claims": [
+          "K72"
+        ]
+      }
+    },
+    "p6_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Stones carry a risk, but the yearly chance of symptoms is low, so routine surgery is not the default.",
+          "claims": [
+            "K36",
+            "K68"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p6",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p6_show",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check this one: a silent stone is not treated by default, and tablets need specific stone qualifiers.",
+        "claims": [
+          "K36",
+          "K68"
+        ]
+      }
+    },
+    "p7": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Which of these is NOT part of Reynolds' pentad in acute cholangitis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Hypotension",
+          "next": "p7_t0",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Vomiting",
+          "next": "p7_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Confusion",
+          "next": "p7_t2",
+          "kind": "trap",
+          "trap": "TR17"
+        }
+      ]
+    },
+    "p7_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Charcot's triad is fever with rigors, jaundice and RUQ pain; hypotension and confusion make the pentad. Vomiting is in neither set.",
+          "claims": [
+            "K89"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p8",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p7_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The answer is vomiting. Charcot's triad plus hypotension and confusion makes Reynolds' pentad, and vomiting is in neither set.",
+          "claims": [
+            "K89"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p8",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p7_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Hypotension is one of the two extra signs that make up the pentad, so it cannot be the odd one out.",
+          "claims": [
+            "K89"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p7",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p7_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p7_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Confusion is the second extra sign in the pentad, so it cannot be the odd one out.",
+          "claims": [
+            "K89"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p7",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p7_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p8": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Bile is cultured from a patient with ordinary acute cholecystitis, and no gas is seen on any film. Which organism is most often grown?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Clostridium perfringens, the gas-forming organism",
+          "next": "p8_t0",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Klebsiella, as in any gas-forming infection",
+          "next": "p8_t1",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "E. coli, the commonest organism in infected bile",
+          "next": "p8_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "p8_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. E. coli is the commonest organism in infected bile; Clostridium perfringens is the one to think of when gas is present.",
+          "claims": [
+            "K105",
+            "K106"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p9",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p8_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The answer is E. coli. With gas in the wall the cause is a gas-forming organism, most often Clostridium perfringens, but plain infected bile grows E. coli.",
+          "claims": [
+            "K105",
+            "K106",
+            "K94"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p9",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p8_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Clostridium is the organism of emphysematous cholecystitis with gas, and this film shows none.",
+          "claims": [
+            "K94",
+            "K106"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p8",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p8_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p8_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Klebsiella is not the commonest in infected bile; E. coli holds that place.",
+          "claims": [
+            "K105"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p8",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p8_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p9": {
+      "role": "probe",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "Day two after laparoscopic cholecystectomy, the drain shows green bile. What is the most likely cause?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Bile duct mistaken for cystic duct and divided",
+          "next": "p9_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "A blind clip across a bleeding vessel near the duct",
+          "next": "p9_t1",
+          "kind": "trap",
+          "trap": "TR20"
+        },
+        {
+          "label": "Right hepatic artery injury in the triangle",
+          "next": "p9_t2",
+          "kind": "trap",
+          "trap": "TR20"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "p9_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Misidentifying the bile duct as the cystic duct is the commonest cause of major duct injury, which is why the view is confirmed before clipping.",
+          "claims": [
+            "K81",
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p10",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p9_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The answer is misidentification of the bile duct as the cystic duct. That is the commonest cause of major duct injury, and the critical view prevents it.",
+          "claims": [
+            "K81",
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p10",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p9_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Bleeding is the dramatic complication, but it is not the commonest way the duct gets injured.",
+          "claims": [
+            "K81"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p9",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p9_show",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check this one: the most feared event is not the commonest cause of a duct injury.",
+        "claims": [
+          "K81"
+        ]
+      }
+    },
+    "p9_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The hepatic artery sits near the duct, but injury to it is not the usual route to a major duct injury.",
+          "claims": [
+            "K81"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p9",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p9_show",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check this one: the most feared event is not the commonest cause of a duct injury.",
+        "claims": [
+          "K81"
+        ]
+      }
+    },
+    "p10": {
+      "role": "probe",
+      "objectives": [
+        "O12"
+      ],
+      "say": [
+        {
+          "text": "A trainee says, 'I can see two tubular structures entering the gallbladder, so I will clip.' Which reply is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Right, two structures is the whole critical view",
+          "next": "p10_t0",
+          "kind": "trap",
+          "trap": "TR19"
+        },
+        {
+          "label": "Also clear the triangle and free the lower gallbladder",
+          "next": "p10_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "First dissect the cystic duct alone down to the bile duct",
+          "next": "p10_t2",
+          "kind": "trap",
+          "trap": "TR19"
+        }
+      ]
+    },
+    "p10_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The critical view needs the triangle cleared, the lower gallbladder off the liver bed, and only two structures seen.",
+          "claims": [
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p11",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p10_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The answer: the triangle is cleared, the lower gallbladder is separated from the liver bed, and only two structures are seen. All three are required.",
+          "claims": [
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p11",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p10_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Two structures is one of three requirements, not the whole view, so the other two must also be met.",
+          "claims": [
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p10",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p10_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p10_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Chasing the cystic duct alone skips the triangle and the lower gallbladder, and the view depends on both.",
+          "claims": [
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p10",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p10_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p11": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "A 70-year-old man is on day six in intensive care after cardiac surgery, on noradrenaline, with acalculous cholecystitis. What is the better first step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Percutaneous gallbladder drainage",
+          "next": "p11_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Early laparoscopic cholecystectomy tomorrow",
+          "next": "p11_t1",
+          "kind": "trap",
+          "trap": "TR24"
+        },
+        {
+          "label": "Open cholecystectomy today, to be safe",
+          "next": "p11_t2",
+          "kind": "trap",
+          "trap": "TR24"
+        }
+      ]
+    },
+    "p11_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Unfit or critically ill patients with acalculous disease are drained first; a fit patient can be treated like calculous disease.",
+          "claims": [
+            "K111",
+            "K77"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p12",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p11_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The answer is percutaneous cholecystostomy. Stasis and ischaemia in the critically ill make surgery risky, so the unfit patient is drained first.",
+          "claims": [
+            "K111",
+            "K77",
+            "K34"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p12",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p11_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "He is critically ill on a vasopressor, so an operation is not the first step; drainage is.",
+          "claims": [
+            "K111",
+            "K34"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p11",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p11_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p11_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A major operation in a patient this unstable is the risk to avoid, and the unfit patient is drained first.",
+          "claims": [
+            "K111",
+            "K77"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p11",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p11_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p12": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "A trainee writes, 'Gallstone ileus is the outlet block at the duodenum, and Bouveret's is the terminal ileum.' Which correction is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "No change; both statements are correct",
+          "next": "p12_t0",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "Mirizzi is the outlet block, a stone in the bile duct lumen",
+          "next": "p12_t1",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
+          "label": "Swap them; Bouveret's is the duodenum or pylorus",
+          "next": "p12_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "p12_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Bouveret's is gastric outlet obstruction from a stone in the duodenum or pylorus; gallstone ileus lodges in the terminal ileum.",
+          "claims": [
+            "K98",
+            "K96",
+            "K107"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p12_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The answer is to swap them. Bouveret's has the stone in the duodenum or pylorus; gallstone ileus obstructs the terminal ileum; Mirizzi compresses the hepatic duct from outside.",
+          "claims": [
+            "K98",
+            "K96",
+            "K107",
+            "K88"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p12_t0": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The two sites are swapped here: gallstone ileus lodges in the terminal ileum, and Bouveret's is the outlet block.",
+          "claims": [
+            "K96",
+            "K98"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p12",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p12_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p12_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Mirizzi is a stone in Hartmann's pouch pressing on the hepatic duct from outside, not an outlet block.",
+          "claims": [
+            "K88"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p12",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "p12_show",
+          "kind": "agency"
+        }
+      ]
+    }
+  },
+  "cards": [
+    {
+      "q": "Which test is used to look for complications such as perforation, abscess or gas in the wall?",
+      "a": "Contrast CT. Ultrasound is the first test and HIDA is the most sensitive and specific for the diagnosis.",
+      "claims": [
+        "K50",
+        "K2",
+        "K3"
+      ],
+      "objective": "O4"
+    },
+    {
+      "q": "Non-invasive investigation of choice for CBD stones?",
+      "a": "MRCP. ERCP is both diagnostic and therapeutic, so it is kept for when a stone is likely.",
+      "claims": [
+        "K104",
+        "K51"
+      ],
+      "objective": "O5"
+    },
+    {
+      "q": "TG18 Grade III respiratory criterion?",
+      "a": "PaO2/FiO2 ratio below 300; any one organ dysfunction makes the grade III.",
+      "claims": [
+        "K62",
+        "K59"
+      ],
+      "objective": "O7"
+    },
+    {
+      "q": "Treatment of choice for acute calculous cholecystitis in a fit patient?",
+      "a": "Early laparoscopic cholecystectomy in the index admission, ideally within 72 hours.",
+      "claims": [
+        "K110",
+        "K6"
+      ],
+      "objective": "O8"
+    },
+    {
+      "q": "Asymptomatic gallstones: what is the default?",
+      "a": "Expectant management; symptoms develop at roughly 1 to 2 per cent a year.",
+      "claims": [
+        "K68",
+        "K36"
+      ],
+      "objective": "O9"
+    },
+    {
+      "q": "Where does gallstone ileus usually impact, and what is Rigler's triad?",
+      "a": "The terminal ileum. Rigler's triad: pneumobilia, small-bowel obstruction and an ectopic gallstone.",
+      "claims": [
+        "K96",
+        "K8"
+      ],
+      "objective": "O10"
+    },
+    {
+      "q": "Commonest cause of major bile duct injury?",
+      "a": "Misidentifying the common bile duct as the cystic duct; confirm the critical view before clipping.",
+      "claims": [
+        "K81",
+        "K80"
+      ],
+      "objective": "O12"
+    }
+  ],
+  "technique": "T9+T8+T10",
+  "decision": "merge"
+}
