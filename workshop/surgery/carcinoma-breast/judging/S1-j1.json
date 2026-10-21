@@ -1,0 +1,58 @@
+{
+  "segment": "S1",
+  "judge": "j1",
+  "lens": "learning-scientist",
+  "variants": {
+    "a": {
+      "gates": [],
+      "scores": {"R1": 4, "R2": 4, "R3": 4, "R4": 4, "R5": 4, "R6": 4, "R7": 4, "R8": 4, "R9": 4},
+      "weighted": 4.00,
+      "best_parts": [
+        "node lump_excision: names the surgery-first model ('surgery before a diagnosis') as a partial distractor with its own repair, a wrong model that is not on the trap map and still separates diagnosis from operation",
+        "node hook_why / hook_ovary / hook_cervix: sure_note on each confident miss, plus 'Show me why' agency path to a full explanation",
+        "node imaging_ok: adds dense-breast reasoning to the age qualifier, so the correct pick teaches a reason, not only a rule"
+      ],
+      "flaws": [
+        "node hook_ovary: 'Carcinoma ovary' is tagged kind trap TR4, but the trap map lists ovary as a partial neighbour of cervix; the trap label misstates which wrong model it tests",
+        "node hook: TR4 is tested only once in this segment (recognition form); no contrast form is offered here, so the old-key wrong model is not re-probed within S1",
+        "node lump_q: only the TR1 option is a true trap; the excision option is labelled partial but gets a full paragraph of feedback, which spends words on a non-trap"
+      ]
+    },
+    "b": {
+      "gates": [],
+      "scores": {"R1": 4, "R2": 4, "R3": 4, "R4": 4, "R5": 4, "R6": 4, "R7": 4, "R8": 4, "R9": 5},
+      "weighted": 4.11,
+      "best_parts": [
+        "node gate_partial: 'Carcinoma ovary' tagged partial, with feedback naming the wrong model ('common female cancer, but it does not lead the list') and an agency path; matches the trap map exactly",
+        "node tissue_partial and tissue_reveal: incision biopsy is a partial distractor with a specific refutation ('does give tissue, but not the preferred test'), and the reveal states what the pathologist must receive",
+        "node vig_t17: sure_note tied to the age qualifier, then a reveal that teaches the age rule as the exam cue"
+      ],
+      "flaws": [
+        "node gate: TR4 is probed once in this segment (recognition form); a second form in S1 would give the old-key trap an in-segment retest",
+        "node gate_t4 and tissue_t1: the first miss gives 'Try again' and an agency reveal but no second explanation in a different form; the hint ladder jumps from hint to reveal",
+        "node triple: a recap with no probe; the segment's last node is a tell with no retrieval of the triple-assessment order"
+      ]
+    },
+    "c": {
+      "gates": [],
+      "scores": {"R1": 4, "R2": 3, "R3": 4, "R4": 5, "R5": 2, "R6": 4, "R7": 4, "R8": 4, "R9": 3},
+      "weighted": 3.61,
+      "best_parts": [
+        "node recheck: a contrast probe ('An old exam key says cervix...') that gives TR4 a second form in the same segment, the only variant to retest the old-key trap before leaving S1",
+        "node cancer_ok: adds the upper-outer-quadrant and NST facts as a short follow-on from the correct answer, so a correct pick teaches more than the key",
+        "node close: the one-line rule 'when an old key disagrees with today's practice, answer with today's practice' is a clean, portable takeaway"
+      ],
+      "flaws": [
+        "node lump and img and cancer: each probe has only two options (the key and one trap) plus hint, so a learner can guess by elimination and the retry is a coin toss; there is no third or partial distractor",
+        "node cancer_t4, lump_t1, img_t17: a wrong pick goes to 'Try again' with no 'Show me why' or second explanation, so the learner who misses is shown the same question again with no new technique",
+        "node lump: the only wrong option is FNAC; the surgery-first and excision models are not offered, so the probe does not separate wrong models beyond one"
+      ]
+    }
+  },
+  "ranking": ["b", "a", "c"],
+  "merge_ideas": [
+    "b's partial-labelled distractors and tissue_reveal, with c's recheck contrast probe as a second in-segment form for TR4, and a's excision partial as a third option on the lump probe",
+    "a's sure_note and 'Show me why' agency on every trap node, applied to c's two-option probes once a third distractor is added",
+    "a's hook_why full reveal used as the fallback after two misses on each probe, so every trap has the explanation and a re-test in the same segment"
+  ]
+}
