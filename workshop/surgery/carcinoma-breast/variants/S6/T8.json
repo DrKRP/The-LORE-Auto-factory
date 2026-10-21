@@ -1,0 +1,1270 @@
+{
+ "segment": "S6",
+ "technique": "T8",
+ "entry": "seq",
+ "nodes": {
+  "seq": {
+   "role": "probe",
+   "objectives": [
+    "O9"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 52-year-old woman has inflammatory breast cancer: a red, warm, swollen breast, peau d'orange over a third of it, and fixed axillary nodes.",
+     "claims": []
+    },
+    {
+     "text": "Which order of treatment fits current practice?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Modified radical mastectomy, adjuvant chemotherapy, then radiotherapy",
+     "next": "seq_t16",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Neoadjuvant chemotherapy, modified radical mastectomy, then radiotherapy",
+     "next": "seq_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Radiotherapy, modified radical mastectomy, then chemotherapy",
+     "next": "seq_partial",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "seq_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "seq_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Current practice is neoadjuvant chemotherapy, then modified radical mastectomy (MRM), then radiotherapy. Breast conservation is never the plan here.",
+     "claims": [
+      "K8",
+      "K106"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "seq_why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "seq_t16": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Surgery first is the early-cancer habit. Here the emboli already sit in skin lymphatics beyond what the knife can clear, so chemotherapy cannot wait for the operation.",
+     "claims": [
+      "K8",
+      "K95"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "seq",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You felt sure, and that is the habit to check: the early-cancer order does not carry over to inflammatory disease.",
+    "claims": [
+     "K8"
+    ]
+   }
+  },
+  "seq_partial": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "You have the right three treatments in the wrong order. Radiotherapy is the last step here, aimed at the chest wall, and the first step must shrink disease that has spread.",
+     "claims": [
+      "K106"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "seq",
+     "kind": "retry"
+    }
+   ]
+  },
+  "seq_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what each step does. A mastectomy removes a mass. Which step acts on disease already spread through the skin and nodes?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "seq",
+     "kind": "retry"
+    }
+   ]
+  },
+  "seq_why": {
+   "role": "probe",
+   "objectives": [
+    "O9"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "In inflammatory cancer the tumour cells sit in the dermal lymphatics of the skin, not in one lump.",
+     "claims": [
+      "K8"
+     ]
+    },
+    {
+     "text": "Which explanation of why drugs come first is right?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Surgery is the curative step, so chemotherapy is an add-on",
+     "next": "why_t16",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Emboli have spread beyond the breast, so drugs must act first",
+     "next": "why_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Radiotherapy shrinks the skin oedema, so it must come first",
+     "next": "why_partial",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "why_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "why_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. The emboli in the skin lymphatics mean the disease is already systemic. Chemotherapy shrinks it and treats hidden spread before surgery and radiotherapy finish the local job.",
+     "claims": [
+      "K8",
+      "K95"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "h1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "why_t16": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Surgery as the curative step is the early-cancer habit. Here the emboli already lie beyond what an operation can clear, so chemotherapy is not an add-on.",
+     "claims": [
+      "K8",
+      "K95"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "seq_why",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the habit: the early-stage plan does not transfer to inflammatory disease.",
+    "claims": [
+     "K8"
+    ]
+   }
+  },
+  "why_partial": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Radiotherapy has a role, but it is the final step aimed at the chest wall. It does not treat the systemic spread that the emboli represent.",
+     "claims": [
+      "K106"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "seq_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "why_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think about where the cells are: in a lump a surgeon can cut out, or already spread through the skin's lymphatics?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "seq_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "h1": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 62-year-old woman, past menopause, has early oestrogen receptor (ER)-positive breast cancer.",
+     "claims": []
+    },
+    {
+     "text": "Which hormonal drug is the usual choice?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Tamoxifen, as for any ER-positive woman",
+     "next": "h1_t7",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Aromatase inhibitor, such as letrozole",
+     "next": "h1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Raloxifene, a selective oestrogen receptor modulator",
+     "next": "h1_partial",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "h1_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "h1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. After menopause most oestrogen is made in fat and muscle from androgens, so aromatase inhibitors (AIs) block that supply.",
+     "claims": [
+      "K98",
+      "K132"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "h2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "h1_t7": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "ER positivity is the cue that tempts you to stop reading. Tamoxifen is the premenopausal drug, so her menopausal status decides the choice.",
+     "claims": [
+      "K10",
+      "K97"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the fix is to check menopausal status before the drug.",
+    "claims": [
+     "K10"
+    ]
+   }
+  },
+  "h1_partial": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Raloxifene is a SERM used for chemoprevention and bone protection, not the usual treatment for established ER-positive cancer in this woman. Check how her oestrogen is made after menopause.",
+     "claims": [
+      "K110"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "h1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Find the word in the stem that tells you where her oestrogen comes from.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "h2": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 36-year-old premenopausal woman has early ER-positive breast cancer.",
+     "claims": []
+    },
+    {
+     "text": "Which hormonal drug is the usual choice?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Anastrozole, an aromatase inhibitor",
+     "next": "h2_t7",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Bilateral oophorectomy as first treatment",
+     "next": "h2_partial",
+     "kind": "partial"
+    },
+    {
+     "label": "Tamoxifen, which blocks the oestrogen receptor",
+     "next": "h2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "h2_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "h2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Before menopause the ovaries make most oestrogen, and tamoxifen blocks its action at the receptor in breast tissue.",
+     "claims": [
+      "K97",
+      "K131"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "tox",
+     "kind": "continue"
+    }
+   ]
+  },
+  "h2_t7": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Aromatase inhibitors act on conversion of androgens in fat and muscle, which matters after menopause. Her ovaries still make most of her oestrogen, so re-check the status.",
+     "claims": [
+      "K98"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so re-check menopausal status before the drug.",
+    "claims": [
+     "K98"
+    ]
+   }
+  },
+  "h2_partial": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Removing the ovaries is not the drug choice this stem asks for. Ask which drug is the standard endocrine therapy before menopause.",
+     "claims": [
+      "K97"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "h2_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask where her oestrogen comes from before the menopause, then which drug acts on that source.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tox": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "She starts tamoxifen for five to ten years.",
+     "claims": [
+      "K97"
+     ]
+    },
+    {
+     "text": "Which is a recognised adverse effect of tamoxifen?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Endometrial protection against cancer",
+     "next": "tox_t22",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "Osteoporosis and fractures",
+     "next": "tox_partial",
+     "kind": "partial"
+    },
+    {
+     "label": "Raised endometrial cancer risk",
+     "next": "tox_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "tox_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "tox_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Tamoxifen raises endometrial cancer risk, and also brings clot risk, hot flushes and cataract.",
+     "claims": [
+      "K99"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "tr6",
+     "kind": "continue"
+    }
+   ]
+  },
+  "tox_t22": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Tamoxifen blocks oestrogen in the breast, which tempts you to think it guards the womb too. Its action differs by tissue, so no protection should be assumed.",
+     "claims": [
+      "K143"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tox",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the drug's action in each tissue, not only in the breast.",
+    "claims": [
+     "K143"
+    ]
+   }
+  },
+  "tox_partial": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Osteoporosis and fractures are aromatase-inhibitor effects, and she is on tamoxifen, not an aromatase inhibitor.",
+     "claims": [
+      "K100"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tox",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tox_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what tamoxifen does to oestrogen receptors in the breast, and whether that same action is the one that matters in the womb.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tox",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tr6": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A woman on trastuzumab for HER2-positive disease asks about its heart risk.",
+     "claims": [
+      "K133"
+     ]
+    },
+    {
+     "text": "Which statement about trastuzumab cardiotoxicity is correct?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Dose-dependent and irreversible, like doxorubicin",
+     "next": "tr6_t6",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Usually reversible and not dose-related",
+     "next": "tr6_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Seen only when given with a taxane",
+     "next": "tr6_partial",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "tr6_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "tr6_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Trastuzumab cardiotoxicity is usually reversible and not dose-related, which sets it apart from anthracyclines.",
+     "claims": [
+      "K101",
+      "K11"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "tr6b",
+     "kind": "continue"
+    }
+   ]
+  },
+  "tr6_t6": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Anthracycline cardiotoxicity is cumulative and largely irreversible, so it is easy to carry that pattern onto a HER2 drug. Check whether the statement describes the antibody or the anthracycline.",
+     "claims": [
+      "K101",
+      "K142"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tr6",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so match the injury pattern to the drug, not to the drug you know best.",
+    "claims": [
+     "K142"
+    ]
+   }
+  },
+  "tr6_partial": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Taxanes are part of the standard chemotherapy backbone, but being given with one does not define this antibody's heart effect. Recall the antibody's usual cardiac pattern.",
+     "claims": [
+      "K96",
+      "K11"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tr6",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tr6_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Separate the two drugs first: one is an antibody that targets HER2, the other an anthracycline. Then ask how each heart injury behaves over time.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tr6",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tr6b": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A patient asks which of her breast cancer drugs carries a heart risk that depends on total dose and is largely irreversible.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Trastuzumab, a HER2 antibody",
+     "next": "tr6b_t6",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Doxorubicin, an anthracycline",
+     "next": "tr6b_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Paclitaxel, a taxane",
+     "next": "tr6b_partial",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "tr6b_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "tr6b_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Doxorubicin cardiomyopathy rises with cumulative dose and is largely irreversible. Trastuzumab's injury is usually reversible and not dose-related.",
+     "claims": [
+      "K142",
+      "K101"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "lcis",
+     "kind": "continue"
+    }
+   ]
+  },
+  "tr6b_t6": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Trastuzumab is the HER2 antibody, and its heart injury is usually reversible and not tied to dose. A cumulative, irreversible pattern does not fit it.",
+     "claims": [
+      "K101"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tr6b",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so match the injury pattern to the drug, not to a familiar name.",
+    "claims": [
+     "K142"
+    ]
+   }
+  },
+  "tr6b_partial": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Taxanes are a separate class in the standard regimen, and the dose-linked heart injury belongs to a different class. Look for the other class.",
+     "claims": [
+      "K96",
+      "K142"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tr6b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tr6b_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which class of drug carries a dose-linked heart injury, and which of the three is in that class.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tr6b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "lcis": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A mammogram-detected area is core-biopsied: classic lobular carcinoma in situ (LCIS), with no invasive component.",
+     "claims": []
+    },
+    {
+     "text": "What is the right plan?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Modified radical mastectomy on that breast",
+     "next": "lcis_t25",
+     "kind": "trap",
+     "trap": "TR25"
+    },
+    {
+     "label": "Axillary dissection to stage the nodes",
+     "next": "lcis_partial",
+     "kind": "partial"
+    },
+    {
+     "label": "Surveillance, and consider chemoprevention",
+     "next": "lcis_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "lcis_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "lcis_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Classic LCIS is a risk marker for invasive cancer in either breast, so the plan is surveillance and, where suitable, chemoprevention.",
+     "claims": [
+      "K104",
+      "K25"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "tox2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "lcis_t25": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "LCIS does not form a lump or calcify, and it is not invasive cancer. It marks risk, so removing the breast treats a marker as if it were an invasive lesion.",
+     "claims": [
+      "K25",
+      "K104"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "lcis",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so ask what the lesion predicts before you ask what it looks like.",
+    "claims": [
+     "K25"
+    ]
+   }
+  },
+  "lcis_partial": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Axillary dissection stages invasive disease, and this biopsy shows no invasive component. Ask what classic LCIS predicts, not what it contains.",
+     "claims": [
+      "K104"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "lcis",
+     "kind": "retry"
+    }
+   ]
+  },
+  "lcis_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask whether this is cancer that must be cut out, or a lesion that predicts risk and needs watching.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "lcis",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tox2": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Tamoxifen raises the risk of endometrial cancer, but raloxifene does not.",
+     "claims": [
+      "K143"
+     ]
+    },
+    {
+     "text": "Which explanation fits that difference?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Tamoxifen blocks oestrogen in every tissue, protecting the womb",
+     "next": "tox2_t22",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "Both drugs act partly like oestrogen in the womb",
+     "next": "tox2_partial",
+     "kind": "partial"
+    },
+    {
+     "label": "Tamoxifen acts partly like oestrogen in the womb",
+     "next": "tox2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "tox2_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "tox2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Tamoxifen is partly oestrogenic in the endometrium, so it stimulates the lining, while raloxifene does not.",
+     "claims": [
+      "K143"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "tr5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "tox2_t22": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Blocking oestrogen in the breast is what tempts you to expect protection in the womb. Tamoxifen's action differs by tissue, so the womb gets no shield.",
+     "claims": [
+      "K143"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tox2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so do not carry one tissue's action over to another.",
+    "claims": [
+     "K143"
+    ]
+   }
+  },
+  "tox2_partial": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Raloxifene does not raise endometrial cancer risk, so the two drugs cannot act alike in the womb.",
+     "claims": [
+      "K143",
+      "K110"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tox2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tox2_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what the womb's lining does when oestrogen acts on it, and whether each drug copies that action.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tox2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tr5": {
+   "role": "probe",
+   "objectives": [
+    "O9"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A woman with stage III locally advanced breast cancer has bone pain and is about to start neoadjuvant chemotherapy.",
+     "claims": [
+      "K75"
+     ]
+    },
+    {
+     "text": "Which staging imaging is justified?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Bone scan and CT as routine for every breast cancer",
+     "next": "tr5_t5",
+     "kind": "trap",
+     "trap": "TR5"
+    },
+    {
+     "label": "Serum CA 15-3 as the staging test",
+     "next": "tr5_partial",
+     "kind": "partial"
+    },
+    {
+     "label": "Staging CT and bone scan, given stage III and pain",
+     "next": "tr5_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "tr5_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "tr5_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Locally advanced disease, or symptoms such as bone pain, justify imaging for distant spread. Bone is the commonest site, so the scan is aimed there.",
+     "claims": [
+      "K57",
+      "K123"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "tr5_t5": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Bone is the commonest site of spread, which tempts a routine scan for everyone. Early asymptomatic disease does not need that work-up, so stage and symptoms set the test.",
+     "claims": [
+      "K57",
+      "K123"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tr5",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so tie the imaging to the stage and symptoms.",
+    "claims": [
+     "K57"
+    ]
+   }
+  },
+  "tr5_partial": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "A tumour marker does not show where disease is, so it does not replace imaging when stage III disease and symptoms call for it.",
+     "claims": [
+      "K57"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tr5",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tr5_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what the stage and the symptoms tell you about distant spread, and which test shows it.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tr5",
+     "kind": "retry"
+    }
+   ]
+  }
+ }
+}
