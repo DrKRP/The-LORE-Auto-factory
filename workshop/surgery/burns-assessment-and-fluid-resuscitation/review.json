@@ -1,98 +1,88 @@
 {
   "module": "surgery/burns-assessment-and-fluid-resuscitation",
-  "judge": "m1",
-  "lens": "all three in turn (learning-scientist, examiner, learner-advocate); scores are the combined view",
-  "lens_notes": {
-    "learning-scientist": "Probes precede explanations (S1.gate, S2.entry, S3.shock_case, S5.wx2). Wrong options carry refutation plus re-test in other forms (TR1, TR3, TR16). Weak: a correct-answer node (S5.t1_c_ok) re-licenses the trap it should refute, so the retrieval loop for TR1 breaks. Repetition across S1/S3/S4/S5/S8 is drill, not spaced retrieval.",
-    "examiner": "Trap set is exam-shaped (TR3 halving errors, TR6 child rule of nines, TR12/TR13 inhalation tests, TR27 antidote pairs). Precision fails on the fluid rule: S5.t1_ok and S5.t1_c_ok say 2 mL is current practice and then the exam key stays 4 mL with no qualifier, and S6.start calls 700 mL/h the formula's starting rate. An examiner cannot tell which figure the module carries.",
-    "learner-advocate": "A tired student at 1 a.m. meets 12 airway/shock/Parkland repeats, 'Sure of this? Skip the why' labels, 'Ravi's revision list' with no setup (S7.cold), and 'That is not right' on a correct HF pairing (S7.spot_t1). Two of four simulated walks hit the 220-step cap before END. Warm where it counts (S1.gate_t29 sure_note, S5.wx2_ok)."
-  },
-  "scores": {
-    "R1": 4,
-    "R2": 4,
-    "R3": 4,
-    "R4": 3,
-    "R5": 4,
-    "R6": 3,
-    "R7": 4,
-    "R8": 3,
-    "R9": 3
-  },
-  "weighted": 3.61,
-  "publish_threshold": 4.0,
-  "meets_publish_threshold": false,
+  "round": 1,
+  "judge": "m2",
+  "mode": "module",
+  "lenses_run": ["learning-scientist", "examiner", "learner-advocate"],
+  "reads": "module.json (full graph read node by node; claims section skimmed), sim/misconceived.md, sim/novice.md, sim/misconceived.report.json, sim/novice.report.json. No shell was available, so factory.py validate was not run; G3 was checked by reading every next target and reachability by hand.",
   "gates": [],
-  "gate_notes": "No G3 or G4 failure found. Four simulated walks reached nodes via next fields; novice and guesser hit the 220-step cap, not a dead end. Unverified: S2.p7_ok continues to S2.p4 (strong sim); a loop is possible if reached in another order, not walked.",
-  "criteria_notes": {
-    "R1": "Probe-first is the norm in S1, S2, S3, S4 and S6. S5.wx1 and S5.d_recap are explanation runs. Score 4.",
-    "R2": "Every wrong option maps to a trap in module.json with error_type. Feedback names the wrong model ('Model: ... You may have corrected it on the spot') and re-tests on a later node. Deductions: S5.t1_c_ok re-licenses TR1; S3.colloid_probe labels a 5% dextrose option as TR8 although dextrose is not a colloid (strong sim); S7.spot_t1 gives 'not right' on the correct pairing.",
-    "R3": "All 11 objectives are taught or tested on the strong path. Novice and guesser walks reached no END, so coverage on every path is not confirmed; O9 is reached only in S7 and S8 and drops on skip paths (S7.a1_ok skips S7.q3).",
-    "R4": "Several nodes break the 60-word, one-idea rule: S5.d_recap (five rules in two sentences), S2.co_ok (half-life figures plus a third idea), S7.a1_t0 (convoluted), S3.depth_ok and S4.child_chart (three messages each).",
-    "R5": "Fast lanes (S1.gate_ok, S2.entry_ok, S4.case_ok, S7.start_ok skip), hint ladder (S1.gate_hint), Try again and Show me the working. Weak: skip labels read as doubting confidence, and skips drop content silently.",
-    "R6": "PYQ-style vignettes and traps explicit (TR3 with 1,400, 233 and partial 350 at S5.wx2; TR27 antidote pairs). Pulled down by the unresolved 2 mL vs 4 mL key (S5.t1_ok, S5.t1_c_ok, S6.start, S5.d_recap).",
-    "R7": "Real moments: house fire airway (S1.gate), 2-year-old TBSA (S4.child_q), ambulance pre-hospital fluid (S6.ambulance), escharotomy in a constricted limb (S6.escharotomy). Score 4.",
-    "R8": "Warm 'You were sure...' sure_notes and calm reframing of errors in the report. Flat or odd lines: 'Ravi's revision list' (S7.cold), 'Sure of this? Skip the why' (S7.start_ok), 'Show me the answer' exits with no retest.",
-    "R9": "Path separates Sure, Guessing and retry (sim verdicts differ: misconceived overconfident, guesser weak, strong calibrated). Report accuracy is the drag: see review.segments and personas below."
-  },
-  "personas": {
-    "novice": {
-      "report_verdict": "partly useful",
-      "accurate": "Headline weak and the guess pattern (guess_right 11, sure_wrong 0) match the walk. The 'fell_open' status and 'gap' on 10 of 11 objectives ignore corrections made on retry, so the report says the learner believes less than the walk shows.",
-      "wrong_or_unhelpful": "hints: 3 but the walk took one hint; TR17 reported fell_open though it was only met at S8.p9_t1 and never tested; card 2 (electrical urine target in mL/kg/h) is not answerable from the path."
+  "gate_note": "No G3 or G4 failure found. Every choice target I checked exists, the graph reaches END from S1.gate, and every probe is tap-only.",
+  "lens_scores": {
+    "learning-scientist": {
+      "scores": {"R1": 4, "R2": 4, "R3": 4, "R4": 4, "R5": 4, "R6": 4, "R7": 4, "R8": 4, "R9": 3},
+      "weighted": 3.89
     },
-    "misconceived": {
-      "report_verdict": "partly useful",
-      "accurate": "Mixed headline and overconfident calibration with 30 sure errors match the walk (TR1 at S5.t1_try, S7.a1).",
-      "wrong_or_unhelpful": "All 11 objectives read 'shaky' though all 20 traps were recovered on retry, so the 'redo all 18 cards' instruction is over-broad. The report does not tell this learner that the remaining belief is TR1 via S5.t1_c_ok."
+    "examiner": {
+      "scores": {"R1": 4, "R2": 3, "R3": 4, "R4": 3, "R5": 4, "R6": 4, "R7": 4, "R8": 3, "R9": 3},
+      "weighted": 3.56
     },
-    "strong": {
-      "report_verdict": "partly useful",
-      "accurate": "Headline strong, calibrated, fast_lane true, hints 0 are all correct.",
-      "wrong_or_unhelpful": "Praises TBSA as secure with 'switch to child proportions or Lund and Browder' though the child figures were skipped (S4.close_ok, S4.child_chart). Parkland is called secure though the fluid figure is unclear (S5.t1_c_ok). Card holes for Lund and Browder (card 4) and Brooke vs Evans (card 7) are not named."
-    },
-    "guesser": {
-      "report_verdict": "not accurate",
-      "accurate": "Weak headline and the first-try pattern fit.",
-      "wrong_or_unhelpful": "Every trap is reported fell_open, including TR3, TR14, TR16-TR19, TR22 and TR29, which were never offered on this walk. Objectives include depth and urine targets that were corrected on retry. Retry text 'not on a later question' is untrue for ideas that came back. This is a render defect, not a learner finding."
+    "learner-advocate": {
+      "scores": {"R1": 4, "R2": 4, "R3": 4, "R4": 3, "R5": 4, "R6": 3, "R7": 5, "R8": 3, "R9": 3},
+      "weighted": 3.67
     }
   },
+  "scores": {"R1": 4.0, "R2": 3.67, "R3": 4.0, "R4": 3.33, "R5": 4.0, "R6": 3.67, "R7": 4.33, "R8": 3.33, "R9": 3.0},
+  "weighted": 3.70,
   "segments": [
-    {"id": "S1", "score": 4, "reason": "S1.gate is a good probe: a house-fire airway vignette, one correct option, TR29 and TR30 traps, and a hint node. Airway returns at S1.final, S8.p1 and S8.p12, which is more than the spacing needs."},
-    {"id": "S2", "score": 4, "reason": "S2.entry, S2.p4 and S2.err_step carry real traps (TR12, TR13, TR27), and the 'right test' ladder is clear. S2.co_ok packs half-life numbers and a third idea into a correct-answer node."},
-    {"id": "S3", "score": 3, "reason": "S3.colloid_probe labels a 5% dextrose option as TR8 when dextrose is not a colloid (strong sim). S3.shock_case repeats at S5.d_try with near-identical clues. S3.depth_ok runs three messages and the third loses the learner."},
-    {"id": "S4", "score": 3, "reason": "S4.child_q is a good child-TBSA probe, but it is asked again at S6.tb_vig and S6.child_tbsa. S4.adult_chart says 'eighteens for the trunk sides and legs' without saying front or back. S4.close_ok skips the child chart for fast-lane learners."},
-    {"id": "S5", "score": 2, "reason": "S5.t1_c_ok says 'Yes. About 2 mL' then 'with no qualifier the exam answer stays 4 mL'. The stem (S5.t1_try) cites current ATLS practice. Every walk flagged this (novice, misconceived, strong, guesser). A correct-answer node restores TR1, the module's highest-yield trap. The S5.wx2 probe is well built: 700 correct, with 1,400 (TR3), 233 (TR3) and a partial 350 (S5.wx2_part). Fix the fluid rule first."},
-    {"id": "S6", "score": 3, "reason": "S6.start calls 700 mL/h 'the formula's starting rate' after S5 used 2 mL for current practice, so the fluid figure conflicts again. S6.drip repeats S5.c_seq (subtract fluid given). S6.me_partial treats a partial answer as 'not right' with only Try again or Show me."},
-    {"id": "S7", "score": 3, "reason": "S7.spot_t1 says 'That choice is not right. That order pairs the poison with its own antidote', which reads as a rebuke of a correct pairing (misconceived sim). S7.a1_ok skips S7.q3 so Brooke vs Evans is never shown. S7.cold introduces 'Ravi's revision list' with no setup. S7.q6 and S7.c2 repeat the Curling vs Marjolin ask."},
-    {"id": "S8", "score": 3, "reason": "Twelve probes S8.p1 to S8.p12 re-ask airway, depth, TBSA and topicals already taught in S1 to S7. Novice and guesser walks hit the 220-step cap before END (S8.p9 and S8.p3). Strong walk reached END in 115 steps. Consolidation becomes drill for everyone who did not skip."}
+    {"id": "S1", "score": 4, "reason": "Airway-first ladder with warning-sign triggers, sure_note on each trap and a clean re-probe at S1.final; the one flaw is that S1.gate_ok offers a skip that bypasses the intubation probe, which is acceptable because S1.final re-tests O1."},
+    {"id": "S2", "score": 4, "reason": "Good test ladder with falsely-normal-oximetry model named and re-tested. Weakened by telegraphing: S2.entry's two traps both say 'taken at arrival' and S2.err_step's two traps both start 'Step 3' while the key is the only 'Step 2'. S2.worked packs three ideas into one explain node."},
+    {"id": "S3", "score": 3, "reason": "Shock and depth are well modelled, but S3.fluid_ok packs crystalloid, hyperchloraemic acidosis and colloid split into one feedback, S3.depth_ok adds an unrelated erythema message, and the S3.fluid_t8 feedback withholds the answer, so colloid timing is only given by 'Show me why'."},
+    {"id": "S4", "score": 4, "reason": "Clean vignettes and a sum check on the adult chart. S4.adult_chart says 'eighteens for the trunk sides and legs' while the chart is anterior and posterior trunk 18 each, a wording muddle that S8.p3_t0 repeats. The child-chart re-test is good."},
+    {"id": "S5", "score": 3, "reason": "Parkland arithmetic is strong and the feedback is clear, but the segment is long and repetitive: three sub-probes for one calculation, S5.why re-teaches capillary leak already taught in S3.shock_why, and S5.t1_check has no hint option in the middle of the ladder. The novice path runs 198 steps."},
+    {"id": "S6", "score": 4, "reason": "Titration is the strongest management block: hint-free reveal ladders, the direction trap refuted by a counter-case, and a clear child and electrical target split. S6.ambulance's key is the most detailed option, a minor form cue."},
+    {"id": "S7", "score": 2, "reason": "S7.spot is broken: two of its three 'trap' orders are the correct orders, and their feedback says 'That is not right. That choice is not right: this order is correct'. A learner holding either wrong model is told they are wrong when they are right. S7.cold_ok packs four claims into one message. S7.b1 and S7.a1 are findable by form."},
+    {"id": "S8", "score": 4, "reason": "Good cold consolidation with six unhinted probes that cover the backbone traps, and each wrong option maps to one trap. S8.p2's key repeats the stem's words verbatim, and S8.p12 is a strong clinical decision. The 'That choice is not right.' opener repeats in nearly every S8 feedback."}
   ],
-  "weakest": ["S5", "S8", "S7", "S6", "S3", "S4"],
+  "weakest": ["S7", "S5", "S3"],
   "best_parts": [
-    "node S5.wx2: 700 mL/h key with 1,400 (TR3, whole 24 h into 8 h), 233 (TR3, half over 24 h) and partial 350 (S5.wx2_part). Each distractor is one error, and the feedback names the wrong model.",
-    "node S1.gate: house-fire vignette, correct airway first, TR29 and TR30 traps, a hint node, and ask_confidence set.",
-    "node S1.gate_t29 sure_note: 'You were sure, so look at this one again: the sum is never the first move.' Names the error without rebuke and points to the primary survey.",
-    "node S5.wx2_ok and S1.gate_ok: correct feedback says why the answer is right (halve the total, divide by window), per DP13."
+    "node S1.intub_why: lists the four named triggers (stridor, hoarseness, deep facial or neck burn, soot) and the falling consciousness level, so the warning-sign model is taught as a list the learner can apply.",
+    "node S2.why_t13a and S2.why_t13b: each names the wrong model ('falsely normal in carbon monoxide poisoning' and 'the saturation number cannot see it') with a sure_note tied to the favoured exam trap.",
+    "node S5.clock_ok: 'burn clock, not the bed clock' is a memorable device with the mechanism (mediators raise permeability from injury), so the clock trap is refuted by cause, not by rule.",
+    "node S6.start / S6.start_reveal and S6.elec_ok: the formula-as-estimate probe offers a retry, then a reveal, and the electrical-injury target (75 to 100 mL/h to flush pigment) is taught as an exception to the adult figure.",
+    "node S8.p12: a real bedside decision (deep neck burns, calm patient, registrar's 'intubate if voice changes') where each wrong option is a distinct trap (TR30 wait, TR29 numbers first).",
+    "node S7.d1 and S7.cold: the escharotomy probe separates depth from the ring with ventilation pressure as the clue, and the cold probe includes an explicit 'no hints' note."
   ],
   "flaws": [
-    "node S5.t1_c_ok: correct-answer node that restores TR1 after it was refuted (all four walks).",
-    "node S7.spot_t1: 'That choice is not right' attached to the correct pairing; the second line reads as praise.",
-    "node S3.colloid_probe: 5% dextrose option labelled TR8 though dextrose is not a colloid, so the trap label does not match the wrong model.",
-    "node S7.cold: 'Ravi's revision list' names a person nobody set up.",
-    "node S7.a1_ok and S4.close_ok: fast-lane skips drop content silently (Brooke vs Evans, child chart), and the report then praises those skills as secure.",
-    "node S5.d_recap: five rules in two long sentences; split into one idea per node.",
-    "node S8.p1 to S8.p12: repeats of S1 to S7 vignettes; cut to one new vignette per objective.",
-    "report (render-report): trap statuses default to fell_open for untested traps (guesser), and hints count is wrong (novice)."
+    "node S7.spot (and its feedback S7.spot_t0, S7.spot_t1): two of the three 'wrong' labels are correct orders (hydrofluoric calcium gluconate and plastics-smoke hydroxocobalamin). The feedback text 'That is not right. That choice is not right: this order is correct' contradicts itself. Fix: three wrong orders, one correct order, and feedback that names the wrong model.",
+    "node S7.a1: the key is the only option with 'alone' and a number, and the only one that is a complete rule; the 'Exam drill' lead-in tells the learner to read the qualifier, so the key is findable by form.",
+    "node S7.b1: the key 'Mafenide acetate' is the only option not starting 'Silver'. Telegraph by form. Give the three agents a shared surface (for example, all named by side effect) or vary the stem.",
+    "node S2.err_step: two trap options start 'Step 3' and the key is the lone 'Step 2'. A learner who notices that step 3 is the bronchoscopy step eliminates to the key without reasoning about oximetry.",
+    "node S2.entry: both traps say 'taken at arrival' and the key does not, so the key is findable by form (DP1).",
+    "node S8.p2: the key 'mottled, less painful, with sluggish refill' repeats the stem's own words, so it can be matched by string overlap; and 'Full thickness: slow refill means the burn has no blood supply' is near-dominated, since no one who knows the depth model picks it.",
+    "node S7.q3_t1 ('Only the dextrose differs, and the colloid is the same'): dextrose is not in the stem, so the option is dominated and tempts almost no one.",
+    "node S7.cold_ok: four correction points in one message (Parkland colloid, Marjolin, mafenide, escharotomy qualifiers) after a four-line quiz. Split into one line per answer.",
+    "node S2.worked: three ideas (CO half-life, oximeter blind spot, normal chest film) in one explain message.",
+    "node S3.fluid_ok: three messages covering Ringer lactate, hyperchloraemic acidosis and the colloid split; the colloid line is the one the novice lost.",
+    "node S3.depth_ok: third message adds 'simple erythema is not counted', an unrelated idea on a depth question.",
+    "node S3.fluid_t8: the wrong-answer feedback asks 'when does colloid come in?' and withholds the answer, so the learner needs 'Show me why' to learn the key fact. The misconceived sim notes that it has no sure_note.",
+    "node S5.why: re-teaches capillary leak already taught at S3.shock_why; the novice sim reads this as a repeat.",
+    "node S5.t1_check: no hint option mid-ladder, unlike its neighbours; a novice is stranded at the one probe where 4 mL versus 2 mL is decided.",
+    "node S4.adult_chart: 'eighteens for the trunk sides and legs' does not match the chart's anterior and posterior trunk naming (K4), and S8.p3_t0 repeats the wording.",
+    "node S5.t1_try: the key 11,200 mL is the largest of three numbers and the PYQ-keyed figure; the 5,600 distractor is tagged TR3 while the trap map has TR1 as the 11,200 doubling, so the tags and the trap map disagree.",
+    "report (report-level, both personas): every fell_recovered and fell_open text opens 'Under pressure' or 'You may have corrected it on the spot', which describes stress the learner did not feel. Within-node corrections are filed under fell_open, so the report does not separate a right-after-feedback correction from an unaided one. All 20 traps recovered on retest for the misconceived persona, yet all 11 objectives read shaky. For the novice, the headline 'weak' overstates the picture (only 5 of 12 cold right, but 21 of 21 guesses right)."
   ],
   "merge_ideas": [
-    "Fix the fluid rule once in S5.t1_ok and S5.t1_c_ok, then use the same figure in S5.wx1, S6.start and S5.d_recap. This single change lifts R6 and R2 most.",
-    "Keep S5.wx2's three-distractor build (TR3 variants with partial credit) and apply it to S6.start and S8 instead of re-asking the same vignettes.",
-    "Use S1.gate's probe-hint-refute pattern for the S4 child TBSA node, so the age trap is met once with a hint before the explanation.",
-    "Replace S8.p1 to S8.p12 with one interleaved vignette per cluster (airway plus depth, shock plus fluid), so retrieval spans objectives and length falls below the 220-step cap."
+    "S7.spot rebuilt with three wrong orders (the S7.spot_ok key stays) and the S8.p12 style of feedback: name the wrong model, say why it tempts, then refute.",
+    "S6's hint-reveal ladder (retry, then reveal, then a counter-case) applied to S2.err_step and S5.t1_check so every mid-ladder probe has a hint.",
+    "The S8 'cold' probes (no hint button) plus a single hinted cold check at the end of S5 would give the report unaided evidence for the Parkland chain, which currently has only S8.p7.",
+    "Report: separate 'corrected after feedback' from 'unaided' on each trap, drop 'Under pressure' from the within-node text, and let an all-recovered-on-retest learner read 'secure' or 'shaky' on the basis of the retest, not the first miss.",
+    "S3.fluid_t8 and S3.fluid_ok: move the colloid timing into the wrong-answer feedback itself, so the 'Show me why' detour is optional, and keep the feedback to one idea."
   ],
-  "module_actions": [
-    "Blocking: rewrite S5.t1_c_ok and S5.t1_ok so the fluid figure is stated once with its qualifier.",
-    "Blocking: fix the report renderer so untested traps are not reported as fell_open and retry recoveries are credited.",
-    "Cut S8 to about six probes and remove repeated vignettes, so a novice reaches END within the cap.",
-    "Relabel the fast-lane skip buttons to plain wording and show the content each skip drops in the report's skip text."
-  ]
+  "r9_reports": {
+    "misconceived": {
+      "verdict": "partly accurate",
+      "accurate": "Headline 'mixed' and the 'overconfident' calibration match the path; the confident-error list matches the traps held on Sure.",
+      "inaccurate": "All 20 traps were corrected on retest, but all 11 objectives read shaky and the cards tell the learner to revisit the airway, inhalation and TBSA cards as if unfixed. The 'Under pressure' lines describe stress that was not felt.",
+      "useful": "The error-type list and the ordered review cards are useful as a fix list.",
+      "r9_part": 3
+    },
+    "novice": {
+      "verdict": "partly accurate",
+      "accurate": "The 'underconfident' call is right: 21 guesses were correct and the learner asked for hints at 9 probes.",
+      "inaccurate": "The headline 'weak' and the gap readings on O3, O5, O6 and O10 overstate the picture, because within-node corrections are filed as fell_open with no credit for the retry.",
+      "useful": "The next-step advice (airway card, then the opening segment) is sensible.",
+      "r9_part": 2
+    }
+  },
+  "note_on_judging": "Scores are for teaching quality only; facts were not checked. The module is strong in its trap architecture (20 traps, 39 probes, every wrong option mapped to a trap, hint ladders, sure_notes, fast lanes and cold probes), so the weaknesses are concentrated in S7.spot, the form cues, the packed feedback nodes, and the report's trap-state logic."
 }

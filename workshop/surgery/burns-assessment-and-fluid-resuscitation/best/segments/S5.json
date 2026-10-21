@@ -139,25 +139,25 @@
       "ask_confidence": true,
       "say": [
         {
-          "text": "A 70 kg adult has a 40% TBSA scald, and the question says 'as per current ATLS practice'.",
+          "text": "A 70 kg adult has a 40% TBSA scald. The question asks for the classic exam key, Parkland.",
           "claims": []
         },
         {
-          "text": "What is the starting 24-hour Ringer lactate volume?",
+          "text": "What is the 24-hour Ringer lactate volume?",
           "claims": []
         }
       ],
       "choices": [
         {
           "label": "11,200 mL in 24 hours",
-          "next": "t1_tr1",
-          "kind": "trap",
-          "trap": "TR1"
+          "next": "t1_ok",
+          "kind": "correct"
         },
         {
           "label": "5,600 mL in 24 hours",
-          "next": "t1_ok",
-          "kind": "correct"
+          "next": "t1_tr1",
+          "kind": "trap",
+          "trap": "TR3"
         },
         {
           "label": "2,800 mL in 24 hours",
@@ -175,7 +175,7 @@
       "role": "hint",
       "say": [
         {
-          "text": "Read the qualifier in the stem before you multiply. Which practice does the question name?",
+          "text": "Multiply 4 mL by the weight in kg and by the %TBSA. That is the full 24-hour volume.",
           "claims": []
         }
       ],
@@ -191,16 +191,16 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Yes. Current practice starts at about 2 mL per kg per %TBSA: 2 × 70 × 40 = 5,600 mL in 24 hours, then it is titrated to urine output.",
+          "text": "Yes. The exam key is 4 mL × kg × %TBSA: 4 × 70 × 40 = 11,200 mL in 24 hours, half in the first 8 hours.",
           "claims": [
+            "K2",
             "K82"
           ]
         },
         {
-          "text": "The exam key is 4 mL, which gives 11,200 mL. PYQs expect it unless the stem says 'modified' or 'current'.",
+          "text": "⚠ Exam note: current ATLS practice starts nearer 2 mL. Answer 4 mL unless the stem says 'current' or 'modified'.",
           "claims": [
-            "K82",
-            "K2"
+            "K82"
           ]
         }
       ],
@@ -216,22 +216,13 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That is not right. 11,200 mL comes from the figure you memorised for the exam, and this stem names a different practice.",
+          "text": "That is not right. 5,600 mL is only half of the key volume, the first-8-hour share. The 24-hour total comes first: 4 × 70 × 40.",
           "claims": [
-            "K82"
+            "K82",
+            "K2"
           ]
-        },
-        {
-          "text": "Read the qualifier before you multiply.",
-          "claims": []
         }
       ],
-      "sure_note": {
-        "text": "You were sure, so check the qualifier every time. The memorised key is the most tempting wrong answer here.",
-        "claims": [
-          "K82"
-        ]
-      },
       "choices": [
         {
           "label": "Try again",
@@ -239,17 +230,23 @@
           "kind": "retry"
         },
         {
-          "label": "Show me both numbers",
+          "label": "Show me the key and the note",
           "next": "t1_teach",
           "kind": "continue"
         }
-      ]
+      ],
+      "sure_note": {
+        "text": "You were sure, so total first, halve second: halving comes after you have the 24-hour figure.",
+        "claims": [
+          "K2"
+        ]
+      }
     },
     "t1_part": {
       "role": "feedback",
       "say": [
         {
-          "text": "That is not right. 2,800 mL halves the volume too early: halving comes after you have the 24-hour total, not instead of it.",
+          "text": "That is not right. 2,800 mL halves the volume twice. The 24-hour total comes first: 4 × 70 × 40.",
           "claims": [
             "K2"
           ]
@@ -272,14 +269,14 @@
       "role": "explain",
       "say": [
         {
-          "text": "Two numbers, side by side. The exam key is 4 mL × kg × %TBSA: 11,200 mL in 24 hours for this patient, with half in the first 8 hours.",
+          "text": "The exam key is 4 mL × kg × %TBSA: 11,200 mL in 24 hours for this patient, with half in the first 8 hours.",
           "claims": [
             "K82",
             "K2"
           ]
         },
         {
-          "text": "Current practice starts near 2 mL: 5,600 mL, then titrates hourly to urine output to limit fluid creep. The qualifier 'current' or 'modified' tells you which to use.",
+          "text": "⚠ Current practice (ATLS 10th) starts near 2 mL, 5,600 mL, then titrates hourly to urine output to limit fluid creep. Use it only when the stem says 'current' or 'modified'.",
           "claims": [
             "K82",
             "K45"
@@ -302,7 +299,7 @@
       "ask_confidence": true,
       "say": [
         {
-          "text": "Now the starting figure itself. In current adult practice, how much fluid per kg per %TBSA is the start?",
+          "text": "The stem now says 'current practice'. In an adult, how much fluid per kg per %TBSA is the start?",
           "claims": []
         }
       ],
@@ -330,7 +327,13 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Yes. About 2 mL, then titrate hourly to urine output. With no qualifier in the stem, the exam answer stays 4 mL, so the next steps use the 4 mL key.",
+          "text": "Yes. When the stem says 'current', the start is about 2 mL, then titrate hourly to urine output.",
+          "claims": [
+            "K82"
+          ]
+        },
+        {
+          "text": "The qualifier decides it. Without 'current' or 'modified', the key is 4 mL, which is what the next steps use.",
           "claims": [
             "K82"
           ]
@@ -348,14 +351,14 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That is not right. 4 mL is the exam-key multiplier, and this question asks about current practice.",
+          "text": "That is not right. 4 mL is the exam key, but this stem says 'current practice', so the start is about 2 mL.",
           "claims": [
             "K82"
           ]
         }
       ],
       "sure_note": {
-        "text": "You were sure. Giving the key without checking the qualifier is the exact error to fix here.",
+        "text": "You were sure. Read the qualifier first: 4 mL is not the answer to every fluid question.",
         "claims": [
           "K82"
         ]
@@ -1082,7 +1085,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Yes. The first-half target is 5,600 mL. Subtract the 1,500 mL already given: 4,100 mL, over the 5 hours left.",
+          "text": "Yes. The first-half target is 5,600 mL. Subtract the 1,500 mL already given: 4,100 mL, over the 5 hours left. Titrate hourly to urine output.",
           "claims": [
             "K45",
             "K43"
@@ -1092,7 +1095,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "c_seq",
+          "next": "d_recap",
           "kind": "continue"
         }
       ]
@@ -1169,272 +1172,8 @@
       "choices": [
         {
           "label": "Next",
-          "next": "c_seq",
-          "kind": "continue"
-        }
-      ]
-    },
-    "c_seq": {
-      "role": "probe",
-      "objectives": [
-        "O7"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "A patient arrives with a drip already running. You have confirmed the time of burn and the TBSA.",
-          "claims": []
-        },
-        {
-          "text": "What do you do next?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Stop the drip and restart the formula from zero",
-          "next": "c_seq_t4b",
-          "kind": "trap",
-          "trap": "TR4"
-        },
-        {
-          "label": "Start the full formula rate on top of the running drip",
-          "next": "c_seq_t4a",
-          "kind": "trap",
-          "trap": "TR4"
-        },
-        {
-          "label": "Subtract the fluid already given from the first-half volume",
-          "next": "c_seq_ok",
-          "kind": "correct"
-        }
-      ]
-    },
-    "c_seq_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. Count what has already gone in, then fit the rest of the first half into the time left, and titrate hourly to urine output.",
-          "claims": [
-            "K45",
-            "K43"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "d_try",
-          "kind": "continue"
-        }
-      ]
-    },
-    "c_seq_t4a": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not right. Running the full rate on top counts the same target twice over fluid that is already in.",
-          "claims": [
-            "K45"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so count what has gone in against the target before you prescribe.",
-        "claims": [
-          "K45"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "c_seq",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me the working",
-          "next": "c_seq_show",
-          "kind": "continue"
-        }
-      ]
-    },
-    "c_seq_t4b": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not right. Stopping the drip throws away fluid that already counts toward the target.",
-          "claims": [
-            "K45"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so keep the running volume in the sum rather than resetting it.",
-        "claims": [
-          "K45"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "c_seq",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me the working",
-          "next": "c_seq_show",
-          "kind": "continue"
-        }
-      ]
-    },
-    "c_seq_show": {
-      "role": "explain",
-      "say": [
-        {
-          "text": "The first-half volume is a total to reach by 8 hours from the burn. Fluid already given counts toward it, so you subtract it and run only the remainder.",
-          "claims": [
-            "K45"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "d_try",
-          "kind": "continue"
-        }
-      ]
-    },
-    "d_try": {
-      "role": "probe",
-      "objectives": [
-        "O4"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "Six hours after a 40% burn, the patient is tachycardic and hypotensive, with scant urine and a rising haematocrit.",
-          "claims": [
-            "K31"
-          ]
-        },
-        {
-          "text": "Which type of shock is this?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Septic: vasodilation from infection of the wound",
-          "next": "d_t31a",
-          "kind": "trap",
-          "trap": "TR31"
-        },
-        {
-          "label": "Cardiogenic: pump failure from myocardial depression",
-          "next": "d_t31b",
-          "kind": "trap",
-          "trap": "TR31"
-        },
-        {
-          "label": "Hypovolaemic: plasma lost through leaky capillaries",
-          "next": "d_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "d_hint",
-          "kind": "help"
-        }
-      ]
-    },
-    "d_hint": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Look at the haematocrit and the urine first. What is being lost from the circulation?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "d_try",
-          "kind": "retry"
-        }
-      ]
-    },
-    "d_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. Burn shock is mainly hypovolaemic. Scant urine and a rising haematocrit are signs the circulation is still under-filled.",
-          "claims": [
-            "K19",
-            "K31"
-          ]
-        },
-        {
-          "text": "Myocardial depression is real, but it is an add-on, not the main cause.",
-          "claims": [
-            "K19"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
           "next": "d_recap",
           "kind": "continue"
-        }
-      ]
-    },
-    "d_t31a": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not right. Low pressure and a fast pulse are shared with septic shock, but the haematocrit and urine point somewhere else.",
-          "claims": [
-            "K19",
-            "K31"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure. Start from the haematocrit and urine output, then ask what is being lost.",
-        "claims": [
-          "K31"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "d_try",
-          "kind": "retry"
-        }
-      ]
-    },
-    "d_t31b": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not right. Some myocardial depression is real, but it is an added factor, not the main driver of this picture.",
-          "claims": [
-            "K19"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so name the main cause before the added factor.",
-        "claims": [
-          "K19"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "d_try",
-          "kind": "retry"
         }
       ]
     },
@@ -1442,17 +1181,22 @@
       "role": "recap",
       "say": [
         {
-          "text": "The chain in order: find the time of burn. The exam key is 4 mL × kg × %TBSA of Ringer lactate, half in the first 8 hours counted from the burn, half in the next 16.",
+          "text": "The chain in order: find the time of burn. The exam key is 4 mL × kg × %TBSA of Ringer lactate.",
           "claims": [
             "K2",
-            "K43",
-            "K44"
+            "K43"
           ]
         },
         {
-          "text": "Deduct fluid already given and run the rest over the time left. Titrate hourly to urine output. If the stem says 'current', the start is about 2 mL.",
+          "text": "Half runs in the first 8 hours counted from the burn, half in the next 16. Deduct fluid already given and run the rest over the time left.",
           "claims": [
-            "K45",
+            "K44",
+            "K45"
+          ]
+        },
+        {
+          "text": "Titrate hourly to urine output. ⚠ Current ATLS practice starts nearer 2 mL; use it only when the stem says 'current' or 'modified'.",
+          "claims": [
             "K82"
           ]
         }

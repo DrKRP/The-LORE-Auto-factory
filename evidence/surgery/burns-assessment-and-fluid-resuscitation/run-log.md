@@ -1,1 +1,2 @@
 - 2026-10-21 round 0 review 3.61. Refine round 1: unify the fluid rule, cut repeats, merge duplicate cards, teach urine targets.
+- 2026-10-21 round 1 composite 3.635 (review 3.70, 2 sims) vs round 0 3.716; published round 1 by override (round 0 teaches a contradiction). S7.spot feedback reworded.
