@@ -1,0 +1,973 @@
+{
+  "segment": "S2",
+  "entry": "c1",
+  "nodes": {
+    "c1": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 58-year-old woman has a firm breast lump. Her core biopsy shows cells lying in single file, not in clumps.",
+          "claims": []
+        },
+        {
+          "text": "Which histological type fits best?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Invasive ductal carcinoma, scirrhous type",
+          "next": "c1_t10",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Invasive lobular carcinoma",
+          "next": "c1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Medullary carcinoma",
+          "next": "c1_med",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "c1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what holds cells together in a mass. This type has lost that cell-to-cell glue, so its cells travel out one at a time.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The answer is invasive lobular carcinoma. Loss of the cell-adhesion protein E-cadherin lets the cells separate and lie in single file, not as one stellate mass.",
+          "claims": [
+            "K27"
+          ]
+        },
+        {
+          "text": "Keep the cell pattern as your clue. How common a type is does not decide the answer.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c1_t10": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Ductal (NST) carcinoma is the commonest breast cancer, so it feels like the safe default. But it forms one hard, gritty, stellate mass, not cells in single file.",
+          "claims": [
+            "K26"
+          ]
+        },
+        {
+          "text": "Read the cell arrangement before the frequency.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Commonest is a trap when the stem describes a pattern; the cell arrangement decides the type.",
+        "claims": [
+          "K26",
+          "K27"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "c1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c1_med": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Medullary carcinoma is tempting because its lymphocytic infiltrate is prominent. But it is soft and well circumscribed, and its cells do not lie in single file.",
+          "claims": [
+            "K28"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Look at how the tumour cells are arranged, not at the stroma around them.",
+        "claims": [
+          "K28"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "c1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c2": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which histological type is most often bilateral or multicentric?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Invasive ductal carcinoma, NST",
+          "next": "c2_t10",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Invasive lobular carcinoma",
+          "next": "c2_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "c2_t10": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "NST is so common that it wins by default. But this question asks about growth pattern, and NST forms one stellate mass.",
+          "claims": [
+            "K26"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of the commonest type. For 'most often' questions, check how each type behaves.",
+        "claims": [
+          "K26"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "c2_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "c2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The answer is invasive lobular carcinoma. It is the type most often bilateral and multicentric.",
+          "claims": [
+            "K122",
+            "K27"
+          ]
+        },
+        {
+          "text": "Its single-file cells also spread unusually, to peritoneum, ovaries, gut and meninges.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "g1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "g1": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which pair of chromosomal locations is correct for the two hereditary breast cancer genes?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "BRCA1 on 13q, BRCA2 on 17q",
+          "next": "g1_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "BRCA1 on 17q, BRCA2 on 13q",
+          "next": "g1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Both genes on 17q",
+          "next": "g1_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "g1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "g1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Treat each gene as a separate fact with its own locus. Do not memorise the two numbers as one pair.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "g1_t8": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The two numbers are easy to swap, because they are remembered as one pair. Each gene owns one locus, so hold the pairing gene by gene.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of the numbers, which is exactly where the swap happens. Check each gene's own locus.",
+        "claims": [
+          "K4"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "g1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "g1_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The two genes sit on different chromosomes, so placing both on 17q merges two separate loci.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure both genes share a site. Each gene has its own locus.",
+        "claims": [
+          "K4"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "g1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "g1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The answer is BRCA1 on 17q and BRCA2 on 13q.",
+          "claims": [
+            "K4"
+          ]
+        },
+        {
+          "text": "For the numbers: BRCA1 is the 1, and it sits on 17. BRCA2 goes with 13.",
+          "claims": [
+            "K4"
+          ],
+          "device": true
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "g2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "g2": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A breast and ovarian cancer family carries a mutation on chromosome 17q. Which gene is most likely?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "BRCA2",
+          "next": "g2_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "BRCA1",
+          "next": "g2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "PTEN",
+          "next": "g2_p",
+          "kind": "partial"
+        }
+      ]
+    },
+    "g2_t8": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "BRCA2 is tempting because the two gene names and their numbers blur together. The stem names a chromosome, and each gene has only one.",
+          "claims": [
+            "K4"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Match the locus the stem names, not the gene you know better.",
+        "claims": [
+          "K4"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "g2_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "g2_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "PTEN belongs to Cowden syndrome, a real hereditary breast risk. But this stem describes the breast and ovarian BRCA pattern.",
+          "claims": [
+            "K16"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of a syndrome gene. Check which family pattern the stem describes.",
+        "claims": [
+          "K16"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "g2_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "g2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The answer is BRCA1. It lies on 17q, and BRCA1-linked cancers are typically triple-negative.",
+          "claims": [
+            "K4",
+            "K17"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "sub",
+          "kind": "continue"
+        }
+      ]
+    },
+    "sub": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Next, the molecular subtype. Luminal A is the most common: oestrogen receptor (ER) or progesterone receptor (PR) positive, HER2 negative, with low Ki-67 (a proliferation marker).",
+          "claims": [
+            "K32",
+            "K125"
+          ]
+        },
+        {
+          "text": "Basal-like, or triple-negative, is ER, PR and HER2 negative. It is the pattern most linked to BRCA1.",
+          "claims": [
+            "K35",
+            "K17"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "p1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "p1": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 3 cm tumour has peau d'orange over it, from blocked skin lymphatics, with no redness or warmth. Which T category does it give?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "T4d, inflammatory carcinoma",
+          "next": "p1_t12",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "T4b, skin involvement",
+          "next": "p1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "T4a, chest wall fixation",
+          "next": "p1_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "p1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "p1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the skin sign alone shows. Then ask which T4 sub-category needs the whole red, warm, swollen picture.",
+          "claims": [
+            "K48"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "p1_t12": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "The inflammatory picture is tempting, since peau d'orange is the famous sign of inflammatory carcinoma. But the sign alone is only skin involvement.",
+          "claims": [
+            "K7"
+          ]
+        },
+        {
+          "text": "T4d needs the whole red, warm, swollen breast, with one-third of it involved.",
+          "claims": [
+            "K48"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure about the sign. A single sign is not the whole syndrome; check the full clinical picture.",
+        "claims": [
+          "K48"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "p1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p1_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "A skin sign does not show that the tumour is fixed to the chest wall. Fixity is tested with the pectoralis major contracted.",
+          "claims": [
+            "K47"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of fixity. The skin sign and fixity are two separate findings; keep them apart.",
+        "claims": [
+          "K47"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "p1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "p1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "p1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The answer is T4b. Peau d'orange comes from blocked subdermal lymphatics with skin oedema, and on its own it places the tumour in T4b.",
+          "claims": [
+            "K7",
+            "K65"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "lym",
+          "kind": "continue"
+        }
+      ]
+    },
+    "lym": {
+      "role": "explain",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Lymph follows the same logic. About 75% of breast lymph drains to the axillary nodes, and most of the rest goes to the internal mammary nodes.",
+          "claims": [
+            "K40"
+          ]
+        },
+        {
+          "text": "Axillary levels are set by pectoralis minor: level I lateral, level II behind it, level III medial. Ducts and fascia carry local spread, and Cooper's ligaments pull the skin into dimples.",
+          "claims": [
+            "K41",
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "g3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "g3": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Which gene is most associated with male breast cancer?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "BRCA1",
+          "next": "g3_t9",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "BRCA2",
+          "next": "g3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "TP53",
+          "next": "g3_p",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "g3_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "g3_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Klinefelter syndrome is the other male risk factor. Ask which BRCA gene the male pattern goes with, and set the other aside.",
+          "claims": [
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "g3_t9": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "BRCA1 is tempting because it is the best-known breast gene and answers most hereditary stems. But its typical cancers are triple-negative in women, a different pattern from male disease.",
+          "claims": [
+            "K17",
+            "K22"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of the best-known gene. Fame is not a reason to pick a gene for every phenotype.",
+        "claims": [
+          "K17"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "g3_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "g3_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "TP53 causes Li-Fraumeni syndrome, a real hereditary cancer risk, but it is not the link to male breast cancer.",
+          "claims": [
+            "K16"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of a cancer gene. Name each gene with its own syndrome first, then match the phenotype.",
+        "claims": [
+          "K16"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "g3_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "g3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The answer is BRCA2. It is the gene more associated with male breast cancer.",
+          "claims": [
+            "K4",
+            "K22"
+          ]
+        },
+        {
+          "text": "Klinefelter syndrome is the other risk factor, and male breast cancer is about 1% of all breast cancers.",
+          "claims": [
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "g4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "g4": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Family A has triple-negative breast cancers in women. Family B has breast cancer in a man.",
+          "claims": []
+        },
+        {
+          "text": "Which pairing of genes fits best?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "BRCA1 in both families",
+          "next": "g4_t9",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "BRCA1 in family A, BRCA2 in family B",
+          "next": "g4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "BRCA2 in both families",
+          "next": "g4_p",
+          "kind": "partial"
+        }
+      ]
+    },
+    "g4_t9": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "BRCA1 for both is tempting, since it is the familiar gene. But breast cancer in a man does not fit the BRCA1 pattern of triple-negative cancers in women.",
+          "claims": [
+            "K17",
+            "K22"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure one gene fits both families. Each family's pattern needs its own check.",
+        "claims": [
+          "K17",
+          "K22"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "g4_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "g4_p": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not the right choice.",
+          "claims": []
+        },
+        {
+          "text": "Choosing BRCA2 for both is tempting if you stop at the male link. Family A's triple-negative cancers in women are not explained by that gene alone.",
+          "claims": [
+            "K17",
+            "K22"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of the male link. Check the other family's pattern before you apply it.",
+        "claims": [
+          "K22"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "g4_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "g4_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "The answer is BRCA1 for family A, because its cancers are typically triple-negative. BRCA2 fits family B, the male breast cancer gene.",
+          "claims": [
+            "K17",
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
