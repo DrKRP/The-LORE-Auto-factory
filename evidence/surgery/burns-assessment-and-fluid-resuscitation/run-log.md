@@ -1,0 +1,1 @@
+- 2026-10-21 round 0 review 3.61. Refine round 1: unify the fluid rule, cut repeats, merge duplicate cards, teach urine targets.

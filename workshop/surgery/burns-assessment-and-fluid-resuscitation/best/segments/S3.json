@@ -1,0 +1,1039 @@
+{
+  "segment": "S3",
+  "entry": "shock_case",
+  "nodes": {
+    "shock_case": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "A 40-year-old has a 35% scald to the chest and both legs, seen 6 hours after the burn.",
+          "claims": [
+            "K18"
+          ]
+        },
+        {
+          "text": "BP 85/50, pulse 130, urine 15 mL/h. Haematocrit has risen from 42 to 55. Temperature 37.2 °C. What type of shock is this?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Septic shock, from the infected burn",
+          "next": "shock_septic",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Hypovolaemic shock, from plasma loss",
+          "next": "shock_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Cardiogenic shock, from a failing pump",
+          "next": "shock_cardio",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "shock_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "shock_hint": {
+      "role": "hint",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Ask what has left the circulation. Haematocrit rises when plasma leaves the vessels, and urine falls with it.",
+          "claims": [
+            "K18"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "shock_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "shock_septic": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "That is not right. Infection is a later threat, not the first cause of shock in the opening hours.",
+          "claims": [
+            "K66"
+          ]
+        },
+        {
+          "text": "Look at the haematocrit. Which way is it moving, and what does that say is leaving the blood?",
+          "claims": [
+            "K18"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "shock_septic_why",
+          "kind": "deeper"
+        },
+        {
+          "label": "Try again",
+          "next": "shock_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "shock_septic_why": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Septic shock tempts because burns do get infected, and sepsis is a real killer after the first 48 to 72 hours.",
+          "claims": [
+            "K66"
+          ]
+        },
+        {
+          "text": "But early burn shock is predominantly hypovolaemic: capillary leak moves plasma out, haematocrit rises and urine falls. Heart depression is an add-on.",
+          "claims": [
+            "K19",
+            "K18"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "shock_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "shock_cardio": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "That is not right. A weak pump is only a secondary factor in early burn shock.",
+          "claims": [
+            "K19"
+          ]
+        },
+        {
+          "text": "Check the blood count and the urine. What do they say about the volume that is missing?",
+          "claims": [
+            "K31"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "shock_cardio_why",
+          "kind": "deeper"
+        },
+        {
+          "label": "Try again",
+          "next": "shock_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "shock_cardio_why": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Cardiogenic shock tempts because the burn does depress myocardial function, and that part is real.",
+          "claims": [
+            "K19"
+          ]
+        },
+        {
+          "text": "But the main problem is plasma loss: haematocrit rises and urine falls, so volume comes first.",
+          "claims": [
+            "K19",
+            "K31"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "shock_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "shock_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Yes. A rising haematocrit and low urine output both mean plasma is leaving the circulation.",
+          "claims": [
+            "K18",
+            "K31"
+          ]
+        },
+        {
+          "text": "Burn shock is predominantly hypovolaemic, with some myocardial depression from mediators.",
+          "claims": [
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Why does plasma leak so fast?",
+          "next": "shock_why",
+          "kind": "deeper"
+        },
+        {
+          "label": "Next",
+          "next": "fluid_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "shock_why": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "A local burn releases histamine, prostaglandins and free radicals, which make the capillaries leaky.",
+          "claims": [
+            "K17"
+          ]
+        },
+        {
+          "text": "The leak starts within minutes, peaks at 8 to 12 hours and runs on for up to 24 hours.",
+          "claims": [
+            "K17"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fluid_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fluid_probe": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Still in the first 24 hours. The heart is a little depressed. What is the first-line treatment for this shock?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Inotropes to support the failing heart",
+          "next": "fluid_t31",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Albumin infusion at full dose from the start",
+          "next": "fluid_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Ringer lactate titrated to urine output",
+          "next": "fluid_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fluid_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fluid_hint": {
+      "role": "hint",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Ask what the body is short of. The missing part is plasma volume, and it is the volume that goes back first.",
+          "claims": [
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fluid_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fluid_t31": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "That is not right. Inotropes treat a weak heart, and the heart is not the main problem in burn shock.",
+          "claims": [
+            "K19"
+          ]
+        },
+        {
+          "text": "What is missing from the circulation? Think about the haematocrit and the urine again.",
+          "claims": [
+            "K18",
+            "K31"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fluid_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fluid_t8": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "That is not right. Albumin has a role in burn care, but it is not the first fluid at the start.",
+          "claims": [
+            "K46"
+          ]
+        },
+        {
+          "text": "Check the timing. What does classic practice give in the first hours, and when does colloid come in?",
+          "claims": [
+            "K46"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "fluid_t8_why",
+          "kind": "deeper"
+        },
+        {
+          "label": "Try again",
+          "next": "fluid_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fluid_t8_why": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Albumin tempts because burns do lose protein, and albumin is a familiar fluid on the ward.",
+          "claims": [
+            "K18"
+          ]
+        },
+        {
+          "text": "But the leak is the first problem, and classic Parkland gives crystalloid alone in the first 24 hours. Colloid comes later, about 8 to 24 hours, or when needs are very high.",
+          "claims": [
+            "K46"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fluid_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fluid_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Yes. Ringer lactate is the fluid of choice, and it is titrated to urine output rather than fixed.",
+          "claims": [
+            "K68",
+            "K1"
+          ]
+        },
+        {
+          "text": "Large volumes of saline cause hyperchloraemic acidosis, which is why Ringer lactate is preferred.",
+          "claims": [
+            "K54"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "colloid_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "colloid_probe": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Classic Parkland, first 24 hours. Which drip is correct?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Ringer lactate plus albumin from the start",
+          "next": "colloid_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Ringer lactate plus 5% dextrose from the start",
+          "next": "colloid_t8d",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Ringer lactate alone, no colloid on day one",
+          "next": "colloid_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "colloid_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "colloid_hint": {
+      "role": "hint",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Ask what Parkland adds to Ringer lactate on day one. Then ask which other formulae add something.",
+          "claims": [
+            "K87"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "colloid_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "colloid_t8": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "That is not right. Classic Parkland does not give albumin on day one.",
+          "claims": [
+            "K46"
+          ]
+        },
+        {
+          "text": "Read the choice again against the first 24 hours. What does the plan give, and what does it add?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "colloid_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "colloid_t8d": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "That is not right. Dextrose belongs to the Brooke and Evans formulae, not to classic Parkland.",
+          "claims": [
+            "K50"
+          ]
+        },
+        {
+          "text": "Which formula uses Ringer lactate and nothing else on day one?",
+          "claims": [
+            "K46"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "colloid_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "colloid_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Yes. In classic Parkland the first 24 hours are crystalloid only. Colloid is considered once the leak settles, about 8 to 24 hours.",
+          "claims": [
+            "K46"
+          ]
+        },
+        {
+          "text": "The formulae that carry colloid are Evans and Brooke, and both add dextrose in water.",
+          "claims": [
+            "K87",
+            "K50"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "depth_case",
+          "kind": "continue"
+        }
+      ]
+    },
+    "depth_case": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "A forearm burn, mottled red and white. It hurts less than the skin around it, and it refills slowly when pressed.",
+          "claims": [
+            "K25"
+          ]
+        },
+        {
+          "text": "What depth is it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Full thickness burn",
+          "next": "depth_t_full",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Superficial partial thickness burn",
+          "next": "depth_t_sup",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Deep partial thickness burn",
+          "next": "depth_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "depth_hint",
+          "kind": "help"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "depth_hint": {
+      "role": "hint",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Grade the burn by the skin first: its colour, whether it blanches, and how it refills. Then ask whether the pain agrees.",
+          "claims": [
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "depth_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "depth_t_full": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "That is not right. Less painful is not the same as painless, and this burn is not insensate.",
+          "claims": [
+            "K26"
+          ]
+        },
+        {
+          "text": "Look at the sensation in the stem again. Is the forearm insensate, or only less painful?",
+          "claims": [
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "depth_t_full_why",
+          "kind": "deeper"
+        },
+        {
+          "label": "Try again",
+          "next": "depth_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "depth_t_full_why": {
+      "role": "explain",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Full thickness tempts because a burn that has lost feeling sounds like the worst burn, and reduced pain seems to tell the same story.",
+          "claims": [
+            "K26"
+          ]
+        },
+        {
+          "text": "Deep partial is less painful, mottled and slow to refill. Full thickness is painless, dry, leathery and does not blanch.",
+          "claims": [
+            "K25",
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "depth_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "depth_t_sup": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "That is not right. Superficial partial burns are blistered, moist, pink and very painful, and they blanch.",
+          "claims": [
+            "K24"
+          ]
+        },
+        {
+          "text": "Less pain can look like a shallower step, but this burn is mottled with sluggish refill. Which depth has those signs?",
+          "claims": [
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "depth_case",
+          "kind": "retry"
+        }
+      ]
+    },
+    "depth_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Yes. Mottled, less painful and slow to refill fits deep partial thickness. Less pain is a clue to deep injury, not to full thickness.",
+          "claims": [
+            "K25"
+          ]
+        },
+        {
+          "text": "Depth is read by pain, blanching and appearance together. Underestimating depth is the commonest error.",
+          "claims": [
+            "K26",
+            "K28"
+          ]
+        },
+        {
+          "text": "Simple erythema is not counted toward the burn area for resuscitation.",
+          "claims": [
+            "K8"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "depth_contrast",
+          "kind": "continue"
+        }
+      ]
+    },
+    "depth_contrast": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Which feature separates full thickness from deep partial thickness?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Less painful than the skin around it",
+          "next": "contrast_t_pain",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Painless, dry, leathery, does not blanch",
+          "next": "contrast_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Healing takes over 3 weeks, with scarring",
+          "next": "contrast_t_heal",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "contrast_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "contrast_hint": {
+      "role": "hint",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Start with sensation. Which description says the feeling is gone, and which only says the burn hurts less?",
+          "claims": [
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "depth_contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "contrast_t_pain": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "That is not right. Deep partial burns also hurt less than normal skin, so reduced pain does not separate the two.",
+          "claims": [
+            "K25"
+          ]
+        },
+        {
+          "text": "Pain is the first thing you check at the bedside, so it feels like the separator. Ask whether sensation is gone, not whether it hurts less.",
+          "claims": [
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "depth_contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "contrast_t_heal": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "That is not right. Slow healing with scarring describes deep partial burns, so it cannot separate the two.",
+          "claims": [
+            "K25"
+          ]
+        },
+        {
+          "text": "Duration is a favourite exam clue, but on the day you judge sensation, blanching and dryness. Depth often declares itself only at 48 to 72 hours.",
+          "claims": [
+            "K26",
+            "K28"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "depth_contrast",
+          "kind": "retry"
+        }
+      ]
+    },
+    "contrast_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Yes. Full thickness is painless, dry, leathery and does not blanch. Deep partial is less painful, with mottling and slow refill.",
+          "claims": [
+            "K26",
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "cold_check",
+          "kind": "continue"
+        }
+      ]
+    },
+    "cold_check": {
+      "role": "probe",
+      "objectives": [
+        "O4",
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "No hints now. A 50% scald to the trunk and forearm, 6 hours in. Haematocrit is rising, urine is 15 mL/h, and the forearm is mottled and less painful than the skin around it.",
+          "claims": [
+            "K18",
+            "K25"
+          ]
+        },
+        {
+          "text": "Which plan fits best?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Septic shock, deep partial forearm, titrated Ringer lactate",
+          "next": "cold_t31",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Hypovolaemic shock, full thickness forearm, titrated Ringer lactate",
+          "next": "cold_t18",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Hypovolaemic shock, deep partial forearm, Ringer lactate with early albumin",
+          "next": "cold_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Hypovolaemic shock, deep partial forearm, titrated Ringer lactate",
+          "next": "cold_ok",
+          "kind": "correct"
+        }
+      ],
+      "ask_confidence": true
+    },
+    "cold_t31": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "That is not right. Infection is a later threat, and the rising haematocrit shows plasma loss first.",
+          "claims": [
+            "K66",
+            "K18"
+          ]
+        },
+        {
+          "text": "Which way is the haematocrit moving, and what does that say is leaving the circulation?",
+          "claims": [
+            "K18"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cold_check",
+          "kind": "retry"
+        }
+      ]
+    },
+    "cold_t18": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "That is not right. The forearm is less painful, which points to deep partial, not full thickness.",
+          "claims": [
+            "K25",
+            "K26"
+          ]
+        },
+        {
+          "text": "Check the sensation in the stem again. Is it painless, or only less painful?",
+          "claims": [
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cold_check",
+          "kind": "retry"
+        }
+      ]
+    },
+    "cold_t8": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "That is not right. Classic Parkland gives crystalloid alone in the first 24 hours.",
+          "claims": [
+            "K46"
+          ]
+        },
+        {
+          "text": "Check the timing of colloid against the first day. Which hours does the plan cover?",
+          "claims": [
+            "K46"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "cold_check",
+          "kind": "retry"
+        }
+      ]
+    },
+    "cold_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4",
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Yes. Hypovolaemic shock, a deep partial forearm, and Ringer lactate titrated to urine output: each part fits the picture.",
+          "claims": [
+            "K19",
+            "K25",
+            "K1"
+          ]
+        },
+        {
+          "text": "The fluid is then steered hour by hour, not fixed by a formula.",
+          "claims": [
+            "K51"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  },
+  "technique": "T3+T2",
+  "decision": "merge"
+}

@@ -1,0 +1,1469 @@
+{
+  "segment": "S5",
+  "technique": "T4+T8+T5",
+  "decision": "merge",
+  "entry": "why",
+  "nodes": {
+    "why": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 40% burn can need several litres of fluid in the first day. Why does so much volume leave the circulation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "The burn damages the heart, so it needs volume to restore output",
+          "next": "why_t31a",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Capillary leak drains plasma out of the circulation for hours",
+          "next": "why_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "The wound is infected, and sepsis needs large volume to clear it",
+          "next": "why_t31b",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "why_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "why_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the burn does to the blood vessels first, before any pump problem or infection.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why",
+          "kind": "retry"
+        }
+      ]
+    },
+    "why_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Mediators released by the burn raise capillary permeability, so plasma leaks out. The leak is maximal in the first 8 to 12 hours and continues up to 24 hours.",
+          "claims": [
+            "K17"
+          ]
+        },
+        {
+          "text": "That makes burn shock mainly hypovolaemic, and Ringer lactate is the fluid of choice.",
+          "claims": [
+            "K19",
+            "K68"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t1_try",
+          "kind": "continue"
+        }
+      ]
+    },
+    "why_t31a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. A fast pulse and low pressure make the heart look like the culprit, but myocardial depression is only an added factor in burn shock.",
+          "claims": [
+            "K19"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so name the main cause before the added factor. Ask what the volume is replacing.",
+        "claims": [
+          "K19"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why",
+          "kind": "retry"
+        }
+      ]
+    },
+    "why_t31b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. A very sick patient feels septic, but infection of the wound is not what drains the circulation in the first hours.",
+          "claims": [
+            "K17",
+            "K19"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate early burn shock from later infection. Ask what comes first after the injury.",
+        "claims": [
+          "K17"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t1_try": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 70 kg adult has a 40% TBSA scald, and the question says 'as per current ATLS practice'.",
+          "claims": []
+        },
+        {
+          "text": "What is the starting 24-hour Ringer lactate volume?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "11,200 mL in 24 hours",
+          "next": "t1_tr1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "5,600 mL in 24 hours",
+          "next": "t1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "2,800 mL in 24 hours",
+          "next": "t1_part",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "t1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "t1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Read the qualifier in the stem before you multiply. Which practice does the question name?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t1_try",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Current practice starts at about 2 mL per kg per %TBSA: 2 × 70 × 40 = 5,600 mL in 24 hours, then it is titrated to urine output.",
+          "claims": [
+            "K82"
+          ]
+        },
+        {
+          "text": "The exam key is 4 mL, which gives 11,200 mL. PYQs expect it unless the stem says 'modified' or 'current'.",
+          "claims": [
+            "K82",
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t1_check",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t1_tr1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. 11,200 mL comes from the figure you memorised for the exam, and this stem names a different practice.",
+          "claims": [
+            "K82"
+          ]
+        },
+        {
+          "text": "Read the qualifier before you multiply.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the qualifier every time. The memorised key is the most tempting wrong answer here.",
+        "claims": [
+          "K82"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t1_try",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me both numbers",
+          "next": "t1_teach",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t1_part": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. 2,800 mL halves the volume too early: halving comes after you have the 24-hour total, not instead of it.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t1_try",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me both numbers",
+          "next": "t1_teach",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t1_teach": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Two numbers, side by side. The exam key is 4 mL × kg × %TBSA: 11,200 mL in 24 hours for this patient, with half in the first 8 hours.",
+          "claims": [
+            "K82",
+            "K2"
+          ]
+        },
+        {
+          "text": "Current practice starts near 2 mL: 5,600 mL, then titrates hourly to urine output to limit fluid creep. The qualifier 'current' or 'modified' tells you which to use.",
+          "claims": [
+            "K82",
+            "K45"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t1_check",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t1_check": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now the starting figure itself. In current adult practice, how much fluid per kg per %TBSA is the start?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "1.5 mL crystalloid plus 0.5 mL colloid",
+          "next": "t1_c_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "2 mL Ringer lactate, then titrate to urine output",
+          "next": "t1_c_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "4 mL Ringer lactate, then titrate to urine output",
+          "next": "t1_c_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        }
+      ]
+    },
+    "t1_c_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. About 2 mL, then titrate hourly to urine output. With no qualifier in the stem, the exam answer stays 4 mL, so the next steps use the 4 mL key.",
+          "claims": [
+            "K82"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wx1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t1_c_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. 4 mL is the exam-key multiplier, and this question asks about current practice.",
+          "claims": [
+            "K82"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Giving the key without checking the qualifier is the exact error to fix here.",
+        "claims": [
+          "K82"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t1_check",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t1_c_t8": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. That mix is the Brooke formula, which adds colloid. Parkland gives crystalloid only in the first 24 hours.",
+          "claims": [
+            "K50",
+            "K46"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. A formula with colloid belongs to another name; keep each formula with its fluid.",
+        "claims": [
+          "K50"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t1_check",
+          "kind": "retry"
+        }
+      ]
+    },
+    "wx1": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Now the exam key, step by step. Step 1: 4 × 70 × 40 = 11,200 mL in 24 hours.",
+          "claims": [
+            "K44"
+          ]
+        },
+        {
+          "text": "Step 2: half, 5,600 mL, runs in the first 8 hours counted from the burn. The other half runs over the next 16 hours.",
+          "claims": [
+            "K2",
+            "K44"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next, your turn",
+          "next": "wx2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wx2": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same patient, key figures, and the infusion starts at the moment of the burn.",
+          "claims": []
+        },
+        {
+          "text": "What hourly rate covers the first 8 hours?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "1,400 mL/h",
+          "next": "wx2_t3a",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "700 mL/h",
+          "next": "wx2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "233 mL/h",
+          "next": "wx2_t3b",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "350 mL/h",
+          "next": "wx2_part",
+          "kind": "partial"
+        }
+      ]
+    },
+    "wx2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. 5,600 mL over 8 hours is 700 mL/h. Halve the total, then divide by the window.",
+          "claims": [
+            "K44"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wx3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wx2_t3a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. 1,400 mL/h pushes far more than the first window's share into 8 hours.",
+          "claims": [
+            "K44"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the halving on paper: how much of the total belongs to this window?",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wx2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the working",
+          "next": "wx2_show",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wx2_t3b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. 233 mL/h spreads the first-half volume over 24 hours, but it is due in a much shorter window.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so match each volume to its own window before you divide.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wx2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the working",
+          "next": "wx2_show",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wx2_part": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. 350 mL/h is a real rate in this chain, but it belongs to the other window.",
+          "claims": [
+            "K44"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wx2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the working",
+          "next": "wx2_show",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wx2_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The first half is 5,600 mL, due in 8 hours: 5,600 ÷ 8 = 700 mL/h. The other window carries the second half at a different rate.",
+          "claims": [
+            "K44"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "wx3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wx3": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "The first window is set. The other 5,600 mL now runs over the 16 hours that follow.",
+          "claims": [
+            "K44"
+          ]
+        },
+        {
+          "text": "What hourly rate is that?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "700 mL/h, the same rate",
+          "next": "wx3_t3a",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "175 mL/h",
+          "next": "wx3_t3b",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "350 mL/h",
+          "next": "wx3_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "wx3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. 5,600 ÷ 16 = 350 mL/h, slower than the first window because the same volume has twice as long.",
+          "claims": [
+            "K44"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "b_try",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wx3_t3a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. The same rate as the first window would finish this volume in 8 hours, not 16.",
+          "claims": [
+            "K44"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so divide by this window's hours, not the last window's.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wx3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the working",
+          "next": "wx3_show",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wx3_t3b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. 175 mL/h halves this volume a second time, which the plan never does.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so halve once only: the total splits into two parts, and each part is then divided by its own window.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "wx3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the working",
+          "next": "wx3_show",
+          "kind": "continue"
+        }
+      ]
+    },
+    "wx3_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "5,600 mL ÷ 16 hours = 350 mL/h. Two halves, two windows: 700 mL/h for the first 8 hours, 350 mL/h for the next 16.",
+          "claims": [
+            "K44"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "b_try",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b_try": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 70 kg adult with 40% TBSA arrives 3 hours after the burn, with no fluid given yet. Use the 4 mL key.",
+          "claims": []
+        },
+        {
+          "text": "What infusion rate does the first-half volume need now?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "700 mL/h for 8 hours from arrival",
+          "next": "b_tr2",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "1,120 mL/h",
+          "next": "b_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "2,240 mL/h",
+          "next": "b_tr3",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "b_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "b_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Find the time of the burn first. Then ask how many hours of the first window are left.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b_try",
+          "kind": "retry"
+        }
+      ]
+    },
+    "b_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The first half, 5,600 mL, is due 8 hours from the burn. Three hours have gone, so 5 remain: 5,600 ÷ 5 = 1,120 mL/h.",
+          "claims": [
+            "K44",
+            "K43"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "clock",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b_tr2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. That plan starts the 8 hours at the wrong moment, as if the three hours since the burn had not happened.",
+          "claims": [
+            "K83"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. The arrival clock is the commonest Parkland slip, so ask when the 8 hours began.",
+        "claims": [
+          "K83"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b_try",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the working",
+          "next": "b_show",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b_tr3": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. This rate spreads the wrong volume: the first window does not carry the whole 24-hour total.",
+          "claims": [
+            "K44"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check which quantity you divide before you divide it.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b_try",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the working",
+          "next": "b_show",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The 8 hours run from the burn, so 5 remain. The first half is 5,600 mL: 5,600 ÷ 5 = 1,120 mL/h.",
+          "claims": [
+            "K43",
+            "K44"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "clock",
+          "kind": "continue"
+        }
+      ]
+    },
+    "clock": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same patient, 3 hours after the burn.",
+          "claims": []
+        },
+        {
+          "text": "Which statement explains where the first 8-hour window starts?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "When care begins, since leak is worst in the next 8 hours",
+          "next": "clock_t2b",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "When the team takes over, since resuscitation is their job",
+          "next": "clock_t2a",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "The burn, because the leak and the deficit start at injury",
+          "next": "clock_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "clock_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "clock_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what makes fluid leave the circulation, and when that begins.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "clock",
+          "kind": "retry"
+        }
+      ]
+    },
+    "clock_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Mediators raise capillary permeability from the moment of injury, so the deficit is already building when the patient arrives.",
+          "claims": [
+            "K17",
+            "K83"
+          ]
+        },
+        {
+          "text": "Remember it as the burn clock, not the bed clock.",
+          "claims": [
+            "K83"
+          ],
+          "device": true
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c_try",
+          "kind": "continue"
+        }
+      ]
+    },
+    "clock_t2a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. The team's role may start late, but the leak does not wait for the team.",
+          "claims": [
+            "K83"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask which event started the leak, not which event started your involvement.",
+        "claims": [
+          "K17"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "clock",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the working",
+          "next": "clock_show",
+          "kind": "continue"
+        }
+      ]
+    },
+    "clock_t2b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. The leak does not restart when care begins; its start is set by something earlier.",
+          "claims": [
+            "K17"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate how heavy the leak is from when it began.",
+        "claims": [
+          "K17"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "clock",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the working",
+          "next": "clock_show",
+          "kind": "continue"
+        }
+      ]
+    },
+    "clock_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The leak begins at injury and is maximal in the first 8 to 12 hours, so the window is counted from the burn, not from arrival.",
+          "claims": [
+            "K17",
+            "K83"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c_try",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c_try": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 70 kg adult with a 40% burn arrives 3 hours after the injury. The ambulance has already given 1,500 mL of Ringer lactate. Use the 4 mL key.",
+          "claims": []
+        },
+        {
+          "text": "What is the rest of the first-half plan?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "4,100 mL over 8 hours from arrival",
+          "next": "c_tr2",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "5,600 mL over the remaining 5 hours",
+          "next": "c_tr4",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "4,100 mL over the remaining 5 hours",
+          "next": "c_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "c_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Start from the first-half target counted from the burn. Then ask what has already gone in.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c_try",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The first-half target is 5,600 mL. Subtract the 1,500 mL already given: 4,100 mL, over the 5 hours left.",
+          "claims": [
+            "K45",
+            "K43"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c_seq",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c_tr4": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. That is the full first-half target, and the ambulance has already delivered part of it.",
+          "claims": [
+            "K45"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Check what has already been given before you prescribe the target.",
+        "claims": [
+          "K45"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c_try",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the working",
+          "next": "c_show",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c_tr2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. The deduction is sound, but the window is anchored to the wrong moment.",
+          "claims": [
+            "K83"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Anchor the window to the time of burn in every stem.",
+        "claims": [
+          "K83"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c_try",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the working",
+          "next": "c_show",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "5,600 mL target minus 1,500 mL given leaves 4,100 mL. The window is 8 hours from the burn, so 5 hours remain at arrival.",
+          "claims": [
+            "K45",
+            "K43"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "c_seq",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c_seq": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A patient arrives with a drip already running. You have confirmed the time of burn and the TBSA.",
+          "claims": []
+        },
+        {
+          "text": "What do you do next?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Stop the drip and restart the formula from zero",
+          "next": "c_seq_t4b",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Start the full formula rate on top of the running drip",
+          "next": "c_seq_t4a",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Subtract the fluid already given from the first-half volume",
+          "next": "c_seq_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "c_seq_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Count what has already gone in, then fit the rest of the first half into the time left, and titrate hourly to urine output.",
+          "claims": [
+            "K45",
+            "K43"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "d_try",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c_seq_t4a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. Running the full rate on top counts the same target twice over fluid that is already in.",
+          "claims": [
+            "K45"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so count what has gone in against the target before you prescribe.",
+        "claims": [
+          "K45"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c_seq",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the working",
+          "next": "c_seq_show",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c_seq_t4b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. Stopping the drip throws away fluid that already counts toward the target.",
+          "claims": [
+            "K45"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so keep the running volume in the sum rather than resetting it.",
+        "claims": [
+          "K45"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c_seq",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me the working",
+          "next": "c_seq_show",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c_seq_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The first-half volume is a total to reach by 8 hours from the burn. Fluid already given counts toward it, so you subtract it and run only the remainder.",
+          "claims": [
+            "K45"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "d_try",
+          "kind": "continue"
+        }
+      ]
+    },
+    "d_try": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Six hours after a 40% burn, the patient is tachycardic and hypotensive, with scant urine and a rising haematocrit.",
+          "claims": [
+            "K31"
+          ]
+        },
+        {
+          "text": "Which type of shock is this?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Septic: vasodilation from infection of the wound",
+          "next": "d_t31a",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Cardiogenic: pump failure from myocardial depression",
+          "next": "d_t31b",
+          "kind": "trap",
+          "trap": "TR31"
+        },
+        {
+          "label": "Hypovolaemic: plasma lost through leaky capillaries",
+          "next": "d_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "d_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "d_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Look at the haematocrit and the urine first. What is being lost from the circulation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "d_try",
+          "kind": "retry"
+        }
+      ]
+    },
+    "d_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Burn shock is mainly hypovolaemic. Scant urine and a rising haematocrit are signs the circulation is still under-filled.",
+          "claims": [
+            "K19",
+            "K31"
+          ]
+        },
+        {
+          "text": "Myocardial depression is real, but it is an add-on, not the main cause.",
+          "claims": [
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "d_recap",
+          "kind": "continue"
+        }
+      ]
+    },
+    "d_t31a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. Low pressure and a fast pulse are shared with septic shock, but the haematocrit and urine point somewhere else.",
+          "claims": [
+            "K19",
+            "K31"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Start from the haematocrit and urine output, then ask what is being lost.",
+        "claims": [
+          "K31"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "d_try",
+          "kind": "retry"
+        }
+      ]
+    },
+    "d_t31b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is not right. Some myocardial depression is real, but it is an added factor, not the main driver of this picture.",
+          "claims": [
+            "K19"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so name the main cause before the added factor.",
+        "claims": [
+          "K19"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "d_try",
+          "kind": "retry"
+        }
+      ]
+    },
+    "d_recap": {
+      "role": "recap",
+      "say": [
+        {
+          "text": "The chain in order: find the time of burn. The exam key is 4 mL × kg × %TBSA of Ringer lactate, half in the first 8 hours counted from the burn, half in the next 16.",
+          "claims": [
+            "K2",
+            "K43",
+            "K44"
+          ]
+        },
+        {
+          "text": "Deduct fluid already given and run the rest over the time left. Titrate hourly to urine output. If the stem says 'current', the start is about 2 mL.",
+          "claims": [
+            "K45",
+            "K82"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}

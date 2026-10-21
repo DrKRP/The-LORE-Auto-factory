@@ -1,0 +1,494 @@
+{
+  "segment": "S1",
+  "entry": "gate",
+  "nodes": {
+    "gate": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 40-year-old is pulled from a house fire. Flame burns cover his face and neck. He is hoarse, and there is soot around his mouth.",
+          "claims": [
+            "K29"
+          ]
+        },
+        {
+          "text": "You have just taken over his care. What is your first step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Work out the Parkland volume from the burn size",
+          "next": "gate_t29",
+          "kind": "trap",
+          "trap": "TR29"
+        },
+        {
+          "label": "Secure the airway and give 100% oxygen",
+          "next": "gate_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Watch the airway and intubate only if it fails",
+          "next": "gate_t30",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "gate_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "gate_hint": {
+      "role": "hint",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Think about what the burn sum can safely wait for, and what could harm him before it is finished.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "gate",
+          "kind": "retry"
+        }
+      ]
+    },
+    "gate_t29": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Not yet: burn sizing belongs to the secondary survey, after the primary survey has checked the airway.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look at this one again: the sum is never the first move. The primary survey comes first.",
+        "claims": [
+          "K32"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "gate",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "gate_why",
+          "kind": "deeper"
+        }
+      ]
+    },
+    "gate_t30": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Not quite: intubation is decided on warning signs before swelling closes the airway, not once it fails.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check this one: waiting for the airway to fail is the trap. Act on the warning signs.",
+        "claims": [
+          "K39"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "gate",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "gate_why",
+          "kind": "deeper"
+        }
+      ]
+    },
+    "gate_why": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Oedema builds after the burn, and an airway you could intubate now may not be intubatable later. So the airway is decided first, and the fluid sum waits.",
+          "claims": [
+            "K39",
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "gate",
+          "kind": "retry"
+        }
+      ]
+    },
+    "gate_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. Primary survey first: A for airway, with high-flow 100% oxygen while you assess.",
+          "claims": [
+            "K32",
+            "K38",
+            "K9"
+          ]
+        },
+        {
+          "text": "Think of ABCDE as a ladder. You do not step up to the fluid sum before the airway is secure.",
+          "claims": [
+            "K32"
+          ],
+          "device": true
+        },
+        {
+          "text": "Only after that is the burn sized by depth, total body surface area, age and inhalation injury.",
+          "claims": [
+            "K1"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "intub",
+          "kind": "continue"
+        },
+        {
+          "label": "I was sure about the airway, skip ahead",
+          "next": "final",
+          "kind": "skip"
+        }
+      ]
+    },
+    "intub": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An hour later the same man is still talking and sitting up. Nothing has been done to his airway yet.",
+          "claims": []
+        },
+        {
+          "text": "Which finding would make you intubate now, before the oedema closes the airway?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Hoarseness, stridor or a deep neck burn",
+          "next": "intub_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Nothing yet, wait until he struggles to breathe",
+          "next": "intub_t30a",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Nothing yet, wait for swelling to show on a recheck",
+          "next": "intub_t30b",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "intub_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "intub_hint": {
+      "role": "hint",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Ask which signs mean the swelling is starting, not which ones show the airway has already closed.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "intub",
+          "kind": "retry"
+        }
+      ]
+    },
+    "intub_t30a": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Not right: distress comes after swelling has started, so act on the warning signs before it.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this one matters: distress comes after the swelling has started. Know the warning signs.",
+        "claims": [
+          "K39"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "intub",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "intub_why",
+          "kind": "deeper"
+        }
+      ]
+    },
+    "intub_t30b": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Not right: oedema is what makes the tube hard to place, so act on the signs that come before it.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look again: by the time swelling shows on a check, the tube may be harder to place.",
+        "claims": [
+          "K39"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "intub",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "intub_why",
+          "kind": "deeper"
+        }
+      ]
+    },
+    "intub_why": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Stridor, hoarseness, deep facial or neck burns, extensive soot in the mouth, or a falling level of consciousness all predict swelling. Those are your triggers.",
+          "claims": [
+            "K39",
+            "K29"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "intub",
+          "kind": "retry"
+        }
+      ]
+    },
+    "intub_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. Hoarseness, stridor, deep facial or neck burns and soot in the mouth mean early intubation, before oedema develops.",
+          "claims": [
+            "K39",
+            "K29"
+          ]
+        },
+        {
+          "text": "Intubate on the warning signs, not on the distress that follows.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "final",
+          "kind": "continue"
+        }
+      ]
+    },
+    "final": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Another ward. A man arrives hoarse, coughing black sputum, with burns across the front of his neck. He is speaking in sentences.",
+          "claims": [
+            "K29",
+            "K39"
+          ]
+        },
+        {
+          "text": "The fluid chart is ready. What is your first move?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Secure the airway first, then start fluids",
+          "next": "final_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Start the Parkland drip, then check the airway",
+          "next": "final_t29",
+          "kind": "trap",
+          "trap": "TR29"
+        },
+        {
+          "label": "Keep the airway under watch, then start fluids",
+          "next": "final_t30",
+          "kind": "trap",
+          "trap": "TR30"
+        }
+      ]
+    },
+    "final_t29": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Not yet: the airway is checked in the primary survey, before the burn is sized or the sum started.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look again: the sum waits for the airway. The primary survey comes first.",
+        "claims": [
+          "K32"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "final",
+          "kind": "retry"
+        }
+      ]
+    },
+    "final_t30": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Not right: watching the airway is the wait model; warning signs mean intubate before oedema closes it.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check this one: a burn to the neck with a hoarse voice is a reason to act now.",
+        "claims": [
+          "K39"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "final",
+          "kind": "retry"
+        }
+      ]
+    },
+    "final_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. Airway first, decided before the sum, because oedema can close the airway later.",
+          "claims": [
+            "K32",
+            "K39"
+          ]
+        },
+        {
+          "text": "Airway first, then the burn itself: how deep it is and how much of the body it covers.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  },
+  "technique": "T9+T4",
+  "decision": "merge"
+}
