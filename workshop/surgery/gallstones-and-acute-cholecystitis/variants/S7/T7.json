@@ -1,0 +1,1642 @@
+{
+ "segment": "S7",
+ "technique": "T7",
+ "entry": "p1",
+ "nodes": {
+  "p1": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Two outlet problems look alike at the bedside, so read the site first.",
+     "claims": []
+    },
+    {
+     "text": "Patient A is a 71-year-old woman with three days of vomiting, epigastric fullness and weight loss. Endoscopy shows a gallstone wedged in her duodenum.",
+     "claims": []
+    },
+    {
+     "text": "Which diagnosis fits patient A?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Gallstone ileus, stone in the duodenum",
+     "next": "p1_t1",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Bouveret's syndrome, stone in the duodenum",
+     "next": "p1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Gallstone ileus, stone at the pylorus",
+     "next": "p1_t3",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p1_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. A gallstone impacted in the duodenum or pylorus causes gastric outlet obstruction, which is Bouveret's syndrome.",
+     "claims": [
+      "K98"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p1_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because gallstone ileus is the stone-obstruction name most learners meet first. But ileus is a small-bowel obstruction from a stone that has passed through a fistula, so it does not describe a stone held in the duodenum.",
+     "claims": [
+      "K96"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But ileus is a small-bowel obstruction from a stone that has passed through a fistula, so it does not describe a stone held in the duodenum.",
+    "claims": [
+     "K96"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p1",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p1_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p1_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because the pylorus is one of the outlet sites, so the stone seems to belong there. But a stone that causes an ileus has already passed into the small bowel and lodges further down, not at the outlet.",
+     "claims": [
+      "K96",
+      "K98"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But a stone that causes an ileus has already passed into the small bowel and lodges further down, not at the outlet.",
+    "claims": [
+     "K96",
+     "K98"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p1",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p1_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which part of the gut the stone has blocked: the outlet from the stomach, or the lower small bowel.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p1_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Bouveret's syndrome is gastric outlet obstruction from a gallstone impacted in the duodenum or pylorus. Gallstone ileus is a different picture, a stone that has passed through a fistula and blocks the small bowel.",
+     "claims": [
+      "K98",
+      "K96"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p2": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Patient B is a 74-year-old woman with colicky central pain, vomiting and a small-bowel obstruction. Her abdominal film shows air in the biliary tree and a calcified stone in the lower abdomen.",
+     "claims": []
+    },
+    {
+     "text": "Which diagnosis, and where is the stone lodged?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Bouveret's syndrome, stone in the duodenum",
+     "next": "p2_t1",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Gallstone ileus, stone in the terminal ileum",
+     "next": "p2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Mirizzi syndrome, fistula into the bile duct",
+     "next": "p2_t3",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p2_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Pneumobilia, small-bowel obstruction and an ectopic stone make Rigler's triad, and the stone most often lodges in the terminal ileum.",
+     "claims": [
+      "K8",
+      "K107"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p2_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because you have just used a duodenal stone and the word obstruction repeats. But Bouveret's gives outlet obstruction with vomiting from the stomach side, while this is a bowel obstruction with air in the bile ducts.",
+     "claims": [
+      "K98"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But Bouveret's gives outlet obstruction with vomiting from the stomach side, while this is a bowel obstruction with air in the bile ducts.",
+    "claims": [
+     "K98"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p2",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p2_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p2_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because Mirizzi can erode into a fistula with the bile duct, and that fistula is what puts air in the biliary tree. But Mirizzi is jaundice from a stone pressing on the hepatic duct, and this patient has a bowel obstruction without jaundice.",
+     "claims": [
+      "K88",
+      "K43"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But Mirizzi is jaundice from a stone pressing on the hepatic duct, and this patient has a bowel obstruction without jaundice.",
+    "claims": [
+     "K88",
+     "K43"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p2",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p2_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p2_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Two clues sit together: the air in the biliary tree and the level of the bowel obstruction. Which single diagnosis explains both?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p2_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Gallstone ileus: a large stone passes through a cholecystoenteric fistula and blocks the small bowel, most often in the terminal ileum. Air in the biliary tree with a bowel obstruction and an ectopic stone is Rigler's triad.",
+     "claims": [
+      "K96",
+      "K107",
+      "K8"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p3": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 60-year-old man has jaundice. Ultrasound shows a stone in the neck of his gallbladder, and cholangiography shows his common hepatic duct narrowed.",
+     "claims": []
+    },
+    {
+     "text": "What is causing the jaundice?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A stone passed into the common bile duct, blocking its lumen",
+     "next": "p3_t1",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "A stone in Hartmann's pouch pressing on the hepatic duct",
+     "next": "p3_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A stone impacted at the ampulla, blocking the duct",
+     "next": "p3_t3",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p3_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p3_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The stone presses on the common hepatic duct from outside, which is Mirizzi syndrome.",
+     "claims": [
+      "K88"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p3_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because jaundice with gallstones is usually read as a stone inside the duct. But a duct stone blocks the lumen itself, and this scan places the stone in the gallbladder neck, outside the duct.",
+     "claims": [
+      "K10",
+      "K43"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But a duct stone blocks the lumen itself, and this scan places the stone in the gallbladder neck, outside the duct.",
+    "claims": [
+     "K10",
+     "K43"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p3_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p3_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because an ampullary stone also causes jaundice and cholangitis. But the stone here sits in the gallbladder neck, and the duct is narrowed from outside rather than blocked at the ampulla.",
+     "claims": [
+      "K88"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But the stone here sits in the gallbladder neck, and the duct is narrowed from outside rather than blocked at the ampulla.",
+    "claims": [
+     "K88"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p3_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p3_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Follow the stone. Ask what it is touching, not what it is sitting inside.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p3_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Mirizzi syndrome: a stone in Hartmann's pouch or the cystic duct compresses the common hepatic duct from outside and causes obstructive jaundice. It can erode into a cholecystocholedochal fistula.",
+     "claims": [
+      "K88"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p4": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Two patients with cholangitis, side by side. Patient C has fever with rigors, jaundice and right upper quadrant pain.",
+     "claims": []
+    },
+    {
+     "text": "Patient D has all of those, plus low blood pressure and confusion.",
+     "claims": []
+    },
+    {
+     "text": "What is patient D's named syndrome?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Charcot's triad",
+     "next": "p4_t1",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Charcot's triad plus Murphy's sign",
+     "next": "p4_t2",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Reynolds' pentad",
+     "next": "p4_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p4_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p4_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Charcot's triad with hypotension and confusion added is Reynolds' pentad.",
+     "claims": [
+      "K89"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p4_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because patient D still has the three signs of the triad, so the old name seems to fit. But the triad is only the local picture, and the two systemic additions move the case to a different named set.",
+     "claims": [
+      "K89"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But the triad is only the local picture, and the two systemic additions move the case to a different named set.",
+    "claims": [
+     "K89"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p4",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p4_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p4_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because Murphy's sign is a familiar right upper quadrant finding that feels like an extra. But Murphy's sign is a cholecystitis sign, not a member of the cholangitis sets, and patient D's extras are systemic.",
+     "claims": [
+      "K89"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But Murphy's sign is a cholecystitis sign, not a member of the cholangitis sets, and patient D's extras are systemic.",
+    "claims": [
+     "K89"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p4",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p4_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p4_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Count what patient D has that patient C does not. Which named set holds exactly those extras?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p4",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p4_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Charcot's triad is fever with rigors, jaundice and right upper quadrant pain. Adding hypotension and confusion gives Reynolds' pentad.",
+     "claims": [
+      "K89"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p5": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Which set of findings is Charcot's triad in acute cholangitis?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Fever, RUQ pain and hypotension",
+     "next": "p5_t1",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Fever with rigors, jaundice and RUQ pain",
+     "next": "p5_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Jaundice, hypotension and confusion",
+     "next": "p5_t3",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p5_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p5_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The triad is fever with rigors, jaundice and right upper quadrant pain; the pentad adds two more.",
+     "claims": [
+      "K89"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p6",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p5_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because hypotension is a severe sign, so it feels like a core finding. But the triad is built from local signs plus fever; hypotension belongs to the extended set.",
+     "claims": [
+      "K89"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But the triad is built from local signs plus fever; hypotension belongs to the extended set.",
+    "claims": [
+     "K89"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p5",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p5_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p5_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because jaundice is the sign most people remember first, and the other two look like sepsis signs. But hypotension and confusion are the add-ons that make the pentad; they do not form the core set.",
+     "claims": [
+      "K89"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But hypotension and confusion are the add-ons that make the pentad; they do not form the core set.",
+    "claims": [
+     "K89"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p5",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p5_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p5_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Start with the pain and the skin colour, then ask which systemic sign is in the classic three.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p5",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p5_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Charcot's triad: fever with rigors, jaundice and right upper quadrant pain. Reynolds' pentad adds hypotension and confusion.",
+     "claims": [
+      "K89"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p6",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p6": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A plain film shows gas in the gallbladder wall of an elderly diabetic man.",
+     "claims": []
+    },
+    {
+     "text": "Which organism is most likely?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Escherichia coli",
+     "next": "p6_t1",
+     "kind": "trap",
+     "trap": "TR18"
+    },
+    {
+     "label": "Clostridium perfringens",
+     "next": "p6_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Klebsiella pneumoniae",
+     "next": "p6_t3",
+     "kind": "trap",
+     "trap": "TR18"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p6_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p6_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Gas-forming infection of the gallbladder, classically in elderly diabetic men, is caused by Clostridium perfringens.",
+     "claims": [
+      "K94",
+      "K106"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p7",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p6_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because E. coli is the commonest organism in infected bile, so it is the first name that comes to mind. But gas in the wall points to a gas-forming organism, so the commonest organism in infected bile does not answer this.",
+     "claims": [
+      "K105",
+      "K94"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But gas in the wall points to a gas-forming organism, so the commonest organism in infected bile does not answer this.",
+    "claims": [
+     "K105",
+     "K94"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p6",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p6_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p6_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because Klebsiella is a common gram-negative pathogen in biliary infection. But it is not the classic gas-former for this picture, and treating every infected gallbladder alike is the trap.",
+     "claims": [
+      "K94"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But it is not the classic gas-former for this picture, and treating every infected gallbladder alike is the trap.",
+    "claims": [
+     "K94"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p6",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p6_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p6_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The gas tells you something about the organism. Which of these is a classic gas-former?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p6",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p6_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Emphysematous cholecystitis is infection with gas-forming organisms, most often Clostridium perfringens, classically in elderly diabetic men. E. coli is the commonest organism in infected bile in general.",
+     "claims": [
+      "K94",
+      "K105",
+      "K106"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p7",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p7": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Three patients each have an infected gallbladder. Read for two things: the gas and the organism.",
+     "claims": []
+    },
+    {
+     "text": "Which description fits emphysematous cholecystitis?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Obese middle-aged woman, gas in the wall, E. coli",
+     "next": "p7_t1",
+     "kind": "trap",
+     "trap": "TR18"
+    },
+    {
+     "label": "Elderly diabetic man, gas in the wall, Clostridium perfringens",
+     "next": "p7_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Elderly diabetic man, pus only, no gas, E. coli",
+     "next": "p7_t3",
+     "kind": "trap",
+     "trap": "TR18"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p7_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p7_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Gas in the wall from a gas-forming organism, here Clostridium perfringens, in an elderly diabetic man, is the emphysematous picture.",
+     "claims": [
+      "K94",
+      "K106"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p8",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p7_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because E. coli is the default organism in gallbladder infection, and she has the usual gallstone profile. But the gas has to come from a gas-forming organism, so the organism name must match the gas, not the habit.",
+     "claims": [
+      "K105",
+      "K94"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But the gas has to come from a gas-forming organism, so the organism name must match the gas, not the habit.",
+    "claims": [
+     "K105",
+     "K94"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p7",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p7_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p7_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because this is the most ordinary infected gallbladder, with pus and E. coli. But the stem has no gas, and emphysematous disease needs gas in the wall or lumen.",
+     "claims": [
+      "K94",
+      "K105"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But the stem has no gas, and emphysematous disease needs gas in the wall or lumen.",
+    "claims": [
+     "K94",
+     "K105"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p7",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p7_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p7_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Two features must match: the gas, and the organism that makes it. Check which patient has both.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p7",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p7_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Emphysematous cholecystitis: gas in the gallbladder wall or lumen, from gas-forming organisms, most often Clostridium perfringens, classically in elderly diabetic men.",
+     "claims": [
+      "K94"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p8",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p8": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Bacteria in infected bile make an enzyme, beta-glucuronidase, that frees bilirubin for stone formation.",
+     "claims": [
+      "K19"
+     ]
+    },
+    {
+     "text": "Which stone forms from that bile, and where?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Brown pigment stones, formed in the bile ducts",
+     "next": "p8_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Black pigment stones, formed in the gallbladder",
+     "next": "p8_t2",
+     "kind": "trap",
+     "trap": "TR15"
+    },
+    {
+     "label": "Black pigment stones, formed in the bile ducts",
+     "next": "p8_t3",
+     "kind": "trap",
+     "trap": "TR15"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p8_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p8_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Brown pigment stones are soft and earthy, form in the bile ducts, and follow infection and stasis.",
+     "claims": [
+      "K18",
+      "K19"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p9",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p8_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because black stones are the classic gallbladder stone, and the site feels right. But black stones are linked to chronic haemolysis and cirrhosis, not to infected bile.",
+     "claims": [
+      "K17",
+      "K19"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But black stones are linked to chronic haemolysis and cirrhosis, not to infected bile.",
+    "claims": [
+     "K17",
+     "K19"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p8",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p8_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p8_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because you may have the right site from the duct stones you have met. But the cause in this stem is infection, and infection goes with the other pigment stone, not with black.",
+     "claims": [
+      "K17",
+      "K18"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But the cause in this stem is infection, and infection goes with the other pigment stone, not with black.",
+    "claims": [
+     "K17",
+     "K18"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p8",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p8_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p8_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Match the cause first. Which pigment stone is linked to infection, and which to haemolysis?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p8",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p8_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Brown pigment stones form in the bile ducts with biliary infection and stasis; bacterial beta-glucuronidase frees bilirubin for them. Black pigment stones form in the gallbladder with chronic haemolysis or cirrhosis.",
+     "claims": [
+      "K18",
+      "K19",
+      "K17"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p9",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p9": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A student says, 'A palpable gallbladder always means cancer.'",
+     "claims": []
+    },
+    {
+     "text": "Which correction is right?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "The student is right; any palpable gallbladder means cancer",
+     "next": "p9_t1",
+     "kind": "trap",
+     "trap": "TR5"
+    },
+    {
+     "label": "It applies in a jaundiced patient with a non-tender gallbladder",
+     "next": "p9_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A palpable gallbladder rules out gallstones in every patient",
+     "next": "p9_t3",
+     "kind": "trap",
+     "trap": "TR5"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p9_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p9_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. In a jaundiced patient, a palpable non-tender gallbladder suggests malignant distal obstruction rather than stones.",
+     "claims": [
+      "K9"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p10",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p9_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because palpable gallbladder cancers do exist, and the rule is easy to remember as one line. But the student has dropped the qualifier that makes the rule apply, and that qualifier is about the patient's jaundice.",
+     "claims": [
+      "K9",
+      "K119"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But the student has dropped the qualifier that makes the rule apply, and that qualifier is about the patient's jaundice.",
+    "claims": [
+     "K9",
+     "K119"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p9",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p9_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p9_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because the gallbladder is the stone-bearing organ, so a palpable one seems to settle the question. But the rule is tied to jaundice and to the feel of the gallbladder, and it says nothing about every patient.",
+     "claims": [
+      "K9",
+      "K119"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But the rule is tied to jaundice and to the feel of the gallbladder, and it says nothing about every patient.",
+    "claims": [
+     "K9",
+     "K119"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p9",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p9_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p9_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Which finding must be present before the law applies at all?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p9",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p9_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Courvoisier's law: in a jaundiced patient, a palpable non-tender gallbladder is unlikely to be due to stones and suggests malignant distal obstruction. A tender gallbladder without jaundice, as in empyema or mucocele, does not contradict it.",
+     "claims": [
+      "K9",
+      "K119"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p10",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p10": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "An exam asks for the most common gallstone type.",
+     "claims": []
+    },
+    {
+     "text": "Which answer is the PYQ key?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Pure cholesterol stones, as Western texts say",
+     "next": "p10_t1",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Mixed stones",
+     "next": "p10_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Pure cholesterol stones, since they are the majority",
+     "next": "p10_t3",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p10_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p10_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. PYQs expect mixed stones, while texts group cholesterol and mixed together as the majority.",
+     "claims": [
+      "K15",
+      "K14"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p10_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because some Western sources do call cholesterol stones the commonest, and that is the modern answer. But this stem asks for the exam key, and the key follows a different convention from the Western source.",
+     "claims": [
+      "K114",
+      "K15"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But this stem asks for the exam key, and the key follows a different convention from the Western source.",
+    "claims": [
+     "K114",
+     "K15"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p10",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p10_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p10_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not right.",
+     "claims": []
+    },
+    {
+     "text": "It is tempting because cholesterol and mixed together make up most stones, so cholesterol looks like the majority. But together is not one type: the key names a single type, and cholesterol alone is not it.",
+     "claims": [
+      "K14",
+      "K114"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one deserves a second look. But together is not one type: the key names a single type, and cholesterol alone is not it.",
+    "claims": [
+     "K14",
+     "K114"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p10",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "p10_show",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p10_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Separate what the key says from what current texts say. Which one does this stem ask for?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p10",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p10_show": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "PYQs have expected mixed stones as the most common type. Standard texts group cholesterol and mixed stones together as the majority, about 80 per cent, so learn both.",
+     "claims": [
+      "K15",
+      "K14",
+      "K114"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}
