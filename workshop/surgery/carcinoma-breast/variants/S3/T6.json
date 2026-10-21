@@ -1,0 +1,320 @@
+{
+  "segment": "S3",
+  "technique": "T6",
+  "entry": "triple",
+  "nodes": {
+    "triple": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 45-year-old woman has a painless, hard, irregular lump with ill-defined margins.", "claims": ["K43"]},
+        {"text": "Which three parts make up the triple assessment of this lump?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Clinical exam, bone scan and tissue diagnosis", "next": "triple_t5", "kind": "trap", "trap": "TR5"},
+        {"label": "Clinical exam, imaging and tissue diagnosis", "next": "triple_ok", "kind": "correct"},
+        {"label": "Clinical exam, imaging and FNAC of the mass", "next": "triple_t1", "kind": "trap", "trap": "TR1"},
+        {"label": "Not sure, give me a hint", "next": "triple_hint", "kind": "help"}
+      ]
+    },
+    "triple_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Each part answers a different question: what the examination finds, what the imaging maps, and what the tissue can prove.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "triple", "kind": "retry"}
+      ]
+    },
+    "triple_t5": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. A bone scan feels like routine staging, but it is not part of the triple assessment, and early asymptomatic disease does not need metastatic imaging.", "claims": ["K57"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the belief: staging scans follow the stage and the symptoms, not the mere presence of cancer.", "claims": ["K57"]},
+      "choices": [
+        {"label": "Try again", "next": "triple", "kind": "retry"}
+      ]
+    },
+    "triple_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. FNAC feels safe because old papers expected it, but a needle that collects cells cannot show invasion or receptor status.", "claims": ["K137", "K54"]}
+      ],
+      "sure_note": {"text": "You were sure about FNAC, which is the old exam key. Check the key before trusting the habit.", "claims": ["K137"]},
+      "choices": [
+        {"label": "Try again", "next": "triple", "kind": "retry"}
+      ]
+    },
+    "triple_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Clinical examination finds the lump, imaging maps it, and tissue diagnosis tells you what it is. Each part checks the others.", "claims": ["K5"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "lump", "kind": "continue"}
+      ]
+    },
+    "lump": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Your classmate says: 'Old papers say FNAC for a lump, so FNAC it is.' The patient is the same 45-year-old with the same hard lump.", "claims": []},
+        {"text": "Which tissue test do you order?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Excision biopsy of the lump", "next": "lump_p", "kind": "partial"},
+        {"label": "Fine needle aspiration cytology", "next": "lump_t1", "kind": "trap", "trap": "TR1"},
+        {"label": "Core needle (trucut) biopsy", "next": "lump_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "lump_hint", "kind": "help"}
+      ]
+    },
+    "lump_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask what the pathologist must report: is the tumour invasive, and what are its ER, PR and HER2 receptors?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "lump", "kind": "retry"}
+      ]
+    },
+    "lump_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Your classmate's rule is tempting because it is the old exam key, but a cell sample cannot tell invasive from in situ cancer or give receptor status.", "claims": ["K137", "K54"]}
+      ],
+      "sure_note": {"text": "You were sure, so re-check the key: old papers and current practice differ on this test.", "claims": ["K137"]},
+      "choices": [
+        {"label": "Try again", "next": "lump", "kind": "retry"}
+      ]
+    },
+    "lump_p": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. An excision looks thorough because it gives tissue, but it is an operation on the lump, not the planned sampling test.", "claims": ["K54"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "lump", "kind": "retry"}
+      ]
+    },
+    "lump_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Core needle biopsy separates invasive from in situ cancer and gives grade plus ER, PR and HER2 status.", "claims": ["K54", "K129"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "img", "kind": "continue"}
+      ]
+    },
+    "img": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 27-year-old woman has a new breast lump, and the surgeon wants imaging before any biopsy.", "claims": []},
+        {"text": "Which imaging comes first?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Breast ultrasound", "next": "img_ok", "kind": "correct"},
+        {"label": "MRI of the breast", "next": "img_p", "kind": "partial"},
+        {"label": "Mammography", "next": "img_t17", "kind": "trap", "trap": "TR17"},
+        {"label": "Not sure, give me a hint", "next": "img_hint", "kind": "help"}
+      ]
+    },
+    "img_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Think about her age, and whether the screening X-ray is the usual first look in a woman this young.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "img", "kind": "retry"}
+      ]
+    },
+    "img_t17": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Mammography is the screening test most people remember, so it feels like the default, but it is the main test only from about 35 to 40 years.", "claims": ["K49"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the qualifier: age decides the first imaging, not the lump alone.", "claims": ["K51"]},
+      "choices": [
+        {"label": "Try again", "next": "img", "kind": "retry"}
+      ]
+    },
+    "img_p": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. MRI is the most sensitive test, so it tempts you to use it for every lump, but its main roles are high-risk screening, implants and lobular extent.", "claims": ["K52"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "img", "kind": "retry"}
+      ]
+    },
+    "img_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. In women under 35 and in dense breasts ultrasound is preferred, and it tells solid lesions from cystic ones.", "claims": ["K51"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "nip", "kind": "continue"}
+      ]
+    },
+    "nip": {
+      "role": "probe",
+      "objectives": ["O5", "O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 40-year-old woman has bloody discharge from one nipple, and no lump can be felt.", "claims": ["K45"]},
+        {"text": "What is the most common cause of this?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Carcinoma of the breast", "next": "nip_t20", "kind": "trap", "trap": "TR20"},
+        {"label": "Duct ectasia", "next": "nip_p", "kind": "partial"},
+        {"label": "Intraductal papilloma", "next": "nip_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "nip_hint", "kind": "help"}
+      ]
+    },
+    "nip_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Separate the commonest cause from the cause you must rule out. Which benign lesion sits inside a duct?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "nip", "kind": "retry"}
+      ]
+    },
+    "nip_t20": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Carcinoma is the one you must rule out, so it feels like the commonest cause, but must-exclude is not most-common.", "claims": ["K144"]}
+      ],
+      "sure_note": {"text": "You were sure, so split the two questions: what is most common, and what must never be missed.", "claims": ["K144"]},
+      "choices": [
+        {"label": "Try again", "next": "nip", "kind": "retry"}
+      ]
+    },
+    "nip_p": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. A benign duct change is tempting, but bloody discharge is a nipple sign that needs its own specific cause found, not a general label.", "claims": ["K45"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "nip", "kind": "retry"}
+      ]
+    },
+    "nip_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Intraductal papilloma is the commonest cause of bloody nipple discharge, but carcinoma still has to be excluded.", "claims": ["K144", "K45"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "tcat", "kind": "continue"}
+      ]
+    },
+    "tcat": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 58-year-old woman has a 3 cm lump with orange-peel skin over it, and no redness, warmth or swelling of the breast.", "claims": ["K44"]},
+        {"text": "What is the T category?", "claims": []}
+      ],
+      "choices": [
+        {"label": "T3", "next": "tcat_p", "kind": "partial"},
+        {"label": "T4b", "next": "tcat_ok", "kind": "correct"},
+        {"label": "T4d", "next": "tcat_t12", "kind": "trap", "trap": "TR12"},
+        {"label": "Not sure, give me a hint", "next": "tcat_hint", "kind": "help"}
+      ]
+    },
+    "tcat_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask whether the whole breast has the inflammatory picture, or only the skin over the tumour does.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "tcat", "kind": "retry"}
+      ]
+    },
+    "tcat_t12": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. The orange skin looks like inflammatory disease, so T4d feels right, but the sign alone, with no red, warm, swollen breast, is skin involvement.", "claims": ["K7", "K48"]}
+      ],
+      "sure_note": {"text": "You were sure about the sign. Inflammatory carcinoma needs the whole picture, not one skin feature.", "claims": ["K48"]},
+      "choices": [
+        {"label": "Try again", "next": "tcat", "kind": "retry"}
+      ]
+    },
+    "tcat_p": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. The 3 cm size makes T3 tempting, but skin involvement like this changes the category whatever the size.", "claims": ["K7"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "tcat", "kind": "retry"}
+      ]
+    },
+    "tcat_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Peau d'orange alone comes from oedema of the skin lymphatics and makes the tumour T4b; T4d needs the red, warm, one-third picture.", "claims": ["K7", "K48"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "staging", "kind": "continue"}
+      ]
+    },
+    "staging": {
+      "role": "probe",
+      "objectives": ["O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 38-year-old woman has a 1.5 cm invasive ductal carcinoma on core biopsy. Her axilla is clinically negative and she has no symptoms.", "claims": []},
+        {"text": "What do you order next?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Plan local treatment, with no metastatic imaging", "next": "staging_ok", "kind": "correct"},
+        {"label": "Breast MRI to define extent before surgery", "next": "staging_p", "kind": "partial"},
+        {"label": "Whole-body bone scan before deciding surgery", "next": "staging_t5", "kind": "trap", "trap": "TR5"},
+        {"label": "Not sure, give me a hint", "next": "staging_hint", "kind": "help"}
+      ]
+    },
+    "staging_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask who gets a metastatic scan: is this patient early and symptom-free, or locally advanced?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "staging", "kind": "retry"}
+      ]
+    },
+    "staging_t5": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. A bone scan feels like routine staging, so it tempts you, but early disease with no symptoms does not need metastatic imaging.", "claims": ["K57"]}
+      ],
+      "sure_note": {"text": "You were sure, so check who the staging test is for before you order it.", "claims": ["K57"]},
+      "choices": [
+        {"label": "Try again", "next": "staging", "kind": "retry"}
+      ]
+    },
+    "staging_p": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. MRI is the most sensitive test, so it tempts you, but it is not the routine next step for this patient.", "claims": ["K52", "K57"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "staging", "kind": "retry"}
+      ]
+    },
+    "staging_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Routine metastatic work-up is not needed in early asymptomatic disease; it is done for locally advanced disease or symptoms.", "claims": ["K57"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
