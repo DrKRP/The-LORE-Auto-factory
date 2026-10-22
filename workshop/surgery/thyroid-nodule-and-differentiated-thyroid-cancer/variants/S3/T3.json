@@ -1,0 +1,342 @@
+{
+  "segment": "S3",
+  "technique": "T3",
+  "entry": "fol_predict",
+  "nodes": {
+    "fol_predict": {
+      "role": "probe",
+      "objectives": ["O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 52-year-old woman has a follicular carcinoma of the thyroid. Her neck has no palpable nodes.", "claims": []},
+        {"text": "Predict it. Which route and sites do you expect its spread to take?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Lymphatics first, to the central and lateral neck nodes", "next": "fol_t11", "kind": "trap", "trap": "TR11"},
+        {"label": "Through the blood, mainly to the lungs and bones", "next": "fol_ok", "kind": "correct"},
+        {"label": "Neck nodes first, then on to the lungs and bones", "next": "fol_t12", "kind": "trap", "trap": "TR12"},
+        {"label": "Not sure, give me a hint", "next": "fol_hint", "kind": "help"}
+      ]
+    },
+    "fol_t11": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It tempts because lymph drainage is the papillary route, and it is easy to carry over to this cancer.", "claims": ["K7"]},
+        {"text": "Ask what this tumour must do to leave the gland, and which channel that step opens.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check which of the two cancers the lymph route belongs to before you trust it.", "claims": ["K7"]},
+      "choices": [
+        {"label": "Try again", "next": "fol_predict", "kind": "retry"},
+        {"label": "Show me why", "next": "fol_obs", "kind": "agency"}
+      ]
+    },
+    "fol_t12": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It tempts because neck nodes are the first stop for papillary cancer, so they feel like the default site.", "claims": ["K7"]},
+        {"text": "Ask whether this tumour reaches the nodes early, or whether its route follows what it invades.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check whether nodes are the usual site for this cancer or only for the other one.", "claims": ["K43"]},
+      "choices": [
+        {"label": "Try again", "next": "fol_predict", "kind": "retry"},
+        {"label": "Show me why", "next": "fol_obs", "kind": "agency"}
+      ]
+    },
+    "fol_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Think about what this tumour must break through to leave the gland, and which channel that opens.", "claims": ["K38"]},
+        {"text": "Do not reuse the lymph route you learned for papillary cancer.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "fol_predict", "kind": "retry"}
+      ]
+    },
+    "fol_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. This cancer is judged by capsular and vascular invasion, so its route follows the vessels.", "claims": ["K38"]}
+      ],
+      "choices": [
+        {"label": "Show me the evidence", "next": "fol_obs", "kind": "agency"},
+        {"label": "I know this, skip ahead", "next": "fol_explain", "kind": "skip"}
+      ]
+    },
+    "fol_obs": {
+      "role": "explain",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "Here is what the tumour shows. Follicular carcinoma is diagnosed only by capsular or vascular invasion on histology, not by FNAC or frozen section.", "claims": ["K38", "K6"]},
+        {"text": "Its invading cells enter veins and travel to the lungs and bones, while spread to the lymph nodes is uncommon.", "claims": ["K40", "K43"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "fol_explain", "kind": "continue"}
+      ]
+    },
+    "fol_explain": {
+      "role": "probe",
+      "objectives": ["O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Vessel invasion is the diagnostic feature. Which mechanism explains where this cancer's spread goes?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Cells have entered veins, which carry them to lungs and bones", "next": "fol_explain_ok", "kind": "correct"},
+        {"label": "Cells have entered lymph channels, which drain to the neck nodes", "next": "fe_t11", "kind": "trap", "trap": "TR11"},
+        {"label": "Cells reach the neck nodes first, then veins carry them on", "next": "fe_t12", "kind": "trap", "trap": "TR12"},
+        {"label": "Not sure, give me a hint", "next": "fe_hint", "kind": "help"}
+      ]
+    },
+    "fe_t11": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It tempts because lymph drainage is the mechanism you learned for papillary cancer, so it feels familiar.", "claims": ["K7"]},
+        {"text": "Ask which vessel the invasion you just saw actually opens, and whether capsular invasion moves cells into lymph.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check which channel the invasion in the evidence actually reaches.", "claims": ["K38"]},
+      "choices": [
+        {"label": "Try again", "next": "fol_explain", "kind": "retry"},
+        {"label": "Show me why", "next": "fol_explain_ok", "kind": "agency"}
+      ]
+    },
+    "fe_t12": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It tempts because the neck is the first place cancers are taught to spread, so nodes feel like step one.", "claims": ["K43"]},
+        {"text": "Ask whether the vein route passes through the neck nodes first, or carries cells past them.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check whether node spread is the usual route for this cancer.", "claims": ["K43"]},
+      "choices": [
+        {"label": "Try again", "next": "fol_explain", "kind": "retry"},
+        {"label": "Show me why", "next": "fol_explain_ok", "kind": "agency"}
+      ]
+    },
+    "fe_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask what the vessel invasion gives the cell access to, and then where that route ends.", "claims": ["K38"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "fol_explain", "kind": "retry"}
+      ]
+    },
+    "fol_explain_ok": {
+      "role": "feedback",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "The answer: vessel invasion puts follicular cells into veins, and the blood carries them to the lungs and bones.", "claims": ["K38", "K40"]},
+        {"text": "Papillary carcinoma uses the lymphatics instead. You will see that contrast next.", "claims": ["K7"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "pap_contrast", "kind": "continue"}
+      ]
+    },
+    "pap_contrast": {
+      "role": "probe",
+      "objectives": ["O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Two patients. A has a lateral neck node and a small thyroid primary. B has a pathological fracture and a thyroid nodule.", "claims": []},
+        {"text": "Which pairing is right?", "claims": []}
+      ],
+      "choices": [
+        {"label": "A is papillary, with B the follicular cancer", "next": "pap_ok", "kind": "correct"},
+        {"label": "A is follicular, with B the papillary cancer", "next": "pap_t11", "kind": "trap", "trap": "TR11"},
+        {"label": "Not sure, give me a hint", "next": "pap_hint", "kind": "help"}
+      ]
+    },
+    "pap_t11": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It tempts because the two routes are learned as a pair, and it is easy to swap them.", "claims": ["K7"]},
+        {"text": "Ask which of the two is diagnosed by vessel invasion, and then which route that one takes.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the route against the diagnostic feature, not against memory of the pair.", "claims": ["K7"]},
+      "choices": [
+        {"label": "Try again", "next": "pap_contrast", "kind": "retry"},
+        {"label": "Show me why", "next": "pap_ok", "kind": "agency"}
+      ]
+    },
+    "pap_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Start with the patient who has the neck node, and ask which channel that cancer uses to reach it.", "claims": ["K7"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "pap_contrast", "kind": "retry"}
+      ]
+    },
+    "pap_ok": {
+      "role": "feedback",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "The answer: papillary carcinoma spreads by lymphatics to the central and lateral neck nodes. Follicular carcinoma spreads by blood to the lungs and bones.", "claims": ["K31", "K40"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "lat_probe", "kind": "continue"}
+      ]
+    },
+    "lat_probe": {
+      "role": "probe",
+      "objectives": ["O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A young woman has a firm lateral neck mass. Her surgeon labels it 'lateral aberrant thyroid'.", "claims": []},
+        {"text": "What is this lump most likely?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Ectopic thyroid tissue left in the lateral neck", "next": "lat_t10", "kind": "trap", "trap": "TR10"},
+        {"label": "A nodal metastasis from a papillary carcinoma", "next": "lat_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "lat_hint", "kind": "help"}
+      ]
+    },
+    "lat_t10": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It tempts because 'aberrant thyroid' sounds like misplaced gland, the way a thyroglossal remnant is taught.", "claims": []},
+        {"text": "Ask what thyroid-type cells are doing inside a lymph node in the lateral neck, and which cancer sends them there.", "claims": ["K32"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the name against where the mass sits: the lateral neck is a node site.", "claims": ["K32"]},
+      "choices": [
+        {"label": "Try again", "next": "lat_probe", "kind": "retry"},
+        {"label": "Show me why", "next": "lat_ok", "kind": "agency"}
+      ]
+    },
+    "lat_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Think about where a thyroid cancer sends its cells, and what a lymph node looks like when it holds them.", "claims": ["K48"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "lat_probe", "kind": "retry"}
+      ]
+    },
+    "lat_ok": {
+      "role": "feedback",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "The answer: the lateral 'aberrant thyroid' is a cervical node metastasis from papillary carcinoma, and it can appear with no palpable thyroid primary.", "claims": ["K32", "K48"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "dtc_which", "kind": "continue"}
+      ]
+    },
+    "dtc_which": {
+      "role": "probe",
+      "objectives": ["O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Which of these is a differentiated thyroid cancer?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Medullary carcinoma, arising from C cells", "next": "dtc_t12m", "kind": "trap", "trap": "TR12"},
+        {"label": "Anaplastic carcinoma of the thyroid gland", "next": "dtc_t12a", "kind": "trap", "trap": "TR12"},
+        {"label": "Oncocytic carcinoma, from Hürthle cells", "next": "dtc_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "dtc_hint", "kind": "help"}
+      ]
+    },
+    "dtc_t12m": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It tempts because C-cell cancer is a classic thyroid malignancy on exam lists, so it feels like part of the family.", "claims": ["K14"]},
+        {"text": "Ask which cell of origin the differentiated family shares, and whether C cells are among them.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the word differentiated in the stem before you count a thyroid malignancy.", "claims": ["K13"]},
+      "choices": [
+        {"label": "Try again", "next": "dtc_which", "kind": "retry"},
+        {"label": "Show me why", "next": "dtc_ok", "kind": "agency"}
+      ]
+    },
+    "dtc_t12a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It tempts because anaplastic carcinoma is the most aggressive thyroid cancer, so it feels like one to count with the rest.", "claims": ["K14"]},
+        {"text": "Ask whether it keeps the differentiated behaviour that defines the family, such as iodine handling.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check whether aggression decides membership, or cell type and differentiation do.", "claims": ["K14"]},
+      "choices": [
+        {"label": "Try again", "next": "dtc_which", "kind": "retry"},
+        {"label": "Show me why", "next": "dtc_ok", "kind": "agency"}
+      ]
+    },
+    "dtc_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask which cells the differentiated thyroid cancers come from, and what keeps them differentiated.", "claims": ["K13"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "dtc_which", "kind": "retry"}
+      ]
+    },
+    "dtc_ok": {
+      "role": "feedback",
+      "objectives": ["O4"],
+      "say": [
+        {"text": "The answer: differentiated thyroid cancer is cancer of the follicular cell that keeps differentiated function. Papillary, follicular and oncocytic carcinomas are DTC.", "claims": ["K13"]},
+        {"text": "Medullary carcinoma comes from C cells, and anaplastic carcinoma is not a DTC.", "claims": ["K14"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "lat_retest", "kind": "continue"}
+      ]
+    },
+    "lat_retest": {
+      "role": "probe",
+      "objectives": ["O2", "O4"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "FNAC from a firm lateral neck mass shows follicular-pattern cells with ground-glass nuclei.", "claims": []},
+        {"text": "What is it most likely, and what do you do next?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Ectopic thyroid tissue, benign; excise it and follow up closely", "next": "ret_t10", "kind": "trap", "trap": "TR10"},
+        {"label": "A nodal metastasis of papillary carcinoma; look for the primary", "next": "ret_ok", "kind": "correct"},
+        {"label": "Follicular carcinoma, since the cells form follicles here", "next": "ret_t5", "kind": "trap", "trap": "TR5"},
+        {"label": "Not sure, give me a hint", "next": "ret_hint", "kind": "help"}
+      ]
+    },
+    "ret_t10": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It tempts because 'aberrant thyroid' sounds benign and tidy, so excision feels like the safe end.", "claims": []},
+        {"text": "Ask what a thyroid-type cell in a lymph node tells you about its source, before you decide on surgery.", "claims": ["K32"]}
+      ],
+      "sure_note": {"text": "You were sure, so remember that the label names a node, and a node holding thyroid cells needs the thyroid examined.", "claims": ["K32", "K48"]},
+      "choices": [
+        {"label": "Try again", "next": "lat_retest", "kind": "retry"},
+        {"label": "Show me why", "next": "ret_ok", "kind": "agency"}
+      ]
+    },
+    "ret_t5": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It tempts because the pattern is follicular, so the pattern feels like the diagnosis.", "claims": []},
+        {"text": "Ask which feature the call of papillary carcinoma rests on, and whether the pattern alone can settle it.", "claims": ["K27"]}
+      ],
+      "sure_note": {"text": "You were sure, so check whether architecture or nuclei decides the papillary call.", "claims": ["K27"]},
+      "choices": [
+        {"label": "Try again", "next": "lat_retest", "kind": "retry"},
+        {"label": "Show me why", "next": "ret_ok", "kind": "agency"}
+      ]
+    },
+    "ret_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask which feature decides the call for papillary carcinoma, and what that feature looks like on the slide.", "claims": ["K27"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "lat_retest", "kind": "retry"}
+      ]
+    },
+    "ret_ok": {
+      "role": "feedback",
+      "objectives": ["O2", "O4"],
+      "say": [
+        {"text": "The answer: papillary carcinoma is called by its nuclei, so ground-glass nuclei in a lateral node point to a nodal metastasis.", "claims": ["K27", "K32"]},
+        {"text": "Look for the thyroid primary, and do not excise it as ectopic gland.", "claims": ["K48"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
