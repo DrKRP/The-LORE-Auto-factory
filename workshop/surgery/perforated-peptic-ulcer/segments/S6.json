@@ -1,0 +1,1220 @@
+{
+ "segment": "S6",
+ "technique": "T5",
+ "entry": "open",
+ "nodes": {
+  "open": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Patient A: 58-year-old man, sudden epigastric pain three hours ago. Board-like rigidity, BP 82/50, pulse 122.",
+     "claims": []
+    },
+    {
+     "text": "The erect film shows free gas under the diaphragm. The diagnosis is clear. What is your first step?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Book theatre now; the fluids can run there",
+     "next": "open_t1",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "IV access, crystalloids and a nasogastric tube",
+     "next": "open_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "CT abdomen first, to confirm the site",
+     "next": "open_t2",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "open_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "open_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Surgery is the cure, so it feels like the urgent step.",
+     "claims": []
+    },
+    {
+     "text": "But surgery is the standard treatment for this picture, not the first step at a pressure of 82 systolic. He must survive the anaesthetic first.",
+     "claims": [
+      "K46",
+      "K44"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so look again: the operation is the cure, but a shocked patient has to be kept alive until it.",
+    "claims": [
+     "K46"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "open",
+     "kind": "retry"
+    }
+   ]
+  },
+  "open_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A scan feels careful, and it would confirm where the hole is.",
+     "claims": []
+    },
+    {
+     "text": "But a scan does nothing for a falling pressure. A patient in shock is stabilised before any scan or theatre, and bloods guide the fluids.",
+     "claims": [
+      "K44",
+      "K42"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the order: shock first, then the rest.",
+    "claims": [
+     "K44"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "open",
+     "kind": "retry"
+    }
+   ]
+  },
+  "open_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what keeps his pressure up until he reaches the anaesthetist, and what he needs before he is safe to anaesthetise.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "open",
+     "kind": "retry"
+    }
+   ]
+  },
+  "open_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. In a shocked patient the first steps keep him alive until theatre: fluids, a nasogastric tube, a catheter and analgesia.",
+     "claims": [
+      "K44"
+     ]
+    },
+    {
+     "text": "Surgery is still the standard treatment, but it waits for that resuscitation.",
+     "claims": [
+      "K46"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "a_walk",
+     "kind": "continue"
+    }
+   ]
+  },
+  "a_walk": {
+   "role": "explain",
+   "objectives": [
+    "O7"
+   ],
+   "say": [
+    {
+     "text": "Here is patient A worked in full. Step 1: IV access, crystalloids, nasogastric tube and catheter, started at once.",
+     "claims": [
+      "K44"
+     ]
+    },
+    {
+     "text": "Step 2: bloods, including group and save, which guide the resuscitation. Step 3: IV broad-spectrum antibiotics and an IV proton pump inhibitor, started on diagnosis.",
+     "claims": [
+      "K42",
+      "K45"
+     ]
+    },
+    {
+     "text": "Step 4: theatre for an omental patch closure with peritoneal lavage, the standard operation.",
+     "claims": [
+      "K8",
+      "K49"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next: patient B, last step yours",
+     "next": "b",
+     "kind": "continue"
+    },
+    {
+     "label": "Skip the fade; go to the operation",
+     "next": "c",
+     "kind": "skip"
+    }
+   ]
+  },
+  "b": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Patient B: the same ulcer and the same pressure. Fluids and the nasogastric tube are running, and bloods are sent.",
+     "claims": []
+    },
+    {
+     "text": "What comes next, before theatre?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "IV broad-spectrum antibiotics and an IV PPI",
+     "next": "b_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Omental patch and lavage in theatre, then antibiotics",
+     "next": "b_t1",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "Consent and shift to theatre; antibiotics can follow",
+     "next": "b_t2",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "b_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "b_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Definitive repair feels like the real treatment, so it is tempting to put it first.",
+     "claims": []
+    },
+    {
+     "text": "But repair is the standard operation, not the first move. Antibiotics and a PPI are started on diagnosis, before the patient reaches theatre.",
+     "claims": [
+      "K46",
+      "K45"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the clock: the drugs start on diagnosis, the operation later.",
+    "claims": [
+     "K45"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "b_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Getting to theatre fast feels urgent, and the antibiotics look like a detail for later.",
+     "claims": []
+    },
+    {
+     "text": "But they are started as soon as the diagnosis is made, while the fluids run, not after the abdomen is open.",
+     "claims": [
+      "K45"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so look again at when the antibiotics start.",
+    "claims": [
+     "K45"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "b_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Bacteria are now spreading into the peritoneal fluid. What is started on diagnosis, before any operation?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "b",
+     "kind": "retry"
+    }
+   ]
+  },
+  "b_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Broad-spectrum antibiotics and an IV PPI start as soon as the diagnosis is made.",
+     "claims": [
+      "K45"
+     ]
+    },
+    {
+     "text": "Surgery still follows, and it is the standard treatment once he is resuscitated.",
+     "claims": [
+      "K46"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "c",
+     "kind": "continue"
+    }
+   ]
+  },
+  "c": {
+   "role": "probe",
+   "objectives": [
+    "O8",
+    "O9"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Patient C is stable after fluids and antibiotics. The anterior duodenal ulcer has perforated and is still a simple, uncomplicated hole.",
+     "claims": []
+    },
+    {
+     "text": "Which operation is the standard one?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Truncal vagotomy with pyloroplasty and repair",
+     "next": "c_t1",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Partial gastrectomy with Billroth reconstruction",
+     "next": "c_t2",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Omental patch closure with peritoneal lavage",
+     "next": "c_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "c_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "c_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Older exam books pair acid surgery with every ulcer operation, so vagotomy feels like part of the job.",
+     "claims": []
+    },
+    {
+     "text": "But acid-reducing surgery is no longer routine in the PPI and H. pylori era, and the recurrence is now prevented by treating the cause.",
+     "claims": [
+      "K55",
+      "K9"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the current frame: acid surgery is no longer added to the repair.",
+    "claims": [
+     "K55"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "c",
+     "kind": "retry"
+    }
+   ]
+  },
+  "c_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A gastrectomy removes the acid source, so it looks like the thorough answer.",
+     "claims": []
+    },
+    {
+     "text": "But PYQs have offered resection as a distractor, while current practice closes the perforation simply, without resecting the stomach.",
+     "claims": [
+      "K81"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check what the exam offered against current practice.",
+    "claims": [
+     "K81"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "c",
+     "kind": "retry"
+    }
+   ]
+  },
+  "c_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The question asks for the operation that closes the hole. Ask whether it has to change the stomach or the acid supply to do that.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "c",
+     "kind": "retry"
+    }
+   ]
+  },
+  "c_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Simple closure with an omental patch and peritoneal lavage is the standard operation.",
+     "claims": [
+      "K8"
+     ]
+    },
+    {
+     "text": "After repair, H. pylori eradication and a PPI prevent recurrence. Routine acid-reducing surgery is no longer needed.",
+     "claims": [
+      "K9",
+      "K55"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "d",
+     "kind": "continue"
+    }
+   ]
+  },
+  "d": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "The exam keys 'Graham's patch' for a perforated duodenal ulcer. A student asks which statement about the two omental techniques is strictly right.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Graham used a free omental plug; Cellan-Jones a pedicled tongue",
+     "next": "d_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Graham and Cellan-Jones are two names for one free patch",
+     "next": "d_t1",
+     "kind": "trap",
+     "trap": "TR13"
+    },
+    {
+     "label": "Graham used a pedicled tongue; Cellan-Jones a free plug",
+     "next": "d_t2",
+     "kind": "trap",
+     "trap": "TR13"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "d_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "d_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The exam gives one name, so it is tempting to think the strict name must be the same patch.",
+     "claims": []
+    },
+    {
+     "text": "But the two techniques differ in the tissue used: a free plug in one, a pedicled tongue in the other. The exam still accepts either name.",
+     "claims": [
+      "K47",
+      "K78"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so separate the exam name from the technique.",
+    "claims": [
+     "K78"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "d",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Both techniques use omentum, so the two labels are easy to swap.",
+     "claims": []
+    },
+    {
+     "text": "But the labels follow the tissue used. Check which technique moves a free piece of omentum and which keeps a pedicled tongue attached.",
+     "claims": [
+      "K47"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check which tissue each name attaches to.",
+    "claims": [
+     "K47"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "d",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The exam name and the tissue are two different things. Ask which technique moves a free piece of omentum and which keeps a tongue attached.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "d",
+     "kind": "retry"
+    }
+   ]
+  },
+  "d_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Graham's patch is a free omental plug; the pedicled tongue of omentum is the Cellan-Jones repair.",
+     "claims": [
+      "K47"
+     ]
+    },
+    {
+     "text": "PYQs expected 'Graham's patch', and either name scores as omental patch closure in the exam.",
+     "claims": [
+      "K48",
+      "K78"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "e",
+     "kind": "continue"
+    }
+   ]
+  },
+  "e": {
+   "role": "probe",
+   "objectives": [
+    "O10",
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Patient E is stable 14 hours after onset, with mild pain and no peritonitis. The surgeon proposes Taylor's conservative method.",
+     "claims": []
+    },
+    {
+     "text": "What must be shown before that is safe?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A barium study to show whether the leak has sealed",
+     "next": "e_t1",
+     "kind": "trap",
+     "trap": "TR20"
+    },
+    {
+     "label": "Nothing more; he is stable, so Taylor can start now",
+     "next": "e_t2",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "A water-soluble contrast study showing the leak is sealed",
+     "next": "e_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "e_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "e_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Barium is the familiar gut contrast, so it is tempting to reach for it here.",
+     "claims": []
+    },
+    {
+     "text": "But barium is contraindicated when perforation is suspected, because a leak causes severe barium peritonitis.",
+     "claims": [
+      "K43",
+      "K71"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so ask what the contrast does if it leaks into the peritoneum.",
+    "claims": [
+     "K43"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A calm, stable patient looks like one who can simply be watched.",
+     "claims": []
+    },
+    {
+     "text": "But Taylor's method is reserved for a sealed perforation, and the seal must be shown on contrast before conservative care starts.",
+     "claims": [
+      "K52",
+      "K11"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the qualifier: sealed and shown on contrast.",
+    "claims": [
+     "K52"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Taylor needs proof that the hole is walled off. Which study shows that without the risk of a leak into the peritoneum?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "e",
+     "kind": "retry"
+    }
+   ]
+  },
+  "e_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Taylor's method is for a sealed perforation, and the seal is shown by a water-soluble contrast study.",
+     "claims": [
+      "K40"
+     ]
+    },
+    {
+     "text": "Conservative care is then nasogastric suction, fluids, antibiotics and a PPI.",
+     "claims": [
+      "K52"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "f",
+     "kind": "continue"
+    },
+    {
+     "label": "Go deeper: when does conservative care fail?",
+     "next": "e_deep",
+     "kind": "deeper"
+    }
+   ]
+  },
+  "e_deep": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Conservative care is unsuitable for the elderly, and for anyone not improving within about 12 to 24 hours, who then need surgery.",
+     "claims": [
+      "K53"
+     ],
+     "flag": "unverified"
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "f",
+     "kind": "continue"
+    }
+   ]
+  },
+  "f": {
+   "role": "probe",
+   "objectives": [
+    "O10",
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Elderly man on steroids. Free gas on the erect film, generalised peritonitis, pulse 120, BP 100/64 after fluids.",
+     "claims": []
+    },
+    {
+     "text": "What is the most appropriate management?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Taylor management, since his pressure is holding on fluids",
+     "next": "f_t1",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "Resuscitate, then omental patch closure and lavage",
+     "next": "f_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Taylor management, since the diagnosis is already made",
+     "next": "f_t2",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "f_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "f_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Holding a pressure on fluids looks like stability, and stability is what Taylor asks for.",
+     "claims": []
+    },
+    {
+     "text": "But Taylor is for a sealed perforation shown on contrast. Free gas with generalised peritonitis is a surgical problem.",
+     "claims": [
+      "K52",
+      "K46"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the qualifier: sealed, not just stable.",
+    "claims": [
+     "K52"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "f",
+     "kind": "retry"
+    }
+   ]
+  },
+  "f_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Once the diagnosis is made, conservative care can seem a reasonable next step.",
+     "claims": []
+    },
+    {
+     "text": "But a diagnosis is not a seal. Taylor needs a contained leak shown on contrast, and this abdomen has spread contamination.",
+     "claims": [
+      "K11",
+      "K40"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so separate knowing the perforation from knowing it is sealed.",
+    "claims": [
+     "K11"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "f",
+     "kind": "retry"
+    }
+   ]
+  },
+  "f_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask first whether this abdomen holds a walled-off leak or free contamination. Then ask what the patient needs before theatre.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "f",
+     "kind": "retry"
+    }
+   ]
+  },
+  "f_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Free perforation with generalised peritonitis is surgical, and the patient is resuscitated while theatre is prepared.",
+     "claims": [
+      "K46"
+     ]
+    },
+    {
+     "text": "The operation is an omental patch closure with peritoneal lavage.",
+     "claims": [
+      "K8"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "g",
+     "kind": "continue"
+    }
+   ]
+  },
+  "g": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "The Boey score predicts mortality from three items: shock on admission, major coexisting illness, and delay to surgery.",
+     "claims": [
+      "K57"
+     ]
+    },
+    {
+     "text": "Which pair of thresholds is correct for the shock and the delay items?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Systolic below 90 mmHg, and delay over 24 hours",
+     "next": "g_t1",
+     "kind": "trap",
+     "trap": "TR21"
+    },
+    {
+     "label": "Systolic below 100 mmHg, and delay over 12 hours",
+     "next": "g_t2",
+     "kind": "trap",
+     "trap": "TR21"
+    },
+    {
+     "label": "Systolic below 100 mmHg, and delay over 24 hours",
+     "next": "g_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "g_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "g_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A systolic of 90 feels like the line for shock, because it is used in other scores.",
+     "claims": []
+    },
+    {
+     "text": "But the 90 mmHg line is not the Boey cut-off. Mortality rises with shock, and the score uses its own threshold.",
+     "claims": [
+      "K57",
+      "K58"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the Boey shock threshold against the other scores you know.",
+    "claims": [
+     "K57"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g",
+     "kind": "retry"
+    }
+   ]
+  },
+  "g_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Twelve hours sounds like a sensible delay, since early surgery matters.",
+     "claims": []
+    },
+    {
+     "text": "But 12 hours is not the Boey delay item. The score counts delay beyond a longer interval.",
+     "claims": [
+      "K57"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the delay item in the score.",
+    "claims": [
+     "K57"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g",
+     "kind": "retry"
+    }
+   ]
+  },
+  "g_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Recall the three items: shock, comorbidity and delay. Which thresholds belong to the first and the third?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "g",
+     "kind": "retry"
+    }
+   ]
+  },
+  "g_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Boey uses shock on admission (systolic below 100 mmHg), major coexisting illness, and delay to surgery over 24 hours.",
+     "claims": [
+      "K57",
+      "K75"
+     ]
+    },
+    {
+     "text": "Age raises mortality, but it is not one of the three Boey items.",
+     "claims": [
+      "K58"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "h",
+     "kind": "continue"
+    }
+   ]
+  },
+  "h": {
+   "role": "probe",
+   "objectives": [
+    "O9"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Patient H: 62 years old, weight loss over two months. A perforated gastric ulcer is closed with an omental patch and washed out.",
+     "claims": []
+    },
+    {
+     "text": "What is still missing?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Nothing; the patch and lavage complete the repair",
+     "next": "h_t1",
+     "kind": "trap",
+     "trap": "TR19"
+    },
+    {
+     "label": "Biopsy or excision of the ulcer edge",
+     "next": "h_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Truncal vagotomy at the same sitting, for acid",
+     "next": "h_t2",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "h_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "h_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A duodenal ulcer is closed this way, so the same pathway feels complete.",
+     "claims": []
+    },
+    {
+     "text": "But a perforated gastric ulcer can be a carcinoma, which the duodenal pathway never checks. Weight loss is the cue here.",
+     "claims": [
+      "K83"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so ask what the stomach can hide that the duodenum does not.",
+    "claims": [
+     "K83"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h",
+     "kind": "retry"
+    }
+   ]
+  },
+  "h_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Acid causes ulcers, so cutting acid at the same sitting feels thorough.",
+     "claims": []
+    },
+    {
+     "text": "But acid-reducing surgery is no longer routine in the PPI and H. pylori era, and it does nothing about a possible carcinoma.",
+     "claims": [
+      "K55",
+      "K51"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check what the modern repair adds, and what it leaves out.",
+    "claims": [
+     "K55"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h",
+     "kind": "retry"
+    }
+   ]
+  },
+  "h_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what this ulcer might be, apart from an ulcer, in a 62-year-old who is losing weight.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h",
+     "kind": "retry"
+    }
+   ]
+  },
+  "h_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. A perforated gastric ulcer must be biopsied or excised, because it may be a perforated carcinoma.",
+     "claims": [
+      "K51",
+      "K83"
+     ]
+    },
+    {
+     "text": "The patch closure is still the operation; the biopsy is the extra step that the duodenal pathway lacks.",
+     "claims": [
+      "K8"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "recap",
+     "kind": "continue"
+    }
+   ]
+  },
+  "recap": {
+   "role": "recap",
+   "objectives": [
+    "O7",
+    "O8",
+    "O9",
+    "O10",
+    "O11"
+   ],
+   "say": [
+    {
+     "text": "The order: resuscitate first, then antibiotics and a PPI, then the omental patch with lavage.",
+     "claims": [
+      "K44",
+      "K45",
+      "K8"
+     ]
+    },
+    {
+     "text": "Taylor is only for a sealed perforation on a water-soluble study. A gastric ulcer is biopsied, and routine vagotomy is not part of the repair.",
+     "claims": [
+      "K52",
+      "K40",
+      "K51",
+      "K55"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ },
+ "decision": "solo"
+}
