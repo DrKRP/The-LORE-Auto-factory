@@ -1,0 +1,200 @@
+{
+  "segment": "S1",
+  "technique": "T9",
+  "entry": "gate",
+  "nodes": {
+    "gate": {
+      "role": "probe",
+      "objectives": ["O1", "O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 52-year-old teacher has bulging veins running from the groin down the inner thigh to the ankle.", "claims": []},
+        {"text": "Before we teach anything: where would you expect the reflux to start?", "claims": []}
+      ],
+      "choices": [
+        {"label": "At the saphenopopliteal junction, where the great saphenous ends", "next": "gate_t7", "kind": "trap", "trap": "TR7"},
+        {"label": "At the saphenofemoral junction, the most frequent site", "next": "gate_ok", "kind": "correct"},
+        {"label": "At the saphenofemoral junction, the only site", "next": "gate_t19", "kind": "trap", "trap": "TR19"},
+        {"label": "Not sure, give me a hint", "next": "gate_hint", "kind": "help"}
+      ]
+    },
+    "gate_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Think about where the great saphenous vein ends, and which vein it drains into.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "gate", "kind": "retry"}
+      ]
+    },
+    "gate_t19": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because 'most frequent' sounds like 'the only', but a superlative ranks sites; it does not exclude the others.", "claims": ["K2", "K106"]},
+        {"text": "Read the question again as asking for the commonest site, not the sole one.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so the superlative is the word to re-read. Ranking and exclusion are different claims.", "claims": ["K2", "K106"]},
+      "choices": [
+        {"label": "Try again", "next": "gate", "kind": "retry"},
+        {"label": "Show me why", "next": "teach", "kind": "agency"}
+      ]
+    },
+    "gate_t7": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the two saphenous veins are easy to blur into one template.", "claims": []},
+        {"text": "They share a name and a starting area at the dorsal venous arch, but not a course or an end.", "claims": ["K14", "K18", "K123"]}
+      ],
+      "sure_note": {"text": "You were sure, so pin down which side each vein runs on before you trust its termination.", "claims": ["K14", "K18"]},
+      "choices": [
+        {"label": "Try again", "next": "gate", "kind": "retry"},
+        {"label": "Show me why", "next": "teach", "kind": "agency"}
+      ]
+    },
+    "gate_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. The saphenofemoral junction is the most common site of reflux, where the great saphenous vein joins the femoral vein.", "claims": ["K2", "K106", "K14"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "teach", "kind": "continue"},
+        {"label": "I know this, skip ahead", "next": "check", "kind": "skip"}
+      ]
+    },
+    "teach": {
+      "role": "explain",
+      "objectives": ["O1", "O3"],
+      "say": [
+        {"text": "Varicose veins are dilated, tortuous superficial veins, 3 mm or more across when standing. The great saphenous system is the most commonly affected.", "claims": ["K1", "K11", "K2", "K105"]},
+        {"text": "The most common site of reflux is the saphenofemoral junction, and primary veins are the most common type. Secondary veins follow deep vein thrombosis, pelvic masses or an AV fistula.", "claims": ["K106", "K107", "K27", "K28"]},
+        {"text": "The great saphenous runs in front of the medial malleolus and joins the femoral vein. The short saphenous runs behind the lateral malleolus and usually joins the popliteal vein.", "claims": ["K14", "K18", "K123"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "probe2", "kind": "continue"}
+      ]
+    },
+    "probe2": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A registrar says: 'Most varicose veins are primary, so primary is the only kind we see.'", "claims": []},
+        {"text": "Which correction is right?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Primary veins are the only kind that occurs", "next": "p2_t19a", "kind": "trap", "trap": "TR19"},
+        {"label": "Primary veins are commonest, but secondary veins also occur", "next": "probe2_ok", "kind": "correct"},
+        {"label": "Secondary veins are less common, so they do not occur", "next": "p2_t19b", "kind": "trap", "trap": "TR19"},
+        {"label": "Not sure, give me a hint", "next": "probe2_hint", "kind": "help"}
+      ]
+    },
+    "probe2_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask what 'most common' ranks, and whether a lower rank can still mean that something happens.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "probe2", "kind": "retry"}
+      ]
+    },
+    "p2_t19a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because 'most common' reads as 'the only', so every other type drops out of the picture.", "claims": ["K107"]},
+        {"text": "Other types still occur, with causes such as deep vein thrombosis or an AV fistula.", "claims": ["K27", "K28"]}
+      ],
+      "sure_note": {"text": "You were sure, so re-read 'most common': it ranks the types, it does not list the only one.", "claims": ["K107", "K27"]},
+      "choices": [
+        {"label": "Try again", "next": "probe2", "kind": "retry"},
+        {"label": "Show me why", "next": "teach", "kind": "agency"}
+      ]
+    },
+    "p2_t19b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because a lower rank can feel like an absence, so 'less common' slides into 'does not occur'.", "claims": ["K107"]},
+        {"text": "Secondary varicose veins are a real type with identifiable causes, so the ranking does not remove them.", "claims": ["K28"]}
+      ],
+      "sure_note": {"text": "You were sure, so re-read 'less common': it ranks the types, it does not deny them.", "claims": ["K107", "K28"]},
+      "choices": [
+        {"label": "Try again", "next": "probe2", "kind": "retry"},
+        {"label": "Show me why", "next": "teach", "kind": "agency"}
+      ]
+    },
+    "probe2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Primary veins are the most common type, and secondary veins follow deep vein thrombosis, pelvic masses or an AV fistula.", "claims": ["K107", "K27", "K28"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "check", "kind": "continue"}
+      ]
+    },
+    "check": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Which description fits the short saphenous vein?", "claims": []}
+      ],
+      "choices": [
+        {"label": "In front of the medial malleolus, joining the popliteal vein", "next": "check_t7a", "kind": "trap", "trap": "TR7"},
+        {"label": "Behind the lateral malleolus, joining the popliteal vein", "next": "check_ok", "kind": "correct"},
+        {"label": "Behind the lateral malleolus, joining the femoral vein", "next": "check_t7b", "kind": "trap", "trap": "TR7"},
+        {"label": "Not sure, give me a hint", "next": "check_hint", "kind": "help"}
+      ]
+    },
+    "check_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Start from the dorsal venous arch: which end, medial or lateral, does the short saphenous begin from?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "check", "kind": "retry"}
+      ]
+    },
+    "check_t7a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the two veins' sides get swapped while the popliteal end is kept.", "claims": ["K14", "K18"]},
+        {"text": "Side and termination belong to one vein, so check the side first, then the termination.", "claims": ["K18", "K123"]}
+      ],
+      "sure_note": {"text": "You were sure, so the side is the anchor: the short saphenous's side is the one that goes with its termination.", "claims": ["K18", "K123"]},
+      "choices": [
+        {"label": "Try again", "next": "check", "kind": "retry"},
+        {"label": "Show me why", "next": "check_why", "kind": "agency"}
+      ]
+    },
+    "check_t7b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because it names the right side, but the femoral end belongs to the great saphenous.", "claims": ["K14", "K18"]},
+        {"text": "Check which end this vein joins before you trust the side.", "claims": ["K18"]}
+      ],
+      "sure_note": {"text": "You were sure, so the termination is the check: the femoral end is the other vein's.", "claims": ["K14", "K18"]},
+      "choices": [
+        {"label": "Try again", "next": "check", "kind": "retry"},
+        {"label": "Show me why", "next": "check_why", "kind": "agency"}
+      ]
+    },
+    "check_why": {
+      "role": "explain",
+      "say": [
+        {"text": "The short saphenous begins at the lateral end of the dorsal venous arch, runs behind the lateral malleolus and usually joins the popliteal vein.", "claims": ["K18", "K123"]},
+        {"text": "The great saphenous begins at the medial end, runs in front of the medial malleolus and joins the femoral vein at the saphenofemoral junction.", "claims": ["K14", "K123"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "check", "kind": "retry"}
+      ]
+    },
+    "check_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. The short saphenous begins at the lateral end of the dorsal venous arch, runs behind the lateral malleolus and usually joins the popliteal vein.", "claims": ["K18", "K123"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
