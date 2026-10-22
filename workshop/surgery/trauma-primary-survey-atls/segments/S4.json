@@ -1,0 +1,2128 @@
+{
+ "segment": "S4",
+ "technique": "T7",
+ "entry": "pair",
+ "nodes": {
+  "pair": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Two patients in the bay, both in shock, both with absent breath sounds on the right.",
+     "claims": []
+    },
+    {
+     "text": "Tension pneumothorax or massive haemothorax? Which finding tells them apart?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Absent breath sounds on the injured side",
+     "next": "pair_t7",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Muffled heart sounds with a falling pressure",
+     "next": "pair_t8",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Hyper-resonance on percussion, with distended neck veins",
+     "next": "pair_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "pair_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "pair_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Both sides are silent, so silence cannot separate them. Which bedside signs does air change, and which does blood change?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "pair",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pair_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Air trapped under pressure makes the chest hyper-resonant and fills the neck veins. Blood dulls the percussion note.",
+     "claims": [
+      "K24",
+      "K34"
+     ]
+    },
+    {
+     "text": "The veins are often flat in blood loss from hypovolaemia, so percussion and neck veins are the discriminators, not breath sounds.",
+     "claims": [
+      "K35"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pair",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pair_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Air gives a hyper-resonant chest and distended neck veins; blood gives dullness, and its neck veins are often flat.",
+     "claims": [
+      "K34",
+      "K35"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "tp_next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pair_t7": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Both patients are silent on that side, so silence feels like the sign that settles it.",
+     "claims": []
+    },
+    {
+     "text": "Massive haemothorax is also silent on one side, so silence cannot separate the two.",
+     "claims": [
+      "K35"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pair",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "pair_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the shared sign: silence on one side fits both.",
+    "claims": [
+     "K34"
+    ]
+   }
+  },
+  "pair_t8": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A falling pressure with a full neck feels like a heart-level problem, so the heart sounds seem to decide it.",
+     "claims": []
+    },
+    {
+     "text": "Muffled heart sounds belong to the pericardium, and they do not separate air from blood in the chest.",
+     "claims": [
+      "K39"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pair",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "pair_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure: muffled heart sounds point to the pericardium, not the pleura.",
+    "claims": [
+     "K39"
+    ]
+   }
+  },
+  "tp_next": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "A stab wound to the right chest. He is hypotensive, his neck veins are distended, the right chest is hyper-resonant and breath sounds on that side are absent.",
+     "claims": [
+      "K34"
+     ]
+    },
+    {
+     "text": "What is your next step?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Portable chest X-ray first, then decide on treatment",
+     "next": "tp_next_t3",
+     "kind": "trap",
+     "trap": "TR3"
+    },
+    {
+     "label": "Immediate needle decompression of the right chest",
+     "next": "tp_next_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Intubate and ventilate with positive pressure",
+     "next": "tp_next_t5",
+     "kind": "trap",
+     "trap": "TR5"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "tp_next_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "tp_next_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Count what is in front of you: low pressure, a full neck and a silent side. Which step cannot wait for a film?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "tp_next",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tp_next_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "A one-way valve traps air in the pleural space; it collapses the lung and impedes venous return.",
+     "claims": [
+      "K24"
+     ]
+    },
+    {
+     "text": "Tension pneumothorax is a clinical diagnosis, so decompress first, then tube and reassess, rather than wait for an X-ray.",
+     "claims": [
+      "K6",
+      "K72"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tp_next",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tp_next_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Tension pneumothorax is a clinical diagnosis, and immediate needle decompression comes before anything else.",
+     "claims": [
+      "K6",
+      "K72"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "ppv",
+     "kind": "continue"
+    }
+   ]
+  },
+  "tp_next_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A film feels like the careful step before any procedure, and that habit is strong.",
+     "claims": []
+    },
+    {
+     "text": "A film can wait only while the patient is stable, and this one is in shock.",
+     "claims": [
+      "K6"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tp_next",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "tp_next_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the habit: imaging first is the trap in shock.",
+    "claims": [
+     "K6"
+    ]
+   }
+  },
+  "tp_next_t5": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Airway is the first letter, so a tube feels like the first move.",
+     "claims": []
+    },
+    {
+     "text": "Positive pressure only adds air to a space that already has a one-way leak, so the chest is the problem first.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tp_next",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "tp_next_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure: a secure airway does not treat the leak that is filling the chest.",
+    "claims": [
+     "K24"
+    ]
+   }
+  },
+  "ppv": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "Picture an untreated tension pneumothorax, with air already trapped by a one-way valve.",
+     "claims": [
+      "K24"
+     ]
+    },
+    {
+     "text": "You now push positive-pressure breaths in. What happens to the pressure in that space?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "It pushes more air into the trapped space, raising pressure",
+     "next": "ppv_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "It re-expands the collapsed lung and relieves the shift",
+     "next": "ppv_t5",
+     "kind": "trap",
+     "trap": "TR5"
+    },
+    {
+     "label": "It pulls the mediastinum toward the collapsed lung",
+     "next": "ppv_t16",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "ppv_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "ppv_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Air that enters the pleural space through the leak has no way out. Ask what another breath does to that trapped air.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "ppv",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ppv_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "The valve lets air in and not out, so pleural pressure rises with every breath.",
+     "claims": [
+      "K24"
+     ]
+    },
+    {
+     "text": "Rising pressure shifts the mediastinum to the other side and impedes venous return, so it must be relieved first.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ppv",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ppv_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Trapped air under rising pressure pushes the mediastinum and cuts venous return.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "tp_dx",
+     "kind": "continue"
+    }
+   ]
+  },
+  "ppv_t5": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Re-inflating a collapsed lung is what a breath is meant to do, so the picture feels right.",
+     "claims": []
+    },
+    {
+     "text": "Here the valve lets air in and not out. Ask what a breath does to a space the valve keeps filling.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ppv",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ppv_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure: a one-way leak fills the space; it does not drain it.",
+    "claims": [
+     "K24"
+    ]
+   }
+  },
+  "ppv_t16": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A collapsed lung looks like it should drag things toward it, so the pull feels plausible.",
+     "claims": []
+    },
+    {
+     "text": "Ask what is doing the pushing here: the collapsed lung, or the air under pressure.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ppv",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ppv_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure: the trapped air is pushing, not the lung pulling.",
+    "claims": [
+     "K24"
+    ]
+   }
+  },
+  "tp_dx": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "In the primary survey, what confirms a tension pneumothorax?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Upright chest X-ray showing a shifted mediastinum",
+     "next": "tp_dx_t3a",
+     "kind": "trap",
+     "trap": "TR3"
+    },
+    {
+     "label": "Bedside clinical findings on examination of the chest",
+     "next": "tp_dx_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "CT chest before treatment, to see the pleura",
+     "next": "tp_dx_t3b",
+     "kind": "trap",
+     "trap": "TR3"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "tp_dx_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "tp_dx_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The primary survey runs on what kills in minutes. Which of these can be found at the bedside, without a machine?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "tp_dx",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tp_dx_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "The diagnosis is clinical: unilateral absent breath sounds, hyper-resonance, distended neck veins and shock.",
+     "claims": [
+      "K34",
+      "K118"
+     ]
+    },
+    {
+     "text": "The physiology kills while you wait, so the bedside signs decide the step, and imaging follows only once the patient is stable.",
+     "claims": [
+      "K6"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tp_dx",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tp_dx_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The diagnosis is clinical, and a film is not needed before treatment.",
+     "claims": [
+      "K6",
+      "K118"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "site_adult",
+     "kind": "continue"
+    }
+   ]
+  },
+  "tp_dx_t3a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A film is what most exam stems pair with a chest diagnosis, so the X-ray feels like the confirmation.",
+     "claims": []
+    },
+    {
+     "text": "A film can wait only while the patient is stable. The primary survey runs on what kills in minutes, and a film takes longer.",
+     "claims": [
+      "K6"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tp_dx",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "tp_dx_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure: a film is the habit, not the primary survey's test.",
+    "claims": [
+     "K6"
+    ]
+   }
+  },
+  "tp_dx_t3b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. CT is the thorough test in trauma, so it feels like the complete answer.",
+     "claims": []
+    },
+    {
+     "text": "Thorough is not the same as first; the primary survey is built on what can be done at the bedside.",
+     "claims": [
+      "K6"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tp_dx",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "tp_dx_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure: a thorough scan is not the first test in the primary survey.",
+    "claims": [
+     "K6"
+    ]
+   }
+  },
+  "site_adult": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "ATLS 10th edition: where is needle decompression placed in an adult?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "2nd intercostal space, in the mid-clavicular line",
+     "next": "site_adult_t11a",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "3rd intercostal space, at the anterior axillary line",
+     "next": "site_adult_t11b",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "4th or 5th intercostal space, anterior to the mid-axillary line",
+     "next": "site_adult_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "site_adult_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "site_adult_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Two editions give two answers. Which one is the current adult site, and why would chest wall thickness matter?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "site_adult",
+     "kind": "retry"
+    }
+   ]
+  },
+  "site_adult_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "ATLS 10th edition places the adult site in the 4th or 5th intercostal space, just anterior to the mid-axillary line.",
+     "claims": [
+      "K73"
+     ]
+    },
+    {
+     "text": "A catheter at the old site can be too short to reach the pleura through a thick adult chest wall.",
+     "claims": [
+      "K112"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "site_adult",
+     "kind": "retry"
+    }
+   ]
+  },
+  "site_adult_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The adult site is the 4th or 5th space, anterior to the mid-axillary line, where a catheter can reach the pleura.",
+     "claims": [
+      "K73",
+      "K112"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "site_child",
+     "kind": "continue"
+    }
+   ]
+  },
+  "site_adult_t11a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is the site most older books and past keys give, so it feels like the standard answer.",
+     "claims": []
+    },
+    {
+     "text": "That site is the child's ATLS site, and the adult site has moved since, so the edition matters here.",
+     "claims": [
+      "K74",
+      "K128"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "site_adult",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "site_adult_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so hold both keys: old and current editions differ on the adult site.",
+    "claims": [
+     "K128"
+    ]
+   }
+  },
+  "site_adult_t11b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It sits close to the right area, so a half-remembered site picks it up.",
+     "claims": []
+    },
+    {
+     "text": "Near-misses lose the exact interspace and line that ATLS names, so check both the space and the line.",
+     "claims": [
+      "K73"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "site_adult",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "site_adult_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, but the exact space and line are what the exam tests.",
+    "claims": [
+     "K73"
+    ]
+   }
+  },
+  "site_child": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "A 6-year-old has a tension pneumothorax with the same signs as an adult.",
+     "claims": [
+      "K34"
+     ]
+    },
+    {
+     "text": "Where do you place the needle now?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "4th or 5th space, just anterior to mid-axillary line",
+     "next": "site_child_t11",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "2nd intercostal space, at the mid-clavicular line",
+     "next": "site_child_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Chest X-ray to choose the site before needling",
+     "next": "site_child_t3",
+     "kind": "trap",
+     "trap": "TR3"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "site_child_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "site_child_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The age in the stem matters. Which site does the child keep, and which did the adult edition change?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "site_child",
+     "kind": "retry"
+    }
+   ]
+  },
+  "site_child_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "ATLS keeps the 2nd intercostal space at the mid-clavicular line for children, while the adult site moved.",
+     "claims": [
+      "K74",
+      "K128"
+     ]
+    },
+    {
+     "text": "A child's thinner chest wall lets a short catheter still reach the pleura at that site.",
+     "claims": [
+      "K112"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "site_child",
+     "kind": "retry"
+    }
+   ]
+  },
+  "site_child_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. In a child the site is the 2nd intercostal space at the mid-clavicular line; the adult site is for adults.",
+     "claims": [
+      "K74",
+      "K73"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "mediast",
+     "kind": "continue"
+    }
+   ]
+  },
+  "site_child_t11": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. You learned the current adult site most recently, so it is the one that comes to mind.",
+     "claims": []
+    },
+    {
+     "text": "The adult site does not carry over to a child; ATLS keeps a different site by age.",
+     "claims": [
+      "K74",
+      "K128"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "site_child",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "site_child_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure: the site follows age and edition, not the most recent memory.",
+    "claims": [
+     "K128"
+    ]
+   }
+  },
+  "site_child_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A film feels safe before any procedure, even in a child.",
+     "claims": []
+    },
+    {
+     "text": "Tension pneumothorax is a clinical diagnosis at any age, and a film does not choose the site.",
+     "claims": [
+      "K6"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "site_child",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "site_child_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the habit: imaging first is the trap in this condition.",
+    "claims": [
+     "K6"
+    ]
+   }
+  },
+  "mediast": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "On the right, the lung keeps collapsing and the trapped air keeps pushing.",
+     "claims": [
+      "K24"
+     ]
+    },
+    {
+     "text": "Which way does the mediastinum move?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "It is pulled toward the collapsed right lung",
+     "next": "mediast_t16a",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "It is pushed to the left, impeding venous return",
+     "next": "mediast_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "It shifts right, toward the injured side with the lung",
+     "next": "mediast_t16b",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "mediast_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "mediast_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what is doing the pushing: the collapsed lung, or the air trapped under pressure? Then ask which way that push goes.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "mediast",
+     "kind": "retry"
+    }
+   ]
+  },
+  "mediast_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Rising pleural pressure pushes the mediastinum to the opposite side and impedes venous return.",
+     "claims": [
+      "K24"
+     ]
+    },
+    {
+     "text": "So the trachea moves away from the injured side, and the neck veins fill.",
+     "claims": [
+      "K34"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "mediast",
+     "kind": "retry"
+    }
+   ]
+  },
+  "mediast_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Trapped air under rising pressure pushes the mediastinum across and impedes venous return.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "right_pair",
+     "kind": "continue"
+    }
+   ]
+  },
+  "mediast_t16a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A collapsed lung looks like it should drag its neighbours in with it.",
+     "claims": []
+    },
+    {
+     "text": "The force here is air under rising pressure, not the lung's pull.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "mediast",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "mediast_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure: pressure pushes, and the collapsed lung does not drag.",
+    "claims": [
+     "K24"
+    ]
+   }
+  },
+  "mediast_t16b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Shifting toward the injured side is what a collapsed lung seems to do on a picture.",
+     "claims": []
+    },
+    {
+     "text": "The direction is set by the pressure, not by the side of the injury. Check which way the trachea moves.",
+     "claims": [
+      "K34"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "mediast",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "mediast_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure: check the direction, because it is the detail the exam tests.",
+    "claims": [
+     "K34"
+    ]
+   }
+  },
+  "right_pair": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "A right-sided tension pneumothorax, examined at the bedside.",
+     "claims": [
+      "K34"
+     ]
+    },
+    {
+     "text": "Which pair of findings do you expect?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Trachea deviated to the left, hyper-resonance on the right",
+     "next": "right_pair_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Trachea deviated to the right, hyper-resonance on the right",
+     "next": "right_pair_t16",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Trachea central, with dullness to percussion on the right",
+     "next": "right_pair_t7",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "right_pair_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "right_pair_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think about where the pressure pushes the trachea, and which percussion note trapped air gives.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "right_pair",
+     "kind": "retry"
+    }
+   ]
+  },
+  "right_pair_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Trapped air under pressure pushes the trachea to the opposite side and leaves the injured chest hyper-resonant.",
+     "claims": [
+      "K34"
+     ]
+    },
+    {
+     "text": "The same pressure impedes venous return, which is why the neck veins fill.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "right_pair",
+     "kind": "retry"
+    }
+   ]
+  },
+  "right_pair_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Hyper-resonance on the injured side, with the trachea pushed to the other side, is the expected pair.",
+     "claims": [
+      "K34"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "flail_cause",
+     "kind": "continue"
+    }
+   ]
+  },
+  "right_pair_t16": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The trachea tracks the injured side in many pictures, so it feels like the same side.",
+     "claims": []
+    },
+    {
+     "text": "Air pushes from the inside, so ask which way that push would move the trachea.",
+     "claims": [
+      "K24"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "right_pair",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "right_pair_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "right_pair_t7": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Dullness is the sign of blood, so a dull right chest feels like it belongs to this picture.",
+     "claims": []
+    },
+    {
+     "text": "Dullness and a central trachea describe a different chest, not this one.",
+     "claims": [
+      "K35"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "right_pair",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "right_pair_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "flail_cause": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "A man has three ribs each broken in two places, and a segment of chest wall moves paradoxically. His saturation is falling.",
+     "claims": [
+      "K36"
+     ]
+    },
+    {
+     "text": "What is the main cause of his hypoxia?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Paradoxical movement of the flail segment",
+     "next": "flail_cause_t14",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Underlying pulmonary contusion of the lung beneath",
+     "next": "flail_cause_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "An associated open pneumothorax from the same injury",
+     "next": "flail_cause_t35",
+     "kind": "trap",
+     "trap": "TR35"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "flail_cause_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "flail_cause_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The moving segment is what you can see. Ask what the lung under it is doing to the blood's oxygen.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "flail_cause",
+     "kind": "retry"
+    }
+   ]
+  },
+  "flail_cause_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "A flail segment is two or more adjacent ribs, each fractured in two or more places.",
+     "claims": [
+      "K36"
+     ]
+    },
+    {
+     "text": "The hypoxia comes from the contusion underneath; the paradoxical movement is only the visible sign.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "flail_cause",
+     "kind": "retry"
+    }
+   ]
+  },
+  "flail_cause_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The contusion causes the hypoxia; the paradoxical movement is only its sign.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "flail_mgmt",
+     "kind": "continue"
+    }
+   ]
+  },
+  "flail_cause_t14": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The moving segment is the visible injury, so it is easy to take for the cause.",
+     "claims": []
+    },
+    {
+     "text": "The moving segment is a sign of the injury. Ask what the lung underneath is doing.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "flail_cause",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "flail_cause_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure: a sign you can see is not the same as the cause.",
+    "claims": [
+     "K26"
+    ]
+   }
+  },
+  "flail_cause_t35": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Any chest injury on the list feels like a candidate for the hypoxia.",
+     "claims": []
+    },
+    {
+     "text": "Being on the chest-injury list does not make a problem the cause here. Ask what flail chest does to the lung.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "flail_cause",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "flail_cause_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure: a listed injury is not automatically the cause.",
+    "claims": [
+     "K33"
+    ]
+   }
+  },
+  "flail_mgmt": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Flail chest with a bruised lung on the monitor, and his saturation is still falling.",
+     "claims": [
+      "K26"
+     ]
+    },
+    {
+     "text": "Which management treats the cause?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Urgent surgical fixation of the loose segment",
+     "next": "flail_mgmt_t14a",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Strapping the chest wall to stop the movement",
+     "next": "flail_mgmt_t14b",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Oxygen, analgesia, judicious fluids, ventilation if needed",
+     "next": "flail_mgmt_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "flail_mgmt_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "flail_mgmt_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The question asks what treats the cause, the bruised lung, not the sign. Which options act on the lung?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "flail_mgmt",
+     "kind": "retry"
+    }
+   ]
+  },
+  "flail_mgmt_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Flail chest with pulmonary contusion is managed with oxygen, adequate analgesia, judicious fluids and ventilation if hypoxia persists.",
+     "claims": [
+      "K81"
+     ]
+    },
+    {
+     "text": "The target is the lung, because the contusion is what causes the hypoxia.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "flail_mgmt",
+     "kind": "retry"
+    }
+   ]
+  },
+  "flail_mgmt_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Treat the contusion with oxygen, analgesia and judicious fluids, ventilating if hypoxia persists.",
+     "claims": [
+      "K81"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "tamp",
+     "kind": "continue"
+    }
+   ]
+  },
+  "flail_mgmt_t14a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A visibly broken chest feels like it needs a decisive fix, so surgery sounds right.",
+     "claims": []
+    },
+    {
+     "text": "Fixing the segment treats the sign you can see; the hypoxia sits in the lung beneath it.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "flail_mgmt",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "flail_mgmt_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "flail_mgmt_t14b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Strapping feels like a gentle way to stop the movement that alarms you.",
+     "claims": []
+    },
+    {
+     "text": "Stopping the movement does not address the contusion, which is what lowers the oxygen.",
+     "claims": [
+      "K81"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "flail_mgmt",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "flail_mgmt_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "tamp": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "A stab wound left of the sternum. He is hypotensive, his neck veins are distended and his heart sounds are muffled.",
+     "claims": [
+      "K39"
+     ]
+    },
+    {
+     "text": "Breath sounds are clear on both sides. What is the most likely diagnosis?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Cardiac tamponade, with blood compressing the heart",
+     "next": "tamp_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Massive haemothorax, dull and silent on one side",
+     "next": "tamp_t7",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Tension pneumothorax on the left, hyper-resonant",
+     "next": "tamp_t8",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "tamp_hint",
+     "kind": "help"
+    }
+   ],
+   "ask_confidence": true
+  },
+  "tamp_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Look at the sounds. Which findings here point at the heart rather than the pleura, and what do both lungs sound like?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "tamp",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tamp_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Beck's triad is hypotension, muffled heart sounds and distended neck veins; it is the tamponade picture.",
+     "claims": [
+      "K39"
+     ]
+    },
+    {
+     "text": "Clear breath sounds on both sides, and no one-sided dullness, separate it from the pleural causes.",
+     "claims": [
+      "K34",
+      "K35"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tamp",
+     "kind": "retry"
+    }
+   ]
+  },
+  "tamp_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Beck's triad with clear breath sounds on both sides points to the pericardium.",
+     "claims": [
+      "K39"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "not_list",
+     "kind": "continue"
+    }
+   ]
+  },
+  "tamp_t7": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Shock with a silent side feels like blood in the chest, so the haemothorax picture seems close.",
+     "claims": []
+    },
+    {
+     "text": "Both sides are clear here, and haemothorax needs a dull, silent side.",
+     "claims": [
+      "K35"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tamp",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "tamp_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure: check the breath sounds on each side before naming the pleura.",
+    "claims": [
+     "K35"
+    ]
+   }
+  },
+  "tamp_t8": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Hypotension with full neck veins feels like the obstructive air picture.",
+     "claims": []
+    },
+    {
+     "text": "Clear breath sounds on both sides argue against a pleural air leak.",
+     "claims": [
+      "K34"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "tamp",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "tamp_why",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure: an air leak is one-sided, and these breath sounds are not.",
+    "claims": [
+     "K34"
+    ]
+   }
+  },
+  "not_list": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "The primary survey lists the chest injuries that threaten life in minutes.",
+     "claims": [
+      "K33"
+     ]
+    },
+    {
+     "text": "Which is NOT one of them?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Massive haemothorax, with blood in the chest",
+     "next": "not_list_t35a",
+     "kind": "trap",
+     "trap": "TR35"
+    },
+    {
+     "label": "Cardiac tamponade, with blood around the heart",
+     "next": "not_list_t35b",
+     "kind": "trap",
+     "trap": "TR35"
+    },
+    {
+     "label": "Simple closed pneumothorax, with the lung still inflating",
+     "next": "not_list_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "not_list_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "not_list_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which of these would stop breathing or filling within minutes, and which injury is minor and can wait.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "not_list",
+     "kind": "retry"
+    }
+   ]
+  },
+  "not_list_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "The five are tension pneumothorax, open pneumothorax, massive haemothorax, flail chest with pulmonary contusion and cardiac tamponade.",
+     "claims": [
+      "K33"
+     ]
+    },
+    {
+     "text": "A simple closed pneumothorax is not on that list, so it is the one that is NOT.",
+     "claims": [
+      "K33"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "not_list",
+     "kind": "retry"
+    }
+   ]
+  },
+  "not_list_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Simple closed pneumothorax is not among the five; the other four are.",
+     "claims": [
+      "K33"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "circ",
+     "kind": "continue"
+    }
+   ]
+  },
+  "not_list_t35a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Any big chest bleed feels like it belongs on a list of chest killers.",
+     "claims": []
+    },
+    {
+     "text": "The list is built on what threatens breathing or filling, and massive haemothorax is on it.",
+     "claims": [
+      "K33"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "not_list",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "not_list_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "not_list_t35b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A heart problem can feel like a separate case, so it drops off the chest list.",
+     "claims": []
+    },
+    {
+     "text": "Cardiac tamponade is one of the five and is assessed with circulation.",
+     "claims": [
+      "K33",
+      "K39"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "not_list",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "not_list_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "circ": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Chest injuries are sorted in the primary survey by the letter they threaten.",
+     "claims": [
+      "K33"
+     ]
+    },
+    {
+     "text": "Which injury is assessed under circulation rather than breathing?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Tension pneumothorax, under the breathing letter",
+     "next": "circ_t35a",
+     "kind": "trap",
+     "trap": "TR35"
+    },
+    {
+     "label": "Cardiac tamponade, under the circulation letter",
+     "next": "circ_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Flail chest with pulmonary contusion, under breathing",
+     "next": "circ_t35b",
+     "kind": "trap",
+     "trap": "TR35"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "circ_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "circ_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Tamponade fills the sac around the heart. Which letter of the primary survey covers the heart's filling?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "circ",
+     "kind": "retry"
+    }
+   ]
+  },
+  "circ_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Cardiac tamponade is the chest injury assessed with circulation, and Beck's triad is its picture.",
+     "claims": [
+      "K33",
+      "K39"
+     ]
+    },
+    {
+     "text": "Tension pneumothorax and flail chest are breathing problems, so they belong under B.",
+     "claims": [
+      "K33"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "circ",
+     "kind": "retry"
+    }
+   ]
+  },
+  "circ_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Cardiac tamponade is the injury assessed under circulation; the rest of the chest list is under breathing.",
+     "claims": [
+      "K33"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "circ_t35a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A chest injury feels like a breathing problem, so the tension one comes to mind first.",
+     "claims": []
+    },
+    {
+     "text": "Ask which chest injury stops the heart filling rather than the lung inflating.",
+     "claims": [
+      "K33"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "circ",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "circ_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "circ_t35b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Flail chest is the classic breathing injury, so it sounds right under B.",
+     "claims": []
+    },
+    {
+     "text": "Flail chest threatens breathing through the chest wall and lung, not the filling of the heart.",
+     "claims": [
+      "K26",
+      "K33"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "circ",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "circ_why",
+     "kind": "agency"
+    }
+   ]
+  }
+ },
+ "decision": "solo"
+}
