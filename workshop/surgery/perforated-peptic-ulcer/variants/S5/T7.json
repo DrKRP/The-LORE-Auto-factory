@@ -1,0 +1,1018 @@
+{
+ "segment": "S5",
+ "technique": "T7",
+ "entry": "pair",
+ "nodes": {
+  "pair": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A patient with sudden peritonitis reaches the emergency bay. The surgeon wants one test ordered now, at the front door.",
+     "claims": []
+    },
+    {
+     "text": "Which investigation first?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Erect chest X-ray, as the quick first film",
+     "next": "pair_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "CT abdomen, as the most sensitive test",
+     "next": "pair_t5",
+     "kind": "trap",
+     "trap": "TR5"
+    },
+    {
+     "label": "Barium meal, as the familiar contrast study",
+     "next": "pair_t20",
+     "kind": "trap",
+     "trap": "TR20"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "pair_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "pair_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which test the front door needs in minutes, and which test ranks how few cases it misses.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "pair",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pair_ok": {
+   "role": "feedback",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "Yes. The erect chest X-ray is the first investigation in suspected perforation.",
+     "claims": [
+      "K68"
+     ]
+    },
+    {
+     "text": "It shows free gas under the diaphragm in roughly three-quarters of cases, so it answers the first question quickly.",
+     "claims": [
+      "K5"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "ladder",
+     "kind": "continue"
+    },
+    {
+     "label": "I know the test ladder, skip the teaching",
+     "next": "pyqs",
+     "kind": "skip"
+    }
+   ]
+  },
+  "pair_t5": {
+   "role": "feedback",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "That choice is not right. CT feels right, because the test that misses least sounds like the one to start with.",
+     "claims": []
+    },
+    {
+     "text": "But sensitivity ranks tests for doubt; it does not say which test to order first.",
+     "claims": [
+      "K6",
+      "K68"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pair",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "teach_ladder",
+     "kind": "agency"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so separate the test you start with from the test that settles doubt.",
+    "claims": [
+     "K68"
+    ]
+   }
+  },
+  "pair_t20": {
+   "role": "feedback",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "That choice is not right. Barium is the familiar gut contrast, so it comes to mind before anything else.",
+     "claims": []
+    },
+    {
+     "text": "A first test for free gas does not involve barium, and in suspected perforation barium must not be given.",
+     "claims": [
+      "K71"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pair",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so name the test for free gas, not the contrast you know best.",
+    "claims": [
+     "K71"
+    ]
+   }
+  },
+  "teach_ladder": {
+   "role": "explain",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "Two questions. The first test is the one you order at the front door: quick and available.",
+     "claims": [
+      "K68"
+     ]
+    },
+    {
+     "text": "The most sensitive test misses the fewest cases, and it is the one to use when the first film leaves doubt.",
+     "claims": [
+      "K6",
+      "K39"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "pair",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ladder": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Same patient, an hour later. The erect film is equivocal and the surgeons still doubt a perforation.",
+     "claims": []
+    },
+    {
+     "text": "Which test settles the doubt?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "CT abdomen, since it is the most sensitive",
+     "next": "ladder_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Repeat the erect film, since it was first",
+     "next": "ladder_t5",
+     "kind": "trap",
+     "trap": "TR5"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "ladder_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "ladder_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which test answers a question of doubt, not the question of where to start.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "ladder",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ladder_ok": {
+   "role": "feedback",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "Yes. CT is the most sensitive test and the test of choice when the film leaves doubt.",
+     "claims": [
+      "K6"
+     ]
+    },
+    {
+     "text": "It also detects small volumes of free gas and fluid, and often localises the site.",
+     "claims": [
+      "K39"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pyqs",
+     "kind": "continue"
+    }
+   ]
+  },
+  "ladder_t5": {
+   "role": "feedback",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "That choice is not right. Repeating the first test feels thorough, because it is quick and already requested.",
+     "claims": []
+    },
+    {
+     "text": "But it carries the same blind spot: a clear film does not exclude perforation, so a repeat cannot settle doubt.",
+     "claims": [
+      "K7"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ladder",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so ask which test answers doubt, not which one starts the work-up.",
+    "claims": [
+     "K6"
+    ]
+   }
+  },
+  "pyqs": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "An exam stem asks for the investigation of choice in perforated peptic ulcer, with a film and CT both on the list.",
+     "claims": []
+    },
+    {
+     "text": "Which pairing matches the PYQ key and current practice?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "PYQ key: erect X-ray. Current practice: CT when in doubt",
+     "next": "pyqs_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Both the PYQ key and current practice: erect X-ray",
+     "next": "pyqs_t6",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "PYQ key: CT. Current practice: erect X-ray",
+     "next": "pyqs_t6b",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "pyqs_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "pyqs_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which frame the stem uses, the exam key or the newer practice, before you pick a test.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "pyqs",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pyqs_ok": {
+   "role": "feedback",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "Yes. PYQs have expected the erect chest X-ray as the first or initial investigation.",
+     "claims": [
+      "K79"
+     ]
+    },
+    {
+     "text": "Current practice treats CT abdomen as the most sensitive test, and the test of choice when doubt remains.",
+     "claims": [
+      "K69"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "clear",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pyqs_t6": {
+   "role": "feedback",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "That choice is not right. One test for both frames is tempting, because a single name is easier to remember.",
+     "claims": []
+    },
+    {
+     "text": "The exam key and current practice answer different questions, so each frame needs its own answer.",
+     "claims": [
+      "K79"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pyqs",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check whether the stem asks what the exam expects or what current practice does.",
+    "claims": [
+     "K79"
+    ]
+   }
+  },
+  "pyqs_t6b": {
+   "role": "feedback",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "That choice is not right. Swapping the two frames is tempting if you remember CT as the newer, stronger test.",
+     "claims": []
+    },
+    {
+     "text": "The stem tells you which frame it wants, and the exam key and current practice do not share one answer.",
+     "claims": [
+      "K79",
+      "K69"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pyqs",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so read which source the stem follows before you choose.",
+    "claims": [
+     "K79"
+    ]
+   }
+  },
+  "clear": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Sudden epigastric pain, board-like rigidity, pulse 112. The erect chest film shows no free gas.",
+     "claims": []
+    },
+    {
+     "text": "What does that clear film allow you to conclude?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "The film does not rule out perforation; the work-up goes on",
+     "next": "clear_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Perforation is very unlikely, so the patient can be observed",
+     "next": "clear_t7",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Perforation is excluded if the film was taken properly erect",
+     "next": "clear_t7",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "clear_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "clear_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what fraction of perforations the film can show, and what a rigid belly is still telling you.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "clear",
+     "kind": "retry"
+    }
+   ]
+  },
+  "clear_ok": {
+   "role": "feedback",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Yes. A clear erect film does not exclude perforation.",
+     "claims": [
+      "K7"
+     ]
+    },
+    {
+     "text": "Free gas is missed in a substantial minority of cases, so a rigid belly keeps the work-up open.",
+     "claims": [
+      "K80"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "share",
+     "kind": "continue"
+    }
+   ]
+  },
+  "clear_t7": {
+   "role": "feedback",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "That choice is not right. A clear film reads like a normal result, so it feels safe to close the question.",
+     "claims": []
+    },
+    {
+     "text": "But a normal film is not a negative test: perforation can be present with no free gas on the film.",
+     "claims": [
+      "K7",
+      "K80"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "clear",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so ask whether a clear film can ever rule perforation out.",
+    "claims": [
+     "K7"
+    ]
+   }
+  },
+  "share": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Free gas shows on the erect film in what share of perforations, and what does that mean for a clear film?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "About three-quarters, so a quarter show none",
+     "next": "share_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Nearly all, so a clear film rules it out",
+     "next": "share_t7",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Most, so a clear film makes perforation unlikely",
+     "next": "share_t7",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "share_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "share_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what a test with a miss rate does to a negative result.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "share",
+     "kind": "retry"
+    }
+   ]
+  },
+  "share_ok": {
+   "role": "feedback",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Yes. Free gas shows in roughly three-quarters of cases; the figure is approximate, and texts vary.",
+     "claims": [
+      "K5",
+      "K80"
+     ]
+    },
+    {
+     "text": "A clear film therefore does not exclude perforation.",
+     "claims": [
+      "K7"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "sit",
+     "kind": "continue"
+    }
+   ]
+  },
+  "share_t7": {
+   "role": "feedback",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "That choice is not right. A high share sounds reassuring, so a clear film feels like a closed question.",
+     "claims": []
+    },
+    {
+     "text": "Free gas is missed in a substantial minority of perforations, so the miss rate is the point.",
+     "claims": [
+      "K5",
+      "K7"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "share",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check whether the film catches every perforation.",
+    "claims": [
+     "K7"
+    ]
+   }
+  },
+  "sit": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A patient is helped upright and the erect film is taken within seconds. No free gas shows, yet peritonitis is clear.",
+     "claims": []
+    },
+    {
+     "text": "How long should he sit upright before the film?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "About 10 minutes, to let the gas rise",
+     "next": "sit_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Take the film at once, since gas rises",
+     "next": "sit_t9",
+     "kind": "trap",
+     "trap": "TR9"
+    },
+    {
+     "label": "About two minutes, since gas rises quickly",
+     "next": "sit_t9",
+     "kind": "trap",
+     "trap": "TR9"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "sit_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "sit_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask how far the gas must travel from the perforation to the diaphragm, and how fast it moves.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "sit",
+     "kind": "retry"
+    }
+   ]
+  },
+  "sit_ok": {
+   "role": "feedback",
+   "objectives": [
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "Yes. Gas must rise through the abdomen, which takes time, so the patient sits for about ten minutes first.",
+     "claims": [
+      "K34"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "lie",
+     "kind": "continue"
+    }
+   ]
+  },
+  "sit_t9": {
+   "role": "feedback",
+   "objectives": [
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "That choice is not right. Gas does rise, so a film taken straight after sitting up feels logical.",
+     "claims": []
+    },
+    {
+     "text": "But rising takes time, so a film taken too early can miss gas that is still on its way.",
+     "claims": [
+      "K34",
+      "K23"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "sit",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so ask how long the gas needs before it reaches the diaphragm.",
+    "claims": [
+     "K34"
+    ]
+   }
+  },
+  "lie": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A man with suspected perforation cannot sit up or stand, so an erect film is not possible.",
+     "claims": []
+    },
+    {
+     "text": "Which abdominal film should be taken instead?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Left lateral decubitus film",
+     "next": "lie_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Supine film, the usual bed view",
+     "next": "lie_t8",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Right lateral decubitus film",
+     "next": "lie_t8",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "lie_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "lie_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask where gas goes when the patient lies on a given side, and which side lets you see it against the liver.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "lie",
+     "kind": "retry"
+    }
+   ]
+  },
+  "lie_ok": {
+   "role": "feedback",
+   "objectives": [
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "Yes. Lying on the left side lets gas collect between the liver and the lateral abdominal wall, where it can be seen.",
+     "claims": [
+      "K36"
+     ]
+    },
+    {
+     "text": "That is the view to take when the patient cannot sit up.",
+     "claims": [
+      "K70"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "contrast",
+     "kind": "continue"
+    }
+   ]
+  },
+  "lie_t8": {
+   "role": "feedback",
+   "objectives": [
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "That choice is not right. A supine or right-sided film is the usual picture, so the wrong side comes to mind.",
+     "claims": []
+    },
+    {
+     "text": "But the qualifier is that the patient cannot sit, and the view must let gas rise where the liver can outline it.",
+     "claims": [
+      "K36",
+      "K70"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "lie",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so drop the usual picture and work from the patient's position.",
+    "claims": [
+     "K36"
+    ]
+   }
+  },
+  "contrast": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A suspected perforation, and the surgeon wants to know whether it has sealed before deciding on conservative care.",
+     "claims": []
+    },
+    {
+     "text": "Which contrast study answers that?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Water-soluble Gastrografin, to show a seal",
+     "next": "contrast_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Barium sulphate, the familiar GI contrast",
+     "next": "contrast_t20",
+     "kind": "trap",
+     "trap": "TR20"
+    },
+    {
+     "label": "Barium, since it shows a leak most clearly",
+     "next": "contrast_t20",
+     "kind": "trap",
+     "trap": "TR20"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "contrast_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "contrast_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what each contrast does if it leaks into the peritoneal cavity.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "contrast",
+     "kind": "retry"
+    }
+   ]
+  },
+  "contrast_ok": {
+   "role": "feedback",
+   "objectives": [
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "Yes. Water-soluble contrast shows whether the perforation has sealed, which guides conservative care.",
+     "claims": [
+      "K72"
+     ]
+    },
+    {
+     "text": "Barium is contraindicated when perforation is suspected, because barium peritonitis is severe.",
+     "claims": [
+      "K43"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "contrast_t20": {
+   "role": "feedback",
+   "objectives": [
+    "O6"
+   ],
+   "say": [
+    {
+     "text": "That choice is not right. Barium is the familiar gut contrast, so it feels like the default study.",
+     "claims": []
+    },
+    {
+     "text": "A leak of barium into the peritoneum causes severe peritonitis, so it is the one medium to avoid here.",
+     "claims": [
+      "K43"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "contrast",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so ask what each medium does if it escapes into the belly.",
+    "claims": [
+     "K43"
+    ]
+   }
+  }
+ }
+}
