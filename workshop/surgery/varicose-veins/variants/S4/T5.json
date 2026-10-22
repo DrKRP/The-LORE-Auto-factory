@@ -1,0 +1,454 @@
+{
+  "segment": "S4",
+  "technique": "T5",
+  "entry": "mech",
+  "nodes": {
+    "mech": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A leg with varicose veins. You raise the leg to empty the veins, press firmly over the saphenofemoral junction, and ask the patient to stand.", "claims": []},
+        {"text": "With the pressure still on, the veins fill again from below. Which structure is letting blood in?", "claims": ["K44"]}
+      ],
+      "choices": [
+        {"label": "The saphenofemoral junction", "next": "mech_t5", "kind": "trap", "trap": "TR5"},
+        {"label": "The perforating veins", "next": "mech_ok", "kind": "correct"},
+        {"label": "The deep veins, obstructed", "next": "mech_t4", "kind": "trap", "trap": "TR4"},
+        {"label": "Not sure, give me a hint", "next": "mech_hint", "kind": "help"}
+      ]
+    },
+    "mech_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "The junction is squeezed, so blood cannot arrive from above. Where else could blood reach the superficial veins?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "mech", "kind": "retry"}
+      ]
+    },
+    "mech_t5": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the junction is the spot you pressed, so it looks like the leak.", "claims": []},
+        {"text": "But the pressure sits on the junction, so it blocks reflux from the junction itself. Filling that continues under the pressure must enter somewhere else.", "claims": ["K44"]}
+      ],
+      "sure_note": {"text": "You were sure. The junction is the pressed site, but the question asks what keeps refilling while the pressure is on, which is a different question.", "claims": ["K44"]},
+      "choices": [
+        {"label": "Try again", "next": "mech", "kind": "retry"},
+        {"label": "Show me the worked case", "next": "wex1", "kind": "agency"}
+      ]
+    },
+    "mech_t4": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the deep veins are what the tourniquet tests examine, so deep disease feels like the cause.", "claims": []},
+        {"text": "But this pattern is a junction-and-perforator test. Deep obstruction shows up on walking with a tourniquet, not on standing with the junction pressed.", "claims": ["K46"]}
+      ],
+      "sure_note": {"text": "You were sure. Deep obstruction is a walking test, so keep it separate from a standing test with the junction pressed.", "claims": ["K46", "K113"]},
+      "choices": [
+        {"label": "Try again", "next": "mech", "kind": "retry"},
+        {"label": "Show me the worked case", "next": "wex1", "kind": "agency"}
+      ]
+    },
+    "mech_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Pressing the junction stops reflux from above, so filling that continues under the pressure must come through an incompetent perforator.", "claims": ["K44"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "wex1", "kind": "continue"},
+        {"label": "I know this, skip ahead", "next": "tq2", "kind": "skip"}
+      ]
+    },
+    "wex1": {
+      "role": "explain",
+      "say": [
+        {"text": "Worked case, every step shown. Step 1: raise the leg so the veins empty. Step 2: press over the saphenofemoral junction. Step 3: the patient stands, and you watch the veins.", "claims": ["K44"]},
+        {"text": "Step 4: release the junction. Rapid filling from above means junctional incompetence. Filling that stays while the pressure is on points to the perforators. This is the Brodie–Trendelenburg test.", "claims": ["K44", "K114"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "wex2", "kind": "continue"}
+      ]
+    },
+    "wex2": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Second patient, same steps: the veins empty, the junction is pressed, and the patient stands. Nothing refills while the pressure is still on.", "claims": ["K44"]},
+        {"text": "You release the junction, and the veins refill rapidly from above. Which structure is incompetent?", "claims": []}
+      ],
+      "choices": [
+        {"label": "The perforators, letting blood in", "next": "wex2_t5", "kind": "trap", "trap": "TR5"},
+        {"label": "The deep veins, obstructed", "next": "wex2_t4", "kind": "trap", "trap": "TR4"},
+        {"label": "The saphenofemoral junction", "next": "wex2_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "wex2_hint", "kind": "help"}
+      ]
+    },
+    "wex2_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Only the junction was pressed. Ask where the blood came from once that pressure was released.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "wex2", "kind": "retry"}
+      ]
+    },
+    "wex2_t5": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because perforators are the vessels that do fill the superficial veins, so they feel like the answer to any filling.", "claims": []},
+        {"text": "But that filling pattern belongs to the moment the pressure is still on. Here nothing refilled under the pressure, so look at the pattern after release.", "claims": ["K44"]}
+      ],
+      "sure_note": {"text": "You were sure. Match the pattern to the moment: filling under pressure belongs to one structure, filling after release to the other.", "claims": ["K44"]},
+      "choices": [
+        {"label": "Try again", "next": "wex2", "kind": "retry"},
+        {"label": "Back to the worked case", "next": "wex1", "kind": "agency"}
+      ]
+    },
+    "wex2_t4": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the deep veins are what the walking tests examine, so a refill problem feels deep.", "claims": []},
+        {"text": "But this refill pattern is the junction test. Deep obstruction is read with a tourniquet and walking, not with the junction pressed.", "claims": ["K46"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "wex2", "kind": "retry"},
+        {"label": "Back to the worked case", "next": "wex1", "kind": "agency"}
+      ]
+    },
+    "wex2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Nothing refilled under the pressure, so the blood was blocked at the junction. Rapid refilling from above on release points to junctional incompetence.", "claims": ["K44"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "tq2", "kind": "continue"}
+      ]
+    },
+    "tq2": {
+      "role": "probe",
+      "objectives": ["O6", "O7"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 46-year-old with varicose veins. A tourniquet goes on the thigh and she walks. Her calf aches, and the bulging veins do not empty.", "claims": []},
+        {"text": "Which test was done, and what does the result mean?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Brodie–Trendelenburg test; SFJ incompetence", "next": "tq2_t1", "kind": "trap", "trap": "TR4"},
+        {"label": "Perthes test; deep vein obstruction", "next": "tq2_ok", "kind": "correct"},
+        {"label": "Perthes test; SFJ incompetence", "next": "tq2_t2", "kind": "trap", "trap": "TR4"},
+        {"label": "Not sure, give me a hint", "next": "tq2_hint", "kind": "help"}
+      ]
+    },
+    "tq2_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Walking with a tourniquet on tests the deep system. Blocked deep veins cannot empty on walking. Which name goes with the walking test?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "tq2", "kind": "retry"}
+      ]
+    },
+    "tq2_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the two test names are easy to swap, and the junction is the site you already know them for.", "claims": []},
+        {"text": "But the junction test compresses the junction and watches the veins on standing. This patient was walked with a tourniquet on, which is a different maneuver.", "claims": ["K44"]}
+      ],
+      "sure_note": {"text": "You were sure. The two names are easy to swap, so match each name to its own maneuver before you trust it.", "claims": ["K120"]},
+      "choices": [
+        {"label": "Try again", "next": "tq2", "kind": "retry"},
+        {"label": "Show me the difference", "next": "tq2_why", "kind": "agency"}
+      ]
+    },
+    "tq2_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the test name is right, and the result feels like it belongs to the junction.", "claims": []},
+        {"text": "But a walking test with a tourniquet reads the deep veins, so the junction is the wrong thing to name here. Look at what the pain and bulging say.", "claims": ["K46"]}
+      ],
+      "sure_note": {"text": "You were sure. The name is right; the error lies in the meaning you attached to it.", "claims": ["K46"]},
+      "choices": [
+        {"label": "Try again", "next": "tq2", "kind": "retry"},
+        {"label": "Show me the difference", "next": "tq2_why", "kind": "agency"}
+      ]
+    },
+    "tq2_why": {
+      "role": "explain",
+      "say": [
+        {"text": "Perthes: tourniquet on, the patient walks. Veins empty if the deep veins are open and the perforators competent. Calf pain and bulging veins mean the deep veins are blocked.", "claims": ["K46"]},
+        {"text": "Brodie–Trendelenburg is the other test: compress the junction, stand, and watch. Rapid refilling from above means junctional incompetence.", "claims": ["K44", "K114"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "tq2", "kind": "retry"}
+      ]
+    },
+    "tq2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Pain and bulging on walking with the tourniquet on mean the deep veins are blocked, which is what the Perthes test reads.", "claims": ["K46", "K113"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "tr6", "kind": "continue"}
+      ]
+    },
+    "tr6": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "You want the surgery that flush-ties the great saphenous vein at the junction, through a groin incision.", "claims": ["K6"]},
+        {"text": "Which Trendelenburg is it?", "claims": []}
+      ],
+      "choices": [
+        {"label": "The Brodie–Trendelenburg test", "next": "tr6_t1", "kind": "trap", "trap": "TR6"},
+        {"label": "The Trendelenburg sign", "next": "tr6_t2", "kind": "trap", "trap": "TR6"},
+        {"label": "The Trendelenburg operation", "next": "tr6_ok", "kind": "correct"},
+        {"label": "The Trendelenburg position", "next": "tr6_t3", "kind": "trap", "trap": "TR6"}
+      ]
+    },
+    "tr6_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the Brodie–Trendelenburg name is the one you use most at the bedside, so it sticks to every Trendelenburg.", "claims": []},
+        {"text": "But that name is a bedside test for junctional reflux. Read the noun that follows the name, because it says what is done.", "claims": ["K121"]}
+      ],
+      "sure_note": {"text": "You were sure the bedside name fits the surgery. A test and an operation are different things, so check the noun first.", "claims": ["K121"]},
+      "choices": [
+        {"label": "Try again", "next": "tr6", "kind": "retry"},
+        {"label": "Show me the four side by side", "next": "tr6_why", "kind": "agency"}
+      ]
+    },
+    "tr6_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because a sign is something you find on examination, so the word feels like a finding about the vein.", "claims": []},
+        {"text": "But the Trendelenburg sign is hip abductor weakness, a finding in the standing leg that has nothing to do with the vein.", "claims": ["K121"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "tr6", "kind": "retry"},
+        {"label": "Show me the four side by side", "next": "tr6_why", "kind": "agency"}
+      ]
+    },
+    "tr6_t3": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the posture is used when you set up the bedside test, so it feels like part of the procedure.", "claims": []},
+        {"text": "But the Trendelenburg position is a body posture, not a vein procedure.", "claims": ["K121"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "tr6", "kind": "retry"},
+        {"label": "Show me the four side by side", "next": "tr6_why", "kind": "agency"}
+      ]
+    },
+    "tr6_why": {
+      "role": "explain",
+      "say": [
+        {"text": "Four names, one word each. Brodie–Trendelenburg: a bedside test for junctional reflux. Trendelenburg sign: hip abductor weakness.", "claims": ["K114", "K121"]},
+        {"text": "Trendelenburg position: a body posture. Trendelenburg operation: flush ligation of the great saphenous at the junction.", "claims": ["K121", "K6"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "tr6", "kind": "retry"}
+      ]
+    },
+    "tr6_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. The Trendelenburg operation is flush ligation of the great saphenous at the junction, with its tributaries tied as well.", "claims": ["K6"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "inv", "kind": "continue"}
+      ]
+    },
+    "inv": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A patient is listed for varicose vein treatment. You need the one test that is the investigation of choice.", "claims": []},
+        {"text": "Which test do you order?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Hand-held Doppler at the bedside", "next": "inv_t1", "kind": "trap", "trap": "TR2"},
+        {"label": "Colour duplex ultrasound", "next": "inv_ok", "kind": "correct"},
+        {"label": "Ascending venography", "next": "inv_t2", "kind": "trap", "trap": "TR2"},
+        {"label": "Not sure, give me a hint", "next": "inv_hint", "kind": "help"}
+      ]
+    },
+    "inv_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask which test shows the reflux, the perforators and the deep veins together, not just one of them.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "inv", "kind": "retry"}
+      ]
+    },
+    "inv_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because a bedside Doppler finds junctional reflux quickly, so it feels like the whole investigation.", "claims": []},
+        {"text": "But it is a screening step that stops at the junction. It does not map the whole limb.", "claims": ["K54"]}
+      ],
+      "sure_note": {"text": "You were sure. A bedside Doppler is a screen; the question asks for the full map, so check what the test reports.", "claims": ["K52", "K54"]},
+      "choices": [
+        {"label": "Try again", "next": "inv", "kind": "retry"},
+        {"label": "Show me the ladder", "next": "inv_why", "kind": "agency"}
+      ]
+    },
+    "inv_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because venography is the classic picture of the deep veins, so it feels like the gold standard for everything.", "claims": []},
+        {"text": "But venography is reserved for complex deep disease or planned deep intervention, not the routine work-up for varicose veins.", "claims": ["K55"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "inv", "kind": "retry"},
+        {"label": "Show me the ladder", "next": "inv_why", "kind": "agency"}
+      ]
+    },
+    "inv_why": {
+      "role": "explain",
+      "say": [
+        {"text": "Think of a ladder. Hand-held Doppler detects junctional reflux at the bedside, and stops there.", "claims": ["K54"]},
+        {"text": "Colour duplex maps the reflux, the perforators and deep patency in one scan. Venography is for planned deep intervention.", "claims": ["K52", "K55"]}
+      ],
+      "choices": [
+        {"label": "Try the question again", "next": "inv", "kind": "retry"},
+        {"label": "Go on to the next question", "next": "inv2", "kind": "continue"}
+      ]
+    },
+    "inv_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Colour duplex is the investigation of choice, because one scan shows reflux anatomy, perforators and deep patency.", "claims": ["K3", "K52"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "inv2", "kind": "continue"}
+      ]
+    },
+    "inv2": {
+      "role": "probe",
+      "objectives": ["O8"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Before you plan junctional surgery, the junction, the perforators and the deep veins all need examining. You want one test that covers all three.", "claims": []},
+        {"text": "Which one?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Brodie–Trendelenburg test in clinic", "next": "inv2_t1", "kind": "trap", "trap": "TR2"},
+        {"label": "Colour duplex of the limb", "next": "inv2_ok", "kind": "correct"},
+        {"label": "Venography of the deep system", "next": "inv2_t2", "kind": "trap", "trap": "TR2"},
+        {"label": "Not sure, give me a hint", "next": "inv2_hint", "kind": "help"}
+      ]
+    },
+    "inv2_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Count what the test must show: three structures at once. Which single examination can show all three?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "inv2", "kind": "retry"}
+      ]
+    },
+    "inv2_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because a clinical test answers the junction question quickly, so the picture feels covered.", "claims": []},
+        {"text": "But a clinical test for junctional incompetence says nothing about the perforators or the deep veins.", "claims": ["K114"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "inv2", "kind": "retry"},
+        {"label": "Show me the ladder", "next": "inv_why", "kind": "agency"}
+      ]
+    },
+    "inv2_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the deep veins are the hard part of the work-up, and venography shows them in detail.", "claims": []},
+        {"text": "But detail on the deep system is reserved for complex deep disease, and it is not the routine map before superficial surgery.", "claims": ["K55"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "inv2", "kind": "retry"},
+        {"label": "Show me the ladder", "next": "inv_why", "kind": "agency"}
+      ]
+    },
+    "inv2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Colour duplex maps the junction, the perforators and the deep veins in one examination.", "claims": ["K52"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "seq", "kind": "continue"}
+      ]
+    },
+    "seq": {
+      "role": "probe",
+      "objectives": ["O7"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Your registrar wants the great saphenous stripped this afternoon. The junction refluxes on the scan.", "claims": []},
+        {"text": "What must be confirmed before you operate?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Confirmed junctional reflux is enough to operate", "next": "seq_t18", "kind": "trap", "trap": "TR18"},
+        {"label": "A positive Brodie–Trendelenburg test", "next": "seq_t4", "kind": "trap", "trap": "TR4"},
+        {"label": "Deep vein patency, on Perthes or duplex", "next": "seq_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "seq_hint", "kind": "help"}
+      ]
+    },
+    "seq_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask where the blood will go once the superficial veins are removed, and whether the deep system can take it.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "seq", "kind": "retry"}
+      ]
+    },
+    "seq_t18": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because reflux on the scan is the indication for surgery, so it feels like permission to operate.", "claims": []},
+        {"text": "But reflux shows that the superficial veins are incompetent. It does not show where their blood will go once they are removed.", "claims": ["K125"]}
+      ],
+      "sure_note": {"text": "You were sure reflux was enough. Reflux tells you what is leaking, not whether the deep system can take the flow.", "claims": ["K125"]},
+      "choices": [
+        {"label": "Try again", "next": "seq", "kind": "retry"},
+        {"label": "Show me why", "next": "seq_why", "kind": "agency"}
+      ]
+    },
+    "seq_t4": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the junction test decides where to operate, so a positive result feels like the go-ahead.", "claims": []},
+        {"text": "But a positive junction test says what is refluxing. It does not say whether the deep veins are open to take the flow.", "claims": ["K114"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "seq", "kind": "retry"},
+        {"label": "Show me why", "next": "seq_why", "kind": "agency"}
+      ]
+    },
+    "seq_why": {
+      "role": "explain",
+      "say": [
+        {"text": "Superficial vein surgery removes the route the blood uses. If the deep veins are blocked, the superficial veins become the collateral outflow.", "claims": ["K125"]},
+        {"text": "A positive Perthes test, meaning deep obstruction, is a contraindication to stripping or ligation. Confirm deep patency first, by Perthes or duplex.", "claims": ["K51", "K89", "K52"]}
+      ],
+      "choices": [
+        {"label": "Try again", "next": "seq", "kind": "retry"}
+      ]
+    },
+    "seq_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Deep vein patency comes first, because blocked deep veins make the superficial veins the collateral outflow.", "claims": ["K125", "K51"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}
