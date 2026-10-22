@@ -1,1456 +1,1313 @@
 {
- "segment": "S7",
- "technique": "T10",
- "entry": "b1",
- "nodes": {
-  "b1_age": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Age is tempting, because it drives mortality in most surgical series.",
-     "claims": [
-      "K58"
-     ]
+  "segment": "S7",
+  "technique": "T10",
+  "entry": "b1",
+  "nodes": {
+    "b1_age": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Age is tempting, because it drives mortality in most surgical series.",
+          "claims": [
+            "K58"
+          ]
+        },
+        {
+          "text": "But age is not one of this score's items. Think about what the score measures on arrival and how long surgery waited.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure age belonged. Age raises risk in general, but this score counts a short list, so check it again.",
+        "claims": [
+          "K57"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "b1_ok",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "text": "But age is not one of this score's items. Think about what the score measures on arrival and how long surgery waited.",
-     "claims": [
-      "K57"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure age belonged. Age raises risk in general, but this score counts a short list, so check it again.",
-    "claims": [
-     "K57"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "b1",
-     "kind": "retry"
+    "b1_num": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. The figures are tempting, since they look like the cut-offs of other scores you have memorised.",
+          "claims": []
+        },
+        {
+          "text": "But the score has its own shock and delay limits. Check each figure against the item it belongs to before you retry.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of those limits. They are easy to borrow from other scores, so anchor each figure to this one.",
+        "claims": [
+          "K57"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "b1_ok",
+          "kind": "agency"
+        }
+      ]
     },
-    {
-     "label": "Show me what is right",
-     "next": "b1_ok",
-     "kind": "agency"
+    "b1": {
+      "role": "probe",
+      "objectives": [
+        "O11"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A surgeon wants a quick mortality estimate for a perforated ulcer, using the Boey score. Which three items make it up?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Age over 65, shock on admission, delay over 24 hours",
+          "next": "b1_age",
+          "kind": "trap",
+          "trap": "TR21"
+        },
+        {
+          "label": "Shock on admission, major co-existing illness, delay over 24 hours",
+          "next": "b1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Shock below 90 mmHg, co-existing illness, delay over 12 hours",
+          "next": "b1_num",
+          "kind": "trap",
+          "trap": "TR21"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "b1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "b1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the score measures on arrival, what the patient brings with them, and what the wait did.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "b1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "b1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right: the Boey score has three items: shock on admission, major co-existing medical illness, and delay to surgery beyond 24 hours.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "b2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b2_90": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. One is tempting, because 96 mmHg does not look like shock by the usual 90 cut-off.",
+          "claims": []
+        },
+        {
+          "text": "But this score's shock limit is higher, systolic below 100, so 96 counts.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure 96 was not shock. This score uses a higher cut-off, so check the figure.",
+        "claims": [
+          "K57"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "b2_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "b2_12": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Three is tempting, because age and illness feel like they belong in any mortality score.",
+          "claims": []
+        },
+        {
+          "text": "But he has no major illness, so that item is not scored, and age is not an item at all.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure all three items applied. Score only the items this patient actually has.",
+        "claims": [
+          "K57"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "b2_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "b2": {
+      "role": "probe",
+      "objectives": [
+        "O11"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A man arrives with systolic pressure 96 mmHg and no major illness. He reaches theatre 30 hours after the perforation. How many Boey items does he score?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "One: only the delay counts",
+          "next": "b2_90",
+          "kind": "trap",
+          "trap": "TR21"
+        },
+        {
+          "label": "Three: age and delay count as well",
+          "next": "b2_12",
+          "kind": "trap",
+          "trap": "TR21"
+        },
+        {
+          "label": "Two: shock on admission and delay",
+          "next": "b2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "b2_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "b2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Score each item: is 96 below the shock limit, is there a major illness, and is 30 hours past the delay limit?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "b2_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "b2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right: he scores two items, shock on admission (systolic below 100) and delay beyond 24 hours. No major illness, so no third item.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "g1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "g1_vag": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Vagotomy is tempting, because acid surgery was taught as part of every ulcer operation.",
+          "claims": []
+        },
+        {
+          "text": "But acid surgery is not the step that separates these two perforations. Ask what a gastric ulcer might hide that a duodenal one does not.",
+          "claims": [
+            "K55",
+            "K51"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure acid surgery was part of the operation. That is the older model, so check which step differs by site.",
+        "claims": [
+          "K55"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "g1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "g1_patch": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Patch and washout is tempting, because it is the standard repair and it does close the leak.",
+          "claims": []
+        },
+        {
+          "text": "But closing the hole is not the only job for a gastric ulcer. Ask what the ulcer edge needs before it is left closed.",
+          "claims": [
+            "K83",
+            "K51"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the duodenal pathway was complete. A gastric ulcer can hide a cancer, so the specimen matters.",
+        "claims": [
+          "K51"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "g1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "g1": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A perforated gastric ulcer is going to theatre. Which step does it need that a perforated duodenal ulcer does not usually need?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Truncal vagotomy at the same sitting, to cut acid",
+          "next": "g1_vag",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Biopsy or excision of the ulcer edge, to exclude cancer",
+          "next": "g1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Omental patch closure with lavage, as for a duodenal ulcer",
+          "next": "g1_patch",
+          "kind": "trap",
+          "trap": "TR19"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "g1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "g1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Gastric and duodenal ulcers differ in one way that matters for the specimen. What could a gastric ulcer be hiding?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "g1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "g1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right: a perforated gastric ulcer is biopsied or excised at the edge, because it may be a perforated carcinoma. Duodenal ulcers do not need this.",
+          "claims": [
+            "K51",
+            "K83"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "n1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "v1_vag": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Vagotomy is tempting, because the old key lists it and many notes still give acid surgery as the ulcer operation.",
+          "claims": []
+        },
+        {
+          "text": "But repair of a perforation no longer adds acid surgery, since the drivers of the ulcer are now treated medically.",
+          "claims": [
+            "K55",
+            "K81"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure acid surgery belonged to the repair. That is the older model, so check which era the key reflects.",
+        "claims": [
+          "K81"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "v1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "v1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "v1_gast": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Partial gastrectomy is tempting, because a big resection feels like the thorough answer.",
+          "claims": []
+        },
+        {
+          "text": "But a stable duodenal perforation is closed and washed out, not resected. The ulcer's cause is treated afterwards.",
+          "claims": [
+            "K9",
+            "K81"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure a resection was the thorough answer. Thoroughness here means closure and treating the cause, so check again.",
+        "claims": [
+          "K9"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "v1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "v1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "v1": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An old PYQ option lists truncal vagotomy with drainage for a stable duodenal perforation. What does current practice do at that operation instead?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Omental patch and lavage, with Helicobacter pylori treatment after",
+          "next": "v1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Truncal vagotomy with pyloroplasty, as the old key lists",
+          "next": "v1_vag",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Partial gastrectomy with Billroth reconstruction, as a fuller cure",
+          "next": "v1_gast",
+          "kind": "trap",
+          "trap": "TR14"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "v1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "v1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what caused the ulcer, and whether that cause can now be treated without cutting the stomach.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "v1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "v1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "v1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right: current practice closes the perforation with an omental patch and lavage, then eradicates Helicobacter pylori and continues a PPI. Acid surgery is no longer routine.",
+          "claims": [
+            "K9",
+            "K54",
+            "K55",
+            "K81"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "e1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "e1_swap": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It is tempting, because the two names sound alike and the pairing can feel arbitrary.",
+          "claims": []
+        },
+        {
+          "text": "But each eponym has an anchor. Cushing's reflex is a brain sign, so start there, then check the burn.",
+          "claims": [
+            "K17"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of the pairing. Eponyms that sound alike get swapped, so anchor each to its trigger.",
+        "claims": [
+          "K17"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "e1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "e1_both": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Burns are the classic stress trigger, so both eponyms can seem to belong there.",
+          "claims": []
+        },
+        {
+          "text": "But each stress ulcer has its own trigger, and the two triggers differ. Ask which one the brain belongs to.",
+          "claims": [
+            "K17"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure both sat with burns. The two stress ulcers have different triggers, so keep them apart.",
+        "claims": [
+          "K17"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "e1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "e1": {
+      "role": "probe",
+      "objectives": [
+        "O12"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two stress ulcers, two triggers: a raised intracranial pressure after head injury, and a scald burn. Which pairing is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Cushing's with head injury; Curling's with burns",
+          "next": "e1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Curling's with head injury; Cushing's with burns",
+          "next": "e1_swap",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Both ulcers follow burns, with head injury irrelevant",
+          "next": "e1_both",
+          "kind": "trap",
+          "trap": "TR15"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "e1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "e1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Cushing's reflex is a brain sign. Use it to anchor one eponym, then test the other against the burn.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "e1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "e1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right: Cushing's ulcer follows head injury or raised intracranial pressure, and Curling's ulcer follows burns. Anchor Cushing to the brain.",
+          "claims": [
+            "K17"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "e2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "e2_mur": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Murphy's is tempting, because it is the best-known right upper quadrant sign and gets borrowed.",
+          "claims": []
+        },
+        {
+          "text": "But it marks the gallbladder, not the spleen or the diaphragm. Ask which organ causes left shoulder-tip pain, then its eponym.",
+          "claims": [
+            "K82",
+            "K26"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure Murphy's fitted a shoulder pain. Check which organ the sign belongs to before you match it.",
+        "claims": [
+          "K82"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "e2_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "e2_val": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Valentino's is tempting, because you met it with tracked fluid and the shoulder-pain picture feels like a perforation.",
+          "claims": []
+        },
+        {
+          "text": "But that eponym belongs to fluid tracking into the right iliac fossa, not to shoulder pain from the spleen. Which organ irritates the diaphragm here?",
+          "claims": [
+            "K76",
+            "K82"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of the eponym. Eponyms get attached to the wrong picture, so match the sign to its organ.",
+        "claims": [
+          "K76"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "e2_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "e2": {
+      "role": "probe",
+      "objectives": [
+        "O12",
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "After a fall, a man has a ruptured spleen and pain at the left shoulder tip. Which eponym names this sign?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Murphy's sign, the gallbladder sign borrowed for shoulder pain",
+          "next": "e2_mur",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "Kehr's sign, shoulder-tip pain from a ruptured spleen",
+          "next": "e2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Valentino's syndrome, the tracked-fluid mimic of appendicitis",
+          "next": "e2_val",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "e2_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "e2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Shoulder-tip pain is referred from the diaphragm. Which organ on the left irritates it, and which eponym goes with it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "e2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "e2_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "e2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right: Kehr's sign is left shoulder-tip pain from splenic rupture. Shoulder-tip pain in perforation is phrenic referred pain, not a Kehr sign.",
+          "claims": [
+            "K82",
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "a1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "a1_lg": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Left gastric is tempting, because it is the main artery of the lesser curve, a common bleeding site.",
+          "claims": []
+        },
+        {
+          "text": "But this ulcer sits on the first part of the duodenum, not the lesser curve. Ask which artery lies behind that wall.",
+          "claims": [
+            "K2",
+            "K67"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the bleed came from the stomach's artery. The site is the duodenum, so check the wall.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "a1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "a1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "a1_sp": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Splenic is tempting, because it is a large artery that runs close to the stomach's back.",
+          "claims": []
+        },
+        {
+          "text": "But the bleeding vessel is the one beside the duodenum itself, not one further away.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure a large artery near the stomach was the source. Check which vessel touches the duodenal wall.",
+        "claims": [
+          "K2",
+          "K67"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "a1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "a1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "a1": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 55-year-old on naproxen vomits blood. Endoscopy shows a posterior duodenal ulcer. Which artery is classically eroded?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Gastroduodenal artery, behind the first part of the duodenum",
+          "next": "a1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Left gastric artery, which runs along the lesser curve",
+          "next": "a1_lg",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Splenic artery, which lies behind the stomach",
+          "next": "a1_sp",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "a1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "a1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which artery runs along the first part of the duodenum, right beside the posterior wall.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "a1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "a1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "a1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right: the gastroduodenal artery runs behind the first part of the duodenum. A posterior ulcer erodes it and bleeds, while an anterior ulcer faces the free cavity and perforates.",
+          "claims": [
+            "K2",
+            "K67"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "f1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "f1_swap": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. The swap is tempting, because CT sounds like the first test in an emergency and the film looks less decisive.",
+          "claims": []
+        },
+        {
+          "text": "But the film is the quick first test and CT is the sharper one, so the two are not reversed. Check which stem asks for speed.",
+          "claims": [
+            "K5",
+            "K6"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the frames were reversed. The erect film is the first test and CT the most sensitive, so keep that order.",
+        "claims": [
+          "K5",
+          "K6"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "f1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "f1_ct": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. CT for both is tempting, because CT is the sharpest test and the classmate reached for it twice.",
+          "claims": []
+        },
+        {
+          "text": "But the two stems ask different things: the first test at the door, and the sharpest test once the film is doubtful. Read each frame.",
+          "claims": [
+            "K79",
+            "K69"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure one test answers both frames. Exam stems separate the first test from the best one, so read each frame.",
+        "claims": [
+          "K79"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "f1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "f1": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A classmate answered two investigation stems with CT both times. Stem A asks the first investigation in suspected perforation. Stem B asks the most sensitive test when the film is equivocal. Which correction is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "A: CT abdomen first; B: erect chest X-ray most sensitive",
+          "next": "f1_swap",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "CT for both stems, since CT is the sharpest test",
+          "next": "f1_ct",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "A: erect chest X-ray, the first test. B: CT abdomen",
+          "next": "f1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "f1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "f1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Read each stem. One asks for the test you order at the door, the other for the test that settles a doubt.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "f1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "f1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right: the exam key expects the erect chest X-ray as the first test, and current practice uses CT abdomen as the most sensitive test when doubt remains.",
+          "claims": [
+            "K79",
+            "K5",
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "n1": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An operation note reads: 'a free plug of omentum was sewn into the defect, with no pedicle.' Which strict name fits this repair?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Cellan-Jones repair, since it is the newer omental technique",
+          "next": "n1_cj",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Graham's patch, since a free plug is its strict technique",
+          "next": "n1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Graham's patch, since it is the pedicled omental tongue",
+          "next": "n1_ped",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "n1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "n1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether the omentum is still on its own blood supply, or cut free and plugged in.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "n1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "n1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "n1_cj": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Cellan-Jones sounds like the modern refinement, so it feels like the name for any omental repair.",
+          "claims": []
+        },
+        {
+          "text": "But Cellan-Jones keeps the omentum on a pedicle; this note describes a free plug.",
+          "claims": [
+            "K47",
+            "K48"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the newer name applied. The attachment decides the name, so check the pedicle.",
+        "claims": [
+          "K47"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "n1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "n1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "n1_ped": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Graham's is the name exams use for every omental closure, so it feels safe for any of them.",
+          "claims": []
+        },
+        {
+          "text": "But strictly, the pedicled tongue is the Cellan-Jones repair; Graham's is the free plug.",
+          "claims": [
+            "K47",
+            "K48",
+            "K78"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure Graham's meant the pedicled tongue. Exam keys blur this, so tie each name to its attachment.",
+        "claims": [
+          "K48"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "n1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "n1_ok",
+          "kind": "agency"
+        }
+      ]
+    },
+    "n1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right: a free plug is strictly Graham's patch, and the pedicled tongue is the Cellan-Jones repair. Exam keys often write Graham's for both.",
+          "claims": [
+            "K47",
+            "K48",
+            "K78"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "v1",
+          "kind": "continue"
+        }
+      ]
     }
-   ]
   },
-  "b1_num": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. The figures are tempting, since they look like the cut-offs of other scores you have memorised.",
-     "claims": []
-    },
-    {
-     "text": "But the score has its own shock and delay limits. Check each figure against the item it belongs to before you retry.",
-     "claims": [
-      "K57"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure of those limits. They are easy to borrow from other scores, so anchor each figure to this one.",
-    "claims": [
-     "K57"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "b1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "b1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "b1": {
-   "role": "probe",
-   "objectives": [
-    "O11"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A surgeon wants a quick mortality estimate for a perforated ulcer, using the Boey score. Which three items make it up?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Age over 65, shock on admission, delay over 24 hours",
-     "next": "b1_age",
-     "kind": "trap",
-     "trap": "TR21"
-    },
-    {
-     "label": "Shock on admission, major co-existing illness, delay over 24 hours",
-     "next": "b1_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Shock below 90 mmHg, co-existing illness, delay over 12 hours",
-     "next": "b1_num",
-     "kind": "trap",
-     "trap": "TR21"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "b1_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "b1_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Ask what the score measures on arrival, what the patient brings with them, and what the wait did.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "b1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "b1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "b1_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Right: the Boey score has three items: shock on admission, major co-existing medical illness, and delay to surgery beyond 24 hours.",
-     "claims": [
-      "K57"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "b2",
-     "kind": "continue"
-    }
-   ]
-  },
-  "b2_90": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Ninety is tempting, since it is the usual low-pressure cut-off in emergency teaching.",
-     "claims": []
-    },
-    {
-     "text": "But this score's shock limit sits higher than that. Test the systolic figure against the shock item again.",
-     "claims": [
-      "K57"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure of the 90 limit. It is a common cut-off elsewhere, so tie this score to its own figure.",
-    "claims": [
-     "K57"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "b2",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "b2_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "b2_12": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Twelve hours is tempting, because early-delay cut-offs in other teaching are often set there.",
-     "claims": []
-    },
-    {
-     "text": "But the delay item in this score is a longer wait. Recall the delay limit the score uses before you retry.",
-     "claims": [
-      "K57"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure of the 12-hour limit. Delay cut-offs are easy to borrow, so check the delay item in this score.",
-    "claims": [
-     "K57"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "b2",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "b2_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "b2": {
-   "role": "probe",
-   "objectives": [
-    "O11"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "Same score. The shock item and the delay item each carry a figure. Which pair is right?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Systolic below 100 mmHg, and delay over 24 hours",
-     "next": "b2_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Systolic below 90 mmHg, and delay over 24 hours",
-     "next": "b2_90",
-     "kind": "trap",
-     "trap": "TR21"
-    },
-    {
-     "label": "Systolic below 100 mmHg, and delay over 12 hours",
-     "next": "b2_12",
-     "kind": "trap",
-     "trap": "TR21"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "b2_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "b2_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Two figures: one for systolic pressure on arrival, one for the wait before theatre. Which wait does the score count?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "b2",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "b2_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "b2_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Right: shock on admission means systolic pressure below 100 mmHg. The delay item counts surgery delayed over 24 hours.",
-     "claims": [
-      "K57"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "g1",
-     "kind": "continue"
-    }
-   ]
-  },
-  "g1_vag": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Vagotomy is tempting, because acid surgery was taught as part of every ulcer operation.",
-     "claims": []
-    },
-    {
-     "text": "But acid surgery is not the step that separates these two perforations. Ask what a gastric ulcer might hide that a duodenal one does not.",
-     "claims": [
-      "K55",
-      "K51"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure acid surgery was part of the operation. That is the older model, so check which step differs by site.",
-    "claims": [
-     "K55"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "g1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "g1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "g1_patch": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Patch and washout is tempting, because it is the standard repair and it does close the leak.",
-     "claims": []
-    },
-    {
-     "text": "But closing the hole is not the only job for a gastric ulcer. Ask what the ulcer edge needs before it is left closed.",
-     "claims": [
-      "K83",
-      "K51"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure the duodenal pathway was complete. A gastric ulcer can hide a cancer, so the specimen matters.",
-    "claims": [
-     "K51"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "g1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "g1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "g1": {
-   "role": "probe",
-   "objectives": [
-    "O9"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A perforated gastric ulcer is going to theatre. Which step does it need that a perforated duodenal ulcer does not usually need?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Truncal vagotomy at the same sitting",
-     "next": "g1_vag",
-     "kind": "trap",
-     "trap": "TR14"
-    },
-    {
-     "label": "Omental patch closure with peritoneal lavage, as for a duodenal ulcer",
-     "next": "g1_patch",
-     "kind": "trap",
-     "trap": "TR19"
-    },
-    {
-     "label": "Biopsy or excision of the ulcer edge, to exclude carcinoma",
-     "next": "g1_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "g1_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "g1_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Gastric and duodenal ulcers differ in one way that matters for the specimen. What could a gastric ulcer be hiding?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "g1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "g1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "g1_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Right: a perforated gastric ulcer is biopsied or excised at the edge, because it may be a perforated carcinoma. Duodenal ulcers do not need this.",
-     "claims": [
-      "K51",
-      "K83"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "g2",
-     "kind": "continue"
-    }
-   ]
-  },
-  "g2_vag": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Vagotomy is tempting, because acid surgery is the reflex answer to any ulcer.",
-     "claims": []
-    },
-    {
-     "text": "But weight loss points at the ulcer itself, not at acid. Acid surgery does not sample the ulcer edge, so it would miss this.",
-     "claims": [
-      "K51",
-      "K55"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure acid was the target. Weight loss is the clue that the ulcer needs its own check.",
-    "claims": [
-     "K51"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "g2",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "g2_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "g2_none": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Nothing missed is tempting, because a patch that seals the hole feels like a finished job.",
-     "claims": []
-    },
-    {
-     "text": "But the patch shuts the leak and tells you nothing about the ulcer edge. The weight loss is the cue that the ulcer needs checking.",
-     "claims": [
-      "K51",
-      "K83"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure the repair was complete. A sealed hole can still hide a gastric cancer.",
-    "claims": [
-     "K83"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "g2",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "g2_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "g2": {
-   "role": "probe",
-   "objectives": [
-    "O9"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A 60-year-old man has lost weight for three months. A perforated gastric ulcer is closed with an omental patch and washed out. What was missed?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Biopsy of the ulcer edge, to look for carcinoma",
-     "next": "g2_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Vagotomy and pyloroplasty, to cut the acid",
-     "next": "g2_vag",
-     "kind": "trap",
-     "trap": "TR14"
-    },
-    {
-     "label": "Nothing; the patch and washout complete the repair",
-     "next": "g2_none",
-     "kind": "trap",
-     "trap": "TR19"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "g2_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "g2_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "The patch fixes the hole. Ask what the patient's weight loss says about the ulcer itself.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "g2",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "g2_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "g2_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Right: the ulcer edge must go to histology, because a gastric ulcer with weight loss may be carcinoma. That biopsy or excision was the missed step.",
-     "claims": [
-      "K51",
-      "K83"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "n1",
-     "kind": "continue"
-    }
-   ]
-  },
-  "n1_exam": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Graham's patch is tempting, because exam keys use it for every omental closure, so the name feels settled.",
-     "claims": []
-    },
-    {
-     "text": "But exam usage and strict naming are not the same thing. Ask which technique the strict name belongs to, then retry.",
-     "claims": [
-      "K48",
-      "K78"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure the exam name covers every technique. Strictly it does not, so check the naming.",
-    "claims": [
-     "K48"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "n1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "n1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "n1_free": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. A free plug is tempting, because Graham's technique is the one most students remember first.",
-     "claims": []
-    },
-    {
-     "text": "But a free plug is not held on a pedicle, and this stem describes one. Look at how the omentum stays attached.",
-     "claims": [
-      "K47"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure the free plug was the pedicled one. The attachment is what separates them, so check it.",
-    "claims": [
-     "K47"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "n1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "n1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "n1": {
-   "role": "probe",
-   "objectives": [
-    "O8"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "Strictly, which technique sews a pedicled tongue of omentum over the perforation?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Graham's patch, the name exams use for any omental closure",
-     "next": "n1_exam",
-     "kind": "trap",
-     "trap": "TR13"
-    },
-    {
-     "label": "Graham's repair, a free omental plug sewn into the defect",
-     "next": "n1_free",
-     "kind": "trap",
-     "trap": "TR13"
-    },
-    {
-     "label": "Cellan-Jones repair, a pedicled tongue of omentum sewn over",
-     "next": "n1_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "n1_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "n1_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Look at how the omentum stays attached: free, or still on its own blood supply?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "n1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "n1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "n1_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Right: the pedicled tongue of omentum is the Cellan-Jones repair. Graham's patch uses a free omental plug, though exam keys often write Graham's for both.",
-     "claims": [
-      "K47",
-      "K48",
-      "K78"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "v1",
-     "kind": "continue"
-    }
-   ]
-  },
-  "v1_vag": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Vagotomy is tempting, because the old key lists it and many notes still give acid surgery as the ulcer operation.",
-     "claims": []
-    },
-    {
-     "text": "But repair of a perforation no longer adds acid surgery, since the drivers of the ulcer are now treated medically.",
-     "claims": [
-      "K55",
-      "K81"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure acid surgery belonged to the repair. That is the older model, so check which era the key reflects.",
-    "claims": [
-     "K81"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "v1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "v1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "v1_gast": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Partial gastrectomy is tempting, because a big resection feels like the thorough answer.",
-     "claims": []
-    },
-    {
-     "text": "But a stable duodenal perforation is closed and washed out, not resected. The ulcer's cause is treated afterwards.",
-     "claims": [
-      "K9",
-      "K81"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure a resection was the thorough answer. Thoroughness here means closure and treating the cause, so check again.",
-    "claims": [
-     "K9"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "v1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "v1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "v1": {
-   "role": "probe",
-   "objectives": [
-    "O9"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "An old PYQ option lists truncal vagotomy with drainage for a stable duodenal perforation. What does current practice do at that operation instead?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Truncal vagotomy with pyloroplasty, as the old key lists",
-     "next": "v1_vag",
-     "kind": "trap",
-     "trap": "TR14"
-    },
-    {
-     "label": "Omental patch and lavage, then Helicobacter pylori eradication and PPI",
-     "next": "v1_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Partial gastrectomy with Billroth reconstruction, at the same sitting",
-     "next": "v1_gast",
-     "kind": "trap",
-     "trap": "TR14"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "v1_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "v1_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Ask what caused the ulcer, and whether that cause can now be treated without cutting the stomach.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "v1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "v1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "v1_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Right: current practice closes the perforation with an omental patch and lavage, then eradicates Helicobacter pylori and continues a PPI. Acid surgery is no longer routine.",
-     "claims": [
-      "K9",
-      "K54",
-      "K55",
-      "K81"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "e1",
-     "kind": "continue"
-    }
-   ]
-  },
-  "e1_swap": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. It is tempting, because the two names sound alike and the pairing can feel arbitrary.",
-     "claims": []
-    },
-    {
-     "text": "But each eponym has an anchor. Cushing's reflex is a brain sign, so start there, then check the burn.",
-     "claims": [
-      "K17"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure of the pairing. Eponyms that sound alike get swapped, so anchor each to its trigger.",
-    "claims": [
-     "K17"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "e1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "e1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "e1_both": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Burns are the classic stress trigger, so both eponyms can seem to belong there.",
-     "claims": []
-    },
-    {
-     "text": "But each stress ulcer has its own trigger, and the two triggers differ. Ask which one the brain belongs to.",
-     "claims": [
-      "K17"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure both sat with burns. The two stress ulcers have different triggers, so keep them apart.",
-    "claims": [
-     "K17"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "e1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "e1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "e1": {
-   "role": "probe",
-   "objectives": [
-    "O12"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "Two stress ulcers, two triggers: a raised intracranial pressure after head injury, and a scald burn. Which pairing is right?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Cushing's with head injury; Curling's with burns",
-     "next": "e1_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Curling's with head injury; Cushing's with burns",
-     "next": "e1_swap",
-     "kind": "trap",
-     "trap": "TR15"
-    },
-    {
-     "label": "Both ulcers follow burns, with head injury irrelevant",
-     "next": "e1_both",
-     "kind": "trap",
-     "trap": "TR15"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "e1_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "e1_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Cushing's reflex is a brain sign. Use it to anchor one eponym, then test the other against the burn.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "e1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "e1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "e1_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Right: Cushing's ulcer follows head injury or raised intracranial pressure, and Curling's ulcer follows burns. Anchor Cushing to the brain.",
-     "claims": [
-      "K17"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "e2",
-     "kind": "continue"
-    }
-   ]
-  },
-  "e2_mur": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Murphy's is tempting, because it is the best-known right upper quadrant sign and gets borrowed.",
-     "claims": []
-    },
-    {
-     "text": "But it marks the gallbladder, not the spleen or the diaphragm. Ask which organ causes left shoulder-tip pain, then its eponym.",
-     "claims": [
-      "K82",
-      "K26"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure Murphy's fitted a shoulder pain. Check which organ the sign belongs to before you match it.",
-    "claims": [
-     "K82"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "e2",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "e2_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "e2_val": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Valentino's is tempting, because you met it with tracked fluid and the shoulder-pain picture feels like a perforation.",
-     "claims": []
-    },
-    {
-     "text": "But that eponym belongs to fluid tracking into the right iliac fossa, not to shoulder pain from the spleen. Which organ irritates the diaphragm here?",
-     "claims": [
-      "K76",
-      "K82"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure of the eponym. Eponyms get attached to the wrong picture, so match the sign to its organ.",
-    "claims": [
-     "K76"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "e2",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "e2_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "e2": {
-   "role": "probe",
-   "objectives": [
-    "O12",
-    "O3"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "After a fall, a man has a ruptured spleen and pain at the left shoulder tip. Which eponym names this sign?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Murphy's sign, the gallbladder sign borrowed for shoulder pain",
-     "next": "e2_mur",
-     "kind": "trap",
-     "trap": "TR16"
-    },
-    {
-     "label": "Kehr's sign, shoulder-tip pain from a ruptured spleen",
-     "next": "e2_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Valentino's syndrome, the tracked-fluid mimic of appendicitis",
-     "next": "e2_val",
-     "kind": "trap",
-     "trap": "TR16"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "e2_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "e2_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Shoulder-tip pain is referred from the diaphragm. Which organ on the left irritates it, and which eponym goes with it?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "e2",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "e2_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "e2_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Right: Kehr's sign is left shoulder-tip pain from splenic rupture. Shoulder-tip pain in perforation is phrenic referred pain, not a Kehr sign.",
-     "claims": [
-      "K82",
-      "K26"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "a1",
-     "kind": "continue"
-    }
-   ]
-  },
-  "a1_lg": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Left gastric is tempting, because it is the main artery of the lesser curve, a common bleeding site.",
-     "claims": []
-    },
-    {
-     "text": "But this ulcer sits on the first part of the duodenum, not the lesser curve. Ask which artery lies behind that wall.",
-     "claims": [
-      "K2",
-      "K67"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure the bleed came from the stomach's artery. The site is the duodenum, so check the wall.",
-    "claims": [
-     "K2"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "a1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "a1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "a1_sp": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Splenic is tempting, because it is a large artery that runs close to the stomach's back.",
-     "claims": []
-    },
-    {
-     "text": "But the bleeding vessel is the one beside the duodenum itself, not one further away.",
-     "claims": [
-      "K2"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure a large artery near the stomach was the source. Check which vessel touches the duodenal wall.",
-    "claims": [
-     "K2",
-     "K67"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "a1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "a1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "a1": {
-   "role": "probe",
-   "objectives": [
-    "O1"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A 55-year-old on naproxen vomits blood. Endoscopy shows a posterior duodenal ulcer. Which artery is classically eroded?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Gastroduodenal artery, behind the first part of the duodenum",
-     "next": "a1_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Left gastric artery, which runs along the lesser curve",
-     "next": "a1_lg",
-     "kind": "trap",
-     "trap": "TR1"
-    },
-    {
-     "label": "Splenic artery, which lies behind the stomach",
-     "next": "a1_sp",
-     "kind": "trap",
-     "trap": "TR1"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "a1_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "a1_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Ask which artery runs along the first part of the duodenum, right beside the posterior wall.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "a1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "a1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "a1_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Right: the gastroduodenal artery runs behind the first part of the duodenum. A posterior ulcer erodes it and bleeds, while an anterior ulcer faces the free cavity and perforates.",
-     "claims": [
-      "K2",
-      "K67"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "f1",
-     "kind": "continue"
-    }
-   ]
-  },
-  "f1_swap": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. The swap is tempting, because CT sounds like the first test in an emergency and the film looks less decisive.",
-     "claims": []
-    },
-    {
-     "text": "But the film is the quick first test and CT is the sharper one, so the two are not reversed. Check which stem asks for speed.",
-     "claims": [
-      "K5",
-      "K6"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure the frames were reversed. The erect film is the first test and CT the most sensitive, so keep that order.",
-    "claims": [
-     "K5",
-     "K6"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "f1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "f1_ct": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. CT for both is tempting, because CT is the sharpest test and the classmate reached for it twice.",
-     "claims": []
-    },
-    {
-     "text": "But the two stems ask different things: the first test at the door, and the sharpest test once the film is doubtful. Read each frame.",
-     "claims": [
-      "K79",
-      "K69"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure one test answers both frames. Exam stems separate the first test from the best one, so read each frame.",
-    "claims": [
-     "K79"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "f1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "f1": {
-   "role": "probe",
-   "objectives": [
-    "O4"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A classmate answered two investigation stems with CT both times. Stem A asks the first investigation in suspected perforation. Stem B asks the most sensitive test when the film is equivocal. Which correction is right?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "A: CT abdomen first; B: erect chest X-ray most sensitive",
-     "next": "f1_swap",
-     "kind": "trap",
-     "trap": "TR5"
-    },
-    {
-     "label": "CT for both stems, since CT is the sharpest test",
-     "next": "f1_ct",
-     "kind": "trap",
-     "trap": "TR6"
-    },
-    {
-     "label": "A: erect chest X-ray, the first test. B: CT abdomen",
-     "next": "f1_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "f1_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "f1_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Read each stem. One asks for the test you order at the door, the other for the test that settles a doubt.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "f1_ok",
-     "kind": "agency"
-    }
-   ]
-  },
-  "f1_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Right: the exam key expects the erect chest X-ray as the first test, and current practice uses CT abdomen as the most sensitive test when doubt remains.",
-     "claims": [
-      "K79",
-      "K5",
-      "K6"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "@next",
-     "kind": "continue"
-    }
-   ]
-  }
- },
- "decision": "solo"
+  "decision": "solo"
 }

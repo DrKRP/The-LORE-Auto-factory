@@ -1,1952 +1,1758 @@
 {
- "segment": "S8",
- "technique": "T9",
- "entry": "q1",
- "nodes": {
-  "q1": {
-   "role": "probe",
-   "objectives": [
-    "O1"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "Mixed quiz. The first five have hints; the last five are cold. Answer from what you already hold.",
-     "claims": []
-    },
-    {
-     "text": "Of all peptic ulcer perforations, where does the hole most often lie? Consider the stomach and the first part of the duodenum.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Anterior wall of the first part of the duodenum",
-     "next": "q1_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Posterior wall of the first part of the duodenum",
-     "next": "q1_t1",
-     "kind": "trap",
-     "trap": "TR1"
-    },
-    {
-     "label": "Lesser curvature of the stomach",
-     "next": "q1_t2",
-     "kind": "trap",
-     "trap": "TR1"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "q1_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "q1_recap": {
-   "role": "explain",
-   "objectives": [
-    "O1"
-   ],
-   "say": [
-    {
-     "text": "Anterior duodenal ulcers erode forward and perforate. Posterior ones erode the gastroduodenal artery behind them and bleed.",
-     "claims": [
-      "K2",
-      "K67"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q2",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q1_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O1"
-   ],
-   "say": [
-    {
-     "text": "Yes. The anterior wall faces the free peritoneal cavity, so erosion through it perforates.",
-     "claims": [
-      "K1",
-      "K2"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q1_recap",
-     "kind": "continue"
-    },
-    {
-     "label": "I know this, skip the recap",
-     "next": "q2",
-     "kind": "skip"
-    }
-   ]
-  },
-  "q1_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O1"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because the posterior wall is the one that bleeds, so it feels like the dangerous site. Ask what lies behind each wall.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q1_t1_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure the posterior wall is the dangerous one; test what lies behind each wall.",
-    "claims": [
-     "K2"
-    ]
-   }
-  },
-  "q1_t1_why": {
-   "role": "explain",
-   "objectives": [
-    "O1"
-   ],
-   "say": [
-    {
-     "text": "Posterior ulcers bleed because the gastroduodenal artery runs behind the duodenum and gets eroded. Anterior ulcers perforate into the free belly, so the anterior wall is the commonest site.",
-     "claims": [
-      "K2",
-      "K1"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q2",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q1_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O1"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because lesser curvature ulcers are a familiar stomach site. Check which site the classic teaching names as the commonest.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q1",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q1_t2_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure the lesser curvature is the commonest site; re-check the duodenal site.",
-    "claims": [
-     "K1"
-    ]
-   }
-  },
-  "q1_t2_why": {
-   "role": "explain",
-   "objectives": [
-    "O1"
-   ],
-   "say": [
-    {
-     "text": "The lesser curvature is a stomach site, but the classic commonest site of perforation is the anterior wall of the first part of the duodenum.",
-     "claims": [
-      "K1",
-      "K65"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q2",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q1_hint": {
-   "role": "hint",
-   "objectives": [
-    "O1"
-   ],
-   "say": [
-    {
-     "text": "Ask which wall faces the free peritoneal cavity, and which wall sits over a large artery.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q1",
-     "kind": "retry"
-    }
-   ]
-  },
-  "q2": {
-   "role": "probe",
-   "objectives": [
-    "O1"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "Same region, a different case.",
-     "claims": []
-    },
-    {
-     "text": "A man with melaena has a bleeding ulcer on the first part of the duodenum. Which wall did it sit on, and which artery did it erode?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Front wall of the first part; gastroduodenal artery eroded",
-     "next": "q2_t1",
-     "kind": "trap",
-     "trap": "TR1"
-    },
-    {
-     "label": "Back wall of the first part; left gastric artery eroded",
-     "next": "q2_t2",
-     "kind": "trap",
-     "trap": "TR1"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "q2_hint",
-     "kind": "help"
-    },
-    {
-     "label": "Back wall of the first part; gastroduodenal artery eroded",
-     "next": "q2_ok",
-     "kind": "correct"
-    }
-   ]
-  },
-  "q2_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O1"
-   ],
-   "say": [
-    {
-     "text": "Yes. Posterior ulcers bleed because they erode the gastroduodenal artery that runs behind the first part of the duodenum.",
-     "claims": [
-      "K2",
-      "K67"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q3",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q2_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O1"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting to pair the famous front-wall site with the artery, since it is the site everyone remembers. Check which wall bleeding ulcers erode from.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q2",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q2_t1_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure the front wall is the bleeder; re-check which wall faces the belly.",
-    "claims": [
-     "K2"
-    ]
-   }
-  },
-  "q2_t1_why": {
-   "role": "explain",
-   "objectives": [
-    "O1"
-   ],
-   "say": [
-    {
-     "text": "The front wall perforates because it faces the free peritoneal cavity; it does not bleed from the gastroduodenal artery. The back wall bleeds by eroding that artery.",
-     "claims": [
-      "K2",
-      "K67"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q3",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q2_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O1"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because the back wall is right and the left gastric artery is a real stomach artery. Name the artery that runs behind the duodenum.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q2",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q2_t2_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure of the artery; check which vessel lies behind the first part of the duodenum.",
-    "claims": [
-     "K2"
-    ]
-   }
-  },
-  "q2_t2_why": {
-   "role": "explain",
-   "objectives": [
-    "O1"
-   ],
-   "say": [
-    {
-     "text": "The left gastric artery supplies the stomach, not the duodenal wall. The gastroduodenal artery runs behind the first part of the duodenum, and a posterior ulcer erodes it.",
-     "claims": [
-      "K2",
-      "K67"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q3",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q2_hint": {
-   "role": "hint",
-   "objectives": [
-    "O1"
-   ],
-   "say": [
-    {
-     "text": "Think about which wall lies behind the duodenum and which artery runs there, not which wall faces the belly.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q2",
-     "kind": "retry"
-    }
-   ]
-  },
-  "q3": {
-   "role": "probe",
-   "objectives": [
-    "O2"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A man has peritonitis and free gas on his erect film, with no other clue to the cause.",
-     "claims": []
-    },
-    {
-     "text": "What is the best reading of that gas?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "A perforated ulcer, since no other cause is ever seen",
-     "next": "q3_t2",
-     "kind": "trap",
-     "trap": "TR3"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "q3_hint",
-     "kind": "help"
-    },
-    {
-     "label": "Most likely a perforated ulcer, though not the only cause",
-     "next": "q3_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "A perforated ulcer, because free gas always means one",
-     "next": "q3_t1",
-     "kind": "trap",
-     "trap": "TR3"
-    }
-   ]
-  },
-  "q3_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "Yes. A perforated ulcer is the most common cause of pneumoperitoneum. That is a frequency, so other causes still exist.",
-     "claims": [
-      "K3",
-      "K66"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q4",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q3_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because the commonest cause feels like the only cause you need to name. Check what 'commonest' promises.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q3",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q3_t1_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure one kind of free gas means one cause; test that rule.",
-    "claims": [
-     "K3"
-    ]
-   }
-  },
-  "q3_t1_why": {
-   "role": "explain",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "Perforated ulcer is the commonest cause of pneumoperitoneum, a frequency, not a rule. Free gas always needs the clinical picture and other causes kept in mind.",
-     "claims": [
-      "K3",
-      "K66"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q4",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q3_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because the ulcer is the most familiar cause, so other causes seem never to show up. Check whether a frequency can rule them out.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q3",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q3_t2_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure no other cause appears; a frequency cannot establish that.",
-    "claims": [
-     "K3"
-    ]
-   }
-  },
-  "q3_t2_why": {
-   "role": "explain",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "Other causes do occur, so the commonest cause does not exclude them. The statement is about frequency, and the ulcer remains the most likely reading.",
-     "claims": [
-      "K3",
-      "K66"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q4",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q3_hint": {
-   "role": "hint",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "Ask what 'commonest' promises, and whether a frequency can rule out every other cause.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q3",
-     "kind": "retry"
-    }
-   ]
-  },
-  "q4": {
-   "role": "probe",
-   "objectives": [
-    "O2"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A film shows haustral markings in gas lying between the liver and the diaphragm, in a man with no peritonism.",
-     "claims": []
-    },
-    {
-     "text": "Which name fits this sign?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Chilaiditi sign, colon between liver and diaphragm",
-     "next": "q4_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Rigler's sign, gas on both sides of a bowel wall",
-     "next": "q4_t1",
-     "kind": "trap",
-     "trap": "TR4"
-    },
-    {
-     "label": "Football sign, gas outlining the whole abdomen",
-     "next": "q4_t2",
-     "kind": "trap",
-     "trap": "TR4"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "q4_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "q4_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "Yes. In the Chilaiditi sign the colon sits under the diaphragm, and its haustra show the gas is inside bowel, not free.",
-     "claims": [
-      "K38",
-      "K77"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q5",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q4_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because Rigler's is a real sign on films, so a gas shadow near the dome seems to fit it. Check what the gas is inside.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q4",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q4_t1_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure a real free-gas sign fits; check whether the gas sits inside a loop.",
-    "claims": [
-     "K37"
-    ]
-   }
-  },
-  "q4_t1_why": {
-   "role": "explain",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "Rigler's sign is gas on both sides of a bowel wall, which marks free gas in the peritoneal cavity. Haustral markings show this gas is inside the colon, so it is pseudo-pneumoperitoneum.",
-     "claims": [
-      "K37",
-      "K38"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q5",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q4_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because the football sign is a dramatic free-gas picture, and any gas high in the abdomen looks like it. Ask whether the gas outlines the belly or sits in one loop.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q4",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q4_t2_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure of the free-gas picture; check whether this gas outlines the belly at all.",
-    "claims": [
-     "K37"
-    ]
-   }
-  },
-  "q4_t2_why": {
-   "role": "explain",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "The football sign is gas outlining the whole abdomen, a true free-gas pattern. This film shows gas in one colon loop with haustra, so the Chilaiditi sign fits.",
-     "claims": [
-      "K37",
-      "K77"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q5",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q4_hint": {
-   "role": "hint",
-   "objectives": [
-    "O2"
-   ],
-   "say": [
-    {
-     "text": "Ask whether the gas is inside the bowel or outside it, and whether the colon could be the thing lying there.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q4",
-     "kind": "retry"
-    }
-   ]
-  },
-  "q5": {
-   "role": "probe",
-   "objectives": [
-    "O4"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A registrar says: 'CT is always the first test in a belly like this, so skip the film.'",
-     "claims": []
-    },
-    {
-     "text": "Which reply is correct?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Agree: CT is first, since it is the most sensitive test",
-     "next": "q5_t1",
-     "kind": "trap",
-     "trap": "TR5"
-    },
-    {
-     "label": "Agree in part: the erect film is the most sensitive test",
-     "next": "q5_t2",
-     "kind": "trap",
-     "trap": "TR5"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "q5_hint",
-     "kind": "help"
-    },
-    {
-     "label": "Erect chest X-ray first; CT if the film is equivocal",
-     "next": "q5_ok",
-     "kind": "correct"
-    }
-   ]
-  },
-  "q5_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O4"
-   ],
-   "say": [
-    {
-     "text": "Yes. The erect film is the usual first test and shows free gas in about three-quarters of cases. CT is the most sensitive test, reserved for an equivocal film.",
-     "claims": [
-      "K5",
-      "K6",
-      "K68",
-      "K69"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q6",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q5_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O4"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because CT is the most sensitive test, so it feels like the right first test. Ask whether sensitive and first are the same question.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q5",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q5_t1_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure the most sensitive test is the first test; separate the two questions.",
-    "claims": [
-     "K6"
-    ]
-   }
-  },
-  "q5_t1_why": {
-   "role": "explain",
-   "objectives": [
-    "O4"
-   ],
-   "say": [
-    {
-     "text": "CT abdomen is the most sensitive test and the choice when the X-ray is equivocal. First and most sensitive are separate questions; the erect chest X-ray is the usual first test.",
-     "claims": [
-      "K6",
-      "K69",
-      "K68"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q6",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q5_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O4"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because the erect film is the test you order first, so it feels like the best test as well. Check which test is most sensitive.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q5",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q5_t2_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure the first test is also the best; check which test ranks higher on sensitivity.",
-    "claims": [
-     "K5"
-    ]
-   }
-  },
-  "q5_t2_why": {
-   "role": "explain",
-   "objectives": [
-    "O4"
-   ],
-   "say": [
-    {
-     "text": "The erect film is the usual first test, not the most sensitive. CT abdomen is the most sensitive investigation and the choice when the film is equivocal.",
-     "claims": [
-      "K5",
-      "K6",
-      "K69"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q6",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q5_hint": {
-   "role": "hint",
-   "objectives": [
-    "O4"
-   ],
-   "say": [
-    {
-     "text": "Treat first and most sensitive as two separate questions. Which test would you order at the front door?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q5",
-     "kind": "retry"
-    }
-   ]
-  },
-  "q6": {
-   "role": "probe",
-   "objectives": [
-    "O5"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "Second half: no hints. Commit to one answer each time.",
-     "claims": []
-    },
-    {
-     "text": "A 45-year-old has a rigid belly. The night team reads his erect film as clear and proposes discharge. What should happen before he goes home?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Repeat the erect film at the morning round",
-     "next": "q6_t2",
-     "kind": "trap",
-     "trap": "TR7"
-    },
-    {
-     "label": "CT abdomen before any discharge, given the rigidity",
-     "next": "q6_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Discharge on oral analgesia with clinic review",
-     "next": "q6_t1",
-     "kind": "trap",
-     "trap": "TR7"
-    }
-   ]
-  },
-  "q6_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O5"
-   ],
-   "say": [
-    {
-     "text": "Yes. A clear erect film does not exclude perforation: about a quarter of perforations show no free gas, so a rigid belly needs CT first.",
-     "claims": [
-      "K7",
-      "K5"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q7",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q6_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O5"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because a clear film feels reassuring, and oral analgesia looks like a safe plan. Ask what a rigid belly means while the film is clear.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q6",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q6_t1_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure the clear film settles it; a quarter of perforations show no gas.",
-    "claims": [
-     "K7"
-    ]
-   }
-  },
-  "q6_t1_why": {
-   "role": "explain",
-   "objectives": [
-    "O5"
-   ],
-   "say": [
-    {
-     "text": "A clear film does not exclude perforation, because free gas is absent in a sizeable minority. A rigid belly still needs CT before he goes home.",
-     "claims": [
-      "K7",
-      "K5"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q7",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q6_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O5"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because a morning repeat sounds cautious and cheap. Ask whether a repeat film can rule out what the first film missed.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q6",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q6_t2_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure a repeat film would settle it; the same test can miss gas again.",
-    "claims": [
-     "K7"
-    ]
-   }
-  },
-  "q6_t2_why": {
-   "role": "explain",
-   "objectives": [
-    "O5"
-   ],
-   "say": [
-    {
-     "text": "Repeating the same film only repeats the test that can miss free gas. CT is the test that settles it when the belly is rigid.",
-     "claims": [
-      "K7",
-      "K6"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q7",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q7": {
-   "role": "probe",
-   "objectives": [
-    "O7"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A man with a perforated ulcer arrives shocked, with a rigid belly and a systolic pressure in the 80s.",
-     "claims": []
-    },
-    {
-     "text": "What is the first action?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Large-bore IV access, crystalloid and nasogastric tube",
-     "next": "q7_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Straight to laparotomy, since the cause is known",
-     "next": "q7_t1",
-     "kind": "trap",
-     "trap": "TR11"
-    },
-    {
-     "label": "CT abdomen first, while fluids wait for the scan",
-     "next": "q7_t2",
-     "kind": "trap",
-     "trap": "TR11"
-    }
-   ]
-  },
-  "q7_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O7"
-   ],
-   "say": [
-    {
-     "text": "Yes. Resuscitation comes first so he survives theatre. Antibiotics and an IV PPI start on diagnosis.",
-     "claims": [
-      "K44",
-      "K45"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q8",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q7_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O7"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because the operation is the definitive treatment, so it feels like the urgent step. Ask what keeps him alive until he reaches theatre.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q7",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q7_t1_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure the operation comes first; fluids come before the definitive step.",
-    "claims": [
-     "K44"
-    ]
-   }
-  },
-  "q7_t1_why": {
-   "role": "explain",
-   "objectives": [
-    "O7"
-   ],
-   "say": [
-    {
-     "text": "Theatre is the definitive step, but a shocked patient must be resuscitated first. Fluids, a nasogastric tube and monitoring come before the operation.",
-     "claims": [
-      "K44",
-      "K46"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q8",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q7_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O7"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because the scan answers the diagnosis, which seems to come first. Ask whether the diagnosis is still in doubt in this patient.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q7",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q7_t2_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure imaging comes first; fluids and antibiotics do not wait for the scan.",
-    "claims": [
-     "K44"
-    ]
-   }
-  },
-  "q7_t2_why": {
-   "role": "explain",
-   "objectives": [
-    "O7"
-   ],
-   "say": [
-    {
-     "text": "The diagnosis is clear enough to act on, and a scan that delays fluids is the wrong order. Resuscitation and antibiotics start first; imaging only if the diagnosis is still in doubt.",
-     "claims": [
-      "K44",
-      "K45"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q8",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q8": {
-   "role": "probe",
-   "objectives": [
-    "O10"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "Two patients with a perforated ulcer are being planned for management.",
-     "claims": []
-    },
-    {
-     "text": "Which one fits non-operative (Taylor) management?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Stable patient with free gas on the erect film",
-     "next": "q8_t1",
-     "kind": "trap",
-     "trap": "TR12"
-    },
-    {
-     "label": "Elderly steroid user, generalised peritonitis, steady pulse",
-     "next": "q8_t2",
-     "kind": "trap",
-     "trap": "TR12"
-    },
-    {
-     "label": "Stable case with a contained leak shown on contrast",
-     "next": "q8_ok",
-     "kind": "correct"
-    }
-   ]
-  },
-  "q8_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O10"
-   ],
-   "say": [
-    {
-     "text": "Yes. Taylor management suits a selected stable patient whose perforation is contained and confirmed on a water-soluble study.",
-     "claims": [
-      "K52",
-      "K40"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q9",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q8_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O10"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because stability feels like the only condition, and free gas is already visible. Ask what must be shown before conservative care.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q8",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q8_t1_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure stability is enough; check what must be shown first.",
-    "claims": [
-     "K52"
-    ]
-   }
-  },
-  "q8_t1_why": {
-   "role": "explain",
-   "objectives": [
-    "O10"
-   ],
-   "say": [
-    {
-     "text": "Stability alone is not enough: Taylor management needs a contained perforation confirmed on contrast. Free gas is a reason to check the seal, not to start conservative care.",
-     "claims": [
-      "K52",
-      "K11"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q9",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q8_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O10"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because a steady pulse looks like a patient who is coping. Ask whether generalised peritonitis fits a selected, contained case.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q8",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q8_t2_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure a steady pulse makes conservative care safe; generalised peritonitis is the exclusion.",
-    "claims": [
-     "K52"
-    ]
-   }
-  },
-  "q8_t2_why": {
-   "role": "explain",
-   "objectives": [
-    "O10"
-   ],
-   "say": [
-    {
-     "text": "Generalised peritonitis is not a contained perforation, so the Taylor method does not fit. He needs resuscitation and surgical repair.",
-     "claims": [
-      "K52",
-      "K46"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q9",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q9": {
-   "role": "probe",
-   "objectives": [
-    "O3"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A woman had a sudden perforation ten hours ago.",
-     "claims": []
-    },
-    {
-     "text": "Now she is sitting up, eating a biscuit and says the pain has gone. Her abdomen is still tender and her pulse is 116. What is the best reading?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Spontaneous healing, so surgery can wait until morning",
-     "next": "q9_t2",
-     "kind": "trap",
-     "trap": "TR17"
-    },
-    {
-     "label": "False calm, the reaction phase before bacterial spread",
-     "next": "q9_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Real recovery, so she can move to the ward tonight",
-     "next": "q9_t1",
-     "kind": "trap",
-     "trap": "TR17"
-    }
-   ]
-  },
-  "q9_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Yes. The pain eases as dilute exudate settles, but bacteria follow over hours. A tender belly and a fast pulse fit that.",
-     "claims": [
-      "K20",
-      "K21",
-      "K19"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q10",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q9_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because she looks better and asks for food, which is what recovery looks like. Ask what a tender belly and a fast pulse suggest.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q9",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q9_t1_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure she is recovering; the easing of pain is the phase that misleads.",
-    "claims": [
-     "K20"
-    ]
-   }
-  },
-  "q9_t1_why": {
-   "role": "explain",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Relief of pain in this course is the reaction phase, which can mislead the clinician into thinking the patient is improving. It is not recovery.",
-     "claims": [
-      "K20",
-      "K21"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q10",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q9_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because a perforation that has stopped hurting sounds closed. Ask what the still-tender belly tells you about the peritoneum.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q9",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q9_t2_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure the pain means the leak has closed; the peritoneum says otherwise.",
-    "claims": [
-     "K18"
-    ]
-   }
-  },
-  "q9_t2_why": {
-   "role": "explain",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Nothing has sealed. The lull follows chemical peritonitis and is followed by bacterial contamination, so the perforation is still open and needs urgent surgical review.",
-     "claims": [
-      "K18",
-      "K19",
-      "K20"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "q10",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q10": {
-   "role": "probe",
-   "objectives": [
-    "O5",
-    "O3"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "An immunosuppressed man has sudden epigastric pain with only mild, blunted peritoneal signs.",
-     "claims": []
-    },
-    {
-     "text": "What is the safe next step?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Image for perforation; mild signs do not exclude it",
-     "next": "q10_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Observe overnight, since his signs are not board-like yet",
-     "next": "q10_t1",
-     "kind": "trap",
-     "trap": "TR23"
-    },
-    {
-     "label": "Treat as dyspepsia, discharge with antacids and review",
-     "next": "q10_t2",
-     "kind": "trap",
-     "trap": "TR23"
-    }
-   ]
-  },
-  "q10_ok": {
-   "role": "feedback",
-   "objectives": [
-    "O5",
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Yes. Steroids and age blunt peritoneal signs, so mild signs do not rule out a perforation.",
-     "claims": [
-      "K32",
-      "K15"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "close",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q10_t1": {
-   "role": "feedback",
-   "objectives": [
-    "O5",
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because a rigid belly is the textbook sign, and his belly is not rigid. Ask whether the textbook sign is always present in this host.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q10",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q10_t1_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure rigidity is the test; in this host it may never come.",
-    "claims": [
-     "K32"
-    ]
-   }
-  },
-  "q10_t1_why": {
-   "role": "explain",
-   "objectives": [
-    "O5",
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Rigidity is a classic sign, but signs are blunted in the elderly and immunosuppressed. Waiting for board-like signs delays the diagnosis.",
-     "claims": [
-      "K32",
-      "K15"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "close",
-     "kind": "continue"
-    }
-   ]
-  },
-  "q10_t2": {
-   "role": "feedback",
-   "objectives": [
-    "O5",
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "It is tempting because dyspepsia is common, and the pain sounds like it. Ask whether this host can hide a perforation behind mild signs.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "q10",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me why",
-     "next": "q10_t2_why",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure this is dyspepsia; mild signs do not settle it in this host.",
-    "claims": [
-     "K32"
-    ]
-   }
-  },
-  "q10_t2_why": {
-   "role": "explain",
-   "objectives": [
-    "O5",
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "Dyspepsia is a diagnosis of exclusion here, and this host can have a perforation with mild signs. Image first, then decide.",
-     "claims": [
-      "K32"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "close",
-     "kind": "continue"
-    }
-   ]
-  },
-  "close": {
-   "role": "recap",
-   "say": [
-    {
-     "text": "That is the end of the mixed quiz. Your reminder cards follow.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "@next",
-     "kind": "continue"
-    }
-   ]
-  }
- },
- "cards": [
-  {
-   "q": "Which wall of the first part of the duodenum perforates most often?",
-   "a": "The anterior wall, which faces the free belly. Posterior ulcers bleed by eroding the gastroduodenal artery.",
-   "claims": [
-    "K1",
-    "K2",
-    "K67"
-   ],
-   "objective": "O1"
-  },
-  {
-   "q": "What is the commonest cause of pneumoperitoneum, and what is a Chilaiditi sign?",
-   "a": "Perforated peptic ulcer. Chilaiditi sign is colon between liver and diaphragm, a pseudo-pneumoperitoneum.",
-   "claims": [
-    "K3",
-    "K38",
-    "K77"
-   ],
-   "objective": "O2"
-  },
-  {
-   "q": "What does the period of reaction mean?",
-   "a": "A lull after chemical peritonitis, before diffuse bacterial peritonitis. It is not recovery.",
-   "claims": [
-    "K20",
-    "K21"
-   ],
-   "objective": "O3"
-  },
-  {
-   "q": "First test versus most sensitive test for free gas?",
-   "a": "Erect chest X-ray is first; CT abdomen is the most sensitive and the choice when the film is equivocal.",
-   "claims": [
-    "K5",
-    "K6",
-    "K68",
-    "K69"
-   ],
-   "objective": "O4"
-  },
-  {
-   "q": "Does a clear erect film exclude perforation?",
-   "a": "No. Free gas shows in about three-quarters of perforations, so a clear film does not exclude one.",
-   "claims": [
-    "K5",
-    "K7"
-   ],
-   "objective": "O5"
-  },
-  {
-   "q": "What comes first in a shocked patient with peritonitis?",
-   "a": "Resuscitation: IV access, crystalloid and a nasogastric tube. Antibiotics and IV PPI start on diagnosis.",
-   "claims": [
-    "K44",
-    "K45"
-   ],
-   "objective": "O7"
-  },
-  {
-   "q": "When is Taylor (non-operative) management used?",
-   "a": "A selected stable patient whose perforation is contained and confirmed on a water-soluble contrast study.",
-   "claims": [
-    "K52",
-    "K11",
-    "K40"
-   ],
-   "objective": "O10"
-  }
- ],
- "decision": "solo"
+  "segment": "S8",
+  "technique": "T9",
+  "entry": "q1",
+  "nodes": {
+    "q1": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Mixed quiz. The first four questions have hints; the rest are cold. Answer from what you already hold.",
+          "claims": []
+        },
+        {
+          "text": "Of all peptic ulcer perforations, where does the hole most often lie? Consider the stomach and the first part of the duodenum.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Anterior wall of the first part of the duodenum",
+          "next": "q1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Posterior wall of the first part of the duodenum",
+          "next": "q1_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Lesser curvature of the stomach",
+          "next": "q1_t2",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "q1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "q1_recap": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Anterior duodenal ulcers erode forward and perforate. Posterior ones erode the gastroduodenal artery behind them and bleed.",
+          "claims": [
+            "K2",
+            "K67"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q1_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. The anterior wall faces the free peritoneal cavity, so erosion through it perforates.",
+          "claims": [
+            "K1",
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q1_recap",
+          "kind": "continue"
+        },
+        {
+          "label": "I know this, skip the recap",
+          "next": "q3",
+          "kind": "skip"
+        }
+      ]
+    },
+    "q1_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because the posterior wall is the one that bleeds, so it feels like the dangerous site. Ask what lies behind each wall.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q1_t1_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the posterior wall is the dangerous one; test what lies behind each wall.",
+        "claims": [
+          "K2"
+        ]
+      }
+    },
+    "q1_t1_why": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Posterior ulcers bleed because the gastroduodenal artery runs behind the duodenum and gets eroded. Anterior ulcers perforate into the free belly, so the anterior wall is the commonest site.",
+          "claims": [
+            "K2",
+            "K1"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q1_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because lesser curvature ulcers are a familiar stomach site. Check which site the classic teaching names as the commonest.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q1_t2_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the lesser curvature is the commonest site; re-check the duodenal site.",
+        "claims": [
+          "K1"
+        ]
+      }
+    },
+    "q1_t2_why": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "The lesser curvature is a stomach site, but the classic commonest site of perforation is the anterior wall of the first part of the duodenum.",
+          "claims": [
+            "K1",
+            "K65"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q1_hint": {
+      "role": "hint",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Ask which wall faces the free peritoneal cavity, and which wall sits over a large artery.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q3": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A man has peritonitis and free gas on his erect film, with no other clue to the cause.",
+          "claims": []
+        },
+        {
+          "text": "What is the best reading of that gas?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "An ulcer is the only cause of free gas on a film",
+          "next": "q3_t1",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "An ulcer is the commonest cause, so others can be set aside",
+          "next": "q3_t2",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "An ulcer is the commonest cause, though others still exist",
+          "next": "q3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "q3_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "q3_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. A perforated ulcer is the most common cause of pneumoperitoneum. That is a frequency, so other causes still exist.",
+          "claims": [
+            "K3",
+            "K66"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q3_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because the commonest cause feels like the only cause you need to name. Check what 'commonest' promises.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q3_t1_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure one kind of free gas means one cause; test that rule.",
+        "claims": [
+          "K3"
+        ]
+      }
+    },
+    "q3_t1_why": {
+      "role": "explain",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Perforated ulcer is the commonest cause of pneumoperitoneum, a frequency, not a rule. Free gas always needs the clinical picture and other causes kept in mind.",
+          "claims": [
+            "K3",
+            "K66"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q3_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because the ulcer is the most familiar cause, so other causes seem never to show up. Check whether a frequency can rule them out.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q3_t2_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure no other cause appears; a frequency cannot establish that.",
+        "claims": [
+          "K3"
+        ]
+      }
+    },
+    "q3_t2_why": {
+      "role": "explain",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Other causes do occur, so the commonest cause does not exclude them. The statement is about frequency, and the ulcer remains the most likely reading.",
+          "claims": [
+            "K3",
+            "K66"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q3_hint": {
+      "role": "hint",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Ask what 'commonest' promises, and whether a frequency can rule out every other cause.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q4": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A film shows haustral markings in gas lying between the liver and the diaphragm, in a man with no peritonism.",
+          "claims": []
+        },
+        {
+          "text": "Which name fits this sign?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Chilaiditi sign, colon between liver and diaphragm",
+          "next": "q4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Rigler's sign, gas on both sides of a bowel wall",
+          "next": "q4_t1",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Football sign, gas outlining the whole abdomen",
+          "next": "q4_t2",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "q4_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "q4_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Yes. In the Chilaiditi sign the colon sits under the diaphragm, and its haustra show the gas is inside bowel, not free.",
+          "claims": [
+            "K38",
+            "K77"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q4_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because Rigler's is a real sign on films, so a gas shadow near the dome seems to fit it. Check what the gas is inside.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q4_t1_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure a real free-gas sign fits; check whether the gas sits inside a loop.",
+        "claims": [
+          "K37"
+        ]
+      }
+    },
+    "q4_t1_why": {
+      "role": "explain",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Rigler's sign is gas on both sides of a bowel wall, which marks free gas in the peritoneal cavity. Haustral markings show this gas is inside the colon, so it is pseudo-pneumoperitoneum.",
+          "claims": [
+            "K37",
+            "K38"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q4_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because the football sign is a dramatic free-gas picture, and any gas high in the abdomen looks like it. Ask whether the gas outlines the belly or sits in one loop.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q4_t2_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure of the free-gas picture; check whether this gas outlines the belly at all.",
+        "claims": [
+          "K37"
+        ]
+      }
+    },
+    "q4_t2_why": {
+      "role": "explain",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "The football sign is gas outlining the whole abdomen, a true free-gas pattern. This film shows gas in one colon loop with haustra, so the Chilaiditi sign fits.",
+          "claims": [
+            "K37",
+            "K77"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q4_hint": {
+      "role": "hint",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Ask whether the gas is inside the bowel or outside it, and whether the colon could be the thing lying there.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q5": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A registrar says: 'CT is always the first test in a belly like this, so skip the film.'",
+          "claims": []
+        },
+        {
+          "text": "Which reply is correct?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "CT is the first test, since it is the most sensitive",
+          "next": "q5_t1",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "The erect film is the first test; CT is the most sensitive",
+          "next": "q5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "The erect film is the first test and also the most sensitive",
+          "next": "q5_t2",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "q5_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "q5_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Yes. The erect film is the usual first test and shows free gas in about three-quarters of cases. CT is the most sensitive test, reserved for an equivocal film.",
+          "claims": [
+            "K5",
+            "K6",
+            "K68",
+            "K69"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q5_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because CT is the most sensitive test, so it feels like the right first test. Ask whether sensitive and first are the same question.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q5",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q5_t1_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the most sensitive test is the first test; separate the two questions.",
+        "claims": [
+          "K6"
+        ]
+      }
+    },
+    "q5_t1_why": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "CT abdomen is the most sensitive test and the choice when the X-ray is equivocal. First and most sensitive are separate questions; the erect chest X-ray is the usual first test.",
+          "claims": [
+            "K6",
+            "K69",
+            "K68"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q5_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because the erect film is the test you order first, so it feels like the best test as well. Check which test is most sensitive.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q5",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q5_t2_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the first test is also the best; check which test ranks higher on sensitivity.",
+        "claims": [
+          "K5"
+        ]
+      }
+    },
+    "q5_t2_why": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "The erect film is the usual first test, not the most sensitive. CT abdomen is the most sensitive investigation and the choice when the film is equivocal.",
+          "claims": [
+            "K5",
+            "K6",
+            "K69"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q5_hint": {
+      "role": "hint",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Treat first and most sensitive as two separate questions. Which test would you order at the front door?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "q6": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Second half: no hints. Commit to one answer each time.",
+          "claims": []
+        },
+        {
+          "text": "A 45-year-old has a rigid belly. The night team reads his erect film as clear and proposes discharge. What should happen before he goes home?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Repeat the erect film in the morning, since the first was clear",
+          "next": "q6_t2",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "CT abdomen before any discharge, since the belly is rigid",
+          "next": "q6_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Discharge on oral analgesia with clinic review, since the film was clear",
+          "next": "q6_t1",
+          "kind": "trap",
+          "trap": "TR7"
+        }
+      ]
+    },
+    "q6_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Yes. A clear erect film does not exclude perforation: about a quarter of perforations show no free gas, so a rigid belly needs CT first.",
+          "claims": [
+            "K7",
+            "K5"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q6_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because a clear film feels reassuring, and oral analgesia looks like a safe plan. Ask what a rigid belly means while the film is clear.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q6",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q6_t1_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the clear film settles it; a quarter of perforations show no gas.",
+        "claims": [
+          "K7"
+        ]
+      }
+    },
+    "q6_t1_why": {
+      "role": "explain",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "A clear film does not exclude perforation, because free gas is absent in a sizeable minority. A rigid belly still needs CT before he goes home.",
+          "claims": [
+            "K7",
+            "K5"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q6_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because a morning repeat sounds cautious and cheap. Ask whether a repeat film can rule out what the first film missed.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q6",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q6_t2_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure a repeat film would settle it; the same test can miss gas again.",
+        "claims": [
+          "K7"
+        ]
+      }
+    },
+    "q6_t2_why": {
+      "role": "explain",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Repeating the same film only repeats the test that can miss free gas. CT is the test that settles it when the belly is rigid.",
+          "claims": [
+            "K7",
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q7": {
+      "role": "probe",
+      "objectives": [
+        "O7"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A man with a perforated ulcer arrives shocked, with a rigid belly and a systolic pressure in the 80s.",
+          "claims": []
+        },
+        {
+          "text": "What is the first action?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Straight to laparotomy, with fluids given in theatre",
+          "next": "q7_t1",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "CT abdomen first, with fluids given after the scan",
+          "next": "q7_t2",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "IV access, crystalloid and nasogastric tube, then theatre",
+          "next": "q7_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "q7_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Yes. Resuscitation comes first so he survives theatre. Antibiotics and an IV PPI start on diagnosis.",
+          "claims": [
+            "K44",
+            "K45"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q8",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q7_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because the operation is the definitive treatment, so it feels like the urgent step. Ask what keeps him alive until he reaches theatre.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q7",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q7_t1_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the operation comes first; fluids come before the definitive step.",
+        "claims": [
+          "K44"
+        ]
+      }
+    },
+    "q7_t1_why": {
+      "role": "explain",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Theatre is the definitive step, but a shocked patient must be resuscitated first. Fluids, a nasogastric tube and monitoring come before the operation.",
+          "claims": [
+            "K44",
+            "K46"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q8",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q7_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because the scan answers the diagnosis, which seems to come first. Ask whether the diagnosis is still in doubt in this patient.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q7",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q7_t2_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure imaging comes first; fluids and antibiotics do not wait for the scan.",
+        "claims": [
+          "K44"
+        ]
+      }
+    },
+    "q7_t2_why": {
+      "role": "explain",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "The diagnosis is clear enough to act on, and a scan that delays fluids is the wrong order. Resuscitation and antibiotics start first; imaging only if the diagnosis is still in doubt.",
+          "claims": [
+            "K44",
+            "K45"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q8",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q8": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two patients with a perforated ulcer are being planned for management.",
+          "claims": []
+        },
+        {
+          "text": "Which one fits non-operative (Taylor) management?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Steady-pulse steroid user with generalised peritonitis on examination",
+          "next": "q8_t2",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Stable patient with a leak shown contained on a contrast study",
+          "next": "q8_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Stable patient, free gas on the erect film, no contrast study done",
+          "next": "q8_t1",
+          "kind": "trap",
+          "trap": "TR12"
+        }
+      ]
+    },
+    "q8_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Yes. Taylor management suits a selected stable patient whose perforation is contained and confirmed on a water-soluble study.",
+          "claims": [
+            "K52",
+            "K40"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q9",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q8_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because stability feels like the only condition, and free gas is already visible. Ask what must be shown before conservative care.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q8",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q8_t1_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure stability is enough; check what must be shown first.",
+        "claims": [
+          "K52"
+        ]
+      }
+    },
+    "q8_t1_why": {
+      "role": "explain",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Stability alone is not enough: Taylor management needs a contained perforation confirmed on contrast. Free gas is a reason to check the seal, not to start conservative care.",
+          "claims": [
+            "K52",
+            "K11"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q9",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q8_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because a steady pulse looks like a patient who is coping. Ask whether generalised peritonitis fits a selected, contained case.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q8",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q8_t2_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure a steady pulse makes conservative care safe; generalised peritonitis is the exclusion.",
+        "claims": [
+          "K52"
+        ]
+      }
+    },
+    "q8_t2_why": {
+      "role": "explain",
+      "objectives": [
+        "O10"
+      ],
+      "say": [
+        {
+          "text": "Generalised peritonitis is not a contained perforation, so the Taylor method does not fit. He needs resuscitation and surgical repair.",
+          "claims": [
+            "K52",
+            "K46"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q9",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q9": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A woman had a sudden perforation ten hours ago.",
+          "claims": []
+        },
+        {
+          "text": "Now she is sitting up, eating a biscuit and says the pain has gone. Her abdomen is still tender and her pulse is 116. What is the best reading?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Residual soreness from the spasm, so reassure and observe on the ward",
+          "next": "q9_t2",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "False calm, the reaction phase before bacterial spread",
+          "next": "q9_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Real recovery, so she can move to the ward tonight",
+          "next": "q9_t1",
+          "kind": "trap",
+          "trap": "TR17"
+        }
+      ]
+    },
+    "q9_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. The pain eases as dilute exudate settles, but bacteria follow over hours. A tender belly and a fast pulse fit that.",
+          "claims": [
+            "K20",
+            "K21",
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q10",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q9_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because she looks better and asks for food, which is what recovery looks like. Ask what a tender belly and a fast pulse suggest.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q9",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q9_t1_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure she is recovering; the easing of pain is the phase that misleads.",
+        "claims": [
+          "K20"
+        ]
+      }
+    },
+    "q9_t1_why": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Relief of pain in this course is the reaction phase, which can mislead the clinician into thinking the patient is improving. It is not recovery.",
+          "claims": [
+            "K20",
+            "K21"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q10",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q9_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because a tender belly after a pain-free spell sounds like leftover soreness. Ask whether a pulse of 116 fits a settling belly.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q9",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q9_t2_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the pain means the leak has closed; the peritoneum says otherwise.",
+        "claims": [
+          "K18"
+        ]
+      }
+    },
+    "q9_t2_why": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "A pulse of 116 with a tender belly is not leftover soreness. The lull follows chemical peritonitis and is followed by bacterial contamination, so she needs urgent surgical review.",
+          "claims": [
+            "K18",
+            "K19",
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "q10",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q10": {
+      "role": "probe",
+      "objectives": [
+        "O5",
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An immunosuppressed man has sudden epigastric pain with only mild, blunted peritoneal signs.",
+          "claims": []
+        },
+        {
+          "text": "What is the safe next step?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Observe overnight, since his signs are not board-like yet",
+          "next": "q10_t1",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Image now, since mild signs do not exclude perforation",
+          "next": "q10_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Treat as dyspepsia, since pain is epigastric and signs mild",
+          "next": "q10_t2",
+          "kind": "trap",
+          "trap": "TR23"
+        }
+      ]
+    },
+    "q10_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O5",
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Yes. Steroids and age blunt peritoneal signs, so mild signs do not rule out a perforation.",
+          "claims": [
+            "K32",
+            "K15"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "close",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q10_t1": {
+      "role": "feedback",
+      "objectives": [
+        "O5",
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because a rigid belly is the textbook sign, and his belly is not rigid. Ask whether the textbook sign is always present in this host.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q10",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q10_t1_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure rigidity is the test; in this host it may never come.",
+        "claims": [
+          "K32"
+        ]
+      }
+    },
+    "q10_t1_why": {
+      "role": "explain",
+      "objectives": [
+        "O5",
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Rigidity is a classic sign, but signs are blunted in the elderly and immunosuppressed. Waiting for board-like signs delays the diagnosis.",
+          "claims": [
+            "K32",
+            "K15"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "close",
+          "kind": "continue"
+        }
+      ]
+    },
+    "q10_t2": {
+      "role": "feedback",
+      "objectives": [
+        "O5",
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "It is tempting because dyspepsia is common, and the pain sounds like it. Ask whether this host can hide a perforation behind mild signs.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "q10",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "q10_t2_why",
+          "kind": "agency"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure this is dyspepsia; mild signs do not settle it in this host.",
+        "claims": [
+          "K32"
+        ]
+      }
+    },
+    "q10_t2_why": {
+      "role": "explain",
+      "objectives": [
+        "O5",
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Dyspepsia is a diagnosis of exclusion here, and this host can have a perforation with mild signs. Image first, then decide.",
+          "claims": [
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "close",
+          "kind": "continue"
+        }
+      ]
+    },
+    "close": {
+      "role": "recap",
+      "say": [
+        {
+          "text": "That is the end of the mixed quiz. Your reminder cards follow.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  },
+  "cards": [
+    {
+      "q": "Which wall of the first part of the duodenum perforates most often?",
+      "a": "The anterior wall, which faces the free belly. Posterior ulcers bleed by eroding the gastroduodenal artery.",
+      "claims": [
+        "K1",
+        "K2",
+        "K67"
+      ],
+      "objective": "O1"
+    },
+    {
+      "q": "What is the commonest cause of pneumoperitoneum, and what is a Chilaiditi sign?",
+      "a": "Perforated peptic ulcer. Chilaiditi sign is colon between liver and diaphragm, a pseudo-pneumoperitoneum.",
+      "claims": [
+        "K3",
+        "K38",
+        "K77"
+      ],
+      "objective": "O2"
+    },
+    {
+      "q": "What does the period of reaction mean?",
+      "a": "A lull after chemical peritonitis, before diffuse bacterial peritonitis. It is not recovery.",
+      "claims": [
+        "K20",
+        "K21"
+      ],
+      "objective": "O3"
+    },
+    {
+      "q": "First test versus most sensitive test for free gas?",
+      "a": "Erect chest X-ray is first; CT abdomen is the most sensitive and the choice when the film is equivocal.",
+      "claims": [
+        "K5",
+        "K6",
+        "K68",
+        "K69"
+      ],
+      "objective": "O4"
+    },
+    {
+      "q": "Does a clear erect film exclude perforation?",
+      "a": "No. Free gas shows in about three-quarters of perforations, so a clear film does not exclude one.",
+      "claims": [
+        "K5",
+        "K7"
+      ],
+      "objective": "O5"
+    },
+    {
+      "q": "What comes first in a shocked patient with peritonitis?",
+      "a": "Resuscitation: IV access, crystalloid and a nasogastric tube. Antibiotics and IV PPI start on diagnosis.",
+      "claims": [
+        "K44",
+        "K45"
+      ],
+      "objective": "O7"
+    },
+    {
+      "q": "When is Taylor (non-operative) management used?",
+      "a": "A selected stable patient whose perforation is contained and confirmed on a water-soluble contrast study.",
+      "claims": [
+        "K52",
+        "K11",
+        "K40"
+      ],
+      "objective": "O10"
+    }
+  ],
+  "decision": "solo"
 }

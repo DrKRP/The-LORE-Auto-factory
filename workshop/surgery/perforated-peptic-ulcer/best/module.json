@@ -2297,169 +2297,6 @@
           "claims": [
             "K32"
           ]
-        },
-        {
-          "text": "Other risks to know: smoking, H. pylori, and crack cocaine in younger patients.",
-          "claims": [
-            "K13",
-            "K14",
-            "K16"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S3.p2",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S3"
-    },
-    "S3.p2": {
-      "role": "probe",
-      "objectives": [
-        "O5"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "Which statement about peritoneal signs in older or steroid-treated patients is correct?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "A soft belly can exclude perforation in older patients",
-          "next": "S3.p2_soft",
-          "kind": "trap",
-          "trap": "TR23"
-        },
-        {
-          "label": "Rigidity usually appears early; its absence makes it unlikely",
-          "next": "S3.p2_rig",
-          "kind": "trap",
-          "trap": "TR23"
-        },
-        {
-          "label": "Signs may be blunted; a soft belly does not exclude it",
-          "next": "S3.p2_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "S3.p2_hint",
-          "kind": "help"
-        }
-      ],
-      "segment": "S3"
-    },
-    "S3.p2_soft": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right. It is tempting because a soft belly looks reassuring on examination, and older patients often look well.",
-          "claims": []
-        },
-        {
-          "text": "But in older and steroid-treated patients the peritoneal signs are often blunted, so the examination is unreliable.",
-          "claims": [
-            "K32"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure a soft belly was enough. Confident errors on examination are the ones worth remembering.",
-        "claims": [
-          "K32"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S3.p2",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me what is right",
-          "next": "S3.p2_ok",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S3"
-    },
-    "S3.p2_rig": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right. It is tempting because rigidity is the sign you were taught to trust, so its absence feels decisive.",
-          "claims": []
-        },
-        {
-          "text": "But rigidity is blunted in these hosts, so its absence proves little, even though board-like rigidity is the classic picture.",
-          "claims": [
-            "K28",
-            "K32"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure rigidity had to be there. That certainty is exactly what the host factors undo.",
-        "claims": [
-          "K32"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S3.p2",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me what is right",
-          "next": "S3.p2_ok",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S3"
-    },
-    "S3.p2_hint": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Ask which host factors dull the signs, then what a soft belly is worth in that host.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S3.p2",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me what is right",
-          "next": "S3.p2_ok",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S3"
-    },
-    "S3.p2_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Right: here is the reasoning. Steroids, NSAIDs and age can blunt the peritoneal signs, so the examination is weak evidence.",
-          "claims": [
-            "K15",
-            "K32"
-          ]
-        },
-        {
-          "text": "A soft belly therefore does not settle the question; the picture and the investigation have to.",
-          "claims": [
-            "K32"
-          ]
         }
       ],
       "choices": [
@@ -2884,8 +2721,19 @@
       ],
       "choices": [
         {
-          "label": "Kehr's sign, the shoulder-tip sign",
+          "label": "Kehr's sign",
           "next": "S3.p6_kehr",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "Valentino's syndrome",
+          "next": "S3.p6_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Murphy's sign",
+          "next": "S3.p6_mur",
           "kind": "trap",
           "trap": "TR16"
         },
@@ -2893,11 +2741,6 @@
           "label": "Not sure, give me a hint",
           "next": "S3.p6_hint",
           "kind": "help"
-        },
-        {
-          "label": "Valentino's syndrome, the tracked-fluid mimic",
-          "next": "S3.p6_ok",
-          "kind": "correct"
         }
       ],
       "segment": "S3"
@@ -2985,6 +2828,41 @@
       ],
       "segment": "S3"
     },
+    "S3.p6_mur": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Murphy's is a well-known right upper quadrant sign, so it comes to mind for right-sided pain.",
+          "claims": []
+        },
+        {
+          "text": "But Murphy's sign marks the gallbladder, not a fluid track. The fluid track down the gutter has its own eponym.",
+          "claims": [
+            "K82",
+            "K26"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure Murphy's fitted. Match each sign to its organ before you pick.",
+        "claims": [
+          "K82"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S3.p6",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "S3.p6_ok",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S3"
+    },
     "S4.open": {
       "role": "probe",
       "objectives": [
@@ -3008,7 +2886,7 @@
           "kind": "correct"
         },
         {
-          "label": "Free gas: it sits under the right dome, where free gas rises",
+          "label": "Free gas, since gas under the right dome is free",
           "next": "S4.open_t4",
           "kind": "trap",
           "trap": "TR4"
@@ -3066,14 +2944,11 @@
           "claims": []
         },
         {
-          "text": "Free gas does rise under the right dome, so the place looks right, but a place is not a diagnosis.",
+          "text": "Where gas sits does not tell you what it is. Ask whether this gas lies inside the bowel or outside it.",
           "claims": [
-            "K33"
+            "K38",
+            "K77"
           ]
-        },
-        {
-          "text": "Ask whether this gas sits inside the bowel or outside it.",
-          "claims": []
         }
       ],
       "sure_note": {
@@ -3277,6 +3152,11 @@
           "label": "Try again",
           "next": "S4.fade",
           "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "S4.walk1",
+          "kind": "agency"
         }
       ],
       "segment": "S4"
@@ -3289,7 +3169,7 @@
           "claims": []
         },
         {
-          "text": "A big gas shadow over the abdomen looks like free gas, and the football sign does belong to that family, so the name is easy to grab.",
+          "text": "A large oval gas shadow is a different finding from the one in the stem. Match the finding word for word: gas on both sides of a bowel wall.",
           "claims": [
             "K37"
           ]
@@ -3310,6 +3190,11 @@
           "label": "Try again",
           "next": "S4.fade",
           "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "S4.walk1",
+          "kind": "agency"
         }
       ],
       "segment": "S4"
@@ -3352,18 +3237,18 @@
       ],
       "choices": [
         {
-          "label": "Probably a perforation from an ulcer, so still take the history",
+          "label": "Probably an ulcer, but take the history before deciding the cause",
           "next": "S4.fade_b_ok",
           "kind": "correct"
         },
         {
-          "label": "Probably an ulcer, since free gas usually comes from one, so theatre",
+          "label": "Probably an ulcer, since free gas usually comes from one",
           "next": "S4.fade_b_t3a",
           "kind": "trap",
           "trap": "TR3"
         },
         {
-          "label": "Probably a perforated ulcer, and the history adds little once gas shows",
+          "label": "Probably an ulcer, and the history adds little once gas shows",
           "next": "S4.fade_b_t3b",
           "kind": "trap",
           "trap": "TR3"
@@ -3584,6 +3469,11 @@
           "label": "Try again",
           "next": "S4.f3_view",
           "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "S4.f3_t8a_why",
+          "kind": "agency"
         }
       ],
       "segment": "S4"
@@ -3889,6 +3779,11 @@
           "label": "Try again",
           "next": "S4.f3_time",
           "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "S4.f3_time_t9a_why",
+          "kind": "agency"
         }
       ],
       "segment": "S4"
@@ -4064,6 +3959,45 @@
         {
           "label": "Try again",
           "next": "S4.f3_time2",
+          "kind": "retry"
+        }
+      ],
+      "segment": "S4"
+    },
+    "S4.f3_t8a_why": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "A supine film is not the view for a patient who cannot sit. A left lateral decubitus film lets gas collect between the liver and the lateral wall, where it shows.",
+          "claims": [
+            "K36",
+            "K70"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S4.f3_view",
+          "kind": "retry"
+        }
+      ],
+      "segment": "S4"
+    },
+    "S4.f3_time_t9a_why": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Gas must rise through the abdomen to reach the diaphragm, and that takes time. Sitting up for about ten minutes first gives it that time.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S4.f3_time",
           "kind": "retry"
         }
       ],
@@ -4391,18 +4325,18 @@
       ],
       "choices": [
         {
-          "label": "PYQ key: erect X-ray. Current practice: CT when in doubt",
+          "label": "PYQ key: erect X-ray. Current practice: CT if doubt remains",
           "next": "S5.pyqs_ok",
           "kind": "correct"
         },
         {
-          "label": "Both the PYQ key and current practice: erect X-ray",
+          "label": "PYQ key: erect X-ray. Current practice: erect X-ray even if doubt remains",
           "next": "S5.pyqs_t6",
           "kind": "trap",
           "trap": "TR6"
         },
         {
-          "label": "PYQ key: CT. Current practice: erect X-ray",
+          "label": "PYQ key: CT abdomen. Current practice: erect X-ray, CT if doubt remains",
           "next": "S5.pyqs_t6b",
           "kind": "trap",
           "trap": "TR6"
@@ -4543,7 +4477,7 @@
       ],
       "choices": [
         {
-          "label": "The film does not rule out perforation; the work-up goes on",
+          "label": "Perforation is not excluded, so the work-up goes on",
           "next": "S5.clear_ok",
           "kind": "correct"
         },
@@ -4554,8 +4488,8 @@
           "trap": "TR7"
         },
         {
-          "label": "Perforation is excluded if the film was taken properly erect",
-          "next": "S5.clear_t7",
+          "label": "Perforation is excluded, since the film was taken erect",
+          "next": "S5.clear_t7b",
           "kind": "trap",
           "trap": "TR7"
         },
@@ -4606,7 +4540,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S5.share",
+          "next": "S5.sit",
           "kind": "continue"
         }
       ],
@@ -4619,11 +4553,11 @@
       ],
       "say": [
         {
-          "text": "That choice is not right. A clear film reads like a normal result, so it feels safe to close the question.",
+          "text": "That choice is not right. A clear film reads like a normal result, so it feels safe to watch and wait.",
           "claims": []
         },
         {
-          "text": "But a normal film is not a negative test: perforation can be present with no free gas on the film.",
+          "text": "But a rigid belly with a clear film still needs the work-up: perforation can be present with no free gas.",
           "claims": [
             "K7",
             "K80"
@@ -4645,117 +4579,146 @@
       },
       "segment": "S5"
     },
-    "S5.share": {
+    "S5.contrast": {
       "role": "probe",
       "objectives": [
-        "O5"
+        "O6"
       ],
       "ask_confidence": true,
       "say": [
         {
-          "text": "Free gas shows on the erect film in what share of perforations, and what does that mean for a clear film?",
+          "text": "A suspected perforation, and the surgeon wants to know whether it has sealed before deciding on conservative care.",
+          "claims": []
+        },
+        {
+          "text": "Which contrast study answers that?",
           "claims": []
         }
       ],
       "choices": [
         {
-          "label": "About three-quarters, so a quarter show none",
-          "next": "S5.share_ok",
+          "label": "Water-soluble Gastrografin, to show a seal",
+          "next": "S5.contrast_ok",
           "kind": "correct"
         },
         {
-          "label": "Nearly all, so a clear film rules it out",
-          "next": "S5.share_t7",
+          "label": "Barium sulphate, the familiar GI contrast",
+          "next": "S5.contrast_t20",
           "kind": "trap",
-          "trap": "TR7"
-        },
-        {
-          "label": "Most, so a clear film makes perforation unlikely",
-          "next": "S5.share_t7",
-          "kind": "trap",
-          "trap": "TR7"
+          "trap": "TR20"
         },
         {
           "label": "Not sure, give me a hint",
-          "next": "S5.share_hint",
+          "next": "S5.contrast_hint",
           "kind": "help"
         }
       ],
       "segment": "S5"
     },
-    "S5.share_hint": {
+    "S5.contrast_hint": {
       "role": "hint",
       "say": [
         {
-          "text": "Ask what a test with a miss rate does to a negative result.",
+          "text": "Ask what each contrast does if it leaks into the peritoneal cavity.",
           "claims": []
         }
       ],
       "choices": [
         {
           "label": "Try the question again",
-          "next": "S5.share",
+          "next": "S5.contrast",
           "kind": "retry"
         }
       ],
       "segment": "S5"
     },
-    "S5.share_ok": {
+    "S5.contrast_ok": {
       "role": "feedback",
       "objectives": [
-        "O5"
+        "O6"
       ],
       "say": [
         {
-          "text": "Yes. Free gas shows in roughly three-quarters of cases; the figure is approximate, and texts vary.",
+          "text": "Yes. Water-soluble contrast shows whether the perforation has sealed, which guides conservative care.",
           "claims": [
-            "K5",
-            "K80"
+            "K72"
           ]
         },
         {
-          "text": "A clear film therefore does not exclude perforation.",
+          "text": "Barium is contraindicated when perforation is suspected, because barium peritonitis is severe.",
           "claims": [
-            "K7"
+            "K43"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S5.sit",
+          "next": "S6.open",
           "kind": "continue"
         }
       ],
       "segment": "S5"
     },
-    "S5.share_t7": {
+    "S5.contrast_t20": {
       "role": "feedback",
       "objectives": [
-        "O5"
+        "O6"
       ],
       "say": [
         {
-          "text": "That choice is not right. A high share sounds reassuring, so a clear film feels like a closed question.",
+          "text": "That choice is not right. Barium is the familiar gut contrast, so it feels like the default study.",
           "claims": []
         },
         {
-          "text": "Free gas is missed in a substantial minority of perforations, so the miss rate is the point.",
+          "text": "A leak of barium into the peritoneum causes severe peritonitis, so it is the one medium to avoid here.",
           "claims": [
-            "K5",
-            "K7"
+            "K43"
           ]
         }
       ],
       "choices": [
         {
           "label": "Try again",
-          "next": "S5.share",
+          "next": "S5.contrast",
           "kind": "retry"
         }
       ],
       "sure_note": {
-        "text": "You were sure, so check whether the film catches every perforation.",
+        "text": "You were sure, so ask what each medium does if it escapes into the belly.",
+        "claims": [
+          "K43"
+        ]
+      },
+      "segment": "S5"
+    },
+    "S5.clear_t7b": {
+      "role": "feedback",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "That choice is not right. A properly taken erect film feels like a fair test, so a clear result feels final.",
+          "claims": []
+        },
+        {
+          "text": "But even a perfect erect film misses free gas in a sizeable minority, so a good technique does not turn it into a rule-out.",
+          "claims": [
+            "K7",
+            "K80"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S5.clear",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure good technique made the film final. Ask whether a test with a miss rate can ever exclude.",
         "claims": [
           "K7"
         ]
@@ -4780,7 +4743,7 @@
       ],
       "choices": [
         {
-          "label": "About 10 minutes, to let the gas rise",
+          "label": "About 10 minutes, since gas takes time to rise",
           "next": "S5.sit_ok",
           "kind": "correct"
         },
@@ -4792,7 +4755,7 @@
         },
         {
           "label": "About two minutes, since gas rises quickly",
-          "next": "S5.sit_t9",
+          "next": "S5.sit_t9b",
           "kind": "trap",
           "trap": "TR9"
         },
@@ -4996,121 +4959,34 @@
       },
       "segment": "S5"
     },
-    "S5.contrast": {
-      "role": "probe",
-      "objectives": [
-        "O6"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "A suspected perforation, and the surgeon wants to know whether it has sealed before deciding on conservative care.",
-          "claims": []
-        },
-        {
-          "text": "Which contrast study answers that?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Water-soluble Gastrografin, to show a seal",
-          "next": "S5.contrast_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Barium sulphate, the familiar GI contrast",
-          "next": "S5.contrast_t20",
-          "kind": "trap",
-          "trap": "TR20"
-        },
-        {
-          "label": "Barium, since it shows a leak most clearly",
-          "next": "S5.contrast_t20",
-          "kind": "trap",
-          "trap": "TR20"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "S5.contrast_hint",
-          "kind": "help"
-        }
-      ],
-      "segment": "S5"
-    },
-    "S5.contrast_hint": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Ask what each contrast does if it leaks into the peritoneal cavity.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try the question again",
-          "next": "S5.contrast",
-          "kind": "retry"
-        }
-      ],
-      "segment": "S5"
-    },
-    "S5.contrast_ok": {
+    "S5.sit_t9b": {
       "role": "feedback",
       "objectives": [
         "O6"
       ],
       "say": [
         {
-          "text": "Yes. Water-soluble contrast shows whether the perforation has sealed, which guides conservative care.",
-          "claims": [
-            "K72"
-          ]
-        },
-        {
-          "text": "Barium is contraindicated when perforation is suspected, because barium peritonitis is severe.",
-          "claims": [
-            "K43"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S6.open",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S5"
-    },
-    "S5.contrast_t20": {
-      "role": "feedback",
-      "objectives": [
-        "O6"
-      ],
-      "say": [
-        {
-          "text": "That choice is not right. Barium is the familiar gut contrast, so it feels like the default study.",
+          "text": "That choice is not right. Two minutes feels like enough, since gas does rise quickly in a bubble.",
           "claims": []
         },
         {
-          "text": "A leak of barium into the peritoneum causes severe peritonitis, so it is the one medium to avoid here.",
+          "text": "But gas must cross the whole abdomen to reach the diaphragm, and two minutes is too short. About ten minutes is the usual wait.",
           "claims": [
-            "K43"
+            "K34"
           ]
         }
       ],
       "choices": [
         {
           "label": "Try again",
-          "next": "S5.contrast",
+          "next": "S5.sit",
           "kind": "retry"
         }
       ],
       "sure_note": {
-        "text": "You were sure, so ask what each medium does if it escapes into the belly.",
+        "text": "You were sure two minutes was enough. Gas rises slowly through the belly, so allow about ten.",
         "claims": [
-          "K43"
+          "K34"
         ]
       },
       "segment": "S5"
@@ -5266,24 +5142,12 @@
       ],
       "say": [
         {
-          "text": "Here is patient A worked in full. Step 1: IV access, crystalloids, nasogastric tube and catheter, started at once.",
-          "claims": [
-            "K44"
-          ]
+          "text": "Here is patient A worked. Step 1: IV access, crystalloids, nasogastric tube and catheter, started at once.",
+          "claims": []
         },
         {
-          "text": "Step 2: bloods, including group and save, which guide the resuscitation. Step 3: IV broad-spectrum antibiotics and an IV proton pump inhibitor, started on diagnosis.",
-          "claims": [
-            "K42",
-            "K45"
-          ]
-        },
-        {
-          "text": "Step 4: theatre for an omental patch closure with peritoneal lavage, the standard operation.",
-          "claims": [
-            "K8",
-            "K49"
-          ]
+          "text": "Step 2: bloods, including group and save, which guide the resuscitation. Patient B shows what comes after that.",
+          "claims": []
         }
       ],
       "choices": [
@@ -5293,7 +5157,7 @@
           "kind": "continue"
         },
         {
-          "label": "Skip the fade; go to the operation",
+          "label": "I know the order, skip to the operation",
           "next": "S6.c",
           "kind": "skip"
         }
@@ -5368,6 +5232,11 @@
           "label": "Try again",
           "next": "S6.b",
           "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "S6.b_t1_why",
+          "kind": "agency"
         }
       ],
       "segment": "S6"
@@ -5967,6 +5836,11 @@
           "label": "Try again",
           "next": "S6.f",
           "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "S6.f_t1_why",
+          "kind": "agency"
         }
       ],
       "segment": "S6"
@@ -6370,6 +6244,40 @@
       ],
       "segment": "S6"
     },
+    "S6.b_t1_why": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Antibiotics and an IV PPI start on diagnosis, because bacteria are already spreading. They run while he is resuscitated, before theatre.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S6.b",
+          "kind": "retry"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.f_t1_why": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Taylor is for a sealed perforation shown on contrast. Free gas with generalised peritonitis is spreading contamination, so he is resuscitated and then repaired.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S6.f",
+          "kind": "retry"
+        }
+      ],
+      "segment": "S6"
+    },
     "S7.b1_age": {
       "role": "feedback",
       "say": [
@@ -6523,18 +6431,18 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. Ninety is tempting, since it is the usual low-pressure cut-off in emergency teaching.",
+          "text": "That choice is not right. One is tempting, because 96 mmHg does not look like shock by the usual 90 cut-off.",
           "claims": []
         },
         {
-          "text": "But this score's shock limit sits higher than that. Test the systolic figure against the shock item again.",
+          "text": "But this score's shock limit is higher, systolic below 100, so 96 counts.",
           "claims": [
             "K57"
           ]
         }
       ],
       "sure_note": {
-        "text": "You were sure of the 90 limit. It is a common cut-off elsewhere, so tie this score to its own figure.",
+        "text": "You were sure 96 was not shock. This score uses a higher cut-off, so check the figure.",
         "claims": [
           "K57"
         ]
@@ -6557,18 +6465,18 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. Twelve hours is tempting, because early-delay cut-offs in other teaching are often set there.",
+          "text": "That choice is not right. Three is tempting, because age and illness feel like they belong in any mortality score.",
           "claims": []
         },
         {
-          "text": "But the delay item in this score is a longer wait. Recall the delay limit the score uses before you retry.",
+          "text": "But he has no major illness, so that item is not scored, and age is not an item at all.",
           "claims": [
             "K57"
           ]
         }
       ],
       "sure_note": {
-        "text": "You were sure of the 12-hour limit. Delay cut-offs are easy to borrow, so check the delay item in this score.",
+        "text": "You were sure all three items applied. Score only the items this patient actually has.",
         "claims": [
           "K57"
         ]
@@ -6595,27 +6503,27 @@
       "ask_confidence": true,
       "say": [
         {
-          "text": "Same score. The shock item and the delay item each carry a figure. Which pair is right?",
+          "text": "A man arrives with systolic pressure 96 mmHg and no major illness. He reaches theatre 30 hours after the perforation. How many Boey items does he score?",
           "claims": []
         }
       ],
       "choices": [
         {
-          "label": "Systolic below 100 mmHg, and delay over 24 hours",
-          "next": "S7.b2_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Systolic below 90 mmHg, and delay over 24 hours",
+          "label": "One: only the delay counts",
           "next": "S7.b2_90",
           "kind": "trap",
           "trap": "TR21"
         },
         {
-          "label": "Systolic below 100 mmHg, and delay over 12 hours",
+          "label": "Three: age and delay count as well",
           "next": "S7.b2_12",
           "kind": "trap",
           "trap": "TR21"
+        },
+        {
+          "label": "Two: shock on admission and delay",
+          "next": "S7.b2_ok",
+          "kind": "correct"
         },
         {
           "label": "Not sure, give me a hint",
@@ -6629,7 +6537,7 @@
       "role": "hint",
       "say": [
         {
-          "text": "Two figures: one for systolic pressure on arrival, one for the wait before theatre. Which wait does the score count?",
+          "text": "Score each item: is 96 below the shock limit, is there a major illness, and is 30 hours past the delay limit?",
           "claims": []
         }
       ],
@@ -6651,7 +6559,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Right: shock on admission means systolic pressure below 100 mmHg. The delay item counts surgery delayed over 24 hours.",
+          "text": "Right: he scores two items, shock on admission (systolic below 100) and delay beyond 24 hours. No major illness, so no third item.",
           "claims": [
             "K57"
           ]
@@ -6750,21 +6658,21 @@
       ],
       "choices": [
         {
-          "label": "Truncal vagotomy at the same sitting",
+          "label": "Truncal vagotomy at the same sitting, to cut acid",
           "next": "S7.g1_vag",
           "kind": "trap",
           "trap": "TR14"
         },
         {
-          "label": "Omental patch closure with peritoneal lavage, as for a duodenal ulcer",
+          "label": "Biopsy or excision of the ulcer edge, to exclude cancer",
+          "next": "S7.g1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Omental patch closure with lavage, as for a duodenal ulcer",
           "next": "S7.g1_patch",
           "kind": "trap",
           "trap": "TR19"
-        },
-        {
-          "label": "Biopsy or excision of the ulcer edge, to exclude carcinoma",
-          "next": "S7.g1_ok",
-          "kind": "correct"
         },
         {
           "label": "Not sure, give me a hint",
@@ -6810,307 +6718,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S7.g2",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.g2_vag": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right. Vagotomy is tempting, because acid surgery is the reflex answer to any ulcer.",
-          "claims": []
-        },
-        {
-          "text": "But weight loss points at the ulcer itself, not at acid. Acid surgery does not sample the ulcer edge, so it would miss this.",
-          "claims": [
-            "K51",
-            "K55"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure acid was the target. Weight loss is the clue that the ulcer needs its own check.",
-        "claims": [
-          "K51"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.g2",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me what is right",
-          "next": "S7.g2_ok",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.g2_none": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right. Nothing missed is tempting, because a patch that seals the hole feels like a finished job.",
-          "claims": []
-        },
-        {
-          "text": "But the patch shuts the leak and tells you nothing about the ulcer edge. The weight loss is the cue that the ulcer needs checking.",
-          "claims": [
-            "K51",
-            "K83"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure the repair was complete. A sealed hole can still hide a gastric cancer.",
-        "claims": [
-          "K83"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.g2",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me what is right",
-          "next": "S7.g2_ok",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.g2": {
-      "role": "probe",
-      "objectives": [
-        "O9"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "A 60-year-old man has lost weight for three months. A perforated gastric ulcer is closed with an omental patch and washed out. What was missed?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Biopsy of the ulcer edge, to look for carcinoma",
-          "next": "S7.g2_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Vagotomy and pyloroplasty, to cut the acid",
-          "next": "S7.g2_vag",
-          "kind": "trap",
-          "trap": "TR14"
-        },
-        {
-          "label": "Nothing; the patch and washout complete the repair",
-          "next": "S7.g2_none",
-          "kind": "trap",
-          "trap": "TR19"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "S7.g2_hint",
-          "kind": "help"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.g2_hint": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "The patch fixes the hole. Ask what the patient's weight loss says about the ulcer itself.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.g2",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me what is right",
-          "next": "S7.g2_ok",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.g2_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Right: the ulcer edge must go to histology, because a gastric ulcer with weight loss may be carcinoma. That biopsy or excision was the missed step.",
-          "claims": [
-            "K51",
-            "K83"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
           "next": "S7.n1",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.n1_exam": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right. Graham's patch is tempting, because exam keys use it for every omental closure, so the name feels settled.",
-          "claims": []
-        },
-        {
-          "text": "But exam usage and strict naming are not the same thing. Ask which technique the strict name belongs to, then retry.",
-          "claims": [
-            "K48",
-            "K78"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure the exam name covers every technique. Strictly it does not, so check the naming.",
-        "claims": [
-          "K48"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.n1",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me what is right",
-          "next": "S7.n1_ok",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.n1_free": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That choice is not right. A free plug is tempting, because Graham's technique is the one most students remember first.",
-          "claims": []
-        },
-        {
-          "text": "But a free plug is not held on a pedicle, and this stem describes one. Look at how the omentum stays attached.",
-          "claims": [
-            "K47"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure the free plug was the pedicled one. The attachment is what separates them, so check it.",
-        "claims": [
-          "K47"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.n1",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me what is right",
-          "next": "S7.n1_ok",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.n1": {
-      "role": "probe",
-      "objectives": [
-        "O8"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "Strictly, which technique sews a pedicled tongue of omentum over the perforation?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Graham's patch, the name exams use for any omental closure",
-          "next": "S7.n1_exam",
-          "kind": "trap",
-          "trap": "TR13"
-        },
-        {
-          "label": "Graham's repair, a free omental plug sewn into the defect",
-          "next": "S7.n1_free",
-          "kind": "trap",
-          "trap": "TR13"
-        },
-        {
-          "label": "Cellan-Jones repair, a pedicled tongue of omentum sewn over",
-          "next": "S7.n1_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "S7.n1_hint",
-          "kind": "help"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.n1_hint": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Look at how the omentum stays attached: free, or still on its own blood supply?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.n1",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me what is right",
-          "next": "S7.n1_ok",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.n1_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Right: the pedicled tongue of omentum is the Cellan-Jones repair. Graham's patch uses a free omental plug, though exam keys often write Graham's for both.",
-          "claims": [
-            "K47",
-            "K48",
-            "K78"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S7.v1",
           "kind": "continue"
         }
       ],
@@ -7200,18 +6808,18 @@
       ],
       "choices": [
         {
+          "label": "Omental patch and lavage, with Helicobacter pylori treatment after",
+          "next": "S7.v1_ok",
+          "kind": "correct"
+        },
+        {
           "label": "Truncal vagotomy with pyloroplasty, as the old key lists",
           "next": "S7.v1_vag",
           "kind": "trap",
           "trap": "TR14"
         },
         {
-          "label": "Omental patch and lavage, then Helicobacter pylori eradication and PPI",
-          "next": "S7.v1_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Partial gastrectomy with Billroth reconstruction, at the same sitting",
+          "label": "Partial gastrectomy with Billroth reconstruction, as a fuller cure",
           "next": "S7.v1_gast",
           "kind": "trap",
           "trap": "TR14"
@@ -7868,6 +7476,158 @@
       ],
       "segment": "S7"
     },
+    "S7.n1": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An operation note reads: 'a free plug of omentum was sewn into the defect, with no pedicle.' Which strict name fits this repair?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Cellan-Jones repair, since it is the newer omental technique",
+          "next": "S7.n1_cj",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Graham's patch, since a free plug is its strict technique",
+          "next": "S7.n1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Graham's patch, since it is the pedicled omental tongue",
+          "next": "S7.n1_ped",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "S7.n1_hint",
+          "kind": "help"
+        }
+      ],
+      "segment": "S7"
+    },
+    "S7.n1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether the omentum is still on its own blood supply, or cut free and plugged in.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S7.n1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "S7.n1_ok",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S7"
+    },
+    "S7.n1_cj": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Cellan-Jones sounds like the modern refinement, so it feels like the name for any omental repair.",
+          "claims": []
+        },
+        {
+          "text": "But Cellan-Jones keeps the omentum on a pedicle; this note describes a free plug.",
+          "claims": [
+            "K47",
+            "K48"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure the newer name applied. The attachment decides the name, so check the pedicle.",
+        "claims": [
+          "K47"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S7.n1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "S7.n1_ok",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S7"
+    },
+    "S7.n1_ped": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Graham's is the name exams use for every omental closure, so it feels safe for any of them.",
+          "claims": []
+        },
+        {
+          "text": "But strictly, the pedicled tongue is the Cellan-Jones repair; Graham's is the free plug.",
+          "claims": [
+            "K47",
+            "K48",
+            "K78"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure Graham's meant the pedicled tongue. Exam keys blur this, so tie each name to its attachment.",
+        "claims": [
+          "K48"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S7.n1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me what is right",
+          "next": "S7.n1_ok",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S7"
+    },
+    "S7.n1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right: a free plug is strictly Graham's patch, and the pedicled tongue is the Cellan-Jones repair. Exam keys often write Graham's for both.",
+          "claims": [
+            "K47",
+            "K48",
+            "K78"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S7.v1",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S7"
+    },
     "S8.q1": {
       "role": "probe",
       "objectives": [
@@ -7876,7 +7636,7 @@
       "ask_confidence": true,
       "say": [
         {
-          "text": "Mixed quiz. The first five have hints; the last five are cold. Answer from what you already hold.",
+          "text": "Mixed quiz. The first four questions have hints; the rest are cold. Answer from what you already hold.",
           "claims": []
         },
         {
@@ -7927,7 +7687,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S8.q2",
+          "next": "S8.q3",
           "kind": "continue"
         }
       ],
@@ -7955,7 +7715,7 @@
         },
         {
           "label": "I know this, skip the recap",
-          "next": "S8.q2",
+          "next": "S8.q3",
           "kind": "skip"
         }
       ],
@@ -8013,7 +7773,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S8.q2",
+          "next": "S8.q3",
           "kind": "continue"
         }
       ],
@@ -8071,7 +7831,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S8.q2",
+          "next": "S8.q3",
           "kind": "continue"
         }
       ],
@@ -8097,207 +7857,6 @@
       ],
       "segment": "S8"
     },
-    "S8.q2": {
-      "role": "probe",
-      "objectives": [
-        "O1"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "Same region, a different case.",
-          "claims": []
-        },
-        {
-          "text": "A man with melaena has a bleeding ulcer on the first part of the duodenum. Which wall did it sit on, and which artery did it erode?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Front wall of the first part; gastroduodenal artery eroded",
-          "next": "S8.q2_t1",
-          "kind": "trap",
-          "trap": "TR1"
-        },
-        {
-          "label": "Back wall of the first part; left gastric artery eroded",
-          "next": "S8.q2_t2",
-          "kind": "trap",
-          "trap": "TR1"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "S8.q2_hint",
-          "kind": "help"
-        },
-        {
-          "label": "Back wall of the first part; gastroduodenal artery eroded",
-          "next": "S8.q2_ok",
-          "kind": "correct"
-        }
-      ],
-      "segment": "S8"
-    },
-    "S8.q2_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O1"
-      ],
-      "say": [
-        {
-          "text": "Yes. Posterior ulcers bleed because they erode the gastroduodenal artery that runs behind the first part of the duodenum.",
-          "claims": [
-            "K2",
-            "K67"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S8.q3",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S8"
-    },
-    "S8.q2_t1": {
-      "role": "feedback",
-      "objectives": [
-        "O1"
-      ],
-      "say": [
-        {
-          "text": "That choice is not right.",
-          "claims": []
-        },
-        {
-          "text": "It is tempting to pair the famous front-wall site with the artery, since it is the site everyone remembers. Check which wall bleeding ulcers erode from.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S8.q2",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S8.q2_t1_why",
-          "kind": "agency"
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure the front wall is the bleeder; re-check which wall faces the belly.",
-        "claims": [
-          "K2"
-        ]
-      },
-      "segment": "S8"
-    },
-    "S8.q2_t1_why": {
-      "role": "explain",
-      "objectives": [
-        "O1"
-      ],
-      "say": [
-        {
-          "text": "The front wall perforates because it faces the free peritoneal cavity; it does not bleed from the gastroduodenal artery. The back wall bleeds by eroding that artery.",
-          "claims": [
-            "K2",
-            "K67"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S8.q3",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S8"
-    },
-    "S8.q2_t2": {
-      "role": "feedback",
-      "objectives": [
-        "O1"
-      ],
-      "say": [
-        {
-          "text": "That choice is not right.",
-          "claims": []
-        },
-        {
-          "text": "It is tempting because the back wall is right and the left gastric artery is a real stomach artery. Name the artery that runs behind the duodenum.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S8.q2",
-          "kind": "retry"
-        },
-        {
-          "label": "Show me why",
-          "next": "S8.q2_t2_why",
-          "kind": "agency"
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure of the artery; check which vessel lies behind the first part of the duodenum.",
-        "claims": [
-          "K2"
-        ]
-      },
-      "segment": "S8"
-    },
-    "S8.q2_t2_why": {
-      "role": "explain",
-      "objectives": [
-        "O1"
-      ],
-      "say": [
-        {
-          "text": "The left gastric artery supplies the stomach, not the duodenal wall. The gastroduodenal artery runs behind the first part of the duodenum, and a posterior ulcer erodes it.",
-          "claims": [
-            "K2",
-            "K67"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S8.q3",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S8"
-    },
-    "S8.q2_hint": {
-      "role": "hint",
-      "objectives": [
-        "O1"
-      ],
-      "say": [
-        {
-          "text": "Think about which wall lies behind the duodenum and which artery runs there, not which wall faces the belly.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S8.q2",
-          "kind": "retry"
-        }
-      ],
-      "segment": "S8"
-    },
     "S8.q3": {
       "role": "probe",
       "objectives": [
@@ -8316,26 +7875,26 @@
       ],
       "choices": [
         {
-          "label": "A perforated ulcer, since no other cause is ever seen",
+          "label": "An ulcer is the only cause of free gas on a film",
+          "next": "S8.q3_t1",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "An ulcer is the commonest cause, so others can be set aside",
           "next": "S8.q3_t2",
           "kind": "trap",
           "trap": "TR3"
         },
         {
-          "label": "Not sure, give me a hint",
-          "next": "S8.q3_hint",
-          "kind": "help"
-        },
-        {
-          "label": "Most likely a perforated ulcer, though not the only cause",
+          "label": "An ulcer is the commonest cause, though others still exist",
           "next": "S8.q3_ok",
           "kind": "correct"
         },
         {
-          "label": "A perforated ulcer, because free gas always means one",
-          "next": "S8.q3_t1",
-          "kind": "trap",
-          "trap": "TR3"
+          "label": "Not sure, give me a hint",
+          "next": "S8.q3_hint",
+          "kind": "help"
         }
       ],
       "segment": "S8"
@@ -8718,13 +8277,18 @@
       ],
       "choices": [
         {
-          "label": "Agree: CT is first, since it is the most sensitive test",
+          "label": "CT is the first test, since it is the most sensitive",
           "next": "S8.q5_t1",
           "kind": "trap",
           "trap": "TR5"
         },
         {
-          "label": "Agree in part: the erect film is the most sensitive test",
+          "label": "The erect film is the first test; CT is the most sensitive",
+          "next": "S8.q5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "The erect film is the first test and also the most sensitive",
           "next": "S8.q5_t2",
           "kind": "trap",
           "trap": "TR5"
@@ -8733,11 +8297,6 @@
           "label": "Not sure, give me a hint",
           "next": "S8.q5_hint",
           "kind": "help"
-        },
-        {
-          "label": "Erect chest X-ray first; CT if the film is equivocal",
-          "next": "S8.q5_ok",
-          "kind": "correct"
         }
       ],
       "segment": "S8"
@@ -8923,18 +8482,18 @@
       ],
       "choices": [
         {
-          "label": "Repeat the erect film at the morning round",
+          "label": "Repeat the erect film in the morning, since the first was clear",
           "next": "S8.q6_t2",
           "kind": "trap",
           "trap": "TR7"
         },
         {
-          "label": "CT abdomen before any discharge, given the rigidity",
+          "label": "CT abdomen before any discharge, since the belly is rigid",
           "next": "S8.q6_ok",
           "kind": "correct"
         },
         {
-          "label": "Discharge on oral analgesia with clinic review",
+          "label": "Discharge on oral analgesia with clinic review, since the film was clear",
           "next": "S8.q6_t1",
           "kind": "trap",
           "trap": "TR7"
@@ -9099,21 +8658,21 @@
       ],
       "choices": [
         {
-          "label": "Large-bore IV access, crystalloid and nasogastric tube",
-          "next": "S8.q7_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Straight to laparotomy, since the cause is known",
+          "label": "Straight to laparotomy, with fluids given in theatre",
           "next": "S8.q7_t1",
           "kind": "trap",
           "trap": "TR11"
         },
         {
-          "label": "CT abdomen first, while fluids wait for the scan",
+          "label": "CT abdomen first, with fluids given after the scan",
           "next": "S8.q7_t2",
           "kind": "trap",
           "trap": "TR11"
+        },
+        {
+          "label": "IV access, crystalloid and nasogastric tube, then theatre",
+          "next": "S8.q7_ok",
+          "kind": "correct"
         }
       ],
       "segment": "S8"
@@ -9275,21 +8834,21 @@
       ],
       "choices": [
         {
-          "label": "Stable patient with free gas on the erect film",
-          "next": "S8.q8_t1",
-          "kind": "trap",
-          "trap": "TR12"
-        },
-        {
-          "label": "Elderly steroid user, generalised peritonitis, steady pulse",
+          "label": "Steady-pulse steroid user with generalised peritonitis on examination",
           "next": "S8.q8_t2",
           "kind": "trap",
           "trap": "TR12"
         },
         {
-          "label": "Stable case with a contained leak shown on contrast",
+          "label": "Stable patient with a leak shown contained on a contrast study",
           "next": "S8.q8_ok",
           "kind": "correct"
+        },
+        {
+          "label": "Stable patient, free gas on the erect film, no contrast study done",
+          "next": "S8.q8_t1",
+          "kind": "trap",
+          "trap": "TR12"
         }
       ],
       "segment": "S8"
@@ -9451,7 +9010,7 @@
       ],
       "choices": [
         {
-          "label": "Spontaneous healing, so surgery can wait until morning",
+          "label": "Residual soreness from the spasm, so reassure and observe on the ward",
           "next": "S8.q9_t2",
           "kind": "trap",
           "trap": "TR17"
@@ -9563,7 +9122,7 @@
           "claims": []
         },
         {
-          "text": "It is tempting because a perforation that has stopped hurting sounds closed. Ask what the still-tender belly tells you about the peritoneum.",
+          "text": "It is tempting because a tender belly after a pain-free spell sounds like leftover soreness. Ask whether a pulse of 116 fits a settling belly.",
           "claims": []
         }
       ],
@@ -9594,7 +9153,7 @@
       ],
       "say": [
         {
-          "text": "Nothing has sealed. The lull follows chemical peritonitis and is followed by bacterial contamination, so the perforation is still open and needs urgent surgical review.",
+          "text": "A pulse of 116 with a tender belly is not leftover soreness. The lull follows chemical peritonitis and is followed by bacterial contamination, so she needs urgent surgical review.",
           "claims": [
             "K18",
             "K19",
@@ -9630,18 +9189,18 @@
       ],
       "choices": [
         {
-          "label": "Image for perforation; mild signs do not exclude it",
-          "next": "S8.q10_ok",
-          "kind": "correct"
-        },
-        {
           "label": "Observe overnight, since his signs are not board-like yet",
           "next": "S8.q10_t1",
           "kind": "trap",
           "trap": "TR23"
         },
         {
-          "label": "Treat as dyspepsia, discharge with antacids and review",
+          "label": "Image now, since mild signs do not exclude perforation",
+          "next": "S8.q10_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Treat as dyspepsia, since pain is epigastric and signs mild",
           "next": "S8.q10_t2",
           "kind": "trap",
           "trap": "TR23"
@@ -9899,29 +9458,8 @@
       ],
       "status": "verified"
     },
-    "K13": {
-      "text": "***Helicobacter pylori*** infection is the other main cause of the underlying ulcer.",
-      "refs": [
-        "1"
-      ],
-      "status": "verified"
-    },
-    "K14": {
-      "text": "**Smoking** is a risk factor for perforation.",
-      "refs": [
-        "1"
-      ],
-      "status": "verified"
-    },
     "K15": {
       "text": "**Corticosteroids**, particularly combined with NSAIDs, add risk and can **mask the physical signs** of peritonitis.",
-      "refs": [
-        "1"
-      ],
-      "status": "verified"
-    },
-    "K16": {
-      "text": "**Crack cocaine** use is associated with perforation in younger patients.",
       "refs": [
         "1"
       ],
@@ -10106,13 +9644,6 @@
       "text": "In exam usage the pedicled omental patch closure is commonly called **\"Graham's patch\"**.",
       "refs": [
         "2"
-      ],
-      "status": "verified"
-    },
-    "K49": {
-      "text": "**Thorough peritoneal lavage** with warm saline is done at the end of repair.",
-      "refs": [
-        "1"
       ],
       "status": "verified"
     },
