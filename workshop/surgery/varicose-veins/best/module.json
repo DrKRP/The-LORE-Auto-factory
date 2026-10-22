@@ -1419,18 +1419,18 @@
       ],
       "choices": [
         {
-          "label": "A normal response to exercise, with pressure rising briefly",
+          "label": "A normal exercise response, as pressure rises and then settles",
           "next": "S2.p_vig_t2",
           "kind": "trap",
           "trap": "TR12"
         },
         {
-          "label": "Ambulatory venous hypertension, from reflux or blocked deep veins",
+          "label": "Ambulatory venous hypertension, from reflux or deep obstruction",
           "next": "S2.f_vig_ok",
           "kind": "correct"
         },
         {
-          "label": "Ambulatory venous hypertension, because the pump pushes pressure up",
+          "label": "Ambulatory venous hypertension, since the pump pushes pressure up",
           "next": "S2.p_vig_t1",
           "kind": "trap",
           "trap": "TR12"
@@ -1579,7 +1579,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S2.p_named",
+          "next": "S2.named_teach",
           "kind": "continue"
         }
       ],
@@ -1627,11 +1627,11 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is tempting because Boyd is one of the medial-leg names you have just heard, and all four sit on the inner side of the leg.",
+          "text": "That choice is not right. Boyd is on the medial leg, but it sits just below the knee, not at the ankle.",
           "claims": []
         },
         {
-          "text": "But Boyd sits on the medial leg just below the knee, not at the ankle. Place each name at its own level on the leg, then choose again.",
+          "text": "Place each name at its own level on the leg, then choose again.",
           "claims": []
         }
       ],
@@ -1654,11 +1654,11 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is tempting because the names feel like one set of medial perforators, and this one is the name you may have placed in the thigh.",
+          "text": "That choice is not right. Hunter sits at mid-thigh, far above the ankle you were asked about.",
           "claims": []
         },
         {
-          "text": "But this name sits higher, at mid-thigh, far above the ankle you were asked about. Check the level of the ankle perforator, then choose again.",
+          "text": "Check the level of the ankle perforator, then choose again.",
           "claims": []
         }
       ],
@@ -1970,6 +1970,33 @@
         {
           "label": "Next",
           "next": "S3.case",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.named_teach": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Four medial perforators, from the ankle up. Cockett sits at the medial ankle and lower leg, linking the posterior arch vein to the posterior tibial veins.",
+          "claims": [
+            "K22"
+          ]
+        },
+        {
+          "text": "Boyd sits just below the knee, Dodd in the lower thigh, and Hunter at mid-thigh.",
+          "claims": [
+            "K23",
+            "K24",
+            "K25"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S2.p_named",
           "kind": "continue"
         }
       ],
@@ -2777,11 +2804,11 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is tempting because a groin lump with a cough impulse that goes down on lying flat looks like a hernia.",
+          "text": "That choice is not right. Both a hernia and a saphena varix give a cough impulse and go down on lying flat.",
           "claims": []
         },
         {
-          "text": "Those features are shared with a hernia. Which feature in this case does not fit a hernia?",
+          "text": "Those shared signs cannot separate them. The fluid thrill on tapping is the feature a hernia does not give.",
           "claims": [
             "K43",
             "K124"
@@ -2800,6 +2827,11 @@
           "label": "Try again",
           "next": "S3.varix",
           "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "S3.varix_why",
+          "kind": "agency"
         }
       ],
       "segment": "S3"
@@ -2829,6 +2861,32 @@
       "choices": [
         {
           "label": "Try again",
+          "next": "S3.varix",
+          "kind": "retry"
+        }
+      ],
+      "segment": "S3"
+    },
+    "S3.varix_why": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "A femoral hernia is bowel or fat through the femoral canal. It has a cough impulse, but tapping it gives no fluid thrill.",
+          "claims": [
+            "K124"
+          ]
+        },
+        {
+          "text": "A saphena varix is a dilated great saphenous vein at the junction. It has a cough impulse and a fluid thrill, and it empties on lying down.",
+          "claims": [
+            "K43",
+            "K48"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
           "next": "S3.varix",
           "kind": "retry"
         }
@@ -4199,25 +4257,25 @@
           "claims": []
         },
         {
-          "text": "1) Duplex confirms great saphenous reflux. 2) Offer the Trendelenburg operation with stripping as first-line. 3) If that is unsuitable, offer foam sclerotherapy. 4) Open surgery only if both are unsuitable. Which step is the mistake?",
+          "text": "1) Duplex confirms great saphenous reflux. 2) Offer the Trendelenburg operation with stripping first. 3) If unsuitable, offer foam sclerotherapy. 4) Open surgery only if both are unsuitable. Which correction fixes the plan?",
           "claims": []
         }
       ],
       "choices": [
         {
-          "label": "Step 3: foam offered if the first option is unsuitable",
+          "label": "Foam sclerotherapy first, since foam suits a trunk",
           "next": "S5.err1_t21",
           "kind": "trap",
           "trap": "TR21"
         },
         {
-          "label": "Step 4: open surgery kept for when both options fail",
+          "label": "Open surgery first, since it is the classic key",
           "next": "S5.err1_t1",
           "kind": "trap",
           "trap": "TR1"
         },
         {
-          "label": "Step 2: the Trendelenburg operation named as the first-line treatment",
+          "label": "Endothermal ablation first, under tumescent anaesthesia",
           "next": "S5.err1_ok",
           "kind": "correct"
         },
@@ -4233,7 +4291,7 @@
       "role": "hint",
       "say": [
         {
-          "text": "Hint: check each step against current practice, not the exam key of the past. Which step fails that test?",
+          "text": "Hint: steps 3 and 4 follow the current order. Ask which treatment should stand first, ahead of foam and surgery.",
           "claims": []
         }
       ],
@@ -4250,12 +4308,15 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is tempting because foam is often taught for spider veins, so a foam step for a trunk looks misplaced.",
+          "text": "That choice is not right. Foam is the second option, used when endothermal ablation is unsuitable, so it cannot stand first.",
           "claims": []
         },
         {
-          "text": "Foam is not limited to small veins. Ask which vein size foam suits best, then choose again.",
-          "claims": []
+          "text": "Foam does suit larger veins, but the order puts ablation before it. Choose again.",
+          "claims": [
+            "K5",
+            "K80"
+          ]
         }
       ],
       "choices": [
@@ -4270,6 +4331,12 @@
           "kind": "agency"
         }
       ],
+      "sure_note": {
+        "text": "You were sure foam leads. It is the next step down when ablation is unsuitable.",
+        "claims": [
+          "K5"
+        ]
+      },
       "segment": "S5"
     },
     "S5.err1_why": {
@@ -4302,13 +4369,14 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is tempting because open surgery is the classic treatment for saphenofemoral incompetence, so it seems to belong at the front.",
+          "text": "That choice is not right. Open surgery is the last option, kept for when ablation and foam are both unsuitable.",
           "claims": []
         },
         {
-          "text": "In current practice open surgery sits last, for when both others are unsuitable. Step 4 is not the mistake. Look at which treatment the plan puts first, then choose again.",
+          "text": "The old key put it first, but the current order puts it last. Choose again.",
           "claims": [
-            "K74"
+            "K74",
+            "K119"
           ]
         }
       ],
@@ -4331,7 +4399,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Yes. The plan names the Trendelenburg operation as first-line. Current practice offers endothermal ablation first, and the operation is the classic exam answer.",
+          "text": "Yes. The plan's step 2 is the mistake. Current practice offers endothermal ablation first, and the operation is the classic exam answer.",
           "claims": [
             "K119",
             "K110"
@@ -4354,7 +4422,7 @@
       ],
       "say": [
         {
-          "text": "You found the mistake: step 2 offers the operation as the first treatment.",
+          "text": "You fixed the plan: step 2 offered the operation as the first treatment.",
           "claims": []
         },
         {
@@ -4672,12 +4740,12 @@
       ],
       "choices": [
         {
-          "label": "Liquid sclerotherapy, injected directly into the small veins",
+          "label": "Liquid sclerotherapy, since foam gains little in tiny veins",
           "next": "S5.vig_ok",
           "kind": "correct"
         },
         {
-          "label": "Foam sclerotherapy, which displaces blood in the vein",
+          "label": "Foam sclerotherapy, because it displaces blood in the vein",
           "next": "S5.vig_t1",
           "kind": "trap",
           "trap": "TR21"
@@ -5028,6 +5096,12 @@
           "kind": "correct"
         },
         {
+          "label": "Unlikely venous; start compression and recheck later",
+          "next": "S6.t_site3",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
           "label": "Venous; toe and heel ulcers are typical venous sites",
           "next": "S6.t_site2",
           "kind": "trap",
@@ -5137,6 +5211,11 @@
           "label": "Try the question again",
           "next": "S6.pSite",
           "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "S6.ok_site",
+          "kind": "continue"
         }
       ],
       "segment": "S6"
@@ -5315,6 +5394,11 @@
           "label": "Try the question again",
           "next": "S6.pABPI",
           "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "S6.ok_abpi",
+          "kind": "continue"
         }
       ],
       "segment": "S6"
@@ -5481,7 +5565,7 @@
           ]
         },
         {
-          "text": "Early endovenous ablation of the reflux speeds healing and cuts recurrence, the EVRA result. Stockings and elevation help, but they work around the problem.",
+          "text": "Early endovenous ablation of the reflux speeds healing and cuts recurrence, as the Early Venous Reflux Ablation (EVRA) trial showed. Stockings and elevation help, but they work around the problem.",
           "claims": [
             "K92",
             "K69"
@@ -5493,6 +5577,11 @@
           "label": "Try the question again",
           "next": "S6.pTx",
           "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "S6.ok_tx",
+          "kind": "continue"
         }
       ],
       "segment": "S6"
@@ -5688,6 +5777,11 @@
           "label": "Try the question again",
           "next": "S6.pDeep",
           "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "S6.ok_deep",
+          "kind": "continue"
         }
       ],
       "segment": "S6"
@@ -5824,6 +5918,11 @@
           "label": "Try the question again",
           "next": "S6.pDeepV",
           "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "S6.ok_dv",
+          "kind": "continue"
         }
       ],
       "segment": "S6"
@@ -5848,7 +5947,7 @@
           "trap": "TR9"
         },
         {
-          "label": "From the groin to just below the knee",
+          "label": "Down to just below the knee, where the nerve joins",
           "next": "S6.ok_ext",
           "kind": "correct"
         },
@@ -5996,6 +6095,11 @@
           "label": "Try the question again",
           "next": "S6.pExtent",
           "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "S6.ok_ext",
+          "kind": "continue"
         }
       ],
       "segment": "S6"
@@ -6132,6 +6236,11 @@
           "label": "Try the question again",
           "next": "S6.pWhy",
           "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "S6.ok_why",
+          "kind": "continue"
         }
       ],
       "segment": "S6"
@@ -6306,6 +6415,11 @@
           "label": "Try the question again",
           "next": "S6.pNerveV",
           "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "S6.ok_n",
+          "kind": "continue"
         }
       ],
       "segment": "S6"
@@ -6473,6 +6587,40 @@
           "label": "Try the question again",
           "next": "S6.pNerveR",
           "kind": "retry"
+        },
+        {
+          "label": "Show me the answer",
+          "next": "S6.ok_nr",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S6"
+    },
+    "S6.t_site3": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Compression is the mainstay for venous ulcers, so starting it looks safe even when the site is doubtful.",
+          "claims": []
+        },
+        {
+          "text": "Cold skin and weak pulses point to arterial disease, and compression is unsafe until the ABPI shows the supply is adequate. Choose again.",
+          "claims": [
+            "K10",
+            "K70"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S6.pSite",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "S6.ex_site",
+          "kind": "agency"
         }
       ],
       "segment": "S6"
@@ -6481,7 +6629,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is true, so it is not the statement the question wants. It tempts you if you read 'most common' as 'only'.",
+          "text": "That choice is not right. This statement is true, and the question asks for the one that is NOT correct.",
           "claims": []
         },
         {
@@ -6538,7 +6686,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is true, so it is not the one the question wants. It tempts you if you think every varicose vein must be primary.",
+          "text": "That choice is not right. This statement is true, and the question asks for the one that is NOT correct.",
           "claims": []
         },
         {
@@ -6839,7 +6987,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is true, so it is not the statement the question wants. It tempts you if the test that finds reflux should also be the routine one.",
+          "text": "That choice is not right. This statement is true, and the question asks for the one that is NOT correct.",
           "claims": []
         },
         {
@@ -6875,7 +7023,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is true, so it is not the one the question wants. It tempts you if venography feels like the gold standard for any vein problem.",
+          "text": "That choice is not right. This statement is true, and the question asks for the one that is NOT correct.",
           "claims": []
         },
         {
@@ -6987,7 +7135,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is true, so it is not the pairing the question wants. It tempts you if you have filed the two tests in the wrong slots.",
+          "text": "That choice is not right. This statement is true, and the question asks for the one that is NOT correct.",
           "claims": []
         },
         {
@@ -7023,7 +7171,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is true, so it is not the one the question wants. It tempts you if the two names have swapped places in your head.",
+          "text": "That choice is not right. This statement is true, and the question asks for the one that is NOT correct.",
           "claims": []
         },
         {
@@ -7166,7 +7314,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S7.p6",
+          "next": "S7.mid",
           "kind": "continue"
         }
       ],
@@ -7176,7 +7324,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is a true sign with the same surname, so it is not the operation. It tempts you if you read the eponym and stop before the noun.",
+          "text": "That choice is not right. This is a real sign with the same surname, but it is not the operation the note means.",
           "claims": []
         },
         {
@@ -7210,7 +7358,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is a true position, and it tempts you when one name seems to cover a test, a sign, a position and an operation.",
+          "text": "That choice is not right. This is a real position, but it is not the operation the note means.",
           "claims": []
         },
         {
@@ -7321,7 +7469,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is true, so it is not the result the question wants. It tempts you if you know perforators are involved but not which way the blood is blocked.",
+          "text": "That choice is not right. This statement is true, and the question asks for the one that is NOT correct.",
           "claims": []
         },
         {
@@ -7469,7 +7617,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is true, so it is not the one the question wants. It tempts you when the four eponyms sit in memory as an unordered list.",
+          "text": "That choice is not right. This statement is true, and the question asks for the one that is NOT correct.",
           "claims": []
         },
         {
@@ -7503,7 +7651,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is true, so it is not the one the question wants. It tempts you if you guess the level from how familiar the name feels.",
+          "text": "That choice is not right. This statement is true, and the question asks for the one that is NOT correct.",
           "claims": []
         },
         {
@@ -7876,7 +8024,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is true, so it is not the statement the question wants. It tempts you if the classic exam answer feels like the only acceptable one.",
+          "text": "That choice is not right. This statement is true, and the question asks for the one that is NOT correct.",
           "claims": []
         },
         {
@@ -7910,7 +8058,7 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That choice is not right. It is true. It tempts you when the classic answer has already put polidocanol in the wrong box.",
+          "text": "That choice is not right. This statement is true, and the question asks for the one that is NOT correct.",
           "claims": []
         },
         {
@@ -8032,6 +8180,23 @@
         {
           "label": "Back to the question",
           "next": "S7.p10",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S7"
+    },
+    "S7.mid": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "A pause on method. In a NOT question, three statements are true and one is false. Tick each true one as you read, and pick the one that will not tick.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S7.p6",
           "kind": "continue"
         }
       ],
@@ -8202,6 +8367,12 @@
         {
           "label": "From the superficial veins into the deep veins",
           "next": "S8.q2_t11",
+          "kind": "trap",
+          "trap": "TR11"
+        },
+        {
+          "label": "In both directions, since the calf squeeze closes it fully",
+          "next": "S8.q2_t11b",
           "kind": "trap",
           "trap": "TR11"
         },
@@ -8735,15 +8906,21 @@
       ],
       "choices": [
         {
-          "label": "Strip to the ankle, since the varicose segments run down there",
+          "label": "Strip to just below the knee, to avoid the saphenous nerve",
+          "next": "S8.q6_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Strip to the ankle, to remove every varicose segment",
           "next": "S8.q6_t9",
           "kind": "trap",
           "trap": "TR9"
         },
         {
-          "label": "Strip to just below the knee, to protect the saphenous nerve",
-          "next": "S8.q6_ok",
-          "kind": "correct"
+          "label": "Strip only to mid-thigh, to avoid the femoral vein",
+          "next": "S8.q6_t9b",
+          "kind": "trap",
+          "trap": "TR9"
         }
       ],
       "segment": "S8"
@@ -8818,6 +8995,12 @@
         {
           "label": "Saphenous nerve",
           "next": "S8.q7_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Lateral cutaneous nerve of the thigh",
+          "next": "S8.q7_t8b",
           "kind": "trap",
           "trap": "TR8"
         },
@@ -9014,7 +9197,7 @@
       ],
       "choices": [
         {
-          "label": "Venous ulcers sit in the gaiter area, just above the medial malleolus",
+          "label": "Venous ulcers sit in the gaiter area above the medial malleolus",
           "next": "S8.q9_ok",
           "kind": "correct"
         },
@@ -9132,19 +9315,19 @@
       ],
       "choices": [
         {
-          "label": "Doppler is enough before ablation, as it is the test of choice",
+          "label": "Doppler alone suffices before ablation, as the test of choice",
           "next": "S8.q10_t2a",
           "kind": "trap",
           "trap": "TR2"
         },
         {
-          "label": "Venography of the deep system is needed, since Doppler sees no veins",
+          "label": "Venography of the deep system should precede ablation instead",
           "next": "S8.q10_t2b",
           "kind": "trap",
           "trap": "TR2"
         },
         {
-          "label": "Duplex mapping of the whole limb is still needed before ablation",
+          "label": "Duplex mapping of the whole limb should precede ablation",
           "next": "S8.q10_ok",
           "kind": "correct"
         }
@@ -9227,6 +9410,77 @@
           "label": "Next",
           "next": "END",
           "kind": "continue"
+        }
+      ],
+      "segment": "S8"
+    },
+    "S8.q2_t11b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. A perforator valve is one-way, so it cannot be a valve that blocks both directions.",
+          "claims": []
+        },
+        {
+          "text": "A healthy perforator lets blood pass from superficial to deep only, and shuts against the reverse. Choose again.",
+          "claims": [
+            "K21",
+            "K32"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S8.q2",
+          "kind": "retry"
+        }
+      ],
+      "segment": "S8"
+    },
+    "S8.q6_t9b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Stopping at mid-thigh leaves the lower trunk in place, and the femoral vein is not what sets the limit.",
+          "claims": []
+        },
+        {
+          "text": "Stripping runs from the groin to just below the knee, where the saphenous nerve begins to run with the vein. Choose again.",
+          "claims": [
+            "K84",
+            "K85"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S8.q6",
+          "kind": "retry"
+        }
+      ],
+      "segment": "S8"
+    },
+    "S8.q7_t8b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. This nerve supplies the thigh, not the lateral border of the foot.",
+          "claims": []
+        },
+        {
+          "text": "The nerve that travels with the short saphenous vein behind the lateral malleolus is the sural nerve. Choose again.",
+          "claims": [
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S8.q7",
+          "kind": "retry"
         }
       ],
       "segment": "S8"
