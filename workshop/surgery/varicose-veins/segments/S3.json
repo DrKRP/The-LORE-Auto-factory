@@ -1,0 +1,838 @@
+{
+ "segment": "S3",
+ "technique": "T2",
+ "entry": "case",
+ "nodes": {
+  "case": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 58-year-old woman has a shallow ulcer just above her inner ankle. The skin around it is brown, and her ankle is swollen.",
+     "claims": []
+    },
+    {
+     "text": "What type of ulcer is this?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Arterial ulcer, since the ankle is a pressure point",
+     "next": "case_t31a",
+     "kind": "trap",
+     "trap": "TR31"
+    },
+    {
+     "label": "Venous ulcer, from venous hypertension",
+     "next": "case_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Neuropathic ulcer, since the ankle bears weight",
+     "next": "case_t31b",
+     "kind": "trap",
+     "trap": "TR31"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "case_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "case_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Look at the skin around the ulcer, then ask where venous pressure is highest in a standing leg.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "case",
+     "kind": "retry"
+    }
+   ]
+  },
+  "case_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Venous ulcers form in the gaiter area, just above the medial malleolus.",
+     "claims": [
+      "K9"
+     ]
+    },
+    {
+     "text": "Leaked red cells leave haemosiderin behind, and that is what stains the skin brown.",
+     "claims": [
+      "K36"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "site",
+     "kind": "continue"
+    }
+   ]
+  },
+  "case_t31a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because many ankle and foot ulcers are filed under arterial disease by default.",
+     "claims": []
+    },
+    {
+     "text": "Brown skin is haemosiderin from leaked red cells, and ankle swelling is a venous symptom. Read those clues again.",
+     "claims": [
+      "K36",
+      "K37"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the skin and the swelling are the clues to weigh before the site.",
+    "claims": [
+     "K36",
+     "K37"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "case",
+     "kind": "retry"
+    }
+   ]
+  },
+  "case_t31b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because a weight-bearing ankle makes pressure-site ulcers come to mind.",
+     "claims": []
+    },
+    {
+     "text": "Nothing in this case points to pressure. Haemosiderin from leaked red cells is what stains this skin brown.",
+     "claims": [
+      "K36"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the skin change before reaching for a pressure cause.",
+    "claims": [
+     "K36"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "case",
+     "kind": "retry"
+    }
+   ]
+  },
+  "site": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Three leg ulcers are seen in clinic: one just above the inner ankle, one on the heel and one on the tip of a toe.",
+     "claims": []
+    },
+    {
+     "text": "Which one is the venous ulcer?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "The ulcer on the heel, which bears weight",
+     "next": "site_t31a",
+     "kind": "trap",
+     "trap": "TR31"
+    },
+    {
+     "label": "The ulcer on the tip of a toe",
+     "next": "site_t31b",
+     "kind": "trap",
+     "trap": "TR31"
+    },
+    {
+     "label": "The ulcer just above the inner ankle",
+     "next": "site_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "site_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "site_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask where the venous pressure of a standing leg is highest, then which of the three ulcers sits there.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "site",
+     "kind": "retry"
+    }
+   ]
+  },
+  "site_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Venous ulcers sit in the gaiter area, just above the medial malleolus. Learn that site as the venous one to recognise first.",
+     "claims": [
+      "K9",
+      "K108"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "ceap_def",
+     "kind": "continue"
+    }
+   ]
+  },
+  "site_t31a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because a heel is the spot that takes the most load, so it looks like a pressure ulcer.",
+     "claims": []
+    },
+    {
+     "text": "The question asks for the venous site, which has its own named position. Read it again and check which site that is.",
+     "claims": [
+      "K108"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so re-read what the question asks: the venous site, not the one under most load.",
+    "claims": [
+     "K108"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "site",
+     "kind": "retry"
+    }
+   ]
+  },
+  "site_t31b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because a toe-tip wound is the classic foot ulcer most people picture first.",
+     "claims": []
+    },
+    {
+     "text": "Venous ulcers are a lower-leg site, not a toe-tip site. Read the question again and pick the one that fits.",
+     "claims": [
+      "K9"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the toe is the foot picture talking. Match the venous site to the lower leg.",
+    "claims": [
+     "K9"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "site",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ceap_def": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 47-year-old man has a tortuous vein on the calf that he can see standing up.",
+     "claims": []
+    },
+    {
+     "text": "In CEAP, which diameter measured standing makes a vein varicose, in class C2?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "1 mm or more",
+     "next": "ceap_t14a",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "3 mm or more",
+     "next": "ceap_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Less than 1 mm",
+     "next": "ceap_t14b",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "ceap_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "ceap_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Telangiectasias and reticular veins together make class C1. Which diameter marks the step up to C2?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "ceap_def",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ceap_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Varicose veins are subcutaneous veins 3 mm or more in diameter, measured standing.",
+     "claims": [
+      "K12",
+      "K1"
+     ]
+    },
+    {
+     "text": "Telangiectasias are under 1 mm and reticular veins 1 to 3 mm. Together they form class C1, not C2.",
+     "claims": [
+      "K13"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "ceap_class",
+     "kind": "continue"
+    }
+   ]
+  },
+  "ceap_t14a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because 1 mm sits on the edge of the reticular band, so the number feels familiar.",
+     "claims": []
+    },
+    {
+     "text": "Reticular veins are C1, and that band runs from 1 to 3 mm. Varicose veins are a different class, so ask where C2 starts.",
+     "claims": [
+      "K13"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so keep the bands apart: each diameter belongs to a class, not to one threshold.",
+    "claims": [
+     "K13"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ceap_def",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ceap_t14b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because the smallest band is the first one most students memorise.",
+     "claims": []
+    },
+    {
+     "text": "Telangiectasias are under 1 mm and are class C1. Varicose veins need a larger diameter, so choose the one that gives it.",
+     "claims": [
+      "K13"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so separate the smallest band from the varicose threshold.",
+    "claims": [
+     "K13"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ceap_def",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ceap_class": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 60-year-old man had a venous ulcer that closed last month. Today no ulcer is open on his leg.",
+     "claims": []
+    },
+    {
+     "text": "Which CEAP class fits him?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "C4, skin changes",
+     "next": "class_t14a",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "C6, open venous ulcer",
+     "next": "class_t14b",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "C5, healed ulcer",
+     "next": "class_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "class_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "class_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask whether an ulcer is still open today, then find the class that names that state.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "ceap_class",
+     "kind": "retry"
+    }
+   ]
+  },
+  "class_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. A healed venous ulcer is C5, and an active one is C6.",
+     "claims": [
+      "K63",
+      "K64"
+     ]
+    },
+    {
+     "text": "C4 names the skin changes themselves, so skin signs and ulcer state are separate classes.",
+     "claims": [
+      "K62"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "skin",
+     "kind": "continue"
+    }
+   ]
+  },
+  "class_t14a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because skin changes often sit beside a healed ulcer, so C4 feels like the label.",
+     "claims": []
+    },
+    {
+     "text": "C4 names the skin signs (C4a, b and c). The question asks about the ulcer's state, so ask which class names that state.",
+     "claims": [
+      "K62"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the question is about the ulcer's state, not the skin around it.",
+    "claims": [
+     "K62"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ceap_class",
+     "kind": "retry"
+    }
+   ]
+  },
+  "class_t14b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because C5 and C6 sit side by side and are easy to swap.",
+     "claims": []
+    },
+    {
+     "text": "C6 is the active ulcer class. Check whether an ulcer is open today, then choose again.",
+     "claims": [
+      "K64"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the open-or-closed state decides between the two ulcer classes.",
+    "claims": [
+     "K63",
+     "K64"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ceap_class",
+     "kind": "retry"
+    }
+   ]
+  },
+  "skin": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A lower leg is shaped like an inverted champagne bottle, with hard, thick skin and fat above the ankle.",
+     "claims": []
+    },
+    {
+     "text": "Which CEAP subclass describes this skin?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "C4b, lipodermatosclerosis",
+     "next": "skin_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "C4a, pigmentation or eczema",
+     "next": "skin_t14a",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "C4c, a fan of ankle veins",
+     "next": "skin_t14b",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "skin_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "skin_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Which subclass names induration of the skin and fat of the lower leg, the hard sign rather than colour or small veins?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "skin",
+     "kind": "retry"
+    }
+   ]
+  },
+  "skin_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Lipodermatosclerosis is induration and fibrosis of the skin and fat of the lower leg, giving the inverted champagne bottle shape.",
+     "claims": [
+      "K40"
+     ]
+    },
+    {
+     "text": "C4a is pigmentation or eczema, and C4c is corona phlebectatica, a fan of small veins around the ankle.",
+     "claims": [
+      "K62",
+      "K42"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "varix",
+     "kind": "continue"
+    }
+   ]
+  },
+  "skin_t14a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because pigmentation is the skin sign most people spot first.",
+     "claims": []
+    },
+    {
+     "text": "Pigmentation and eczema are C4a, but this leg describes hard, thick skin. Which subclass names that?",
+     "claims": [
+      "K62"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the word 'hard' is the one to match, not the colour.",
+    "claims": [
+     "K40",
+     "K62"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "skin",
+     "kind": "retry"
+    }
+   ]
+  },
+  "skin_t14b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because the ankle is where corona phlebectatica sits, so the site looks right.",
+     "claims": []
+    },
+    {
+     "text": "Corona phlebectatica is a fan of small veins, not hard, thick skin. Which subclass names the induration?",
+     "claims": [
+      "K42"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the site matches, but the skin change does not. Check the skin first.",
+    "claims": [
+     "K42",
+     "K40"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "skin",
+     "kind": "retry"
+    }
+   ]
+  },
+  "varix": {
+   "role": "probe",
+   "objectives": [
+    "O12"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 66-year-old woman has a groin swelling. It pushes out on coughing and goes down when she lies flat. Tapping it gives a fluid thrill.",
+     "claims": []
+    },
+    {
+     "text": "What is the most likely diagnosis?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Femoral hernia through the femoral canal",
+     "next": "varix_t24a",
+     "kind": "trap",
+     "trap": "TR24"
+    },
+    {
+     "label": "Saphena varix of the great saphenous vein",
+     "next": "varix_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Inguinal hernia through the inguinal canal",
+     "next": "varix_t24b",
+     "kind": "trap",
+     "trap": "TR24"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "varix_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "varix_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Both diagnoses share the cough impulse and the change on lying flat. Ask which feature only one of them shows on tapping.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "varix",
+     "kind": "retry"
+    }
+   ]
+  },
+  "varix_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. A saphena varix is a dilated great saphenous vein at the saphenofemoral junction, with a cough impulse and a fluid thrill on tapping.",
+     "claims": [
+      "K43"
+     ]
+    },
+    {
+     "text": "A cough impulse alone does not separate it from a hernia. The fluid thrill on tapping, and emptying on lying down, do.",
+     "claims": [
+      "K124",
+      "K48"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "varix_t24a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because a groin lump with a cough impulse that goes down on lying flat looks like a hernia.",
+     "claims": []
+    },
+    {
+     "text": "Those features are shared with a hernia. Which feature in this case does not fit a hernia?",
+     "claims": [
+      "K43",
+      "K124"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the thrill: the cough impulse is the feature the two diagnoses share.",
+    "claims": [
+     "K43",
+     "K124"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "varix",
+     "kind": "retry"
+    }
+   ]
+  },
+  "varix_t24b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because any groin swelling with a cough impulse gets filed as a hernia.",
+     "claims": []
+    },
+    {
+     "text": "Check the feature this case adds beyond the cough impulse, then choose again.",
+     "claims": [
+      "K43",
+      "K124"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the case adds more than a cough impulse. Weigh the added feature.",
+    "claims": [
+     "K43",
+     "K124"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "varix",
+     "kind": "retry"
+    }
+   ]
+  }
+ },
+ "decision": "solo"
+}
