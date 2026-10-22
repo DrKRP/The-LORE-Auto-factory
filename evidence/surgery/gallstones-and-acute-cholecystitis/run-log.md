@@ -1,0 +1,1 @@
+- 2026-10-22 round 1 composite 3.536 (review 3.80, 1 sim) vs round 0 3.477 (+0.059 < 0.1); published round 1 by override (round 0 quizzed TG18 thresholds before teaching them, skip routes bypassed teaching).
