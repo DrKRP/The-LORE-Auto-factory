@@ -1,0 +1,672 @@
+{
+  "segment": "S2",
+  "entry": "open",
+  "nodes": {
+    "open": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two ulcers on the first part of the duodenum. One sits on the front wall, one on the back wall.",
+          "claims": []
+        },
+        {
+          "text": "Which one is the one that perforates?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "The back-wall ulcer",
+          "next": "open_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "The front-wall ulcer",
+          "next": "w1",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "open_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "open_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. The back wall feels like the deep, dangerous site, so the back-wall ulcer is tempting.",
+          "claims": []
+        },
+        {
+          "text": "But a back-wall duodenal ulcer usually bleeds, eroding the gastroduodenal artery. The front wall is the one that perforates.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check this one: the back wall bleeds, the front wall perforates.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "open",
+          "kind": "retry"
+        }
+      ]
+    },
+    "open_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which wall faces the open peritoneal cavity once an ulcer erodes through it.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "open",
+          "kind": "retry"
+        }
+      ]
+    },
+    "w1": {
+      "role": "explain",
+      "objectives": [
+        "O1"
+      ],
+      "say": [
+        {
+          "text": "Yes. Here is patient A, worked in full: sudden epigastric pain, and a front-wall ulcer on the first part of the duodenum.",
+          "claims": []
+        },
+        {
+          "text": "Step 1: the ulcer erodes through the whole wall into the free peritoneal cavity. That is a perforation.",
+          "claims": [
+            "K10",
+            "K2"
+          ]
+        },
+        {
+          "text": "Step 2: gut acid, bile and enzymes spill out first, causing chemical peritonitis.",
+          "claims": [
+            "K18"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "w2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "w2": {
+      "role": "explain",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Step 3: the exudate dilutes that irritant, so he feels better for a while. This is the period of reaction, and it can mislead you.",
+          "claims": [
+            "K20",
+            "K21"
+          ]
+        },
+        {
+          "text": "Step 4: bacteria contaminate the fluid over hours, and the picture becomes bacterial peritonitis.",
+          "claims": [
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next: patient B",
+          "next": "b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Patient B: same first part of the duodenum, but the ulcer is on the back wall. He vomits blood and passes black stools.",
+          "claims": []
+        },
+        {
+          "text": "Steps 1 and 2 are done for you: this one bleeds. Which artery was eroded?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Left gastric artery",
+          "next": "b_t1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Gastroduodenal artery",
+          "next": "b_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Splenic artery",
+          "next": "b_t2",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "b_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "b_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The posterior duodenal ulcer erodes the gastroduodenal artery, so it bleeds instead of perforating.",
+          "claims": [
+            "K2",
+            "K67"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next: a later patient",
+          "next": "c",
+          "kind": "continue"
+        }
+      ]
+    },
+    "b_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. The left gastric is the stomach's own big artery, so a gastric-looking source is tempting.",
+          "claims": []
+        },
+        {
+          "text": "But this ulcer sits on the first part of the duodenum. A posterior duodenal ulcer erodes the gastroduodenal artery.",
+          "claims": [
+            "K2",
+            "K67"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the artery: the duodenal ulcer bleeds from the gastroduodenal artery.",
+        "claims": [
+          "K67"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "b_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. The splenic artery is a big named vessel in the upper abdomen, so it looks plausible for an upper bleed.",
+          "claims": []
+        },
+        {
+          "text": "But a posterior duodenal ulcer bleeds from the gastroduodenal artery, the vessel that sits right beside this segment.",
+          "claims": [
+            "K2",
+            "K67"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the vessel: the duodenal bleed comes from the gastroduodenal artery.",
+        "claims": [
+          "K67"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "b_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Which artery lies closest to the first part of the duodenum itself?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Six hours on from patient A's perforation. The pain has eased and he looks more comfortable, though the abdomen is still tender.",
+          "claims": []
+        },
+        {
+          "text": "What does this mean?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Recovery: observe and re-examine him in the morning",
+          "next": "c_t1",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Spontaneous sealing: discharge on a PPI tonight",
+          "next": "c_t2",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Reaction phase: the irritant is diluted, bacteria follow",
+          "next": "c_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "c_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "c_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. This is the period of reaction: exudate dilutes the irritant, so he feels better while bacterial peritonitis builds.",
+          "claims": [
+            "K20",
+            "K21"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next: the stages in order",
+          "next": "d",
+          "kind": "continue"
+        }
+      ]
+    },
+    "c_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. Feeling better is the reassuring sign, so a settling patient looks like a recovering one.",
+          "claims": []
+        },
+        {
+          "text": "But the relief is the reaction stage, which misleads. The infection is still building behind it.",
+          "claims": [
+            "K20",
+            "K21"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check this: the improvement is the lull before bacterial peritonitis.",
+        "claims": [
+          "K21"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. A sealed perforation is walled off by organs, so a quieter abdomen can look sealed.",
+          "claims": []
+        },
+        {
+          "text": "This one is still a free leak with a tender abdomen. The lull is the reaction phase, not sealing.",
+          "claims": [
+            "K11",
+            "K20"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the word: sealed means walled off, and this leak is still open.",
+        "claims": [
+          "K11"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c",
+          "kind": "retry"
+        }
+      ]
+    },
+    "c_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the exudate does to the irritant, and what that does to how he feels.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "c",
+          "kind": "retry"
+        }
+      ]
+    },
+    "d": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "What is the right order of the three classic stages after a perforation?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Reaction, then chemical peritonitis, then bacterial peritonitis",
+          "next": "d_t1",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Chemical peritonitis, then reaction, then bacterial peritonitis",
+          "next": "d_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Bacterial peritonitis, then reaction, then chemical peritonitis",
+          "next": "d_t2",
+          "kind": "trap",
+          "trap": "TR17"
+        }
+      ]
+    },
+    "d_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Chemical first, then the reaction phase, then diffuse bacterial peritonitis.",
+          "claims": [
+            "K18",
+            "K20",
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next: two patients",
+          "next": "g",
+          "kind": "continue"
+        }
+      ]
+    },
+    "d_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. The reaction stage is the calm that looks like a start, so it is tempting to put it first.",
+          "claims": []
+        },
+        {
+          "text": "But the acid spill comes first, causing chemical peritonitis. The reaction follows as the exudate dilutes it.",
+          "claims": [
+            "K18",
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "d",
+          "kind": "retry"
+        }
+      ]
+    },
+    "d_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. Bacteria feel like the cause of everything, so it is tempting to start the course there.",
+          "claims": []
+        },
+        {
+          "text": "Bacteria arrive later, over hours, after the chemical spill and the reaction stage.",
+          "claims": [
+            "K19",
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "d",
+          "kind": "retry"
+        }
+      ]
+    },
+    "g": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Two patients with severe abdominal pain. One lies motionless with a rigid abdomen. The other keeps rolling and pacing.",
+          "claims": []
+        },
+        {
+          "text": "Which one has peritonitis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "The patient who keeps rolling and pacing",
+          "next": "g_t",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "The patient lying motionless",
+          "next": "g_ok",
+          "kind": "correct"
+        }
+      ]
+    },
+    "g_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Peritonitis lies still, because movement hurts the inflamed peritoneum; the rigid abdomen fits.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next: why they differ",
+          "next": "h",
+          "kind": "continue"
+        }
+      ]
+    },
+    "g_t": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. The pacing patient looks more distressed, so restlessness seems like the peritonitis picture.",
+          "claims": []
+        },
+        {
+          "text": "Colic is the restless one: movement eases it. Peritonitis keeps still, because movement hurts.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "g",
+          "kind": "retry"
+        }
+      ]
+    },
+    "h": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "say": [
+        {
+          "text": "Why does the peritonitis patient lie still while the colic patient writhes?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Movement is blocked by pain in the gut wall, as in colic",
+          "next": "h_t1",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Movement jars the inflamed peritoneum and worsens pain",
+          "next": "h_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Severe pain always makes a patient move about",
+          "next": "h_t2",
+          "kind": "trap",
+          "trap": "TR18"
+        }
+      ]
+    },
+    "h_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Inflamed peritoneum is jarred by movement, so the patient keeps still. Colic gut eases with movement.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next segment",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "h_t1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. Pain in the gut wall sounds like colic, so a cramp-like picture seems to explain the stillness.",
+          "claims": []
+        },
+        {
+          "text": "Colic patients move because movement eases them. Peritonitis hurts with movement, so they stay still.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "h",
+          "kind": "retry"
+        }
+      ]
+    },
+    "h_t2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Not right. Severe pain feels like it should drive movement, so pain severity is tempting as the reason.",
+          "claims": []
+        },
+        {
+          "text": "Pain size does not set the movement sign. Movement itself hurts in peritonitis, so the patient stays still.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "h",
+          "kind": "retry"
+        }
+      ]
+    }
+  }
+}

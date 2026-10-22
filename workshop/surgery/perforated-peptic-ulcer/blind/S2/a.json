@@ -1,0 +1,1017 @@
+{
+  "segment": "S2",
+  "entry": "predict_site",
+  "nodes": {
+    "predict_site": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two ulcers sit on the first part of the duodenum. One is on the front wall, the other on the back wall. Each will eventually erode through its full thickness.",
+          "claims": []
+        },
+        {
+          "text": "Predict first: which one is more likely to perforate into the free peritoneal cavity?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "The front wall ulcer, which faces the free peritoneal cavity",
+          "next": "site_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "The back wall ulcer, the deeper and more sheltered site",
+          "next": "site_h1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "The back wall ulcer, because the artery behind it is the danger",
+          "next": "site_h2",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "site_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "site_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The front wall opens straight into the free peritoneal cavity, so an ulcer that goes through it spills acid and gastric contents into the abdomen.",
+          "claims": [
+            "K10",
+            "K2"
+          ]
+        },
+        {
+          "text": "Anterior ulcers tend to perforate; posterior ulcers tend to bleed.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pair_observe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "site_h1": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Not right. The back wall looks like the deeper, more sheltered site, so it feels like the place a hole would go through.",
+          "claims": []
+        },
+        {
+          "text": "Ask what lies on the far side of each wall: the open peritoneal cavity, or a major artery.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the pairing. Depth is not what decides the outcome.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "predict_site",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "site_w1",
+          "kind": "agency"
+        }
+      ]
+    },
+    "site_w1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Why it fails: the back wall ulcer erodes the gastroduodenal artery and bleeds. The front wall ulcer perforates into the free cavity.",
+          "claims": [
+            "K2",
+            "K67"
+          ]
+        },
+        {
+          "text": "Right: the front wall is the commonest perforation site on the first part of the duodenum.",
+          "claims": [
+            "K1"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pair_observe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "site_h2": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Not right. The artery behind the back wall is the famous one, so it feels as if the artery marks where the danger lies.",
+          "claims": []
+        },
+        {
+          "text": "Ask what the artery does when it is eroded: does it open the belly, or fill the gut?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate the two outcomes. The artery explains bleeding, not perforation.",
+        "claims": [
+          "K67"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "predict_site",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "site_w2",
+          "kind": "agency"
+        }
+      ]
+    },
+    "site_w2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Why it fails: the artery explains bleeding. Erosion of the gastroduodenal artery bleeds into the gut; it does not open the free peritoneal cavity.",
+          "claims": [
+            "K67"
+          ]
+        },
+        {
+          "text": "Right: the front wall ulcer perforates, and the back wall ulcer bleeds.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pair_observe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "site_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what lies on the far side of each wall, and what each outcome needs.",
+          "claims": []
+        },
+        {
+          "text": "A perforation needs an open route into the abdomen. Which wall has one?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "predict_site",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pair_observe": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Now the pair side by side. A back-wall ulcer erodes the gastroduodenal artery and bleeds.",
+          "claims": [
+            "K67"
+          ]
+        },
+        {
+          "text": "A front-wall ulcer perforates into the free peritoneal cavity.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "Front opens, back bleeds.",
+          "claims": [
+            "K2"
+          ],
+          "device": true
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "why_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "why_probe": {
+      "role": "probe",
+      "objectives": [
+        "O1"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same two ulcers as before. Why does the back-wall one bleed instead of perforating?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "The back wall is thinner, so it erodes straight into the cavity",
+          "next": "why_h1",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "The gastroduodenal artery lies behind the wall, and the ulcer erodes it",
+          "next": "why_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "The back wall faces the free cavity, so acid makes it bleed",
+          "next": "why_h2",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "why_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "why_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Behind the first part of the duodenum runs the gastroduodenal artery; a back-wall ulcer that erodes it bleeds.",
+          "claims": [
+            "K67"
+          ]
+        },
+        {
+          "text": "The front wall opens into the free cavity instead, so it perforates.",
+          "claims": [
+            "K10"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "seq_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "why_h1": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Not right. A thin wall looks like the one that goes through first, so thickness feels like the deciding factor.",
+          "claims": []
+        },
+        {
+          "text": "As the ulcer eats through, what does it meet next: an open cavity, or a vessel?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look at what lies behind the wall, not how thick it is.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "why_w1",
+          "kind": "agency"
+        }
+      ]
+    },
+    "why_w1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Why it fails: thickness does not decide the outcome. What lies behind the wall does: an artery for the back wall, the open cavity for the front.",
+          "claims": [
+            "K67"
+          ]
+        },
+        {
+          "text": "Right: the gastroduodenal artery lies behind the first part, so the back-wall ulcer erodes it and bleeds.",
+          "claims": [
+            "K67"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "seq_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "why_h2": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Not right. Acid is what spills, so a wall that seems to face the cavity feels like the one that bleeds.",
+          "claims": []
+        },
+        {
+          "text": "Ask which wall faces the open cavity, and which wall faces an artery.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the reversal is the trap: the wall that faces the cavity is the one that perforates.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "why_w2",
+          "kind": "agency"
+        }
+      ]
+    },
+    "why_w2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Why it fails: the mechanism is reversed. Acid entering the open cavity marks the front wall as the perforator, and the back wall faces the artery.",
+          "claims": [
+            "K10",
+            "K2"
+          ]
+        },
+        {
+          "text": "Right: the back-wall ulcer erodes the gastroduodenal artery and bleeds, because the artery lies behind it.",
+          "claims": [
+            "K67"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "seq_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "why_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what the ulcer erodes as it goes through: the open cavity, or a blood vessel.",
+          "claims": []
+        },
+        {
+          "text": "Which of those causes bleeding, and which leaks into the free peritoneal cavity?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "seq_probe": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "After a perforation the belly passes through three classic stages. Predict the order.",
+          "claims": []
+        },
+        {
+          "text": "Which order is right, from first to last?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Reaction first, then chemical, then bacterial peritonitis",
+          "next": "seq_h1",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Chemical peritonitis, then reaction, then bacterial peritonitis",
+          "next": "seq_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Chemical, then bacterial peritonitis, then reaction",
+          "next": "seq_h2",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "seq_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "seq_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Acid and bile go in first, causing chemical peritonitis.",
+          "claims": [
+            "K18"
+          ]
+        },
+        {
+          "text": "The exudate then dilutes the irritant, giving the reaction. Bacteria take hold over hours, causing diffuse peritonitis.",
+          "claims": [
+            "K20",
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "predict_reaction",
+          "kind": "continue"
+        }
+      ]
+    },
+    "seq_h1": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Not right. The early calm feels like the opening picture, so reaction seems to come before the acid does.",
+          "claims": []
+        },
+        {
+          "text": "Ask what enters the belly first: the bacteria, or the stomach's own contents?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the lull comes after the acid, not before it.",
+        "claims": [
+          "K18"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "seq_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "seq_w1",
+          "kind": "agency"
+        }
+      ]
+    },
+    "seq_w1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Why it fails: reaction is a lull that follows the acid, not a step before it. Gastric contents enter the belly before any bacteria do.",
+          "claims": [
+            "K18",
+            "K20"
+          ]
+        },
+        {
+          "text": "Right: chemical peritonitis, then reaction, then diffuse bacterial peritonitis.",
+          "claims": [
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "predict_reaction",
+          "kind": "continue"
+        }
+      ]
+    },
+    "seq_h2": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Not right. Reaction sounds like the body's recovery, so it feels like the last step of the story.",
+          "claims": []
+        },
+        {
+          "text": "Ask what the lull depends on: the patient's own healing, or the irritant being diluted by exudate?",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the reaction is a dilution, not a cure. It sits between the two peritonitides.",
+        "claims": [
+          "K21"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "seq_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "seq_w2",
+          "kind": "agency"
+        }
+      ]
+    },
+    "seq_w2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Why it fails: the reaction is not recovery. Exudate dilutes the irritant and the patient seems better, but the bacteria are still arriving.",
+          "claims": [
+            "K21",
+            "K20"
+          ]
+        },
+        {
+          "text": "Right: chemical first, then reaction, then diffuse bacterial peritonitis.",
+          "claims": [
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "predict_reaction",
+          "kind": "continue"
+        }
+      ]
+    },
+    "seq_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Start with what leaves the stomach. What reaches the belly before any bacteria?",
+          "claims": []
+        },
+        {
+          "text": "Then ask what the belly does to dilute that first irritant.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "seq_probe",
+          "kind": "retry"
+        }
+      ]
+    },
+    "predict_reaction": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Six hours after a sudden perforation, the pain has eased and the patient looks better. The belly is still tender.",
+          "claims": []
+        },
+        {
+          "text": "Predict: what does this easing mean?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Recovery: observe and re-examine in the morning",
+          "next": "pr_h1",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "The reaction phase: the irritant is diluted, bacteria follow",
+          "next": "pr_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Resolving gastritis: switch to oral antacids",
+          "next": "pr_h2",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pr_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "pr_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The easing is the reaction phase: exudate dilutes the irritant, so the pain softens.",
+          "claims": [
+            "K20"
+          ]
+        },
+        {
+          "text": "Bacteria are still multiplying, and diffuse bacterial peritonitis follows. Reaction is a false calm.",
+          "claims": [
+            "K21",
+            "K19"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "lie_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pr_h1": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Not right. Less pain and a brighter face look like healing, so recovery feels like the obvious reading.",
+          "claims": []
+        },
+        {
+          "text": "Ask whether a belly that is still tender has stopped being infected.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the calm is a stage of the disease, not the end of it.",
+        "claims": [
+          "K21"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "predict_reaction",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pr_w1",
+          "kind": "agency"
+        }
+      ]
+    },
+    "pr_w1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Why it fails: the calm is the reaction stage, where the diluted irritant hides ongoing peritoneal damage. The bacteria keep growing.",
+          "claims": [
+            "K21",
+            "K19"
+          ]
+        },
+        {
+          "text": "Right: the reaction phase, with bacterial peritonitis to follow. The belly needs urgent action.",
+          "claims": [
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "lie_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pr_h2": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Not right. Pain that eases fast feels like gastritis settling, so a gentler antacid seems to fit.",
+          "claims": []
+        },
+        {
+          "text": "Ask what caused a sudden severe pain in the first place, and whether gastritis does that.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the cause. A hole through the full wall, with acid in the cavity, is not gastritis.",
+        "claims": [
+          "K18"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "predict_reaction",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pr_w2",
+          "kind": "agency"
+        }
+      ]
+    },
+    "pr_w2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Why it fails: a perforation is a hole through the full wall, letting acid and bile into the free cavity. It is not inflamed mucosa.",
+          "claims": [
+            "K10",
+            "K18"
+          ]
+        },
+        {
+          "text": "Right: the reaction phase, where the diluted irritant softens the pain before bacteria take over.",
+          "claims": [
+            "K20"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "lie_probe",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pr_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what the exudate does to the acid and bile already in the belly.",
+          "claims": []
+        },
+        {
+          "text": "Does the easing mean the source has gone, or that it is now spread out?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "predict_reaction",
+          "kind": "retry"
+        }
+      ]
+    },
+    "lie_probe": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two patients have severe abdominal pain. One lies motionless with a rigid belly; the other keeps rolling and pacing.",
+          "claims": []
+        },
+        {
+          "text": "Why does the first one lie still?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Movement is blocked by pain in the gut wall, as in colic",
+          "next": "lie_h1",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Worse pain drives more movement, so stillness means milder pain",
+          "next": "lie_h2",
+          "kind": "trap",
+          "trap": "TR18"
+        },
+        {
+          "label": "Movement jars the inflamed peritoneum and worsens the pain",
+          "next": "lie_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "lie_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "lie_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The inflamed peritoneum hurts with each jolt, so the patient keeps still.",
+          "claims": [
+            "K27"
+          ]
+        },
+        {
+          "text": "Colic is the opposite: a cramping gut eases with movement, so the patient writhes.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "lie_h1": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Not right. Colic makes people writhe, so the gut wall seems to be what stops movement in any painful belly.",
+          "claims": []
+        },
+        {
+          "text": "Ask what movement does to an inflamed lining, compared with a cramping gut.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate the two pictures: colic moves, peritonitis keeps still.",
+        "claims": [
+          "K27"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "lie_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "lie_w1",
+          "kind": "agency"
+        }
+      ]
+    },
+    "lie_w1": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Why it fails: the stillness comes from the peritoneum, not the gut wall muscle. Movement jars the inflamed lining and makes the pain worse.",
+          "claims": [
+            "K27"
+          ]
+        },
+        {
+          "text": "Right: the still patient is guarding an inflamed peritoneum. The colicky patient's pain eases with movement.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "lie_h2": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Not right. Pain feels as if it should scale with movement, so the worst pain seems to mean the most movement.",
+          "claims": []
+        },
+        {
+          "text": "Ask which patient's pain movement makes worse, and which patient's pain it eases.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the reversal is the trap: in peritonitis, movement makes the pain worse.",
+        "claims": [
+          "K27"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "lie_probe",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "lie_w2",
+          "kind": "agency"
+        }
+      ]
+    },
+    "lie_w2": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Why it fails: the rule runs the other way. Peritonitis makes movement painful, so the patient keeps still whatever the pain score.",
+          "claims": [
+            "K27"
+          ]
+        },
+        {
+          "text": "Right: the still, rigid patient has the peritonitis. The rolling patient's colic eases with movement.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "lie_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about what happens to the pain when the patient moves: does it ease or get worse?",
+          "claims": []
+        },
+        {
+          "text": "Which of the two patients is protecting an inflamed lining?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "lie_probe",
+          "kind": "retry"
+        }
+      ]
+    }
+  }
+}
