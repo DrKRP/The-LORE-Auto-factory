@@ -1,0 +1,924 @@
+{
+  "segment": "S4",
+  "entry": "t_pair",
+  "nodes": {
+    "t_pair": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two women both have peau d'orange, the orange-peel skin over the breast.",
+          "claims": [
+            "K7"
+          ]
+        },
+        {
+          "text": "Woman A has a 3 cm lump, and her skin is neither red nor warm. Woman B is red, warm and swollen, with no lump you can feel.",
+          "claims": []
+        },
+        {
+          "text": "Which one has T4d inflammatory carcinoma?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Woman A, the one with a 3 cm lump",
+          "next": "t_pair_a",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Woman B, red, warm and swollen",
+          "next": "t_pair_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Both, since the skin signs match",
+          "next": "t_pair_both",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "t_pair_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "t_pair_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "T4d names a whole clinical picture, not one sign. Ask how much of the breast is involved, and whether it looks red and warm.",
+          "claims": [
+            "K48"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_pair",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t_pair_a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "A lump with peau d'orange looks like advanced cancer, but peau d'orange is a skin sign, and one skin sign does not make the T4d picture.",
+          "claims": [
+            "K65",
+            "K67"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. A sign is not the syndrome, so check the whole picture before you assign a T category.",
+        "claims": [
+          "K48"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_pair",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "t_pair_both": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Matching skin signs feel like one disease, but T4d needs the whole inflammatory picture, and a skin sign on its own is only skin involvement.",
+          "claims": [
+            "K48",
+            "K65"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the picture, not the matching signs.",
+        "claims": [
+          "K48"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_pair",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "t_pair_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Woman B has the whole inflammatory picture: red, warm and swollen, with peau d'orange over at least a third of the breast.",
+          "claims": [
+            "K48"
+          ]
+        },
+        {
+          "text": "Peau d'orange on its own is skin involvement, T4b, so Woman A is staged by her skin and size, not as T4d.",
+          "claims": [
+            "K7",
+            "K140"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t_which",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Woman B is T4d. Inflammatory carcinoma is a red, warm, swollen breast with peau d'orange over at least a third of it, often with no discrete lump.",
+          "claims": [
+            "K48",
+            "K67"
+          ]
+        },
+        {
+          "text": "Woman A's 3 cm lump with peau d'orange is T4b: skin involvement, not the inflammatory picture.",
+          "claims": [
+            "K65",
+            "K140"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t_which",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t_which": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Extension to the chest wall makes a tumour T4a. Which of these findings is chest-wall involvement?",
+          "claims": [
+            "K64"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Tumour invading serratus anterior",
+          "next": "t_which_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Tumour fixed to pectoralis major alone",
+          "next": "t_which_a",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "Peau d'orange over the tumour",
+          "next": "t_which_skin",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "t_which_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "t_which_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "T4a is the chest wall itself: the ribs, the intercostal muscles and the serratus. Ask which finding reaches those structures, not which one lies on a muscle.",
+          "claims": [
+            "K64"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_which",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t_which_a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Fixity to the pectoralis feels like chest-wall spread because the muscle lies over the chest, but pectoralis major alone is not in the T4a list.",
+          "claims": [
+            "K141",
+            "K64"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Chest wall means the ribs, intercostals and serratus, so check the list before you count a muscle.",
+        "claims": [
+          "K64"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_which",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t_which_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "t_which_skin": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Peau d'orange is a real finding, but it is skin involvement, T4b, and it does not put the tumour on the chest wall.",
+          "claims": [
+            "K65",
+            "K7"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_which",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t_which_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "t_which_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Serratus anterior is part of the chest wall, so a tumour that invades it is T4a.",
+          "claims": [
+            "K64"
+          ]
+        },
+        {
+          "text": "Skin findings are T4b, and pectoralis major alone does not count as chest wall.",
+          "claims": [
+            "K65",
+            "K141"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t_vig",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t_which_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "The chest wall for T4a is the ribs, the intercostal muscles and the serratus anterior. Invading serratus anterior is therefore T4a.",
+          "claims": [
+            "K64"
+          ]
+        },
+        {
+          "text": "Fixity to pectoralis major alone is not T4a. Peau d'orange and satellite skin nodules are skin involvement, T4b.",
+          "claims": [
+            "K141",
+            "K65"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t_vig",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t_vig": {
+      "role": "probe",
+      "objectives": [
+        "O5"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 4 cm tumour is fixed when the pectoralis is contracted, but the ribs and intercostals move freely.",
+          "claims": [
+            "K47"
+          ]
+        },
+        {
+          "text": "What is its T category?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "T4a, because the pectoralis fixes it",
+          "next": "t_vig_a",
+          "kind": "trap",
+          "trap": "TR13"
+        },
+        {
+          "label": "T3, because it is over 3 cm",
+          "next": "t_vig_t3",
+          "kind": "partial"
+        },
+        {
+          "label": "T2, sized between 2 and 5 cm",
+          "next": "t_vig_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "t_vig_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "t_vig_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Size sets the T category first. Then ask whether the ribs, intercostals or serratus are involved; muscle fixity alone is a different question.",
+          "claims": [
+            "K62",
+            "K64"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_vig",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t_vig_a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Fixity to the pectoralis is tested because it looks like chest-wall spread, but the T4a list is the chest wall itself, and pectoralis major alone is not on it.",
+          "claims": [
+            "K47",
+            "K141"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the T4a list before you count fixity.",
+        "claims": [
+          "K64"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_vig",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t_vig_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "t_vig_t3": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "A tumour is T3 only when it is over 5 cm, and this one is 4 cm.",
+          "claims": [
+            "K63"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_vig",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t_vig_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "t_vig_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A 4 cm tumour is T2 by size, and fixity to pectoralis major does not change that.",
+          "claims": [
+            "K62",
+            "K141"
+          ]
+        },
+        {
+          "text": "Only the chest wall itself, the ribs, intercostals and serratus, makes it T4a.",
+          "claims": [
+            "K64"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t_n",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t_vig_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O5"
+      ],
+      "say": [
+        {
+          "text": "Size gives T2, since over 2 cm up to 5 cm is T2. Fixity is tested with the muscle contracted, but it does not make the tumour T4a.",
+          "claims": [
+            "K62",
+            "K47"
+          ]
+        },
+        {
+          "text": "Only the chest wall itself makes T4a: ribs, intercostal muscles and serratus anterior.",
+          "claims": [
+            "K64",
+            "K141"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t_n",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t_n": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Patient X has a hard node above the collarbone on the same side as her breast cancer. Patient Y has the same node on the opposite side.",
+          "claims": [
+            "K9"
+          ]
+        },
+        {
+          "text": "Which patient has M1, distant metastasis?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Both, since any node above the collarbone is M1",
+          "next": "t_n_both",
+          "kind": "trap",
+          "trap": "TR2"
+        },
+        {
+          "label": "Patient Y, the node on the opposite side",
+          "next": "t_n_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Neither, both are nodal disease",
+          "next": "t_n_neither",
+          "kind": "partial"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "t_n_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "t_n_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Check each node on two counts: its height, and which side of the body it sits on. Ask which side current staging treats as distant.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_n",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t_n_both": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Old classifications counted every node above the collarbone as distant, which is why height feels like M1; current staging also looks at which side the node is on.",
+          "claims": [
+            "K138",
+            "K9"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Check the side of the node as well as its height before you call it distant.",
+        "claims": [
+          "K74"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_n",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t_n_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "t_n_neither": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Nodes on the same side are nodal, but calling both nodal misses that the side of the node can change the M category.",
+          "claims": [
+            "K74"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_n",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t_n_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "t_n_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A node above the collarbone on the opposite side is distant disease, M1.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "The same-side node is still nodal, N3c, and not M1.",
+          "claims": [
+            "K9"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t_img",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t_n_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Patient Y has M1. Current American Joint Committee on Cancer (AJCC) staging counts contralateral axillary or supraclavicular nodes as distant.",
+          "claims": [
+            "K74"
+          ]
+        },
+        {
+          "text": "Patient X's same-side supraclavicular node is N3c. Older PYQs expected M1 for any supraclavicular node, but current staging places same-side nodes on the nodal ladder.",
+          "claims": [
+            "K9",
+            "K138"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t_img",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t_img": {
+      "role": "probe",
+      "objectives": [
+        "O4"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Patient A is 38, with a 1.5 cm early cancer, no symptoms and no palpable nodes.",
+          "claims": [
+            "K57"
+          ]
+        },
+        {
+          "text": "Patient B has stage III disease and bone pain.",
+          "claims": [
+            "K75"
+          ]
+        },
+        {
+          "text": "Which patient needs staging scans for distant spread?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Both, a bone scan for each patient",
+          "next": "t_img_both",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Neither, staging waits until after surgery",
+          "next": "t_img_neither",
+          "kind": "partial"
+        },
+        {
+          "label": "Patient B, the stage III patient with pain",
+          "next": "t_img_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "t_img_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "t_img_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Metastatic scans follow the stage and the symptoms, not the commonest site of spread. Ask which patient has one of those two features.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_img",
+          "kind": "retry"
+        }
+      ]
+    },
+    "t_img_both": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Bone is the commonest site of distant spread, so a bone scan feels routine, but metastatic imaging is for locally advanced disease or symptoms, not for every patient.",
+          "claims": [
+            "K42",
+            "K57"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Bone is where cancer goes, but the stage and symptoms decide who needs the scan.",
+        "claims": [
+          "K57"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_img",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t_img_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "t_img_neither": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Staging is not postponed for symptoms or locally advanced disease; metastatic imaging is done in those patients.",
+          "claims": [
+            "K57",
+            "K75"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "t_img",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "t_img_reveal",
+          "kind": "agency"
+        }
+      ]
+    },
+    "t_img_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Stage III disease, or a symptom such as bone pain, is the indication for metastatic imaging.",
+          "claims": [
+            "K57",
+            "K75"
+          ]
+        },
+        {
+          "text": "Patient A is early and asymptomatic, so she needs local treatment planning, not a routine bone scan.",
+          "claims": [
+            "K57"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t_prog",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t_img_reveal": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Metastatic imaging, a CT of chest and abdomen, a bone scan or positron emission tomography CT (PET-CT), is for locally advanced disease or symptoms. Patient B gets it; Patient A does not.",
+          "claims": [
+            "K57"
+          ]
+        },
+        {
+          "text": "Bone is the commonest site of distant spread, mostly osteolytic. The site does not decide who gets scanned.",
+          "claims": [
+            "K42"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "t_prog",
+          "kind": "continue"
+        }
+      ]
+    },
+    "t_prog": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Bone is the commonest site of distant spread, followed by lung, liver and brain.",
+          "claims": [
+            "K42",
+            "K123"
+          ]
+        },
+        {
+          "text": "The single most important prognostic factor is axillary lymph node status.",
+          "claims": [
+            "K6",
+            "K124"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  },
+  "technique": "T7",
+  "decision": "pick"
+}
