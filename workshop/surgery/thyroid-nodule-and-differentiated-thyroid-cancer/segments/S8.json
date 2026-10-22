@@ -1,0 +1,1818 @@
+{
+ "segment": "S8",
+ "technique": "T8",
+ "entry": "h1",
+ "nodes": {
+  "h1": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Your registrar says 'FNAC first, it is the gold standard'. You have a euthyroid adult with a solitary nodule.",
+     "claims": []
+    },
+    {
+     "text": "Before any needle, what is the first step?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Ultrasound-guided FNAC straight away, to get the answer",
+     "next": "h1_t1",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Serum TSH and neck ultrasound, then decide on FNAC",
+     "next": "h1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Radioiodine scan first, to split hot from cold nodules",
+     "next": "h1_t2",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "h1_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "h1_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Needle-first feels decisive, and FNAC is the test that settles what a nodule is.",
+     "claims": []
+    },
+    {
+     "text": "But the needle is not the first step. The cheap first work-up comes before it, and FNAC is asked for once that work-up points to it.",
+     "claims": [
+      "K4",
+      "K62"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the order: blood and imaging come first, the needle after.",
+    "claims": [
+     "K4"
+    ]
+   }
+  },
+  "h1_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A scan does sort hot from cold nodules, so it sounds like a sensible first look.",
+     "claims": []
+    },
+    {
+     "text": "But a scan is done only when TSH is low, to find a hot nodule. With a normal TSH it adds nothing to the first step.",
+     "claims": [
+      "K4",
+      "K55"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note the trigger: a low TSH is what sends you to a scan.",
+    "claims": [
+     "K55"
+    ]
+   }
+  },
+  "h1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Every nodule gets serum TSH and neck ultrasound first.",
+     "claims": [
+      "K4"
+     ]
+    },
+    {
+     "text": "FNAC is the test of choice for the nature of the nodule, and a scan follows only when TSH is low.",
+     "claims": [
+      "K62",
+      "K55"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "h2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "h1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think about what every nodule gets first, before any imaging or needle. Then ask what a scan is for.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "h1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "h2": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A Bethesda IV report is back: a follicular neoplasm.",
+     "claims": []
+    },
+    {
+     "text": "Which finding would make the pathologist call it follicular carcinoma?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Nuclear grooves and ground-glass nuclei on the FNAC slide",
+     "next": "h2_t1",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Frozen section showing follicular architecture with atypia",
+     "next": "h2_t2",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Capsular or vascular invasion on the resected lobe",
+     "next": "h2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "h2_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "h2_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Nuclear detail is what cytologists read, so the diagnosis feels like it should be on the slide.",
+     "claims": []
+    },
+    {
+     "text": "But grooves and ground-glass nuclei are papillary features, and FNAC cannot separate follicular adenoma from carcinoma.",
+     "claims": [
+      "K28",
+      "K65"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember: a needle sample shows cells, not whether a capsule or vessel has been crossed.",
+    "claims": [
+     "K65"
+    ]
+   }
+  },
+  "h2_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A frozen section is a quick look at architecture, so an early answer seems possible.",
+     "claims": []
+    },
+    {
+     "text": "But frozen section is of little value for follicular lesions, and architecture cannot show invasion. Histology of the resected lobe decides.",
+     "claims": [
+      "K66",
+      "K38"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note that a quick section cannot settle invasion; the resected lobe does.",
+    "claims": [
+     "K66"
+    ]
+   }
+  },
+  "h2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Follicular carcinoma is diagnosed on histology, by capsular or vascular invasion.",
+     "claims": [
+      "K38",
+      "K127"
+     ]
+    },
+    {
+     "text": "Cytology cannot make the diagnosis, and a frozen section of a follicular lesion is of little value.",
+     "claims": [
+      "K65",
+      "K66"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "h3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "h2_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which tissue can show whether a capsule or a blood vessel has been crossed, and whether a needle or a quick section can see that.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "h2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "h3": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A thyroid report mentions psammoma bodies, but it says nothing about the nuclei.",
+     "claims": []
+    },
+    {
+     "text": "What can you conclude?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Not enough alone, since they are supportive features",
+     "next": "h3_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Papillary carcinoma, since psammoma bodies are specific to it",
+     "next": "h3_t1",
+     "kind": "trap",
+     "trap": "TR5"
+    },
+    {
+     "label": "Papillary carcinoma, since the calcifications mark papillae",
+     "next": "h3_t2",
+     "kind": "trap",
+     "trap": "TR5"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "h3_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "h3_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Psammoma bodies are a classic papillary finding, so they feel like a signature.",
+     "claims": []
+    },
+    {
+     "text": "But they also appear in serous ovarian tumours, meningioma and mesothelioma. They support the diagnosis; they do not make it.",
+     "claims": [
+      "K29",
+      "K139"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h3",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check what the calcifications are: a supportive sign, not an identity.",
+    "claims": [
+     "K29"
+    ]
+   }
+  },
+  "h3_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Calcifications and papillae often turn up in the same report, so they seem linked.",
+     "claims": []
+    },
+    {
+     "text": "But psammoma bodies are not the papillae, and the diagnosis rests on nuclear features. Architecture is supportive too.",
+     "claims": [
+      "K5",
+      "K27"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h3",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note that the papillary label is set by the nuclei, even when the calcifications are striking.",
+    "claims": [
+     "K27"
+    ]
+   }
+  },
+  "h3_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Psammoma bodies support papillary carcinoma, but the call rests on nuclear features.",
+     "claims": [
+      "K5"
+     ]
+    },
+    {
+     "text": "Without a nuclear description the report cannot make the diagnosis, whatever the calcifications show.",
+     "claims": [
+      "K28"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "h4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "h3_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what a report must describe before it can call a lesion papillary, and whether psammoma bodies are that description.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "h3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "h4": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A registry lists every differentiated thyroid cancer seen over ten years, across all ages and districts.",
+     "claims": []
+    },
+    {
+     "text": "Which type heads the list?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Follicular carcinoma, the leader in iodine-poor hill areas",
+     "next": "h4_t1",
+     "kind": "trap",
+     "trap": "TR3"
+    },
+    {
+     "label": "Papillary carcinoma, the leader in most registries",
+     "next": "h4_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Follicular carcinoma, the leader in most registries",
+     "next": "h4_t2",
+     "kind": "trap",
+     "trap": "TR3"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "h4_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "h4_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Follicular cancer is the one that rises as iodine becomes scarce, so the hill-area idea feels decisive.",
+     "claims": []
+    },
+    {
+     "text": "But that is a share within one setting. This registry covers every district, and the whole-list leader is a different histology.",
+     "claims": [
+      "K23",
+      "K2"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h4",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note the qualifier: follicular rises in share where iodine is scarce, not across the whole list.",
+    "claims": [
+     "K23"
+    ]
+   }
+  },
+  "h4_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Follicular is a frequent histology, so it can look like the leader in a general list.",
+     "claims": []
+    },
+    {
+     "text": "But the overall lead belongs to a different histology. Follicular is relatively more common only in iodine deficiency.",
+     "claims": [
+      "K2",
+      "K121"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h4",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the overall leader first, then ask which setting changes it.",
+    "claims": [
+     "K2"
+    ]
+   }
+  },
+  "h4_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Papillary carcinoma is the most common thyroid cancer overall, about 80–85% of cases.",
+     "claims": [
+      "K2"
+     ]
+    },
+    {
+     "text": "Follicular carcinoma gains relative share only where iodine is scarce, so it does not head an all-district list.",
+     "claims": [
+      "K23"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "h5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "h4_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which histology is the most frequent across all ages and all districts. Then ask which setting changes the share.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "h4",
+     "kind": "retry"
+    }
+   ]
+  },
+  "h5": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Since 2016, one lesion was taken off the cancer list.",
+     "claims": []
+    },
+    {
+     "text": "Which name replaces it?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "NIFTP, a non-invasive follicular neoplasm",
+     "next": "h5_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Encapsulated follicular variant of papillary carcinoma",
+     "next": "h5_t1",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Encapsulated minimally invasive follicular carcinoma",
+     "next": "h5_t2",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "h5_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "h5_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Exam keys taught this name for years, so it still sounds like the current label.",
+     "claims": []
+    },
+    {
+     "text": "But it is the retired name. Non-invasive encapsulated tumours with papillary-like nuclei are no longer called carcinoma.",
+     "claims": [
+      "K138",
+      "K16"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h5",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the word carcinoma: under the change, this lesion was taken out of it.",
+    "claims": [
+     "K16"
+    ]
+   }
+  },
+  "h5_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Encapsulation looks reassuring, but the word carcinoma makes it sound malignant.",
+     "claims": []
+    },
+    {
+     "text": "But with no capsular or vascular invasion the lesion is not malignant under current classification. Invasion decides.",
+     "claims": [
+      "K16",
+      "K38"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h5",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note that encapsulation alone is not invasion.",
+    "claims": [
+     "K38"
+    ]
+   }
+  },
+  "h5_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. NIFTP is the non-invasive follicular neoplasm with papillary-like nuclei, which replaced the encapsulated follicular variant.",
+     "claims": [
+      "K16"
+     ]
+    },
+    {
+     "text": "It is not a carcinoma, so the cancer pathway does not apply.",
+     "claims": [
+      "K138"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "h6",
+     "kind": "continue"
+    }
+   ]
+  },
+  "h5_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what decides malignancy in these follicular tumours. Then ask whether this one shows that feature.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "h5",
+     "kind": "retry"
+    }
+   ]
+  },
+  "h6": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 48-year-old woman has differentiated thyroid cancer that has spread to distant sites.",
+     "claims": []
+    },
+    {
+     "text": "Which AJCC 8th edition stage applies?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Stage IVB, since she is over the 45-year cut-off",
+     "next": "h6_t1",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Stage III, since she is over the 45-year cut-off",
+     "next": "h6_t2",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Stage II, since distant spread under 55 is stage II",
+     "next": "h6_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "h6_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "h6_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The 45-year cut-off is the one older keys taught, so it feels current and familiar.",
+     "claims": []
+    },
+    {
+     "text": "But the 8th edition moved the age cut-off to 55. A patient under that age is staged on its own two-stage scheme.",
+     "claims": [
+      "K71",
+      "K136"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h6",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the cut-off year first, then read the stage.",
+    "claims": [
+     "K71"
+    ]
+   }
+  },
+  "h6_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Distant spread feels like it should push the stage up, so stage III sounds plausible.",
+     "claims": []
+    },
+    {
+     "text": "But for patients under 55 the 8th edition has only stage I and stage II, and distant spread sits within stage II.",
+     "claims": [
+      "K72",
+      "K71"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "h6",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note that below the cut-off, distant spread does not take the stage above II.",
+    "claims": [
+     "K72"
+    ]
+   }
+  },
+  "h6_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. The 8th edition uses 55 as the cut-off, and under 55 there are only two stages.",
+     "claims": [
+      "K71"
+     ]
+    },
+    {
+     "text": "Stage I is without distant spread and stage II is with it, so this patient is stage II.",
+     "claims": [
+      "K72"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "k1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "h6_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which age cut-off the current edition uses, and whether this patient falls on each side of it.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "h6",
+     "kind": "retry"
+    }
+   ]
+  },
+  "k1": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "No hints from here on. Each of these is a cold check.",
+     "claims": []
+    },
+    {
+     "text": "A firm lateral neck node is biopsied. The cells show papillary nuclei, and no thyroid primary is seen on examination.",
+     "claims": []
+    },
+    {
+     "text": "What is it most likely?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Benign ectopic thyroid tissue in the lateral neck",
+     "next": "k1_t1",
+     "kind": "trap",
+     "trap": "TR10"
+    },
+    {
+     "label": "Blood-borne deposit from a papillary thyroid primary",
+     "next": "k1_t2",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "Nodal metastasis of follicular carcinoma, its usual pattern",
+     "next": "k1_t3",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "Nodal metastasis of papillary carcinoma, primary maybe occult",
+     "next": "k1_ok",
+     "kind": "correct"
+    }
+   ]
+  },
+  "k1_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. 'Aberrant thyroid' sounds like a harmless remnant, which is why it tempts.",
+     "claims": []
+    },
+    {
+     "text": "But a lateral node with papillary nuclei is a nodal metastasis, not normal tissue. The so-called lateral aberrant thyroid is a metastasis.",
+     "claims": [
+      "K32",
+      "K48"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the nuclei: a node that carries them is a deposit of cancer.",
+    "claims": [
+     "K48"
+    ]
+   }
+  },
+  "k1_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Papillary cancer can reach the bloodstream, so a distant deposit sounds plausible.",
+     "claims": []
+    },
+    {
+     "text": "But papillary carcinoma spreads mainly by lymphatics to the neck nodes. Blood spread is the follicular pattern.",
+     "claims": [
+      "K31",
+      "K7"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so route first: papillary goes through lymphatics, and follicular goes through blood.",
+    "claims": [
+     "K7"
+    ]
+   }
+  },
+  "k1_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Neck nodes are the first thing examined in any thyroid cancer, so they feel typical.",
+     "claims": []
+    },
+    {
+     "text": "But nodal spread is uncommon in follicular carcinoma, and the papillary nuclei point to the papillary type.",
+     "claims": [
+      "K43",
+      "K28"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k1",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note that follicular cancer leans on the blood route more than the nodes.",
+    "claims": [
+     "K43",
+     "K40"
+    ]
+   }
+  },
+  "k1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Papillary carcinoma spreads to the neck nodes, and a node with papillary nuclei is a metastasis.",
+     "claims": [
+      "K31",
+      "K32"
+     ]
+    },
+    {
+     "text": "The primary may not be palpable, so the node can be the first sign.",
+     "claims": [
+      "K48"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "k2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "k2": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Four report-and-action pairs for thyroid cytology are offered.",
+     "claims": []
+    },
+    {
+     "text": "Which one is correct?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Bethesda II: surgery, since a benign nodule may still grow",
+     "next": "k2_t1",
+     "kind": "trap",
+     "trap": "TR21"
+    },
+    {
+     "label": "Bethesda II: ultrasound follow-up, and surgery for pressure symptoms",
+     "next": "k2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Bethesda IV: cancer surgery, the same as for category V",
+     "next": "k2_t2",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "Bethesda V: diagnostic lobectomy, the same as for IV",
+     "next": "k2_t3",
+     "kind": "trap",
+     "trap": "TR22"
+    }
+   ]
+  },
+  "k2_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A nodule that may grow sounds like a reason to remove it, so surgery feels cautious.",
+     "claims": []
+    },
+    {
+     "text": "But a benign cytology report is managed by clinical and ultrasound follow-up. Surgery is for compression or cosmesis.",
+     "claims": [
+      "K77"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so separate the report from the nodule: benign means follow-up unless the nodule causes trouble.",
+    "claims": [
+     "K77"
+    ]
+   }
+  },
+  "k2_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Both IV and V are not benign, so they feel like one group that needs the same plan.",
+     "claims": []
+    },
+    {
+     "text": "But IV is a follicular neoplasm, managed first by diagnostic lobectomy or molecular testing. Cancer surgery belongs to V and VI.",
+     "claims": [
+      "K79",
+      "K80"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note that IV and V sit in different action boxes.",
+    "claims": [
+     "K79",
+     "K80"
+    ]
+   }
+  },
+  "k2_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Category V is suspicious, and a lobectomy is the diagnostic step for IV, so the two get blurred.",
+     "claims": []
+    },
+    {
+     "text": "But V is managed as thyroid cancer, while diagnostic lobectomy belongs to IV. The two categories do not share an action.",
+     "claims": [
+      "K80",
+      "K79"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k2",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the category and the action together for every Bethesda report.",
+    "claims": [
+     "K80"
+    ]
+   }
+  },
+  "k2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Bethesda II is benign, so it gets ultrasound and clinical follow-up.",
+     "claims": [
+      "K77"
+     ]
+    },
+    {
+     "text": "Surgery is reserved for compression or cosmesis, and Bethesda IV and V take different actions.",
+     "claims": [
+      "K77",
+      "K79",
+      "K80"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "k3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "k3": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 2.5 cm unifocal papillary carcinoma is found. It is intrathyroidal, with no nodes and no radiation history.",
+     "claims": []
+    },
+    {
+     "text": "Which extent of surgery fits current guidance?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Total thyroidectomy, since every DTC is treated that way",
+     "next": "k3_t1",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Total thyroidectomy, the classic answer for any thyroid cancer",
+     "next": "k3_t2",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Lobectomy or total thyroidectomy, both acceptable under current guidance",
+     "next": "k3_ok",
+     "kind": "correct"
+    }
+   ]
+  },
+  "k3_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Total thyroidectomy is the big standard operation, so it feels like the safe default for every cancer.",
+     "claims": []
+    },
+    {
+     "text": "But the classic answer was total thyroidectomy for DTC; current ATA guidance is not a single operation for every size and risk.",
+     "claims": [
+      "K135",
+      "K83"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k3",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note the size band: low-risk, unifocal, 1–4 cm, intrathyroidal.",
+    "claims": [
+     "K83"
+    ]
+   }
+  },
+  "k3_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The classic key is total thyroidectomy, so the old answer feels like the right one.",
+     "claims": []
+    },
+    {
+     "text": "But that is the old key. The size, nodes and risk decide the extent here, and the classic answer is not the rule for this tumour.",
+     "claims": [
+      "K135",
+      "K83"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k3",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the risk group before you choose the operation.",
+    "claims": [
+     "K135"
+    ]
+   }
+  },
+  "k3_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. For a low-risk unifocal tumour of 1–4 cm with no nodes, lobectomy or total thyroidectomy are both acceptable.",
+     "claims": [
+      "K83"
+     ]
+    },
+    {
+     "text": "The old key said total thyroidectomy for DTC; current guidance accepts the smaller operation here.",
+     "claims": [
+      "K135"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "k4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "k4": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A patient with a low-risk papillary cancer has had total thyroidectomy. Radioiodine is being planned.",
+     "claims": []
+    },
+    {
+     "text": "Which plan is right?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "No routine radioiodine, and TSH held at low-normal",
+     "next": "k4_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Radioiodine for every patient, as standard after surgery",
+     "next": "k4_t1",
+     "kind": "trap",
+     "trap": "TR20"
+    },
+    {
+     "label": "Drive TSH down to suppression before giving the dose",
+     "next": "k4_t2",
+     "kind": "trap",
+     "trap": "TR27"
+    },
+    {
+     "label": "Keep TSH suppressed on levothyroxine during the dose",
+     "next": "k4_t3",
+     "kind": "trap",
+     "trap": "TR27"
+    }
+   ]
+  },
+  "k4_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Radioiodine is a powerful treatment, so giving it to everyone feels thorough.",
+     "claims": []
+    },
+    {
+     "text": "But it is not given routinely to low-risk disease. The risk category decides who needs it, not the surgery.",
+     "claims": [
+      "K91",
+      "K92"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k4",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note that the risk category, not the operation, decides the dose.",
+    "claims": [
+     "K92"
+    ]
+   }
+  },
+  "k4_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Suppressed TSH is the long-term aim, so it feels like the right state for the dose too.",
+     "claims": []
+    },
+    {
+     "text": "But suppression is the later goal and is matched to risk. Radioiodine uptake depends on TSH being high on the day of any dose.",
+     "claims": [
+      "K99",
+      "K93"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k4",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so separate the long-term target from the TSH state on the day of the dose.",
+    "claims": [
+     "K93"
+    ]
+   }
+  },
+  "k4_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Keeping levothyroxine going feels like the safe continuation after surgery.",
+     "claims": []
+    },
+    {
+     "text": "But levothyroxine is for replacement and long-term suppression. It does not make radioiodine uptake work on the day of a dose.",
+     "claims": [
+      "K98",
+      "K93"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k4",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so separate the long-term drug from the TSH needed on the day of the dose.",
+    "claims": [
+     "K98"
+    ]
+   }
+  },
+  "k4_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Radioiodine is not given routinely to ATA low-risk disease, and TSH is held in the low-normal range.",
+     "claims": [
+      "K91",
+      "K99"
+     ]
+    },
+    {
+     "text": "Suppression is matched to risk: deeper for high-risk disease, low-normal for low-risk.",
+     "claims": [
+      "K99"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "k5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "k5": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Which result after total thyroidectomy for papillary cancer would reassure you enough to stop the recurrence work-up?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Undetectable thyroglobulin, although antibodies are raised",
+     "next": "k5_t1",
+     "kind": "trap",
+     "trap": "TR28"
+    },
+    {
+     "label": "Rising thyroglobulin, though the iodine scan is negative",
+     "next": "k5_t2",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Undetectable thyroglobulin, no antibodies, clear neck ultrasound",
+     "next": "k5_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Normal calcitonin, the marker that tracks papillary cancer",
+     "next": "k5_t3",
+     "kind": "trap",
+     "trap": "TR30"
+    }
+   ]
+  },
+  "k5_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. An undetectable value looks like the end of the story, so it feels reassuring.",
+     "claims": []
+    },
+    {
+     "text": "But antibodies make the thyroglobulin assay unreliable, so an undetectable value cannot be trusted alone.",
+     "claims": [
+      "K101"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k5",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the assay before you read the number.",
+    "claims": [
+     "K101"
+    ]
+   }
+  },
+  "k5_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A negative iodine scan sounds like a clean result, so a rising value seems explained.",
+     "claims": []
+    },
+    {
+     "text": "But the scan finds only iodine-avid disease. A rising thyroglobulin with a blank scan needs a further test, not reassurance.",
+     "claims": [
+      "K103",
+      "K104"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k5",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note that a negative scan does not cancel a rising marker.",
+    "claims": [
+     "K104"
+    ]
+   }
+  },
+  "k5_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Calcitonin is a tumour marker, so a normal value feels like a clean bill of health.",
+     "claims": []
+    },
+    {
+     "text": "But calcitonin marks medullary carcinoma, not differentiated cancer. Papillary and follicular follow-up uses thyroglobulin.",
+     "claims": [
+      "K129",
+      "K9"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k5",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note which marker belongs to which cancer.",
+    "claims": [
+     "K70"
+    ]
+   }
+  },
+  "k5_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Thyroglobulin is the marker, and it is read only when antibodies are absent.",
+     "claims": [
+      "K100",
+      "K101"
+     ]
+    },
+    {
+     "text": "A clear neck ultrasound adds the imaging check for locoregional recurrence.",
+     "claims": [
+      "K102"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "k6",
+     "kind": "continue"
+    }
+   ]
+  },
+  "k6": {
+   "role": "probe",
+   "objectives": [
+    "O9"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Which statement about complications after total thyroidectomy is correct?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Nerve injury is the commonest problem, with bleeding close behind",
+     "next": "k6_t1",
+     "kind": "trap",
+     "trap": "TR25"
+    },
+    {
+     "label": "Loss of a high-pitched voice means recurrent laryngeal palsy",
+     "next": "k6_t2",
+     "kind": "trap",
+     "trap": "TR24"
+    },
+    {
+     "label": "A tense neck swelling is first treated by reintubation",
+     "next": "k6_t3",
+     "kind": "trap",
+     "trap": "TR26"
+    },
+    {
+     "label": "Hypocalcaemia is the commonest, though nerve injury is feared most",
+     "next": "k6_ok",
+     "kind": "correct"
+    }
+   ]
+  },
+  "k6_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Nerve injury is the complication everyone fears, so it feels like the common one too.",
+     "claims": []
+    },
+    {
+     "text": "But feared and frequent are different questions. Nerve palsy is serious, and it is not the commonest problem.",
+     "claims": [
+      "K11",
+      "K110"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k6",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so separate the feared complication from the frequent one.",
+    "claims": [
+     "K11"
+    ]
+   }
+  },
+  "k6_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The voice change is real, and the recurrent nerve is the famous one, so it sounds linked.",
+     "claims": []
+    },
+    {
+     "text": "But loss of high pitch and voice fatigue come from the cricothyroid muscle, supplied by a different branch. The recurrent nerve gives hoarseness.",
+     "claims": [
+      "K112",
+      "K110"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k6",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so link the symptom to the muscle, then to the nerve.",
+    "claims": [
+     "K112"
+    ]
+   }
+  },
+  "k6_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Reintubation is the airway reflex, so it feels like the first move for any noisy breathing.",
+     "claims": []
+    },
+    {
+     "text": "But a tense neck swelling is a clot to release first, at the bedside. Airway steps come after the wound is opened.",
+     "claims": [
+      "K113"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "k6",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the sequence matters: release the clot, then secure the airway.",
+    "claims": [
+     "K113"
+    ]
+   }
+  },
+  "k6_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right. Transient hypocalcaemia is the commonest complication, from parathyroid hypofunction.",
+     "claims": [
+      "K108",
+      "K130"
+     ]
+    },
+    {
+     "text": "Nerve injury is the one to fear most; it is not the most common complication.",
+     "claims": [
+      "K110",
+      "K11"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ },
+ "cards": [
+  {
+   "q": "What are the first tests for a solitary thyroid nodule, and what does FNAC answer?",
+   "a": "Serum TSH and neck ultrasound come first. Ultrasound-guided FNAC is the test of choice for the nature of the nodule; a scan follows only if TSH is low.",
+   "claims": [
+    "K4",
+    "K62",
+    "K55"
+   ],
+   "objective": "O1"
+  },
+  {
+   "q": "How is papillary carcinoma diagnosed, and how is follicular carcinoma diagnosed?",
+   "a": "Papillary: nuclear features (optically clear nuclei, grooves, pseudoinclusions). Follicular: capsular or vascular invasion on histology; FNAC cannot do it.",
+   "claims": [
+    "K28",
+    "K38",
+    "K65"
+   ],
+   "objective": "O2"
+  },
+  {
+   "q": "Which thyroid cancer is most common overall, and which rises in iodine deficiency?",
+   "a": "Papillary carcinoma overall, about 80–85%. Follicular carcinoma rises in relative share in iodine-deficient areas.",
+   "claims": [
+    "K2",
+    "K23"
+   ],
+   "objective": "O3"
+  },
+  {
+   "q": "Usual route and sites of spread of papillary versus follicular carcinoma?",
+   "a": "Papillary spreads by lymphatics to neck nodes. Follicular spreads by blood to lung and bone, with nodes uncommon.",
+   "claims": [
+    "K7",
+    "K40",
+    "K43"
+   ],
+   "objective": "O4"
+  },
+  {
+   "q": "Action for Bethesda II and for Bethesda IV?",
+   "a": "Bethesda II: clinical and ultrasound follow-up, surgery only for compression or cosmesis. Bethesda IV: diagnostic lobectomy or molecular testing.",
+   "claims": [
+    "K77",
+    "K79"
+   ],
+   "objective": "O5"
+  },
+  {
+   "q": "Extent of surgery for a low-risk DTC of 1–4 cm?",
+   "a": "Lobectomy or total thyroidectomy are both acceptable under ATA 2015; the PYQ key expected total thyroidectomy.",
+   "claims": [
+    "K83",
+    "K135"
+   ],
+   "objective": "O6"
+  },
+  {
+   "q": "When is radioiodine given, and what TSH is needed before a dose?",
+   "a": "Not routinely for ATA low-risk disease; recommended for high-risk and metastatic disease. A dose needs a high TSH, from withdrawal or recombinant TSH.",
+   "claims": [
+    "K91",
+    "K92",
+    "K93"
+   ],
+   "objective": "O7"
+  },
+  {
+   "q": "Which marker follows DTC after total thyroidectomy, and what must be checked with it?",
+   "a": "Serum thyroglobulin, read only with anti-thyroglobulin antibodies negative and alongside neck ultrasound. Calcitonin is the marker for medullary carcinoma.",
+   "claims": [
+    "K100",
+    "K101",
+    "K129"
+   ],
+   "objective": "O8"
+  },
+  {
+   "q": "Commonest complication after total thyroidectomy, and first step for a tense neck haematoma?",
+   "a": "Transient hypocalcaemia from parathyroid hypofunction. A tense neck haematoma: open the wound at the bedside first, then secure the airway.",
+   "claims": [
+    "K11",
+    "K113"
+   ],
+   "objective": "O9"
+  }
+ ],
+ "decision": "solo"
+}
