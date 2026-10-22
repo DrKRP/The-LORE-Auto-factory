@@ -5,3 +5,4 @@ Session usage limits hit repeatedly. To finish the 10 surgery journeys, segments
 
 ## 2026-10-22 round 1 evaluation (lean)
 Round 1 patch (S4, S6, S7) re-reviewed by the module judge only; round 0 misconceived sim reused.
+- 2026-10-22 round 1 composite 3.724 (review 3.94, 1 sim) vs round 0 3.646 (+0.078 < 0.1); published round 1 by override (round 0 S6 marked correct fluid/TXA steps as wrong).
