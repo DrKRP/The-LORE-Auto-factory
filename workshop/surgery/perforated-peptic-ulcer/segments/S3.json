@@ -1,0 +1,818 @@
+{
+ "segment": "S3",
+ "technique": "T2",
+ "entry": "p1",
+ "nodes": {
+  "p1": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 68-year-old woman takes prednisolone and naproxen for arthritis. Since last night she has had sudden, severe epigastric pain.",
+     "claims": []
+    },
+    {
+     "text": "Her abdomen is soft, with no board-like rigidity, but tender. Pulse 104. What do you do now?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Observe overnight; no rigidity, so no perforation",
+     "next": "p1_obs",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "Image now for free gas, before deciding",
+     "next": "p1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Discharge on analgesia; review in clinic",
+     "next": "p1_dis",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p1_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p1_obs": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Observing feels safe, because the rigidity you were taught to look for is missing.",
+     "claims": []
+    },
+    {
+     "text": "But steroids and NSAIDs can blunt the peritoneal signs in older and steroid-treated patients, so missing rigidity cannot clear her.",
+     "claims": [
+      "K15",
+      "K32"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, and that is the risk: a confident soft-belly read in a steroid patient is how perforations get missed.",
+    "claims": [
+     "K32"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p1",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p1_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p1_dis": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Discharge is tempting, because she is comfortable on analgesia and her belly is soft.",
+     "claims": []
+    },
+    {
+     "text": "But a soft belly in a steroid-treated patient is weak reassurance, because the signs can be blunted.",
+     "claims": [
+      "K32",
+      "K15"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure she could go home. That confident error is exactly what this case is built to catch.",
+    "claims": [
+     "K32"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p1",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p1_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask first what steroids and naproxen do to the peritoneal signs. Then ask what that does to a soft belly.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p1",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p1_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right: here is the reasoning. Her steroid and naproxen can blunt the peritoneal signs, so a soft belly does not settle it.",
+     "claims": [
+      "K15",
+      "K32"
+     ]
+    },
+    {
+     "text": "The classic rigid belly may never come in this patient, so imaging has to answer the question.",
+     "claims": [
+      "K32"
+     ]
+    },
+    {
+     "text": "Other risks to know: smoking, H. pylori, and crack cocaine in younger patients.",
+     "claims": [
+      "K13",
+      "K14",
+      "K16"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p2": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Which statement about peritoneal signs in older or steroid-treated patients is correct?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A soft belly can exclude perforation in older patients",
+     "next": "p2_soft",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "Rigidity usually appears early; its absence makes it unlikely",
+     "next": "p2_rig",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "Signs may be blunted; a soft belly does not exclude it",
+     "next": "p2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p2_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p2_soft": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because a soft belly looks reassuring on examination, and older patients often look well.",
+     "claims": []
+    },
+    {
+     "text": "But in older and steroid-treated patients the peritoneal signs are often blunted, so the examination is unreliable.",
+     "claims": [
+      "K32"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure a soft belly was enough. Confident errors on examination are the ones worth remembering.",
+    "claims": [
+     "K32"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p2",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p2_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p2_rig": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because rigidity is the sign you were taught to trust, so its absence feels decisive.",
+     "claims": []
+    },
+    {
+     "text": "But rigidity is blunted in these hosts, so its absence proves little, even though board-like rigidity is the classic picture.",
+     "claims": [
+      "K28",
+      "K32"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure rigidity had to be there. That certainty is exactly what the host factors undo.",
+    "claims": [
+     "K32"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p2",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p2_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p2_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which host factors dull the signs, then what a soft belly is worth in that host.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p2",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p2_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right: here is the reasoning. Steroids, NSAIDs and age can blunt the peritoneal signs, so the examination is weak evidence.",
+     "claims": [
+      "K15",
+      "K32"
+     ]
+    },
+    {
+     "text": "A soft belly therefore does not settle the question; the picture and the investigation have to.",
+     "claims": [
+      "K32"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p3": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A man was admitted at midnight with a perforated ulcer. The night nurse hands over: his pain score has fallen from 9 to 3, and he is asking for tea.",
+     "claims": []
+    },
+    {
+     "text": "What does that fall mean?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A lull: the irritant is diluted, and bacteria may follow",
+     "next": "p3_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Healing: the perforation is sealing as the pain eases",
+     "next": "p3_rec",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Settling: the acid has burned out, so the leak closes",
+     "next": "p3_set",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p3_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p3_rec": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because the pain has eased and he looks well, which reads like healing.",
+     "claims": []
+    },
+    {
+     "text": "But the easing is the reaction stage: exudate dilutes the irritant while bacteria keep spreading.",
+     "claims": [
+      "K20",
+      "K21"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure easing meant healing. That is the belief this case is built to catch.",
+    "claims": [
+     "K21"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p3_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p3_set": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because the acid no longer hurts as it did, which looks like a burnt-out process.",
+     "claims": []
+    },
+    {
+     "text": "But the acid is only the first stage: bacteria arrive over hours, and the quiet period is when they gain ground.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure the leak was closing. Read the quiet period as a stage, not as an end.",
+    "claims": [
+     "K20"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p3_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p3_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what the fall in pain is made of: the acid itself, or the fluid that now dilutes it?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p3_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p3_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right: here is the reasoning. Chemical peritonitis comes first, then the reaction stage, then bacterial peritonitis.",
+     "claims": [
+      "K20"
+     ]
+    },
+    {
+     "text": "The fall in pain is dilution, not healing. The reaction stage can mislead the clinician into thinking he is improving.",
+     "claims": [
+      "K21"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p4": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Earlier he writhed on the trolley, rolling and pacing with colic-type pain. Now he lies motionless, knees drawn up, and winces when the bed is jolted.",
+     "claims": []
+    },
+    {
+     "text": "What does the change mean?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Colic settling: colic patients lie quietly once it passes",
+     "next": "p4_colic",
+     "kind": "trap",
+     "trap": "TR18"
+    },
+    {
+     "label": "Peritonitis: movement now jars the inflamed peritoneum",
+     "next": "p4_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p4_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p4_colic": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because colic does pass, and a quiet patient looks like one who is settling.",
+     "claims": []
+    },
+    {
+     "text": "But lying still and wincing at a jolt is the sign of peritonitis: movement worsens the peritoneal pain, which is why he lies still.",
+     "claims": [
+      "K27",
+      "K4"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure colic had settled. Stillness with pain on jolting is the sign to read as peritonitis, not as calm.",
+    "claims": [
+     "K27"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p4",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p4_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p4_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask why he has stopped moving, and what movement does to an inflamed peritoneum.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p4",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p4_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p4_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right: here is the reasoning. Movement worsens peritoneal pain, so the patient lies still and guards.",
+     "claims": [
+      "K27"
+     ]
+    },
+    {
+     "text": "Board-like rigidity and sudden severe pain are the classic picture, so the stillness fits a perforation, not a settling colic.",
+     "claims": [
+      "K4",
+      "K28"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p5": {
+   "role": "probe",
+   "objectives": [
+    "O12"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 35-year-old man has a 40 percent scald burn and is in intensive care. On day 3 a perforated duodenal ulcer is found.",
+     "claims": []
+    },
+    {
+     "text": "Which stress ulcer is this?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Curling's ulcer, from the burn",
+     "next": "p5_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Cushing's ulcer, from the head injury",
+     "next": "p5_cush",
+     "kind": "trap",
+     "trap": "TR15"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p5_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p5_cush": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because the two names are easy to swap, and both are stress ulcers.",
+     "claims": []
+    },
+    {
+     "text": "But Cushing's ulcer is tied to the brain: raised intracranial pressure after head injury, not a burn.",
+     "claims": [
+      "K17"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure of the name, but the pair is swapped in memory. Anchor each eponym to its trigger.",
+    "claims": [
+     "K17"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p5",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p5_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p5_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Anchor each name to its trigger. Which of the two triggers is the burn?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p5",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p5_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p5_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right: here is the reasoning. Burns give Curling's ulcer; head injury or raised intracranial pressure gives Cushing's.",
+     "claims": [
+      "K17"
+     ]
+    },
+    {
+     "text": "These stress ulcers can perforate, so tying each name to its trigger is what stops the swap.",
+     "claims": [
+      "K17"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p6",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p6": {
+   "role": "probe",
+   "objectives": [
+    "O12",
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 40-year-old man has a perforated ulcer. Fluid has tracked down the right paracolic gutter into the right iliac fossa.",
+     "claims": []
+    },
+    {
+     "text": "His right-sided pain looks like appendicitis. Which eponym names this?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Kehr's sign, the shoulder-tip sign",
+     "next": "p6_kehr",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p6_hint",
+     "kind": "help"
+    },
+    {
+     "label": "Valentino's syndrome, the tracked-fluid mimic",
+     "next": "p6_ok",
+     "kind": "correct"
+    }
+   ]
+  },
+  "p6_kehr": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because Kehr's is the eponym most often attached to shoulder-tip pain in the exam.",
+     "claims": []
+    },
+    {
+     "text": "But Kehr's sign belongs to splenic rupture. Shoulder-tip pain in perforation is diaphragm irritation, and the fluid track has its own eponym.",
+     "claims": [
+      "K82",
+      "K26"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure of a shoulder eponym, but that sign belongs to the spleen. Tie each eponym to the condition that owns it.",
+    "claims": [
+     "K82"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p6",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p6_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p6_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which eponym describes fluid travelling down the gutter, rather than a referred pain.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p6",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p6_ok",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p6_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Right: here is the reasoning. Gastric fluid tracking down the right paracolic gutter mimics appendicitis: Valentino's syndrome.",
+     "claims": [
+      "K22",
+      "K76"
+     ]
+    },
+    {
+     "text": "Shoulder-tip pain is a different thing, phrenic referral from the diaphragm, and it is not the eponym here.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ },
+ "decision": "solo"
+}
