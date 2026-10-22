@@ -1,0 +1,1021 @@
+{
+  "segment": "S2",
+  "technique": "T7",
+  "entry": "pap_ask",
+  "nodes": {
+    "pap_ask": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Papillary and follicular carcinoma are the two cancers this module keeps contrasting. Start with papillary.",
+          "claims": []
+        },
+        {
+          "text": "A pathologist calls a lesion papillary carcinoma. Which feature is the basis of that call?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Papillae with fibrovascular cores, seen at low power",
+          "next": "pap_t5a",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Psammoma bodies, the concentric calcifications seen",
+          "next": "pap_t5b",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Optically clear nuclei with grooves and pseudoinclusions",
+          "next": "pap_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pap_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "pap_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "The name describes the shape of the groups. Ask what the pathologist checks inside each cell at high power.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "pap_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pap_t5a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Papillae are real, and the name comes from them, so they feel diagnostic.",
+          "claims": []
+        },
+        {
+          "text": "But papillae are the architecture. The diagnosis rests on something inside the cell, not on the shape of the groups.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this one matters: architecture is the easiest feature to see, which is why it misleads.",
+        "claims": [
+          "K27"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pap_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pap_t5b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Psammoma bodies are a real papillary feature, so they tempt you as a sign that settles the call.",
+          "claims": []
+        },
+        {
+          "text": "But they are often present and only supportive. They also occur in serous ovarian tumours, meningioma and mesothelioma.",
+          "claims": [
+            "K5",
+            "K139"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pap_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pap_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Papillary carcinoma is diagnosed on its nuclei: optically clear, ground-glass nuclei with grooves and pseudoinclusions.",
+          "claims": [
+            "K28"
+          ]
+        },
+        {
+          "text": "The papillae are the architecture the name suggests, but the diagnosis rests on the nuclear features.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fol_ask",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fol_ask": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now the other side of the contrast. A follicular-pattern nodule has no papillae, and its nuclei look normal. FNAC reports Bethesda IV.",
+          "claims": []
+        },
+        {
+          "text": "The surgeon wants to know whether it is carcinoma. Which test settles that?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Repeat FNAC with a finer needle, more cells",
+          "next": "fol_t4a",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Lobe histology for capsular or vascular invasion",
+          "next": "fol_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Frozen section of the lobe during surgery",
+          "next": "fol_t4b",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fol_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fol_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which tissue shows a whole capsule, and whether the pathologist can see a capsule being crossed on a slide of cells.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "fol_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fol_t4a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. More material feels like a better answer, so a finer needle tempts you.",
+          "claims": []
+        },
+        {
+          "text": "But follicular lesions look the same on cytology whatever the needle, because invasion is a tissue feature that cytology cannot show.",
+          "claims": [
+            "K65"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is the key idea: cytology reports the cells, and the diagnosis needs the tissue.",
+        "claims": [
+          "K65"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fol_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fol_t4b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. A frozen section feels like a quick answer during surgery, so it tempts you.",
+          "claims": []
+        },
+        {
+          "text": "But frozen section is of little value for follicular lesions, for the same reason: invasion is judged on histology.",
+          "claims": [
+            "K66",
+            "K65"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fol_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fol_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Follicular carcinoma is diagnosed only by capsular or vascular invasion, which needs histology. Cytology alone cannot make it.",
+          "claims": [
+            "K38",
+            "K6"
+          ]
+        },
+        {
+          "text": "So the two cancers are called by different tests: papillary on nuclei at FNAC, follicular on invasion at histology.",
+          "claims": [
+            "K5",
+            "K6"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "side_ask",
+          "kind": "continue"
+        }
+      ]
+    },
+    "side_ask": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Another lesion: no papillae at all, but the nuclei are ground-glass with grooves.",
+          "claims": [
+            "K28"
+          ]
+        },
+        {
+          "text": "Which label does the nuclear picture support?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Follicular carcinoma, since there are no papillae",
+          "next": "side_t5",
+          "kind": "trap",
+          "trap": "TR5"
+        },
+        {
+          "label": "Papillary carcinoma, follicular variant, for its nuclei",
+          "next": "side_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Follicular adenoma, since the lesion is encapsulated",
+          "next": "side_t6",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "side_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "side_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether the papillary label comes from the architecture or from the cell, and then which feature the nuclei are telling you about.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "side_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "side_t5": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Missing papillae point you to the follicular pattern, and a follicular pattern feels like a follicular cancer.",
+          "claims": []
+        },
+        {
+          "text": "But the papillary label is set by the cell. Missing papillae do not rule it out when the nuclei are papillary.",
+          "claims": [
+            "K27",
+            "K33"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note it: the follicular variant has the follicular pattern but papillary nuclei.",
+        "claims": [
+          "K33"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "side_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "side_t6": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. A capsule is what makes many follicular tumours look benign, so it tempts you to call this an adenoma.",
+          "claims": []
+        },
+        {
+          "text": "But the nuclei decide the family here, and a capsule does not. A follicular-pattern lesion with papillary nuclei is classed with the papillary carcinomas.",
+          "claims": [
+            "K33"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so remember that encapsulation does not settle the label; the nuclei and the invasion do.",
+        "claims": [
+          "K33",
+          "K38"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "side_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "side_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. The follicular variant of papillary carcinoma has follicular architecture but papillary nuclei, and it is classed as papillary carcinoma.",
+          "claims": [
+            "K33"
+          ]
+        },
+        {
+          "text": "Architecture points one way and the nuclei the other. The nuclei decide.",
+          "claims": [
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "common_ask",
+          "kind": "continue"
+        }
+      ]
+    },
+    "common_ask": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Ignore region and age for a moment. Across a general series of differentiated thyroid cancers, which is the commonest?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Papillary carcinoma",
+          "next": "common_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Follicular carcinoma",
+          "next": "common_t3",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "common_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "common_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about the whole series of thyroid cancers, all ages and all regions, and about share rather than how hard the diagnosis is.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "common_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "common_t3": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Follicular carcinoma tempts you because its invasion rules are the ones exam stems love to test.",
+          "claims": []
+        },
+        {
+          "text": "But how hard a cancer is to diagnose is a separate question from how often it occurs. Check the share in a general series.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "common_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "common_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Papillary carcinoma is about 80 to 85 per cent of thyroid cancers, which is why it is the commonest overall.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "Keep that in mind: the regional question next is about shares, not totals.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "iodine_ask",
+          "kind": "continue"
+        }
+      ]
+    },
+    "iodine_ask": {
+      "role": "probe",
+      "objectives": [
+        "O3"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Compare two places. In an iodine-sufficient city, papillary carcinoma makes up the larger share of cancers.",
+          "claims": [
+            "K23"
+          ]
+        },
+        {
+          "text": "In an iodine-deficient hill district, which cancer's share rises relative to the city?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Follicular now the commonest cancer in absolute terms",
+          "next": "iodine_t3",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Papillary still commonest, as it is everywhere",
+          "next": "iodine_partial",
+          "kind": "partial"
+        },
+        {
+          "label": "Follicular, a larger share than in the city",
+          "next": "iodine_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "iodine_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "iodine_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Compare proportions, not totals. Ask which cancer's proportion goes up when iodine is scarce.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "iodine_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "iodine_t3": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. The iodine clue tempts you to jump to the top spot, as if the deficiency cancer took over the whole list.",
+          "claims": []
+        },
+        {
+          "text": "But the question is about a region's share, not the absolute top spot. Read whether the stem asks for totals or proportions.",
+          "claims": [
+            "K121"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "iodine_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "iodine_partial": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That is only part of the picture. Papillary carcinoma does stay the commonest overall, but the stem asks what changes with iodine.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "Look at what happens to each cancer's share when iodine is scarce.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "iodine_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "iodine_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Iodine-sufficient areas have a higher proportion of papillary carcinoma, while in iodine-deficient areas follicular carcinoma is relatively the most common.",
+          "claims": [
+            "K23",
+            "K121"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "niftp_ask",
+          "kind": "continue"
+        }
+      ]
+    },
+    "niftp_ask": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "An encapsulated follicular-pattern tumour has papillary-like nuclei and no capsular or vascular invasion.",
+          "claims": []
+        },
+        {
+          "text": "Which name does current classification give it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Encapsulated follicular variant of papillary carcinoma",
+          "next": "niftp_t6a",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "NIFTP, a non-malignant follicular neoplasm",
+          "next": "niftp_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Minimally invasive follicular carcinoma",
+          "next": "niftp_t6b",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "niftp_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "niftp_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "In this family, what turns a lesion malignant? Then ask whether this lesion has it.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "niftp_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "niftp_t6a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Papillary-like nuclei tempt you, and older exam keys counted any encapsulated follicular variant as cancer.",
+          "claims": []
+        },
+        {
+          "text": "But current classification no longer calls the non-invasive form a carcinoma. Check the invasion first.",
+          "claims": [
+            "K138",
+            "K16"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so this is a key change: the PYQ key and the current name differ here.",
+        "claims": [
+          "K138"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "niftp_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "niftp_t6b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Minimal invasion sounds like a small cancer, which tempts you when a capsule is present.",
+          "claims": []
+        },
+        {
+          "text": "But minimal invasion means capsular invasion, and this lesion has none. Without invasion, the label changes.",
+          "claims": [
+            "K39",
+            "K16"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the word invasion: it is the feature that decides malignancy in this family.",
+        "claims": [
+          "K39"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "niftp_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "niftp_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. NIFTP is a non-invasive follicular neoplasm with papillary-like nuclei, reclassified in 2016 as non-malignant.",
+          "claims": [
+            "K16"
+          ]
+        },
+        {
+          "text": "The invasion check is what separates it from a carcinoma.",
+          "claims": [
+            "K39"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "niftp_vig",
+          "kind": "continue"
+        }
+      ]
+    },
+    "niftp_vig": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A lobectomy specimen: encapsulated, follicular pattern, papillary-like nuclei, and no capsular or vascular invasion.",
+          "claims": []
+        },
+        {
+          "text": "What is the classification, and what does the patient need next?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Encapsulated follicular variant of PTC, so completion surgery",
+          "next": "vig_t6",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "Frozen section fits follicular carcinoma, so total thyroidectomy",
+          "next": "vig_t4",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "NIFTP, not a cancer, so lobectomy alone is enough",
+          "next": "vig_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "vig_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "vig_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "The specimen shows no invasion. Ask what that does to the label, and then what it does to the extent of surgery.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "niftp_vig",
+          "kind": "retry"
+        }
+      ]
+    },
+    "vig_t6": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Papillary-like nuclei and an encapsulated look tempt you towards the older key, which called that pattern cancer.",
+          "claims": []
+        },
+        {
+          "text": "But without invasion the current classification does not call it a carcinoma, so no completion operation follows from the label alone.",
+          "claims": [
+            "K138",
+            "K16"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "niftp_vig",
+          "kind": "retry"
+        }
+      ]
+    },
+    "vig_t4": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. A frozen section showing a follicular pattern sounds like a quick diagnosis at surgery, so it tempts you.",
+          "claims": []
+        },
+        {
+          "text": "But frozen section is of little value for follicular lesions, and it cannot show invasion reliably.",
+          "claims": [
+            "K66"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "niftp_vig",
+          "kind": "retry"
+        }
+      ]
+    },
+    "vig_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. Without invasion, the lesion is not a carcinoma, so it does not need a completion operation.",
+          "claims": [
+            "K16",
+            "K138"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "ftest_ask",
+          "kind": "continue"
+        }
+      ]
+    },
+    "ftest_ask": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 40-year-old woman has a solitary nodule. Her TSH is normal, and the ultrasound looks suspicious.",
+          "claims": []
+        },
+        {
+          "text": "Which test now tells you what the nodule is?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Ultrasound-guided FNAC of the nodule",
+          "next": "ftest_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Radionuclide scan, to see whether it is hot",
+          "next": "ftest_t1a",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Serum thyroglobulin, to check for cancer",
+          "next": "ftest_t1b",
+          "kind": "trap",
+          "trap": "TR1"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "ftest_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "ftest_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the work-up has already done, and what a scan can tell you about the nodule's function. Then ask which test looks at the nodule's cells.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "ftest_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ftest_t1a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. A scan feels thorough and quick, so it tempts you as the first step for a nodule.",
+          "claims": []
+        },
+        {
+          "text": "But a scan sorts function, and it is done only if TSH is low. With a normal TSH it does not answer what the nodule is.",
+          "claims": [
+            "K4",
+            "K55"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so note the sequence: TSH, then the scan only if low, and cytology for the nature.",
+        "claims": [
+          "K4",
+          "K134"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ftest_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ftest_t1b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Thyroglobulin is a familiar cancer marker, so it tempts you to test for cancer early.",
+          "claims": []
+        },
+        {
+          "text": "But routine thyroglobulin is not useful for diagnosing a nodule before surgery. It is a follow-up marker once cancer is known.",
+          "claims": [
+            "K69",
+            "K9"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "ftest_ask",
+          "kind": "retry"
+        }
+      ]
+    },
+    "ftest_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Right. FNAC is the investigation of choice for the nature of a nodule, once TSH and ultrasound have set the path.",
+          "claims": [
+            "K4",
+            "K134"
+          ]
+        },
+        {
+          "text": "Exam keys once expected FNAC as the first test. Current practice starts with TSH and ultrasound, and FNAC answers the nature.",
+          "claims": [
+            "K134"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
