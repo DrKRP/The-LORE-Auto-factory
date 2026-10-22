@@ -1,0 +1,486 @@
+{
+  "segment": "S4",
+  "technique": "T5",
+  "entry": "d0",
+  "nodes": {
+    "d0": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Before any worked case: a 2 cm nodule, no pressure symptoms, and the FNAC report reads Bethesda II.", "claims": []},
+        {"text": "What does the category tell you to do?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Clinical review and ultrasound follow-up at intervals", "next": "d0_ok", "kind": "correct"},
+        {"label": "Hemithyroidectomy, to get a histology diagnosis now", "next": "d0_t1", "kind": "trap", "trap": "TR21"},
+        {"label": "Total thyroidectomy, since cytology alone is never enough", "next": "d0_t2", "kind": "trap", "trap": "TR21"},
+        {"label": "Not sure, give me a hint", "next": "d0_h", "kind": "help"}
+      ]
+    },
+    "d0_h": {
+      "role": "hint",
+      "say": [{"text": "Ask what a benign category carries in risk, and what it asks you to do before anyone talks about surgery.", "claims": []}],
+      "choices": [{"label": "Try again", "next": "d0", "kind": "retry"}]
+    },
+    "d0_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Wanting tissue before deciding tempts, because a surgeon always wants a histology answer.", "claims": []},
+        {"text": "But a Bethesda II report is benign with the lowest risk of malignancy, so it does not call for an operation to get tissue.", "claims": ["K63", "K64"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the category before the procedure: the report's name decides the action here.", "claims": ["K77"]},
+      "choices": [
+        {"label": "Try again", "next": "d0", "kind": "retry"},
+        {"label": "Walk me through the worked case", "next": "w1", "kind": "agency"}
+      ]
+    },
+    "d0_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. A cytology report feels unreliable, so it tempts you to operate on anything short of a clear cancer call.", "claims": []},
+        {"text": "But Bethesda II is the benign category, and its action is follow-up, with surgery kept for specific reasons only.", "claims": ["K64", "K77"]}
+      ],
+      "sure_note": {"text": "You were sure, so notice that a benign category sets a follow-up action, not a surgical one.", "claims": ["K77"]},
+      "choices": [
+        {"label": "Try again", "next": "d0", "kind": "retry"},
+        {"label": "Walk me through the worked case", "next": "w1", "kind": "agency"}
+      ]
+    },
+    "d0_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Bethesda II is benign with the lowest risk of malignancy, so the action is follow-up rather than surgery.", "claims": ["K63", "K64", "K77"]}
+      ],
+      "choices": [
+        {"label": "Skip the worked case", "next": "f1", "kind": "skip"},
+        {"label": "Walk me through the worked case", "next": "w1", "kind": "agency"}
+      ]
+    },
+    "w1": {
+      "role": "case",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Worked case. A 46-year-old woman has a painless 2 cm nodule. Her TSH is normal and the ultrasound shows no high-risk features.", "claims": []},
+        {"text": "FNAC reports Bethesda II. Read the category first: it sets the action, and the size does not.", "claims": []}
+      ],
+      "choices": [{"label": "Next", "next": "w2", "kind": "continue"}]
+    },
+    "w2": {
+      "role": "explain",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Category II is benign, with the lowest risk of malignancy. Its action is clinical and ultrasound follow-up.", "claims": ["K63", "K64"]},
+        {"text": "Surgery for a benign report is kept for compressive symptoms or cosmesis, not for size.", "claims": ["K77"]}
+      ],
+      "choices": [{"label": "Next", "next": "f1", "kind": "continue"}]
+    },
+    "f1": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Next patient, same category. Bethesda II, a 3 cm nodule, no pressure symptoms and no cosmetic concern.", "claims": []},
+        {"text": "Step one is done: the category is II. What is step two?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Keep watch with ultrasound and clinical review", "next": "f1_ok", "kind": "correct"},
+        {"label": "Hemithyroidectomy, since a 3 cm nodule is large", "next": "f1_t1", "kind": "trap", "trap": "TR21"},
+        {"label": "Total thyroidectomy, to be sure it is not cancer", "next": "f1_t2", "kind": "trap", "trap": "TR21"},
+        {"label": "Not sure, give me a hint", "next": "f1_h", "kind": "help"}
+      ]
+    },
+    "f1_h": {
+      "role": "hint",
+      "say": [{"text": "Ask what the category says about risk, then whether anything in this stem would justify an operation.", "claims": []}],
+      "choices": [{"label": "Try again", "next": "f1", "kind": "retry"}]
+    },
+    "f1_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. A 3 cm lump looks big enough to remove, so size tempts you toward surgery.", "claims": []},
+        {"text": "But size alone does not trigger surgery for a benign report. Compression or cosmesis does.", "claims": ["K77"]}
+      ],
+      "sure_note": {"text": "You were sure, so check what the category sets before you look at size.", "claims": ["K77"]},
+      "choices": [
+        {"label": "Try again", "next": "f1", "kind": "retry"},
+        {"label": "Show me why", "next": "x1", "kind": "agency"}
+      ]
+    },
+    "f1_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Wanting certainty tempts, since cancer is the fear behind every neck lump.", "claims": []},
+        {"text": "But a Bethesda II category already carries the lowest risk of malignancy, so an operation is not the route to certainty here.", "claims": ["K63", "K64"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the risk the category carries before you choose a surgery to settle doubt.", "claims": ["K64"]},
+      "choices": [
+        {"label": "Try again", "next": "f1", "kind": "retry"},
+        {"label": "Show me why", "next": "x1", "kind": "agency"}
+      ]
+    },
+    "f1_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. A benign category with no compression or cosmesis is followed clinically and with ultrasound.", "claims": ["K77"]},
+        {"text": "The size of the nodule did not change the action.", "claims": ["K77"]}
+      ],
+      "choices": [{"label": "Next", "next": "f2", "kind": "continue"}]
+    },
+    "x1": {
+      "role": "explain",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Ask the category first, then the exceptions. Surgery for a benign report waits for compressive symptoms or cosmesis.", "claims": ["K77"]},
+        {"text": "Size, on its own, is not the trigger.", "claims": ["K77"]}
+      ],
+      "choices": [{"label": "Try again", "next": "f1", "kind": "retry"}]
+    },
+    "f2": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Bethesda IV is a follicular neoplasm. Step one is done: it is not a benign call, and it is not yet a cancer call.", "claims": ["K63"]},
+        {"text": "Step two, your action?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Diagnostic lobectomy, or molecular testing first", "next": "f2_ok", "kind": "correct"},
+        {"label": "Cancer surgery, since IV is suspicious for malignancy", "next": "f2_t1", "kind": "trap", "trap": "TR22"},
+        {"label": "Total thyroidectomy, as for a suspicious report", "next": "f2_t2", "kind": "trap", "trap": "TR22"},
+        {"label": "Not sure, give me a hint", "next": "f2_h", "kind": "help"}
+      ]
+    },
+    "f2_h": {
+      "role": "hint",
+      "say": [{"text": "Name the category first. What does a follicular neoplasm need before anyone plans a cancer operation?", "claims": []}],
+      "choices": [{"label": "Try again", "next": "f2", "kind": "retry"}]
+    },
+    "f2_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. IV sits next to V, and both sound like a warning about cancer, so the cancer operation tempts.", "claims": []},
+        {"text": "But IV is a follicular neoplasm, and it needs diagnosis before a cancer operation is planned.", "claims": ["K63", "K79"]}
+      ],
+      "sure_note": {"text": "You were sure, so re-read the name: IV and V are different categories with different actions.", "claims": ["K63"]},
+      "choices": [
+        {"label": "Try again", "next": "f2", "kind": "retry"},
+        {"label": "Show me why", "next": "x2", "kind": "agency"}
+      ]
+    },
+    "f2_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. A suspicious-sounding report tempts you to treat every category that looks similar the same way.", "claims": []},
+        {"text": "Each Bethesda category has its own action, and IV is managed separately from V.", "claims": ["K63", "K80"]}
+      ],
+      "sure_note": {"text": "You were sure, so check whether the action in this option belongs to category V, not IV.", "claims": ["K80"]},
+      "choices": [
+        {"label": "Try again", "next": "f2", "kind": "retry"},
+        {"label": "Show me why", "next": "x2", "kind": "agency"}
+      ]
+    },
+    "x2": {
+      "role": "explain",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Category IV is a follicular neoplasm. Diagnose it first, by diagnostic lobectomy or molecular testing.", "claims": ["K79", "K67"]},
+        {"text": "Category V is suspicious for malignancy and is managed as thyroid cancer. Two names, two actions.", "claims": ["K80"]}
+      ],
+      "choices": [{"label": "Try again", "next": "f2", "kind": "retry"}]
+    },
+    "f2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. A follicular neoplasm needs a diagnosis before any cancer operation, so you use a diagnostic lobectomy or molecular testing.", "claims": ["K79", "K67"]}
+      ],
+      "choices": [{"label": "Next", "next": "f3", "kind": "continue"}]
+    },
+    "f3": {
+      "role": "probe",
+      "objectives": ["O5"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Bethesda V. Give the name and the action together.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Suspicious for malignancy: cancer surgery", "next": "f3_ok", "kind": "correct"},
+        {"label": "Follicular neoplasm: diagnostic lobectomy", "next": "f3_t1", "kind": "trap", "trap": "TR22"},
+        {"label": "Suspicious for malignancy: diagnostic lobectomy", "next": "f3_t2", "kind": "trap", "trap": "TR22"},
+        {"label": "Not sure, give me a hint", "next": "f3_h", "kind": "help"}
+      ]
+    },
+    "f3_h": {
+      "role": "hint",
+      "say": [{"text": "Give the word for V first. Then ask what a report that says likely malignancy calls for.", "claims": []}],
+      "choices": [{"label": "Try again", "next": "f3", "kind": "retry"}]
+    },
+    "f3_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Numbers IV and V sit side by side, so a name slides from one onto the other.", "claims": []},
+        {"text": "The follicular neoplasm name belongs to category IV, and V has its own name and action.", "claims": ["K63", "K79"]}
+      ],
+      "sure_note": {"text": "You were sure, so pair each number with its word before you pair the word with an action.", "claims": ["K63"]},
+      "choices": [
+        {"label": "Try again", "next": "f3", "kind": "retry"},
+        {"label": "Show me why", "next": "x3", "kind": "agency"}
+      ]
+    },
+    "f3_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. The name is right, but the action tempts you to reuse the diagnostic step for everything near a cancer report.", "claims": []},
+        {"text": "The diagnostic lobectomy is the action for category IV, while V is managed as cancer.", "claims": ["K79", "K80"]}
+      ],
+      "sure_note": {"text": "You were sure, so check that the action belongs to the same category as the name.", "claims": ["K80"]},
+      "choices": [
+        {"label": "Try again", "next": "f3", "kind": "retry"},
+        {"label": "Show me why", "next": "x3", "kind": "agency"}
+      ]
+    },
+    "x3": {
+      "role": "explain",
+      "objectives": ["O5"],
+      "say": [
+        {"text": "Each category has a name and an action. Learn them as pairs, not as numbers alone.", "claims": ["K63"]},
+        {"text": "III and IV go to diagnosis first. V is suspicious for malignancy and is treated as cancer.", "claims": ["K78", "K79", "K80"]}
+      ],
+      "choices": [{"label": "Try again", "next": "f3", "kind": "retry"}]
+    },
+    "f3_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Suspicious for malignancy is category V, and V is treated as thyroid cancer.", "claims": ["K80"]},
+        {"text": "The diagnostic steps belong to III and IV, not V.", "claims": ["K78", "K79"]}
+      ],
+      "choices": [{"label": "Next", "next": "t2", "kind": "continue"}]
+    },
+    "t2": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Old exam papers and current guidance differ on the extent of surgery for differentiated thyroid cancer.", "claims": []},
+        {"text": "Which pairing is right?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Total thyroidectomy expected; lobectomy accepted if low risk", "next": "t2_ok", "kind": "correct"},
+        {"label": "Lobectomy expected; total thyroidectomy now routine for all", "next": "t2_t1", "kind": "trap", "trap": "TR8"},
+        {"label": "Total thyroidectomy mandatory for every DTC, whatever the risk", "next": "t2_t2", "kind": "trap", "trap": "TR8"},
+        {"label": "Not sure, give me a hint", "next": "t2_h", "kind": "help"}
+      ]
+    },
+    "t2_h": {
+      "role": "hint",
+      "say": [{"text": "Read each option as two halves: the old expected answer, then the current accepted one. Which half holds the lobectomy, and for which risk?", "claims": []}],
+      "choices": [{"label": "Try again", "next": "t2", "kind": "retry"}]
+    },
+    "t2_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Lobectomy sounds like the newer, gentler answer, so the two keys seem to have swapped.", "claims": []},
+        {"text": "They have not swapped. The old key expected total thyroidectomy, and current guidance chooses by risk.", "claims": ["K131", "K135"]}
+      ],
+      "sure_note": {"text": "You were sure, so check which key the exam used and which the current guidance uses, not which sounds newer.", "claims": ["K135"]},
+      "choices": [
+        {"label": "Try again", "next": "t2", "kind": "retry"},
+        {"label": "Show me why", "next": "x4", "kind": "agency"}
+      ]
+    },
+    "t2_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Total thyroidectomy is the classic answer, so it tempts you to make it universal.", "claims": []},
+        {"text": "Current guidance picks the operation by risk and size, so a low-risk unifocal tumour of 1 to 4 cm may have a lobectomy.", "claims": ["K83", "K135"]}
+      ],
+      "sure_note": {"text": "You were sure, so check whether the classic answer is still the universal one.", "claims": ["K135"]},
+      "choices": [
+        {"label": "Try again", "next": "t2", "kind": "retry"},
+        {"label": "Show me why", "next": "x4", "kind": "agency"}
+      ]
+    },
+    "x4": {
+      "role": "explain",
+      "objectives": ["O6"],
+      "say": [
+        {"text": "Old papers keyed total thyroidectomy for DTC. Current guidance chooses by risk and size.", "claims": ["K131", "K135"]},
+        {"text": "Lobectomy is accepted for low-risk unifocal tumours of 1 to 4 cm.", "claims": ["K83"]}
+      ],
+      "choices": [{"label": "Try again", "next": "t2", "kind": "retry"}]
+    },
+    "t2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. PYQs expected total thyroidectomy, while current ATA guidance accepts lobectomy for low-risk unifocal tumours of 1 to 4 cm.", "claims": ["K135", "K83"]}
+      ],
+      "choices": [{"label": "Next", "next": "t1", "kind": "continue"}]
+    },
+    "t1": {
+      "role": "probe",
+      "objectives": ["O6"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 5 cm unifocal papillary cancer, node-negative, with no radiation history.", "claims": []},
+        {"text": "Which operation fits current guidance?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Total thyroidectomy, as tumours above 4 cm are indicated", "next": "t1_ok", "kind": "correct"},
+        {"label": "Lobectomy, since a 5 cm tumour is still unifocal and contained", "next": "t1_t1", "kind": "trap", "trap": "TR8"},
+        {"label": "Lobectomy or surveillance, since 5 cm is still low risk", "next": "t1_t2", "kind": "trap", "trap": "TR8"},
+        {"label": "Not sure, give me a hint", "next": "t1_h", "kind": "help"}
+      ]
+    },
+    "t1_h": {
+      "role": "hint",
+      "say": [{"text": "Check the size first. Then ask whether a lobectomy is still allowed at that size, and whether surveillance is ever the answer for a tumour this large.", "claims": []}],
+      "choices": [{"label": "Try again", "next": "t1", "kind": "retry"}]
+    },
+    "t1_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Unifocal and contained sounds reassuring, so it tempts you to keep the lobe.", "claims": []},
+        {"text": "But size is its own indication. Tumours above 4 cm are listed for total thyroidectomy.", "claims": ["K82"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the size band before you use the unifocal label as a reason to keep the lobe.", "claims": ["K82"]},
+      "choices": [
+        {"label": "Try again", "next": "t1", "kind": "retry"},
+        {"label": "Show me why", "next": "x5", "kind": "agency"}
+      ]
+    },
+    "t1_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Low risk tempts you to give surveillance or a lobectomy to any low-risk cancer.", "claims": []},
+        {"text": "Surveillance is for microcarcinoma under 1 cm, and a 5 cm tumour is above the lobectomy band.", "claims": ["K84", "K83"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the size band that surveillance and lobectomy each apply to.", "claims": ["K84"]},
+      "choices": [
+        {"label": "Try again", "next": "t1", "kind": "retry"},
+        {"label": "Show me why", "next": "x5", "kind": "agency"}
+      ]
+    },
+    "x5": {
+      "role": "explain",
+      "objectives": ["O6"],
+      "say": [
+        {"text": "Size is its own rule. Above 4 cm the operation is total thyroidectomy.", "claims": ["K82"]},
+        {"text": "Lobectomy is kept for low-risk tumours of 1 to 4 cm. Surveillance is for microcarcinoma under 1 cm.", "claims": ["K83", "K84"]}
+      ],
+      "choices": [{"label": "Try again", "next": "t1", "kind": "retry"}]
+    },
+    "t1_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. At 5 cm, size alone calls for total thyroidectomy. The lobectomy is for the low-risk band of 1 to 4 cm.", "claims": ["K82", "K83"]}
+      ],
+      "choices": [{"label": "Next", "next": "h1", "kind": "continue"}]
+    },
+    "h1": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 3 cm nodule with a suppressed TSH, and the scan shows a hot nodule. The patient is thyrotoxic.", "claims": []},
+        {"text": "What is the next step before treatment?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Treat it as a hot nodule once thyrotoxicosis is controlled", "next": "h1_ok", "kind": "correct"},
+        {"label": "Ultrasound-guided FNAC first, before any treatment begins", "next": "h1_t1", "kind": "trap", "trap": "TR1"},
+        {"label": "Repeat the scan, then FNAC if it stays hot", "next": "h1_t2", "kind": "trap", "trap": "TR1"},
+        {"label": "Not sure, give me a hint", "next": "h1_h", "kind": "help"}
+      ]
+    },
+    "h1_h": {
+      "role": "hint",
+      "say": [{"text": "Ask what a hot nodule is usually like, and what the scan has already told you before a needle goes in.", "claims": []}],
+      "choices": [{"label": "Try again", "next": "h1", "kind": "retry"}]
+    },
+    "h1_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. FNAC tempts because it is the test for the nature of a nodule, so people reach for it first.", "claims": []},
+        {"text": "But a hot nodule is rarely malignant and usually needs no FNAC. The scan has already settled its function.", "claims": ["K56", "K62"]}
+      ],
+      "sure_note": {"text": "You were sure, so ask what the scan already answered before you add a needle.", "claims": ["K56"]},
+      "choices": [
+        {"label": "Try again", "next": "h1", "kind": "retry"},
+        {"label": "Show me why", "next": "x6", "kind": "agency"}
+      ]
+    },
+    "h1_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. A repeat scan sounds careful, so it tempts you to add a needle as a second check.", "claims": []},
+        {"text": "But a second scan does not change the plan for a hot nodule, and FNAC is not needed for it.", "claims": ["K55", "K56"]}
+      ],
+      "sure_note": {"text": "You were sure, so check what a hot scan already settles before you order more tests.", "claims": ["K56"]},
+      "choices": [
+        {"label": "Try again", "next": "h1", "kind": "retry"},
+        {"label": "Show me why", "next": "x6", "kind": "agency"}
+      ]
+    },
+    "x6": {
+      "role": "explain",
+      "objectives": ["O1"],
+      "say": [
+        {"text": "A hot nodule's function is known from the scan, and it is rarely malignant. FNAC answers the nature of a cold nodule, which carries more risk.", "claims": ["K56", "K57", "K62"]},
+        {"text": "A toxic nodule is treated after thyrotoxicosis is controlled.", "claims": ["K81"]}
+      ],
+      "choices": [{"label": "Try again", "next": "h1", "kind": "retry"}]
+    },
+    "h1_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. A hot nodule is rarely malignant, so it needs no FNAC. It is treated once the thyrotoxicosis is controlled.", "claims": ["K56", "K81"]}
+      ],
+      "choices": [{"label": "Next", "next": "h2", "kind": "continue"}]
+    },
+    "h2": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 3 cm nodule, TSH low on the first test. TSH and neck ultrasound are done.", "claims": []},
+        {"text": "Which test comes next?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Radionuclide scan, since a low TSH asks for it", "next": "h2_ok", "kind": "correct"},
+        {"label": "FNAC, since it tells you what the nodule is", "next": "h2_t1", "kind": "trap", "trap": "TR1"},
+        {"label": "FNAC and scan together, to save the patient a visit", "next": "h2_t2", "kind": "trap", "trap": "TR1"},
+        {"label": "Not sure, give me a hint", "next": "h2_h", "kind": "help"}
+      ]
+    },
+    "h2_h": {
+      "role": "hint",
+      "say": [{"text": "Ask what the low TSH is telling you about the nodule's function, and whether that changes which test answers the next question.", "claims": []}],
+      "choices": [{"label": "Try again", "next": "h2", "kind": "retry"}]
+    },
+    "h2_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. FNAC tempts because it answers the question about the nature of the nodule, which is the question you care about.", "claims": []},
+        {"text": "But the nature question comes after the function question. A low TSH asks for a scan first.", "claims": ["K55", "K62"]}
+      ],
+      "sure_note": {"text": "You were sure, so check which question each test answers, and in what order.", "claims": ["K55"]},
+      "choices": [{"label": "Try again", "next": "h2", "kind": "retry"}]
+    },
+    "h2_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Doing both at once tempts when you want one visit, but the second test depends on the first.", "claims": []},
+        {"text": "A low TSH asks for a radionuclide scan, and FNAC is decided after that.", "claims": ["K55", "K57"]}
+      ],
+      "sure_note": {"text": "You were sure, so check whether the second test depends on the result of the first.", "claims": ["K55"]},
+      "choices": [{"label": "Try again", "next": "h2", "kind": "retry"}]
+    },
+    "h2_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. A low TSH asks for a radionuclide scan, to see whether the nodule is hot.", "claims": ["K55"]},
+        {"text": "Whether FNAC is needed comes after that result.", "claims": ["K56", "K57"]}
+      ],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    }
+  }
+}
