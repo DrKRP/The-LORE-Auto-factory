@@ -4,3 +4,4 @@ Session usage limits hit repeatedly. To finish the 10 surgery journeys, segments
 
 ## 2026-10-22 round 1 evaluation (lean)
 Round 1 patch (S2, S5, S8) re-reviewed by the module judge only; round 0 misconceived sim reused.
+- 2026-10-22 round 1 composite 3.61 (review 3.83, 1 sim) vs round 0 3.547 (+0.063 < 0.1); published round 1 by override (explain exits for retry loops, S8 keys no longer form-cued).
