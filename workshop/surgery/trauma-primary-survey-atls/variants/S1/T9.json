@@ -1,0 +1,222 @@
+{
+  "segment": "S1",
+  "technique": "T9",
+  "entry": "gate",
+  "nodes": {
+    "gate": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Before we teach anything, let's see what you already carry.", "claims": []},
+        {"text": "A road-accident victim is wheeled in with a spurting thigh wound. What is the first priority in the **primary survey** of Advanced Trauma Life Support (ATLS)?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Tourniquet on the bleeding thigh wound", "next": "gate_t1a", "kind": "trap", "trap": "TR1"},
+        {"label": "Airway, with the neck held still", "next": "gate_ok", "kind": "correct"},
+        {"label": "Two large-bore IV lines with warm fluid", "next": "gate_t1b", "kind": "trap", "trap": "TR1"},
+        {"label": "Not sure, give me a hint", "next": "gate_hint", "kind": "help"}
+      ]
+    },
+    "gate_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Ask which problem would end this patient in minutes if nobody dealt with it, not which one is bleeding most.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "gate", "kind": "retry"}
+      ]
+    },
+    "gate_t1a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. The spurting wound is the loudest problem in the bay, so it pulls your hands first.", "claims": []},
+        {"text": "Haemorrhage is the commonest preventable death, but ask which problem would kill this man soonest if left alone.", "claims": ["K116"]}
+      ],
+      "sure_note": {"text": "You were sure, so this one is worth a second look: certainty about a bleed is how the loudest problem wins. Check what kills in minutes.", "claims": ["K3"]},
+      "choices": [
+        {"label": "Try again", "next": "gate", "kind": "retry"},
+        {"label": "Show me why", "next": "why_gate", "kind": "agency"}
+      ]
+    },
+    "gate_t1b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Two IV lines feel like active resuscitation, and fluids are the first move most of us learn.", "claims": []},
+        {"text": "Lines and fluid matter soon, but the survey runs on the clock. Which problem would end this patient soonest?", "claims": ["K3"]}
+      ],
+      "sure_note": {"text": "You were sure, so this one is worth a second look: a familiar action is not the same as the first action.", "claims": ["K3"]},
+      "choices": [
+        {"label": "Try again", "next": "gate", "kind": "retry"},
+        {"label": "Show me why", "next": "why_gate", "kind": "agency"}
+      ]
+    },
+    "why_gate": {
+      "role": "explain",
+      "say": [
+        {"text": "The rule is time to death. Loss of airway kills faster than loss of breathing, which kills faster than loss of circulating blood volume.", "claims": ["K3"]},
+        {"text": "Haemorrhage is the commonest preventable death, but that is a count, not an order. So the airway, with the neck held still, comes first.", "claims": ["K116", "K2"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "rank", "kind": "continue"}
+      ]
+    },
+    "gate_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. The **airway** comes first, with the neck held still, in the fixed ABCDE order of the primary survey.", "claims": ["K2"]},
+        {"text": "The order follows one rule: treat the greatest threat to life first. Losing airway kills faster than losing breathing, which kills faster than losing blood volume.", "claims": ["K3"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "rank", "kind": "continue"},
+        {"label": "Skip the lesson, I know the order", "next": "talk", "kind": "skip"}
+      ]
+    },
+    "rank": {
+      "role": "probe",
+      "objectives": ["O1"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Haemorrhage is the commonest preventable death after injury. So which rule sets the order of the survey?", "claims": ["K116"]}
+      ],
+      "choices": [
+        {"label": "Treat whichever problem kills fastest first", "next": "rank_ok", "kind": "correct"},
+        {"label": "Treat the commonest cause of death first", "next": "rank_t1", "kind": "trap", "trap": "TR1"},
+        {"label": "Treat whichever bleeds most visibly first", "next": "rank_t1b", "kind": "trap", "trap": "TR1"},
+        {"label": "Not sure, give me a hint", "next": "rank_hint", "kind": "help"}
+      ]
+    },
+    "rank_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "A count tells you what is common across many patients. This survey runs on one patient, against the clock.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "rank", "kind": "retry"}
+      ]
+    },
+    "rank_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. A frequency list feels like a sensible ranking, because haemorrhage tops the count of preventable deaths.", "claims": ["K116"]},
+        {"text": "A count describes a population. Which problem would end this patient soonest if left alone?", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the rule: a common killer is not automatically the fastest one.", "claims": ["K3"]},
+      "choices": [
+        {"label": "Try again", "next": "rank", "kind": "retry"},
+        {"label": "Show me why", "next": "why_rank", "kind": "agency"}
+      ]
+    },
+    "rank_t1b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Visible bleeding is the most dramatic problem, so it grabs attention before anything else.", "claims": []},
+        {"text": "Dramatic is not the same as fastest. Which problem ends this patient soonest, whatever is loudest in the room?", "claims": ["K3"]}
+      ],
+      "sure_note": {"text": "You were sure, so this one is worth a second look: the loudest problem and the fastest killer are often different.", "claims": ["K3"]},
+      "choices": [
+        {"label": "Try again", "next": "rank", "kind": "retry"},
+        {"label": "Show me why", "next": "why_rank", "kind": "agency"}
+      ]
+    },
+    "why_rank": {
+      "role": "explain",
+      "say": [
+        {"text": "A count is not an order. Haemorrhage is the commonest preventable death, but ABCDE is ordered by how fast each problem kills.", "claims": ["K116", "K3"]},
+        {"text": "So the survey starts with A. Bleeding is controlled inside C, which comes after A and B.", "claims": ["K2"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "talk", "kind": "continue"}
+      ]
+    },
+    "rank_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. ABCDE is a clock, so the problem that kills fastest is treated first.", "claims": ["K3"]},
+        {"text": "Haemorrhage control sits inside C, the third step, so it is not moved to the front.", "claims": ["K2"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "talk", "kind": "continue"},
+        {"label": "Go deeper: the prehospital bleeding-first rule", "next": "deep_prehosp", "kind": "deeper"}
+      ]
+    },
+    "deep_prehosp": {
+      "role": "explain",
+      "say": [
+        {"text": "Prehospital and military protocols, such as PHTLS and MARCH, put catastrophic bleeding control first, which some courses write as xABCDE.", "claims": ["K133"], "flag": "unverified"},
+        {"text": "For NEET PG the ATLS order is still ABCDE, with haemorrhage control inside C.", "claims": ["K2"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "talk", "kind": "continue"}
+      ]
+    },
+    "talk": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A different case. A man with a chest wound answers your questions clearly at the door.", "claims": []},
+        {"text": "What is the next step in the primary survey?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Move on to the secondary survey", "next": "talk_t2a", "kind": "trap", "trap": "TR2"},
+        {"label": "Check disability, he is clearly talking", "next": "talk_t2b", "kind": "trap", "trap": "TR2"},
+        {"label": "Check breathing and ventilation right now", "next": "talk_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "talk_hint", "kind": "help"}
+      ]
+    },
+    "talk_hint": {
+      "role": "hint",
+      "say": [
+        {"text": "Speech tells you about this moment. What does it not tell you about the lungs?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Back to the question", "next": "talk", "kind": "retry"}
+      ]
+    },
+    "talk_t2a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. A talking patient feels finished, so the rest of the survey starts to look like a formality.", "claims": []},
+        {"text": "Speech is only a snapshot for the moment. Which letter is still unchecked?", "claims": ["K4"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the qualifier: a talking patient has a patent airway for the moment, not for the rest of the survey.", "claims": ["K4"]},
+      "choices": [
+        {"label": "Try again", "next": "talk", "kind": "retry"},
+        {"label": "Show me why", "next": "why_talk", "kind": "agency"}
+      ]
+    },
+    "talk_t2b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Clear speech looks like proof the brain is working, so a neuro check feels like the next box.", "claims": []},
+        {"text": "Speech does not show that air reaches the lungs. Which letter checks that?", "claims": ["K136"]}
+      ],
+      "sure_note": {"text": "You were sure, so this one is worth a second look: good speech tells you about the brain only after the airway and breathing are known.", "claims": ["K136"]},
+      "choices": [
+        {"label": "Try again", "next": "talk", "kind": "retry"},
+        {"label": "Show me why", "next": "why_talk", "kind": "agency"}
+      ]
+    },
+    "why_talk": {
+      "role": "explain",
+      "say": [
+        {"text": "Speech shows that, for the moment, the airway is patent and the brain is getting blood.", "claims": ["K4"]},
+        {"text": "The next step is B: check that air actually reaches the lungs.", "claims": ["K136"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    },
+    "talk_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Talking shows the airway is open for the moment, so the next letter is B.", "claims": ["K4"]},
+        {"text": "The next step is breathing, not intubation: check that air is reaching the lungs.", "claims": ["K136"]}
+      ],
+      "choices": [
+        {"label": "Next", "next": "@next", "kind": "continue"}
+      ]
+    }
+  }
+}

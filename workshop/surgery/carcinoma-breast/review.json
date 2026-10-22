@@ -1,79 +1,92 @@
 {
   "module": "surgery/carcinoma-breast",
+  "refine_round": 1,
   "judge": "m1",
   "mode": "module",
-  "lens": "all three in turn: learning-scientist, examiner, learner-advocate (final score = mean of the three passes)",
-  "gates": {
-    "G3_broken_graph": "pass (walked S1.gate to END by reading every node: every next resolves to a node and every node has a way forward; validate was not run because this judge has no shell)",
-    "G4_buttons_only": "pass (every learner turn is a tap on a pre-written choice; no typing; no run-time model)"
+  "lens": "learning-scientist + examiner + learner-advocate, averaged",
+  "read": {
+    "module_json": "full node walk of module.json (all segments S1 to S8, END)",
+    "report_json": "workshop/surgery/carcinoma-breast/report.json",
+    "sim": "sim/misconceived.md (used for S1, S3, S4, S6 and the report check); sim/misconceived.report.json (R9). No other sim/*.report.json exists.",
+    "trap_map": "trap-map.json, blueprint.json"
   },
-  "lens_scores": {
-    "learning-scientist": {"R1": 4, "R2": 4, "R3": 4, "R4": 4, "R5": 3, "R6": 4, "R7": 4, "R8": 3, "R9": 3.5},
-    "examiner": {"R1": 4, "R2": 3, "R3": 4, "R4": 4, "R5": 3, "R6": 4.5, "R7": 3.5, "R8": 3, "R9": 3.5},
-    "learner-advocate": {"R1": 4, "R2": 3.5, "R3": 4, "R4": 3, "R5": 3, "R6": 4, "R7": 4, "R8": 2.5, "R9": 3.5}
+  "gates": [],
+  "gate_check": "G3: every next target I checked resolves to a defined node; every non-END node has a forward or retry path. G4: buttons only, no typed input, no runtime model.",
+  "scores": {
+    "R1": 4,
+    "R2": 4,
+    "R3": 3.67,
+    "R4": 4,
+    "R5": 3.67,
+    "R6": 4.33,
+    "R7": 4.67,
+    "R8": 4,
+    "R9": 3.67
   },
-  "scores": {"R1": 4.0, "R2": 3.5, "R3": 4.0, "R4": 3.5, "R5": 3.0, "R6": 4.17, "R7": 3.83, "R8": 2.83, "R9": 3.5},
-  "weighted": 3.64,
-  "publish_threshold": 4.0,
-  "meets_threshold": false,
-  "rationale": {
-    "R1": "Almost every new idea opens with a probe: S1.gate, S1.tissue, S1.vig, S2.entry, S2.brca_q, S2.male_q, S3.nipple, S3.skin, S4.t_pair, S4.t_n, S5.r1, S6.ls_p1, S6.ts_p1, S7.p1 to S7.p14. Exceptions tell first: S2.contrast, S3.mri, S4.t_prog, S6.ls_w1 and S6.ls_w2 (worked case), S6.ls_show.",
-    "R2": "Strong trap work. Each of the 20 traps in the trap map appears in the walk, most in two or more forms (for example TR12 at S2.peau_q, S2.pred_q, S3.skin, S4.t_pair, S7.p8; TR27 at S5.r3, S5.t3_why, S8.axil). Tempting-then-refute feedback names the lure on most trap nodes (S2.entry_t10, S4.t_n_both, S5.t2_t14, S6.why_t16, S7.p9_t). Flaws: PTEN and STK11 are filler partials at S2.numbers_q (S2.numbers_pten, S2.numbers_stk); S8.male key 'Klinefelter' is the only non-gene option; S8.tam and S8.axil keys are the only long, rationale-bearing options; several wrong-option feedbacks (S4.t_which_skin, S4.t_n_neither, S4.t_img_neither) name no wrong model.",
-    "R3": "All 12 objectives are probed on the main spine: O1 at S1.gate and S7.p1; O2 at S2.brca_q and S7.p5; O3 at S1.tissue, S1.vig, S3.imaging and S8.tis; O4 at S3.staging and S8.bone; O5 at S3.nipple and S4.t_pair; O6 at S4.t_n and S7.p7; O7 at S5.r1 and S7.p10; O8 at S5.r2 and S5.r3; O9 at S6.ls_p1 and S6.im_a; O10 at S6.ts_p1 and S7.p14; O11 at S6.tr_p1 and S7.p11; O12 at S5.r4 and S8.numb. Fast lanes (S2.entry_ok skip, S6.ls_p1_ok skip) still reach each objective.",
-    "R4": "Most nodes are one idea and one question. Several stack ideas: S5.r2_e (four rules in one explanation), S5.r4_ok (nerve, winging and a summary), S6.ls_w2 (three steps). The generic opener 'That choice is not right.' appears on roughly 80 wrong-option nodes and is the main load and clarity problem. Terms are mostly plain; 'T4d', 'SLNB', 'ALND' are used without a gloss on first contact at S4.t_pair and S5.r3.",
-    "R5": "Real adaptivity: hints on most early probes (S1.gate_hint, S1.tissue_hint, S2.entry_hint, S3.nipple_hint), 'Show me why' reveals, and a second explanation in another form on the key traps (S5.t2_size for TR14, S5.t3_why for TR27, S5.t4_nerve for TR15, S7 for most traps). Skip lanes exist at S2.entry_ok and S6.ls_p1_ok. Weak: the hint ladder is one level with no escalation; the 'Show me' explanations repeat verbatim on a second visit (S6.ls_show2, S6.ts_show2, S6.tt_show2 duplicate their first versions); S8.axil, S8.numb, S8.tam, S8.labc, S8.male and S5.t1_op offer no hint option.",
-    "R6": "High-yield PYQ traps are drilled in exam form: 'which is NOT part of' (S7.p14, S7.p11, S7.p5), 'most common cause' versus 'cause to exclude' (S3.nipple, S7.p3), 'which statement is correct' on the Halsted/MRM and tamoxifen/raloxifene contrasts (S7.p10, S6.tt_p2). Old keys are named and their content is stated at first contact (S1.gate_reveal, S1.tissue_reveal, S2.numbers_ok). Lost points: S8.male and S8.tam are answerable by form, which an examiner would spot.",
-    "R7": "Decisions are framed as clinical moments: the 45-year-old with an operable lump (S5.r1), the 42-year-old with a 2 cm cancer (S8.axil), the 36-year-old premenopausal woman (S6.ts_p2), the day-by-day stage III patient (S6.ls_p1), the bloody discharge at 35 (S3.nipple). The S7 run is mostly abstract 'which statement is correct' recognition, which costs points.",
-    "R8": "Warm enough and addresses the learner directly, with no ability praise. Flat through repetition: 'That choice is not right.' opens almost every wrong-option feedback, and 'You were sure, so...' opens most sure notes. The S7 run in particular reads as one template repeated fourteen times.",
-    "R9": "Most probes separate one wrong model from the right one, and the trap-mapped distractors make the path say a good deal (the TR4 cervix key, the TR1 FNAC key, TR14 size as a bar, TR27 dissect-first, TR22 reversed tamoxifen action). Losses: PTEN and STK11 (S2.numbers_q) and the S5.r2 and S6.tt_p1 partials carry no wrong model, so a choice of them tells a teacher nothing. The report (sim/misconceived.report.json) matches its walk for calibration and traps; see r9_reports."
+  "lens_weighted": {
+    "learning-scientist": 4.06,
+    "examiner": 3.89,
+    "learner-advocate": 3.94
+  },
+  "weighted": 3.96,
+  "weights": {"R1": 3, "R2": 3, "R3": 2, "R4": 2, "R5": 2, "R6": 2, "R7": 1, "R8": 1, "R9": 2},
+  "criterion_notes": {
+    "R1": "Probe before explanation almost everywhere (S1.tissue, S2.entry, S3.skin, S4.t_pair, S5.r1, S6.ls_p1). Explanations follow a miss or a correct pick. Recap and worked-case nodes (S1.triple, S3.staging_ok, S6.ls_w1, S6.ls_w2) tell, but they are few.",
+    "R2": "Most distractors are a named trap with a refutation and a repair. Gaps: S6.im_a option 'Imaging is skipped' is mapped to TR5 but is the opposite error (under-imaging); S3.closing option 'mammography and bone scan' carries two errors; S6.ls_p1 'radiotherapy first' and S8.male 'early menarche' are dominated; S7.p14 'chemoprevention' is a correct plan item used as a distractor with no trap.",
+    "R3": "All 12 objectives are taught or tested on every path, fast lanes included (S2 skip keeps O2 via S2.brca_q and S2.male_q; S6 skip keeps O9 via S6.ls_p2). O1 names 'site' (upper outer quadrant) in the objective and in report.json, but no node teaches or tests it.",
+    "R4": "Nodes are short and mostly one idea. Overloaded: S4.t_n_reveal (three ideas), S5.r1_e (three ideas), S5.r4_ok (three ideas plus a summary on a correct pick). The formula 'That choice is not right.' repeats across roughly 70 feedback nodes.",
+    "R5": "Hint ladder on most probes (hint, retry, reveal). Two fast lanes (S2.entry_ok skip, S6.ls_p1_ok skip). Second explanations use a different technique in S2 (contrast), S5 (contrast and ordering) and S6 (worked case). Confidence drives only sure_note text, not a branch.",
+    "R6": "Outdated PYQ keys (cervix, FNAC, Halsted, M1, dissect-first, dense-breast imaging) drilled in exam form, with the old key and current practice both named. Negative stems (NOT / one wrong statement) are drilled. Minus: O1 site is missing.",
+    "R7": "Decisions in vignettes with age, stage, menopausal status and nodal position. Well framed.",
+    "R8": "Warm and direct, with good bridging lines (S7.t_a 'name the default the stem is baiting'). Repetition ('That choice is not right.', 'Let us test that again from another angle' x3) dulls the voice on a 1 a.m. read.",
+    "R9": "Path: each trap has a named belief in its feedback, and the S8 cold probes (S8.axil, S8.numb, S8.tam, S8.male) have no hint, which tests unaided success. Losses: S6.im_a (TR5 mismapped), S7.p14 (partial with no belief), S7.p1 (the correct pick is the old key). Report (report.json, rendered in sim/misconceived.report.json): every objective 'shaky', so the list gives no priority; next_steps.gap says 'objectives marked gap' when none is; help.hints_heavy fires on 'Show me why' taps (hints 14, hints opened 0)."
   },
   "segments": [
-    {"id": "S1", "score": 4, "reason": "Probe-first hook with trap-mapped options (S1.gate TR4, S1.tissue TR1, S1.vig TR17) and a retest in a new form at S1.re4. Weak: the feedback shape repeats the same 'not right' opener; S1.tissue_partial gives no wrong model."},
-    {"id": "S2", "score": 3.5, "reason": "Strong tempting-then-refute at S2.entry_t10 and S2.vign_t10 (TR10), and S2.brca_t8 (TR8). Flaws: PTEN and STK11 are filler at S2.numbers_q; S2.contrast tells the lobular/ductal contrast after the first probe; S2.family_q partials are two near-identical wrong pairings."},
-    {"id": "S3", "score": 4, "reason": "Clinical picture and work-up: S3.nipple (TR20) with a 'frequency versus danger' refutation, S3.skin (TR12), S3.imaging (TR17) with age as the qualifier, S3.tissue (TR1) and S3.staging (TR5). Weak: S3.skin_t3 and S3.tissue_t1 reuse the same generic opener; S3.closing_ok is a second idea on a probe-summary node."},
-    {"id": "S4", "score": 4, "reason": "The T, N and M ladder is well built: S4.t_pair vs S4.t_which vs S4.t_vig are three forms of TR12/TR13, and S4.t_n_reveal explains side-of-node for TR2. Flaws: S4.t_which_skin, S4.t_n_neither and S4.t_img_neither name no wrong model; S4.t_pair_a and S4.t_pair_both open with a bare 'That choice is not right.'"},
-    {"id": "S5", "score": 3.5, "reason": "Best second explanations in the module: S5.t2_size (a classmate's three-step plan for TR14), S5.t4_nerve (a which-is-wrong probe where the trap statement is true, so it is diagnostic) and S5.t3_why. Flaws: S5.r2_e stacks four rules in one node; S5.r3 key is the only option with a purpose clause; S5.t1_op has no hint or 'Not sure' option; S5.r1_t opens with a bare refusal."},
-    {"id": "S6", "score": 4, "reason": "Systemic therapy is taught by menopausal and tissue contrasts (S6.ts_p1, S6.ts_p2, S6.tt_p2), and S6.why_p gives the mechanism for chemotherapy first. Flaws: S6.ls_show2, S6.ts_show2 and S6.tt_show2 repeat their first explanations word for word, so a second visit gets no new explanation; S6.tt_p1 'osteoporosis' partial is filler."},
-    {"id": "S7", "score": 3, "reason": "Exam-trap run with a which-is-not drill and tempting lines on most traps (S7.p1_t, S7.p5_t, S7.p11_t). Flaws: fourteen probes in a row with the same 'That choice is not right.' template and little new teaching between them; S7.p9 stem spells out the T4a list ('ribs, intercostal muscles and serratus move freely'), so the key falls out by elimination; S7.p1_t and S7.p3_t sure notes repeat the body."},
-    {"id": "S8", "score": 3, "reason": "Consolidation with good discriminators (S8.cut 'relative factor', S8.bone, S8.numb). Flaws: S8.male key 'Klinefelter' is the only non-gene option; S8.tam and S8.axil keys are the only long, rationale-bearing options; S8.axil, S8.numb, S8.tam, S8.labc and S8.male have no hint option; S8.axil_b has only 'Try again'."}
+    {"id": "S1", "score": 4, "reason": "Strong hook: the learner fails the cervix key, the FNAC key and the TR17 age trap, then sees the reveal. Weak retest: S1.re4 restates the answer one node after S1.gate_reveal, so it is not delayed and tests the sentence, not a new case.",
+     "flaws": ["S1.re4: retest follows the reveal by one node and repeats the same sentence (sim friction, unchanged)", "S1.gate_reveal: no site or subtype taught, so O1 'site' is never reached"]},
+    {"id": "S2", "score": 4, "reason": "Fast lane, contrast node and genes all sit on trap-map traps (TR10, TR8, TR9, TR12). numbers_pten and numbers_stk name the distractor gene and why it tempts. Patched: refutations are specific.",
+     "flaws": ["S2.entry_t10: sure_note says 'a common type is not the answer to a question about spread', but the stem asks about cell pattern (sim friction, unchanged)", "S2.vign: probe has no hint option and no Sure prompt, so the lobular picture gets no ladder", "S2.family_q: 'A: BRCA2; B: BRCA1' is labelled partial but is a full swap of two traps"]},
+    {"id": "S3", "score": 4, "reason": "Five traps, each with a belief-naming refutation (TR20, TR12, TR17, TR1, TR5). Thin probe at S3.imaging.",
+     "flaws": ["S3.closing: option 'Clinical examination, mammography and bone scan' is tagged TR5 but carries two errors (mammography and bone scan), so it diagnoses nothing", "S3.imaging: only the correct pick and the TR17 trap, no partial, so the probe is easy to eliminate", "S3.imaging_why: repeats S3.imaging_ok almost word for word (sim friction, unchanged)"]},
+    {"id": "S4", "score": 4, "reason": "Staging is well laddered: T pair, T which, T vignette, N, and the M1 contrast with the old key named. S4.t_n_both is a clean refutation.",
+     "flaws": ["S4.t_n_reveal: three ideas in one message (AJCC contralateral M1; older PYQ M1; same-side N3c) (sim friction, unchanged)", "S4.t_vig_t3: no sure_note on a Sure-able error, unlike its siblings"]},
+    {"id": "S5", "score": 4, "reason": "Patched well: S5.t2_t14 now says why step 2 is sound, which fixes the old friction. Axillary and nerve probes cover TR27, TR3, TR14, TR15 with contrasts.",
+     "flaws": ["S5.t4_nerve: 'One of these three statements is wrong' where the correct pick is the false statement, so a fast tap is easy to misread", "S5.r4_ok: correct-pick feedback summarises three ideas (MRM, SLNB, nerves)", "S5.t1_op, S5.t2_size, S5.t4_nerve: the same opener 'Let us test that again from another angle' (voice)"]},
+    {"id": "S6", "score": 4, "reason": "Sequence, drug choice, tamoxifen tissue action and LCIS are sound, each with a reasoning node and a repeat probe. Two distractors do not work as traps.",
+     "flaws": ["S6.im_a: option 'Imaging is skipped because she has no symptoms' is tagged TR5 but is the opposite error (under-imaging); the TR5 diagnosis is over-ordering", "S6.ls_p1: partial 'Radiotherapy to the breast first' is dominated, so the probe offers one live distractor", "S6.why_p: the 'Surgery is curative' trap body repeats S6.ls_show word for word (sim friction, unchanged)", "S6.tt_p2: two options both tagged TR22 (neither drug / raloxifene raises risk); acceptable, but they test one belief twice"]},
+    {"id": "S7", "score": 3, "reason": "Trimmed from 14 probes to 10 and bridged by S7.t_a and S7.t_b, which helps. Still a drill of 'NOT' stems that re-ask traps seen earlier with the same options, and a tired learner can misread it.",
+     "flaws": ["S7.p1: 'Which statement is NOT correct?' where the correct pick is the old FNAC key, and its feedback opens 'Yes. That is the old key'; affirming the outdated belief on a negative stem is confusing", "S7.p5: negative stem where both traps are true statements; one wrong option can be read as the answer if the learner misreads NOT", "S7.p7, S7.p9, S7.p10, S7.p11: re-ask refuted traps (TR2, TR12/TR13, TR3, TR6/TR22) with the same options, so they test recognition, not a changed belief", "S7.p14: partial 'Discussing chemoprevention options' is a correct plan item used as a distractor and maps to no trap, so picking it says nothing about the learner"]},
+    {"id": "S8", "score": 4, "reason": "Good cold consolidation: four probes with no hint (S8.axil, S8.numb, S8.tam, S8.male) test unaided success. Each misconception is paired with a one-line correction.",
+     "flaws": ["S8.male: partial 'Early menarche' is dominated (no one with surface knowledge picks a female hormonal factor for male cancer)", "S8.cut: partial 'Multicentric disease' is a fixed bar, so the partial shares the stem's negative with the key and is not a relative-factor distractor", "END: the closing line is the module summary, with no report link"]}
   ],
-  "weakest": ["S7", "S8", "S2", "S5"],
+  "weakest": ["S7"],
   "best_parts": [
-    "node S1.gate_t4 and S1.re4_t4: the cervix key named as the lure, then the same trap re-tested in a new form at S1.re4 (TR4)",
-    "node S2.entry_t10: 'commonest is not the same as fits the picture' refutes TR10 with the mechanism, not a repeat of the answer",
-    "node S5.t2_size: a classmate's three-step plan with one wrong step is a clean second explanation for TR14",
-    "node S5.t4_nerve: the trap statement is the true one, so a learner holding the long-thoracic model picks it, which makes the probe diagnostic (TR15)",
-    "node S6.why_p: the emboli-in-skin-lymphatics explanation of why drugs come first (TR16)",
-    "node S8.tam: a classmate-correction probe with a uterine-risk key and a thrombosis partial separates TR22 from the partial model"
+    "S4.t_n_both: names the old model (every node above the collarbone counted as distant), then points to the side of the node; a clean refutation with a repair.",
+    "S5.t2_t14 (patched): now explains why step 2 (downstage to 2 cm, then conserve) is sound, so the learner is not left guessing. Good repair for TR14.",
+    "S2.numbers_pten and S2.numbers_stk: each names the distractor gene, says why it tempts (Li-Fraumeni, ataxia-telangiectasia), and returns to the 17q arm."
   ],
   "flaws": [
-    "~80 wrong-option feedback nodes open with the bare line 'That choice is not right.' (examples: S4.t_pair_a, S4.t_which_skin, S5.r1_t, S7.p1_t, S7.p8_t, S8.tis_t); R8 and R4 cost",
-    "S2.numbers_pten, S2.numbers_stk: filler partials; the feedback itself says they tempt only as known names, so no learner holding the 13/17 swap would pick them",
-    "S8.male_ok: key 'Klinefelter syndrome' is the only non-gene option among three; findable by form",
-    "S8.tam: key 'Tamoxifen can raise endometrial cancer risk, so bleeding needs checking' is the only option with a rationale clause; findable by form",
-    "S5.r3: key 'Sentinel lymph node biopsy to stage the axilla' is the only option with a purpose clause; findable by form",
-    "S7.p9: stem states the T4a list as absent ('ribs, intercostal muscles and serratus anterior move freely'), so the key falls out by elimination",
-    "S6.ls_show2, S6.ts_show2, S6.tt_show2, S6.why_show: 'Show me the reasoning' explanations repeat their first versions word for word; no second explanation on a revisit",
-    "S8.axil, S8.numb, S8.tam, S8.labc, S8.male, S5.t1_op: probes offer no hint or 'Not sure' option; R5 cost",
-    "S4.t_which_skin, S4.t_n_neither, S4.t_img_neither, S5.r2_p: wrong-option feedback names no wrong model or tempting line",
-    "S5.r2_e: four rules (multicentric, previous RT or pregnancy or positive margins or inflammatory, relative size, connective tissue disease) in one explanation; split it",
-    "S5.r4_ok: three messages on three ideas (nerve, winging, a summary of all treatments); the summary repeats earlier content"
+    "S6.im_a: TR5 mapped to an under-imaging option (wrong error)",
+    "S3.closing: option with two errors mapped to one trap",
+    "S2.entry_t10: sure_note text about 'spread' for a pattern stem (old friction, unchanged)",
+    "S1.re4: delayed retest is not delayed and repeats the reveal",
+    "S7.p1: the correct NOT pick is the outdated key, with 'Yes. That is the old key' as feedback",
+    "S7.p14: distractor with no trap (chemoprevention)",
+    "S7.p7, S7.p9, S7.p10, S7.p11: re-ask refuted traps with the same options",
+    "S6.ls_p1 and S8.male: dominated partials",
+    "report.json next_steps.gap: 'objectives marked gap' when no objective is gap (sim: pointer to nothing)",
+    "report.json help.hints_heavy: triggered by 'Show me why' taps (hints 14, opened 0)",
+    "report.json objectives: all 12 'shaky' for a misconceived learner, so there is no priority order",
+    "O1 site (upper outer quadrant) is in the objective and the report, but no node teaches it"
   ],
-  "r9_reports": {
-    "misconceived.report.json": {
-      "verdict": "mostly accurate; the walk recovered every trap, and the report says so, though it marks all twelve objectives 'shaky' with none 'secure' or 'gap'",
-      "accurate": "headline 'mixed' and overconfident calibration match sure_wrong 20; the trap texts for fell_recovered say the old key can return, which matches the walk; 'redo the O-card' pointers are actionable.",
-      "inaccurate": "next_steps 'gap' text says 'start with the cards for objectives marked gap' although no objective is marked gap; the 'clear' and 'gap' branches are not reconciled with an all-shaky profile.",
-      "score": 3.5
-    },
-    "not_found": "sim/novice.report.json, sim/strong.report.json and sim/guesser.report.json are not present under workshop/surgery/carcinoma-breast/sim/ (only misconceived.report.json was readable). R9 for novice, strong and guesser could not be judged; the module R9 score rests on the path and on the one report."
-  },
   "merge_ideas": [
-    "Use the S5.t2_size classmate-plan format (a plan with one wrong step) as the wrong-option template for the S7 traps, replacing the bare 'That choice is not right.' opener with a named lure.",
-    "Give each 'Show me the reasoning' node a second, different explanation on revisit (a worked contrast or a classmate correction), so the S6 and S7 loops do not repeat.",
-    "Add the S8.tis-style two-question hint to S8.axil, S8.numb, S8.tam, S8.labc and S8.male, so the consolidation segment has the same hint ladder as S1 to S4.",
-    "Put a rationale clause on every option or on none (S8.tam, S8.axil, S5.r3), so the key is not the only long option; keep the S2.entry_t10 mechanism sentence for the trap feedback.",
-    "Replace PTEN and STK11 at S2.numbers_q with the wrong BRCA-arm pairing of another trap, so every distractor carries a wrong model."
+    "Keep S7's bridging lines (S7.t_a, S7.t_b) and put them before S8 as the only drill; fold the re-asked traps into fresh vignettes rather than the same options.",
+    "Give S6.im_a a real TR5 distractor (routine bone scan for a stage I patient) and move the under-imaging option to a new probe tagged as its own trap.",
+    "Add a site probe (upper outer quadrant) to S2 after S2.contrast, so O1 is taught and tested on every path.",
+    "Use S4.t_n_both's refutation style for the S7.p7 and S3.closing repairs, which currently rely on a single sentence."
   ],
-  "notes": "Module read node by node across all segments S1 to S8, the trap map, claim bank and report.json. Factual accuracy not judged (knowledge-only mode). The module is large (about 330 nodes); the walk was done by reading, not by running validate. Only misconceived.report.json was found among the sim reports."
+  "report_r9": {
+    "misconceived": "The path says clearly what the learner believes: twenty trap taps, all with Sure, all recovered, overconfident. The trap lines name the belief (e.g. 'You moved from the old FNAC key to core biopsy'), which is the most useful part of the report. But the report misleads on three points: the objective list says nothing (twelve 'shaky'), the gap instruction points at nothing, and the hints count is taken from 'Show me why' taps, not from hints. Recovery is credited only by recognition, and the report does not say so."
+  },
+  "round_comparison": "Round 0 (sim walk) flagged S7 drill, S5.t2_t14, S2.entry_t10, S4.t_n_reveal, S3.imaging_why, S6.why_show, S1.re4 and the report gap/hints issues. Round 1 patched S2, S5, S7 and S8. S5.t2_t14 and the S7 length are fixed; S2.entry_t10, S4.t_n_reveal, S3.imaging_why, S6.why_show and the report text are not. The round-1 gain is real but partial."
 }
