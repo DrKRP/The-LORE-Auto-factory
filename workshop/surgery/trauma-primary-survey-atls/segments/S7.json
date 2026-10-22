@@ -7,7 +7,7 @@
    "role": "recap",
    "say": [
     {
-     "text": "Twelve new stems, mixed across the survey. Hints are offered on the first four only; the rest are cold. A wrong pick gets a retry, and you can ask for the answer.",
+     "text": "Eleven new cases, mixed across the survey. Some stems offer a hint and some are cold. A wrong pick gets a retry or a Show me why.",
      "claims": []
     }
    ],
@@ -19,37 +19,74 @@
     }
    ]
   },
-  "p1": {
-   "role": "probe",
+  "wrap": {
+   "role": "end",
+   "end": true,
    "objectives": [
-    "O11",
-    "O1"
+    "O9"
    ],
    "say": [
     {
-     "text": "A 28-year-old with a pelvic fracture talks at the scene, then bleeds steadily over the next two hours. Which trauma death peak is he in?",
+     "text": "Last point: the secondary survey and AMPLE history start only after the primary survey and resuscitation. Your review cards cover the core ideas, so go through them over the coming days.",
+     "claims": [
+      "K11"
+     ]
+    }
+   ]
+  },
+  "p1_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
      "claims": []
+    },
+    {
+     "text": "Instant deaths feel like the classic trauma death, but this man survives the first minutes and bleeds over hours. He lived past minutes, so he is not in the first peak; that one is reduced only by prevention.",
+     "claims": [
+      "K18"
+     ]
     }
    ],
    "choices": [
     {
-     "label": "Third peak, sepsis and organ failure over days",
-     "next": "p1_t30",
-     "kind": "trap",
-     "trap": "TR30"
+     "label": "Try again",
+     "next": "p1",
+     "kind": "retry"
     },
     {
-     "label": "Second peak, minutes to hours after injury",
-     "next": "p1_ok",
-     "kind": "correct"
+     "label": "Show me what is right",
+     "next": "p1_r",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p1_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
     },
     {
-     "label": "Not sure, give me a hint",
-     "next": "p1_h",
-     "kind": "help"
+     "text": "Sepsis is the textbook late killer, so the third peak feels familiar. But it comes days to weeks after injury. His deterioration is over 90 minutes, so the timing is hours, not days.",
+     "claims": [
+      "K20"
+     ]
     }
    ],
-   "ask_confidence": true
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p1",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p1_r",
+     "kind": "agency"
+    }
+   ]
   },
   "p1_h": {
    "role": "hint",
@@ -67,44 +104,49 @@
     }
    ]
   },
-  "p1_t30": {
-   "role": "feedback",
+  "p1": {
+   "role": "probe",
+   "objectives": [
+    "O11",
+    "O1"
+   ],
+   "ask_confidence": true,
    "say": [
     {
-     "text": "That choice is not right. Sepsis is the classic picture of trauma death, so the late peak feels like the main one.",
+     "text": "A 35-year-old drives into a wall, is awake at the scene, then his pressure drifts down over 90 minutes from a ruptured spleen. Which death peak is he in?",
      "claims": []
-    },
-    {
-     "text": "Ask when this patient dies, not how familiar the cause is. The third peak comes days to weeks after injury.",
-     "claims": [
-      "K20"
-     ]
     }
    ],
    "choices": [
     {
-     "label": "Try again",
-     "next": "p1",
-     "kind": "retry"
+     "label": "First peak: seconds to minutes, from brain or great-vessel injury",
+     "next": "p1_t0",
+     "kind": "trap",
+     "trap": "TR30"
     },
     {
-     "label": "Show me what is right",
-     "next": "p1_r",
-     "kind": "agency"
+     "label": "Second peak: minutes to several hours, from major blood loss",
+     "next": "p1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Third peak: days to weeks, from sepsis and organ failure",
+     "next": "p1_t2",
+     "kind": "trap",
+     "trap": "TR30"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p1_h",
+     "kind": "help"
     }
-   ],
-   "sure_note": {
-    "text": "You were sure, so check the clock: the late peak is days later, and this patient bleeds within hours.",
-    "claims": [
-     "K20"
-    ]
-   }
+   ]
   },
   "p1_ok": {
    "role": "feedback",
    "say": [
     {
-     "text": "Right. A pelvic fracture bleeding over hours is the second peak, minutes to hours after injury, which ATLS targets.",
+     "text": "Right. A bleeding spleen over hours is the second peak, the peak ATLS targets.",
      "claims": [
       "K19"
      ]
@@ -122,8 +164,9 @@
    "role": "explain",
    "say": [
     {
-     "text": "The answer is the second peak. It is minutes to hours after injury, and a pelvic fracture is one of its examples. Sepsis on day ten is the third peak.",
+     "text": "The answer is the second peak: minutes to several hours after injury, from major blood loss. The first peak is seconds to minutes; the third is days to weeks.",
      "claims": [
+      "K18",
       "K19",
       "K20"
      ]
@@ -137,50 +180,19 @@
     }
    ]
   },
-  "p2": {
-   "role": "probe",
-   "objectives": [
-    "O1",
-    "O2"
-   ],
+  "p2_t0": {
+   "role": "feedback",
    "say": [
     {
-     "text": "A pedestrian is awake and giving his name, but has a bleeding thigh and shallow breathing. What is your next step in the primary survey?",
+     "text": "That choice is not right.",
      "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Control the thigh bleed first, since it is the visible threat",
-     "next": "p2_t1",
-     "kind": "trap",
-     "trap": "TR1"
     },
     {
-     "label": "Look at breathing and ventilation next, since speech shows the airway only",
-     "next": "p2_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "An awake patient needs no further airway or breathing checks",
-     "next": "p2_t2",
-     "kind": "trap",
-     "trap": "TR2"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "p2_h",
-     "kind": "help"
-    }
-   ],
-   "ask_confidence": true
-  },
-  "p2_h": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Talking tells you about the airway at this moment. Which step does the survey move to next?",
-     "claims": []
+     "text": "More pressure seems the answer to rising pressures, but positive pressure feeds a one-way leak and raises the trapped pressure further. Decompress the chest first; positive pressure adds air to a space that cannot empty.",
+     "claims": [
+      "K24",
+      "K6"
+     ]
     }
    ],
    "choices": [
@@ -188,6 +200,11 @@
      "label": "Try again",
      "next": "p2",
      "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p2_r",
+     "kind": "agency"
     }
    ]
   },
@@ -195,14 +212,14 @@
    "role": "feedback",
    "say": [
     {
-     "text": "That choice is not right. The bleeding is the loudest problem, so it feels like the first job.",
+     "text": "That choice is not right.",
      "claims": []
     },
     {
-     "text": "The order follows speed of death, not how visible the bleed is. Bleeding is controlled inside circulation.",
+     "text": "A film feels careful before a procedure, but tension pneumothorax is a clinical diagnosis and this patient is in shock. Do not wait for a film; the bedside findings are enough.",
      "claims": [
-      "K3",
-      "K2"
+      "K118",
+      "K6"
      ]
     }
    ],
@@ -217,25 +234,19 @@
      "next": "p2_r",
      "kind": "agency"
     }
-   ],
-   "sure_note": {
-    "text": "You were sure, so check the rule: the survey runs in order of speed of death.",
-    "claims": [
-     "K3"
-    ]
-   }
+   ]
   },
   "p2_t2": {
    "role": "feedback",
    "say": [
     {
-     "text": "That choice is not right. An awake patient feels finished, so the rest of the survey seems optional.",
+     "text": "That choice is not right.",
      "claims": []
     },
     {
-     "text": "Talking shows a patent airway for the moment only. Ask what talking does not prove.",
+     "text": "That is the classic key site, so it feels familiar. In adults ATLS 10th edition uses the 4th or 5th space. For an adult, the 10th edition site is the 4th or 5th space, anterior to the mid-axillary line.",
      "claims": [
-      "K4"
+      "K73"
      ]
     }
    ],
@@ -250,22 +261,54 @@
      "next": "p2_r",
      "kind": "agency"
     }
+   ]
+  },
+  "p2": {
+   "role": "probe",
+   "objectives": [
+    "O4"
    ],
-   "sure_note": {
-    "text": "You were sure, so check the qualifier: talking is safe for the moment, not for the whole survey.",
-    "claims": [
-     "K4"
-    ]
-   }
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 40-year-old, intubated in the bay after a crash, drops to BP 70 with rising airway pressures. The right chest is hyper-resonant with no breath sounds, and the neck veins are full. What next?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Give larger breaths to overcome the resistance",
+     "next": "p2_t0",
+     "kind": "trap",
+     "trap": "TR5"
+    },
+    {
+     "label": "Send for a portable chest film to confirm the side",
+     "next": "p2_t1",
+     "kind": "trap",
+     "trap": "TR3"
+    },
+    {
+     "label": "Needle at the 2nd space in the mid-clavicular line",
+     "next": "p2_t2",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "Needle decompression, 4th or 5th space, anterior to mid-axillary line",
+     "next": "p2_ok",
+     "kind": "correct"
+    }
+   ]
   },
   "p2_ok": {
    "role": "feedback",
    "say": [
     {
-     "text": "Right. Talking shows a patent airway for the moment, so the next step is breathing, not intubation.",
+     "text": "Right. The diagnosis is clinical, so you decompress now at the adult site.",
      "claims": [
-      "K4",
-      "K136"
+      "K6",
+      "K73"
      ]
     }
    ],
@@ -281,10 +324,12 @@
    "role": "explain",
    "say": [
     {
-     "text": "The answer: check breathing and ventilation now. Talking shows the airway for the moment, and the survey moves on to B.",
+     "text": "The answer: needle decompression now at the 4th or 5th space, anterior to the mid-axillary line. Positive pressure and a film both delay relief of the trapped air.",
      "claims": [
-      "K4",
-      "K136"
+      "K118",
+      "K24",
+      "K6",
+      "K73"
      ]
     }
    ],
@@ -296,40 +341,15 @@
     }
    ]
   },
-  "p3": {
-   "role": "probe",
-   "objectives": [
-    "O6"
-   ],
-   "say": [
-    {
-     "text": "A man with a spinal injury at T6 after a fall has a systolic BP of 80 and a pulse of 50, with warm dry skin. What is the shock?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Haemorrhagic shock, since a low BP in trauma means bleeding",
-     "next": "p3_t6",
-     "kind": "trap",
-     "trap": "TR6"
-    },
-    {
-     "label": "Neurogenic shock, from loss of sympathetic tone",
-     "next": "p3_ok",
-     "kind": "correct"
-    }
-   ]
-  },
-  "p3_t6": {
+  "p3_t0": {
    "role": "feedback",
    "say": [
     {
-     "text": "That choice is not right. In trauma, low pressure is usually bleeding, so the habit is to reach for blood.",
+     "text": "That choice is not right.",
      "claims": []
     },
     {
-     "text": "Haemorrhage speeds the heart up. A slow pulse with warm skin points to a different mechanism.",
+     "text": "Low pressure in trauma usually means blood loss, so bleeding comes to mind first. Haemorrhage speeds the pulse up. A slow pulse with warm skin points elsewhere.",
      "claims": [
       "K29"
      ]
@@ -348,11 +368,92 @@
     }
    ]
   },
+  "p3_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Warm skin and low pressure are the septic picture, so it is tempting. But minutes after a fall, sepsis is not the mechanism. Sepsis is a late problem. Here a cord injury removes sympathetic tone.",
+     "claims": [
+      "K29",
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p3_r",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p3_h": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Look at the pulse and the skin together. Ask which mechanism slows the heart and keeps the skin warm.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p3": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "After a fall, a man with a T6 spinal injury has systolic BP 80, pulse 50 and warm dry skin. What type of shock is this?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Haemorrhagic shock, since low pressure in trauma means bleeding",
+     "next": "p3_t0",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Septic shock, since the skin is warm and the pressure is low",
+     "next": "p3_t1",
+     "kind": "trap",
+     "trap": "TR6"
+    },
+    {
+     "label": "Neurogenic shock, from loss of sympathetic tone",
+     "next": "p3_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p3_h",
+     "kind": "help"
+    }
+   ]
+  },
   "p3_ok": {
    "role": "feedback",
    "say": [
     {
-     "text": "Right. Loss of sympathetic tone drops the pressure and slows the pulse, with warm skin, unlike haemorrhage.",
+     "text": "Right. Spinal injury drops the pressure and slows the pulse, with warm skin.",
      "claims": [
       "K29"
      ]
@@ -370,8 +471,9 @@
    "role": "explain",
    "say": [
     {
-     "text": "The answer is neurogenic shock: the spinal cord injury removes sympathetic tone, so the BP falls with a slow pulse.",
+     "text": "The answer is neurogenic shock: the cord injury removes sympathetic tone, so pressure falls with a slow pulse. Haemorrhagic shock speeds the pulse.",
      "claims": [
+      "K20",
       "K29"
      ]
     }
@@ -384,64 +486,18 @@
     }
    ]
   },
-  "p4": {
-   "role": "probe",
-   "objectives": [
-    "O3"
-   ],
-   "say": [
-    {
-     "text": "A 6-year-old needs an emergency surgical airway. Why is the adult operation avoided?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "A child's airway is a small adult's, so the adult operation works",
-     "next": "p4_t22",
-     "kind": "trap",
-     "trap": "TR22"
-    },
-    {
-     "label": "The cricoid is the only complete ring holding the upper trachea open",
-     "next": "p4_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "p4_h",
-     "kind": "help"
-    }
-   ],
-   "ask_confidence": true
-  },
-  "p4_h": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Think about the one ring of cartilage that holds the upper trachea open, and what cutting it would risk.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p4",
-     "kind": "retry"
-    }
-   ]
-  },
-  "p4_t22": {
+  "p4_t0": {
    "role": "feedback",
    "say": [
     {
-     "text": "That choice is not right. A child looks like a small adult, so the adult operation seems to scale down by analogy.",
+     "text": "That choice is not right.",
      "claims": []
     },
     {
-     "text": "The adult operation is avoided under about 12 years, so age changes the choice. Ask what would be at risk.",
+     "text": "One surgical airway for all seems simpler to remember, but the cricoid is at risk in a child. Under about 12 years the surgical route is avoided; age changes the choice.",
      "claims": [
-      "K10"
+      "K10",
+      "K119"
      ]
     }
    ],
@@ -456,21 +512,96 @@
      "next": "p4_r",
      "kind": "agency"
     }
+   ]
+  },
+  "p4_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "A needle sounds safer for everyone, so one rule feels neat. But the adult route of choice is surgical. The adult emergency surgical airway is surgical cricothyroidotomy; the needle route is for the child.",
+     "claims": [
+      "K119",
+      "K120"
+     ]
+    }
    ],
-   "sure_note": {
-    "text": "You were sure, so this is the adult habit: check the age before choosing the operation.",
-    "claims": [
-     "K10"
-    ]
-   }
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p4",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p4_r",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p4_h": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "One rule changes at about 12 years. Ask which patient it protects, and why.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p4",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p4": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Intubation fails and oxygen cannot be delivered in two patients: a 9-year-old and a 30-year-old. Which emergency surgical airway for each?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Surgical cricothyroidotomy for both",
+     "next": "p4_t0",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "Surgical cricothyroidotomy for the adult, needle for the child",
+     "next": "p4_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Needle cricothyroidotomy for both, as the safer route",
+     "next": "p4_t2",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p4_h",
+     "kind": "help"
+    }
+   ]
   },
   "p4_ok": {
    "role": "feedback",
    "say": [
     {
-     "text": "Right. The cricoid is the only circumferential support of the upper trachea, and cutting it in a child risks damage. Needle cricothyroidotomy is used instead.",
+     "text": "Right. Adults get the surgical route; under about 12 years a needle route is used.",
      "claims": [
-      "K69",
+      "K10",
       "K120"
      ]
     }
@@ -487,9 +618,10 @@
    "role": "explain",
    "say": [
     {
-     "text": "The answer: the cricoid is the one complete ring, and in a child it can be damaged, so needle cricothyroidotomy is used.",
+     "text": "The answer: surgical cricothyroidotomy for the 30-year-old, needle cricothyroidotomy for the 9-year-old. The cutoff is about 12 years, because the cricoid is at risk in children.",
      "claims": [
-      "K69",
+      "K10",
+      "K119",
       "K120"
      ]
     }
@@ -502,153 +634,103 @@
     }
    ]
   },
+  "p5_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "The bleeding is the loudest problem, so it feels first. But the order follows speed of death, and haemorrhage control sits inside C. Airway and breathing come before circulation in the ATLS order.",
+     "claims": [
+      "K2",
+      "K3"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p5",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p5_r",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p5_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "He is speaking, so it feels like he is stable. But talking shows an open airway only for the moment, and his breathing is poor. Short phrases and fast shallow breaths mean breathing needs attention now.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p5",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p5_r",
+     "kind": "agency"
+    }
+   ]
+  },
   "p5": {
    "role": "probe",
    "objectives": [
-    "O4"
+    "O1",
+    "O2"
    ],
+   "ask_confidence": true,
    "say": [
     {
-     "text": "A 50-year-old adult after a crash is hypotensive and hypoxic. The right chest is hyper-resonant with absent breath sounds, and the neck veins are distended. What is the first step?",
+     "text": "A cyclist hit by a van talks in short phrases. His thigh is bleeding steadily and his breathing is fast and shallow. What do you do first?",
      "claims": []
     }
    ],
    "choices": [
     {
-     "label": "Needle at the 2nd intercostal space in the mid-clavicular line",
-     "next": "p5_t11",
+     "label": "Put a tourniquet on the thigh, since bleeding kills most",
+     "next": "p5_t0",
      "kind": "trap",
-     "trap": "TR11"
+     "trap": "TR1"
     },
     {
-     "label": "Portable chest X-ray first, to confirm the diagnosis",
-     "next": "p5_t3",
+     "label": "Move on to the secondary survey, since he is talking",
+     "next": "p5_t1",
      "kind": "trap",
-     "trap": "TR3"
+     "trap": "TR2"
     },
     {
-     "label": "Needle decompression at the 4th or 5th space, anterior to mid-axillary line",
+     "label": "Reassess airway and breathing now, and treat problems before the bleed",
      "next": "p5_ok",
      "kind": "correct"
-    },
-    {
-     "label": "Intubate and ventilate, since he is hypoxic and in shock",
-     "next": "p5_t5",
-     "kind": "trap",
-     "trap": "TR5"
     }
-   ],
-   "ask_confidence": true
-  },
-  "p5_t11": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. The 2nd space in the mid-clavicular line is the site older keys expected, so it feels familiar.",
-     "claims": [
-      "K128"
-     ]
-    },
-    {
-     "text": "The ATLS 10th edition site for adults differs from the older key. Check which edition the question follows.",
-     "claims": [
-      "K128"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p5",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "p5_r",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so this older site is a trap: check which edition the question follows.",
-    "claims": [
-     "K128"
-    ]
-   }
-  },
-  "p5_t3": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. A film feels like the careful step before any procedure, so it tempts a cautious clinician.",
-     "claims": []
-    },
-    {
-     "text": "Tension pneumothorax is a clinical diagnosis, and the film costs time this patient does not have.",
-     "claims": [
-      "K6"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p5",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "p5_r",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so check the diagnosis route: tension pneumothorax is clinical, not radiological.",
-    "claims": [
-     "K6"
-    ]
-   }
-  },
-  "p5_t5": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Oxygen and a tube feel like the first move for a hypoxic patient.",
-     "claims": []
-    },
-    {
-     "text": "Positive pressure pushes more air into a space that cannot empty. Ask what is trapping the air.",
-     "claims": [
-      "K24"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p5",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "p5_r",
-     "kind": "agency"
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so check the mechanism before the treatment: what is trapping the air?",
-    "claims": [
-     "K24"
-    ]
-   }
+   ]
   },
   "p5_ok": {
    "role": "feedback",
    "say": [
     {
-     "text": "Right. Tension pneumothorax is diagnosed clinically, so you decompress at once at the adult site, the 4th or 5th space anterior to the mid-axillary line.",
+     "text": "Right. Talking in short phrases with fast shallow breathing needs B dealt with first; the bleed is handled in C.",
      "claims": [
-      "K6",
-      "K73"
+      "K2",
+      "K3",
+      "K4"
      ]
     }
    ],
@@ -664,10 +746,11 @@
    "role": "explain",
    "say": [
     {
-     "text": "The answer: needle decompression now, at the adult site, the 4th or 5th space anterior to the mid-axillary line, without waiting for a film or a tube.",
+     "text": "The answer: reassess airway and breathing first, then control the bleed under C. The order follows what kills fastest, and talking only shows the airway for the moment.",
      "claims": [
-      "K6",
-      "K73"
+      "K2",
+      "K3",
+      "K4"
      ]
     }
    ],
@@ -679,88 +762,93 @@
     }
    ]
   },
+  "p6_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Two litres is the figure older keys print, so it feels standard. ATLS 10th edition gives 1 L warmed, with early blood. The current adult bolus is 1 L warmed isotonic crystalloid; large volumes dilute clotting and cool the patient.",
+     "claims": [
+      "K129",
+      "K9",
+      "K111"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p6",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p6_r",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p6_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Eight hours sticks in memory as the limit, so waiting feels safe. But 8 hours is the infusion; the start window is 3 hours. He is at 2 hours, inside the window. Waiting risks missing it.",
+     "claims": [
+      "K92",
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p6",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p6_r",
+     "kind": "agency"
+    }
+   ]
+  },
   "p6": {
    "role": "probe",
    "objectives": [
-    "O5"
+    "O7",
+    "O10"
    ],
+   "ask_confidence": true,
    "say": [
     {
-     "text": "A crushed chest has a flail segment, and the patient is hypoxic. What is the main cause of the hypoxia?",
+     "text": "An adult weighing 70 kg arrives 2 hours after a crash with a bleeding pelvis and BP 80/50. Which initial plan is right?",
      "claims": []
     }
    ],
    "choices": [
     {
-     "label": "The paradoxical movement of the flail segment itself",
-     "next": "p6_t14",
+     "label": "2 L crystalloid fast, then blood if there is no response",
+     "next": "p6_t0",
      "kind": "trap",
-     "trap": "TR14"
+     "trap": "TR10"
     },
     {
-     "label": "The underlying pulmonary contusion beneath the segment",
+     "label": "1 L warmed crystalloid, early blood, TXA now",
      "next": "p6_ok",
      "kind": "correct"
     },
     {
-     "label": "A simple pneumothorax from the same rib fractures",
-     "next": "p6_t35",
+     "label": "Hold TXA until CT, as it works up to 8 hours",
+     "next": "p6_t2",
      "kind": "trap",
-     "trap": "TR35"
-    }
-   ]
-  },
-  "p6_t14": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. The rocking segment is the most visible sign, so it looks like the cause.",
-     "claims": []
-    },
-    {
-     "text": "The movement is the sign of the injury, not the mechanism of the low oxygen.",
-     "claims": [
-      "K26"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p6",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "p6_r",
-     "kind": "agency"
-    }
-   ]
-  },
-  "p6_t35": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Any rib-fracture complication feels like part of the primary survey list.",
-     "claims": []
-    },
-    {
-     "text": "The list holds life-threatening injuries. This question asks what drives the hypoxia in this segment.",
-     "claims": [
-      "K26"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p6",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "p6_r",
-     "kind": "agency"
+     "trap": "TR27"
     }
    ]
   },
@@ -768,9 +856,11 @@
    "role": "feedback",
    "say": [
     {
-     "text": "Right. In flail chest the hypoxia comes mainly from the underlying pulmonary contusion, not from the paradoxical movement.",
+     "text": "Right. This is the 10th edition bolus, early blood, and TXA still inside its 3-hour window.",
      "claims": [
-      "K26"
+      "K9",
+      "K87",
+      "K92"
      ]
     }
    ],
@@ -786,9 +876,14 @@
    "role": "explain",
    "say": [
     {
-     "text": "The answer is the underlying pulmonary contusion. The paradoxical movement marks the injury, and a simple pneumothorax does not drive this hypoxia.",
+     "text": "The answer: 1 L warmed crystalloid, early blood, and TXA now. Exam note: older keys print 2 L. TXA starts within 3 hours of injury; the 8 hours is the second infusion.",
      "claims": [
-      "K26"
+      "K111",
+      "K129",
+      "K56",
+      "K87",
+      "K9",
+      "K92"
      ]
     }
    ],
@@ -800,88 +895,89 @@
     }
    ]
   },
+  "p7_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "He cannot pass urine, so a catheter feels like the obvious relief. But these signs suggest a urethral tear. A catheter is held back until a urethrogram shows an intact urethra.",
+     "claims": [
+      "K50"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p7",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p7_r",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p7_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "CT is the thorough test, so it feels careful. But an unstable patient should not go to the scanner. Use the bedside test in the room; imaging waits for stability.",
+     "claims": [
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p7",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p7_r",
+     "kind": "agency"
+    }
+   ]
+  },
   "p7": {
    "role": "probe",
    "objectives": [
-    "O5"
+    "O8"
    ],
+   "ask_confidence": true,
    "say": [
     {
-     "text": "A left tension pneumothorax has pushed the trachea to the right. What drives the mediastinum across?",
+     "text": "A cyclist falls astride the bar. He has perineal bruising and a high-riding prostate, cannot pass urine, and has an unstable pelvis with BP 85. What comes before any catheter?",
      "claims": []
     }
    ],
    "choices": [
     {
-     "label": "The collapsed left lung pulls the trachea toward its own side",
-     "next": "p7_t16",
+     "label": "A Foley catheter now, to relieve the retention and measure urine",
+     "next": "p7_t0",
      "kind": "trap",
-     "trap": "TR16"
+     "trap": "TR23"
     },
     {
-     "label": "Blood filling the left chest pushes the trachea to the right",
-     "next": "p7_t7",
+     "label": "CT of the abdomen and pelvis, to map the injury",
+     "next": "p7_t1",
      "kind": "trap",
-     "trap": "TR7"
+     "trap": "TR4"
     },
     {
-     "label": "Trapped air under pressure pushes the mediastinum to the right",
+     "label": "A retrograde urethrogram to check the urethra",
      "next": "p7_ok",
      "kind": "correct"
-    }
-   ]
-  },
-  "p7_t16": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. The collapsed lung is the most visible change, so it seems to be the force.",
-     "claims": []
-    },
-    {
-     "text": "The collapse is the result of trapped air, and the shift is the direction the pressure takes.",
-     "claims": [
-      "K24"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p7",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "p7_r",
-     "kind": "agency"
-    }
-   ]
-  },
-  "p7_t7": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Blood and air both fill one side of the chest, so the shift looks the same.",
-     "claims": []
-    },
-    {
-     "text": "Massive haemothorax has its own signs: dullness on percussion, and flat neck veins. Look at the mechanism, not the filling.",
-     "claims": [
-      "K35"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p7",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "p7_r",
-     "kind": "agency"
     }
    ]
   },
@@ -889,9 +985,10 @@
    "role": "feedback",
    "say": [
     {
-     "text": "Right. The one-way valve traps air under pressure, which pushes the mediastinum to the opposite side and impedes venous return.",
+     "text": "Right. The urethra is checked first, and the catheter goes in only if it is intact.",
      "claims": [
-      "K24"
+      "K122",
+      "K50"
      ]
     }
    ],
@@ -907,10 +1004,11 @@
    "role": "explain",
    "say": [
     {
-     "text": "The answer: trapped air under pressure on the left pushes the mediastinum to the right, so the trachea moves away from the injured side.",
+     "text": "The answer: a retrograde urethrogram first. Perineal bruising and a high-riding prostate suggest a torn urethra, and the catheter must wait.",
      "claims": [
-      "K24",
-      "K34"
+      "K122",
+      "K50",
+      "K56"
      ]
     }
    ],
@@ -922,88 +1020,89 @@
     }
    ]
   },
+  "p8_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "The moving segment is the visible problem, so fixing it feels like treating the cause. But it is the sign, not the cause. The hypoxia comes from the lung beneath the segment, so treatment goes to the lung.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p8",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p8_r",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p8_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Rib fractures often bring a pneumothorax, so it feels likely. But the main cause here is the contusion beneath the segment. The contusion drives the low oxygen, not a simple pneumothorax.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p8",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p8_r",
+     "kind": "agency"
+    }
+   ]
+  },
   "p8": {
    "role": "probe",
    "objectives": [
     "O5"
    ],
+   "ask_confidence": true,
    "say": [
     {
-     "text": "A stab wound to the chest. Muffled heart sounds, low BP, distended neck veins and clear breath sounds on both sides. What is the diagnosis?",
+     "text": "An older man falls and breaks three ribs on the right, each in two places. A segment moves paradoxically and his saturation is 88%. Which statement is right?",
      "claims": []
     }
    ],
    "choices": [
     {
-     "label": "Cardiac tamponade, with blood compressing the heart",
+     "label": "Fixing the moving segment will correct the hypoxia",
+     "next": "p8_t0",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "A small simple pneumothorax is the main cause of the hypoxia",
+     "next": "p8_t1",
+     "kind": "trap",
+     "trap": "TR35"
+    },
+    {
+     "label": "The bruised lung is the cause; oxygen, analgesia, ventilate if needed",
      "next": "p8_ok",
      "kind": "correct"
-    },
-    {
-     "label": "Tension pneumothorax, since low BP and distended neck veins fit",
-     "next": "p8_t8",
-     "kind": "trap",
-     "trap": "TR8"
-    },
-    {
-     "label": "Massive haemothorax, since shock with a quiet chest looks the same",
-     "next": "p8_t7",
-     "kind": "trap",
-     "trap": "TR7"
-    }
-   ]
-  },
-  "p8_t8": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Low pressure with full neck veins looks like a pressure problem in the chest, so the lung seems likely.",
-     "claims": []
-    },
-    {
-     "text": "Tension pneumothorax comes with absent breath sounds and hyper-resonance on the affected side. Check the breath sounds on both sides.",
-     "claims": [
-      "K34"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p8",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "p8_r",
-     "kind": "agency"
-    }
-   ]
-  },
-  "p8_t7": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. A stab wound and shock make blood loss feel like the answer at once.",
-     "claims": []
-    },
-    {
-     "text": "Massive haemothorax gives absent breath sounds and dullness on one side. This chest is clear on both sides.",
-     "claims": [
-      "K35"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p8",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "p8_r",
-     "kind": "agency"
     }
    ]
   },
@@ -1011,10 +1110,10 @@
    "role": "feedback",
    "say": [
     {
-     "text": "Right. Beck's triad is hypotension, muffled heart sounds and distended neck veins, from blood compressing the heart. Breath sounds are not lost, unlike tension pneumothorax.",
+     "text": "Right. The pulmonary contusion causes the hypoxia, so treatment targets the lung.",
      "claims": [
-      "K39",
-      "K34"
+      "K26",
+      "K81"
      ]
     }
    ],
@@ -1030,10 +1129,10 @@
    "role": "explain",
    "say": [
     {
-     "text": "The answer is cardiac tamponade: the heart is compressed, giving Beck's triad, and the breath sounds stay clear.",
+     "text": "The answer: the underlying pulmonary contusion is the main cause. The paradoxical movement marks the injury, and treatment goes to the lung.",
      "claims": [
-      "K39",
-      "K34"
+      "K26",
+      "K81"
      ]
     }
    ],
@@ -1045,123 +1144,92 @@
     }
    ]
   },
+  "p9_t0": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Permissive hypotension is a real strategy for bleeding, so it seems right for her. But it is not used with a brain injury. The injured brain needs perfusion; secondary brain injury follows low pressure and low oxygen.",
+     "claims": [
+      "K88",
+      "K97"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p9",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p9_r",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p9_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Pushing fluid is the reflex for a low pressure, and 2 L is the older figure. But large volumes worsen bleeding, and the 10th edition bolus is 1 L. Use a smaller warmed bolus with early blood while keeping the brain perfused.",
+     "claims": [
+      "K129",
+      "K9",
+      "K111"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p9",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p9_r",
+     "kind": "agency"
+    }
+   ]
+  },
   "p9": {
    "role": "probe",
    "objectives": [
-    "O6",
-    "O7",
-    "O10"
+    "O7"
    ],
+   "ask_confidence": true,
    "say": [
     {
-     "text": "Which statement about ATLS figures is right?",
+     "text": "A woman with a bleeding spleen also has a head injury, GCS 7, and a systolic BP of 85. The surgeon wants to run the pressure low until theatre. What is right?",
      "claims": []
     }
    ],
    "choices": [
     {
-     "label": "Hypotension first appears in Class II, at 15 to 30 percent loss",
-     "next": "p9_t9",
+     "label": "Agree, because a low pressure protects the clot in any bleeding patient",
+     "next": "p9_t0",
      "kind": "trap",
-     "trap": "TR9"
+     "trap": "TR18"
     },
     {
-     "label": "The adult initial crystalloid bolus is 2 L in ATLS 10th edition",
-     "next": "p9_t10",
+     "label": "Give 2 L crystalloid fast to bring the pressure up",
+     "next": "p9_t1",
      "kind": "trap",
      "trap": "TR10"
     },
     {
-     "label": "Tranexamic acid can be started up to 8 hours after injury",
-     "next": "p9_t27",
-     "kind": "trap",
-     "trap": "TR27"
-    },
-    {
-     "label": "Hypotension first appears in Class III, at 31 to 40 percent loss",
+     "label": "Keep pressure high enough to perfuse the brain; find the bleeding",
      "next": "p9_ok",
      "kind": "correct"
-    }
-   ]
-  },
-  "p9_t9": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. The pulse and pulse pressure change early, so it seems the blood pressure should fall early too.",
-     "claims": []
-    },
-    {
-     "text": "Compensation keeps the systolic pressure up for longer than the pulse changes suggest.",
-     "claims": [
-      "K8"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p9",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "p9_r",
-     "kind": "agency"
-    }
-   ]
-  },
-  "p9_t10": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Two litres is the figure many older keys give, so it feels safe to recall.",
-     "claims": []
-    },
-    {
-     "text": "The ATLS 10th edition figure for adults differs from the older key. Check the edition the question uses.",
-     "claims": [
-      "K129"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p9",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "p9_r",
-     "kind": "agency"
-    }
-   ]
-  },
-  "p9_t27": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Eight hours is the figure that sticks, because the infusion runs that long.",
-     "claims": []
-    },
-    {
-     "text": "Eight hours is the length of the second infusion, not the start window.",
-     "claims": [
-      "K92"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p9",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "p9_r",
-     "kind": "agency"
     }
    ]
   },
@@ -1169,10 +1237,10 @@
    "role": "feedback",
    "say": [
     {
-     "text": "Right. Compensation holds systolic pressure until about a third of the blood volume is lost, so hypotension appears in Class III.",
+     "text": "Right. Permissive hypotension is not used in brain injury, so the brain is kept perfused.",
      "claims": [
-      "K8",
-      "K124"
+      "K88",
+      "K97"
      ]
     }
    ],
@@ -1188,12 +1256,13 @@
    "role": "explain",
    "say": [
     {
-     "text": "The answer: hypotension first appears in Class III, at 31 to 40 percent loss. The adult bolus is 1 L, and tranexamic acid starts within 3 hours.",
+     "text": "The answer: keep perfusion adequate for the brain and control the bleeding. Permissive hypotension is not used in traumatic brain injury.",
      "claims": [
-      "K8",
-      "K124",
+      "K111",
+      "K129",
+      "K88",
       "K9",
-      "K92"
+      "K97"
      ]
     }
    ],
@@ -1205,42 +1274,17 @@
     }
    ]
   },
-  "p10": {
-   "role": "probe",
-   "objectives": [
-    "O7"
-   ],
-   "say": [
-    {
-     "text": "A man has a pelvic bleed and a head injury, with GCS 7. Which blood pressure target is right?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Keep the pressure high enough to perfuse the injured brain",
-     "next": "p10_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Accept a low pressure to avoid popping the clot in any bleed",
-     "next": "p10_t18",
-     "kind": "trap",
-     "trap": "TR18"
-    }
-   ]
-  },
-  "p10_t18": {
+  "p10_t0": {
    "role": "feedback",
    "say": [
     {
-     "text": "That choice is not right. Permissive hypotension is a real strategy, so it tempts you to apply it to every bleeding patient.",
+     "text": "That choice is not right.",
      "claims": []
     },
     {
-     "text": "It is not used in traumatic brain injury. Ask what the injured brain needs.",
+     "text": "Normal numbers are reassuring, so shock feels excluded. But beta-blockers and age blunt the heart-rate response. Tachycardia can be absent, so pale cool skin and confusion are signs to act on.",
      "claims": [
-      "K88"
+      "K43"
      ]
     }
    ],
@@ -1257,13 +1301,74 @@
     }
    ]
   },
+  "p10_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Class II seems like it should already lower the pressure. But hypotension first appears in Class III. A normal BP does not exclude shock; compensation holds the pressure.",
+     "claims": [
+      "K8",
+      "K124"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p10",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p10_r",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p10": {
+   "role": "probe",
+   "objectives": [
+    "O6"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 72-year-old on a beta-blocker falls. Pulse 78, BP 118/76, skin cool and pale, and he is confused. How do you read this?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "No shock, since the pulse and BP are both normal",
+     "next": "p10_t0",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Early shock only, since hypotension would already show by Class II",
+     "next": "p10_t1",
+     "kind": "trap",
+     "trap": "TR9"
+    },
+    {
+     "label": "Shock may be present, since drugs and age blunt the usual signs",
+     "next": "p10_ok",
+     "kind": "correct"
+    }
+   ]
+  },
   "p10_ok": {
    "role": "feedback",
    "say": [
     {
-     "text": "Right. Permissive hypotension is not used in traumatic brain injury, so the injured brain is kept perfused.",
+     "text": "Right. Pale cool skin and confusion are warnings when tachycardia is blunted.",
      "claims": [
-      "K88"
+      "K43",
+      "K123"
      ]
     }
    ],
@@ -1279,9 +1384,12 @@
    "role": "explain",
    "say": [
     {
-     "text": "The answer: keep perfusion pressure high enough for the injured brain, because permissive hypotension is not used in brain injury.",
+     "text": "The answer: shock may be present. Beta-blockers and age can hide tachycardia, and hypotension appears late, in Class III, so act on the skin and mental state.",
      "claims": [
-      "K88"
+      "K123",
+      "K124",
+      "K43",
+      "K8"
      ]
     }
    ],
@@ -1293,42 +1401,17 @@
     }
    ]
   },
-  "p11": {
-   "role": "probe",
-   "objectives": [
-    "O6"
-   ],
-   "say": [
-    {
-     "text": "A 70-year-old on a beta-blocker falls. Pulse 80, BP normal, but the skin is pale and cool. How do you read this?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Shock may be present, since the usual signs are blunted by drugs",
-     "next": "p11_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "No shock, since the pulse and BP are both normal",
-     "next": "p11_t17",
-     "kind": "trap",
-     "trap": "TR17"
-    }
-   ]
-  },
-  "p11_t17": {
+  "p11_t0": {
    "role": "feedback",
    "say": [
     {
-     "text": "That choice is not right. Normal numbers feel reassuring, and the pulse looks fine on the monitor.",
+     "text": "That choice is not right.",
      "claims": []
     },
     {
-     "text": "Tachycardia can be absent in the elderly and in beta-blocked patients, so normal readings do not exclude shock.",
+     "text": "Low pressure with full neck veins looks like a pressure problem in the pleura. But tension pneumothorax gives a silent, hyper-resonant side and a deviated trachea. Here the breath sounds are equal and the trachea is central.",
      "claims": [
-      "K43"
+      "K34"
      ]
     }
    ],
@@ -1345,20 +1428,113 @@
     }
    ]
   },
+  "p11_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "A chest wound with shock makes blood loss the first thought. But haemothorax gives a dull, silent side, and both sides are clear here. Look for one-sided dullness; there is none.",
+     "claims": [
+      "K35"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p11",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p11_r",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p11_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "A collapsed lung looks like it should drag things toward it. But a collapsed lung does not give this picture, and in tension the mediastinum is pushed away. The findings here point to the heart, not a pleural collapse.",
+     "claims": [
+      "K24",
+      "K39"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p11",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me what is right",
+     "next": "p11_r",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p11": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A man is shot in the left chest. BP 70, neck veins distended, heart sounds faint, trachea central, and breath sounds clear and equal. What is the likely diagnosis?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Tension pneumothorax, since low BP and full neck veins fit",
+     "next": "p11_t0",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Massive haemothorax, since shock after a chest wound means blood",
+     "next": "p11_t1",
+     "kind": "trap",
+     "trap": "TR7"
+    },
+    {
+     "label": "Cardiac tamponade, with blood around the heart",
+     "next": "p11_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A collapsed lung, which pulls the mediastinum toward the injured side",
+     "next": "p11_t3",
+     "kind": "trap",
+     "trap": "TR16"
+    }
+   ]
+  },
   "p11_ok": {
    "role": "feedback",
    "say": [
     {
-     "text": "Right. Tachycardia can be absent in beta-blocked and elderly patients, so pale cool skin is a sign to act on.",
+     "text": "Right. Hypotension, muffled heart sounds and distended neck veins with clear lungs is Beck's triad.",
      "claims": [
-      "K43"
+      "K39"
      ]
     }
    ],
    "choices": [
     {
      "label": "Next",
-     "next": "p12",
+     "next": "wrap",
      "kind": "continue"
     }
    ]
@@ -1367,114 +1543,12 @@
    "role": "explain",
    "say": [
     {
-     "text": "The answer: shock may be present, because beta-blockers and age can blunt the usual compensation. Treat the skin as the warning.",
+     "text": "The answer: cardiac tamponade. Beck's triad with clear, equal breath sounds and a central trachea points to the pericardium, not the pleura.",
      "claims": [
-      "K43"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "p12",
-     "kind": "continue"
-    }
-   ]
-  },
-  "p12": {
-   "role": "probe",
-   "objectives": [
-    "O8"
-   ],
-   "say": [
-    {
-     "text": "An unstable pelvic fracture, with blood at the urethral meatus and a high-riding prostate. What comes before any catheter?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "A Foley catheter, to measure the urine output",
-     "next": "p12_t23",
-     "kind": "trap",
-     "trap": "TR23"
-    },
-    {
-     "label": "CT of the pelvis and abdomen, to find the bleeding",
-     "next": "p12_t4",
-     "kind": "trap",
-     "trap": "TR4"
-    },
-    {
-     "label": "A retrograde urethrogram, to check the urethra first",
-     "next": "p12_ok",
-     "kind": "correct"
-    }
-   ]
-  },
-  "p12_t23": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. Urine output is the number a team wants early, so the catheter feels routine.",
-     "claims": []
-    },
-    {
-     "text": "A catheter is contraindicated when urethral injury is suspected, and blood at the meatus is one warning sign.",
-     "claims": [
-      "K50"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p12",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "p12_r",
-     "kind": "agency"
-    }
-   ]
-  },
-  "p12_t4": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right. CT is the thorough test for the abdomen and pelvis, so it feels like the careful choice.",
-     "claims": []
-    },
-    {
-     "text": "An unstable patient should not go to the scanner. The test that works in the room is the bedside one.",
-     "claims": [
-      "K56",
-      "K137"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "p12",
-     "kind": "retry"
-    },
-    {
-     "label": "Show me what is right",
-     "next": "p12_r",
-     "kind": "agency"
-    }
-   ]
-  },
-  "p12_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Right. A retrograde urethrogram shows whether the urethra is intact, and the catheter waits for that answer.",
-     "claims": [
-      "K122",
-      "K50"
+      "K24",
+      "K34",
+      "K35",
+      "K39"
      ]
     }
    ],
@@ -1483,40 +1557,6 @@
      "label": "Next",
      "next": "wrap",
      "kind": "continue"
-    }
-   ]
-  },
-  "p12_r": {
-   "role": "explain",
-   "say": [
-    {
-     "text": "The answer: a retrograde urethrogram first. If the urethra is intact a catheter can go in; if it is not, it must not.",
-     "claims": [
-      "K122",
-      "K50"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "wrap",
-     "kind": "continue"
-    }
-   ]
-  },
-  "wrap": {
-   "role": "end",
-   "end": true,
-   "objectives": [
-    "O9"
-   ],
-   "say": [
-    {
-     "text": "Last point: the secondary survey and AMPLE history start only after the primary survey and resuscitation. Your review cards cover the core ideas, so go through them over the coming days.",
-     "claims": [
-      "K11"
-     ]
     }
    ]
   }
