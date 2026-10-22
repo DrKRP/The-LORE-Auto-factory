@@ -1,0 +1,316 @@
+{
+  "segment": "S2",
+  "technique": "T4",
+  "entry": "p_flow",
+  "nodes": {
+    "p_flow": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 48-year-old woman has a varicose calf, and duplex shows one perforator that no longer closes properly.", "claims": []},
+        {"text": "Before I explain, predict. In a normal leg, which way does blood cross a perforator?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Deep into superficial, through the one-way valve", "next": "p_flow_t1", "kind": "trap", "trap": "TR11"},
+        {"label": "Superficial into deep, through the one-way valve", "next": "f_flow_ok", "kind": "correct"},
+        {"label": "Deep into superficial, pushed by the calf squeeze", "next": "p_flow_t2", "kind": "trap", "trap": "TR11"},
+        {"label": "Not sure, give me a hint", "next": "p_flow_h", "kind": "help"}
+      ]
+    },
+    "p_flow_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because reflux, the disease you are reading about, runs from deep to superficial.", "claims": []},
+        {"text": "But reflux is the failure of the valve, not its design. Ask what a healthy perforator valve is there to do, then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the words: reflux and normal describe opposite states of the same valve.", "claims": ["K21"]},
+      "choices": [{"label": "Try again", "next": "p_flow", "kind": "retry"}]
+    },
+    "p_flow_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the calf squeeze really does move blood, so the push feels like the direction.", "claims": []},
+        {"text": "But the squeeze is only the force. The valve decides the direction, so ask which way that valve lets blood through in a healthy leg, then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, but the squeeze is the force and the valve is the gate.", "claims": ["K21"]},
+      "choices": [{"label": "Try again", "next": "p_flow", "kind": "retry"}]
+    },
+    "p_flow_h": {
+      "role": "hint",
+      "say": [
+        {"text": "Hint: a perforator links the two systems. In a healthy leg the valve is there to stop blood falling back from one of them. Which one?", "claims": []}
+      ],
+      "choices": [{"label": "Got it, try again", "next": "p_flow", "kind": "retry"}]
+    },
+    "f_flow_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Perforating veins link the superficial and deep systems, and their valves normally let blood pass only from superficial to deep.", "claims": ["K21"]}
+      ],
+      "choices": [{"label": "Next", "next": "p_pump", "kind": "continue"}]
+    },
+    "p_pump": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Now the calf. You stand, then you walk. In a normal leg, what does the calf muscle pump do to venous pressure in the leg?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Pushes it up, each time the calf squeezes", "next": "p_pump_t1", "kind": "trap", "trap": "TR12"},
+        {"label": "Lowers it, each time the calf squeezes", "next": "f_pump_ok", "kind": "correct"},
+        {"label": "Raises it, and it stays high while walking", "next": "p_pump_t2", "kind": "trap", "trap": "TR12"},
+        {"label": "Not sure, give me a hint", "next": "p_pump_h", "kind": "help"}
+      ]
+    },
+    "p_pump_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the squeeze you feel in the calf looks like a push, and the leg feels heavy when you stand.", "claims": []},
+        {"text": "But one squeeze is a moment. The question is the pressure across the whole walk, and that is what the pump controls. Choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the timescale: the pump's job shows up in the pressure across the walk.", "claims": ["K33"]},
+      "choices": [{"label": "Try again", "next": "p_pump", "kind": "retry"}]
+    },
+    "p_pump_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the leg feels swollen and tight after standing, so the pressure must be high all the time.", "claims": []},
+        {"text": "But that describes the symptom, not the pump's action. Ask what the pump does to pressure on each walk in a healthy leg, then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, and this mix-up is common: symptoms come on with standing, but the pump is not working backwards.", "claims": ["K34"]},
+      "choices": [{"label": "Try again", "next": "p_pump", "kind": "retry"}]
+    },
+    "p_pump_h": {
+      "role": "hint",
+      "say": [
+        {"text": "Hint: think about the pump's job, not the symptom. The leg's pump is there to clear blood out of the lower leg each time you walk.", "claims": []}
+      ],
+      "choices": [{"label": "Got it, try again", "next": "p_pump", "kind": "retry"}]
+    },
+    "f_pump_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. The calf muscle pump lowers venous pressure in the leg each time you walk.", "claims": ["K33"]}
+      ],
+      "choices": [
+        {"label": "Show me what happens when it fails", "next": "amb", "kind": "continue"},
+        {"label": "I know this, skip the explanation", "next": "p_vig", "kind": "skip"}
+      ]
+    },
+    "amb": {
+      "role": "explain",
+      "say": [
+        {"text": "When reflux or a blocked deep vein stops that fall, the pressure stays high on walking. That is ambulatory venous hypertension.", "claims": ["K34"]},
+        {"text": "Sustained high pressure leaks fluid, red cells and fibrinogen into the tissues. That causes the oedema, skin change and ulcers you will meet next.", "claims": ["K35"]}
+      ],
+      "choices": [{"label": "Next", "next": "p_vig", "kind": "continue"}]
+    },
+    "p_vig": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 55-year-old with a long-standing varicose leg. Her ankle venous pressure does not fall when she walks.", "claims": []},
+        {"text": "Which state is this, and why?", "claims": []}
+      ],
+      "choices": [
+        {"label": "A normal response to exercise, with pressure rising briefly", "next": "p_vig_t2", "kind": "trap", "trap": "TR12"},
+        {"label": "Ambulatory venous hypertension, from reflux or blocked deep veins", "next": "f_vig_ok", "kind": "correct"},
+        {"label": "Ambulatory venous hypertension, because the pump pushes pressure up", "next": "p_vig_t1", "kind": "trap", "trap": "TR12"}
+      ]
+    },
+    "p_vig_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the word pump suggests it drives pressure up, and the name sounds like a push.", "claims": []},
+        {"text": "But a healthy pump does not push pressure up on walking. Here the question is why the pressure stays high, so ask what failed to happen. Choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the cause: the state name fits, but the pump's role in it is reversed.", "claims": ["K34"]},
+      "choices": [{"label": "Try again", "next": "p_vig", "kind": "retry"}]
+    },
+    "p_vig_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because a brief rise in pressure on exercise is real, so it looks like a normal response.", "claims": []},
+        {"text": "But this patient's pressure does not fall afterwards, and that failure to fall is the whole finding. Compare the two legs, then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so look at the vignette again: the pressure that never falls is the clue.", "claims": ["K34"]},
+      "choices": [{"label": "Try again", "next": "p_vig", "kind": "retry"}]
+    },
+    "f_vig_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. The pump should lower pressure on walking. With reflux or deep obstruction it cannot, so the pressure stays high: ambulatory venous hypertension.", "claims": ["K34"]}
+      ],
+      "choices": [{"label": "Next", "next": "p_close", "kind": "continue"}]
+    },
+    "p_close": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Last check on the valve itself. Which statement about a perforator valve is true?", "claims": []}
+      ],
+      "choices": [
+        {"label": "It closes when blood tries to flow from deep to superficial", "next": "f_close_ok", "kind": "correct"},
+        {"label": "It closes when blood tries to flow from superficial to deep", "next": "p_close_t", "kind": "trap", "trap": "TR11"}
+      ]
+    },
+    "p_close_t": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because you may remember reflux as blood going the wrong way, so the reverse wording feels like the rule.", "claims": []},
+        {"text": "But reflux is the failure, not the rule. Check which way a healthy valve must shut to stop the reflux you read about, then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so recheck the direction of closure: reflux is the failure of exactly that closure.", "claims": ["K32"]},
+      "choices": [{"label": "Try again", "next": "p_close", "kind": "retry"}]
+    },
+    "f_close_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. A healthy perforator valve opens only from superficial to deep, so it shuts against blood going from deep to superficial. That shutting is what fails in reflux.", "claims": ["K21", "K32"]}
+      ],
+      "choices": [{"label": "Next", "next": "p_named", "kind": "continue"}]
+    },
+    "p_named": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Now the named perforators. Which one sits at the medial ankle, linking the posterior arch vein to the posterior tibial veins?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Boyd", "next": "p_named_t1", "kind": "trap", "trap": "TR10"},
+        {"label": "Cockett", "next": "f_named_ok", "kind": "correct"},
+        {"label": "Hunter", "next": "p_named_t2", "kind": "trap", "trap": "TR10"},
+        {"label": "Not sure, give me a hint", "next": "p_named_h", "kind": "help"}
+      ]
+    },
+    "p_named_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because Boyd is one of the medial-leg names you have just heard, and all four sit on the inner side of the leg.", "claims": []},
+        {"text": "But Boyd sits on the medial leg just below the knee, not at the ankle. Place each name at its own level on the leg, then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the level: the names are not interchangeable on the leg.", "claims": ["K23"]},
+      "choices": [{"label": "Try again", "next": "p_named", "kind": "retry"}]
+    },
+    "p_named_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the names feel like one set of medial perforators, and this one is the name you may have placed in the thigh.", "claims": []},
+        {"text": "But this name sits higher, at mid-thigh, far above the ankle you were asked about. Check the level of the ankle perforator, then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the level: a name at the thigh cannot be the ankle one.", "claims": ["K25"]},
+      "choices": [{"label": "Try again", "next": "p_named", "kind": "retry"}]
+    },
+    "p_named_h": {
+      "role": "hint",
+      "say": [
+        {"text": "Hint: start at the ankle and walk up the inner side of the leg, naming each perforator you pass.", "claims": []}
+      ],
+      "choices": [{"label": "Got it, try again", "next": "p_named", "kind": "retry"}]
+    },
+    "f_named_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Cockett sits at the medial ankle, connecting the posterior arch vein to the posterior tibial veins.", "claims": ["K22"]}
+      ],
+      "choices": [{"label": "Next", "next": "p_order", "kind": "continue"}]
+    },
+    "p_order": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Now the order. Put the four medial perforators in order, from the ankle up to the mid-thigh.", "claims": []}
+      ],
+      "choices": [
+        {"label": "Cockett, Dodd, Boyd, Hunter", "next": "p_order_t1", "kind": "trap", "trap": "TR10"},
+        {"label": "Cockett, Boyd, Dodd, Hunter", "next": "f_order_ok", "kind": "correct"},
+        {"label": "Hunter, Dodd, Boyd, Cockett", "next": "p_order_t2", "kind": "trap", "trap": "TR10"},
+        {"label": "Not sure, give me a hint", "next": "p_order_h", "kind": "help"}
+      ]
+    },
+    "p_order_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the four names all sit on the medial leg, so their order feels arbitrary.", "claims": []},
+        {"text": "But check where Dodd sits against the knee, and where Boyd sits, before you choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so climb the leg again: the order is set by level, not by the names.", "claims": ["K122"]},
+      "choices": [{"label": "Try again", "next": "p_order", "kind": "retry"}]
+    },
+    "p_order_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because it is the same four names read from the thigh down, which looks like a tidy list.", "claims": []},
+        {"text": "But the question climbs from the ankle, and this list runs the other way. Start at the ankle and climb one level at a time, then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the start point: the climb begins at the ankle, not the thigh.", "claims": ["K122"]},
+      "choices": [{"label": "Try again", "next": "p_order", "kind": "retry"}]
+    },
+    "p_order_h": {
+      "role": "hint",
+      "say": [
+        {"text": "Hint: begin with the lowest of the four, on the ankle, and name the next one you reach each time you go up a level.", "claims": []}
+      ],
+      "choices": [{"label": "Got it, try again", "next": "p_order", "kind": "retry"}]
+    },
+    "f_order_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Climbing from the ankle: Cockett at the ankle, Boyd just below the knee, Dodd in the lower thigh, and Hunter at mid-thigh.", "claims": ["K22", "K23", "K24", "K25", "K122"]}
+      ],
+      "choices": [{"label": "Next", "next": "p_saph", "kind": "continue"}]
+    },
+    "p_saph": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Take the great saphenous vein (GSV) and the small saphenous vein (SSV). Which pair of courses is correct?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Great runs lateral, ends popliteal; small runs medial, ends femoral", "next": "p_saph_t1", "kind": "trap", "trap": "TR7"},
+        {"label": "Great runs medial, ends femoral; small runs lateral, ends popliteal", "next": "f_saph_ok", "kind": "correct"},
+        {"label": "Both run medial and end in the femoral vein", "next": "p_saph_t2", "kind": "trap", "trap": "TR7"},
+        {"label": "Not sure, give me a hint", "next": "p_saph_h", "kind": "help"}
+      ]
+    },
+    "p_saph_t1": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because both veins start at the dorsal venous arch, so they seem to share one course that only swaps at the ends.", "claims": []},
+        {"text": "But they leave the arch on opposite sides of the ankle and end in different veins. Check which malleolus each one passes, then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so check the side: where a vein starts does not decide where it runs.", "claims": ["K14"]},
+      "choices": [{"label": "Try again", "next": "p_saph", "kind": "retry"}]
+    },
+    "p_saph_t2": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. It is tempting because the two veins share a start point, so they feel like one vein with one course.", "claims": []},
+        {"text": "But they run on opposite sides of the leg and end in different veins. Name the malleolus each one passes, then choose again.", "claims": []}
+      ],
+      "sure_note": {"text": "You were sure, so recheck the template: two veins from one arch are not one course.", "claims": ["K18"]},
+      "choices": [{"label": "Try again", "next": "p_saph", "kind": "retry"}]
+    },
+    "p_saph_h": {
+      "role": "hint",
+      "say": [
+        {"text": "Hint: start both veins at the dorsal venous arch, then ask which malleolus each one passes on the way up.", "claims": []}
+      ],
+      "choices": [{"label": "Got it, try again", "next": "p_saph", "kind": "retry"}]
+    },
+    "f_saph_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. The great saphenous vein runs in front of the medial malleolus and joins the femoral vein. The small one runs behind the lateral malleolus and usually joins the popliteal vein.", "claims": ["K14", "K18", "K123"]}
+      ],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    }
+  }
+}
