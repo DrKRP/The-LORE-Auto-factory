@@ -1,0 +1,1106 @@
+{
+  "segment": "S5",
+  "technique": "T5",
+  "entry": "case1",
+  "nodes": {
+    "case1": {
+      "role": "case",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Worked case one. A 70-kg man is hit by a car. He is talking and anxious, and his skin is cold and clammy.",
+          "claims": [
+            "K37",
+            "K40"
+          ]
+        },
+        {
+          "text": "Pulse 120. BP 100/80. The systolic is normal, but the pulse pressure has narrowed to 20 mmHg.",
+          "claims": [
+            "K41",
+            "K123"
+          ]
+        },
+        {
+          "text": "Trauma shock is haemorrhagic until proven otherwise. This picture is Class II, a 15 to 30 percent loss.",
+          "claims": [
+            "K7",
+            "K40"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "why",
+          "kind": "continue"
+        }
+      ]
+    },
+    "why": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same man, a few minutes later. His systolic is still 100. Why does the pressure hold while he bleeds?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Only 15 percent is lost, so normal systolic means a small bleed",
+          "next": "why_t9",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "Vasoconstriction holds systolic up until about a third of volume is lost",
+          "next": "why_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "A normal systolic means no shock yet, so the bleed can wait",
+          "next": "why_t17",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "why_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "why_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which changes come first in a bleed: the pulse and the vessels, or the pressure?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "why",
+          "kind": "retry"
+        }
+      ]
+    },
+    "why_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Yes. The pulse climbs and the pulse pressure narrows first, so the systolic holds for a while.",
+          "claims": [
+            "K123",
+            "K41"
+          ]
+        },
+        {
+          "text": "Hypotension is the late sign. It first appears in Class III, at 31 to 40 percent loss.",
+          "claims": [
+            "K8",
+            "K124"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade1",
+          "kind": "continue"
+        },
+        {
+          "label": "Skip the worked cases, I can read shock",
+          "next": "fade2",
+          "kind": "skip"
+        }
+      ]
+    },
+    "why_t9": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. A normal systolic feels like proof of a small bleed, because we are taught to watch the BP.",
+          "claims": []
+        },
+        {
+          "text": "Class I is under 15 percent loss, and this man's pulse and pulse pressure point to more. Which sign moves first?",
+          "claims": [
+            "K40",
+            "K41"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so look again: a normal systolic does not measure how much blood has gone.",
+        "claims": [
+          "K8"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "why_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "why_t17": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Normal numbers look like reassurance, and the eye stops at the BP.",
+          "claims": []
+        },
+        {
+          "text": "In trauma, shock is haemorrhagic until proven otherwise, so a normal systolic does not clear him. Which sign is still worrying?",
+          "claims": [
+            "K7"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: in trauma a normal number is not the end of the assessment.",
+        "claims": [
+          "K7",
+          "K123"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "why",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "why_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "why_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Here is the full answer. The body holds the systolic by pushing the pulse up and narrowing the pulse pressure first.",
+          "claims": [
+            "K123",
+            "K41"
+          ]
+        },
+        {
+          "text": "Hypotension is a late sign and first appears in Class III, at 31 to 40 percent loss. A normal systolic early on is not reassurance.",
+          "claims": [
+            "K8",
+            "K124"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade1": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "The worked case gave you the reading. Now read the class yourself.",
+          "claims": []
+        },
+        {
+          "text": "A 70-kg adult has lost about a quarter of his blood volume. Pulse is raised, BP is normal and the pulse pressure is narrowed. Which class fits, and what keeps the BP normal?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Class I, since the pressure is normal and loss is small",
+          "next": "fade1_t9a",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "Class II, but only a falling systolic would confirm it",
+          "next": "fade1_t9b",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "Class II, compensated: pulse and pulse pressure move before the BP",
+          "next": "fade1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Match a quarter of the volume to a class, then ask which sign moves before the pressure.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "fade1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade1_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Yes. Class II is a 15 to 30 percent loss, with a pulse of 100 to 120.",
+          "claims": [
+            "K40"
+          ]
+        },
+        {
+          "text": "The pulse pressure narrows before the systolic falls, which is why the BP still reads normal.",
+          "claims": [
+            "K41",
+            "K8"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade1_t9a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. A normal pressure feels like proof the bleed is small, so Class I sounds natural.",
+          "claims": []
+        },
+        {
+          "text": "Class I is under 15 percent loss. A quarter of the volume and a raised pulse are beyond that. What does the pulse pressure say?",
+          "claims": [
+            "K40"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: a normal BP does not measure the size of the bleed.",
+        "claims": [
+          "K8"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade1_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade1_t9b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Hypotension is taught as the sign of bleeding, so a learner waits for a falling systolic before calling Class II.",
+          "claims": []
+        },
+        {
+          "text": "The systolic does not fall until Class III. Class II is a compensated stage, so read the pulse first.",
+          "claims": [
+            "K8",
+            "K124"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: a falling systolic is a late sign, not the test for Class II.",
+        "claims": [
+          "K8"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade1_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade1_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Class II is a 15 to 30 percent loss, with a pulse of 100 to 120.",
+          "claims": [
+            "K40"
+          ]
+        },
+        {
+          "text": "Narrowed pulse pressure comes first, and the systolic holds until about a third of volume is lost. That is why the BP reads normal here.",
+          "claims": [
+            "K41",
+            "K8",
+            "K124"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade2": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 66-year-old on a beta-blocker falls from a step. Pulse 78, BP 110/70, skin pale and cool.",
+          "claims": []
+        },
+        {
+          "text": "Which is the right reading?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Possible shock, since a beta-blocker blunts the usual pulse rise",
+          "next": "fade2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "No shock, since pulse and BP are both normal",
+          "next": "fade2_t17",
+          "kind": "trap",
+          "trap": "TR17"
+        },
+        {
+          "label": "Minor bleed, Class I, so observe and recheck in an hour",
+          "next": "fade2_t9",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade2_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what a beta-blocker does to the pulse before you trust a normal rate.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "fade2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade2_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Yes. A beta-blocker blunts the rise in heart rate, and age limits reserve, so normal numbers can hide shock.",
+          "claims": [
+            "K43",
+            "K107"
+          ]
+        },
+        {
+          "text": "Pale, cool skin is the sign to act on. Children and pregnancy hide shock the same way.",
+          "claims": [
+            "K37",
+            "K44",
+            "K106"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade2_t17": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Normal pulse and pressure look like reassurance, so the drug and the age get skipped.",
+          "claims": []
+        },
+        {
+          "text": "Tachycardia may be absent on beta-blockers and in the elderly, so normal numbers do not clear him. What does the skin say?",
+          "claims": [
+            "K43",
+            "K107"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the qualifiers: age and drugs can hide shock.",
+        "claims": [
+          "K43",
+          "K107"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade2_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade2_t9": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. A normal BP invites a small-bleed label, so Class I feels like the quick answer.",
+          "claims": []
+        },
+        {
+          "text": "Class I is under 15 percent loss with a normal pulse. Pale, cool skin in a beta-blocked patient does not fit that label.",
+          "claims": [
+            "K40",
+            "K37",
+            "K43"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: a normal BP does not set the class, and the skin still counts.",
+        "claims": [
+          "K37"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade2_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade2_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Beta-blockers blunt the pulse, and the elderly have less reserve, so tachycardia may be absent and normal vitals can hide shock.",
+          "claims": [
+            "K43",
+            "K107"
+          ]
+        },
+        {
+          "text": "Pale, cool skin is the clue. The right reading is possible shock, not a normal patient.",
+          "claims": [
+            "K37"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade3": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A man is paralysed after a fall from a roof. Which finding best separates neurogenic from haemorrhagic shock?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Low blood pressure, since that is what bleeding causes",
+          "next": "fade3_t6a",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "Poor urine output, which falls in blood loss",
+          "next": "fade3_t6b",
+          "kind": "trap",
+          "trap": "TR6"
+        },
+        {
+          "label": "A slow heart rate, where bleeding would speed it up",
+          "next": "fade3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade3_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade3_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which finding both shock types share, then look for the one that is not shared.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "fade3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade3_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "Yes. Neurogenic shock from a cord injury loses sympathetic tone, so the heart rate falls, while bleeding drives it up.",
+          "claims": [
+            "K29"
+          ]
+        },
+        {
+          "text": "Trauma shock is haemorrhagic until proven otherwise, so you rule out bleeding before you call it neurogenic.",
+          "claims": [
+            "K7"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade3_t6a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Low pressure is what bleeding causes, so it feels like the separating sign.",
+          "claims": []
+        },
+        {
+          "text": "Both shock types can lower the pressure, so a shared finding cannot separate them. Which finding is not shared?",
+          "claims": [
+            "K29"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: low BP is shared by both shocks, so it cannot be the separator.",
+        "claims": [
+          "K29"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade3_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade3_t6b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Urine output falls as blood is lost, so it feels like a reliable sign of bleeding.",
+          "claims": []
+        },
+        {
+          "text": "Falling urine output tracks low perfusion, which both shock types share. The pulse is what separates them.",
+          "claims": [
+            "K29",
+            "K7"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: urine output does not separate neurogenic from haemorrhagic shock.",
+        "claims": [
+          "K29"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade3_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade3_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Both shock types can lower the pressure, so pressure does not separate them.",
+          "claims": []
+        },
+        {
+          "text": "The pulse does: haemorrhage drives it up, while cord injury with loss of sympathetic tone slows it. Trauma shock is haemorrhagic until proven otherwise.",
+          "claims": [
+            "K29",
+            "K7"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade4": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 35-year-old has been hit in the abdomen. He is hypotensive and not responding to fluid.",
+          "claims": []
+        },
+        {
+          "text": "What is the best first test?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Contrast CT, since it is the most sensitive test here",
+          "next": "fade4_t4a",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Bedside FAST in the resuscitation room, with no transfer delay",
+          "next": "fade4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "CT after a stabilising trip to the scanner first",
+          "next": "fade4_t4b",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade4_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade4_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask where this patient can safely be, and what the test must answer in minutes.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "fade4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade4_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. FAST looks for free fluid at the bedside in four windows, and imaging must not delay resuscitation.",
+          "claims": [
+            "K53",
+            "K56"
+          ]
+        },
+        {
+          "text": "It is the first test for intra-abdominal bleeding in an unstable patient.",
+          "claims": [
+            "K121"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade4_t4a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. CT is the most accurate test for solid organs, so accuracy feels like the right first question.",
+          "claims": []
+        },
+        {
+          "text": "The first question is whether this patient can travel. An unstable patient should not go to the CT scanner.",
+          "claims": [
+            "K56",
+            "K121"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: the most sensitive test is not automatically the first test.",
+        "claims": [
+          "K56"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade4_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade4_t4b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Stabilising first sounds careful, so the scanner feels like the next step rather than a detour.",
+          "claims": []
+        },
+        {
+          "text": "A haemodynamically unstable patient should not be moved to the scanner. The answer is needed in the room, in minutes.",
+          "claims": [
+            "K56"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: a transfer delay can kill an unstable patient.",
+        "claims": [
+          "K56"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade4_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade4_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "CT is the most sensitive test, which is why it tempts. But imaging must not delay resuscitation or transfer.",
+          "claims": [
+            "K56"
+          ]
+        },
+        {
+          "text": "FAST answers in the resuscitation room by looking for free fluid in four windows, and it is the initial bedside test for unstable bleeding.",
+          "claims": [
+            "K53",
+            "K121"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade5": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A man with a pelvic fracture has blood at the urethral meatus and a high-riding prostate.",
+          "claims": []
+        },
+        {
+          "text": "Before a catheter, what do you do?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Foley catheter, to measure urine output and check",
+          "next": "fade5_t23a",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Retrograde urethrogram, to see whether the urethra is intact",
+          "next": "fade5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Coude catheter, passed gently, to avoid trauma",
+          "next": "fade5_t23b",
+          "kind": "trap",
+          "trap": "TR23"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade5_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade5_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the catheter would be checking for, and which test answers that question first.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "fade5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade5_ok": {
+      "role": "feedback",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Yes. A retrograde urethrogram shows whether the urethra is intact.",
+          "claims": [
+            "K122"
+          ]
+        },
+        {
+          "text": "A catheter is contraindicated while urethral injury is suspected, so it waits for that answer.",
+          "claims": [
+            "K50"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade5_t23a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. A catheter is routine in the primary survey, so checking output feels like the first job.",
+          "claims": []
+        },
+        {
+          "text": "Blood at the meatus and a high prostate mean the urethra may be torn. A catheter is contraindicated until it is cleared.",
+          "claims": [
+            "K50"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: a routine catheter is the trap when the urethra may be torn.",
+        "claims": [
+          "K50"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade5",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade5_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade5_t23b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. A gentle, angled tip feels safe, so the question seems to be technique rather than the urethra.",
+          "claims": []
+        },
+        {
+          "text": "Technique does not settle the question. The urethra must be shown intact first.",
+          "claims": [
+            "K50",
+            "K122"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure: a gentle passage does not make a torn urethra safe.",
+        "claims": [
+          "K50"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade5",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade5_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade5_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The catheter is the routine step, but blood at the meatus, perineal bruising or a high prostate forbids it until the urethra is cleared.",
+          "claims": [
+            "K50"
+          ]
+        },
+        {
+          "text": "The retrograde urethrogram is the test that shows an intact urethra before catheterisation. Then the catheter follows.",
+          "claims": [
+            "K122"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
