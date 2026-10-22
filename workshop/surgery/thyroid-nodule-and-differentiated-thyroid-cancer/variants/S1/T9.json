@@ -1,272 +1,917 @@
 {
-  "segment": "S1",
-  "technique": "T9",
-  "entry": "start",
-  "nodes": {
-    "start": {
-      "role": "probe",
-      "objectives": ["O1"],
-      "ask_confidence": true,
-      "say": [
-        {"text": "A 38-year-old woman has a painless, solitary thyroid nodule. She is euthyroid, and the lump has been there six months.", "claims": []},
-        {"text": "Your exam paper asks for the **first investigation**. What do you order?", "claims": []}
-      ],
-      "choices": [
-        {"label": "Radionuclide scan of the thyroid", "next": "t_scan", "kind": "trap", "trap": "TR1"},
-        {"label": "Ultrasound-guided FNAC of the nodule", "next": "t_fnac", "kind": "trap", "trap": "TR1"},
-        {"label": "Serum TSH and neck ultrasound", "next": "start_ok", "kind": "correct"},
-        {"label": "Not sure, give me a hint", "next": "start_hint", "kind": "help"}
-      ]
+ "segment": "S1",
+ "technique": "T9",
+ "entry": "start",
+ "nodes": {
+  "start": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 38-year-old woman has a painless, solitary thyroid nodule. She is euthyroid, and the lump has been there six months.",
+     "claims": []
     },
-    "start_hint": {
-      "role": "hint",
-      "say": [
-        {"text": "Ask what you must know about the nodule's function, and whether its look is suspicious, before you spend a needle on it.", "claims": []}
-      ],
-      "choices": [{"label": "Try again", "next": "start", "kind": "retry"}]
-    },
-    "t_fnac": {
-      "role": "feedback",
-      "say": [
-        {"text": "That choice is not right. It tempts because older exam papers keyed FNAC as the first test, and FNAC is the test that judges what a nodule is.", "claims": ["K134"]},
-        {"text": "But 'first' and 'best for the nature of the nodule' are different questions. Ask what must be known before a needle goes in.", "claims": []}
-      ],
-      "sure_note": {"text": "You were sure, so check the verb in the stem: the exam key and current practice differ on this exact word, 'first'.", "claims": ["K134"]},
-      "choices": [
-        {"label": "Try again", "next": "start", "kind": "retry"},
-        {"label": "Show me why", "next": "x_key", "kind": "agency"}
-      ]
-    },
-    "t_scan": {
-      "role": "feedback",
-      "say": [
-        {"text": "That choice is not right. A radionuclide scan tempts because it sorts a nodule into hot or cold, which sounds like a good first split.", "claims": ["K55"]},
-        {"text": "But a scan is not done for every nodule. It is used only when a result already in hand calls for it. Which result would you need first?", "claims": []}
-      ],
-      "sure_note": {"text": "You were sure, so check what triggers a scan before you use one.", "claims": ["K55"]},
-      "choices": [
-        {"label": "Try again", "next": "start", "kind": "retry"},
-        {"label": "Show me why", "next": "x_key", "kind": "agency"}
-      ]
-    },
-    "start_ok": {
-      "role": "feedback",
-      "say": [
-        {"text": "Yes. Serum TSH and neck ultrasound come first. TSH tells you whether a scan is needed, and ultrasound shows features that make a nodule suspicious.", "claims": ["K4", "K58"]},
-        {"text": "Some older papers still key FNAC as the first step, so you need the reason too.", "claims": ["K134"]}
-      ],
-      "choices": [
-        {"label": "Next", "next": "x_key", "kind": "continue"},
-        {"label": "Skip the detail", "next": "p2", "kind": "skip"}
-      ]
-    },
-    "x_key": {
-      "role": "explain",
-      "objectives": ["O1"],
-      "say": [
-        {"text": "Two questions hide in the word 'first'. The first investigation is TSH and ultrasound. FNAC is the investigation of choice for the nature of the nodule.", "claims": ["K4", "K126"]},
-        {"text": "PYQs expected FNAC as 'first', but current practice starts with TSH and ultrasound. Learn both, and read the verb in each stem.", "claims": ["K134"]}
-      ],
-      "choices": [{"label": "Next", "next": "p2", "kind": "continue"}]
-    },
-    "p2": {
-      "role": "probe",
-      "objectives": ["O1"],
-      "ask_confidence": true,
-      "say": [
-        {"text": "The same nodule, but this time her TSH comes back low.", "claims": []},
-        {"text": "What do you do next?", "claims": []}
-      ],
-      "choices": [
-        {"label": "Radionuclide scan for a hot nodule", "next": "p2_ok", "kind": "correct"},
-        {"label": "Ultrasound-guided FNAC of the nodule now", "next": "p2_fnac", "kind": "trap", "trap": "TR1"},
-        {"label": "FNAC and scan together, straight away", "next": "p2_both", "kind": "trap", "trap": "TR1"},
-        {"label": "Not sure, give me a hint", "next": "p2_hint", "kind": "help"}
-      ]
-    },
-    "p2_hint": {
-      "role": "hint",
-      "say": [
-        {"text": "A low TSH points to the nodule's function. Which test looks at function, and does it need a needle?", "claims": []}
-      ],
-      "choices": [{"label": "Try again", "next": "p2", "kind": "retry"}]
-    },
-    "p2_fnac": {
-      "role": "feedback",
-      "say": [
-        {"text": "That choice is not right. FNAC tempts because it is the test for the nature of a nodule, so it feels like the next step whatever the TSH shows.", "claims": ["K126"]},
-        {"text": "But a low TSH points to function. A hot nodule is rarely malignant and usually needs no FNAC, so sampling it now is the wrong step.", "claims": ["K56"]}
-      ],
-      "sure_note": {"text": "You were sure, so notice that the old key is talking. A low TSH changes the question.", "claims": ["K56"]},
-      "choices": [
-        {"label": "Try again", "next": "p2", "kind": "retry"},
-        {"label": "Show me why", "next": "x2", "kind": "agency"}
-      ]
-    },
-    "p2_both": {
-      "role": "feedback",
-      "say": [
-        {"text": "That choice is not right. Doing both at once feels thorough, and it matches the habit of sampling every nodule.", "claims": ["K18"]},
-        {"text": "But most nodules are benign, so the function result decides whether a needle is needed at all. Which result comes first?", "claims": []}
-      ],
-      "sure_note": {"text": "You were sure, but a needle is chosen by the result, not by habit.", "claims": ["K18"]},
-      "choices": [
-        {"label": "Try again", "next": "p2", "kind": "retry"},
-        {"label": "Show me why", "next": "x2", "kind": "agency"}
-      ]
-    },
-    "p2_ok": {
-      "role": "feedback",
-      "say": [
-        {"text": "Yes. A low TSH sends you to a radionuclide scan, which looks for a hot, hyperfunctioning nodule.", "claims": ["K55"]},
-        {"text": "A hot nodule is rarely malignant, so FNAC is not the first step for it.", "claims": ["K56"]}
-      ],
-      "choices": [{"label": "Next", "next": "x2", "kind": "continue"}]
-    },
-    "x2": {
-      "role": "explain",
-      "objectives": ["O1"],
-      "say": [
-        {"text": "A cold nodule, one that does not take up iodine, carries a higher risk than a hot one, but most cold nodules are still benign.", "claims": ["K57"]},
-        {"text": "So the scan sorts hot from cold. A cold nodule that looks suspicious on ultrasound is the one that needs FNAC.", "claims": ["K58", "K126"]}
-      ],
-      "choices": [
-        {"label": "Next", "next": "p3", "kind": "continue"},
-        {"label": "Go deeper", "next": "x2d", "kind": "deeper"}
-      ]
-    },
-    "x2d": {
-      "role": "explain",
-      "objectives": ["O1"],
-      "say": [
-        {"text": "Ultrasound is the second filter. Suspicious features include hypoechogenicity, microcalcifications, a taller-than-wide shape and irregular margins.", "claims": ["K58"]},
-        {"text": "Only about 5 to 15 percent of nodules are malignant, which is why the filters keep most patients away from needles.", "claims": ["K18"]}
-      ],
-      "choices": [{"label": "Next", "next": "p3", "kind": "continue"}]
-    },
-    "p3": {
-      "role": "probe",
-      "objectives": ["O1"],
-      "ask_confidence": true,
-      "say": [
-        {"text": "FNAC is reported as Bethesda IV, a follicular neoplasm. The surgeon asks whether this is carcinoma.", "claims": ["K65"]},
-        {"text": "Which test settles it?", "claims": []}
-      ],
-      "choices": [
-        {"label": "Frozen section of the nodule during surgery", "next": "p3_frozen", "kind": "trap", "trap": "TR4"},
-        {"label": "Histology of the resected lobe for invasion", "next": "p3_ok", "kind": "correct"},
-        {"label": "Repeat FNAC with a finer ultrasound needle", "next": "p3_repeat", "kind": "trap", "trap": "TR4"},
-        {"label": "Not sure, give me a hint", "next": "p3_hint", "kind": "help"}
-      ]
-    },
-    "p3_hint": {
-      "role": "hint",
-      "say": [
-        {"text": "Think about the feature that defines a follicular carcinoma, and about which specimen can show it.", "claims": []}
-      ],
-      "choices": [{"label": "Try again", "next": "p3", "kind": "retry"}]
-    },
-    "p3_repeat": {
-      "role": "feedback",
-      "say": [
-        {"text": "That choice is not right. It tempts because FNAC judges the nature of the nodule, so a better needle feels like a better answer.", "claims": ["K65"]},
-        {"text": "But cytology alone cannot make the diagnosis here. Which tissue would show the capsule?", "claims": ["K38"]}
-      ],
-      "sure_note": {"text": "You were sure, so look again at 'carcinoma'. A finer needle still gives a cell sample.", "claims": ["K38"]},
-      "choices": [
-        {"label": "Try again", "next": "p3", "kind": "retry"},
-        {"label": "Show me why", "next": "x3", "kind": "agency"}
-      ]
-    },
-    "p3_frozen": {
-      "role": "feedback",
-      "say": [
-        {"text": "That choice is not right. A frozen section sounds like a quick histology answer, which is why it tempts you.", "claims": ["K66"]},
-        {"text": "But frozen section is of little value here, so a quick slide cannot settle it. Which tissue, examined in full, shows the capsule?", "claims": ["K66"]}
-      ],
-      "sure_note": {"text": "You were sure. Frozen section is histology, but it does not settle a follicular lesion.", "claims": ["K66"]},
-      "choices": [
-        {"label": "Try again", "next": "p3", "kind": "retry"},
-        {"label": "Show me why", "next": "x3", "kind": "agency"}
-      ]
-    },
-    "p3_ok": {
-      "role": "feedback",
-      "say": [
-        {"text": "Yes. Follicular carcinoma is diagnosed only by capsular or vascular invasion on histology.", "claims": ["K6", "K127"]},
-        {"text": "FNAC can report the lesion as Bethesda IV but cannot separate adenoma from carcinoma.", "claims": ["K65"]}
-      ],
-      "choices": [{"label": "Next", "next": "p4", "kind": "continue"}]
-    },
-    "x3": {
-      "role": "explain",
-      "objectives": ["O1"],
-      "say": [
-        {"text": "Invasion is a feature of tissue, and FNAC samples cells. So FNAC can only report a follicular neoplasm, Bethesda IV.", "claims": ["K6", "K65"]},
-        {"text": "Frozen section is of little value for the same reason, so the resected lobe on histology decides.", "claims": ["K66"]}
-      ],
-      "choices": [{"label": "Next", "next": "p4", "kind": "continue"}]
-    },
-    "p4": {
-      "role": "probe",
-      "objectives": ["O1"],
-      "ask_confidence": true,
-      "say": [
-        {"text": "Which finding separates follicular carcinoma from follicular adenoma?", "claims": []}
-      ],
-      "choices": [
-        {"label": "Capsular or vascular invasion on histology", "next": "p4_ok", "kind": "correct"},
-        {"label": "A Bethesda IV report on FNAC", "next": "p4_bethesda", "kind": "trap", "trap": "TR4"},
-        {"label": "Follicular pattern on the cytology smear", "next": "p4_smear", "kind": "trap", "trap": "TR4"},
-        {"label": "Not sure, give me a hint", "next": "p4_hint", "kind": "help"}
-      ]
-    },
-    "p4_hint": {
-      "role": "hint",
-      "say": [
-        {"text": "Ask which of these a needle can see, and which one only a whole specimen can show.", "claims": []}
-      ],
-      "choices": [{"label": "Try again", "next": "p4", "kind": "retry"}]
-    },
-    "p4_bethesda": {
-      "role": "feedback",
-      "say": [
-        {"text": "That choice is not right. A Bethesda IV report tempts because it is the label on every follicular lesion you will see.", "claims": ["K65"]},
-        {"text": "But a label says the lesion is a follicular neoplasm. It does not say whether invasion is present. What does?", "claims": []}
-      ],
-      "sure_note": {"text": "You were sure. A report label is not a diagnosis, so check what it leaves out.", "claims": ["K65"]},
-      "choices": [
-        {"label": "Try again", "next": "p4", "kind": "retry"},
-        {"label": "Show me why", "next": "x4", "kind": "agency"}
-      ]
-    },
-    "p4_smear": {
-      "role": "feedback",
-      "say": [
-        {"text": "That choice is not right. A follicular pattern looks like the diagnosis on a smear, which is why it tempts you.", "claims": ["K65"]},
-        {"text": "But adenoma can show the same cell pattern. What can a needle never see?", "claims": []}
-      ],
-      "sure_note": {"text": "You were sure. Cell pattern is shared by adenoma and carcinoma, so pattern alone cannot separate them.", "claims": ["K65"]},
-      "choices": [
-        {"label": "Try again", "next": "p4", "kind": "retry"},
-        {"label": "Show me why", "next": "x4", "kind": "agency"}
-      ]
-    },
-    "p4_ok": {
-      "role": "feedback",
-      "say": [
-        {"text": "Yes. Invasion across the capsule or into vessels is a histology feature, so only the resected lobe can show it.", "claims": ["K6", "K38"]}
-      ],
-      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
-    },
-    "x4": {
-      "role": "explain",
-      "objectives": ["O1"],
-      "say": [
-        {"text": "A needle samples cells, and cells cannot show invasion. So FNAC names the lesion as a follicular neoplasm, and it cannot name carcinoma.", "claims": ["K38", "K65"]},
-        {"text": "Frozen section is of little value either, so the resected lobe on histology decides.", "claims": ["K66"]}
-      ],
-      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    {
+     "text": "Your exam paper asks for the **first investigation**. What do you order?",
+     "claims": []
     }
+   ],
+   "choices": [
+    {
+     "label": "Radionuclide scan of the thyroid",
+     "next": "t_scan",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Ultrasound-guided FNAC of the nodule",
+     "next": "t_fnac",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Serum TSH and neck ultrasound",
+     "next": "start_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "start_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "start_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what you must know about the nodule's function, and whether its look is suspicious, before you spend a needle on it.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start",
+     "kind": "retry"
+    }
+   ]
+  },
+  "t_fnac": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It tempts because older exam papers keyed FNAC as the first test, and FNAC is the test that judges what a nodule is.",
+     "claims": [
+      "K134"
+     ]
+    },
+    {
+     "text": "But 'first' and 'best for the nature of the nodule' are different questions. Ask what must be known before a needle goes in.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the verb in the stem: the exam key and current practice differ on this exact word, 'first'.",
+    "claims": [
+     "K134"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "x_key",
+     "kind": "agency"
+    }
+   ]
+  },
+  "t_scan": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A radionuclide scan tempts because it sorts a nodule into hot or cold, which sounds like a good first split.",
+     "claims": [
+      "K55"
+     ]
+    },
+    {
+     "text": "But a scan is not done for every nodule. It is used only when a result already in hand calls for it. Which result would you need first?",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check what triggers a scan before you use one.",
+    "claims": [
+     "K55"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "start",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "x_key",
+     "kind": "agency"
+    }
+   ]
+  },
+  "start_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Serum TSH and neck ultrasound come first. TSH tells you whether a scan is needed, and ultrasound shows features that make a nodule suspicious.",
+     "claims": [
+      "K4",
+      "K58"
+     ]
+    },
+    {
+     "text": "Some older papers still key FNAC as the first step, so you need the reason too.",
+     "claims": [
+      "K134"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "x_key",
+     "kind": "continue"
+    },
+    {
+     "label": "Skip the detail",
+     "next": "p2",
+     "kind": "skip"
+    }
+   ]
+  },
+  "x_key": {
+   "role": "explain",
+   "objectives": [
+    "O1"
+   ],
+   "say": [
+    {
+     "text": "Two questions hide in the word 'first'. The first investigation is TSH and ultrasound. FNAC is the investigation of choice for the nature of the nodule.",
+     "claims": [
+      "K4",
+      "K126"
+     ]
+    },
+    {
+     "text": "PYQs expected FNAC as 'first', but current practice starts with TSH and ultrasound. Learn both, and read the verb in each stem.",
+     "claims": [
+      "K134"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p2": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "The same nodule, but this time her TSH comes back low.",
+     "claims": []
+    },
+    {
+     "text": "What do you do next?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Radionuclide scan for a hot nodule",
+     "next": "p2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Ultrasound-guided FNAC of the nodule now",
+     "next": "p2_fnac",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "FNAC and scan together, straight away",
+     "next": "p2_both",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p2_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p2_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "A low TSH points to the nodule's function. Which test looks at function, and does it need a needle?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p2_fnac": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. FNAC tempts because it is the test for the nature of a nodule, so it feels like the next step whatever the TSH shows.",
+     "claims": [
+      "K126"
+     ]
+    },
+    {
+     "text": "But a low TSH points to function. A hot nodule is rarely malignant and usually needs no FNAC, so sampling it now is the wrong step.",
+     "claims": [
+      "K56"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so notice that the old key is talking. A low TSH changes the question.",
+    "claims": [
+     "K56"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p2",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "x2",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p2_both": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Doing both at once feels thorough, and it matches the habit of sampling every nodule.",
+     "claims": [
+      "K18"
+     ]
+    },
+    {
+     "text": "But most nodules are benign, so the function result decides whether a needle is needed at all. Which result comes first?",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, but a needle is chosen by the result, not by habit.",
+    "claims": [
+     "K18"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p2",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "x2",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. A low TSH sends you to a radionuclide scan, which looks for a hot, hyperfunctioning nodule.",
+     "claims": [
+      "K55"
+     ]
+    },
+    {
+     "text": "A hot nodule is rarely malignant, so FNAC is not the first step for it.",
+     "claims": [
+      "K56"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "x2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "x2": {
+   "role": "explain",
+   "objectives": [
+    "O1"
+   ],
+   "say": [
+    {
+     "text": "A cold nodule, one that does not take up iodine, carries a higher risk than a hot one, but most cold nodules are still benign.",
+     "claims": [
+      "K57"
+     ]
+    },
+    {
+     "text": "So the scan sorts hot from cold. A cold nodule that looks suspicious on ultrasound is the one that needs FNAC.",
+     "claims": [
+      "K58",
+      "K126"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p3",
+     "kind": "continue"
+    },
+    {
+     "label": "Go deeper",
+     "next": "x2d",
+     "kind": "deeper"
+    }
+   ]
+  },
+  "x2d": {
+   "role": "explain",
+   "objectives": [
+    "O1"
+   ],
+   "say": [
+    {
+     "text": "Ultrasound is the second filter. Suspicious features include hypoechogenicity, microcalcifications, a taller-than-wide shape and irregular margins.",
+     "claims": [
+      "K58"
+     ]
+    },
+    {
+     "text": "Only about 5 to 15 percent of nodules are malignant, which is why the filters keep most patients away from needles.",
+     "claims": [
+      "K18"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p3": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "FNAC is reported as Bethesda IV, a follicular neoplasm. The surgeon asks whether this is carcinoma.",
+     "claims": [
+      "K65"
+     ]
+    },
+    {
+     "text": "Which test settles it?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Frozen section of the nodule during surgery",
+     "next": "p3_frozen",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Histology of the resected lobe for invasion",
+     "next": "p3_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Repeat FNAC with a finer ultrasound needle",
+     "next": "p3_repeat",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p3_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p3_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think about the feature that defines a follicular carcinoma, and about which specimen can show it.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p3_repeat": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It tempts because FNAC judges the nature of the nodule, so a better needle feels like a better answer.",
+     "claims": [
+      "K65"
+     ]
+    },
+    {
+     "text": "But cytology alone cannot make the diagnosis here. Which tissue would show the capsule?",
+     "claims": [
+      "K38"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so look again at 'carcinoma'. A finer needle still gives a cell sample.",
+    "claims": [
+     "K38"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "x3",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p3_frozen": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A frozen section sounds like a quick histology answer, which is why it tempts you.",
+     "claims": [
+      "K66"
+     ]
+    },
+    {
+     "text": "But frozen section is of little value here, so a quick slide cannot settle it. Which tissue, examined in full, shows the capsule?",
+     "claims": [
+      "K66"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. Frozen section is histology, but it does not settle a follicular lesion.",
+    "claims": [
+     "K66"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p3",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "x3",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p3_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Follicular carcinoma is diagnosed only by capsular or vascular invasion on histology.",
+     "claims": [
+      "K6",
+      "K127"
+     ]
+    },
+    {
+     "text": "FNAC can report the lesion as Bethesda IV but cannot separate adenoma from carcinoma.",
+     "claims": [
+      "K65"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "x3": {
+   "role": "explain",
+   "objectives": [
+    "O1"
+   ],
+   "say": [
+    {
+     "text": "Invasion is a feature of tissue, and FNAC samples cells. So FNAC can only report a follicular neoplasm, Bethesda IV.",
+     "claims": [
+      "K6",
+      "K65"
+     ]
+    },
+    {
+     "text": "Frozen section is of little value for the same reason, so the resected lobe on histology decides.",
+     "claims": [
+      "K66"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p4": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Which finding separates follicular carcinoma from follicular adenoma?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Capsular or vascular invasion on histology",
+     "next": "p4_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "A Bethesda IV report on FNAC",
+     "next": "p4_bethesda",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Follicular pattern on the cytology smear",
+     "next": "p4_smear",
+     "kind": "trap",
+     "trap": "TR4"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p4_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p4_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which of these a needle can see, and which one only a whole specimen can show.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p4",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p4_bethesda": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A Bethesda IV report tempts because it is the label on every follicular lesion you will see.",
+     "claims": [
+      "K65"
+     ]
+    },
+    {
+     "text": "But a label says the lesion is a follicular neoplasm. It does not say whether invasion is present. What does?",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. A report label is not a diagnosis, so check what it leaves out.",
+    "claims": [
+     "K65"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p4",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "x4",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p4_smear": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A follicular pattern looks like the diagnosis on a smear, which is why it tempts you.",
+     "claims": [
+      "K65"
+     ]
+    },
+    {
+     "text": "But adenoma can show the same cell pattern. What can a needle never see?",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. Cell pattern is shared by adenoma and carcinoma, so pattern alone cannot separate them.",
+    "claims": [
+     "K65"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p4",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "x4",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p4_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Invasion across the capsule or into vessels is a histology feature, so only the resected lobe can show it.",
+     "claims": [
+      "K6",
+      "K38"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "x4": {
+   "role": "explain",
+   "objectives": [
+    "O1"
+   ],
+   "say": [
+    {
+     "text": "A needle samples cells, and cells cannot show invasion. So FNAC names the lesion as a follicular neoplasm, and it cannot name carcinoma.",
+     "claims": [
+      "K38",
+      "K65"
+     ]
+    },
+    {
+     "text": "Frozen section is of little value either, so the resected lobe on histology decides.",
+     "claims": [
+      "K66"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "p5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "p5": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Before surgery, a surgeon asks for a tumour marker on a solitary nodule that FNAC has not yet explained.",
+     "claims": []
+    },
+    {
+     "text": "What do you advise?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Serum thyroglobulin, to diagnose the nodule",
+     "next": "p5_tg",
+     "kind": "trap",
+     "trap": "TR30"
+    },
+    {
+     "label": "No routine marker; FNAC and histology decide",
+     "next": "p5_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Serum calcitonin, to confirm papillary cancer",
+     "next": "p5_calc",
+     "kind": "trap",
+     "trap": "TR30"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "p5_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "p5_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which marker is made by which cell, and whether a blood marker can see inside a nodule.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p5",
+     "kind": "retry"
+    }
+   ]
+  },
+  "p5_tg": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Thyroglobulin tempts because it is the marker you follow in thyroid cancer, so it feels diagnostic.",
+     "claims": [
+      "K128"
+     ]
+    },
+    {
+     "text": "But a follow-up marker is not a diagnostic test for a nodule. Before surgery, what does the blood tell you about the nodule?",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so separate the marker you follow later from the test that diagnoses a nodule now.",
+    "claims": [
+     "K69"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p5",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "x5",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p5_calc": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Calcitonin tempts because it is a famous thyroid marker, so it feels like a cancer test for any thyroid lump.",
+     "claims": [
+      "K129"
+     ]
+    },
+    {
+     "text": "But it belongs to the parafollicular cell and medullary carcinoma, not to papillary cancer. Which cancer does the marker belong to?",
+     "claims": [
+      "K70"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. Calcitonin points to one cell line, so match the marker to its cancer before you use it.",
+    "claims": [
+     "K70"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "p5",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "x5",
+     "kind": "agency"
+    }
+   ]
+  },
+  "p5_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Routine thyroglobulin is not useful for diagnosing a nodule before surgery, so FNAC and histology do the diagnosing.",
+     "claims": [
+      "K69"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "x5": {
+   "role": "explain",
+   "objectives": [
+    "O1"
+   ],
+   "say": [
+    {
+     "text": "Calcitonin is raised in medullary carcinoma, not in DTC, and thyroglobulin is the follow-up marker of DTC.",
+     "claims": [
+      "K70",
+      "K128"
+     ]
+    },
+    {
+     "text": "Neither is a routine pre-operative test. Before surgery, the nodule is judged by TSH, ultrasound and FNAC.",
+     "claims": [
+      "K69",
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
   }
+ }
 }
