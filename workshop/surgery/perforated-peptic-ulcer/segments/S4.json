@@ -1,1056 +1,1110 @@
 {
- "segment": "S4",
- "technique": "T5",
- "entry": "open",
- "nodes": {
-  "open": {
-   "role": "probe",
-   "objectives": [
-    "O2"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A well 50-year-old man has no peritonism. His erect film shows gas under the right dome, with haustral markings.",
-     "claims": []
+  "segment": "S4",
+  "technique": "T5",
+  "entry": "open",
+  "nodes": {
+    "open": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A well 50-year-old man has no peritonism. His erect film shows gas under the right dome, with haustral markings.",
+          "claims": []
+        },
+        {
+          "text": "Free gas, or not? Make your call.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Chilaiditi sign: colon lying beneath the diaphragm, not free gas",
+          "next": "open_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Free gas, since gas under the right dome is free",
+          "next": "open_t4",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Free gas, so the cause is a perforated ulcer and theatre",
+          "next": "open_t3",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "open_hint",
+          "kind": "help"
+        }
+      ]
     },
-    {
-     "text": "Free gas, or not? Make your call.",
-     "claims": []
+    "open_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Gas lying in the colon's own pattern, between liver and diaphragm, is a pseudo-pneumoperitoneum.",
+          "claims": [
+            "K38",
+            "K77"
+          ]
+        },
+        {
+          "text": "The real question is whether the gas is inside the bowel or outside it, not just where it sits.",
+          "claims": [
+            "K38"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "walk1",
+          "kind": "continue"
+        },
+        {
+          "label": "I can see it: skip the walk-through",
+          "next": "fade",
+          "kind": "skip"
+        }
+      ]
+    },
+    "open_t4": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Where gas sits does not tell you what it is. Ask whether this gas lies inside the bowel or outside it.",
+          "claims": [
+            "K38",
+            "K77"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check what the gas sits inside. The same spot does not mean the same gas.",
+        "claims": [
+          "K38"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "walk1",
+          "kind": "agency"
+        },
+        {
+          "label": "Try again",
+          "next": "open",
+          "kind": "retry"
+        }
+      ]
+    },
+    "open_t3": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "A perforated ulcer is the most common cause of free gas, so the link feels natural. But most common is a frequency, not a rule.",
+          "claims": [
+            "K3",
+            "K66"
+          ]
+        },
+        {
+          "text": "Check whether the gas is free at all before you name its cause.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-read the word 'most': the ulcer is the commonest cause of free gas, not the only one.",
+        "claims": [
+          "K3"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Show me why",
+          "next": "walk1",
+          "kind": "agency"
+        },
+        {
+          "label": "Try again",
+          "next": "open",
+          "kind": "retry"
+        }
+      ]
+    },
+    "open_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Two checks: is the gas inside the bowel or outside it, and what does the patient look like?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "open",
+          "kind": "retry"
+        }
+      ]
+    },
+    "walk1": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Let me walk one film, step by step. Step 1 is location: gas under the right dome is where free gas usually shows on an erect film.",
+          "claims": [
+            "K33"
+          ]
+        },
+        {
+          "text": "Step 2 is content. Haustral markings are the colon's own pattern, so this gas lies inside bowel: the Chilaiditi sign, not free gas.",
+          "claims": [
+            "K38"
+          ]
+        },
+        {
+          "text": "Step 3 is the patient. He is well with a soft belly, so nothing points to gas escaping through a hole.",
+          "claims": [
+            "K23"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Now a supine film. Step 1 is done: the gas lies under the right hemidiaphragm.",
+          "claims": []
+        },
+        {
+          "text": "Step 2 is yours: a bowel loop shows gas on both sides of its wall. Which sign is that?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Rigler's sign: both walls of a bowel loop seen",
+          "next": "fade_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Chilaiditi sign: colon lying under the diaphragm, seen on film",
+          "next": "fade_t4a",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Football sign: a large oval gas shadow over the abdomen",
+          "next": "fade_t4b",
+          "kind": "trap",
+          "trap": "TR4"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Rigler's sign is gas on both sides of a bowel wall, which only gas outside the bowel can give.",
+          "claims": [
+            "K37"
+          ]
+        },
+        {
+          "text": "The step the film hinges on is the finding, not the place where the gas sits.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade_b",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade_t4a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "The colon under the diaphragm is tempting, because a gas shadow sits in the same spot. It is the Chilaiditi sign, a pseudo-sign.",
+          "claims": [
+            "K38"
+          ]
+        },
+        {
+          "text": "Match the finding the stem describes, not the position.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the finding itself: what does the film show about the bowel wall?",
+        "claims": [
+          "K37"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "walk1",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade_t4b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "A large oval gas shadow is a different finding from the one in the stem. Match the finding word for word: gas on both sides of a bowel wall.",
+          "claims": [
+            "K37"
+          ]
+        },
+        {
+          "text": "Match the finding in the stem, word for word.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so match the finding word for word, not the overall picture.",
+        "claims": [
+          "K37"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "walk1",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Read the finding in the stem: what does it show about the bowel wall?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade_b": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 60-year-old man has a rigid abdomen and free gas on his film. He has never had indigestion, and no one has asked about pain tablets.",
+          "claims": [
+            "K4",
+            "K25"
+          ]
+        },
+        {
+          "text": "What is the right reading?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Probably an ulcer, but take the history before deciding the cause",
+          "next": "fade_b_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Probably an ulcer, since free gas usually comes from one",
+          "next": "fade_b_t3a",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Probably an ulcer, and the history adds little once gas shows",
+          "next": "fade_b_t3b",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade_b_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade_b_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Free gas with a rigid belly is a perforation, and an ulcer is the likeliest cause, but the history still counts.",
+          "claims": [
+            "K3",
+            "K4"
+          ]
+        },
+        {
+          "text": "Most common tells you the odds, not the certainty for one patient.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "f3_view",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade_b_t3a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Free gas usually does come from an ulcer, which is why theatre looks like the obvious move.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "But usually describes the odds, and it does not settle the cause in one man.",
+          "claims": [
+            "K3"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so re-read 'most common': it ranks the causes; it does not close the question.",
+        "claims": [
+          "K3"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade_b_t3b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Once gas shows, the ulcer story feels complete, so the history seems to add little.",
+          "claims": [
+            "K3"
+          ]
+        },
+        {
+          "text": "Free gas tells you a hole is likely, not which cause made it. The history still helps.",
+          "claims": [
+            "K23"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check what free gas proves: a hole, not the cause behind it.",
+        "claims": [
+          "K23"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade_b_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what 'most common' tells you about a single patient, and what the history could still change.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade_b",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f3_view": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A patient with a suspected perforation cannot sit up or stand, and he is too unwell to be moved far.",
+          "claims": []
+        },
+        {
+          "text": "Which film gives the best chance of seeing free gas?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Left lateral decubitus film, gas seen beside the liver",
+          "next": "f3_view_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Supine film, since it is quick and shows gas anywhere",
+          "next": "f3_t8a",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Right lateral decubitus film, to bring gas to the right",
+          "next": "f3_t8b",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "f3_view_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "f3_view_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A left lateral decubitus film is the view for a patient who cannot sit, and the gas it shows lies beside the liver.",
+          "claims": [
+            "K70",
+            "K36"
+          ]
+        },
+        {
+          "text": "Next, why the left side works.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "f3_mech",
+          "kind": "continue"
+        }
+      ]
+    },
+    "f3_t8a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "A supine film is quick, so it is tempting. But gas rises to the highest point, and a supine film may not show it where it rises.",
+          "claims": [
+            "K23"
+          ]
+        },
+        {
+          "text": "Ask which part of the belly the gas can reach, given how he lies.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the posture before the film: a patient who cannot sit needs a view chosen for how he lies.",
+        "claims": [
+          "K70"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f3_view",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "f3_t8a_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "f3_t8b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Gas sits on the right of an upright film, so a right-sided view looks right. But the side that is up depends on how he lies, not where gas usually sits.",
+          "claims": [
+            "K33",
+            "K23"
+          ]
+        },
+        {
+          "text": "Think about which way he is lying.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so separate where gas usually sits from which side of the body is uppermost.",
+        "claims": [
+          "K33"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f3_view",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f3_view_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which side of the abdomen rises highest when he lies on each side.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f3_view",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f3_mech": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Same patient, now lying on his left side for the film.",
+          "claims": []
+        },
+        {
+          "text": "Predict: where does free gas collect, and what outlines it?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Between the liver and the right abdominal wall, outlined by liver",
+          "next": "f3_mech_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Under the left diaphragm, where the stomach bubble hides it",
+          "next": "f3_mech_t8a",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Over the pelvis, where gas drops from the bowel",
+          "next": "f3_mech_t8b",
+          "kind": "trap",
+          "trap": "TR8"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "f3_mech_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "f3_mech_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. On his left side the right side of the abdomen is uppermost, so the gas rises against the liver and the right wall.",
+          "claims": [
+            "K36",
+            "K23"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "f3_time",
+          "kind": "continue"
+        }
+      ]
+    },
+    "f3_mech_t8a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "The left upper belly is tempting, since the stomach bubble is the familiar sight. But on his left side the stomach is the dependent part, not the highest.",
+          "claims": [
+            "K23"
+          ]
+        },
+        {
+          "text": "Gas goes to the highest point, so trace which side is up first.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so the stomach bubble is a standing picture; it does not show where gas goes when he lies down.",
+        "claims": [
+          "K23"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f3_mech",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f3_mech_t8b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Gas does drift down when it is low, so the pelvis looks plausible. But free gas rises to the highest point, and the pelvis is not that.",
+          "claims": [
+            "K23"
+          ]
+        },
+        {
+          "text": "Ask which part of the abdomen is highest when he lies that way.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the direction: free gas rises to the highest part, not to the lowest.",
+        "claims": [
+          "K23"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f3_mech",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f3_mech_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Work out which side of him is uppermost when he lies on his left, then which organ sits on that side.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f3_mech",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f3_time": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Before the erect film, how long should he sit up?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "About 10 minutes, long enough for gas to climb",
+          "next": "f3_time_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Straight away, since free gas rises at once",
+          "next": "f3_time_t9a",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "About 30 minutes, so the gas has fully settled",
+          "next": "f3_time_t9b",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "f3_time_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "f3_time_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about why there is a wait at all: what does the gas have to do first?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f3_time",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f3_time_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Gas must climb through the abdomen to reach the diaphragm, and that takes about ten minutes of sitting up.",
+          "claims": [
+            "K34",
+            "K23"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "f3_time2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "f3_time_t9a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Free gas does rise, so an instant film feels efficient. But rising takes time, and the film has to wait for the gas to climb.",
+          "claims": [
+            "K34",
+            "K23"
+          ]
+        },
+        {
+          "text": "Ask how long the gas needs to reach the diaphragm.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so pin the reason: gas needs time to travel up before a film can show it.",
+        "claims": [
+          "K34"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f3_time",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "f3_time_t9a_why",
+          "kind": "agency"
+        }
+      ]
+    },
+    "f3_time_t9b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "A longer wait feels safer, so the bigger figure is tempting. But the wait is set by the time gas needs to climb, not by how long you can spare.",
+          "claims": [
+            "K34"
+          ]
+        },
+        {
+          "text": "Ask what the wait is meant to allow.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so do not stretch the wait: the point is the climb, not the margin.",
+        "claims": [
+          "K34"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f3_time",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f3_time2": {
+      "role": "probe",
+      "objectives": [
+        "O6"
+      ],
+      "say": [
+        {
+          "text": "A film taken seconds after he was helped up shows no free gas, but his peritonism is plain.",
+          "claims": []
+        },
+        {
+          "text": "Which step raises the yield?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Repeat the film after he has sat up long enough",
+          "next": "f3_time2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Repeat the film at once, with him standing",
+          "next": "f3_time2_t9a",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "Repeat the film after two hours of bed rest",
+          "next": "f3_time2_t9b",
+          "kind": "trap",
+          "trap": "TR9"
+        },
+        {
+          "label": "Take a supine film instead, to be quicker",
+          "next": "f3_time2_t8",
+          "kind": "trap",
+          "trap": "TR8"
+        }
+      ]
+    },
+    "f3_time2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Gas needs the upright time to reach the diaphragm, so the repeat film can show what the first one missed.",
+          "claims": [
+            "K34",
+            "K23"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "f3_time2_t9a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Standing sounds like a quick way to bring gas up, so the repeat feels sensible. But the film still has to wait for the gas to climb.",
+          "claims": [
+            "K34"
+          ]
+        },
+        {
+          "text": "Ask what the first film missed, and why.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f3_time2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f3_time2_t9b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "Two hours of rest feels thorough, but the gas does not need a long rest; it needs the upright time to rise.",
+          "claims": [
+            "K34"
+          ]
+        },
+        {
+          "text": "Ask what the repeat film needs the patient to do.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f3_time2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f3_time2_t8": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right.",
+          "claims": []
+        },
+        {
+          "text": "A supine film is quicker, so it is tempting. But the view for a patient who cannot sit is a lateral one, which lets the gas show.",
+          "claims": [
+            "K70"
+          ]
+        },
+        {
+          "text": "Ask which view his position allows.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f3_time2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f3_t8a_why": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "A supine film is not the view for a patient who cannot sit. A left lateral decubitus film lets gas collect between the liver and the lateral wall, where it shows.",
+          "claims": [
+            "K36",
+            "K70"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f3_view",
+          "kind": "retry"
+        }
+      ]
+    },
+    "f3_time_t9a_why": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Gas must rise through the abdomen to reach the diaphragm, and that takes time. Sitting up for about ten minutes first gives it that time.",
+          "claims": [
+            "K34"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "f3_time",
+          "kind": "retry"
+        }
+      ]
     }
-   ],
-   "choices": [
-    {
-     "label": "Chilaiditi sign: colon lying beneath the diaphragm, not free gas",
-     "next": "open_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Free gas: it sits under the right dome, where free gas rises",
-     "next": "open_t4",
-     "kind": "trap",
-     "trap": "TR4"
-    },
-    {
-     "label": "Free gas, so the cause is a perforated ulcer and theatre",
-     "next": "open_t3",
-     "kind": "trap",
-     "trap": "TR3"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "open_hint",
-     "kind": "help"
-    }
-   ]
   },
-  "open_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Yes. Gas lying in the colon's own pattern, between liver and diaphragm, is a pseudo-pneumoperitoneum.",
-     "claims": [
-      "K38",
-      "K77"
-     ]
-    },
-    {
-     "text": "The real question is whether the gas is inside the bowel or outside it, not just where it sits.",
-     "claims": [
-      "K38"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "walk1",
-     "kind": "continue"
-    },
-    {
-     "label": "I can see it: skip the walk-through",
-     "next": "fade",
-     "kind": "skip"
-    }
-   ]
-  },
-  "open_t4": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "Free gas does rise under the right dome, so the place looks right, but a place is not a diagnosis.",
-     "claims": [
-      "K33"
-     ]
-    },
-    {
-     "text": "Ask whether this gas sits inside the bowel or outside it.",
-     "claims": []
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so check what the gas sits inside. The same spot does not mean the same gas.",
-    "claims": [
-     "K38"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Show me why",
-     "next": "walk1",
-     "kind": "agency"
-    },
-    {
-     "label": "Try again",
-     "next": "open",
-     "kind": "retry"
-    }
-   ]
-  },
-  "open_t3": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "A perforated ulcer is the most common cause of free gas, so the link feels natural. But most common is a frequency, not a rule.",
-     "claims": [
-      "K3",
-      "K66"
-     ]
-    },
-    {
-     "text": "Check whether the gas is free at all before you name its cause.",
-     "claims": []
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so re-read the word 'most': the ulcer is the commonest cause of free gas, not the only one.",
-    "claims": [
-     "K3"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Show me why",
-     "next": "walk1",
-     "kind": "agency"
-    },
-    {
-     "label": "Try again",
-     "next": "open",
-     "kind": "retry"
-    }
-   ]
-  },
-  "open_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Two checks: is the gas inside the bowel or outside it, and what does the patient look like?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "open",
-     "kind": "retry"
-    }
-   ]
-  },
-  "walk1": {
-   "role": "explain",
-   "say": [
-    {
-     "text": "Let me walk one film, step by step. Step 1 is location: gas under the right dome is where free gas usually shows on an erect film.",
-     "claims": [
-      "K33"
-     ]
-    },
-    {
-     "text": "Step 2 is content. Haustral markings are the colon's own pattern, so this gas lies inside bowel: the Chilaiditi sign, not free gas.",
-     "claims": [
-      "K38"
-     ]
-    },
-    {
-     "text": "Step 3 is the patient. He is well with a soft belly, so nothing points to gas escaping through a hole.",
-     "claims": [
-      "K23"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "fade",
-     "kind": "continue"
-    }
-   ]
-  },
-  "fade": {
-   "role": "probe",
-   "objectives": [
-    "O2"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "Now a supine film. Step 1 is done: the gas lies under the right hemidiaphragm.",
-     "claims": []
-    },
-    {
-     "text": "Step 2 is yours: a bowel loop shows gas on both sides of its wall. Which sign is that?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Rigler's sign: both walls of a bowel loop seen",
-     "next": "fade_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Chilaiditi sign: colon lying under the diaphragm, seen on film",
-     "next": "fade_t4a",
-     "kind": "trap",
-     "trap": "TR4"
-    },
-    {
-     "label": "Football sign: a large oval gas shadow over the abdomen",
-     "next": "fade_t4b",
-     "kind": "trap",
-     "trap": "TR4"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "fade_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "fade_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Yes. Rigler's sign is gas on both sides of a bowel wall, which only gas outside the bowel can give.",
-     "claims": [
-      "K37"
-     ]
-    },
-    {
-     "text": "The step the film hinges on is the finding, not the place where the gas sits.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "fade_b",
-     "kind": "continue"
-    }
-   ]
-  },
-  "fade_t4a": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "The colon under the diaphragm is tempting, because a gas shadow sits in the same spot. It is the Chilaiditi sign, a pseudo-sign.",
-     "claims": [
-      "K38"
-     ]
-    },
-    {
-     "text": "Match the finding the stem describes, not the position.",
-     "claims": []
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so check the finding itself: what does the film show about the bowel wall?",
-    "claims": [
-     "K37"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "fade",
-     "kind": "retry"
-    }
-   ]
-  },
-  "fade_t4b": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "A big gas shadow over the abdomen looks like free gas, and the football sign does belong to that family, so the name is easy to grab.",
-     "claims": [
-      "K37"
-     ]
-    },
-    {
-     "text": "Match the finding in the stem, word for word.",
-     "claims": []
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so match the finding word for word, not the overall picture.",
-    "claims": [
-     "K37"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "fade",
-     "kind": "retry"
-    }
-   ]
-  },
-  "fade_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Read the finding in the stem: what does it show about the bowel wall?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "fade",
-     "kind": "retry"
-    }
-   ]
-  },
-  "fade_b": {
-   "role": "probe",
-   "objectives": [
-    "O2"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A 60-year-old man has a rigid abdomen and free gas on his film. He has never had indigestion, and no one has asked about pain tablets.",
-     "claims": [
-      "K4",
-      "K25"
-     ]
-    },
-    {
-     "text": "What is the right reading?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Probably a perforation from an ulcer, so still take the history",
-     "next": "fade_b_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Probably an ulcer, since free gas usually comes from one, so theatre",
-     "next": "fade_b_t3a",
-     "kind": "trap",
-     "trap": "TR3"
-    },
-    {
-     "label": "Probably a perforated ulcer, and the history adds little once gas shows",
-     "next": "fade_b_t3b",
-     "kind": "trap",
-     "trap": "TR3"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "fade_b_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "fade_b_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Yes. Free gas with a rigid belly is a perforation, and an ulcer is the likeliest cause, but the history still counts.",
-     "claims": [
-      "K3",
-      "K4"
-     ]
-    },
-    {
-     "text": "Most common tells you the odds, not the certainty for one patient.",
-     "claims": [
-      "K3"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "f3_view",
-     "kind": "continue"
-    }
-   ]
-  },
-  "fade_b_t3a": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "Free gas usually does come from an ulcer, which is why theatre looks like the obvious move.",
-     "claims": [
-      "K3"
-     ]
-    },
-    {
-     "text": "But usually describes the odds, and it does not settle the cause in one man.",
-     "claims": [
-      "K3"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so re-read 'most common': it ranks the causes; it does not close the question.",
-    "claims": [
-     "K3"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "fade_b",
-     "kind": "retry"
-    }
-   ]
-  },
-  "fade_b_t3b": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "Once gas shows, the ulcer story feels complete, so the history seems to add little.",
-     "claims": [
-      "K3"
-     ]
-    },
-    {
-     "text": "Free gas tells you a hole is likely, not which cause made it. The history still helps.",
-     "claims": [
-      "K23"
-     ]
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so check what free gas proves: a hole, not the cause behind it.",
-    "claims": [
-     "K23"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "fade_b",
-     "kind": "retry"
-    }
-   ]
-  },
-  "fade_b_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Ask what 'most common' tells you about a single patient, and what the history could still change.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "fade_b",
-     "kind": "retry"
-    }
-   ]
-  },
-  "f3_view": {
-   "role": "probe",
-   "objectives": [
-    "O6"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "A patient with a suspected perforation cannot sit up or stand, and he is too unwell to be moved far.",
-     "claims": []
-    },
-    {
-     "text": "Which film gives the best chance of seeing free gas?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Left lateral decubitus film, gas seen beside the liver",
-     "next": "f3_view_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Supine film, since it is quick and shows gas anywhere",
-     "next": "f3_t8a",
-     "kind": "trap",
-     "trap": "TR8"
-    },
-    {
-     "label": "Right lateral decubitus film, to bring gas to the right",
-     "next": "f3_t8b",
-     "kind": "trap",
-     "trap": "TR8"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "f3_view_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "f3_view_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Yes. A left lateral decubitus film is the view for a patient who cannot sit, and the gas it shows lies beside the liver.",
-     "claims": [
-      "K70",
-      "K36"
-     ]
-    },
-    {
-     "text": "Next, why the left side works.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "f3_mech",
-     "kind": "continue"
-    }
-   ]
-  },
-  "f3_t8a": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "A supine film is quick, so it is tempting. But gas rises to the highest point, and a supine film may not show it where it rises.",
-     "claims": [
-      "K23"
-     ]
-    },
-    {
-     "text": "Ask which part of the belly the gas can reach, given how he lies.",
-     "claims": []
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so check the posture before the film: a patient who cannot sit needs a view chosen for how he lies.",
-    "claims": [
-     "K70"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f3_view",
-     "kind": "retry"
-    }
-   ]
-  },
-  "f3_t8b": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "Gas sits on the right of an upright film, so a right-sided view looks right. But the side that is up depends on how he lies, not where gas usually sits.",
-     "claims": [
-      "K33",
-      "K23"
-     ]
-    },
-    {
-     "text": "Think about which way he is lying.",
-     "claims": []
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so separate where gas usually sits from which side of the body is uppermost.",
-    "claims": [
-     "K33"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f3_view",
-     "kind": "retry"
-    }
-   ]
-  },
-  "f3_view_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Ask which side of the abdomen rises highest when he lies on each side.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f3_view",
-     "kind": "retry"
-    }
-   ]
-  },
-  "f3_mech": {
-   "role": "probe",
-   "objectives": [
-    "O6"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "Same patient, now lying on his left side for the film.",
-     "claims": []
-    },
-    {
-     "text": "Predict: where does free gas collect, and what outlines it?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Between the liver and the right abdominal wall, outlined by liver",
-     "next": "f3_mech_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Under the left diaphragm, where the stomach bubble hides it",
-     "next": "f3_mech_t8a",
-     "kind": "trap",
-     "trap": "TR8"
-    },
-    {
-     "label": "Over the pelvis, where gas drops from the bowel",
-     "next": "f3_mech_t8b",
-     "kind": "trap",
-     "trap": "TR8"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "f3_mech_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "f3_mech_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Yes. On his left side the right side of the abdomen is uppermost, so the gas rises against the liver and the right wall.",
-     "claims": [
-      "K36",
-      "K23"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "f3_time",
-     "kind": "continue"
-    }
-   ]
-  },
-  "f3_mech_t8a": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "The left upper belly is tempting, since the stomach bubble is the familiar sight. But on his left side the stomach is the dependent part, not the highest.",
-     "claims": [
-      "K23"
-     ]
-    },
-    {
-     "text": "Gas goes to the highest point, so trace which side is up first.",
-     "claims": []
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so the stomach bubble is a standing picture; it does not show where gas goes when he lies down.",
-    "claims": [
-     "K23"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f3_mech",
-     "kind": "retry"
-    }
-   ]
-  },
-  "f3_mech_t8b": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "Gas does drift down when it is low, so the pelvis looks plausible. But free gas rises to the highest point, and the pelvis is not that.",
-     "claims": [
-      "K23"
-     ]
-    },
-    {
-     "text": "Ask which part of the abdomen is highest when he lies that way.",
-     "claims": []
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so check the direction: free gas rises to the highest part, not to the lowest.",
-    "claims": [
-     "K23"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f3_mech",
-     "kind": "retry"
-    }
-   ]
-  },
-  "f3_mech_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Work out which side of him is uppermost when he lies on his left, then which organ sits on that side.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f3_mech",
-     "kind": "retry"
-    }
-   ]
-  },
-  "f3_time": {
-   "role": "probe",
-   "objectives": [
-    "O6"
-   ],
-   "ask_confidence": true,
-   "say": [
-    {
-     "text": "Before the erect film, how long should he sit up?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "About 10 minutes, long enough for gas to climb",
-     "next": "f3_time_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Straight away, since free gas rises at once",
-     "next": "f3_time_t9a",
-     "kind": "trap",
-     "trap": "TR9"
-    },
-    {
-     "label": "About 30 minutes, so the gas has fully settled",
-     "next": "f3_time_t9b",
-     "kind": "trap",
-     "trap": "TR9"
-    },
-    {
-     "label": "Not sure, give me a hint",
-     "next": "f3_time_hint",
-     "kind": "help"
-    }
-   ]
-  },
-  "f3_time_hint": {
-   "role": "hint",
-   "say": [
-    {
-     "text": "Think about why there is a wait at all: what does the gas have to do first?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f3_time",
-     "kind": "retry"
-    }
-   ]
-  },
-  "f3_time_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Yes. Gas must climb through the abdomen to reach the diaphragm, and that takes about ten minutes of sitting up.",
-     "claims": [
-      "K34",
-      "K23"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "f3_time2",
-     "kind": "continue"
-    }
-   ]
-  },
-  "f3_time_t9a": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "Free gas does rise, so an instant film feels efficient. But rising takes time, and the film has to wait for the gas to climb.",
-     "claims": [
-      "K34",
-      "K23"
-     ]
-    },
-    {
-     "text": "Ask how long the gas needs to reach the diaphragm.",
-     "claims": []
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so pin the reason: gas needs time to travel up before a film can show it.",
-    "claims": [
-     "K34"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f3_time",
-     "kind": "retry"
-    }
-   ]
-  },
-  "f3_time_t9b": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "A longer wait feels safer, so the bigger figure is tempting. But the wait is set by the time gas needs to climb, not by how long you can spare.",
-     "claims": [
-      "K34"
-     ]
-    },
-    {
-     "text": "Ask what the wait is meant to allow.",
-     "claims": []
-    }
-   ],
-   "sure_note": {
-    "text": "You were sure, so do not stretch the wait: the point is the climb, not the margin.",
-    "claims": [
-     "K34"
-    ]
-   },
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f3_time",
-     "kind": "retry"
-    }
-   ]
-  },
-  "f3_time2": {
-   "role": "probe",
-   "objectives": [
-    "O6"
-   ],
-   "say": [
-    {
-     "text": "A film taken seconds after he was helped up shows no free gas, but his peritonism is plain.",
-     "claims": []
-    },
-    {
-     "text": "Which step raises the yield?",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Repeat the film after he has sat up long enough",
-     "next": "f3_time2_ok",
-     "kind": "correct"
-    },
-    {
-     "label": "Repeat the film at once, with him standing",
-     "next": "f3_time2_t9a",
-     "kind": "trap",
-     "trap": "TR9"
-    },
-    {
-     "label": "Repeat the film after two hours of bed rest",
-     "next": "f3_time2_t9b",
-     "kind": "trap",
-     "trap": "TR9"
-    },
-    {
-     "label": "Take a supine film instead, to be quicker",
-     "next": "f3_time2_t8",
-     "kind": "trap",
-     "trap": "TR8"
-    }
-   ]
-  },
-  "f3_time2_ok": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "Yes. Gas needs the upright time to reach the diaphragm, so the repeat film can show what the first one missed.",
-     "claims": [
-      "K34",
-      "K23"
-     ]
-    }
-   ],
-   "choices": [
-    {
-     "label": "Next",
-     "next": "@next",
-     "kind": "continue"
-    }
-   ]
-  },
-  "f3_time2_t9a": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "Standing sounds like a quick way to bring gas up, so the repeat feels sensible. But the film still has to wait for the gas to climb.",
-     "claims": [
-      "K34"
-     ]
-    },
-    {
-     "text": "Ask what the first film missed, and why.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f3_time2",
-     "kind": "retry"
-    }
-   ]
-  },
-  "f3_time2_t9b": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "Two hours of rest feels thorough, but the gas does not need a long rest; it needs the upright time to rise.",
-     "claims": [
-      "K34"
-     ]
-    },
-    {
-     "text": "Ask what the repeat film needs the patient to do.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f3_time2",
-     "kind": "retry"
-    }
-   ]
-  },
-  "f3_time2_t8": {
-   "role": "feedback",
-   "say": [
-    {
-     "text": "That choice is not right.",
-     "claims": []
-    },
-    {
-     "text": "A supine film is quicker, so it is tempting. But the view for a patient who cannot sit is a lateral one, which lets the gas show.",
-     "claims": [
-      "K70"
-     ]
-    },
-    {
-     "text": "Ask which view his position allows.",
-     "claims": []
-    }
-   ],
-   "choices": [
-    {
-     "label": "Try again",
-     "next": "f3_time2",
-     "kind": "retry"
-    }
-   ]
-  }
- },
- "decision": "solo"
+  "decision": "solo"
 }

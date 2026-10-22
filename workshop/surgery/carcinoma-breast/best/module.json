@@ -1476,7 +1476,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S2.contrast",
+          "next": "S2.contrast_q",
           "kind": "continue"
         },
         {
@@ -1491,13 +1491,13 @@
       "role": "explain",
       "say": [
         {
-          "text": "Ductal is the commonest type: a hard, gritty, stellate mass, the scirrhous picture.",
+          "text": "Yes. Ductal is the commonest type: a hard, gritty, stellate mass, the scirrhous picture.",
           "claims": [
             "K26"
           ]
         },
         {
-          "text": "Lobular cells lie in single file with **loss of E-cadherin**. They are often bilateral and multicentric, and spread to peritoneum, ovaries and meninges.",
+          "text": "Lobular cells lie in single file with loss of E-cadherin. They are often bilateral and multicentric, and spread to peritoneum, ovaries and meninges.",
           "claims": [
             "K27"
           ]
@@ -1759,12 +1759,12 @@
           "kind": "correct"
         },
         {
-          "label": "PTEN",
+          "label": "TP53",
           "next": "S2.numbers_pten",
           "kind": "partial"
         },
         {
-          "label": "STK11",
+          "label": "ATM",
           "next": "S2.numbers_stk",
           "kind": "partial"
         }
@@ -1995,7 +1995,7 @@
       "choices": [
         {
           "label": "A: BRCA2; B: BRCA1",
-          "next": "S2.fam_part",
+          "next": "S2.fam_swap",
           "kind": "partial"
         },
         {
@@ -2045,11 +2045,11 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That is not the right choice. Each family needs its own gene, and this pairing gets one family's phenotype wrong.",
+          "text": "That is not the right choice. BRCA2 fits family B, the man, but not family A.",
           "claims": []
         },
         {
-          "text": "Match each family to a phenotype, using the triple-negative and male-breast facts, not to a gene you know best.",
+          "text": "Triple-negative cancers in several women are the BRCA1 pattern, so one gene for both families cannot work.",
           "claims": [
             "K17",
             "K22"
@@ -2386,13 +2386,14 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That is not the right choice. PTEN is a real hereditary cancer gene, but it is tempting only because it is a name you know.",
+          "text": "That is not the right choice. TP53 is a real hereditary breast cancer gene, so it sounds plausible for a family history.",
           "claims": []
         },
         {
-          "text": "PTEN goes with Cowden syndrome and does not sit on the BRCA arms.",
+          "text": "But TP53 is the Li-Fraumeni gene. A breast and ovarian family with a 17q mutation is the BRCA1 picture.",
           "claims": [
-            "K16"
+            "K16",
+            "K4"
           ]
         }
       ],
@@ -2409,13 +2410,14 @@
       "role": "feedback",
       "say": [
         {
-          "text": "That is not the right choice. STK11 is tempting as another gene with a breast cancer risk, but it is not the 17q answer here.",
+          "text": "That is not the right choice. ATM is a known cancer-risk gene, so it can pass for a hereditary answer.",
           "claims": []
         },
         {
-          "text": "STK11 goes with Peutz-Jeghers syndrome and does not sit on the BRCA arms.",
+          "text": "But ATM goes with ataxia-telangiectasia. The 17q arm in a breast and ovarian family points to BRCA1.",
           "claims": [
-            "K16"
+            "K16",
+            "K4"
           ]
         }
       ],
@@ -2463,6 +2465,151 @@
         {
           "label": "Back to the question",
           "next": "S2.peau_q",
+          "kind": "retry"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.contrast_q": {
+      "role": "probe",
+      "objectives": [
+        "O2"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Ductal and lobular cancer look and spread differently.",
+          "claims": []
+        },
+        {
+          "text": "Which pairing is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Ductal: one hard stellate mass; lobular: single-file cells, E-cadherin lost",
+          "next": "S2.contrast",
+          "kind": "correct"
+        },
+        {
+          "label": "Ductal: single-file cells; lobular: one hard stellate mass",
+          "next": "S2.contrast_sw",
+          "kind": "partial"
+        },
+        {
+          "label": "Both form one hard mass; ductal is just the commoner",
+          "next": "S2.contrast_t10",
+          "kind": "trap",
+          "trap": "TR10"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "S2.contrast_hint",
+          "kind": "help"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.contrast_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Think about how each type lays its cells down, and which one is known for E-cadherin loss.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S2.contrast_q",
+          "kind": "retry"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.contrast_sw": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "That is not the right choice. The two pictures are swapped.",
+          "claims": []
+        },
+        {
+          "text": "The hard, gritty, stellate mass is ductal. Single-file cells with E-cadherin loss are lobular.",
+          "claims": [
+            "K26",
+            "K27"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S2.contrast_q",
+          "kind": "retry"
+        }
+      ],
+      "segment": "S2"
+    },
+    "S2.contrast_t10": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "That is not the right choice. Ductal is the commonest, so it is easy to let lobular borrow its picture.",
+          "claims": []
+        },
+        {
+          "text": "Lobular lacks E-cadherin, grows in single file and often forms no mass, so it behaves differently from ductal.",
+          "claims": [
+            "K27",
+            "K26"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S2.contrast_q",
+          "kind": "retry"
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so remember that commonest does not mean the same behaviour.",
+        "claims": [
+          "K26"
+        ]
+      },
+      "segment": "S2"
+    },
+    "S2.fam_swap": {
+      "role": "feedback",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "That is not the right choice. This pairing is reversed.",
+          "claims": []
+        },
+        {
+          "text": "Triple-negative cancers in women fit BRCA1, and breast cancer in a man fits BRCA2. Here each gene is placed on the wrong family.",
+          "claims": [
+            "K17",
+            "K22"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S2.family_q",
           "kind": "retry"
         }
       ],
@@ -4497,15 +4644,19 @@
       ],
       "say": [
         {
-          "text": "That is not right. Halsted looks like the most thorough operation, and older keys did expect it.",
+          "text": "That choice is not right.",
           "claims": []
         },
         {
-          "text": "But it removes pectoralis major and minor and clears all three axillary levels, and it is now rarely done.",
+          "text": "Halsted takes pectoralis major and minor and all three axillary levels, and it is now rarely done.",
           "claims": [
             "K85",
             "K139"
           ]
+        },
+        {
+          "text": "It looks the most thorough, and older keys did expect it.",
+          "claims": []
         }
       ],
       "sure_note": {
@@ -4764,18 +4915,12 @@
             "K82",
             "K83"
           ]
-        },
-        {
-          "text": "A large tumour is only a relative issue, for cosmesis, and connective tissue disease raises radiation toxicity.",
-          "claims": [
-            "K84"
-          ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S5.t2_size",
+          "next": "S5.r2_e2",
           "kind": "continue"
         }
       ],
@@ -4799,18 +4944,18 @@
       ],
       "choices": [
         {
-          "label": "Sentinel lymph node biopsy to stage the axilla",
+          "label": "Sentinel lymph node biopsy, to find out if the nodes hold cancer",
           "next": "S5.r3_ok",
           "kind": "correct"
         },
         {
-          "label": "Level I and II axillary dissection to clear the axilla",
+          "label": "Level I and II axillary dissection, to remove any nodal cancer",
           "next": "S5.r3_t",
           "kind": "trap",
           "trap": "TR27"
         },
         {
-          "label": "No axillary procedure, since she is node-negative",
+          "label": "No axillary procedure, as the nodes feel normal",
           "next": "S5.r3_p",
           "kind": "partial"
         },
@@ -5205,6 +5350,11 @@
           "label": "Modified radical mastectomy, preserving pectoralis major",
           "next": "S5.t1_ok",
           "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "S5.t1_hint",
+          "kind": "help"
         }
       ],
       "segment": "S5"
@@ -5440,12 +5590,13 @@
       "role": "feedback",
       "say": [
         {
-          "text": "Not right. Shrinkage to 2 cm looks like a loophole around a fixed size rule, so this step feels like the one to challenge.",
+          "text": "Not right. Shrinkage to 2 cm looks like a loophole around a fixed size rule, so step 2 feels like the one to challenge.",
           "claims": []
         },
         {
-          "text": "Size is not an absolute bar. It is weighed against the breast and against cosmesis, which makes it a relative factor.",
+          "text": "But step 2 is sound: chemotherapy can downstage a tumour to allow conservation. The wrong step is step 1, which treats 6 cm as an absolute bar.",
           "claims": [
+            "K95",
             "K84"
           ]
         }
@@ -5755,6 +5906,51 @@
           "label": "Show me why",
           "next": "S5.t4_reveal",
           "kind": "agency"
+        }
+      ],
+      "segment": "S5"
+    },
+    "S5.r2_e2": {
+      "role": "explain",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Size is different. A large tumour is only a relative issue, for cosmesis, not an absolute bar.",
+          "claims": [
+            "K84"
+          ]
+        },
+        {
+          "text": "Connective tissue disease raises radiation toxicity.",
+          "claims": [
+            "K84"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S5.t2_size",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S5"
+    },
+    "S5.t1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which operation removes the breast and the axillary nodes but keeps the chest muscle.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "S5.t1_op",
+          "kind": "retry"
         }
       ],
       "segment": "S5"
@@ -7706,31 +7902,37 @@
     "S7.p1": {
       "role": "probe",
       "objectives": [
-        "O1"
+        "O1",
+        "O3"
       ],
       "ask_confidence": true,
       "say": [
         {
-          "text": "A cancer registry summary lists the most common cancer in women in India first. Which cancer tops it today?",
+          "text": "Two lines on a revision sheet are being checked against current practice.",
+          "claims": []
+        },
+        {
+          "text": "Which statement is NOT correct?",
           "claims": []
         }
       ],
       "choices": [
         {
-          "label": "Carcinoma cervix",
+          "label": "Breast cancer is the most common cancer in Indian women",
           "next": "S7.p1_t",
           "kind": "trap",
           "trap": "TR4"
         },
         {
-          "label": "Carcinoma breast",
-          "next": "S7.p1_ok",
-          "kind": "correct"
+          "label": "Core needle biopsy is preferred to FNAC for a breast lump",
+          "next": "S7.p1_x",
+          "kind": "trap",
+          "trap": "TR1"
         },
         {
-          "label": "Carcinoma ovary",
-          "next": "S7.p1_x",
-          "kind": "partial"
+          "label": "FNAC is the investigation of choice for a breast lump",
+          "next": "S7.p1_ok",
+          "kind": "correct"
         },
         {
           "label": "Not sure, give me a hint",
@@ -7743,11 +7945,19 @@
     "S7.p1_ok": {
       "role": "feedback",
       "objectives": [
-        "O1"
+        "O1",
+        "O3"
       ],
       "say": [
         {
-          "text": "Yes. Breast cancer is now the most common cancer in women in India and worldwide.",
+          "text": "Yes. That is the old key. Core needle biopsy is now preferred, because it gives histology and receptor status.",
+          "claims": [
+            "K137",
+            "K54"
+          ]
+        },
+        {
+          "text": "Breast cancer, not cervix, now tops the list for women in India.",
           "claims": [
             "K1",
             "K118"
@@ -7757,7 +7967,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S7.p2",
+          "next": "S7.p3",
           "kind": "continue"
         }
       ],
@@ -7774,18 +7984,13 @@
           "claims": []
         },
         {
-          "text": "Cervix is tempting: it was the PYQ answer for years, so it is memorised. But that key is out of date, and the incidence picture has moved on.",
+          "text": "This line is true: breast cancer is now the most common cancer in women in India and worldwide. Cervix was the answer in older keys.",
           "claims": [
+            "K1",
             "K136"
           ]
         }
       ],
-      "sure_note": {
-        "text": "You were sure, so date the fact: a memorised PYQ answer can outlive the data behind it.",
-        "claims": [
-          "K136"
-        ]
-      },
       "choices": [
         {
           "label": "Try again",
@@ -7798,12 +8003,18 @@
           "kind": "agency"
         }
       ],
+      "sure_note": {
+        "text": "You were sure, so the memorised key is steering you: ask when it was written before you trust it.",
+        "claims": [
+          "K136"
+        ]
+      },
       "segment": "S7"
     },
     "S7.p1_x": {
       "role": "feedback",
       "objectives": [
-        "O1"
+        "O3"
       ],
       "say": [
         {
@@ -7811,9 +8022,10 @@
           "claims": []
         },
         {
-          "text": "Ovarian cancer is a real cancer in women, but the question asks for the top of the list, and it is not there.",
+          "text": "This line is true: core needle biopsy is the current choice. FNAC was the expected answer in older keys, and it gives cells, not invasion, grade or receptors.",
           "claims": [
-            "K118"
+            "K137",
+            "K54"
           ]
         }
       ],
@@ -7829,13 +8041,19 @@
           "kind": "agency"
         }
       ],
+      "sure_note": {
+        "text": "You were sure, so ask what the pathologist must be able to report on the slide before you rank the tests.",
+        "claims": [
+          "K54"
+        ]
+      },
       "segment": "S7"
     },
     "S7.p1_h": {
       "role": "hint",
       "say": [
         {
-          "text": "Ask when the answer you memorised was written, and whether the incidence data have changed since.",
+          "text": "Two of these lines are current practice and one is an old key. Which one would a newer textbook not print?",
           "claims": []
         }
       ],
@@ -7851,188 +8069,22 @@
     "S7.p1_e": {
       "role": "explain",
       "objectives": [
-        "O1"
+        "O1",
+        "O3"
       ],
       "say": [
         {
-          "text": "Breast cancer is the most common cancer in women in India and worldwide.",
+          "text": "Breast cancer is the most common cancer in women in India and worldwide; cervix was the older key.",
           "claims": [
-            "K1"
-          ]
-        },
-        {
-          "text": "Cervix was the answer in older keys, which is why it still comes to mind. Note the date on any PYQ key.",
-          "claims": [
+            "K1",
             "K136"
           ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S7.p2",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p2": {
-      "role": "probe",
-      "objectives": [
-        "O3"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "A 50-year-old has a new hard breast lump. Before chemotherapy, the oncology team asks for ER, PR and HER2 status. Which sample do you send?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Core needle biopsy of the lump",
-          "next": "S7.p2_ok",
-          "kind": "correct"
         },
         {
-          "label": "FNAC of the lump",
-          "next": "S7.p2_t",
-          "kind": "trap",
-          "trap": "TR1"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "S7.p2_h",
-          "kind": "help"
-        },
-        {
-          "label": "Excision of the whole lump",
-          "next": "S7.p2_x",
-          "kind": "partial"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p2_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O3"
-      ],
-      "say": [
-        {
-          "text": "Yes. A core biopsy shows whether the tumour is invasive and gives grade, ER, PR and HER2 status.",
+          "text": "Core needle biopsy is the preferred tissue test, not FNAC, because it shows invasion, grade and ER, PR and HER2.",
           "claims": [
             "K54",
-            "K129"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S7.p3",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p2_t": {
-      "role": "feedback",
-      "objectives": [
-        "O3"
-      ],
-      "say": [
-        {
-          "text": "That choice is not right.",
-          "claims": []
-        },
-        {
-          "text": "FNAC is the old key answer, and it is quick and cheap, so it feels right. But a few cells cannot show invasion, grade or receptor status.",
-          "claims": [
-            "K137",
-            "K54"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so check what the pathologist must report before you choose the test.",
-        "claims": [
-          "K137"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.p2",
-          "kind": "retry"
-        },
-        {
-          "label": "Explain it to me",
-          "next": "S7.p2_e",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p2_x": {
-      "role": "feedback",
-      "objectives": [
-        "O3"
-      ],
-      "say": [
-        {
-          "text": "That choice is not right.",
-          "claims": []
-        },
-        {
-          "text": "Excision gives tissue, but it is a surgical step taken before the team has a receptor plan, so it is the wrong first sample.",
-          "claims": [
-            "K5"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.p2",
-          "kind": "retry"
-        },
-        {
-          "label": "Explain it to me",
-          "next": "S7.p2_e",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p2_h": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Ask what the team needs to read on the slide: whether the cancer invades, and what its receptors are.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.p2",
-          "kind": "retry"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p2_e": {
-      "role": "explain",
-      "objectives": [
-        "O3"
-      ],
-      "say": [
-        {
-          "text": "Core needle biopsy is preferred, because it separates invasive from in situ disease and gives receptor status. FNAC is kept mainly for nodes and cysts.",
-          "claims": [
-            "K54",
-            "K56"
+            "K137"
           ]
         }
       ],
@@ -8119,7 +8171,7 @@
           "claims": []
         },
         {
-          "text": "The fear of cancer is real, so a 'most common' sentence sounds safe. But a red-flag sign is not the same as the commonest cause; keep those two claims apart.",
+          "text": "Cancer is the fear, so it sounds like the commonest cause. But the commonest cause is intraductal papilloma, and cancer is the one you must never miss.",
           "claims": [
             "K45",
             "K144"
@@ -8127,7 +8179,7 @@
         }
       ],
       "sure_note": {
-        "text": "You were sure, so check the qualifier: 'must be excluded' does not mean 'most frequent'.",
+        "text": "You were sure, so look at the stem's qualifier: 'must be excluded' is about risk and says nothing about frequency.",
         "claims": [
           "K144"
         ]
@@ -8273,7 +8325,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S7.p5",
+          "next": "S7.t_a",
           "kind": "continue"
         }
       ],
@@ -8383,7 +8435,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S7.p5",
+          "next": "S7.t_a",
           "kind": "continue"
         }
       ],
@@ -8411,7 +8463,8 @@
         {
           "label": "BRCA2 is linked to male breast cancer",
           "next": "S7.p5_x",
-          "kind": "partial"
+          "kind": "trap",
+          "trap": "TR9"
         },
         {
           "label": "Not sure, give me a hint",
@@ -8442,7 +8495,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S7.p6",
+          "next": "S7.p7",
           "kind": "continue"
         }
       ],
@@ -8496,7 +8549,7 @@
           "claims": []
         },
         {
-          "text": "This statement is true: BRCA2 is the gene more associated with male breast cancer. The question asks for the one that is not correct.",
+          "text": "This line is true: BRCA2, not BRCA1, is the gene more tied to male breast cancer. The question wants the false line.",
           "claims": [
             "K4",
             "K22"
@@ -8515,6 +8568,12 @@
           "kind": "agency"
         }
       ],
+      "sure_note": {
+        "text": "You were sure, so check which gene you tie to male breast cancer before you judge this line.",
+        "claims": [
+          "K22"
+        ]
+      },
       "segment": "S7"
     },
     "S7.p5_h": {
@@ -8545,171 +8604,9 @@
           "claims": [
             "K4"
           ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S7.p6",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p6": {
-      "role": "probe",
-      "objectives": [
-        "O2"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "A 58-year-old man has breast cancer, and his sister had ovarian cancer at 45. Which gene should the genetics team test first?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Not sure, give me a hint",
-          "next": "S7.p6_h",
-          "kind": "help"
         },
         {
-          "label": "BRCA1",
-          "next": "S7.p6_t",
-          "kind": "trap",
-          "trap": "TR9"
-        },
-        {
-          "label": "PTEN",
-          "next": "S7.p6_x",
-          "kind": "partial"
-        },
-        {
-          "label": "BRCA2",
-          "next": "S7.p6_ok",
-          "kind": "correct"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p6_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O2"
-      ],
-      "say": [
-        {
-          "text": "Yes. BRCA2 is the gene more associated with male breast cancer, so it is the first test in a man.",
-          "claims": [
-            "K4",
-            "K22"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S7.p7",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p6_t": {
-      "role": "feedback",
-      "objectives": [
-        "O2"
-      ],
-      "say": [
-        {
-          "text": "That choice is not right.",
-          "claims": []
-        },
-        {
-          "text": "BRCA1 is the famous breast gene, and its tumours are often triple-negative in women, so it is tempting. But this patient is a man, and the male-linked gene is the other one.",
-          "claims": [
-            "K17",
-            "K22"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so check the patient's sex first, then the gene linked to it.",
-        "claims": [
-          "K22"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.p6",
-          "kind": "retry"
-        },
-        {
-          "label": "Explain it to me",
-          "next": "S7.p6_e",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p6_x": {
-      "role": "feedback",
-      "objectives": [
-        "O2"
-      ],
-      "say": [
-        {
-          "text": "That choice is not right.",
-          "claims": []
-        },
-        {
-          "text": "PTEN belongs to other inherited syndromes. The breast and ovarian family pattern points to the BRCA pair.",
-          "claims": [
-            "K4"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.p6",
-          "kind": "retry"
-        },
-        {
-          "label": "Explain it to me",
-          "next": "S7.p6_e",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p6_h": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Ask which gene is most linked with male breast cancer, then check the family pattern.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.p6",
-          "kind": "retry"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p6_e": {
-      "role": "explain",
-      "objectives": [
-        "O2"
-      ],
-      "say": [
-        {
-          "text": "BRCA2 is the gene more associated with male breast cancer, and BRCA1 is the one more often seen in women with triple-negative tumours. In a man, test BRCA2 first.",
+          "text": "BRCA2 is the gene more tied to male breast cancer, and BRCA1 to triple-negative tumours.",
           "claims": [
             "K4",
             "K17",
@@ -8780,7 +8677,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S7.p8",
+          "next": "S7.p9",
           "kind": "continue"
         }
       ],
@@ -8890,177 +8787,6 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S7.p8",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p8": {
-      "role": "probe",
-      "objectives": [
-        "O5"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "On a staging sheet, the skin over a tumour looks like orange peel. There is no ulceration, no redness and no warmth. Which T code do you enter?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Not sure, give me a hint",
-          "next": "S7.p8_h",
-          "kind": "help"
-        },
-        {
-          "label": "T4d",
-          "next": "S7.p8_t",
-          "kind": "trap",
-          "trap": "TR12"
-        },
-        {
-          "label": "T4b",
-          "next": "S7.p8_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "T4c",
-          "next": "S7.p8_x",
-          "kind": "partial"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p8_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O5"
-      ],
-      "say": [
-        {
-          "text": "Yes. Peau d'orange is a skin sign that puts the tumour in T4b, and T4d needs the full inflammatory picture.",
-          "claims": [
-            "K7",
-            "K65"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S7.p9",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p8_t": {
-      "role": "feedback",
-      "objectives": [
-        "O5"
-      ],
-      "say": [
-        {
-          "text": "That choice is not right.",
-          "claims": []
-        },
-        {
-          "text": "The orange-peel sign sounds inflammatory, so T4d is tempting. But the sign on its own does not make inflammatory carcinoma.",
-          "claims": [
-            "K7",
-            "K48"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so check the whole breast: a skin sign is one finding, while T4d is a picture.",
-        "claims": [
-          "K48",
-          "K67"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.p8",
-          "kind": "retry"
-        },
-        {
-          "label": "Explain it to me",
-          "next": "S7.p8_e",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p8_x": {
-      "role": "feedback",
-      "objectives": [
-        "O5"
-      ],
-      "say": [
-        {
-          "text": "That choice is not right.",
-          "claims": []
-        },
-        {
-          "text": "T4c needs chest-wall extension as well as skin signs, and the sheet records no chest-wall finding.",
-          "claims": [
-            "K64",
-            "K7"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.p8",
-          "kind": "retry"
-        },
-        {
-          "label": "Explain it to me",
-          "next": "S7.p8_e",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p8_h": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Ask what the skin sign is, and whether the whole breast shows the inflammatory picture.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.p8",
-          "kind": "retry"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p8_e": {
-      "role": "explain",
-      "objectives": [
-        "O5"
-      ],
-      "say": [
-        {
-          "text": "Peau d'orange alone is skin involvement, T4b. T4d needs the inflammatory picture: a red, warm, swollen breast with peau d'orange over at least a third of it.",
-          "claims": [
-            "K7",
-            "K48"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
           "next": "S7.p9",
           "kind": "continue"
         }
@@ -9075,16 +8801,15 @@
       "ask_confidence": true,
       "say": [
         {
-          "text": "A 1.8 cm tumour is attached to pectoralis major only. The ribs, intercostal muscles and serratus anterior move freely. What is its T category?",
+          "text": "A tumour is fixed to pectoralis major, and the skin over it shows peau d'orange. There is no redness or warmth.",
+          "claims": []
+        },
+        {
+          "text": "Which T category?",
           "claims": []
         }
       ],
       "choices": [
-        {
-          "label": "T4b",
-          "next": "S7.p9_x",
-          "kind": "partial"
-        },
         {
           "label": "T4a",
           "next": "S7.p9_t",
@@ -9092,14 +8817,20 @@
           "trap": "TR13"
         },
         {
+          "label": "T4d",
+          "next": "S7.p9_x",
+          "kind": "trap",
+          "trap": "TR12"
+        },
+        {
+          "label": "T4b",
+          "next": "S7.p9_ok",
+          "kind": "correct"
+        },
+        {
           "label": "Not sure, give me a hint",
           "next": "S7.p9_h",
           "kind": "help"
-        },
-        {
-          "label": "T1",
-          "next": "S7.p9_ok",
-          "kind": "correct"
         }
       ],
       "segment": "S7"
@@ -9111,17 +8842,19 @@
       ],
       "say": [
         {
-          "text": "Yes. Fixity to pectoralis major alone is not chest-wall disease, and a tumour of 2 cm or less is T1.",
+          "text": "Yes. Peau d'orange is skin involvement, T4b. Fixity to pectoralis major alone is not chest-wall disease, and T4d needs the full inflammatory picture.",
           "claims": [
+            "K7",
+            "K65",
             "K141",
-            "K61"
+            "K140"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S7.p10",
+          "next": "S7.t_b",
           "kind": "continue"
         }
       ],
@@ -9138,7 +8871,7 @@
           "claims": []
         },
         {
-          "text": "The pectoralis sits right beside the tumour, so fixity feels like chest-wall spread. But the T4a list is ribs, intercostals and serratus, not the pectoralis alone.",
+          "text": "The muscle sits beside the tumour, so fixity feels like chest wall. But the T4a list is ribs, intercostals and serratus, and pectoralis alone is not on it.",
           "claims": [
             "K64",
             "K141"
@@ -9177,10 +8910,11 @@
           "claims": []
         },
         {
-          "text": "T4b needs skin ulceration, satellite nodules or peau d'orange, and this tumour has no skin finding. Size places it in T1.",
+          "text": "Orange peel sounds inflammatory, so T4d tempts. But T4d is a red, warm, swollen breast, and this one shows only the skin sign, which is T4b.",
           "claims": [
-            "K7",
-            "K61"
+            "K48",
+            "K140",
+            "K7"
           ]
         }
       ],
@@ -9196,13 +8930,19 @@
           "kind": "agency"
         }
       ],
+      "sure_note": {
+        "text": "You were sure, so remember that one skin sign is not a syndrome.",
+        "claims": [
+          "K140"
+        ]
+      },
       "segment": "S7"
     },
     "S7.p9_h": {
       "role": "hint",
       "say": [
         {
-          "text": "Ask what the fixity actually touches, and whether that structure is on the T4a list.",
+          "text": "Take the muscle finding and the skin finding one at a time. Which of them earns a T4 label, and which does not?",
           "claims": []
         }
       ],
@@ -9222,17 +8962,18 @@
       ],
       "say": [
         {
-          "text": "Fixity to pectoralis major alone is not T4a. With no chest-wall or skin extension, the tumour is classed by size, and 2 cm or less is T1.",
+          "text": "Fixity to pectoralis major alone is not T4a, and peau d'orange alone is skin involvement, T4b. T4d needs the red, warm, swollen breast of inflammatory carcinoma.",
           "claims": [
             "K141",
-            "K61"
+            "K7",
+            "K48"
           ]
         }
       ],
       "choices": [
         {
           "label": "Next",
-          "next": "S7.p10",
+          "next": "S7.t_b",
           "kind": "continue"
         }
       ],
@@ -9412,12 +9153,13 @@
     "S7.p11": {
       "role": "probe",
       "objectives": [
-        "O11"
+        "O11",
+        "O10"
       ],
       "ask_confidence": true,
       "say": [
         {
-          "text": "Which statement about breast cancer drug heart toxicity is NOT correct?",
+          "text": "Which statement about breast cancer drug toxicity is NOT correct?",
           "claims": []
         }
       ],
@@ -9429,14 +9171,15 @@
           "trap": "TR6"
         },
         {
+          "label": "Tamoxifen raises the risk of endometrial cancer",
+          "next": "S7.p11_x",
+          "kind": "trap",
+          "trap": "TR22"
+        },
+        {
           "label": "Trastuzumab damage is dose-dependent and irreversible",
           "next": "S7.p11_ok",
           "kind": "correct"
-        },
-        {
-          "label": "Doxorubicin damage is cumulative and dose-dependent",
-          "next": "S7.p11_x",
-          "kind": "partial"
         },
         {
           "label": "Not sure, give me a hint",
@@ -9511,7 +9254,7 @@
     "S7.p11_x": {
       "role": "feedback",
       "objectives": [
-        "O11"
+        "O10"
       ],
       "say": [
         {
@@ -9519,9 +9262,10 @@
           "claims": []
         },
         {
-          "text": "This statement is true: doxorubicin's damage is cumulative and dose-dependent. Keep it as the reference point for the other drug.",
+          "text": "This line is true: tamoxifen blocks oestrogen in the breast but raises endometrial cancer risk, so bleeding on it needs sampling.",
           "claims": [
-            "K142"
+            "K99",
+            "K143"
           ]
         }
       ],
@@ -9537,13 +9281,19 @@
           "kind": "agency"
         }
       ],
+      "sure_note": {
+        "text": "You were sure, so check whether a drug's breast effect carries over to the uterus.",
+        "claims": [
+          "K143"
+        ]
+      },
       "segment": "S7"
     },
     "S7.p11_h": {
       "role": "hint",
       "say": [
         {
-          "text": "Ask which of these drugs behaves like a cumulative anthracycline, and which does not.",
+          "text": "One line describes trastuzumab like doxorubicin, and one is a true drug effect. Which line has the wrong pattern?",
           "claims": []
         }
       ],
@@ -9563,10 +9313,17 @@
       ],
       "say": [
         {
-          "text": "Trastuzumab's cardiotoxicity is usually reversible and not dose-related, unlike doxorubicin's cumulative, largely irreversible damage. So the dose-dependent, irreversible statement is the one that is not correct.",
+          "text": "Trastuzumab's cardiotoxicity is usually reversible and not dose-related, unlike doxorubicin's cumulative, largely irreversible damage. So the dose-dependent, irreversible line is the false one.",
           "claims": [
             "K101",
             "K142"
+          ]
+        },
+        {
+          "text": "Tamoxifen raises endometrial cancer risk, so that line is true.",
+          "claims": [
+            "K99",
+            "K143"
           ]
         }
       ],
@@ -9633,7 +9390,7 @@
       "choices": [
         {
           "label": "Next",
-          "next": "S7.p13",
+          "next": "S7.p14",
           "kind": "continue"
         }
       ],
@@ -9738,175 +9495,6 @@
             "K98",
             "K97",
             "K132"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S7.p13",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p13": {
-      "role": "probe",
-      "objectives": [
-        "O10"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "A woman on tamoxifen for three years has new postmenopausal bleeding. What should the team do first?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Sample the endometrium; tamoxifen raises cancer risk",
-          "next": "S7.p13_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Reassure her; tamoxifen protects the lining",
-          "next": "S7.p13_t",
-          "kind": "trap",
-          "trap": "TR22"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "S7.p13_h",
-          "kind": "help"
-        },
-        {
-          "label": "Bone scan; aromatase inhibitors cause bone loss",
-          "next": "S7.p13_x",
-          "kind": "partial"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p13_ok": {
-      "role": "feedback",
-      "objectives": [
-        "O10"
-      ],
-      "say": [
-        {
-          "text": "Yes. Tamoxifen raises the risk of endometrial carcinoma, so bleeding on it needs sampling before reassurance.",
-          "claims": [
-            "K99",
-            "K143"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "S7.p14",
-          "kind": "continue"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p13_t": {
-      "role": "feedback",
-      "objectives": [
-        "O10"
-      ],
-      "say": [
-        {
-          "text": "That choice is not right.",
-          "claims": []
-        },
-        {
-          "text": "Tamoxifen blocks oestrogen in the breast, so a protective effect on the lining feels logical. But its action differs by tissue, and the uterine effect is a risk.",
-          "claims": [
-            "K143",
-            "K99"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so remember that tissue-specific action does not mean protection in every tissue.",
-        "claims": [
-          "K143"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.p13",
-          "kind": "retry"
-        },
-        {
-          "label": "Explain it to me",
-          "next": "S7.p13_e",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p13_x": {
-      "role": "feedback",
-      "objectives": [
-        "O10"
-      ],
-      "say": [
-        {
-          "text": "That choice is not right.",
-          "claims": []
-        },
-        {
-          "text": "Bone loss is a real aromatase-inhibitor problem, but it does not explain new bleeding on tamoxifen.",
-          "claims": [
-            "K100"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.p13",
-          "kind": "retry"
-        },
-        {
-          "label": "Explain it to me",
-          "next": "S7.p13_e",
-          "kind": "agency"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p13_h": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Ask whether a drug that acts as a blocker in the breast acts the same way on the uterus.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "S7.p13",
-          "kind": "retry"
-        }
-      ],
-      "segment": "S7"
-    },
-    "S7.p13_e": {
-      "role": "explain",
-      "objectives": [
-        "O10"
-      ],
-      "say": [
-        {
-          "text": "Tamoxifen acts differently in the uterus and raises endometrial cancer risk, so postmenopausal bleeding on it is sampled, not reassured.",
-          "claims": [
-            "K99",
-            "K143"
           ]
         }
       ],
@@ -10084,6 +9672,54 @@
         {
           "label": "Next",
           "next": "S8.tis",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S7"
+    },
+    "S7.t_a": {
+      "role": "explain",
+      "objectives": [
+        "O2"
+      ],
+      "say": [
+        {
+          "text": "Notice the shape of the traps so far. Each time, a familiar default stood in for what the stem asked: the old key, the scary cause, the commonest type.",
+          "claims": []
+        },
+        {
+          "text": "Before you choose, name the default that the stem is baiting.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S7.p5",
+          "kind": "continue"
+        }
+      ],
+      "segment": "S7"
+    },
+    "S7.t_b": {
+      "role": "explain",
+      "objectives": [
+        "O7"
+      ],
+      "say": [
+        {
+          "text": "Management stems carry the same bait. The older or more extensive option feels safer, so it draws the memorised answer.",
+          "claims": []
+        },
+        {
+          "text": "Ask what the patient in the stem actually needs.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S7.p10",
           "kind": "continue"
         }
       ],
@@ -10612,13 +10248,13 @@
       ],
       "choices": [
         {
-          "label": "Axillary clearance first, sentinel node only if it fails",
+          "label": "Axillary clearance first, then sentinel node only if it fails",
           "next": "S8.axil_t",
           "kind": "trap",
           "trap": "TR27"
         },
         {
-          "label": "Sentinel node biopsy and breast surgery, no routine bone scan",
+          "label": "Sentinel node biopsy with breast surgery; skip the bone scan",
           "next": "S8.axil_ok",
           "kind": "correct"
         },
@@ -10801,18 +10437,18 @@
       ],
       "choices": [
         {
-          "label": "Agree: it protects the uterus, so no endometrial checks are needed",
+          "label": "Agree: it thins the lining, so no endometrial checks are needed",
           "next": "S8.tam_t",
           "kind": "trap",
           "trap": "TR22"
         },
         {
-          "label": "Tamoxifen can raise endometrial cancer risk, so bleeding needs checking",
+          "label": "It can raise endometrial cancer risk, so bleeding needs checking",
           "next": "S8.tam_ok",
           "kind": "correct"
         },
         {
-          "label": "The real danger is thrombosis, not uterine cancer",
+          "label": "Thrombosis is the real danger, so the uterus needs no checking",
           "next": "S8.tam_p",
           "kind": "partial"
         }
@@ -11017,7 +10653,7 @@
           "trap": "TR9"
         },
         {
-          "label": "PTEN mutation, the gene behind a different tumour syndrome",
+          "label": "Early menarche, the reproductive risk factor seen in women",
           "next": "S8.male_p",
           "kind": "partial"
         },
@@ -11057,7 +10693,7 @@
           "claims": []
         },
         {
-          "text": "PTEN belongs to a different syndrome. The male breast cancer risk factors are Klinefelter syndrome and BRCA2.",
+          "text": "Early menarche is a female hormonal risk factor and does not carry over to men. The male risk factors are Klinefelter syndrome and BRCA2.",
           "claims": [
             "K22",
             "K4"
@@ -11129,6 +10765,41 @@
           "label": "Try again",
           "next": "S8.axil",
           "kind": "retry"
+        },
+        {
+          "label": "Explain it to me",
+          "next": "S8.axil_e",
+          "kind": "agency"
+        }
+      ],
+      "segment": "S8"
+    },
+    "S8.axil_e": {
+      "role": "explain",
+      "objectives": [
+        "O4"
+      ],
+      "say": [
+        {
+          "text": "Where spread goes and who needs a scan are separate questions. Bone is the commonest site of distant spread.",
+          "claims": [
+            "K42",
+            "K123"
+          ]
+        },
+        {
+          "text": "A scan is for locally advanced disease or symptoms. This woman has a 2 cm cancer and no bone pain, so staging the axilla comes first.",
+          "claims": [
+            "K57",
+            "K89"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "S8.numb",
+          "kind": "continue"
         }
       ],
       "segment": "S8"
@@ -11386,13 +11057,6 @@
     },
     "K58": {
       "text": "**CA 15-3** and **CEA** are used for monitoring metastatic disease, not for screening or diagnosis.",
-      "refs": [
-        "1"
-      ],
-      "status": "verified"
-    },
-    "K61": {
-      "text": "T1 — ≤ 2 cm",
       "refs": [
         "1"
       ],

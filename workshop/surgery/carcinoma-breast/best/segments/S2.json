@@ -1,1124 +1,1266 @@
 {
-  "segment": "S2",
-  "entry": "entry",
-  "nodes": {
-    "entry": {
-      "role": "probe",
-      "objectives": [
-        "O1",
-        "O2"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "A 58-year-old woman has a thickened area in one breast that does not feel like a clear lump. Biopsy shows small, uniform cells lined up one behind another. Mammography shows no mass.",
-          "claims": []
-        },
-        {
-          "text": "Which type is this?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Invasive ductal carcinoma (NST)",
-          "next": "entry_t10",
-          "kind": "trap",
-          "trap": "TR10"
-        },
-        {
-          "label": "Invasive lobular carcinoma",
-          "next": "entry_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Medullary carcinoma",
-          "next": "entry_part",
-          "kind": "partial"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "entry_hint",
-          "kind": "help"
-        }
-      ]
+ "segment": "S2",
+ "entry": "entry",
+ "nodes": {
+  "entry": {
+   "role": "probe",
+   "objectives": [
+    "O1",
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 58-year-old woman has a thickened area in one breast that does not feel like a clear lump. Biopsy shows small, uniform cells lined up one behind another. Mammography shows no mass.",
+     "claims": []
     },
-    "entry_hint": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Ignore which type is commonest. Ask how the cells sit: glands in a firm mass, or one behind another?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "entry",
-          "kind": "retry"
-        }
-      ]
-    },
-    "entry_t10": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. Ductal is the commonest type, so it feels like the default answer to every type question.",
-          "claims": []
-        },
-        {
-          "text": "But ductal cancer usually forms one hard, stellate mass, and this biopsy shows a line of cells with no mass. Commonest is not the same as fits the picture.",
-          "claims": [
-            "K26"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so note it: a common type is not the answer to a question about spread.",
-        "claims": [
-          "K26"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "entry",
-          "kind": "retry"
-        }
-      ]
-    },
-    "entry_part": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. Medullary is a real type, but it does not fit single-file cells.",
-          "claims": []
-        },
-        {
-          "text": "Medullary is soft and well defined, with a lymphocytic infiltrate, so it forms a clear mass.",
-          "claims": [
-            "K28"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "entry",
-          "kind": "retry"
-        }
-      ]
-    },
-    "entry_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. Lobular cells grow in single file because E-cadherin is lost, so they spread through the breast without forming one mass.",
-          "claims": [
-            "K27"
-          ]
-        },
-        {
-          "text": "That is also why lobular is more often bilateral and multicentric.",
-          "claims": [
-            "K122"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "contrast",
-          "kind": "continue"
-        },
-        {
-          "label": "I know this, skip ahead",
-          "next": "lum_tail",
-          "kind": "skip"
-        }
-      ]
-    },
-    "contrast": {
-      "role": "explain",
-      "say": [
-        {
-          "text": "Ductal is the commonest type: a hard, gritty, stellate mass, the scirrhous picture.",
-          "claims": [
-            "K26"
-          ]
-        },
-        {
-          "text": "Lobular cells lie in single file with **loss of E-cadherin**. They are often bilateral and multicentric, and spread to peritoneum, ovaries and meninges.",
-          "claims": [
-            "K27"
-          ]
-        },
-        {
-          "text": "Commonest and bilateral are different questions. Luminal A is the most common molecular subtype.",
-          "claims": [
-            "K125"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "vign",
-          "kind": "continue"
-        }
-      ]
-    },
-    "vign": {
-      "role": "probe",
-      "objectives": [
-        "O2"
-      ],
-      "say": [
-        {
-          "text": "Years after a breast cancer, a woman has deposits in the peritoneum and ovaries, and a tumour in the other breast.",
-          "claims": []
-        },
-        {
-          "text": "Which primary type is most likely?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Invasive ductal carcinoma, scirrhous type",
-          "next": "vign_t10",
-          "kind": "trap",
-          "trap": "TR10"
-        },
-        {
-          "label": "Medullary carcinoma",
-          "next": "vign_part",
-          "kind": "partial"
-        },
-        {
-          "label": "Invasive lobular carcinoma",
-          "next": "vign_ok",
-          "kind": "correct"
-        }
-      ]
-    },
-    "vign_t10": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. The scirrhous ductal mass is the picture most people hold for breast cancer, so it becomes the default.",
-          "claims": []
-        },
-        {
-          "text": "Spread to the peritoneum and ovaries, with the other breast involved, is the lobular pattern.",
-          "claims": [
-            "K27",
-            "K122"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "vign",
-          "kind": "retry"
-        }
-      ]
-    },
-    "vign_part": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. Medullary is soft and well defined, and it is not known for this pattern of spread.",
-          "claims": []
-        },
-        {
-          "text": "Medullary carcinoma has a lymphocytic infiltrate and a clear edge, which does not explain peritoneal and ovarian deposits.",
-          "claims": [
-            "K28"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "vign",
-          "kind": "retry"
-        }
-      ]
-    },
-    "vign_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. Peritoneal and ovarian deposits with a bilateral picture are the lobular pattern.",
-          "claims": [
-            "K27",
-            "K122"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "brca_q",
-          "kind": "continue"
-        }
-      ]
-    },
-    "brca_q": {
-      "role": "probe",
-      "objectives": [
-        "O2"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "BRCA1 and BRCA2 are two separate breast cancer genes, each on its own chromosome arm.",
-          "claims": []
-        },
-        {
-          "text": "Which pairing of gene and arm is right?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "BRCA1 on 17q, BRCA2 on 13q",
-          "next": "brca_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "BRCA1 on 13q, BRCA2 on 17q",
-          "next": "brca_t8",
-          "kind": "trap",
-          "trap": "TR8"
-        },
-        {
-          "label": "BRCA1 on 11q, BRCA2 on 17q",
-          "next": "brca_part",
-          "kind": "partial"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "brca_hint",
-          "kind": "help"
-        }
-      ]
-    },
-    "brca_hint": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Each gene has its own arm. Do not learn the two numbers as one unordered pair.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "brca_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "brca_t8": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. The numbers 13 and 17 come as a pair, so it is easy to swap which gene owns which.",
-          "claims": []
-        },
-        {
-          "text": "The exam tests the gene-to-arm link, so each gene needs its own fact.",
-          "claims": [
-            "K4"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so fix the swap: the pair of numbers is not the fact to remember.",
-        "claims": [
-          "K4"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Show me why",
-          "next": "brca_why",
-          "kind": "agency"
-        },
-        {
-          "label": "Try again",
-          "next": "brca_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "brca_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. BRCA1 is on 17q and BRCA2 on 13q.",
-          "claims": [
-            "K4"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "numbers_q",
-          "kind": "continue"
-        }
-      ]
-    },
-    "numbers_q": {
-      "role": "probe",
-      "objectives": [
-        "O2"
-      ],
-      "say": [
-        {
-          "text": "A breast and ovarian cancer family has a mutation on chromosome 17q.",
-          "claims": []
-        },
-        {
-          "text": "Which gene is it?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "BRCA2",
-          "next": "numbers_t8",
-          "kind": "trap",
-          "trap": "TR8"
-        },
-        {
-          "label": "BRCA1",
-          "next": "numbers_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "PTEN",
-          "next": "numbers_pten",
-          "kind": "partial"
-        },
-        {
-          "label": "STK11",
-          "next": "numbers_stk",
-          "kind": "partial"
-        }
-      ]
-    },
-    "numbers_t8": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. Two numbers that go together are easy to swap, so 17q slides to the wrong gene.",
-          "claims": []
-        },
-        {
-          "text": "Here the arm is the clue: attach each arm to its own gene, not to a number pair.",
-          "claims": [
-            "K4"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "numbers_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "numbers_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. BRCA1 is on 17q, so a 17q mutation in a breast and ovarian family points to BRCA1.",
-          "claims": [
-            "K4"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "male_q",
-          "kind": "continue"
-        }
-      ]
-    },
-    "male_q": {
-      "role": "probe",
-      "objectives": [
-        "O2"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "Male breast cancer is rare. Which gene is it most linked to?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "BRCA1",
-          "next": "male_t9",
-          "kind": "trap",
-          "trap": "TR9"
-        },
-        {
-          "label": "PTEN",
-          "next": "male_part",
-          "kind": "partial"
-        },
-        {
-          "label": "BRCA2",
-          "next": "male_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "male_hint",
-          "kind": "help"
-        }
-      ]
-    },
-    "male_hint": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Pick by the phenotype a man with breast cancer shows, not by which gene you know best.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "male_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "male_t9": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. BRCA1 is the best-known breast gene, so it becomes the default for any hereditary question.",
-          "claims": []
-        },
-        {
-          "text": "BRCA1 cancers are typically triple-negative, a different pattern from breast cancer in a man.",
-          "claims": [
-            "K17",
-            "K22"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so check the phenotype before the famous gene: male breast cancer is not the triple-negative pattern.",
-        "claims": [
-          "K17",
-          "K22"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Show me why",
-          "next": "male_why",
-          "kind": "agency"
-        },
-        {
-          "label": "Try again",
-          "next": "male_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "male_part": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. PTEN is a real cancer gene, but it belongs to a different hereditary syndrome.",
-          "claims": []
-        },
-        {
-          "text": "PTEN goes with Cowden syndrome, and it is not the gene linked to male breast cancer.",
-          "claims": [
-            "K16",
-            "K22"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "male_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "male_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. BRCA2 is the gene more tied to male breast cancer, along with Klinefelter syndrome.",
-          "claims": [
-            "K4",
-            "K22"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "brca_contrast",
-          "kind": "continue"
-        }
-      ]
-    },
-    "brca_contrast": {
-      "role": "explain",
-      "say": [
-        {
-          "text": "BRCA1 cancers are typically triple-negative, the basal-like pattern.",
-          "claims": [
-            "K17"
-          ]
-        },
-        {
-          "text": "BRCA2 is the gene more tied to male breast cancer, which is about 1% of all breast cancers.",
-          "claims": [
-            "K4",
-            "K22"
-          ]
-        },
-        {
-          "text": "Match the gene to the phenotype in the stem, not to the gene you know best.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "family_q",
-          "kind": "continue"
-        }
-      ]
-    },
-    "family_q": {
-      "role": "probe",
-      "objectives": [
-        "O2"
-      ],
-      "say": [
-        {
-          "text": "Family A has triple-negative breast cancers in several women. Family B has breast cancer in a man.",
-          "claims": []
-        },
-        {
-          "text": "Which pairing is most likely?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "A: BRCA2; B: BRCA1",
-          "next": "fam_part",
-          "kind": "partial"
-        },
-        {
-          "label": "Both families: BRCA1",
-          "next": "fam_t9",
-          "kind": "trap",
-          "trap": "TR9"
-        },
-        {
-          "label": "Both families: BRCA2",
-          "next": "fam_part",
-          "kind": "partial"
-        },
-        {
-          "label": "A: BRCA1; B: BRCA2",
-          "next": "family_ok",
-          "kind": "correct"
-        }
-      ]
-    },
-    "fam_t9": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. BRCA1 is the gene you reach for first, so it tempts you to label both families with it.",
-          "claims": []
-        },
-        {
-          "text": "Triple-negative women and a man with breast cancer are different phenotypes, so one gene cannot fit both.",
-          "claims": [
-            "K17",
-            "K22"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "family_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "fam_part": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. Each family needs its own gene, and this pairing gets one family's phenotype wrong.",
-          "claims": []
-        },
-        {
-          "text": "Match each family to a phenotype, using the triple-negative and male-breast facts, not to a gene you know best.",
-          "claims": [
-            "K17",
-            "K22"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "family_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "family_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. Triple-negative cancers in women fit BRCA1, and breast cancer in a man fits BRCA2.",
-          "claims": [
-            "K17",
-            "K22"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "peau_q",
-          "kind": "continue"
-        }
-      ]
-    },
-    "peau_q": {
-      "role": "probe",
-      "objectives": [
-        "O2"
-      ],
-      "ask_confidence": true,
-      "say": [
-        {
-          "text": "A 3 cm tumour has skin over it that looks like orange peel.",
-          "claims": []
-        },
-        {
-          "text": "What causes this skin change?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Inflamed skin, so it means inflammatory carcinoma",
-          "next": "peau_t12",
-          "kind": "trap",
-          "trap": "TR12"
-        },
-        {
-          "label": "Blocked subdermal lymphatics, so the skin swells",
-          "next": "peau_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Cooper's ligaments pulling the skin inward",
-          "next": "peau_part",
-          "kind": "partial"
-        },
-        {
-          "label": "Not sure, give me a hint",
-          "next": "peau_hint",
-          "kind": "help"
-        }
-      ]
-    },
-    "peau_hint": {
-      "role": "hint",
-      "say": [
-        {
-          "text": "Think about what drains fluid out of the skin, not about redness or heat.",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "peau_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "peau_t12": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. Orange peel looks like the skin of inflammatory cancer, so the sign and the syndrome get merged.",
-          "claims": []
-        },
-        {
-          "text": "One skin sign is not the whole picture. Ask what the skin's drainage does, not whether the skin is red.",
-          "claims": [
-            "K7"
-          ]
-        }
-      ],
-      "sure_note": {
-        "text": "You were sure, so check the mechanism first: a single sign does not make a syndrome.",
-        "claims": [
-          "K7"
-        ]
-      },
-      "choices": [
-        {
-          "label": "Show me why",
-          "next": "peau_why",
-          "kind": "agency"
-        },
-        {
-          "label": "Try again",
-          "next": "peau_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "peau_part": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. Cooper's ligaments do change the skin, but the change is a dimple, not orange peel.",
-          "claims": []
-        },
-        {
-          "text": "Cooper's ligament involvement causes dimpling, which is a different sign.",
-          "claims": [
-            "K39"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "peau_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "peau_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. Blocked subdermal lymphatics cause skin oedema, which gives the orange-peel look.",
-          "claims": [
-            "K7"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "pred_q",
-          "kind": "continue"
-        }
-      ]
-    },
-    "pred_q": {
-      "role": "probe",
-      "objectives": [
-        "O2"
-      ],
-      "say": [
-        {
-          "text": "Breast A: skin dimpled over a lump, nipple normal. Breast B: orange-peel skin over a lump.",
-          "claims": []
-        },
-        {
-          "text": "Which breast shows the lymphatic-block sign?",
-          "claims": []
-        }
-      ],
-      "choices": [
-        {
-          "label": "Breast B: lymphatic oedema of the skin",
-          "next": "pred_ok",
-          "kind": "correct"
-        },
-        {
-          "label": "Both breasts, both inflammatory cancer",
-          "next": "pred_t12",
-          "kind": "trap",
-          "trap": "TR12"
-        },
-        {
-          "label": "Breast A: dimpling from Cooper's ligaments",
-          "next": "pred_part",
-          "kind": "partial"
-        }
-      ]
-    },
-    "pred_t12": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. Any skin change over a lump can tempt you to read it as the inflammatory syndrome.",
-          "claims": []
-        },
-        {
-          "text": "A single skin sign is not the whole picture of inflammatory cancer.",
-          "claims": [
-            "K7"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "pred_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "pred_part": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. Dimpling is a real skin sign, but it has a different cause from orange-peel oedema.",
-          "claims": []
-        },
-        {
-          "text": "Dimpling comes from Cooper's ligament traction, not from blocked lymphatics.",
-          "claims": [
-            "K39"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "pred_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "pred_ok": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "Yes. Blocked lymphatics give oedema and orange-peel skin, while Cooper's ligament pull gives dimpling.",
-          "claims": [
-            "K7",
-            "K39"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "@next",
-          "kind": "continue"
-        }
-      ]
-    },
-    "lum_tail": {
-      "role": "explain",
-      "say": [
-        {
-          "text": "One thing before the genes. ER or PR positive, HER2 negative, with low Ki-67, is Luminal A, the most common molecular subtype.",
-          "claims": [
-            "K32",
-            "K125"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Next",
-          "next": "brca_q",
-          "kind": "continue"
-        }
-      ]
-    },
-    "brca_part": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. 11q only looks familiar from the list of numbers you have seen.",
-          "claims": []
-        },
-        {
-          "text": "Check each gene against its own arm: BRCA1 is on 17q and BRCA2 on 13q.",
-          "claims": [
-            "K4"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "brca_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "brca_why": {
-      "role": "explain",
-      "say": [
-        {
-          "text": "Pin each number to its gene: BRCA1 sits on 17q, BRCA2 on 13q. Say each gene with its own arm, never the pair alone.",
-          "claims": [
-            "K4"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Back to the question",
-          "next": "brca_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "numbers_pten": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. PTEN is a real hereditary cancer gene, but it is tempting only because it is a name you know.",
-          "claims": []
-        },
-        {
-          "text": "PTEN goes with Cowden syndrome and does not sit on the BRCA arms.",
-          "claims": [
-            "K16"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "numbers_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "numbers_stk": {
-      "role": "feedback",
-      "say": [
-        {
-          "text": "That is not the right choice. STK11 is tempting as another gene with a breast cancer risk, but it is not the 17q answer here.",
-          "claims": []
-        },
-        {
-          "text": "STK11 goes with Peutz-Jeghers syndrome and does not sit on the BRCA arms.",
-          "claims": [
-            "K16"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Try again",
-          "next": "numbers_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "male_why": {
-      "role": "explain",
-      "say": [
-        {
-          "text": "BRCA1 cancers are typically triple-negative. BRCA2 is the gene more tied to male breast cancer, which is about 1% of all breast cancers.",
-          "claims": [
-            "K17",
-            "K4",
-            "K22"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Back to the question",
-          "next": "male_q",
-          "kind": "retry"
-        }
-      ]
-    },
-    "peau_why": {
-      "role": "explain",
-      "say": [
-        {
-          "text": "Blocked subdermal lymphatics cause skin oedema, which gives orange peel. Inflammatory cancer is a whole-breast syndrome, so one skin sign does not make it.",
-          "claims": [
-            "K7"
-          ]
-        }
-      ],
-      "choices": [
-        {
-          "label": "Back to the question",
-          "next": "peau_q",
-          "kind": "retry"
-        }
-      ]
+    {
+     "text": "Which type is this?",
+     "claims": []
     }
+   ],
+   "choices": [
+    {
+     "label": "Invasive ductal carcinoma (NST)",
+     "next": "entry_t10",
+     "kind": "trap",
+     "trap": "TR10"
+    },
+    {
+     "label": "Invasive lobular carcinoma",
+     "next": "entry_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Medullary carcinoma",
+     "next": "entry_part",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "entry_hint",
+     "kind": "help"
+    }
+   ]
   },
-  "cards": [
+  "entry_hint": {
+   "role": "hint",
+   "say": [
     {
-      "q": "Which breast cancer type is more often bilateral and multicentric?",
-      "a": "Invasive lobular carcinoma, with single-file cells and E-cadherin loss.",
-      "claims": [
-        "K27",
-        "K122"
-      ],
-      "objective": "O2"
-    },
-    {
-      "q": "BRCA1 and BRCA2 chromosome arms?",
-      "a": "BRCA1 on 17q, BRCA2 on 13q.",
-      "claims": [
-        "K4"
-      ],
-      "objective": "O2"
-    },
-    {
-      "q": "Which BRCA gene is linked to male breast cancer, and which to triple-negative tumours?",
-      "a": "BRCA2 for male breast cancer; BRCA1 for triple-negative.",
-      "claims": [
-        "K17",
-        "K22"
-      ],
-      "objective": "O2"
-    },
-    {
-      "q": "What causes peau d'orange over a tumour?",
-      "a": "Blocked subdermal lymphatics causing skin oedema; Cooper's ligament pull gives dimpling.",
-      "claims": [
-        "K7",
-        "K39"
-      ],
-      "objective": "O2"
+     "text": "Ignore which type is commonest. Ask how the cells sit: glands in a firm mass, or one behind another?",
+     "claims": []
     }
-  ],
-  "technique": "T7+T1+T4",
-  "decision": "merge"
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "entry",
+     "kind": "retry"
+    }
+   ]
+  },
+  "entry_t10": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. Ductal is the commonest type, so it feels like the default answer to every type question.",
+     "claims": []
+    },
+    {
+     "text": "But ductal cancer usually forms one hard, stellate mass, and this biopsy shows a line of cells with no mass. Commonest is not the same as fits the picture.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so note it: a common type is not the answer to a question about spread.",
+    "claims": [
+     "K26"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "entry",
+     "kind": "retry"
+    }
+   ]
+  },
+  "entry_part": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. Medullary is a real type, but it does not fit single-file cells.",
+     "claims": []
+    },
+    {
+     "text": "Medullary is soft and well defined, with a lymphocytic infiltrate, so it forms a clear mass.",
+     "claims": [
+      "K28"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "entry",
+     "kind": "retry"
+    }
+   ]
+  },
+  "entry_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Lobular cells grow in single file because E-cadherin is lost, so they spread through the breast without forming one mass.",
+     "claims": [
+      "K27"
+     ]
+    },
+    {
+     "text": "That is also why lobular is more often bilateral and multicentric.",
+     "claims": [
+      "K122"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "contrast_q",
+     "kind": "continue"
+    },
+    {
+     "label": "I know this, skip ahead",
+     "next": "lum_tail",
+     "kind": "skip"
+    }
+   ]
+  },
+  "contrast": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Yes. Ductal is the commonest type: a hard, gritty, stellate mass, the scirrhous picture.",
+     "claims": [
+      "K26"
+     ]
+    },
+    {
+     "text": "Lobular cells lie in single file with loss of E-cadherin. They are often bilateral and multicentric, and spread to peritoneum, ovaries and meninges.",
+     "claims": [
+      "K27"
+     ]
+    },
+    {
+     "text": "Commonest and bilateral are different questions. Luminal A is the most common molecular subtype.",
+     "claims": [
+      "K125"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "vign",
+     "kind": "continue"
+    }
+   ]
+  },
+  "vign": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "Years after a breast cancer, a woman has deposits in the peritoneum and ovaries, and a tumour in the other breast.",
+     "claims": []
+    },
+    {
+     "text": "Which primary type is most likely?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Invasive ductal carcinoma, scirrhous type",
+     "next": "vign_t10",
+     "kind": "trap",
+     "trap": "TR10"
+    },
+    {
+     "label": "Medullary carcinoma",
+     "next": "vign_part",
+     "kind": "partial"
+    },
+    {
+     "label": "Invasive lobular carcinoma",
+     "next": "vign_ok",
+     "kind": "correct"
+    }
+   ]
+  },
+  "vign_t10": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. The scirrhous ductal mass is the picture most people hold for breast cancer, so it becomes the default.",
+     "claims": []
+    },
+    {
+     "text": "Spread to the peritoneum and ovaries, with the other breast involved, is the lobular pattern.",
+     "claims": [
+      "K27",
+      "K122"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "vign",
+     "kind": "retry"
+    }
+   ]
+  },
+  "vign_part": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. Medullary is soft and well defined, and it is not known for this pattern of spread.",
+     "claims": []
+    },
+    {
+     "text": "Medullary carcinoma has a lymphocytic infiltrate and a clear edge, which does not explain peritoneal and ovarian deposits.",
+     "claims": [
+      "K28"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "vign",
+     "kind": "retry"
+    }
+   ]
+  },
+  "vign_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Peritoneal and ovarian deposits with a bilateral picture are the lobular pattern.",
+     "claims": [
+      "K27",
+      "K122"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "brca_q",
+     "kind": "continue"
+    }
+   ]
+  },
+  "brca_q": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "BRCA1 and BRCA2 are two separate breast cancer genes, each on its own chromosome arm.",
+     "claims": []
+    },
+    {
+     "text": "Which pairing of gene and arm is right?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "BRCA1 on 17q, BRCA2 on 13q",
+     "next": "brca_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "BRCA1 on 13q, BRCA2 on 17q",
+     "next": "brca_t8",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "BRCA1 on 11q, BRCA2 on 17q",
+     "next": "brca_part",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "brca_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "brca_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Each gene has its own arm. Do not learn the two numbers as one unordered pair.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "brca_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "brca_t8": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. The numbers 13 and 17 come as a pair, so it is easy to swap which gene owns which.",
+     "claims": []
+    },
+    {
+     "text": "The exam tests the gene-to-arm link, so each gene needs its own fact.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so fix the swap: the pair of numbers is not the fact to remember.",
+    "claims": [
+     "K4"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Show me why",
+     "next": "brca_why",
+     "kind": "agency"
+    },
+    {
+     "label": "Try again",
+     "next": "brca_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "brca_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. BRCA1 is on 17q and BRCA2 on 13q.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "numbers_q",
+     "kind": "continue"
+    }
+   ]
+  },
+  "numbers_q": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "A breast and ovarian cancer family has a mutation on chromosome 17q.",
+     "claims": []
+    },
+    {
+     "text": "Which gene is it?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "BRCA2",
+     "next": "numbers_t8",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "BRCA1",
+     "next": "numbers_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "TP53",
+     "next": "numbers_pten",
+     "kind": "partial"
+    },
+    {
+     "label": "ATM",
+     "next": "numbers_stk",
+     "kind": "partial"
+    }
+   ]
+  },
+  "numbers_t8": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. Two numbers that go together are easy to swap, so 17q slides to the wrong gene.",
+     "claims": []
+    },
+    {
+     "text": "Here the arm is the clue: attach each arm to its own gene, not to a number pair.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "numbers_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "numbers_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. BRCA1 is on 17q, so a 17q mutation in a breast and ovarian family points to BRCA1.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "male_q",
+     "kind": "continue"
+    }
+   ]
+  },
+  "male_q": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Male breast cancer is rare. Which gene is it most linked to?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "BRCA1",
+     "next": "male_t9",
+     "kind": "trap",
+     "trap": "TR9"
+    },
+    {
+     "label": "PTEN",
+     "next": "male_part",
+     "kind": "partial"
+    },
+    {
+     "label": "BRCA2",
+     "next": "male_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "male_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "male_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Pick by the phenotype a man with breast cancer shows, not by which gene you know best.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "male_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "male_t9": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. BRCA1 is the best-known breast gene, so it becomes the default for any hereditary question.",
+     "claims": []
+    },
+    {
+     "text": "BRCA1 cancers are typically triple-negative, a different pattern from breast cancer in a man.",
+     "claims": [
+      "K17",
+      "K22"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the phenotype before the famous gene: male breast cancer is not the triple-negative pattern.",
+    "claims": [
+     "K17",
+     "K22"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Show me why",
+     "next": "male_why",
+     "kind": "agency"
+    },
+    {
+     "label": "Try again",
+     "next": "male_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "male_part": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. PTEN is a real cancer gene, but it belongs to a different hereditary syndrome.",
+     "claims": []
+    },
+    {
+     "text": "PTEN goes with Cowden syndrome, and it is not the gene linked to male breast cancer.",
+     "claims": [
+      "K16",
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "male_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "male_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. BRCA2 is the gene more tied to male breast cancer, along with Klinefelter syndrome.",
+     "claims": [
+      "K4",
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "brca_contrast",
+     "kind": "continue"
+    }
+   ]
+  },
+  "brca_contrast": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "BRCA1 cancers are typically triple-negative, the basal-like pattern.",
+     "claims": [
+      "K17"
+     ]
+    },
+    {
+     "text": "BRCA2 is the gene more tied to male breast cancer, which is about 1% of all breast cancers.",
+     "claims": [
+      "K4",
+      "K22"
+     ]
+    },
+    {
+     "text": "Match the gene to the phenotype in the stem, not to the gene you know best.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "family_q",
+     "kind": "continue"
+    }
+   ]
+  },
+  "family_q": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "Family A has triple-negative breast cancers in several women. Family B has breast cancer in a man.",
+     "claims": []
+    },
+    {
+     "text": "Which pairing is most likely?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A: BRCA2; B: BRCA1",
+     "next": "fam_swap",
+     "kind": "partial"
+    },
+    {
+     "label": "Both families: BRCA1",
+     "next": "fam_t9",
+     "kind": "trap",
+     "trap": "TR9"
+    },
+    {
+     "label": "Both families: BRCA2",
+     "next": "fam_part",
+     "kind": "partial"
+    },
+    {
+     "label": "A: BRCA1; B: BRCA2",
+     "next": "family_ok",
+     "kind": "correct"
+    }
+   ]
+  },
+  "fam_t9": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. BRCA1 is the gene you reach for first, so it tempts you to label both families with it.",
+     "claims": []
+    },
+    {
+     "text": "Triple-negative women and a man with breast cancer are different phenotypes, so one gene cannot fit both.",
+     "claims": [
+      "K17",
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "family_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "fam_part": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. BRCA2 fits family B, the man, but not family A.",
+     "claims": []
+    },
+    {
+     "text": "Triple-negative cancers in several women are the BRCA1 pattern, so one gene for both families cannot work.",
+     "claims": [
+      "K17",
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "family_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "family_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Triple-negative cancers in women fit BRCA1, and breast cancer in a man fits BRCA2.",
+     "claims": [
+      "K17",
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "peau_q",
+     "kind": "continue"
+    }
+   ]
+  },
+  "peau_q": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 3 cm tumour has skin over it that looks like orange peel.",
+     "claims": []
+    },
+    {
+     "text": "What causes this skin change?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Inflamed skin, so it means inflammatory carcinoma",
+     "next": "peau_t12",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "Blocked subdermal lymphatics, so the skin swells",
+     "next": "peau_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Cooper's ligaments pulling the skin inward",
+     "next": "peau_part",
+     "kind": "partial"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "peau_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "peau_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think about what drains fluid out of the skin, not about redness or heat.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "peau_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "peau_t12": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. Orange peel looks like the skin of inflammatory cancer, so the sign and the syndrome get merged.",
+     "claims": []
+    },
+    {
+     "text": "One skin sign is not the whole picture. Ask what the skin's drainage does, not whether the skin is red.",
+     "claims": [
+      "K7"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the mechanism first: a single sign does not make a syndrome.",
+    "claims": [
+     "K7"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Show me why",
+     "next": "peau_why",
+     "kind": "agency"
+    },
+    {
+     "label": "Try again",
+     "next": "peau_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "peau_part": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. Cooper's ligaments do change the skin, but the change is a dimple, not orange peel.",
+     "claims": []
+    },
+    {
+     "text": "Cooper's ligament involvement causes dimpling, which is a different sign.",
+     "claims": [
+      "K39"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "peau_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "peau_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Blocked subdermal lymphatics cause skin oedema, which gives the orange-peel look.",
+     "claims": [
+      "K7"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pred_q",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pred_q": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "Breast A: skin dimpled over a lump, nipple normal. Breast B: orange-peel skin over a lump.",
+     "claims": []
+    },
+    {
+     "text": "Which breast shows the lymphatic-block sign?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Breast B: lymphatic oedema of the skin",
+     "next": "pred_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Both breasts, both inflammatory cancer",
+     "next": "pred_t12",
+     "kind": "trap",
+     "trap": "TR12"
+    },
+    {
+     "label": "Breast A: dimpling from Cooper's ligaments",
+     "next": "pred_part",
+     "kind": "partial"
+    }
+   ]
+  },
+  "pred_t12": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. Any skin change over a lump can tempt you to read it as the inflammatory syndrome.",
+     "claims": []
+    },
+    {
+     "text": "A single skin sign is not the whole picture of inflammatory cancer.",
+     "claims": [
+      "K7"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pred_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pred_part": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. Dimpling is a real skin sign, but it has a different cause from orange-peel oedema.",
+     "claims": []
+    },
+    {
+     "text": "Dimpling comes from Cooper's ligament traction, not from blocked lymphatics.",
+     "claims": [
+      "K39"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pred_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pred_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Blocked lymphatics give oedema and orange-peel skin, while Cooper's ligament pull gives dimpling.",
+     "claims": [
+      "K7",
+      "K39"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "lum_tail": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "One thing before the genes. ER or PR positive, HER2 negative, with low Ki-67, is Luminal A, the most common molecular subtype.",
+     "claims": [
+      "K32",
+      "K125"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "brca_q",
+     "kind": "continue"
+    }
+   ]
+  },
+  "brca_part": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. 11q only looks familiar from the list of numbers you have seen.",
+     "claims": []
+    },
+    {
+     "text": "Check each gene against its own arm: BRCA1 is on 17q and BRCA2 on 13q.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "brca_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "brca_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Pin each number to its gene: BRCA1 sits on 17q, BRCA2 on 13q. Say each gene with its own arm, never the pair alone.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "brca_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "numbers_pten": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. TP53 is a real hereditary breast cancer gene, so it sounds plausible for a family history.",
+     "claims": []
+    },
+    {
+     "text": "But TP53 is the Li-Fraumeni gene. A breast and ovarian family with a 17q mutation is the BRCA1 picture.",
+     "claims": [
+      "K16",
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "numbers_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "numbers_stk": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That is not the right choice. ATM is a known cancer-risk gene, so it can pass for a hereditary answer.",
+     "claims": []
+    },
+    {
+     "text": "But ATM goes with ataxia-telangiectasia. The 17q arm in a breast and ovarian family points to BRCA1.",
+     "claims": [
+      "K16",
+      "K4"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "numbers_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "male_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "BRCA1 cancers are typically triple-negative. BRCA2 is the gene more tied to male breast cancer, which is about 1% of all breast cancers.",
+     "claims": [
+      "K17",
+      "K4",
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "male_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "peau_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Blocked subdermal lymphatics cause skin oedema, which gives orange peel. Inflammatory cancer is a whole-breast syndrome, so one skin sign does not make it.",
+     "claims": [
+      "K7"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "peau_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "contrast_q": {
+   "role": "probe",
+   "objectives": [
+    "O2"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Ductal and lobular cancer look and spread differently.",
+     "claims": []
+    },
+    {
+     "text": "Which pairing is right?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Ductal: one hard stellate mass; lobular: single-file cells, E-cadherin lost",
+     "next": "contrast",
+     "kind": "correct"
+    },
+    {
+     "label": "Ductal: single-file cells; lobular: one hard stellate mass",
+     "next": "contrast_sw",
+     "kind": "partial"
+    },
+    {
+     "label": "Both form one hard mass; ductal is just the commoner",
+     "next": "contrast_t10",
+     "kind": "trap",
+     "trap": "TR10"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "contrast_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "contrast_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think about how each type lays its cells down, and which one is known for E-cadherin loss.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "contrast_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "contrast_sw": {
+   "role": "feedback",
+   "objectives": [
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "That is not the right choice. The two pictures are swapped.",
+     "claims": []
+    },
+    {
+     "text": "The hard, gritty, stellate mass is ductal. Single-file cells with E-cadherin loss are lobular.",
+     "claims": [
+      "K26",
+      "K27"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "contrast_q",
+     "kind": "retry"
+    }
+   ]
+  },
+  "contrast_t10": {
+   "role": "feedback",
+   "objectives": [
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "That is not the right choice. Ductal is the commonest, so it is easy to let lobular borrow its picture.",
+     "claims": []
+    },
+    {
+     "text": "Lobular lacks E-cadherin, grows in single file and often forms no mass, so it behaves differently from ductal.",
+     "claims": [
+      "K27",
+      "K26"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "contrast_q",
+     "kind": "retry"
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so remember that commonest does not mean the same behaviour.",
+    "claims": [
+     "K26"
+    ]
+   }
+  },
+  "fam_swap": {
+   "role": "feedback",
+   "objectives": [
+    "O2"
+   ],
+   "say": [
+    {
+     "text": "That is not the right choice. This pairing is reversed.",
+     "claims": []
+    },
+    {
+     "text": "Triple-negative cancers in women fit BRCA1, and breast cancer in a man fits BRCA2. Here each gene is placed on the wrong family.",
+     "claims": [
+      "K17",
+      "K22"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "family_q",
+     "kind": "retry"
+    }
+   ]
+  }
+ },
+ "cards": [
+  {
+   "q": "Which breast cancer type is more often bilateral and multicentric?",
+   "a": "Invasive lobular carcinoma, with single-file cells and E-cadherin loss.",
+   "claims": [
+    "K27",
+    "K122"
+   ],
+   "objective": "O2"
+  },
+  {
+   "q": "BRCA1 and BRCA2 chromosome arms?",
+   "a": "BRCA1 on 17q, BRCA2 on 13q.",
+   "claims": [
+    "K4"
+   ],
+   "objective": "O2"
+  },
+  {
+   "q": "Which BRCA gene is linked to male breast cancer, and which to triple-negative tumours?",
+   "a": "BRCA2 for male breast cancer; BRCA1 for triple-negative.",
+   "claims": [
+    "K17",
+    "K22"
+   ],
+   "objective": "O2"
+  },
+  {
+   "q": "What causes peau d'orange over a tumour?",
+   "a": "Blocked subdermal lymphatics causing skin oedema; Cooper's ligament pull gives dimpling.",
+   "claims": [
+    "K7",
+    "K39"
+   ],
+   "objective": "O2"
+  }
+ ],
+ "technique": "T7+T1+T4",
+ "decision": "merge"
 }
