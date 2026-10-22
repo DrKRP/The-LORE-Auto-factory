@@ -1,0 +1,263 @@
+{
+  "segment": "S3",
+  "technique": "T4",
+  "entry": "open",
+  "nodes": {
+    "open": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "Before we teach the airway, try a harder one. Make your call, and we will work through it after.", "claims": []},
+        {"text": "A 40-year-old cyclist was knocked off by a van. At the scene he spoke clearly to the crew. Now, in your bay, he is hoarse, with a swelling growing under his jaw and noisy breathing. What is your next move?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Reassess the airway now, and prepare a definitive airway", "next": "p1_ok", "kind": "correct"},
+        {"label": "He spoke clearly, so carry on with the survey", "next": "t2a", "kind": "trap", "trap": "TR2"},
+        {"label": "A hoarse voice only: analgesia, then the secondary survey", "next": "t2b", "kind": "trap", "trap": "TR2"},
+        {"label": "Not sure, give me a hint", "next": "hint1", "kind": "help"}
+      ]
+    },
+    "hint1": {
+      "role": "hint",
+      "say": [{"text": "Ask what a swelling in the neck does to the airway over the next few minutes, not what he said at the scene.", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "open", "kind": "retry"}]
+    },
+    "p1_ok": {
+      "role": "feedback",
+      "say": [{"text": "Yes. A changing voice and a growing neck swelling mean the airway may close, so you reassess it at once and get ready for a definitive airway.", "claims": ["K31", "K65"]}],
+      "choices": [{"label": "Next", "next": "teach1", "kind": "continue"}]
+    },
+    "t2a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Clear speech at the scene feels like proof the airway is fine, so the survey seems finished.", "claims": []},
+        {"text": "Speech showed the airway was open for the moment. The airway is changing now, and that is what you are deciding on.", "claims": ["K4"]}
+      ],
+      "sure_note": {"text": "You were sure, so check the word moment. Speech is a snapshot, and a hoarse voice is one of the signs that the airway is changing.", "claims": ["K4", "K31"]},
+      "choices": [
+        {"label": "Try again", "next": "open", "kind": "retry"},
+        {"label": "Show me why", "next": "why_a", "kind": "agency"}
+      ]
+    },
+    "t2b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. A hoarse voice sounds like a minor complaint, so treating the pain and moving on looks like the next job.", "claims": []},
+        {"text": "A changing voice with a swelling in the neck is one of the signs of airway compromise.", "claims": ["K31"]}
+      ],
+      "sure_note": {"text": "You were sure, so this is worth a second look: a hoarse voice is an early airway sign, not a side complaint.", "claims": ["K31"]},
+      "choices": [
+        {"label": "Try again", "next": "open", "kind": "retry"},
+        {"label": "Show me why", "next": "why_b", "kind": "agency"}
+      ]
+    },
+    "why_a": {
+      "role": "explain",
+      "objectives": ["O2"],
+      "say": [
+        {"text": "You picked to carry on. That reads the speech from the scene as if it still described the airway now.", "claims": []},
+        {"text": "Reassess the airway whenever the patient deteriorates. A neck haematoma can close the airway, so the airway decides the next step, not what he said earlier.", "claims": ["K100", "K65"]}
+      ],
+      "choices": [{"label": "Next", "next": "teach1", "kind": "continue"}]
+    },
+    "why_b": {
+      "role": "explain",
+      "objectives": ["O2"],
+      "say": [
+        {"text": "You picked analgesia and the secondary survey. That treats the voice and leaves the airway unchecked.", "claims": []},
+        {"text": "Look at the airway again now, and get ready for a definitive airway if it is failing.", "claims": ["K65", "K100"]}
+      ],
+      "choices": [{"label": "Next", "next": "teach1", "kind": "continue"}]
+    },
+    "teach1": {
+      "role": "explain",
+      "objectives": ["O2"],
+      "say": [
+        {"text": "The airway can change in minutes. Speech proves it was open at that moment, not that it will stay open.", "claims": ["K4"]},
+        {"text": "Hoarseness, noisy breathing and a growing neck swelling are signs of compromise. A neck haematoma can obstruct the airway, which makes a definitive airway the indication.", "claims": ["K31", "K65"]}
+      ],
+      "choices": [{"label": "Next", "next": "p2", "kind": "continue"}]
+    },
+    "p2": {
+      "role": "probe",
+      "objectives": ["O2"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A different patient. A man was talking at the scene. Now in the ambulance his GCS has fallen to 7 and he is not protecting his airway.", "claims": []},
+        {"text": "What decides the airway now?", "claims": []}
+      ],
+      "choices": [
+        {"label": "He moved his limbs earlier, so the airway is safe", "next": "t2c", "kind": "trap", "trap": "TR2"},
+        {"label": "GCS of 8 or less, which means he cannot protect it", "next": "p2_ok", "kind": "correct"},
+        {"label": "Wait for a head CT before deciding on the tube", "next": "p2_p", "kind": "partial"},
+        {"label": "Not sure, give me a hint", "next": "hint2", "kind": "help"}
+      ]
+    },
+    "hint2": {
+      "role": "hint",
+      "say": [{"text": "Which measure in the stem is a score you can track, and what number does the rule use?", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "p2", "kind": "retry"}]
+    },
+    "p2_ok": {
+      "role": "feedback",
+      "say": [{"text": "Yes. A GCS of 8 or less is the indication for a definitive airway, because the patient can no longer protect his own.", "claims": ["K5", "K65"]}],
+      "choices": [{"label": "Next", "next": "teach_airway", "kind": "continue"}]
+    },
+    "t2c": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. Movement at the scene feels like a sign that the brain and airway are working, so the score seems less important.", "claims": []},
+        {"text": "Movement is a snapshot. The GCS is the measure that sets the airway trigger.", "claims": ["K5"]}
+      ],
+      "sure_note": {"text": "You were sure, so check what each finding measures: movement is an early sign, but the rule that decides the airway is the GCS.", "claims": ["K5"]},
+      "choices": [
+        {"label": "Try again", "next": "p2", "kind": "retry"},
+        {"label": "Show me why", "next": "why_c", "kind": "agency"}
+      ]
+    },
+    "why_c": {
+      "role": "explain",
+      "objectives": ["O2"],
+      "say": [
+        {"text": "You picked the reassuring movement. That turns one sign into an all-clear.", "claims": []},
+        {"text": "A GCS of 8 or less is an indication for a definitive airway, and a patient at that level cannot protect the airway.", "claims": ["K5", "K65"]}
+      ],
+      "choices": [{"label": "Next", "next": "teach_airway", "kind": "continue"}]
+    },
+    "p2_p": {
+      "role": "feedback",
+      "say": [{"text": "Tempting, because a head scan feels like the thorough next step. The airway decision is made on the GCS, and imaging can follow it.", "claims": ["K5"]}],
+      "choices": [{"label": "Try again", "next": "p2", "kind": "retry"}]
+    },
+    "teach_airway": {
+      "role": "explain",
+      "objectives": ["O2"],
+      "say": [
+        {"text": "In an unconscious patient the airway most often fails because the tongue falls back against the pharynx. Snoring and gurgling are the warning signs.", "claims": ["K23", "K31"]},
+        {"text": "Open the airway with a jaw thrust and keep the neck still, because the cervical spine is assumed injured. A definitive airway is a tube in the trachea with the cuff below the cords.", "claims": ["K58", "K32", "K63"]}
+      ],
+      "choices": [{"label": "Next", "next": "p3", "kind": "continue"}]
+    },
+    "p3": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "A 9-year-old was pulled from a house fire with burns to the face. Two intubation attempts have failed, and the saturation is falling.", "claims": []},
+        {"text": "Which emergency airway do you use?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Surgical cricothyroidotomy, the usual adult emergency airway", "next": "t22a", "kind": "trap", "trap": "TR22"},
+        {"label": "Emergency tracheostomy, as a definitive surgical airway", "next": "p3_p", "kind": "partial"},
+        {"label": "Needle cricothyroidotomy with jet oxygenation for now", "next": "p3_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "hint3", "kind": "help"}
+      ]
+    },
+    "hint3": {
+      "role": "hint",
+      "say": [{"text": "Think about the age in the stem: what does a child's cricoid cartilage need to stay intact?", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "p3", "kind": "retry"}]
+    },
+    "p3_ok": {
+      "role": "feedback",
+      "say": [
+        {"text": "Yes. Under 12, the emergency route is a needle, because the cricoid cartilage must not be cut in a child.", "claims": ["K120", "K69"]},
+        {"text": "It is temporary: oxygenation lasts only about 30 to 45 minutes, so a definitive airway must follow.", "claims": ["K68"]}
+      ],
+      "choices": [{"label": "Next", "next": "teach3", "kind": "continue"}]
+    },
+    "t22a": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. The adult rule feels like the safe default in a failed airway, and nothing in the stem flags a change.", "claims": []},
+        {"text": "The cricoid cartilage is the only complete ring supporting the upper trachea, and cutting it in a child risks lasting damage.", "claims": ["K69"]}
+      ],
+      "sure_note": {"text": "You were sure, so this is the adult rule carried over without checking the age. Check the age before you choose.", "claims": ["K10"]},
+      "choices": [
+        {"label": "Try again", "next": "p3", "kind": "retry"},
+        {"label": "Show me why", "next": "why_t22", "kind": "agency"}
+      ]
+    },
+    "p3_p": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting, because a tracheostomy is a definitive airway and it sounds like a planned surgical route.", "claims": ["K67"]},
+        {"text": "In an emergency it is slower and bleeds more than a cricothyroidotomy, so it is not the quick rescue this child needs.", "claims": ["K67"]}
+      ],
+      "choices": [{"label": "Try again", "next": "p3", "kind": "retry"}]
+    },
+    "why_t22": {
+      "role": "explain",
+      "objectives": ["O3"],
+      "say": [
+        {"text": "You picked the adult surgical airway. The age in the stem changes the rule.", "claims": []},
+        {"text": "Adults get the surgical cricothyroidotomy. Under 12, the cricoid is the one ring to keep intact, so a needle is used.", "claims": ["K10", "K69", "K120"]}
+      ],
+      "choices": [{"label": "Next", "next": "teach3", "kind": "continue"}]
+    },
+    "teach3": {
+      "role": "explain",
+      "objectives": ["O3"],
+      "say": [
+        {"text": "Adults: surgical cricothyroidotomy is the emergency airway of choice, with the cut made through the cricothyroid membrane.", "claims": ["K10", "K119"]},
+        {"text": "Under 12: avoid the surgical cut and use a needle cricothyroidotomy, which is temporary and gives oxygen for about 30 to 45 minutes.", "claims": ["K120", "K68"]}
+      ],
+      "choices": [{"label": "Next", "next": "p4", "kind": "continue"}]
+    },
+    "p4": {
+      "role": "probe",
+      "objectives": ["O3"],
+      "ask_confidence": true,
+      "say": [
+        {"text": "The same failed airway, cannot intubate and cannot oxygenate, in two patients: a 35-year-old and a 9-year-old.", "claims": []},
+        {"text": "Which pair of emergency airways fits?", "claims": []}
+      ],
+      "choices": [
+        {"label": "Surgical cricothyroidotomy for both patients, to be safe", "next": "t22b", "kind": "trap", "trap": "TR22"},
+        {"label": "Needle cricothyroidotomy for both, since it is quicker", "next": "p4_p", "kind": "partial"},
+        {"label": "Surgical for the adult, needle for the child", "next": "p4_ok", "kind": "correct"},
+        {"label": "Not sure, give me a hint", "next": "hint4", "kind": "help"}
+      ]
+    },
+    "hint4": {
+      "role": "hint",
+      "say": [{"text": "Take the two patients one at a time, and ask what the age changes about the cut.", "claims": []}],
+      "choices": [{"label": "Back to the question", "next": "p4", "kind": "retry"}]
+    },
+    "p4_ok": {
+      "role": "feedback",
+      "say": [{"text": "Yes. The adult gets the surgical cricothyroidotomy, and the child gets the needle, because a child's cricoid cartilage must not be cut.", "claims": ["K10", "K120", "K69"]}],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    },
+    "t22b": {
+      "role": "feedback",
+      "say": [
+        {"text": "That choice is not right. One rule for both patients feels simpler and safer, and the adult surgical airway is the one you learned first.", "claims": []},
+        {"text": "The adult can take a surgical cut, but the cricoid ring of a child must not be cut.", "claims": ["K69"]}
+      ],
+      "sure_note": {"text": "You were sure, so this is one rule for two patients. The age is the qualifier that splits them.", "claims": ["K10", "K69"]},
+      "choices": [
+        {"label": "Try again", "next": "p4", "kind": "retry"},
+        {"label": "Show me why", "next": "why_t22b", "kind": "agency"}
+      ]
+    },
+    "why_t22b": {
+      "role": "explain",
+      "objectives": ["O3"],
+      "say": [
+        {"text": "You picked one rule for both. The adult and the child differ at 12, so each gets its own airway.", "claims": ["K10", "K120"]},
+        {"text": "The surgical cut is for adults; the needle is the child's temporary airway.", "claims": ["K10", "K120"]}
+      ],
+      "choices": [{"label": "Next", "next": "@next", "kind": "continue"}]
+    },
+    "p4_p": {
+      "role": "feedback",
+      "say": [
+        {"text": "Tempting, because the needle is the quick rescue and seems to fit any failed airway.", "claims": ["K68"]},
+        {"text": "A needle only bridges oxygen for a short time, and the adult still gets a surgical airway.", "claims": ["K68", "K10"]}
+      ],
+      "choices": [{"label": "Try again", "next": "p4", "kind": "retry"}]
+    }
+  }
+}
