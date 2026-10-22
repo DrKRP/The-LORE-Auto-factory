@@ -1,0 +1,585 @@
+{
+ "segment": "S2",
+ "technique": "T6",
+ "entry": "open",
+ "nodes": {
+  "open": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A classmate tells you: ATLS is built for the deaths that come days later in the ICU, from sepsis.",
+     "claims": []
+    },
+    {
+     "text": "Which correction is right?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "ATLS aims at deaths in the first few hours",
+     "next": "open_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Agreed: it targets the sepsis deaths days later",
+     "next": "open_t30",
+     "kind": "trap",
+     "trap": "TR30"
+    },
+    {
+     "label": "The instant deaths at the scene are the target",
+     "next": "open_t1",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "open_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "open_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which deaths a team in the bay can still prevent, not which ones turn up weeks later.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "open",
+     "kind": "retry"
+    }
+   ]
+  },
+  "open_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The window ATLS is built for is the early period after injury, when prompt resuscitation most improves survival.",
+     "claims": [
+      "K15"
+     ]
+    },
+    {
+     "text": "Deaths in that window are the **second peak**, minutes to several hours after injury.",
+     "claims": [
+      "K19"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "why_peaks",
+     "kind": "continue"
+    },
+    {
+     "label": "Skip the peak recap",
+     "next": "order",
+     "kind": "skip"
+    }
+   ]
+  },
+  "open_t30": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Late sepsis deaths are memorable, so the late window can feel like the course's job.",
+     "claims": []
+    },
+    {
+     "text": "Sepsis and organ failure do kill, but they belong to a much later window, days to weeks after injury.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: the timing settles which peak you are looking at before the cause does.",
+    "claims": [
+     "K20"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "open",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "why_peaks",
+     "kind": "agency"
+    }
+   ]
+  },
+  "open_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The instant deaths are the most dramatic, so they can feel like the first thing to target.",
+     "claims": []
+    },
+    {
+     "text": "The **first peak** is seconds to minutes after injury, and only injury prevention reduces it. A survey cannot aim at that window.",
+     "claims": [
+      "K18"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: the fastest death is not always the one that can be changed.",
+    "claims": [
+     "K18"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "open",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "why_peaks",
+     "kind": "agency"
+    }
+   ]
+  },
+  "why_peaks": {
+   "role": "explain",
+   "objectives": [
+    "O11"
+   ],
+   "say": [
+    {
+     "text": "Trauma deaths fall in three peaks. The first is seconds to minutes after injury, from brain, cord, heart or aortic injury.",
+     "claims": [
+      "K17",
+      "K18"
+     ]
+    },
+    {
+     "text": "The second is minutes to several hours after injury: subdural or epidural haematoma, haemopneumothorax, ruptured spleen, pelvic fracture. **ATLS targets this peak.**",
+     "claims": [
+      "K19"
+     ]
+    },
+    {
+     "text": "The third is days to weeks later, from sepsis and multiple organ dysfunction.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "order",
+     "kind": "continue"
+    }
+   ]
+  },
+  "order": {
+   "role": "probe",
+   "objectives": [
+    "O1"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Three problems in one trauma bay, none treated yet: a blocked airway, stopped breathing and heavy blood loss.",
+     "claims": []
+    },
+    {
+     "text": "Put them in the order each would kill, fastest first.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Blood loss, then airway, then breathing",
+     "next": "order_t1a",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Airway, breathing, then blood loss",
+     "next": "order_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Airway, blood loss, then breathing",
+     "next": "order_t1b",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "order_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "order_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask how fast each problem stops oxygen reaching the brain, and how long blood loss takes to empty the vessels.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "order",
+     "kind": "retry"
+    }
+   ]
+  },
+  "order_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. A blocked airway ends oxygen supply fastest, loss of breathing kills next, and loss of circulating blood volume comes last.",
+     "claims": [
+      "K3"
+     ]
+    },
+    {
+     "text": "That is why the primary survey runs A, B, C, D, E in that fixed order.",
+     "claims": [
+      "K2"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "vignette",
+     "kind": "continue"
+    }
+   ]
+  },
+  "order_t1a": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Blood is the visible threat, and blood loss sounds like the biggest killer on a trauma board.",
+     "claims": []
+    },
+    {
+     "text": "Size of a threat is not the same as its clock. Ask which problem would stop this patient first.",
+     "claims": [
+      "K116"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: a large threat can still be a slow one.",
+    "claims": [
+     "K116"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "order",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "order_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "order_t1b": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Blood loss is loud on the chart, so it can seem to outrank breathing.",
+     "claims": []
+    },
+    {
+     "text": "Check which kills faster: a stopped breath, or the slower emptying of circulating blood volume.",
+     "claims": [
+      "K3"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: a loud problem can feel urgent without being the fastest killer.",
+    "claims": [
+     "K3"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "order",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "order_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "order_why": {
+   "role": "explain",
+   "objectives": [
+    "O1"
+   ],
+   "say": [
+    {
+     "text": "Count the clock, not the chart. A blocked airway kills fastest, loss of breathing kills next, and loss of circulating blood volume takes longest.",
+     "claims": [
+      "K3"
+     ]
+    },
+    {
+     "text": "Haemorrhage is the most common cause of preventable trauma death, but how large a threat is is not the same as how fast it kills.",
+     "claims": [
+      "K116"
+     ]
+    },
+    {
+     "text": "So the survey runs airway, breathing, circulation, disability, exposure, in that order.",
+     "claims": [
+      "K2"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "vignette",
+     "kind": "continue"
+    }
+   ]
+  },
+  "vignette": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 40-year-old is hit by a lorry and is brought into the bay.",
+     "claims": []
+    },
+    {
+     "text": "Which of these deaths belongs to the second peak, minutes to hours after injury?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Organ failure from sepsis, found on day ten",
+     "next": "vignette_t30",
+     "kind": "trap",
+     "trap": "TR30"
+    },
+    {
+     "label": "Ruptured aorta, dying within minutes of impact",
+     "next": "vignette_t1",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Torn liver bleeding out in the first few hours",
+     "next": "vignette_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "vignette_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "vignette_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Count the hours since the crash, not the days on the ward. Which death falls in that span?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "vignette",
+     "kind": "retry"
+    }
+   ]
+  },
+  "vignette_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. A torn liver bleeding over the first hours is a second-peak death, minutes to several hours after injury.",
+     "claims": [
+      "K19"
+     ]
+    },
+    {
+     "text": "That window is where prompt resuscitation most improves survival, which is why the survey is in a hurry.",
+     "claims": [
+      "K15"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "close",
+     "kind": "continue"
+    }
+   ]
+  },
+  "vignette_t30": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Organ failure on a ward is memorable, so it can feel like a trauma-course topic.",
+     "claims": []
+    },
+    {
+     "text": "It is real, but it belongs to a much later window, days to weeks after injury.",
+     "claims": [
+      "K20"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: a death on day ten is a third-peak death, whatever its cause.",
+    "claims": [
+     "K20"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "vignette",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "vignette_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "vignette_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A death at the scene is the most dramatic, so it can feel like the death a survey must answer.",
+     "claims": []
+    },
+    {
+     "text": "A ruptured aorta is a real killer, but it belongs to the first peak, seconds to minutes after injury, which only prevention reduces.",
+     "claims": [
+      "K18"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this one is worth a second look: the earliest deaths are the ones a survey can least change.",
+    "claims": [
+     "K18"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "vignette",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "vignette_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "vignette_why": {
+   "role": "explain",
+   "objectives": [
+    "O11"
+   ],
+   "say": [
+    {
+     "text": "The second peak is minutes to several hours after injury, with haematoma, haemopneumothorax, ruptured spleen, liver laceration and pelvic fracture.",
+     "claims": [
+      "K19"
+     ]
+    },
+    {
+     "text": "It is the peak ATLS targets, because prompt resuscitation still changes the outcome in that window.",
+     "claims": [
+      "K15",
+      "K19"
+     ]
+    },
+    {
+     "text": "The first peak is seconds to minutes, and the third is days to weeks later, from sepsis.",
+     "claims": [
+      "K18",
+      "K20"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "close",
+     "kind": "continue"
+    }
+   ]
+  },
+  "close": {
+   "role": "recap",
+   "objectives": [
+    "O1",
+    "O11"
+   ],
+   "say": [
+    {
+     "text": "So trauma deaths come in three peaks: the first at the scene, the second in the first hours, the third in the weeks after.",
+     "claims": [
+      "K17"
+     ]
+    },
+    {
+     "text": "The primary survey comes first in the ATLS sequence, ahead of the secondary survey, and it runs in the order you just built.",
+     "claims": [
+      "K16",
+      "K2"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ },
+ "decision": "solo"
+}
