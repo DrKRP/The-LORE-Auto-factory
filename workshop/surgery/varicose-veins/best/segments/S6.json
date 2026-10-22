@@ -1,0 +1,1464 @@
+{
+ "segment": "S6",
+ "technique": "T5",
+ "entry": "w1",
+ "nodes": {
+  "w1": {
+   "role": "explain",
+   "objectives": [
+    "O5",
+    "O11"
+   ],
+   "say": [
+    {
+     "text": "Case A, worked through. A 61-year-old man has a weeping ulcer on the inner leg, a few centimetres above the ankle, with stained skin around it. Step one is the site: venous ulcers form in this gaiter area, where venous pressure is highest.",
+     "claims": [
+      "K9"
+     ]
+    },
+    {
+     "text": "Step two is the ABPI, measured before any compression. An ABPI of 0.8 or more makes significant arterial disease unlikely. Here it is 0.9, so compression is safe to start.",
+     "claims": [
+      "K10",
+      "K57"
+     ]
+    },
+    {
+     "text": "Step three is the treatment. Multilayer, four-layer compression is the mainstay of venous ulcer care, so the bandage goes on. Watch the order: site, then ABPI, then compression.",
+     "claims": [
+      "K90"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next: Case B, where step one is yours",
+     "next": "pSite",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pSite": {
+   "role": "probe",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Case B. A 66-year-old has an open ulcer on the outer ankle bone. Her foot is cold and her pulses are weak. Is this likely a venous ulcer?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Venous; the outer ankle is a common venous site",
+     "next": "t_site1",
+     "kind": "trap",
+     "trap": "TR31"
+    },
+    {
+     "label": "Unlikely venous; check the arterial supply first",
+     "next": "ok_site",
+     "kind": "correct"
+    },
+    {
+     "label": "Venous; toe and heel ulcers are typical venous sites",
+     "next": "t_site2",
+     "kind": "trap",
+     "trap": "TR31"
+    }
+   ]
+  },
+  "ok_site": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Venous ulcers form in the gaiter, where venous pressure is highest. An ulcer on the outer ankle with cold skin and weak pulses needs the arterial supply checked first.",
+     "claims": [
+      "K9",
+      "K10"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pABPI",
+     "kind": "continue"
+    }
+   ]
+  },
+  "t_site1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Ankle ulcers look venous at a glance, so this is tempting. The wrong model is that any ulcer near the ankle is venous.",
+     "claims": []
+    },
+    {
+     "text": "Venous ulcers form in the gaiter, just above the medial malleolus, where venous pressure is highest.",
+     "claims": [
+      "K9"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pSite",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_site",
+     "kind": "agency"
+    }
+   ]
+  },
+  "t_site2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Toe and heel ulcers look like foot problems, so the mistake is to file every low ulcer as venous.",
+     "claims": []
+    },
+    {
+     "text": "Toe, heel and outer-ankle ulcers are not the usual venous site. The venous site is the gaiter.",
+     "claims": [
+      "K108"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pSite",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_site",
+     "kind": "agency"
+    }
+   ]
+  },
+  "ex_site": {
+   "role": "explain",
+   "objectives": [
+    "O5"
+   ],
+   "say": [
+    {
+     "text": "Venous ulcers come from sustained venous hypertension. Fluid and inflammation leak into the skin, and the damage is worst at the gaiter, where pressure is highest.",
+     "claims": [
+      "K35",
+      "K9"
+     ]
+    },
+    {
+     "text": "Cold skin and weak pulses are a clue to arterial disease, so the ABPI must be measured before any compression. An ABPI of 0.8 or more rules out significant arterial disease.",
+     "claims": [
+      "K10"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "pSite",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pABPI": {
+   "role": "probe",
+   "objectives": [
+    "O11",
+    "O5"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Case C. A 70-year-old man has a gaiter ulcer, and you are about to start four-layer compression. Which step comes first?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Apply four-layer compression straight away",
+     "next": "t_abpi1",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Apply lighter compression, and review the leg in a week",
+     "next": "t_abpi2",
+     "kind": "trap",
+     "trap": "TR16"
+    },
+    {
+     "label": "Measure the ABPI to rule out arterial disease",
+     "next": "ok_abpi",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "hint_abpi",
+     "kind": "help"
+    }
+   ]
+  },
+  "hint_abpi": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think about what a tight bandage does to a leg whose arteries cannot meet the demand.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "pABPI",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ok_abpi": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The ABPI comes first, because compression is only safe when the arterial supply is adequate. An ABPI of 0.8 or more is the threshold.",
+     "claims": [
+      "K57",
+      "K10"
+     ]
+    },
+    {
+     "text": "Once the check is passed, four-layer compression is the mainstay of treatment.",
+     "claims": [
+      "K90"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pTx",
+     "kind": "continue"
+    }
+   ]
+  },
+  "t_abpi1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Compression is the mainstay, so starting it feels like treatment. The wrong model is that the treatment can come before the check.",
+     "claims": []
+    },
+    {
+     "text": "Compression is contraindicated in significant arterial disease, and the bandage itself cannot show whether that disease is there.",
+     "claims": [
+      "K70"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. Confidence in the mainstay is exactly what makes this trap costly, so slow down at the first step.",
+    "claims": [
+     "K57"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pABPI",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_abpi",
+     "kind": "agency"
+    }
+   ]
+  },
+  "t_abpi2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Lighter pressure feels like a safe compromise, so it tempts. The wrong model is that pressure is the risk, not the arterial supply.",
+     "claims": []
+    },
+    {
+     "text": "Lowering the pressure does not make compression safe where arterial disease is significant.",
+     "claims": [
+      "K70"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. A gentler bandage still goes on a leg that has not been checked.",
+    "claims": [
+     "K57"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pABPI",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_abpi",
+     "kind": "agency"
+    }
+   ]
+  },
+  "ex_abpi": {
+   "role": "explain",
+   "objectives": [
+    "O11"
+   ],
+   "say": [
+    {
+     "text": "The ABPI, the ankle-brachial pressure index, compares ankle and arm pressures. It is measured before compression because it finds arterial disease.",
+     "claims": [
+      "K57"
+     ]
+    },
+    {
+     "text": "Compression is contraindicated when arterial disease is significant, which means an ABPI below 0.8. Pressure alone cannot make a poorly perfused leg safe.",
+     "claims": [
+      "K70"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "pABPI",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pTx": {
+   "role": "probe",
+   "objectives": [
+    "O11"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "The ulcer has healed. The ABPI is 0.95, and duplex shows reflux in the great saphenous vein. What most reduces the chance of recurrence?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Graduated stockings for life, with no vein treatment",
+     "next": "t_tx1",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Endovenous ablation of the refluxing great saphenous vein",
+     "next": "ok_tx",
+     "kind": "correct"
+    },
+    {
+     "label": "Leg elevation and weight loss, with no procedure",
+     "next": "t_tx2",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "hint_tx",
+     "kind": "help"
+    }
+   ]
+  },
+  "hint_tx": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what treats the reflux itself, not only the symptoms and the skin.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "pTx",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ok_tx": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Correcting superficial reflux by early endovenous ablation speeds ulcer healing and reduces recurrence.",
+     "claims": [
+      "K92"
+     ]
+    },
+    {
+     "text": "Ablation is now first-line for truncal reflux, ahead of the older Trendelenburg operation with stripping.",
+     "claims": [
+      "K110"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "b1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "t_tx1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Stockings do ease symptoms, which is why they tempt. The wrong model is that the bandage itself treats the vein.",
+     "claims": []
+    },
+    {
+     "text": "Stockings are for pregnancy, after treatment, or when intervention is unsuitable or declined. Where intervention is suitable, NICE advises against them as the treatment.",
+     "claims": [
+      "K69",
+      "K71"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. Stockings relieve symptoms, but relief is not the same as treating the reflux.",
+    "claims": [
+     "K69"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pTx",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_tx",
+     "kind": "agency"
+    }
+   ]
+  },
+  "t_tx2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Elevation and weight loss help, so it tempts. The wrong model is that conservative care treats the reflux itself.",
+     "claims": []
+    },
+    {
+     "text": "Conservative measures ease symptoms, but they do not close a refluxing great saphenous vein.",
+     "claims": [
+      "K68"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. Helpful advice is not the same as treating the cause.",
+    "claims": [
+     "K68"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pTx",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_tx",
+     "kind": "agency"
+    }
+   ]
+  },
+  "ex_tx": {
+   "role": "explain",
+   "objectives": [
+    "O11"
+   ],
+   "say": [
+    {
+     "text": "Reflux keeps venous pressure high in the leg, so the ulcer returns while the vein is left alone.",
+     "claims": [
+      "K35"
+     ]
+    },
+    {
+     "text": "Early endovenous ablation of the reflux speeds healing and cuts recurrence, the EVRA result. Stockings and elevation help, but they work around the problem.",
+     "claims": [
+      "K92",
+      "K69"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "pTx",
+     "kind": "retry"
+    }
+   ]
+  },
+  "b1": {
+   "role": "bridge",
+   "say": [
+    {
+     "text": "Case D. A woman has a varicose great saphenous vein with reflux on duplex, and surgery is planned. This time no steps are shown: you order them yourself.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pDeep",
+     "kind": "continue"
+    }
+   ]
+  },
+  "pDeep": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Before the great saphenous vein is stripped or tied, what must you confirm first?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Competence of the perforators along the calf",
+     "next": "t_deep1",
+     "kind": "trap",
+     "trap": "TR18"
+    },
+    {
+     "label": "Absence of a saphena varix at the groin",
+     "next": "t_deep2",
+     "kind": "trap",
+     "trap": "TR18"
+    },
+    {
+     "label": "Deep vein patency, by Perthes test or duplex",
+     "next": "ok_deep",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "hint_deep",
+     "kind": "help"
+    }
+   ]
+  },
+  "hint_deep": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask where the blood will go once the superficial veins are gone.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "pDeep",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ok_deep": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Superficial surgery is contraindicated when the deep veins are occluded.",
+     "claims": [
+      "K89"
+     ]
+    },
+    {
+     "text": "In deep occlusion the superficial veins are the collateral outflow, so deep patency is confirmed first, by Perthes test or duplex.",
+     "claims": [
+      "K125",
+      "K113"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pDeepV",
+     "kind": "continue"
+    }
+   ]
+  },
+  "t_deep1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Perforators matter in ulcers, so this is tempting. The wrong model is that the calf perforators decide whether superficial surgery is safe.",
+     "claims": []
+    },
+    {
+     "text": "The real question is where the blood goes once the superficial veins are removed.",
+     "claims": [
+      "K125"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. Perforators feel like the whole story in ulcers, so check the outflow route first.",
+    "claims": [
+     "K125"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pDeep",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_deep",
+     "kind": "agency"
+    }
+   ]
+  },
+  "t_deep2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A saphena varix is a groin finding you look for, so it feels relevant. The wrong model is that a groin problem is the precondition.",
+     "claims": []
+    },
+    {
+     "text": "A varix is a finding at the groin, but it does not show whether the deep outflow is open.",
+     "claims": [
+      "K89"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. A groin finding is easy to mistake for the whole assessment.",
+    "claims": [
+     "K89"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pDeep",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_deep",
+     "kind": "agency"
+    }
+   ]
+  },
+  "ex_deep": {
+   "role": "explain",
+   "objectives": [
+    "O7"
+   ],
+   "say": [
+    {
+     "text": "In deep vein occlusion, the superficial veins carry the leg's outflow. Removing them leaves the blood with no way out.",
+     "claims": [
+      "K125"
+     ]
+    },
+    {
+     "text": "The Perthes test checks deep vein patency. A positive result means deep obstruction, which contraindicates superficial ligation or stripping.",
+     "claims": [
+      "K51",
+      "K113"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "pDeep",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pDeepV": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "say": [
+    {
+     "text": "A 49-year-old has reflux in the great saphenous vein and a femoral vein clot on duplex. Stripping is planned for the varicose veins. What do you do?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Defer superficial surgery while the deep system is blocked",
+     "next": "ok_dv",
+     "kind": "correct"
+    },
+    {
+     "label": "Strip the vein now; the clot will clear",
+     "next": "t_dv1",
+     "kind": "trap",
+     "trap": "TR18"
+    },
+    {
+     "label": "Tie off the junction only; it is quicker",
+     "next": "t_dv2",
+     "kind": "trap",
+     "trap": "TR18"
+    }
+   ]
+  },
+  "ok_dv": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. While the deep system is blocked, the superficial veins may be the only outflow, so surgery waits.",
+     "claims": [
+      "K89",
+      "K125"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pExtent",
+     "kind": "continue"
+    }
+   ]
+  },
+  "t_dv1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Removing the reflux looks like the whole job, so the clot seems a side issue. The wrong model is that a clot settles while the vein is removed.",
+     "claims": []
+    },
+    {
+     "text": "Superficial veins may be carrying the outflow while the deep system is blocked, so removing them adds risk.",
+     "claims": [
+      "K89"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pDeepV",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_dv",
+     "kind": "agency"
+    }
+   ]
+  },
+  "t_dv2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. A quick junction tie is tempting, since it is smaller surgery. The wrong model is that the size of the operation decides whether it is safe.",
+     "claims": []
+    },
+    {
+     "text": "Superficial surgery is contraindicated when the deep veins are occluded, whatever part of the vein is treated.",
+     "claims": [
+      "K89"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pDeepV",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_dv",
+     "kind": "agency"
+    }
+   ]
+  },
+  "ex_dv": {
+   "role": "explain",
+   "objectives": [
+    "O7"
+   ],
+   "say": [
+    {
+     "text": "With deep occlusion, the superficial veins are the leg's collateral outflow. Operating on them removes the route the blood has left.",
+     "claims": [
+      "K125"
+     ]
+    },
+    {
+     "text": "So superficial surgery waits until the deep system is treated or shown to be open.",
+     "claims": [
+      "K89"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "pDeepV",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pExtent": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Classic Trendelenburg operation with stripping, and the deep veins are open. How far down the leg is the great saphenous vein stripped?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Down to the ankle, to remove the whole vein",
+     "next": "t_ext1",
+     "kind": "trap",
+     "trap": "TR9"
+    },
+    {
+     "label": "From the groin to just below the knee",
+     "next": "ok_ext",
+     "kind": "correct"
+    },
+    {
+     "label": "Down to the medial malleolus, with the nerve spared",
+     "next": "t_ext2",
+     "kind": "trap",
+     "trap": "TR9"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "hint_ext",
+     "kind": "help"
+    }
+   ]
+  },
+  "hint_ext": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what runs beside the vein in the lower leg, and which nerve it carries.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "pExtent",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ok_ext": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Stripping runs from the groin to just below the knee, because the saphenous nerve runs with the vein there.",
+     "claims": [
+      "K84",
+      "K85"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pWhy",
+     "kind": "continue"
+    }
+   ]
+  },
+  "t_ext1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Removing the whole diseased vein feels thorough, so it tempts. The wrong model is that stripping aims to clear the whole vein.",
+     "claims": []
+    },
+    {
+     "text": "Stripping is limited by the nerve that runs with the vein below the knee, so its extent is deliberately short.",
+     "claims": [
+      "K7"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. Thoroughness is the instinct here, and it is the one to check against the nerve.",
+    "claims": [
+     "K7"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pExtent",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_ext",
+     "kind": "agency"
+    }
+   ]
+  },
+  "t_ext2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Sparing the nerve sounds right, so it tempts. The wrong model is that the nerve is safe further down, where the vein is still being stripped.",
+     "claims": []
+    },
+    {
+     "text": "The saphenous nerve accompanies the great saphenous vein in the leg below the knee, so the risk lies there.",
+     "claims": [
+      "K16"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. A nerve assumed to be safe is the easiest thing to assume.",
+    "claims": [
+     "K85"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pExtent",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_ext",
+     "kind": "agency"
+    }
+   ]
+  },
+  "ex_ext": {
+   "role": "explain",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "The saphenous nerve runs with the great saphenous vein in the leg below the knee.",
+     "claims": [
+      "K16"
+     ]
+    },
+    {
+     "text": "Stripping below the knee risks injury to that nerve, so the stripping stops just below the knee, starting from the groin.",
+     "claims": [
+      "K85",
+      "K84"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "pExtent",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pWhy": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "A surgeon strips the great saphenous vein down to the ankle. What is the main complication to expect?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Sural nerve injury, causing lateral foot numbness",
+     "next": "t_why1",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Saphenous nerve injury, causing medial leg numbness",
+     "next": "ok_why",
+     "kind": "correct"
+    },
+    {
+     "label": "No real harm, since the whole vein is removed",
+     "next": "t_why2",
+     "kind": "trap",
+     "trap": "TR9"
+    }
+   ]
+  },
+  "ok_why": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Injury to the saphenous nerve after below-knee stripping causes numbness on the medial leg.",
+     "claims": [
+      "K100"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pNerveV",
+     "kind": "continue"
+    }
+   ]
+  },
+  "t_why1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Sural injury is a real complication, which is why it tempts. The wrong model is that the nerve near the vein in the calf is the one hurt.",
+     "claims": []
+    },
+    {
+     "text": "The sural nerve accompanies the short saphenous vein, not the great one.",
+     "claims": [
+      "K19"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pWhy",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "t_why2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Removing the whole vein sounds like the aim, so it tempts. The wrong model is that stripping has no cost beyond the vein itself.",
+     "claims": []
+    },
+    {
+     "text": "Stripping below the knee risks a nerve that runs beside the vein, so the extent carries a cost.",
+     "claims": [
+      "K85"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pWhy",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "ex_why": {
+   "role": "explain",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "The great saphenous vein has a companion nerve below the knee: the saphenous nerve.",
+     "claims": [
+      "K16"
+     ]
+    },
+    {
+     "text": "Injury to it after below-knee stripping or ablation causes numbness on the medial leg, which is why stripping stops just below the knee.",
+     "claims": [
+      "K100",
+      "K84"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "pWhy",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pNerveV": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "After short saphenous vein surgery behind the knee, a patient has numbness on the outer border of the foot. Which nerve was injured?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Saphenous nerve, lying beside the short vein",
+     "next": "t_n1",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Sural nerve, lying beside the short vein",
+     "next": "ok_n",
+     "kind": "correct"
+    },
+    {
+     "label": "Saphenous nerve, on the medial side of the leg",
+     "next": "t_n2",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "hint_n",
+     "kind": "help"
+    }
+   ]
+  },
+  "hint_n": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Trace the outer border of the foot back to the nerve that travels with the short vein.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "pNerveV",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ok_n": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The sural nerve accompanies the short saphenous vein, so short vein surgery can injure it.",
+     "claims": [
+      "K19",
+      "K101"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "pNerveR",
+     "kind": "continue"
+    }
+   ]
+  },
+  "t_n1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The saphenous name feels like it belongs with any saphenous vein, which is why this tempts. The wrong model is that one nerve goes with both veins.",
+     "claims": []
+    },
+    {
+     "text": "The saphenous nerve accompanies the great saphenous vein, not the short one.",
+     "claims": [
+      "K16"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. A name match is the easiest error to be confident about.",
+    "claims": [
+     "K16",
+     "K19"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pNerveV",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_n",
+     "kind": "agency"
+    }
+   ]
+  },
+  "t_n2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. The medial side is where the great vein and its nerve lie, so it tempts. The wrong model is that the medial leg holds the short vein too.",
+     "claims": []
+    },
+    {
+     "text": "The short vein runs behind the lateral malleolus, so its nerve lies on the lateral side.",
+     "claims": [
+      "K18",
+      "K19"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. The medial side is easy to assume, but the short vein is lateral.",
+    "claims": [
+     "K18"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pNerveV",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_n",
+     "kind": "agency"
+    }
+   ]
+  },
+  "ex_n": {
+   "role": "explain",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "The short saphenous vein runs behind the lateral malleolus and usually joins the popliteal vein.",
+     "claims": [
+      "K18"
+     ]
+    },
+    {
+     "text": "Its companion nerve is the sural nerve, so short vein surgery puts the lateral foot at risk.",
+     "claims": [
+      "K19",
+      "K101"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "pNerveV",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pNerveR": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "The surgeon strips the great saphenous vein below the knee. Which nerve is at risk?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Saphenous nerve, which runs with the great vein",
+     "next": "ok_nr",
+     "kind": "correct"
+    },
+    {
+     "label": "Sural nerve, which runs with the great vein",
+     "next": "t_nr1",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Sural nerve, which lies closest to the calf vein",
+     "next": "t_nr2",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "hint_nr",
+     "kind": "help"
+    }
+   ]
+  },
+  "hint_nr": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think about which nerve sits beside the great vein below the knee.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "pNerveR",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ok_nr": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The saphenous nerve runs with the great vein below the knee, so that is the nerve at risk.",
+     "claims": [
+      "K16",
+      "K115"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  },
+  "t_nr1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Sural names are easy to recall, which is why this tempts. The wrong model is that the calf nerve travels with the great vein.",
+     "claims": []
+    },
+    {
+     "text": "The sural nerve accompanies the short saphenous vein, not the great one.",
+     "claims": [
+      "K19"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure. Recall of one nerve name is not the same as knowing its vein.",
+    "claims": [
+     "K16"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pNerveR",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_nr",
+     "kind": "agency"
+    }
+   ]
+  },
+  "t_nr2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. Closeness in the calf looks like a clue, so it tempts. The wrong model is that the nearest nerve to a vein is the one at risk.",
+     "claims": []
+    },
+    {
+     "text": "The risk follows the companion nerve of the vein being stripped, whatever lies closest.",
+     "claims": [
+      "K16",
+      "K100"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "pNerveR",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "ex_nr",
+     "kind": "agency"
+    }
+   ]
+  },
+  "ex_nr": {
+   "role": "explain",
+   "objectives": [
+    "O4"
+   ],
+   "say": [
+    {
+     "text": "Below the knee, the great saphenous vein has the saphenous nerve beside it.",
+     "claims": [
+      "K16"
+     ]
+    },
+    {
+     "text": "Stripping the great vein risks that nerve, causing medial leg numbness. The sural nerve belongs to the short vein.",
+     "claims": [
+      "K100",
+      "K19"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try the question again",
+     "next": "pNerveR",
+     "kind": "retry"
+    }
+   ]
+  }
+ },
+ "decision": "solo"
+}

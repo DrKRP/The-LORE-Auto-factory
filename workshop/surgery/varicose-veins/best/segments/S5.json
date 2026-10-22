@@ -1,0 +1,952 @@
+{
+ "segment": "S5",
+ "technique": "T11",
+ "entry": "open",
+ "nodes": {
+  "open": {
+   "role": "probe",
+   "objectives": [
+    "O9"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 47-year-old engineer has bulging, aching veins down the inner thigh and calf. Duplex shows reflux in the great saphenous vein from the saphenofemoral junction, and he is fit for anaesthesia.",
+     "claims": []
+    },
+    {
+     "text": "Which treatment does current practice offer first?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Trendelenburg operation with flush ligation and stripping of the vein",
+     "next": "open_t1",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Endothermal ablation by radiofrequency or laser, under tumescent anaesthesia",
+     "next": "open_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Graduated compression stockings to control the symptoms, worn all day",
+     "next": "open_t17",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "open_h",
+     "kind": "help"
+    }
+   ]
+  },
+  "open_h": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Hint: the stem says current practice. Ask which option a registrar would offer first today, and which one is the old exam answer.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Got it, try again",
+     "next": "open",
+     "kind": "retry"
+    }
+   ]
+  },
+  "open_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because the Trendelenburg operation is the answer most exam keys have given for saphenofemoral incompetence.",
+     "claims": []
+    },
+    {
+     "text": "Your stem asks what current practice offers first, so the older key is not the test here. Choose again.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure of the old key. Check what the exam expected and what practice now does; they differ here.",
+    "claims": [
+     "K119"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "open",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "open_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "open_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "The Trendelenburg operation is flush ligation of the saphenous vein at the junction, with its tributaries tied, plus stripping to the knee.",
+     "claims": [
+      "K83",
+      "K111"
+     ]
+    },
+    {
+     "text": "PYQs have expected it as the answer. Current NICE practice puts endothermal ablation first, then foam, and open surgery only if both are unsuitable.",
+     "claims": [
+      "K119",
+      "K5"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "open",
+     "kind": "retry"
+    }
+   ]
+  },
+  "open_t17": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because stockings do ease the ache and swelling, so any symptomatic leg seems to need them.",
+     "claims": []
+    },
+    {
+     "text": "Ask whether this patient could have the definitive treatment. Relief of symptoms is a different question. Choose again.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure stockings were the answer. Symptom relief is not the same as treating the reflux.",
+    "claims": [
+     "K69"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "open",
+     "kind": "retry"
+    }
+   ]
+  },
+  "open_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Endothermal ablation is the current first-line treatment for truncal reflux, when the patient is suitable.",
+     "claims": [
+      "K5",
+      "K72"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "worked",
+     "kind": "continue"
+    },
+    {
+     "label": "I know this, skip the worked plan",
+     "next": "who",
+     "kind": "skip"
+    }
+   ]
+  },
+  "worked": {
+   "role": "explain",
+   "objectives": [
+    "O9"
+   ],
+   "say": [
+    {
+     "text": "Here is a correct plan for the same patient. Duplex confirms the reflux and he is fit, so endothermal ablation is offered first, under tumescent local anaesthesia.",
+     "claims": [
+      "K5",
+      "K75"
+     ]
+    },
+    {
+     "text": "If ablation is unsuitable, ultrasound-guided foam sclerotherapy comes next. Open surgery is for when both are unsuitable.",
+     "claims": [
+      "K73",
+      "K74"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "err1",
+     "kind": "continue"
+    }
+   ]
+  },
+  "err1": {
+   "role": "probe",
+   "objectives": [
+    "O9"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A classmate plans the same fit patient in four steps. Exactly one step is wrong.",
+     "claims": []
+    },
+    {
+     "text": "1) Duplex confirms great saphenous reflux. 2) Offer the Trendelenburg operation with stripping as first-line. 3) If that is unsuitable, offer foam sclerotherapy. 4) Open surgery only if both are unsuitable. Which step is the mistake?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Step 3: foam offered if the first option is unsuitable",
+     "next": "err1_t21",
+     "kind": "trap",
+     "trap": "TR21"
+    },
+    {
+     "label": "Step 4: open surgery kept for when both options fail",
+     "next": "err1_t1",
+     "kind": "trap",
+     "trap": "TR1"
+    },
+    {
+     "label": "Step 2: the Trendelenburg operation named as the first-line treatment",
+     "next": "err1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "err1_h",
+     "kind": "help"
+    }
+   ]
+  },
+  "err1_h": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Hint: check each step against current practice, not the exam key of the past. Which step fails that test?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Got it, try again",
+     "next": "err1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "err1_t21": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because foam is often taught for spider veins, so a foam step for a trunk looks misplaced.",
+     "claims": []
+    },
+    {
+     "text": "Foam is not limited to small veins. Ask which vein size foam suits best, then choose again.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "err1",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "err1_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "err1_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Foam mixes the sclerosant with air and displaces blood, so it works better than liquid in larger veins.",
+     "claims": [
+      "K80"
+     ]
+    },
+    {
+     "text": "Liquid suits telangiectasias and small residual veins. Foam is the second-line option for a trunk when ablation is unsuitable.",
+     "claims": [
+      "K81",
+      "K5"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "err1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "err1_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because open surgery is the classic treatment for saphenofemoral incompetence, so it seems to belong at the front.",
+     "claims": []
+    },
+    {
+     "text": "In current practice open surgery sits last, for when both others are unsuitable. Step 4 is not the mistake. Look at which treatment the plan puts first, then choose again.",
+     "claims": [
+      "K74"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure surgery belongs first. That is the older picture; check which option current practice places first.",
+    "claims": [
+     "K119"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "err1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "err1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The plan names the Trendelenburg operation as first-line. Current practice offers endothermal ablation first, and the operation is the classic exam answer.",
+     "claims": [
+      "K119",
+      "K110"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "err2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "err2": {
+   "role": "probe",
+   "objectives": [
+    "O9"
+   ],
+   "say": [
+    {
+     "text": "You found the mistake: step 2 offers the operation as the first treatment.",
+     "claims": []
+    },
+    {
+     "text": "Which reason makes that step wrong?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Current practice puts ablation first; the operation is the old key",
+     "next": "err2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "It skips compression, which should come first for a fit patient",
+     "next": "err2_t17",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "err2_h",
+     "kind": "help"
+    }
+   ]
+  },
+  "err2_h": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Hint: the mistake is about which treatment comes first today. Pick the reason that is about that choice.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Got it, try again",
+     "next": "err2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "err2_t17": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because compression eases the aching, so a missing compression step looks like the real gap.",
+     "claims": []
+    },
+    {
+     "text": "Compression is for symptoms when intervention is unsuitable or declined, so it is not the first move here. Choose again.",
+     "claims": [
+      "K69"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "err2",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "err2_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "err2_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "The mistake is the choice of first treatment. Endothermal ablation is current first-line for truncal reflux.",
+     "claims": [
+      "K5",
+      "K72"
+     ]
+    },
+    {
+     "text": "Stockings relieve symptoms, and are used when intervention is unsuitable or declined, in pregnancy, and after treatment.",
+     "claims": [
+      "K69"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "err2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "err2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The mistake is the first-line choice itself. The operation is the classic exam answer, and practice has moved past it.",
+     "claims": [
+      "K111",
+      "K119"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "who",
+     "kind": "continue"
+    }
+   ]
+  },
+  "who": {
+   "role": "probe",
+   "objectives": [
+    "O9"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A clinic asks who should get graduated compression stockings as the treatment itself.",
+     "claims": []
+    },
+    {
+     "text": "Which patient fits?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A fit adult with great saphenous reflux confirmed on duplex",
+     "next": "who_t1",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "An adult with recurrent varicose veins and a suitable vein",
+     "next": "who_t2",
+     "kind": "trap",
+     "trap": "TR17"
+    },
+    {
+     "label": "A pregnant woman with symptomatic varicose veins in the legs",
+     "next": "who_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "who_h",
+     "kind": "help"
+    }
+   ]
+  },
+  "who_h": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Hint: for each patient, ask whether intervention is suitable and declined, or not an option at all.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Got it, try again",
+     "next": "who",
+     "kind": "retry"
+    }
+   ]
+  },
+  "who_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because stockings do relieve symptoms, so a symptomatic patient seems covered by them.",
+     "claims": []
+    },
+    {
+     "text": "Ask whether this patient is a candidate for the definitive treatment, and whether anything stops it. Choose again.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure stockings suit a symptomatic patient. They suit a patient who cannot or will not have intervention.",
+    "claims": [
+     "K71"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "who",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "who_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "who_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because recurrence sounds like a reason for more conservative care, so stockings look like the next step.",
+     "claims": []
+    },
+    {
+     "text": "Recurrence does not change the rule. Check whether a suitable vein remains for treatment, then choose again.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "who",
+     "kind": "retry"
+    }
+   ]
+  },
+  "who_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Graduated stockings relieve symptoms. They are used when intervention is unsuitable or declined, in pregnancy, and after treatment.",
+     "claims": [
+      "K69"
+     ]
+    },
+    {
+     "text": "NICE advises against offering hosiery as the treatment when interventional treatment is suitable.",
+     "claims": [
+      "K71"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "who",
+     "kind": "retry"
+    }
+   ]
+  },
+  "who_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Stockings relieve symptoms in pregnancy, one of the settings where they are the right choice.",
+     "claims": [
+      "K69"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "scl_intro",
+     "kind": "continue"
+    }
+   ]
+  },
+  "scl_intro": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Sclerotherapy injects a sclerosant that damages the lining of the vein, so the vein fibroses and closes.",
+     "claims": [
+      "K78"
+     ]
+    },
+    {
+     "text": "The sclerosant is given as a liquid, or as a foam made by mixing it with air (the Tessari technique).",
+     "claims": [
+      "K80"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "vig",
+     "kind": "continue"
+    }
+   ]
+  },
+  "vig": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A woman has a cluster of thigh telangiectasias and reticular veins. Her saphenous veins are not refluxing.",
+     "claims": []
+    },
+    {
+     "text": "Which sclerotherapy form suits these veins?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Liquid sclerotherapy, injected directly into the small veins",
+     "next": "vig_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Foam sclerotherapy, which displaces blood in the vein",
+     "next": "vig_t1",
+     "kind": "trap",
+     "trap": "TR21"
+    },
+    {
+     "label": "Foam sclerotherapy, given in a larger volume for effect",
+     "next": "vig_t2",
+     "kind": "trap",
+     "trap": "TR21"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "vig_h",
+     "kind": "help"
+    }
+   ]
+  },
+  "vig_h": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Hint: the form should follow the size of the vein, and these are the smallest veins in the stem.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Got it, try again",
+     "next": "vig",
+     "kind": "retry"
+    }
+   ]
+  },
+  "vig_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because foam is the more effective form, so the stronger-looking option feels safer.",
+     "claims": []
+    },
+    {
+     "text": "Effectiveness depends on the size of the vein. Ask which vein size this stem describes, then choose again.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure foam was the stronger form. Its advantage is in larger veins, not in small ones.",
+    "claims": [
+     "K80"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "vig",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "vig_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "vig_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Foam displaces blood in a large lumen, so it is more effective than liquid in larger veins.",
+     "claims": [
+      "K80"
+     ]
+    },
+    {
+     "text": "Liquid is best for telangiectasias, reticular veins and small residual varicosities.",
+     "claims": [
+      "K81"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "vig",
+     "kind": "retry"
+    }
+   ]
+  },
+  "vig_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because a bigger dose sounds like more treatment for the same veins.",
+     "claims": []
+    },
+    {
+     "text": "The problem is the form, not the amount. Ask which form suits small veins, then choose again.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "vig",
+     "kind": "retry"
+    }
+   ]
+  },
+  "vig_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Liquid sclerotherapy is best for telangiectasias, reticular veins and small residual varicosities.",
+     "claims": [
+      "K81"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "scl",
+     "kind": "continue"
+    }
+   ]
+  },
+  "scl": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A classmate writes: 'The exam key names STS, so polidocanol is not a sclerosant.'",
+     "claims": []
+    },
+    {
+     "text": "Which correction is right?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "STS is the key, so polidocanol is not an accepted agent",
+     "next": "scl_t1",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "Polidocanol has replaced STS, so the old key is wrong",
+     "next": "scl_t2",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "STS is the classic key; polidocanol is also an accepted agent",
+     "next": "scl_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "scl_h",
+     "kind": "help"
+    }
+   ]
+  },
+  "scl_h": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Hint: the question is whether the key makes the other agent wrong. What can a key that names one answer actually tell you?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Got it, try again",
+     "next": "scl",
+     "kind": "retry"
+    }
+   ]
+  },
+  "scl_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because the key names one agent, and a single named answer makes the other look wrong.",
+     "claims": []
+    },
+    {
+     "text": "Check whether the key says the other agent is wrong, or only names a classic answer. Choose again.",
+     "claims": []
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure the key rules the other agent out. A key names the classic answer; it does not rule out an accepted one.",
+    "claims": [
+     "K126"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "scl",
+     "kind": "retry"
+    },
+    {
+     "label": "Show me why",
+     "next": "scl_why",
+     "kind": "agency"
+    }
+   ]
+  },
+  "scl_why": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "Sodium tetradecyl sulphate is the classic answer in the exam key, and polidocanol is also a common sclerosant.",
+     "claims": [
+      "K79",
+      "K112"
+     ]
+    },
+    {
+     "text": "Polidocanol is an equally accepted modern agent, so the key names one answer without making the other wrong.",
+     "claims": [
+      "K126"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "scl",
+     "kind": "retry"
+    }
+   ]
+  },
+  "scl_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It is tempting because a newer name feels as if it should replace the old one, so the key looks out of date.",
+     "claims": []
+    },
+    {
+     "text": "Newer does not mean the classic answer is wrong. Ask whether both agents can be accepted, then choose again.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "scl",
+     "kind": "retry"
+    }
+   ]
+  },
+  "scl_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. STS is the classic key answer, and polidocanol is an equally accepted modern agent.",
+     "claims": [
+      "K112",
+      "K126"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ },
+ "decision": "solo"
+}
