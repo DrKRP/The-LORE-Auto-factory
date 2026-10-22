@@ -1,0 +1,84 @@
+{
+  "module": "surgery/perforated-peptic-ulcer",
+  "judge": "m1",
+  "mode": "module",
+  "lens": "all three in turn: learning-scientist, examiner, learner-advocate (final score = mean of the three passes)",
+  "gates": {
+    "G3_broken_graph": "pass (read node by node across S1 to S8 and END in module.json; every next resolves to a node and every node has a way forward; sim/misconceived.md reports a 158-step walk to END; validate was not run because this judge has no shell)",
+    "G4_buttons_only": "pass (every learner turn is a tap on a pre-written choice; hints and feedback are fixed text; no typing; no run-time model)"
+  },
+  "lens_scores": {
+    "learning-scientist": {"R1": 4.5, "R2": 4, "R3": 4, "R4": 3.5, "R5": 3, "R6": 3.5, "R7": 4, "R8": 3, "R9": 3.5},
+    "examiner": {"R1": 4, "R2": 3.5, "R3": 4, "R4": 3.5, "R5": 3, "R6": 4.5, "R7": 4, "R8": 3, "R9": 3.5},
+    "learner-advocate": {"R1": 4, "R2": 4, "R3": 4, "R4": 2.5, "R5": 3, "R6": 3.5, "R7": 4, "R8": 2.5, "R9": 3.5}
+  },
+  "scores": {"R1": 4.17, "R2": 3.83, "R3": 4.0, "R4": 3.17, "R5": 3.0, "R6": 3.83, "R7": 4.0, "R8": 2.83, "R9": 3.5},
+  "weighted": 3.66,
+  "publish_threshold": 4.0,
+  "meets_threshold": false,
+  "rationale": {
+    "R1": "Most new ideas open with a probe: S1.gate, S1.pn, S2.site_predict, S2.seq_probe, S2.predict_reaction, S2.lie_probe, S3.p1 to S3.p6, S4.open, S4.fade, S4.fade_b, S4.f3_view, S4.f3_mech, S4.f3_time, S5.pair, S5.ladder, S5.pyqs, S5.clear, S5.share, S5.sit, S5.lie, S5.contrast, S6.open, S6.b, S6.c, S6.d, S6.e, S6.f, S6.g, S6.h, S7.b1 to S7.e2, S8.q1 to S8.q10. Exceptions tell first: S1.teach_site, S2.pair_observe, S4.walk1 (a worked film walk before the fade probe), S6.a_walk (worked patient A), S5.teach_ladder (after a miss, acceptable). Learner commits before explanation on every new idea.",
+    "R2": "Strong trap work. Each wrong option maps to a trap in trap-map.json, nearly all traps are offered on two or more probes in different forms (TR1 at S1.gate, S1.pair, S2.predict_site, S8.q1, S8.q2; TR17 at S2.predict_reaction, S3.p3, S8.q9; TR7 at S5.clear, S5.share, S8.q6). Most feedback names the lure ('It is tempting because...') and then refutes it with a claim. Losses: S5.share_t7 serves both 'Nearly all' and 'Most' and S5.clear_t7 serves both 'very unlikely' and 'excluded if erect', so two distractors diagnose one model; S8.q9 'Spontaneous healing' and 'Real recovery' are the same TR17 model; S8.q3 has a key that is the only hedged option (findable by form); S4.fade_t4b feedback concedes the football sign is a real free-gas family, which blurs the refutation.",
+    "R3": "All 12 objectives are probed on the main path: O1 at S1.gate and S1.pair; O2 at S1.pn and S4.fade_b; O3 at S2.seq_probe and S3.p3; O4 at S5.pair and S5.pyqs; O5 at S3.p1 and S5.clear; O6 at S4.f3_view and S5.lie; O7 at S6.open and S6.b; O8 at S6.d and S7.n1; O9 at S6.h and S7.g1; O10 at S6.e and S6.f; O11 at S6.g and S7.b1; O12 at S3.p5 and S7.e1. Skip lanes (S4.open_ok, S5.pair_ok, S6.a_walk, S8.q1_ok) still reach every objective on their path.",
+    "R4": "Most probes are one idea and one question and most messages are under 60 words. Losses: about 80 wrong-option feedback nodes open with the bare line 'That choice is not right.' (S1.gate_t1, S3.p1_obs, S5.pair_t5, S6.open_t1, S7.n1_exam, S8.q6_t1), which is noise on every miss; S6.a_walk puts four steps across three messages; S3.p1_ok adds smoking, H. pylori and crack cocaine after the probe; S8.close and S6.recap stack several claims in one node.",
+    "R5": "Real adaptivity: a hint on nearly every probe, 'Show me why' agency on many trap nodes (S1.gate_t1, S2.site_h1, S2.lie_h1, S3.p5_cush, S8.q5_t1), skip lanes at S4.open_ok, S5.pair_ok, S6.a_walk and S8.q1_ok, and a deeper-dive lane at S6.e_ok. Weak: 'Try again' always returns to the same probe with the same hint, so there is no escalation after a second miss; many trap nodes offer only 'Try again' with no second explanation (S4.fade_t4a, S4.f3_t8a, S4.f3_time_t9a, S5.pair_t20, S5.ladder_t5, S5.clear_t7, S5.share_t7, S5.sit_t9, S5.pyqs_t6, S6.b_t1, S6.f_t1); the cold S8 probes offer no hint or 'not sure' option by design.",
+    "R6": "High-yield PYQ traps are drilled in exam form: keyed PYQ versus current practice on the investigation (S5.pyqs, S7.f1), the old vagotomy and gastrectomy options (S6.c, S7.v1), the Graham versus Cellan-Jones name (S6.d, S7.n1), Boey thresholds (S6.g, S7.b1, S7.b2), and the eponym pairs (S3.p5, S7.e1, S7.e2). Old keys are named where they are tested. Losses: no which-is-not probe appears in the walked path, and several keys are findable by form (S5.pyqs, S8.q3, S8.q7).",
+    "R7": "Decisions are real clinical moments: the 68-year-old on prednisolone and naproxen (S3.p1), the 40 percent scald (S3.p5), the 58-year-old in shock (S6.open), the 62-year-old with weight loss (S6.h), the 45-year-old with a rigid belly and a clear film (S8.q6), the ten-hour patient eating a biscuit (S8.q9). The S7 run is mostly exam-form recognition, which costs a point.",
+    "R8": "Warm enough and direct, with no ability praise. Flat through repetition: the 'That choice is not right.' opener recurs on about 80 nodes, 'Right: here is the reasoning.' and 'Yes.' open most positive feedback, and S7 reads as one template repeated across fourteen probes. The lens advocate scored this lowest.",
+    "R9": "Most probes separate one wrong model from the right one (TR1 wall and artery, TR3 frequency, TR4 Chilaiditi, TR5 first versus best, TR9 timing, TR12 qualifier, TR17 false calm), and the path tells a teacher a good deal. Losses: S5.share and S5.clear collapse two traps onto one feedback; S8.q9 duplicates TR17; S8.q2 re-tests the S1.pair pairing as 'a different case' rather than a new model; the walk shows every trap refuted and then answered right within 2 to 10 nodes (sim/misconceived.md), so the path cannot show a changed belief. The report (report.json) is trap-specific and names the lure back, but calibration only carries the overconfident line and the objective block is one template for all twelve objectives."
+  },
+  "segments": [
+    {"id": "S1", "score": 4, "reason": "Probe first with trap-mapped options (S1.gate, S1.pn, S1.pair), a hint on each, and a worked explain only after a miss. Weak: S1.gate_t1 and S1.pair_t1 open with the bare refusal; S1.close stacks two anchors in one recap."},
+    {"id": "S2", "score": 4, "reason": "Predict-then-show is the module's best mechanism work: S2.predict_site, S2.why_probe, S2.seq_probe and S2.predict_reaction each name the wrong model in feedback (S2.pr_h1 and S2.pr_h2 name recovery and gastritis) and refute it. Weak: S2.pair_observe explains before any retest of the pair; S2.site_h1 and S2.lie_h1 repeat the same opener."},
+    {"id": "S3", "score": 3.5, "reason": "Vignette-led picture with the soft-belly, reaction and movement traps. Flaws: S3.p6 key 'Valentino's syndrome, the tracked-fluid mimic' gives the answer away by its gloss (sim friction); S3.p1_ok stacks three risk factors after the probe; S3.p2 has two traps with the same generalised belief."},
+    {"id": "S4", "score": 3.5, "reason": "The Chilaiditi versus free-gas walk is well built (S4.open, S4.walk1 three-step walk, S4.fade fade probe, S4.f3_time and S4.f3_mech with the posture trap). Flaws: S4.fade_b key is the only hedged option ('so still take the history'); S4.open_t4 half-endorses the TR4 premise ('Free gas does rise under the right dome'); S4.fade_t4a and S4.fade_t4b offer only 'Try again'; S4.fade_t4b concedes the football sign is a real free-gas family."},
+    {"id": "S5", "score": 3, "reason": "Good first-versus-best ladder (S5.pair, S5.ladder, S5.pyqs) and the clear-film and sitting probes. Flaws: S5.share_t7 serves two distractors and S5.clear_t7 serves two (one model each), so the second trap diagnoses nothing; S5.sit_t9 serves 'at once' and 'two minutes'; S5.pyqs key is the only option with 'when in doubt'; most trap feedback offers no 'Show me why'."},
+    {"id": "S6", "score": 3.5, "reason": "Management is the strongest decision sequence: S6.open to S6.b order resuscitation, S6.e and S6.f separate sealed from free perforation, S6.g and S6.h close the score and gastric biopsy. Flaws: S6.a_walk gives four steps in three messages and its skip label is unclear ('Skip the fade'); S6.e_deep carries a `flag: unverified` on claim K53, a data field that should not ship; S6.d repeats in S7.n1; S6.h repeats in S7.g1 and S7.g2."},
+    {"id": "S7", "score": 3, "reason": "Exam-trap run that mainly re-asks earlier content. Flaws: S7.b2 re-asks the S6.g Boey thresholds word for word in substance; S7.n1 re-asks S6.d; S7.g1 and S7.g2 re-ask S6.h; fourteen probes share the same 'That choice is not right.' template; S7.a1 and S7.f1 are the only new stems. The sim calls this the repetition point."},
+    {"id": "S8", "score": 3, "reason": "Cold consolidation with a fast lane and good cold items (S8.q6 to S8.q10). Flaws: S8.q3 key is the only hedged option against two absolute traps ('no other cause is ever seen', 'free gas always means one'), findable by form; S8.q7 key is the only specific option; S8.q9 'Spontaneous healing' and 'Real recovery' are one TR17 model; S8.q2 re-tests S1.pair as 'a different case'; S8.q6 and S8.q8 keys are the only options with a qualifier."}
+  ],
+  "weakest": ["S7", "S8", "S5", "S4", "S6", "S3"],
+  "best_parts": [
+    "node S2.predict_reaction and S2.pr_h1, S2.pr_h2: predict the meaning of easing pain, two lures named, each refuted with the mechanism (TR17)",
+    "node S4.walk1 and S4.open_ok: a three-step film walk (location, content, patient) as the second explanation, with a skip lane for those who can see it (TR4)",
+    "node S6.e_ok with the 'Go deeper: when does conservative care fail?' lane: agency that adds the 12 to 24 hour failure case without blocking the main path (TR12)",
+    "node S8.q10_t1_why: 'Waiting for board-like signs delays the diagnosis' gives the mechanism for the textbook-sign lure (TR23)"
+  ],
+  "flaws": [
+    "S8.q3: key 'Most likely a perforated ulcer, though not the only cause' is the only hedged option; both traps are absolutes, so the key is findable by form (DP1)",
+    "S5.share_t7: serves 'Nearly all' and 'Most' with one feedback; S5.clear_t7 serves 'very unlikely' and 'excluded if erect' the same way; two distractors diagnose one model (DP2)",
+    "S8.q9_t1 and S8.q9_t2: 'Real recovery' and 'Spontaneous healing' are the same TR17 model; the second option diagnoses nothing new",
+    "S3.p6: key label 'Valentino's syndrome, the tracked-fluid mimic' gives the answer by its gloss; the probe tests recognition of a label, not reasoning (sim friction)",
+    "S4.fade_b: key 'Probably a perforation from an ulcer, so still take the history' is the only hedged option; the traps are absolute ('free gas usually comes from one', 'history adds little')",
+    "S4.open_t4: 'Free gas does rise under the right dome, so the place looks right' half-endorses the TR4 premise before the correction lands (sim)",
+    "S4.fade_t4b: feedback concedes the football sign belongs to the free-gas family, which blurs the refutation of the TR4 lure",
+    "S6.e_deep: node carries `flag: 'unverified'` on claim K53; a visible-looking flag undercuts trust and should not ship in module data",
+    "S6.a_walk: four resuscitation and treatment steps across three messages (sim friction); split or cut to one step per message",
+    "S7.b2, S7.n1, S7.g1, S7.g2: re-ask S6.g, S6.d and S6.h content with the same model and near-identical wording; the sim reads these as repetition, not transfer",
+    "About 80 wrong-option feedback nodes open with 'That choice is not right.' (examples S1.gate_t1, S3.p1_obs, S5.pair_t5, S6.open_t1, S7.n1_exam, S8.q6_t1); this is the main R4 and R8 cost",
+    "Trap feedback with only 'Try again' and no second explanation: S4.fade_t4a, S4.f3_t8a, S4.f3_time_t9a, S5.pair_t20, S5.ladder_t5, S5.clear_t7, S5.share_t7, S5.sit_t9, S5.pyqs_t6, S6.b_t1, S6.f_t1; 'Try again' returns to the same probe with the same hint, with no escalation on a second miss",
+    "S5.pyqs: key 'PYQ key: erect X-ray. Current practice: CT when in doubt' is the only option with the qualifier; findable by form",
+    "S8.q7 and S8.q6: keys are the only specific or qualified options ('Large-bore IV access, crystalloid and nasogastric tube'; 'CT abdomen before any discharge, given the rigidity')",
+    "S3.p1_ok: adds smoking, H. pylori and crack cocaine after the probe, a second idea in a feedback node",
+    "Whole module: every trap is refuted and then answered right within 2 to 10 nodes (sim/misconceived.md caveat); the 'fixed' label shows recall of the last screen, not a changed belief; no delayed cross-segment re-test except the S8 quiz, which is the same session",
+    "report.json calibration: only the overconfident line is carried; the 37 guessing-right answers in the misconceived walk have no underconfident route in the template text (sim report check)"
+  ],
+  "r9_reports": {
+    "misconceived": {
+      "source": "report.json (template) and sim/misconceived.md (walk and report check). The rendered sim/misconceived.report.json was not read.",
+      "verdict": "The template is trap-specific and its repairs name the lure back, so a learner who holds the wrong model is told which model it is. Objective text is different per objective, so the sim's 'near-identical' complaint applies to the rendered output, not the template.",
+      "accurate": "headline 'mixed' and overconfident calibration fit a walk of 20 confident errors; the fell_recovered texts say the old key can return, which matches the walk; 'redo the O-card' pointers are actionable.",
+      "inaccurate": "fell_recovered is generous when recovery came 2 to 10 nodes after the refutation; the template never says so. The report does not say which of the twelve objectives to fix first, which the sim notes as its main miss.",
+      "score": 3.5
+    }
+  },
+  "merge_ideas": [
+    "Give every trap feedback a 'Show me why' agency and a second, different explanation (a case or a contrast) on the second miss, so S4, S5 and S6 stop ending at 'Try again'.",
+    "Make the hedge balance deliberate: in each probe the key carries the qualifier and the traps carry absolutes, or none does (S8.q3, S5.pyqs, S4.fade_b); pick one rule and apply it everywhere.",
+    "Give S5.share and S5.clear one feedback per distractor, each naming its own model (a 'nearly all' model and a 'most' model), so the second trap diagnoses something.",
+    "Replace the S7 repeats of S6.g, S6.d and S6.h with new stems that transfer the same trap to a new case, as the S8 quiz is meant to do.",
+    "Add a delayed cross-segment re-test for each trap (for example TR7 and TR17 in S8 with new vignettes), so 'fixed' means the belief changed rather than the last screen was recalled.",
+    "Use S6.e_ok's 'Go deeper' lane as the model for every high-yield trap: an optional deeper node that adds the failure case without blocking the main path."
+  ],
+  "notes": "Module read node by node across S1 to S8 and END in module.json (S1 to S8 in full, claim bank in full), with the trap map, blueprint, report.json and sim/misconceived.md. Factual accuracy not judged (knowledge-only mode). validate was not run (no shell). The rendered persona report was not read; R9 rests on the template and the misconceived walk."
+}
