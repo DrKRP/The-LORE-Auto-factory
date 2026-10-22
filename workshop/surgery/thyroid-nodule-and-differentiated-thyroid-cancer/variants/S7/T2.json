@@ -1,0 +1,1204 @@
+{
+  "segment": "S7",
+  "technique": "T2",
+  "entry": "dayone",
+  "nodes": {
+    "dayone": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Day 1 after total thyroidectomy for papillary carcinoma. She is comfortable, her voice is normal and her neck is quiet.",
+          "claims": []
+        },
+        {
+          "text": "Across patients after total thyroidectomy, which complication is the most common?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Recurrent laryngeal nerve palsy, causing hoarseness",
+          "next": "dayone_rln",
+          "kind": "trap",
+          "trap": "TR25"
+        },
+        {
+          "label": "Transient hypocalcaemia from parathyroid hypofunction",
+          "next": "dayone_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Post-operative neck haematoma needing evacuation",
+          "next": "dayone_haem",
+          "kind": "trap",
+          "trap": "TR25"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "dayone_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "dayone_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Separate the complication that frightens the team from the one that happens most often. Count patients, not fear.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "dayone",
+          "kind": "retry"
+        }
+      ]
+    },
+    "dayone_rln": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Nerve injury is the complication surgeons fear most, so it feels like the everyday one.",
+          "claims": []
+        },
+        {
+          "text": "Feared is not the same as frequent. Hoarseness from a palsy is a real risk, but it is not the complication most patients get.",
+          "claims": [
+            "K110"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Dramatic complications feel common. Check frequency separately from how frightening a complication is.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "dayone",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "dayone_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "dayone_haem": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. A neck haematoma is dangerous and urgent, so it feels like the complication you meet most.",
+          "claims": []
+        },
+        {
+          "text": "A haematoma that compresses the airway is an emergency. Emergency and frequency are separate questions.",
+          "claims": [
+            "K113"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Urgent and common are different questions; keep them apart.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "dayone",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "dayone_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "dayone_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Frequency and danger are different questions. Transient hypocalcaemia is the most common complication.",
+          "claims": [
+            "K108"
+          ]
+        },
+        {
+          "text": "It usually shows in the first 24–72 hours as perioral tingling, Chvostek and Trousseau signs, and tetany.",
+          "claims": [
+            "K109"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "singer",
+          "kind": "continue"
+        }
+      ]
+    },
+    "dayone_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Transient hypocalcaemia from hypoparathyroidism is the most common complication after total thyroidectomy.",
+          "claims": [
+            "K108"
+          ]
+        },
+        {
+          "text": "Watch for perioral tingling and a positive Chvostek sign, usually in the first 24–72 hours.",
+          "claims": [
+            "K109"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "singer",
+          "kind": "continue"
+        }
+      ]
+    },
+    "singer": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Two days after total thyroidectomy, a singer says her voice tires quickly and she can no longer reach her high notes.",
+          "claims": []
+        },
+        {
+          "text": "She has no hoarseness and no noisy breathing. Which nerve injury is most likely?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "External branch of the superior laryngeal nerve",
+          "next": "singer_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Unilateral recurrent laryngeal nerve on one side",
+          "next": "singer_uni",
+          "kind": "trap",
+          "trap": "TR24"
+        },
+        {
+          "label": "Both recurrent laryngeal nerves, on each side",
+          "next": "singer_bi",
+          "kind": "trap",
+          "trap": "TR24"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "singer_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "singer_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Pitch depends on tension in the cords, not on how they move. Which nerve supplies the muscle that tenses them?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "singer",
+          "kind": "retry"
+        }
+      ]
+    },
+    "singer_uni": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Recurrent nerve palsy is the best-known voice injury, so any voice change feels like it.",
+          "claims": []
+        },
+        {
+          "text": "Hoarseness is the recurrent nerve sign. This singer has no hoarseness, so the pattern points elsewhere.",
+          "claims": [
+            "K110"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. One nerve for every voice change is the model to drop. Test each symptom against its own nerve.",
+        "claims": [
+          "K110"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "singer",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "singer_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "singer_bi": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Both nerves lie in the same field, so a two-sided injury sounds like a bigger version of the same problem.",
+          "claims": []
+        },
+        {
+          "text": "Bilateral palsy is the airway problem, with stridor. This singer breathes normally, so that pattern does not fit.",
+          "claims": [
+            "K111"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Match the nerve to the symptom it produces, not to how serious the surgery looked.",
+        "claims": [
+          "K111"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "singer",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "singer_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "singer_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Loss of high pitch and voice fatigue come from paralysis of the cricothyroid, which the external branch supplies.",
+          "claims": [
+            "K112"
+          ]
+        },
+        {
+          "text": "Hoarseness points to the recurrent nerve, and stridor to bilateral palsy. Each sign has its own nerve.",
+          "claims": [
+            "K110",
+            "K111"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "neck",
+          "kind": "continue"
+        }
+      ]
+    },
+    "singer_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The external branch of the superior laryngeal nerve supplies the cricothyroid, the muscle that tenses the cords for pitch.",
+          "claims": [
+            "K112"
+          ]
+        },
+        {
+          "text": "Loss of high pitch and voice fatigue point to it. Hoarseness is the recurrent nerve sign, a different pattern.",
+          "claims": [
+            "K112",
+            "K110"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "neck",
+          "kind": "continue"
+        }
+      ]
+    },
+    "neck": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Six hours after thyroidectomy, your patient has a tense, swollen neck and noisy breathing with each breath.",
+          "claims": []
+        },
+        {
+          "text": "What is your first action?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Intubate the patient on the ward before any other step",
+          "next": "neck_intub",
+          "kind": "trap",
+          "trap": "TR26"
+        },
+        {
+          "label": "Transfer to the operating theatre before any other step",
+          "next": "neck_theatre",
+          "kind": "trap",
+          "trap": "TR26"
+        },
+        {
+          "label": "Open the wound at the bedside to evacuate the clot",
+          "next": "neck_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "neck_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "neck_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what is pressing on the airway from outside, and what would take that pressure off.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "neck",
+          "kind": "retry"
+        }
+      ]
+    },
+    "neck_intub": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Protecting the airway is the first reflex, so a tube feels like the safe default.",
+          "claims": []
+        },
+        {
+          "text": "Here the swelling compresses the airway from outside, so the cause must be relieved first.",
+          "claims": [
+            "K113"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Airway first is a good rule, but check what is blocking the airway before you choose the device.",
+        "claims": [
+          "K113"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "neck",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "neck_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "neck_theatre": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. The theatre has the best equipment, so moving first feels like the responsible step.",
+          "claims": []
+        },
+        {
+          "text": "A tense swelling can close the airway while the patient is moved, and the move takes time the airway may not have.",
+          "claims": [
+            "K113"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Ask what threatens the airway now, not where the best setting is.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "neck",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "neck_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "neck_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "A haematoma compressing the airway is released first: open the wound at the bedside and evacuate the clot.",
+          "claims": [
+            "K113"
+          ]
+        },
+        {
+          "text": "After that, secure the airway as needed. Bilateral recurrent nerve palsy also causes stridor and may need reintubation or tracheostomy.",
+          "claims": [
+            "K111"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "voice",
+          "kind": "continue"
+        }
+      ]
+    },
+    "neck_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A tense haematoma compresses the airway from outside, so the wound is opened at the bedside and the clot evacuated.",
+          "claims": [
+            "K113"
+          ]
+        },
+        {
+          "text": "Stridor can also come from bilateral recurrent nerve palsy, which needs a different first step.",
+          "claims": [
+            "K111"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "voice",
+          "kind": "continue"
+        }
+      ]
+    },
+    "voice": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A patient has two voice complaints after thyroidectomy: she is hoarse, and she has lost her high notes.",
+          "claims": []
+        },
+        {
+          "text": "Which pairing of nerve and symptom is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Hoarseness with the recurrent nerve; pitch loss with the external branch",
+          "next": "voice_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Hoarseness with the external branch; pitch loss with the recurrent nerve",
+          "next": "voice_swap",
+          "kind": "trap",
+          "trap": "TR24"
+        },
+        {
+          "label": "Both complaints come from the unilateral recurrent nerve alone",
+          "next": "voice_rln",
+          "kind": "trap",
+          "trap": "TR24"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "voice_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "voice_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Each symptom has its own nerve. Ask which movement each nerve controls: moving the cords, or tensing them.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "voice",
+          "kind": "retry"
+        }
+      ]
+    },
+    "voice_swap": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Both complaints are voice changes, so the two nerves are easy to swap in memory.",
+          "claims": []
+        },
+        {
+          "text": "Recheck which muscle each nerve works through before you pair the signs.",
+          "claims": [
+            "K112"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check the nerve-to-muscle link before you attach a symptom to a nerve.",
+        "claims": [
+          "K112"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "voice",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "voice_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "voice_rln": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Recurrent nerve palsy is the best-known voice injury, so it feels like the cause of every voice change.",
+          "claims": []
+        },
+        {
+          "text": "Not every voice change comes from that nerve. Loss of pitch has its own nerve, the external branch.",
+          "claims": [
+            "K112"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. One nerve for every voice change is the model to drop; test each sign on its own.",
+        "claims": [
+          "K110"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "voice",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "voice_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "voice_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Hoarseness points to the recurrent laryngeal nerve.",
+          "claims": [
+            "K110"
+          ]
+        },
+        {
+          "text": "Loss of high pitch and voice fatigue point to the external branch of the superior laryngeal nerve, from paralysis of the cricothyroid.",
+          "claims": [
+            "K112"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "airway",
+          "kind": "continue"
+        }
+      ]
+    },
+    "voice_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Hoarseness is the recurrent laryngeal nerve sign. Loss of high pitch comes from the external branch.",
+          "claims": [
+            "K110",
+            "K112"
+          ]
+        },
+        {
+          "text": "The external branch injury paralyses the cricothyroid muscle, and that is what drops the pitch.",
+          "claims": [
+            "K112"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "airway",
+          "kind": "continue"
+        }
+      ]
+    },
+    "airway": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Day 1 after thyroidectomy, your patient has noisy breathing. Her neck is soft and flat, with no swelling under the wound.",
+          "claims": []
+        },
+        {
+          "text": "Which first step fits her?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Open the wound at the bedside to evacuate a clot",
+          "next": "airway_open",
+          "kind": "trap",
+          "trap": "TR26"
+        },
+        {
+          "label": "Secure the airway now, then look for the cause",
+          "next": "airway_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Transfer to the theatre to explore the neck first",
+          "next": "airway_theatre",
+          "kind": "trap",
+          "trap": "TR26"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "airway_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "airway_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask first what is blocking the airway. Then ask whether that cause sits in the neck you can see.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "airway",
+          "kind": "retry"
+        }
+      ]
+    },
+    "airway_open": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Opening the neck fixed the earlier patient, so it feels like the default for any noisy breathing.",
+          "claims": []
+        },
+        {
+          "text": "Opening the wound helps when a clot is the cause. Check what is actually narrowing this airway.",
+          "claims": [
+            "K113"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check that the cause is in the neck before you cut into it.",
+        "claims": [
+          "K113"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "airway",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "airway_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "airway_theatre": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. A theatre gives the best control, so moving first feels like the careful choice.",
+          "claims": []
+        },
+        {
+          "text": "The airway is the immediate threat, and a move takes time it may not have.",
+          "claims": [
+            "K111"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Ask what threatens the airway now, not where the best setting is.",
+        "claims": [
+          "K111"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "airway",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "airway_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "airway_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "With a flat neck there is no tense clot to release. Secure the airway by reintubation or tracheostomy.",
+          "claims": [
+            "K111"
+          ]
+        },
+        {
+          "text": "Opening the wound is for a tense haematoma compressing the airway. Bilateral palsy is the other cause of stridor.",
+          "claims": [
+            "K113",
+            "K111"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pairs",
+          "kind": "continue"
+        }
+      ]
+    },
+    "airway_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Bilateral recurrent nerve palsy can cause stridor and airway obstruction, and needs reintubation or tracheostomy.",
+          "claims": [
+            "K111"
+          ]
+        },
+        {
+          "text": "A flat neck has no clot to release, so the airway is the problem to fix now. Then look for the cause.",
+          "claims": [
+            "K111"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "pairs",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pairs": {
+      "role": "probe",
+      "objectives": [
+        "O9"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A junior tells you the commonest complication after thyroidectomy is bleeding, because bleeding is the one that frightens everyone.",
+          "claims": []
+        },
+        {
+          "text": "Which pairing do you tell the junior is right?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Haematoma is the commonest; hypocalcaemia is the feared one",
+          "next": "pairs_haem",
+          "kind": "trap",
+          "trap": "TR25"
+        },
+        {
+          "label": "Nerve palsy is the commonest; haematoma is the feared one",
+          "next": "pairs_nerve",
+          "kind": "trap",
+          "trap": "TR25"
+        },
+        {
+          "label": "Hypocalcaemia is the commonest; haematoma is the feared one",
+          "next": "pairs_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pairs_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "pairs_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Keep two questions apart: which complication happens most often, and which one is most dangerous.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "pairs",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pairs_haem": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Bleeding can threaten the airway quickly, so it feels like the one that happens most.",
+          "claims": []
+        },
+        {
+          "text": "Danger and frequency are separate questions. A haematoma that compresses the airway is an emergency, but it is not the most frequent.",
+          "claims": [
+            "K113"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Keep 'most common' for frequency and 'most feared' for risk.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pairs",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pairs_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "pairs_nerve": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Nerve injury is the complication surgeons fear most, so it feels like the everyday one.",
+          "claims": []
+        },
+        {
+          "text": "Nerve palsy is a real complication, with hoarseness or airway risk. It is not the commonest one.",
+          "claims": [
+            "K110",
+            "K111"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. The nerve is the feared structure, not the frequent one.",
+        "claims": []
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pairs",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pairs_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "pairs_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The commonest complication is transient hypocalcaemia from hypoparathyroidism, usually within 24–72 hours.",
+          "claims": [
+            "K108",
+            "K109"
+          ]
+        },
+        {
+          "text": "Haematoma and nerve palsy are feared because they threaten the airway or voice, not because they are most frequent.",
+          "claims": [
+            "K113",
+            "K110"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "marker",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pairs_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Transient hypocalcaemia from hypoparathyroidism is the most common complication after total thyroidectomy.",
+          "claims": [
+            "K108"
+          ]
+        },
+        {
+          "text": "Haematoma is the one to act on fast, because it compresses the airway and needs the wound opened.",
+          "claims": [
+            "K113"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "marker",
+          "kind": "continue"
+        }
+      ]
+    },
+    "marker": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Six months after total thyroidectomy for papillary carcinoma, the lab sends two results back.",
+          "claims": []
+        },
+        {
+          "text": "Calcitonin is normal. Serum thyroglobulin has risen since the last review. Which result should prompt a recurrence work-up?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "The normal calcitonin, since it rules out a cancer",
+          "next": "marker_cal",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Both results equally, since both are tumour markers",
+          "next": "marker_both",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "A rising thyroglobulin level, which suggests recurrence",
+          "next": "marker_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "marker_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "marker_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which cancer each marker tracks, and whether a normal result of the other marker can answer the question here.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Back to the question",
+          "next": "marker",
+          "kind": "retry"
+        }
+      ]
+    },
+    "marker_cal": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. A normal tumour marker feels reassuring, and calcitonin is the thyroid marker most people remember.",
+          "claims": []
+        },
+        {
+          "text": "Calcitonin marks medullary carcinoma from the parafollicular cell, so a normal value says little about papillary cancer.",
+          "claims": [
+            "K70"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure. Check which cancer a marker tracks before a normal result reassures you.",
+        "claims": [
+          "K129"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "marker",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "marker_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "marker_both": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. Both are tumour markers, so reading them as one test feels efficient.",
+          "claims": []
+        },
+        {
+          "text": "Each marker tracks its own cancer, so the two results do not carry the same meaning.",
+          "claims": [
+            "K128"
+          ]
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so read each marker against its own cancer before you combine them.",
+        "claims": [
+          "K9"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "marker",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "marker_show",
+          "kind": "agency"
+        }
+      ]
+    },
+    "marker_show": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Thyroglobulin is the follow-up marker for papillary and follicular cancer. A rising or detectable level suggests recurrence.",
+          "claims": [
+            "K100"
+          ]
+        },
+        {
+          "text": "Calcitonin belongs to medullary carcinoma, and CEA is listed with it, not with differentiated cancer.",
+          "claims": [
+            "K70",
+            "K129"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "marker_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Serum thyroglobulin is the tumour marker for recurrence after total thyroidectomy, and a rising level suggests it.",
+          "claims": [
+            "K9",
+            "K100"
+          ]
+        },
+        {
+          "text": "Calcitonin is a different marker, for medullary carcinoma. Keep each marker with its own cancer.",
+          "claims": [
+            "K70",
+            "K128"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}

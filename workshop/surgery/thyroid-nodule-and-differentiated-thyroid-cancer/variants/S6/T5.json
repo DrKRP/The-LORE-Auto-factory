@@ -1,0 +1,1497 @@
+{
+  "segment": "S6",
+  "technique": "T5",
+  "entry": "pre",
+  "nodes": {
+    "pre": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 52-year-old woman had total thyroidectomy and radioiodine for papillary cancer.",
+          "claims": []
+        },
+        {
+          "text": "Which tumour marker do you follow for recurrence?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Serum calcitonin",
+          "next": "pre_calc",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Serum thyroglobulin",
+          "next": "pre_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Serum CEA",
+          "next": "pre_cea",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "pre_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "pre_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which cell the cancer came from, and which product that cell line makes. Then match the marker to the tumour's cell line.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pre",
+          "kind": "retry"
+        }
+      ]
+    },
+    "pre_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. After total thyroidectomy and radioiodine, thyroglobulin is the marker for recurrence, and a rising or detectable level suggests it.",
+          "claims": [
+            "K100"
+          ]
+        },
+        {
+          "text": "It fits because differentiated cancer arises from follicular cells, the same cells that make thyroglobulin.",
+          "claims": [
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "w1",
+          "kind": "continue"
+        },
+        {
+          "label": "I know this, skip the worked case",
+          "next": "fade1",
+          "kind": "skip"
+        }
+      ]
+    },
+    "pre_calc": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because calcitonin is the thyroid tumour marker most often quoted in revision lists.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check which tumour type raises this marker before you trust the list in your head.",
+        "claims": [
+          "K70"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pre",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pre_calc_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "pre_calc_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Calcitonin is raised in medullary carcinoma, which comes from the C cells, and not in differentiated cancer.",
+          "claims": [
+            "K70",
+            "K14"
+          ]
+        },
+        {
+          "text": "After differentiated cancer surgery you follow thyroglobulin, the marker of the follicular-cell tumour.",
+          "claims": [
+            "K9"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "w1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "pre_cea": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because CEA is a familiar tumour marker, and it sits beside calcitonin in medullary work-ups.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask which cell line this cancer came from before you choose its marker.",
+        "claims": [
+          "K13"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "pre",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "pre_cea_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "pre_cea_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "CEA is used alongside calcitonin for medullary carcinoma, the C-cell tumour.",
+          "claims": [
+            "K129"
+          ]
+        },
+        {
+          "text": "Differentiated cancer is a follicular-cell cancer, and its follow-up marker is thyroglobulin.",
+          "claims": [
+            "K9",
+            "K13"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "w1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "w1": {
+      "role": "explain",
+      "objectives": [
+        "O8"
+      ],
+      "say": [
+        {
+          "text": "Worked case, step by step. A 44-year-old had total thyroidectomy and radioiodine for papillary cancer. Two years on, her thyroglobulin is rising.",
+          "claims": []
+        },
+        {
+          "text": "Step 1 is the marker. A rising thyroglobulin suggests recurrence, so the search starts. Step 2 is the assay. Her anti-thyroglobulin antibodies are negative, so the value counts.",
+          "claims": [
+            "K100",
+            "K101"
+          ]
+        },
+        {
+          "text": "Step 3 is the image. Neck ultrasound is clear, and the diagnostic whole-body iodine scan is negative, so no iodine-avid disease shows. Step 4 is the test left: FDG-PET finds iodine-negative disease.",
+          "claims": [
+            "K102",
+            "K103",
+            "K104"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade1",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade1": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A second patient, same follow-up: thyroglobulin is rising, antibodies are negative, neck ultrasound is clear, and the iodine scan is negative again.",
+          "claims": []
+        },
+        {
+          "text": "What do you order next?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "FDG-PET, to find iodine-negative disease",
+          "next": "fade1_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Repeat the whole-body iodine scan, higher dose",
+          "next": "fade1_t16",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "Reassure, since a negative scan rules out recurrence",
+          "next": "fade1_rea",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade1_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade1_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the scan can see. It sees tumour that still takes up iodine. Which test sees tumour that does not?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade1",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade1_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. A rising thyroglobulin with a negative iodine scan points to radioiodine-refractory disease, and FDG-PET finds tumour that has lost iodine uptake.",
+          "claims": [
+            "K104"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade1_t16": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because the iodine scan is the test you have just been taught to trust, and repeating it feels thorough.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask what the scan can see before you order it again.",
+        "claims": [
+          "K103"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade1_t16_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade1_t16_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "A whole-body iodine scan detects only iodine-avid disease. A second negative scan has the same blind spot, so it cannot answer a rising marker.",
+          "claims": [
+            "K103"
+          ]
+        },
+        {
+          "text": "The next test is the one that does not need iodine uptake: FDG-PET.",
+          "claims": [
+            "K104"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade1_rea": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because a negative scan feels like a clear result, and clear results usually end the worry.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask whether a rising marker still means something when the scan is clear.",
+        "claims": [
+          "K100"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade1",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade1_rea_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade1_rea_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "A negative iodine scan does not exclude disease that has lost iodine uptake.",
+          "claims": [
+            "K103"
+          ]
+        },
+        {
+          "text": "A rising thyroglobulin still flags recurrence, so the search continues with FDG-PET.",
+          "claims": [
+            "K100",
+            "K104"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade2",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade2": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A third patient, five years after surgery. Her thyroglobulin is undetectable, but her anti-thyroglobulin antibodies are high.",
+          "claims": []
+        },
+        {
+          "text": "How do you read the thyroglobulin?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Undetectable, so no disease: routine follow-up",
+          "next": "fade2_a",
+          "kind": "trap",
+          "trap": "TR28"
+        },
+        {
+          "label": "Undetectable settles it, whatever the antibodies",
+          "next": "fade2_b",
+          "kind": "trap",
+          "trap": "TR28"
+        },
+        {
+          "label": "Unreliable, so image and trend",
+          "next": "fade2_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade2_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade2_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether the assay itself can be trusted in a patient with these antibodies, before you read the number.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade2",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade2_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Antibodies spoil the thyroglobulin assay, so a low value cannot be trusted alone; you image the patient and follow the trend.",
+          "claims": [
+            "K101",
+            "K102"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade2_a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because an undetectable value looks like a clean result, and clean results are what follow-up hopes for.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask first whether the thyroglobulin assay can be trusted in this patient.",
+        "claims": [
+          "K101"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade2_a_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade2_a_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Antibodies make the thyroglobulin assay unreliable, so an undetectable value can be false reassurance.",
+          "claims": [
+            "K101"
+          ]
+        },
+        {
+          "text": "In an antibody-positive patient you image the neck and follow the trend, rather than act on one number.",
+          "claims": [
+            "K102"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade2_b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because a marker value feels like the decisive answer, and a single number is easy to act on.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask what must be measured alongside thyroglobulin in this patient.",
+        "claims": [
+          "K101",
+          "K128"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade2",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade2_b_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade2_b_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Thyroglobulin must be measured with its antibodies, because antibodies make the assay unreliable.",
+          "claims": [
+            "K101",
+            "K128"
+          ]
+        },
+        {
+          "text": "So no single value settles recurrence, and imaging is the check.",
+          "claims": [
+            "K102"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade3",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade3": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A patient had total thyroidectomy for medullary carcinoma.",
+          "claims": []
+        },
+        {
+          "text": "Which marker do you follow after surgery?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Thyroglobulin, as after any thyroid cancer",
+          "next": "fade3_a",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Calcitonin, with CEA",
+          "next": "fade3_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Thyroglobulin with anti-thyroglobulin antibodies",
+          "next": "fade3_b",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade3_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade3_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which cell line gave rise to this tumour, and which product that cell line secretes. Then match the marker to that product.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade3",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade3_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Medullary carcinoma comes from the C cells and raises calcitonin, so calcitonin with CEA tracks it.",
+          "claims": [
+            "K70",
+            "K129"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade3_a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because thyroglobulin is the marker you have just learnt, and it feels like a rule for every thyroid cancer.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask which cell line this tumour came from before you choose its marker.",
+        "claims": [
+          "K13"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade3_a_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade3_a_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Thyroglobulin follows the follicular-cell cancers, papillary and follicular.",
+          "claims": [
+            "K9",
+            "K13"
+          ]
+        },
+        {
+          "text": "Medullary carcinoma comes from the C cells and is followed with calcitonin and CEA.",
+          "claims": [
+            "K70",
+            "K129"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade3_b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because antibodies are tested alongside thyroglobulin, so the pairing looks like a standard panel.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check whether this tumour makes thyroglobulin at all.",
+        "claims": [
+          "K14"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade3",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade3_b_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade3_b_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The antibody pairing belongs to differentiated cancer, a follicular-cell cancer.",
+          "claims": [
+            "K128",
+            "K13"
+          ]
+        },
+        {
+          "text": "Medullary carcinoma is a C-cell tumour, followed with calcitonin and CEA.",
+          "claims": [
+            "K129"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade4",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade4": {
+      "role": "probe",
+      "objectives": [
+        "O8"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "Her thyroglobulin is rising, and her whole-body iodine scan is negative.",
+          "claims": []
+        },
+        {
+          "text": "Which explanation fits the tumour?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "It still makes thyroglobulin but has lost iodine uptake",
+          "next": "fade4_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "The scan is more sensitive, so the marker misleads",
+          "next": "fade4_t16",
+          "kind": "trap",
+          "trap": "TR16"
+        },
+        {
+          "label": "The tumour has turned medullary, so calcitonin rises",
+          "next": "fade4_t30",
+          "kind": "trap",
+          "trap": "TR30"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade4_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade4_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask what the iodine scan needs the tumour to do, and whether a rising marker needs that same thing.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade4",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade4_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The tumour still makes thyroglobulin, so the marker rises, but it has lost iodine uptake, so the scan goes blind to it.",
+          "claims": [
+            "K100",
+            "K104"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade4_t16": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because a scan picture feels more solid than a blood value, so it seems to overrule the marker.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask which test is blind to tumour that has lost iodine uptake.",
+        "claims": [
+          "K103"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade4_t16_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade4_t16_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The iodine scan sees only iodine-avid tissue, so a negative scan says nothing about iodine-negative cells.",
+          "claims": [
+            "K103"
+          ]
+        },
+        {
+          "text": "Thyroglobulin still rises because the tumour still makes it. That is radioiodine-refractory disease.",
+          "claims": [
+            "K100",
+            "K104"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade4_t30": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because two markers are in play, so a tumour that changes behaviour seems to change its marker.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask whether a differentiated cancer ever becomes a medullary one.",
+        "claims": [
+          "K14"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade4",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade4_t30_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade4_t30_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "A differentiated cancer does not turn into a medullary carcinoma; they are separate tumours with separate markers.",
+          "claims": [
+            "K14",
+            "K70"
+          ]
+        },
+        {
+          "text": "The rising thyroglobulin is still the marker of the same follicular-cell tumour.",
+          "claims": [
+            "K9"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade5",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade5": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "AJCC 8th edition staging of differentiated thyroid cancer uses an age cut-off.",
+          "claims": []
+        },
+        {
+          "text": "What is the cut-off age, in years?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "50 years",
+          "next": "fade5_50",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "55 years",
+          "next": "fade5_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "45 years",
+          "next": "fade5_45",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade5_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade5_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which edition's staging the stem means. Then ask which figure that edition used, not the one you remember from older papers.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade5",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade5_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. The AJCC 8th edition uses 55 years as the cut-off for differentiated cancer staging.",
+          "claims": [
+            "K71"
+          ]
+        },
+        {
+          "text": "Under that cut-off, stage I means no distant spread and stage II means distant spread.",
+          "claims": [
+            "K72"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade5_50": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because the figure sits between the two editions you have met, so it feels like a blend of them.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask which edition this stem means before you give the number.",
+        "claims": [
+          "K71"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade5",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade5_50_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade5_50_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The AJCC 8th edition uses 55 years; the 7th edition used 45.",
+          "claims": [
+            "K71"
+          ]
+        },
+        {
+          "text": "Older exam keys still say 45, so the number you remember may belong to a different edition.",
+          "claims": [
+            "K136"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade5_45": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because 45 is the figure most revision notes and older papers still quote.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check which edition the current staging uses.",
+        "claims": [
+          "K136"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade5",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade5_45_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade5_45_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "PYQs have expected 45, the 7th edition figure. The current AJCC 8th edition uses 55.",
+          "claims": [
+            "K136",
+            "K71"
+          ]
+        },
+        {
+          "text": "Staging an under-55 patient follows the current cut-off, so check the edition first.",
+          "claims": [
+            "K72"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade6",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade6": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A 50-year-old woman has papillary carcinoma with lung metastasis.",
+          "claims": []
+        },
+        {
+          "text": "Which AJCC 8th edition stage applies?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Stage III, since she is over 45",
+          "next": "fade6_iii",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Stage II, since under 55 with spread",
+          "next": "fade6_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Stage IVB, since distant spread is always IVB",
+          "next": "fade6_iva",
+          "kind": "trap",
+          "trap": "TR7"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade6_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade6_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask which edition's age cut-off applies to this patient, then ask what distant spread does at that age.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade6",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade6_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. In the AJCC 8th edition, a patient younger than 55 with distant spread is stage II, not stage IV.",
+          "claims": [
+            "K72",
+            "K71"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade6_iii": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because 45 is the old cut-off, and once it is in your head the age seems to decide the stage.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask which edition's cut-off this patient falls under.",
+        "claims": [
+          "K136"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade6",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade6_iii_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade6_iii_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "The 45 figure belongs to the older edition.",
+          "claims": [
+            "K136"
+          ]
+        },
+        {
+          "text": "Under the current 55 cut-off, distant spread in a patient under 55 is stage II.",
+          "claims": [
+            "K71",
+            "K72"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade6_iva": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because distant spread is the feature staging weighs most, so stage IV feels inevitable.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check whether the age cut-off changes the stage before you apply the spread.",
+        "claims": [
+          "K72"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade6",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade6_iva_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade6_iva_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Distant spread moves a patient into stage IV only at or over the cut-off.",
+          "claims": [
+            "K71"
+          ]
+        },
+        {
+          "text": "Under 55, the same spread is stage II.",
+          "claims": [
+            "K72"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "fade7",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade7": {
+      "role": "probe",
+      "objectives": [
+        "O10"
+      ],
+      "ask_confidence": true,
+      "say": [
+        {
+          "text": "A surgeon in a hill-district clinic says follicular is now the most common differentiated thyroid cancer in his series.",
+          "claims": []
+        },
+        {
+          "text": "What is the correct reply?",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Papillary leads overall; follicular's share rises here",
+          "next": "fade7_ok",
+          "kind": "correct"
+        },
+        {
+          "label": "Follicular is the commonest DTC in the hills",
+          "next": "fade7_a",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Follicular now outnumbers papillary across all regions",
+          "next": "fade7_b",
+          "kind": "trap",
+          "trap": "TR3"
+        },
+        {
+          "label": "Not sure, give me a hint",
+          "next": "fade7_hint",
+          "kind": "help"
+        }
+      ]
+    },
+    "fade7_hint": {
+      "role": "hint",
+      "say": [
+        {
+          "text": "Ask whether the stem asks for the overall leader or a share inside one region, before you name a cancer.",
+          "claims": []
+        }
+      ],
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade7",
+          "kind": "retry"
+        }
+      ]
+    },
+    "fade7_ok": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "Yes. Papillary is the most common thyroid cancer overall, about 80 to 85 percent of cases.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "Iodine deficiency raises follicular's share, which is a relative rise, not a change in the overall leader.",
+          "claims": [
+            "K23"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade7_a": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because a clinic's own series feels like the national picture, so local experience seems typical.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so ask whether the stem wants the overall commonest cancer or a regional share.",
+        "claims": [
+          "K2"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade7",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade7_a_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade7_a_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Papillary carcinoma is the most common thyroid cancer overall, about 80 to 85 percent of cases.",
+          "claims": [
+            "K2"
+          ]
+        },
+        {
+          "text": "Follicular carcinoma's share rises in iodine-deficient areas, which is a regional change.",
+          "claims": [
+            "K23",
+            "K121"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    },
+    "fade7_b": {
+      "role": "feedback",
+      "say": [
+        {
+          "text": "That choice is not right. It tempts because follicular carcinoma is the cancer iodine deficiency is linked to, so it seems to take over the whole picture.",
+          "claims": []
+        }
+      ],
+      "sure_note": {
+        "text": "You were sure, so check whether the stem asks for the overall answer or a regional share.",
+        "claims": [
+          "K23"
+        ]
+      },
+      "choices": [
+        {
+          "label": "Try again",
+          "next": "fade7",
+          "kind": "retry"
+        },
+        {
+          "label": "Show me why",
+          "next": "fade7_b_x",
+          "kind": "agency"
+        }
+      ]
+    },
+    "fade7_b_x": {
+      "role": "explain",
+      "say": [
+        {
+          "text": "Iodine deficiency is associated with follicular carcinoma, but that changes the share, not the overall leader.",
+          "claims": [
+            "K23"
+          ]
+        },
+        {
+          "text": "Papillary stays the most common differentiated cancer in general series.",
+          "claims": [
+            "K2"
+          ]
+        }
+      ],
+      "choices": [
+        {
+          "label": "Next",
+          "next": "@next",
+          "kind": "continue"
+        }
+      ]
+    }
+  }
+}
