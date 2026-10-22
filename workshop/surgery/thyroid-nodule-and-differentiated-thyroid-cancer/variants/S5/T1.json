@@ -1,0 +1,860 @@
+{
+ "segment": "S5",
+ "technique": "T1",
+ "entry": "u1",
+ "nodes": {
+  "u1": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Radioiodine treats remnant and iodine-avid metastatic differentiated cancer.",
+     "claims": [
+      "K90"
+     ]
+    },
+    {
+     "text": "Before the dose, what must drive those cells to take up iodine?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "TSH, released by the pituitary, drives uptake",
+     "next": "u1_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "TSH kept suppressed by levothyroxine",
+     "next": "u1_t1",
+     "kind": "trap",
+     "trap": "TR27"
+    },
+    {
+     "label": "Iodine dose alone; no hormone drives uptake",
+     "next": "u1_t2",
+     "kind": "trap",
+     "trap": "TR27"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "u1_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "u1_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Think about the signal the brain sends the thyroid to make it work harder. Which signal is that?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "u1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u1_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Uptake needs a high TSH level, above 30 mU/L, so a raised TSH is the state radioiodine needs.",
+     "claims": [
+      "K93"
+     ]
+    },
+    {
+     "text": "Every later step in this ladder builds on that one state.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "u2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "u1_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It tempts because suppressed TSH is the goal after surgery, so it feels like the normal state of a treated patient.",
+     "claims": []
+    },
+    {
+     "text": "But a suppressed signal is the wrong state for uptake, as the uptake claim shows. Check the level the dose needs.",
+     "claims": [
+      "K93"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so fix the state the dose needs: suppression is the after-surgery goal, not the pre-dose state.",
+    "claims": [
+     "K93",
+     "K98"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "u1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u1_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It tempts because iodine is what the dose delivers, so the dose feels like the only variable that matters.",
+     "claims": []
+    },
+    {
+     "text": "But the dose alone does not set uptake. Uptake depends on a raised level of a hormone signal, so the dose is given only after that level is reached.",
+     "claims": [
+      "K93"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is the belief to fix: uptake is a signal problem before it is an iodine-dose problem.",
+    "claims": [
+     "K93"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "u1",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u2": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "So TSH must be high on the day of the dose, and two routes can get it there.",
+     "claims": []
+    },
+    {
+     "text": "Which step raises TSH before the dose?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Stop levothyroxine for weeks, or give recombinant TSH",
+     "next": "u2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Raise levothyroxine so TSH is pushed lower first",
+     "next": "u2_t1",
+     "kind": "trap",
+     "trap": "TR27"
+    },
+    {
+     "label": "Add an extra thyroxine tablet on the day of dose",
+     "next": "u2_t2",
+     "kind": "trap",
+     "trap": "TR27"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "u2_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "u2_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "The pituitary answers to the thyroid hormone in the blood. Which way would that blood level have to move for the pituitary to shout?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "u2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Withdrawing levothyroxine for a few weeks, or giving recombinant human TSH, lifts TSH above 30 mU/L for uptake.",
+     "claims": [
+      "K93"
+     ]
+    },
+    {
+     "text": "A low-iodine diet is added beforehand to help the uptake.",
+     "claims": [
+      "K93"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "u3",
+     "kind": "continue"
+    }
+   ]
+  },
+  "u2_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It tempts because tighter suppression sounds like better preparation for treating cancer cells.",
+     "claims": []
+    },
+    {
+     "text": "But uptake needs a raised TSH, so pushing TSH lower works against the dose. The direction of the change is wrong.",
+     "claims": [
+      "K93"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so fix the direction: the pre-dose step moves TSH up, not down.",
+    "claims": [
+     "K93"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "u2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u2_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It tempts because an extra tablet looks like a quick way to change the level on the day.",
+     "claims": []
+    },
+    {
+     "text": "But extra thyroxine lowers TSH, and a lower TSH gives weaker uptake. The step has to raise the level, as the uptake claim shows.",
+     "claims": [
+      "K93"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the direction of the TSH change before the dose, not the drug name.",
+    "claims": [
+     "K93"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "u2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u3": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A patient has had total thyroidectomy for papillary cancer and starts levothyroxine.",
+     "claims": [
+      "K98"
+     ]
+    },
+    {
+     "text": "What is its main job for the cancer?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Suppress TSH, because TSH stimulates residual cancer growth",
+     "next": "u3_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Lower TSH before the dose, so the cells take up more",
+     "next": "u3_t1",
+     "kind": "trap",
+     "trap": "TR27"
+    },
+    {
+     "label": "Replace the hormone only; TSH level does not matter",
+     "next": "u3_t2",
+     "kind": "trap",
+     "trap": "TR27"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "u3_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "u3_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what the tablet does to the pituitary signal once the thyroid is gone, and why that signal matters for a cancer.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "u3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u3_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Levothyroxine replaces the hormone and holds TSH down, because TSH stimulates residual DTC growth.",
+     "claims": [
+      "K98"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "u4",
+     "kind": "continue"
+    }
+   ]
+  },
+  "u3_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It tempts because the same drug holds TSH down, so a pre-dose step looks like more of the same.",
+     "claims": []
+    },
+    {
+     "text": "But suppression is the job after surgery. Before the dose, uptake needs TSH to rise, so lowering it first blunts the treatment.",
+     "claims": [
+      "K98",
+      "K93"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so keep the two phases apart: pre-dose and post-surgery goals are opposite on TSH.",
+    "claims": [
+     "K93",
+     "K98"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "u3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u3_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It tempts because replacing the hormone is the visible job of the tablet, so the TSH number feels like a side issue.",
+     "claims": []
+    },
+    {
+     "text": "But TSH is the lever the drug controls, and TSH stimulates cancer growth. That is why the level is watched.",
+     "claims": [
+      "K98"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check whether TSH has a role in the cancer, not only in the thyroid.",
+    "claims": [
+     "K98"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "u3",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u4": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Patient A has low-risk unifocal disease, 1.5 cm, with no nodes or extension.",
+     "claims": [
+      "K75"
+     ]
+    },
+    {
+     "text": "Patient B has gross extension through the thyroid capsule. Which TSH target fits each?",
+     "claims": [
+      "K92"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "A low-normal TSH; B below 0.1 mU/L",
+     "next": "u4_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Below 0.1 mU/L for both, to be safe",
+     "next": "u4_t1",
+     "kind": "trap",
+     "trap": "TR27"
+    },
+    {
+     "label": "Low-normal for both, since over-suppression harms",
+     "next": "u4_t2",
+     "kind": "trap",
+     "trap": "TR27"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "u4_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "u4_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Work out each patient's ATA risk class first. Then ask how far TSH needs to fall for that class.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "u4",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u4_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Risk sets the target. Low-risk disease needs low-normal TSH, while high-risk disease needs deeper suppression, below 0.1 mU/L.",
+     "claims": [
+      "K99",
+      "K92"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "u5",
+     "kind": "continue"
+    }
+   ]
+  },
+  "u4_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It tempts because deeper suppression sounds safer, so one firm target feels easier to remember.",
+     "claims": []
+    },
+    {
+     "text": "But low-risk disease does not need the deeper suppression. The target is matched to the ATA class, not set once for everyone.",
+     "claims": [
+      "K99",
+      "K75"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is one target for everyone; check which class each patient is in first.",
+    "claims": [
+     "K99"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "u4",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u4_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It tempts because over-treatment with thyroxine feels harmful, so the lowest safe level looks like the one target.",
+     "claims": []
+    },
+    {
+     "text": "But patient B is high risk, and that class is driven to a lower TSH than low-risk disease. One target for both misses that.",
+     "claims": [
+      "K99",
+      "K92"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check whether the target follows the disease class or a general rule of caution.",
+    "claims": [
+     "K99"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "u4",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u5": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "A 45-year-old has a 2 cm papillary cancer, unifocal and intrathyroidal, with no nodes or distant spread. Total thyroidectomy is done.",
+     "claims": [
+      "K75"
+     ]
+    },
+    {
+     "text": "Is radioiodine given routinely?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Not routinely; low-risk disease does not need it",
+     "next": "u5_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Yes, as standard adjuvant for every DTC patient",
+     "next": "u5_t1",
+     "kind": "trap",
+     "trap": "TR20"
+    },
+    {
+     "label": "Only if the tumour is follicular, not papillary",
+     "next": "u5_t2",
+     "kind": "trap",
+     "trap": "TR20"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "u5_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "u5_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which ATA class this patient falls into, and what that class says about radioiodine.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "u5",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u5_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Radioiodine follows the ATA risk class, and a low-risk patient is not routinely given it.",
+     "claims": [
+      "K91",
+      "K75"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "u6",
+     "kind": "continue"
+    }
+   ]
+  },
+  "u5_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It tempts because radioiodine is the familiar follow-on after thyroid cancer surgery, so it feels like a default.",
+     "claims": []
+    },
+    {
+     "text": "But the default is the risk class. For ATA low-risk disease, radioiodine is not routinely used.",
+     "claims": [
+      "K91"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the risk class before you reach for a routine adjuvant.",
+    "claims": [
+     "K91"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "u5",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u5_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It tempts because papillary and follicular are taught side by side, so the histology feels like the switch.",
+     "claims": []
+    },
+    {
+     "text": "But histology does not decide it. The risk class, which covers size, spread and extension, does.",
+     "claims": [
+      "K75",
+      "K74"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the cancer type is not the trigger; the risk class is.",
+    "claims": [
+     "K75"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "u5",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u6": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Patient A: 1.2 cm unifocal papillary cancer, no nodes, no extension. Patient B: 4 cm with gross extension through the capsule.",
+     "claims": [
+      "K83",
+      "K92"
+     ]
+    },
+    {
+     "text": "Which pair of plans fits?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A: lobectomy or total. B: total, then ablation",
+     "next": "u6_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Both: total thyroidectomy, the classic answer for DTC surgery",
+     "next": "u6_t1",
+     "kind": "trap",
+     "trap": "TR8"
+    },
+    {
+     "label": "A: total, then ablation as standard. B: total, then ablation",
+     "next": "u6_t2",
+     "kind": "trap",
+     "trap": "TR20"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "u6_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "u6_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Sort each patient by size, spread and extension first. Then ask what each class needs for surgery and for radioiodine.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Back to the question",
+     "next": "u6",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u6_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Size and extent set the operation: low-risk tumours of 1–4 cm may have lobectomy, while gross extension needs total thyroidectomy.",
+     "claims": [
+      "K83",
+      "K82"
+     ]
+    },
+    {
+     "text": "Radioiodine follows the class too: none routinely for patient A, and ablation for patient B.",
+     "claims": [
+      "K91",
+      "K92"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "u_recap",
+     "kind": "continue"
+    }
+   ]
+  },
+  "u6_t1": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It tempts because total thyroidectomy was the expected answer in older papers, so one operation feels safe for both.",
+     "claims": []
+    },
+    {
+     "text": "But the operation follows size and extent, and ATA 2015 accepts lobectomy for low-risk tumours of 1–4 cm.",
+     "claims": [
+      "K135",
+      "K83"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so this is the old key talking: PYQs expected total thyroidectomy, while current practice sizes the operation.",
+    "claims": [
+     "K135"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "u6",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u6_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right. It tempts because ablation is the familiar step after total thyroidectomy, so it feels like part of the package.",
+     "claims": []
+    },
+    {
+     "text": "But ablation follows risk, not the operation. Patient A is low risk, and low-risk disease is not routinely given radioiodine.",
+     "claims": [
+      "K91"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so separate the two decisions: the operation and the radioiodine each follow their own rule.",
+    "claims": [
+     "K91",
+     "K83"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "u6",
+     "kind": "retry"
+    }
+   ]
+  },
+  "u_recap": {
+   "role": "recap",
+   "say": [
+    {
+     "text": "The ladder: radioiodine needs a raised TSH before the dose, and levothyroxine holds TSH low afterwards.",
+     "claims": [
+      "K93",
+      "K98"
+     ]
+    },
+    {
+     "text": "The TSH target and the radioiodine decision both follow the ATA risk class, not one rule for every patient.",
+     "claims": [
+      "K99",
+      "K75"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ }
+}
