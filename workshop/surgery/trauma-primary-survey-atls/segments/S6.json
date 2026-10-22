@@ -1,0 +1,1218 @@
+{
+ "segment": "S6",
+ "technique": "T11",
+ "entry": "case",
+ "nodes": {
+  "case": {
+   "role": "case",
+   "say": [
+    {
+     "text": "Worked example first. A 30-year-old fell from a scaffold: BP 90/60, pulse 118, pelvis unstable, GCS 14.",
+     "claims": []
+    },
+    {
+     "text": "Read the plan through once. The steps are numbered.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "wx",
+     "kind": "continue"
+    }
+   ]
+  },
+  "wx": {
+   "role": "explain",
+   "say": [
+    {
+     "text": "1. Two large-bore cannulas. If they fail, intraosseous access.",
+     "claims": [
+      "K83",
+      "K84"
+     ]
+    },
+    {
+     "text": "2. Warmed isotonic crystalloid 1 L, then blood early, kept at about 39 °C. Pelvic binder over the greater trochanters.",
+     "claims": [
+      "K9",
+      "K87",
+      "K86",
+      "K94"
+     ]
+    },
+    {
+     "text": "3. Tranexamic acid within 3 hours: 1 g over 10 minutes, then 1 g over 8 hours. 4. Urethrogram first; the catheter follows only if the urethra is intact.",
+     "claims": [
+      "K92",
+      "K122",
+      "K50"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "peer",
+     "kind": "continue"
+    }
+   ]
+  },
+  "peer": {
+   "role": "probe",
+   "objectives": [
+    "O7",
+    "O8",
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Your classmate is managing a bleeder: 52-year-old, pelvic fracture, BP 84/50, pulse 120. Her plan has four steps and one wrong step.",
+     "claims": []
+    },
+    {
+     "text": "1. Warmed isotonic crystalloid 1 L, then blood early. 2. Pelvic binder over the greater trochanters.",
+     "claims": []
+    },
+    {
+     "text": "3. Tranexamic acid within 3 hours: 1 g over 10 minutes, then 1 g over 8 hours. 4. Urinary catheter first, to watch output. Which step is wrong?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Step 1: warmed 1 L crystalloid, then blood early",
+     "next": "peer_t10",
+     "kind": "trap",
+     "trap": "TR10"
+    },
+    {
+     "label": "Step 3: TXA within 3 h, then 1 g over 8 h",
+     "next": "peer_t27",
+     "kind": "trap",
+     "trap": "TR27"
+    },
+    {
+     "label": "Step 4: urinary catheter first, to watch output",
+     "next": "peer_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "peer_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "peer_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Test each step against a rule you know. Ask which one puts a device in before a check that should come first.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "peer",
+     "kind": "retry"
+    }
+   ]
+  },
+  "peer_t10": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Older keys printed 2 litres, so a correct 1 litre step can look like the error. Check the dose against the edition the question follows.",
+     "claims": [
+      "K129",
+      "K9"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the 2 litre figure is the belief to reset.",
+    "claims": [
+     "K129"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "peer",
+     "kind": "retry"
+    }
+   ]
+  },
+  "peer_t27": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "A reader who takes 8 hours as the time limit will misjudge the timing in this step. Separate the start window from the infusion.",
+     "claims": [
+      "K92"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so re-anchor the TXA numbers: start window first, then infusion.",
+    "claims": [
+     "K92",
+     "K126"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "peer",
+     "kind": "retry"
+    }
+   ]
+  },
+  "peer_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Step 4 puts a catheter in before the urethra is checked.",
+     "claims": [
+      "K50"
+     ]
+    },
+    {
+     "text": "A catheter is contraindicated while urethral injury is suspected, until a urethrogram shows an intact urethra.",
+     "claims": [
+      "K50",
+      "K122"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "cath_why",
+     "kind": "continue"
+    }
+   ]
+  },
+  "cath_why": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Another pelvic fracture, with blood at the urethral meatus. Why check the urethra before any catheter?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "A catheter is routine and drains urine, so it is safe first",
+     "next": "cath_t23",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "Meatal blood means urethral injury until a urethrogram shows it intact",
+     "next": "cath_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "cath_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "cath_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what a catheter can do to a torn urethra, and which test shows whether the urethra is intact.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "cath_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "cath_t23": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "A routine catheter feels harmless, but blood at the meatus changes the order: the urethra is the first question.",
+     "claims": [
+      "K50"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the routine-catheter habit is the model to reset.",
+    "claims": [
+     "K50"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "cath_why",
+     "kind": "retry"
+    }
+   ]
+  },
+  "cath_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Meatal blood means the urethra may be torn, so the check comes before the catheter.",
+     "claims": [
+      "K50"
+     ]
+    },
+    {
+     "text": "A retrograde urethrogram shows whether the urethra is intact; the catheter follows only if it is.",
+     "claims": [
+      "K122"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "child_air",
+     "kind": "continue"
+    }
+   ]
+  },
+  "child_air": {
+   "role": "probe",
+   "objectives": [
+    "O3"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Next patient: an 8-year-old with facial burns. Intubation has failed and oxygen cannot be delivered. Which emergency surgical airway?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Surgical cricothyroidotomy, the same as for an adult",
+     "next": "child_t22",
+     "kind": "trap",
+     "trap": "TR22"
+    },
+    {
+     "label": "Needle cricothyroidotomy, since the cricoid is at risk",
+     "next": "child_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "child_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "child_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what the cricoid ring does in a child, and whether the adult rule still applies at this age.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "child_air",
+     "kind": "retry"
+    }
+   ]
+  },
+  "child_t22": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "The adult rule feels right because the question says surgical airway, but the age changes the route.",
+     "claims": [
+      "K119"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check the age qualifier before the airway rule.",
+    "claims": [
+     "K69"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "child_air",
+     "kind": "retry"
+    }
+   ]
+  },
+  "child_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Under about 12 years, surgical cricothyroidotomy risks damage to the cricoid, so a needle route is used.",
+     "claims": [
+      "K69",
+      "K120"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "site",
+     "kind": "continue"
+    }
+   ]
+  },
+  "site": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Next: an adult with tension pneumothorax. Falling BP, one side silent, neck veins distended. Where do you decompress?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "2nd intercostal space in the mid-clavicular line, the classic site",
+     "next": "site_t11",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "4th or 5th intercostal space, just anterior to mid-axillary line",
+     "next": "site_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Chest X-ray first, to confirm the side before decompressing",
+     "next": "site_t3",
+     "kind": "trap",
+     "trap": "TR3"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "site_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "site_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask which site the newest edition uses for adults, and what a short catheter does in a thick chest wall.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "site",
+     "kind": "retry"
+    }
+   ]
+  },
+  "site_t11": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "The classic textbook site is the one older books and PYQ keys print, so it comes to mind first.",
+     "claims": [
+      "K128"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the old site is the one to re-check against the edition.",
+    "claims": [
+     "K128"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "site",
+     "kind": "retry"
+    }
+   ]
+  },
+  "site_t3": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "A film feels like proof before a procedure, but in tension pneumothorax the diagnosis is clinical and the film can wait.",
+     "claims": [
+      "K118"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so treat the X-ray as a reflex to drop, not a gate.",
+    "claims": [
+     "K118",
+     "K72"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "site",
+     "kind": "retry"
+    }
+   ]
+  },
+  "site_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. In an adult, decompress at the 4th or 5th intercostal space just anterior to the mid-axillary line.",
+     "claims": [
+      "K73"
+     ]
+    },
+    {
+     "text": "The diagnosis is clinical, so decompression does not wait for an X-ray.",
+     "claims": [
+      "K118"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "site_pair",
+     "kind": "continue"
+    }
+   ]
+  },
+  "site_pair": {
+   "role": "probe",
+   "objectives": [
+    "O4"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Two patients with the same tension pneumothorax: a 35-year-old and a 6-year-old. Which pair of sites is right?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Both at the 2nd intercostal space, mid-clavicular, the classic site",
+     "next": "pair_t11",
+     "kind": "trap",
+     "trap": "TR11"
+    },
+    {
+     "label": "Adult 4th or 5th ICS mid-axillary; child 2nd ICS mid-clavicular",
+     "next": "pair_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "pair_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "pair_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask whether one site can serve both patients, or whether age changes it.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "site_pair",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pair_t11": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Older texts give one classic site, so the age split looks like an unnecessary extra rule.",
+     "claims": [
+      "K128",
+      "K74"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the age split is the rule to learn.",
+    "claims": [
+     "K74",
+     "K73"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "site_pair",
+     "kind": "retry"
+    }
+   ]
+  },
+  "pair_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. ATLS 10th edition moved the adult site and kept the 2nd intercostal space for children.",
+     "claims": [
+      "K73",
+      "K74"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "flail",
+     "kind": "continue"
+    }
+   ]
+  },
+  "flail": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Next: a 60-year-old after a fall. Flail chest on the left, oxygen saturation falling. What is the right management?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Oxygen, analgesia, cautious fluids; ventilate if hypoxia persists",
+     "next": "flail_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Urgent operative fixation of the flail segment, stopping the movement",
+     "next": "flail_t14",
+     "kind": "trap",
+     "trap": "TR14"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "flail_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "flail_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what is causing the low oxygen, not what is moving.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "flail",
+     "kind": "retry"
+    }
+   ]
+  },
+  "flail_t14": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "The moving segment is the visible sign, so treating it feels like treating the cause of the hypoxia.",
+     "claims": [
+      "K26"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the sign and the cause are different things.",
+    "claims": [
+     "K26",
+     "K81"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "flail",
+     "kind": "retry"
+    }
+   ]
+  },
+  "flail_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The underlying pulmonary contusion causes the hypoxia, so treatment goes to the lung.",
+     "claims": [
+      "K26",
+      "K81"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "brain",
+     "kind": "continue"
+    }
+   ]
+  },
+  "brain": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Next: pelvic fracture bleeding, and a head injury with GCS 7. What blood pressure target do you set?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Accept a low pressure, to avoid popping the clot",
+     "next": "brain_t18",
+     "kind": "trap",
+     "trap": "TR18"
+    },
+    {
+     "label": "Keep perfusion adequate for the brain, avoiding hypotension",
+     "next": "brain_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "brain_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "brain_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask whether a head injury changes the pressure target.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "brain",
+     "kind": "retry"
+    }
+   ]
+  },
+  "brain_t18": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Permissive hypotension is a real rule for bleeding, so it feels like the rule for every trauma patient.",
+     "claims": [
+      "K88"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so check for a head injury before any low-pressure target.",
+    "claims": [
+     "K97",
+     "K88"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "brain",
+     "kind": "retry"
+    }
+   ]
+  },
+  "brain_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Secondary brain injury follows low oxygen and low perfusion, so the brain needs adequate pressure.",
+     "claims": [
+      "K97"
+     ]
+    },
+    {
+     "text": "Permissive hypotension is not used in traumatic brain injury.",
+     "claims": [
+      "K88"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "txa",
+     "kind": "continue"
+    }
+   ]
+  },
+  "txa": {
+   "role": "probe",
+   "objectives": [
+    "O10"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Next: a bleeding trauma patient arrives 5 hours after injury. Is tranexamic acid still indicated?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Yes, give it: TXA works for up to 8 hours after injury",
+     "next": "txa_t27",
+     "kind": "trap",
+     "trap": "TR27"
+    },
+    {
+     "label": "No, the 3-hour window has passed, so withhold tranexamic acid",
+     "next": "txa_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "txa_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "txa_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask how long after injury TXA works, and what the 8 hours refers to.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "txa",
+     "kind": "retry"
+    }
+   ]
+  },
+  "txa_t27": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "The 8-hour figure is the infusion duration, and it is easy to file it as the time limit.",
+     "claims": [
+      "K92"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so separate the start window from the infusion duration.",
+    "claims": [
+     "K92",
+     "K126"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "txa",
+     "kind": "retry"
+    }
+   ]
+  },
+  "txa_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Three hours is the window from injury; the 8 hours is the infusion once it has started.",
+     "claims": [
+      "K92"
+     ]
+    },
+    {
+     "text": "Tranexamic acid is the antifibrinolytic of choice in bleeding trauma, within 3 hours.",
+     "claims": [
+      "K126"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "fluid",
+     "kind": "continue"
+    }
+   ]
+  },
+  "fluid": {
+   "role": "probe",
+   "objectives": [
+    "O7"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Why does ATLS now give a smaller crystalloid bolus and bring blood in early?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Large volumes dilute clotting factors and cool the patient",
+     "next": "fluid_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Two litres is the paediatric dose, too much for adults",
+     "next": "fluid_t10",
+     "kind": "trap",
+     "trap": "TR10"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "fluid_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "fluid_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what large volumes of crystalloid do to clotting and to body temperature.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "fluid",
+     "kind": "retry"
+    }
+   ]
+  },
+  "fluid_t10": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Two litres is a number you remember from older keys; weight and edition decide the dose, not habit.",
+     "claims": [
+      "K129",
+      "K9"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so the number itself is the thing to re-check.",
+    "claims": [
+     "K129"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "fluid",
+     "kind": "retry"
+    }
+   ]
+  },
+  "fluid_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. Large crystalloid volumes dilute clotting factors and cool the patient, worsening bleeding.",
+     "claims": [
+      "K111"
+     ]
+    },
+    {
+     "text": "So ATLS 10th edition gives 1 L warmed crystalloid in adults and brings blood early.",
+     "claims": [
+      "K9",
+      "K87"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "ssurvey",
+     "kind": "continue"
+    }
+   ]
+  },
+  "ssurvey": {
+   "role": "probe",
+   "objectives": [
+    "O9"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Next: a man with a chest wound answers your questions clearly at the door. When do the secondary survey and AMPLE history start?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Right away, because a patient who talks is safe for now",
+     "next": "ssurvey_t2",
+     "kind": "trap",
+     "trap": "TR2"
+    },
+    {
+     "label": "After the primary survey, once resuscitation is under way",
+     "next": "ssurvey_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "ssurvey_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "ssurvey_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what the primary survey must finish before the history begins.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ssurvey",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ssurvey_t2": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Talking shows the airway was open at that moment, but it does not clear breathing or circulation.",
+     "claims": [
+      "K4"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so talking is reassurance, not a finished survey.",
+    "claims": [
+     "K4",
+     "K11"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "ssurvey",
+     "kind": "retry"
+    }
+   ]
+  },
+  "ssurvey_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. The secondary survey and AMPLE history follow the primary survey and resuscitation.",
+     "claims": [
+      "K11",
+      "K102"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "cath2",
+     "kind": "continue"
+    }
+   ]
+  },
+  "cath2": {
+   "role": "probe",
+   "objectives": [
+    "O8"
+   ],
+   "ask_confidence": true,
+   "say": [
+    {
+     "text": "Next: pelvic fracture, no blood at the meatus yet, but the examiner finds a high-riding prostate. When is the catheter placed?",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Before anything else, to monitor urine output",
+     "next": "cath2_t23",
+     "kind": "trap",
+     "trap": "TR23"
+    },
+    {
+     "label": "After a urethrogram shows an intact urethra",
+     "next": "cath2_ok",
+     "kind": "correct"
+    },
+    {
+     "label": "Not sure, give me a hint",
+     "next": "cath2_hint",
+     "kind": "help"
+    }
+   ]
+  },
+  "cath2_hint": {
+   "role": "hint",
+   "say": [
+    {
+     "text": "Ask what a high-riding prostate says about the urethra.",
+     "claims": []
+    }
+   ],
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "cath2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "cath2_t23": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "That choice is not right.",
+     "claims": []
+    },
+    {
+     "text": "Output monitoring is the usual reason for a catheter, so it feels right to place one first in any trauma patient.",
+     "claims": [
+      "K50"
+     ]
+    }
+   ],
+   "sure_note": {
+    "text": "You were sure, so a high prostate is a reason to hold the catheter.",
+    "claims": [
+     "K50"
+    ]
+   },
+   "choices": [
+    {
+     "label": "Try again",
+     "next": "cath2",
+     "kind": "retry"
+    }
+   ]
+  },
+  "cath2_ok": {
+   "role": "feedback",
+   "say": [
+    {
+     "text": "Yes. A high-riding prostate means the urethra may be torn, so the urethrogram comes first.",
+     "claims": [
+      "K50",
+      "K122"
+     ]
+    }
+   ],
+   "choices": [
+    {
+     "label": "Next",
+     "next": "@next",
+     "kind": "continue"
+    }
+   ]
+  }
+ },
+ "decision": "solo"
+}
